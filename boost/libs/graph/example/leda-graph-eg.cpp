@@ -28,7 +28,7 @@ int
 main()
 {
   using namespace boost;
-  typedef leda::GRAPH < std::string, int >graph_t;
+  typedef GRAPH < std::string, int >graph_t;
   graph_t g;
   g.new_node("Philoctetes");
   g.new_node("Heracles");
