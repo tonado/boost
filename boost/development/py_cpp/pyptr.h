@@ -16,84 +16,60 @@
 # include <cassert>
 # include "signatures.h"
 # include "errors.h"
-# include "py.h"
 
-BOOST_PYTHON_BEGIN_CONVERSION_NAMESPACE
-
-template <class T, class Value, class Base>
-struct py_ptr_conversions : Base
-{
-    inline friend T from_python(PyObject* x, python::type<const T&>)
-        { return T(python::downcast<Value>(x).get(), T::increment_count); }
-
-    inline friend T from_python(PyObject* x, python::type<T>)
-        { return T(python::downcast<Value>(x).get(), T::increment_count); }
-    
-    inline friend PyObject* to_python(T x)
-        { return python::as_object(x.release()); }
-    
-};
-
-BOOST_PYTHON_END_CONVERSION_NAMESPACE
-
-namespace python {
-
-BOOST_PYTHON_IMPORT_CONVERSION(py_ptr_conversions);
+namespace py {
 
 template <class T>
-class reference
-	: public py_ptr_conversions<reference<T>, T,
-       boost::dereferenceable<reference<T>, T*> > // supplies op->
+class PyPtr
+	: public boost::dereferenceable<PyPtr<T>, T*> // supplies op->
 {
 public:
-    typedef T value_type;
-    
-	reference(const reference& rhs)
+	PyPtr(const PyPtr& rhs)
 		: m_p(rhs.m_p)
 	{
 		Py_XINCREF(object());
 	}
 
-#if !defined(BOOST_MSVC6_OR_EARLIER)
+#if !defined(PY_MSVC6_OR_EARLIER)
 	template <class T2>
-	reference(const reference<T2>& rhs)
+	PyPtr(const PyPtr<T2>& rhs)
 		: m_p(rhs.object())
 	{
 		Py_XINCREF(object());
 	}
 #endif
 
-	reference() : m_p(0) {}
+	PyPtr() : m_p(0) {}
     
     // These are two ways of spelling the same thing, that we need to increment
     // the reference count on the pointer when we're initialized.
-	enum increment_count_t { increment_count };
+	enum NewRef { new_ref, borrowed = new_ref };
 
-    enum allow_null { null_ok };
+    enum AllowNull { null_ok };
     
     template <class T2>
-    explicit reference(T2* x)
+    explicit PyPtr(T2* x)
         : m_p(expect_non_null(x)) {}
 
     template <class T2>
-    reference(T2* x, increment_count_t)
+    PyPtr(T2* x, NewRef)
         : m_p(expect_non_null(x)) { Py_INCREF(object()); }
 	
     template <class T2>
-    reference(T2* x, allow_null)
+    PyPtr(T2* x, AllowNull)
         : m_p(x) {}
 
     template <class T2>
-    reference(T2* x, allow_null, increment_count_t)
+    PyPtr(T2* x, AllowNull, NewRef)
         : m_p(x) { Py_XINCREF(object()); }
 	
     template <class T2>
-    reference(T2* x, increment_count_t, allow_null)
+    PyPtr(T2* x, NewRef, AllowNull)
         : m_p(x) { Py_XINCREF(object()); }
 	
-#if !defined(BOOST_MSVC6_OR_EARLIER)
+#if !defined(PY_MSVC6_OR_EARLIER)
 	template <class T2>
-	reference& operator=(const reference<T2>& rhs)
+	PyPtr& operator=(const PyPtr<T2>& rhs)
 	{
 		Py_XDECREF(object());
 		m_p = rhs.m_p;
@@ -102,7 +78,7 @@ public:
 	}
 #endif
 
-	reference& operator=(const reference& rhs)
+	PyPtr& operator=(const PyPtr& rhs)
 	{
 		Py_XINCREF(static_cast<PyObject*>(rhs.m_p));
 		Py_XDECREF(object());
@@ -110,7 +86,7 @@ public:
 		return *this;
 	}
     
-	~reference()
+	~PyPtr()
 	{
 		Py_XDECREF(m_p);
 	}
@@ -134,19 +110,19 @@ public:
         { Py_XDECREF(m_p); m_p = expect_non_null(x);}
 
     template <class T2>
-    void reset(T2* x, increment_count_t)
+    void reset(T2* x, NewRef)
         { Py_XDECREF(m_p); m_p = expect_non_null(x); Py_INCREF(object()); }
 	
     template <class T2>
-    void reset(T2* x, allow_null)
+    void reset(T2* x, AllowNull)
         { Py_XDECREF(m_p); m_p = x;}
 
     template <class T2>
-    void reset(T2* x, allow_null, increment_count_t)
+    void reset(T2* x, AllowNull, NewRef)
         { Py_XDECREF(m_p); m_p = x; Py_XINCREF(object()); }
 	
     template <class T2>
-    void reset(T2* x, increment_count_t, allow_null)
+    void reset(T2* x, NewRef, AllowNull)
         { Py_XDECREF(m_p); m_p = x; Py_XINCREF(object()); }
 	
 #if !defined(BOOST_NO_MEMBER_TEMPLATE_FRIENDS)
@@ -160,13 +136,7 @@ private:
 	T* m_p;
 };
 
-typedef reference<PyObject> ref;
-
-template <class T>
-ref make_ref(const T& x)
-{
-    return ref(to_python(x));
-}
+typedef PyPtr<PyObject> Ptr;
 
 }
 

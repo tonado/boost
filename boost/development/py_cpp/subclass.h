@@ -17,15 +17,15 @@
 # include "py.h"
 # include "callback.h"
 
-namespace python {
+namespace py {
 
-// A simple type which acts something like a built-in Python class obj.
-class instance
-    : public python::detail::python_object
+// A simple type which acts something like a built-in Python class instance.
+// TODO: implement all the special methods, like __call__, __getattr__, etc.,
+// and the other special attributes, like __dict__.
+class Instance : public PythonObject
 {
  public:
-    instance(PyTypeObject* class_);
-    ~instance();
+    Instance(PyTypeObject* class_);
 
     // Standard Python functions.
     PyObject* repr();
@@ -44,90 +44,37 @@ class instance
     // Sequence methods
     PyObject* get_slice(int start, int finish);
     void set_slice(int start, int finish, PyObject* value);
-
-    // Number methods
-    PyObject* add(PyObject* other);
-    PyObject* subtract(PyObject* other);
-    PyObject* multiply(PyObject* other);
-    PyObject* divide(PyObject* other);
-    PyObject* remainder(PyObject* other);
-    PyObject* divmod(PyObject* other);
-    PyObject* power(PyObject*, PyObject*);
-    PyObject* negative();
-    PyObject* positive();
-    PyObject* absolute();
-    int nonzero();
-    PyObject* invert();
-    PyObject* lshift(PyObject* other);
-    PyObject* rshift(PyObject* other);
-    PyObject* do_and(PyObject* other);
-    PyObject* do_xor(PyObject* other);
-    PyObject* do_or(PyObject* other);
-    int coerce(PyObject**, PyObject**);
-    PyObject* as_int();
-    PyObject* as_long();
-    PyObject* as_float();
-    PyObject* oct();
-    PyObject* hex();
-
+    
  private: // noncopyable, without the size bloat
-    instance(const instance&);
-    void operator=(const instance&);
-
- private: // helper functions
-    int setattr_dict(PyObject* value);
+    Instance(const Instance&);
+    void operator=(const Instance&);
     
  private:
-    dictionary m_name_space;
+    Dict m_name_space;
 };
 
-template <class T> class meta_class;
+template <class T> class MetaClass;
 
-namespace detail {
-  class class_base : public type_object_base
-  {
-   public:
-      class_base(PyTypeObject* meta_class_obj, string name, tuple bases, const dictionary& name_space);
-      tuple bases() const;
-      string name() const;
-      dictionary& dict();
-      
-      // Standard Python functions.
-      PyObject* getattr(const char* name);
-      int setattr(const char* name, PyObject* value);
-      PyObject* repr() const;
-      void add_base(ref base);
-
-   protected:
-      bool initialize_instance(instance* obj, PyObject* args, PyObject* keywords);
-
-   private: // virtual functions
-      // Subclasses should override this to delete the particular obj type
-      virtual void delete_instance(PyObject*) const = 0;
-
-   private: // python::type_object_base required interface implementation
-      void instance_dealloc(PyObject*) const; // subclasses should not override this
-      
-   private:
-      string m_name;
-      tuple m_bases;
-      dictionary m_name_space;
-  };
-
-  void enable_named_method(class_base* type_obj, const char* name);
-}
-
-// A type which acts a lot like a built-in Python class. T is the obj type,
-// so class_t<instance> is a very simple "class-alike".
+// A type which acts a lot like a built-in Python class. T is the instance type,
+// so Class<Instance> is a very simple "class-alike".
 template <class T>
-class class_t
-    : public python::detail::class_base
+class Class
+    : public Getattrable<Setattrable<TypeObject<T> > >
 {
  public:
-    class_t(meta_class<T>* meta_class_obj, string name, tuple bases, const dictionary& name_space);
+    Class(MetaClass<T>* meta_class, String name, Tuple bases, const Dict& name_space);
+    
+    Tuple bases() const;
+    String name() const;
+    Dict& dict();
     
     // Standard Python functions.
+    PyObject* getattr(const char* name);
+    int setattr(const char* name, PyObject* value);
     PyObject* call(PyObject* args, PyObject* keywords);
+    
+ protected:
+    void add_base(Ptr base);
     
  private: // Implement mapping methods on instances
     PyObject* instance_repr(PyObject*) const;
@@ -140,357 +87,259 @@ class class_t
 
  private: // Implement sequence methods on instances
     int instance_sequence_length(PyObject*) const;
-    PyObject* instance_sequence_item(PyObject* obj, int n) const;
-    int instance_sequence_ass_item(PyObject* obj, int n, PyObject* value) const;
+    PyObject* instance_sequence_item(PyObject* instance, int n) const;
+    int instance_sequence_ass_item(PyObject* instance, int n, PyObject* value) const;
     PyObject* instance_sequence_slice(PyObject*, int start, int finish) const;
     int instance_sequence_ass_slice(PyObject*, int start, int finish, PyObject* value) const;
 
- private: // Implement number methods on instances
-    PyObject* instance_number_add(PyObject*, PyObject*) const;
-    PyObject* instance_number_subtract(PyObject*, PyObject*) const;
-    PyObject* instance_number_multiply(PyObject*, PyObject*) const;
-    PyObject* instance_number_divide(PyObject*, PyObject*) const;
-    PyObject* instance_number_remainder(PyObject*, PyObject*) const;
-    PyObject* instance_number_divmod(PyObject*, PyObject*) const;
-    PyObject* instance_number_power(PyObject*, PyObject*, PyObject*) const;
-    PyObject* instance_number_negative(PyObject*) const;
-    PyObject* instance_number_positive(PyObject*) const;
-    PyObject* instance_number_absolute(PyObject*) const;
-    int instance_number_nonzero(PyObject*) const;
-    PyObject* instance_number_invert(PyObject*) const;
-    PyObject* instance_number_lshift(PyObject*, PyObject*) const;
-    PyObject* instance_number_rshift(PyObject*, PyObject*) const;
-    PyObject* instance_number_and(PyObject*, PyObject*) const;
-    PyObject* instance_number_xor(PyObject*, PyObject*) const;
-    PyObject* instance_number_or(PyObject*, PyObject*) const;
-    int instance_number_coerce(PyObject*, PyObject**, PyObject**) const;
-    PyObject* instance_number_int(PyObject*) const;
-    PyObject* instance_number_long(PyObject*) const;
-    PyObject* instance_number_float(PyObject*) const;
-    PyObject* instance_number_oct(PyObject*) const;
-    PyObject* instance_number_hex(PyObject*) const;
-    
  private: // Miscellaneous "special" methods
-    PyObject* instance_call(PyObject* obj, PyObject* args, PyObject* keywords) const;
-    PyObject* instance_getattr(PyObject* obj, const char* name) const;
-    int instance_setattr(PyObject* obj, const char* name, PyObject* value) const;
+    PyObject* instance_call(PyObject* instance, PyObject* args, PyObject* keywords) const;
 
- private: // Implementation of python::detail::class_base required interface
-    void delete_instance(PyObject*) const;
-    
  private: // noncopyable, without the size bloat
-    class_t(const class_t<T>&);
-    void operator=(const class_t&);
+    Class(const Class<T>&);
+    void operator=(const Class&);
+    
+ private:
+    String m_name;
+    Tuple m_bases;
+    Dict m_name_space;
 };
 
-// The type of a class_t<T> object.
+// Don't really need to be friends, but are essentially part of the Class interface.
+// These operate on TypeObjectBase just to save on code space.
+void enable_special_methods(TypeObjectBase*, const Tuple& bases, const Dict& name_space);
+void enable_named_method(TypeObjectBase*, const char*);
+    
+// The type of a Class<T> object.
 template <class T>
-class meta_class
-    : public python::detail::reprable<
-                python::detail::callable<
-                   python::detail::getattrable<
-                      python::detail::setattrable<
-                         python::detail::type_object<class_t<T> > > > > >,
+class MetaClass
+    : public Callable<Getattrable<Setattrable<TypeObject<Class<T> > > > >,
       boost::noncopyable
 {
  public:
-    meta_class();
+    MetaClass();
 
     // Standard Python functions.
     PyObject* call(PyObject* args, PyObject* keywords);
+ private:
     
-    struct type_object
-        : python::detail::singleton<type_object,
-             python::detail::callable<
-                python::detail::type_object<meta_class> > >
+    struct TypeObject
+        : Singleton<TypeObject, Callable<py::TypeObject<MetaClass> > >
     {
-        type_object() : singleton_base(&PyType_Type) {}
+        TypeObject() : SingletonBase(&PyType_Type) {}
     };
 };
+
+// Add the name of the module currently being loaded to the name_space with the
+// key "__module__". If no module is being loaded, or if name_space already has
+// a key "__module", has no effect. This is not really a useful public
+// interface; it's just used for Class<>::Class() below.
+void add_current_module_name(Dict&);
 
 //
 // Member function implementations.
 //
 template <class T>
-meta_class<T>::meta_class()
-    : properties(type_object::instance())
+MetaClass<T>::MetaClass()
+    : Properties(TypeObject::singleton())
 {
 } 
 
 template <class T>
-class_t<T>::class_t(meta_class<T>* meta_class_obj, string name, tuple bases, const dictionary& name_space)
-    : python::detail::class_base(meta_class_obj, name, bases, name_space)
+Class<T>::Class(MetaClass<T>* meta_class, String name, Tuple bases, const Dict& name_space)
+    : Properties(meta_class, name.c_str()),
+      m_name(name),
+      m_bases(bases),
+      m_name_space(name_space)
 {
+    add_current_module_name(m_name_space);
+    enable_special_methods(this, bases, name_space);
 }
 
 template <class T>
-void class_t<T>::delete_instance(PyObject* obj) const
+String Class<T>::name() const
 {
-    delete downcast<T>(obj);
+    return m_name;
 }
 
 template <class T>
-PyObject* class_t<T>::call(PyObject* args, PyObject* keywords)
+PyObject* Class<T>::getattr(const char* name)
 {
-    reference<T> result(new T(this));
-    if (!this->initialize_instance(result.get(), args, keywords))
-        return 0;
+    Ptr local_attribute = m_name_space.get_item(String(name).reference());
+    
+    if (local_attribute.get())
+        return local_attribute.release();
+
+    // In case there are no bases...
+	PyErr_SetString(PyExc_AttributeError, name);
+
+    // Check bases
+    for (std::size_t i = 0; i < m_bases.size(); ++i)
+    {
+        if (PyErr_ExceptionMatches(PyExc_AttributeError))
+            PyErr_Clear(); // we're going to try a base class
+        else if (PyErr_Occurred()) 
+            break; // Other errors count, though!
+        
+        PyObject* base_attribute = PyObject_GetAttrString(m_bases[i].get(), const_cast<char*>(name));
+        if (base_attribute != 0)
+            return base_attribute;
+    }
+    return 0;
+}
+
+template <class T>
+int Class<T>::setattr(const char* name, PyObject* value)
+{
+    if (PyCallable_Check(value))
+        enable_named_method(this, name);
+    
+    return PyDict_SetItemString(
+        m_name_space.reference().get(), const_cast<char*>(name), value);
+}
+
+template <class T>
+PyObject* Class<T>::call(PyObject* args, PyObject* keywords)
+{
+    PyPtr<T> result(new T(this));
+
+    // Getting the init function off the result instance should result in a
+    // bound method.
+    PyObject* const init_function = result->getattr("__init__", false);
+        
+    if (init_function == 0)
+    {
+        if (PyErr_Occurred() && PyErr_ExceptionMatches(PyExc_AttributeError)) {
+            PyErr_Clear(); // no __init__? That's legal.
+        }
+        else {
+            return 0; // Something else? Keep the error
+        }
+    }
     else
-        return result.release();
+    {
+        // Manage the reference to the bound function
+        Ptr init_function_holder(init_function);
+        
+        // Declare a Ptr to manage the result of calling __init__ (which should be None).
+        Ptr init_result(
+            PyEval_CallObjectWithKeywords(init_function, args, keywords));
+    }
+    
+    return result.release();
 }
 
 template <class T>
-PyObject* class_t<T>::instance_repr(PyObject* obj) const
+PyObject* Class<T>::instance_repr(PyObject* instance) const
 {
-    return downcast<T>(obj)->repr();
+    return Downcast<T>(instance)->repr();
 }
 
 template <class T>
-int class_t<T>::instance_compare(PyObject* obj, PyObject* other) const
+int Class<T>::instance_compare(PyObject* instance, PyObject* other) const
 {
-    return downcast<T>(obj)->compare(other);
+    return Downcast<T>(instance)->compare(other);
 }
 
 template <class T>
-PyObject* class_t<T>::instance_str(PyObject* obj) const
+PyObject* Class<T>::instance_str(PyObject* instance) const
 {
-    return downcast<T>(obj)->str();
+    return Downcast<T>(instance)->str();
 }
 
 template <class T>
-long class_t<T>::instance_hash(PyObject* obj) const
+long Class<T>::instance_hash(PyObject* instance) const
 {
-    return downcast<T>(obj)->hash();
+    return Downcast<T>(instance)->hash();
 }
 
 template <class T>
-int class_t<T>::instance_mapping_length(PyObject* obj) const
+int Class<T>::instance_mapping_length(PyObject* instance) const
 {
-    return downcast<T>(obj)->length();
+    return Downcast<T>(instance)->length();
 }
 
 template <class T>
-int class_t<T>::instance_sequence_length(PyObject* obj) const
+int Class<T>::instance_sequence_length(PyObject* instance) const
 {
-    return downcast<T>(obj)->length();
+    return Downcast<T>(instance)->length();
 }
 
 template <class T>
-PyObject* class_t<T>::instance_mapping_subscript(PyObject* obj, PyObject* key) const
+PyObject* Class<T>::instance_mapping_subscript(PyObject* instance, PyObject* key) const
 {
-    return downcast<T>(obj)->get_subscript(key);
+    return Downcast<T>(instance)->get_subscript(key);
 }
 
 template <class T>
-PyObject* class_t<T>::instance_sequence_item(PyObject* obj, int n) const
+PyObject* Class<T>::instance_sequence_item(PyObject* instance, int n) const
 {
-    ref key(to_python(n));
-    return downcast<T>(obj)->get_subscript(key.get());
+    Ptr key(to_python(n));
+    return Downcast<T>(instance)->get_subscript(key.get());
 }
 
 template <class T>
-int class_t<T>::instance_sequence_ass_item(PyObject* obj, int n, PyObject* value) const
+int Class<T>::instance_sequence_ass_item(PyObject* instance, int n, PyObject* value) const
 {
-    ref key(to_python(n));
-    downcast<T>(obj)->set_subscript(key.get(), value);
+    Ptr key(to_python(n));
+    Downcast<T>(instance)->set_subscript(key.get(), value);
     return 0;
 }
 
 template <class T>
-int class_t<T>::instance_mapping_ass_subscript(PyObject* obj, PyObject* key, PyObject* value) const
+int Class<T>::instance_mapping_ass_subscript(PyObject* instance, PyObject* key, PyObject* value) const
 {
-    downcast<T>(obj)->set_subscript(key, value);
+    Downcast<T>(instance)->set_subscript(key, value);
     return 0;
 }
 
-void adjust_slice_indices(PyObject* obj, int& start, int& finish);
+void adjust_slice_indices(PyObject* instance, int& start, int& finish);
 
 template <class T>
-PyObject* class_t<T>::instance_sequence_slice(PyObject* obj, int start, int finish) const
+PyObject* Class<T>::instance_sequence_slice(PyObject* instance, int start, int finish) const
 {
-    adjust_slice_indices(obj, start, finish);    
-    return downcast<T>(obj)->get_slice(start, finish);
+    adjust_slice_indices(instance, start, finish);    
+    return Downcast<T>(instance)->get_slice(start, finish);
 }
 
 template <class T>
-int class_t<T>::instance_sequence_ass_slice(PyObject* obj, int start, int finish, PyObject* value) const
+int Class<T>::instance_sequence_ass_slice(PyObject* instance, int start, int finish, PyObject* value) const
 {
-    adjust_slice_indices(obj, start, finish);
-    downcast<T>(obj)->set_slice(start, finish, value);
+    adjust_slice_indices(instance, start, finish);
+    Downcast<T>(instance)->set_slice(start, finish, value);
     return 0;
 }
 
 template <class T>
-PyObject* class_t<T>::instance_call(PyObject* obj, PyObject* args, PyObject* keywords) const
+PyObject* Class<T>::instance_call(PyObject* instance, PyObject* args, PyObject* keywords) const
 {
-    return downcast<T>(obj)->call(args, keywords);
+    return Downcast<T>(instance)->call(args, keywords);
 }
 
 template <class T>
-PyObject* class_t<T>::instance_getattr(PyObject* obj, const char* name) const
+Dict& Class<T>::dict()
 {
-    return downcast<T>(obj)->getattr(name);
-}
-
-
-template <class T>
-int class_t<T>::instance_setattr(PyObject* obj, const char* name, PyObject* value) const
-{
-    return downcast<T>(obj)->setattr(name, value);
+    return m_name_space;
 }
 
 template <class T>
-PyObject* class_t<T>::instance_number_add(PyObject* obj, PyObject* other) const
+Tuple Class<T>::bases() const
 {
-    return downcast<T>(obj)->add(other);
+    return m_bases;
 }
 
 template <class T>
-PyObject* class_t<T>::instance_number_subtract(PyObject* obj, PyObject* other) const
+void Class<T>::add_base(Ptr base)
 {
-    return downcast<T>(obj)->subtract(other);
+    Tuple new_bases(m_bases.size() + 1);
+    for (std::size_t i = 0; i < m_bases.size(); ++i)
+        new_bases.set_item(i, m_bases[i]);
+    new_bases.set_item(m_bases.size(), base);
+    m_bases = new_bases;
 }
 
 template <class T>
-PyObject* class_t<T>::instance_number_multiply(PyObject* obj, PyObject* other) const
-{
-    return downcast<T>(obj)->multiply(other);
-}
-
-template <class T>
-PyObject* class_t<T>::instance_number_divide(PyObject* obj, PyObject* other) const
-{
-    return downcast<T>(obj)->divide(other);
-}
-
-template <class T>
-PyObject* class_t<T>::instance_number_remainder(PyObject* obj, PyObject* other) const
-{
-    return downcast<T>(obj)->remainder(other);
-}
-
-template <class T>
-PyObject* class_t<T>::instance_number_divmod(PyObject* obj, PyObject* other) const
-{
-    return downcast<T>(obj)->divmod(other);
-}
-
-template <class T>
-PyObject* class_t<T>::instance_number_power(PyObject* obj, PyObject* exponent, PyObject* modulus) const
-{
-    return downcast<T>(obj)->power(exponent, modulus);
-}
-
-template <class T>
-PyObject* class_t<T>::instance_number_negative(PyObject* obj) const
-{
-    return downcast<T>(obj)->negative();
-}
-
-template <class T>
-PyObject* class_t<T>::instance_number_positive(PyObject* obj) const
-{
-    return downcast<T>(obj)->positive();
-}
-
-template <class T>
-PyObject* class_t<T>::instance_number_absolute(PyObject* obj) const
-{
-    return downcast<T>(obj)->absolute();
-}
-
-template <class T>
-int class_t<T>::instance_number_nonzero(PyObject* obj) const
-{
-    return downcast<T>(obj)->nonzero();
-}
-
-template <class T>
-PyObject* class_t<T>::instance_number_invert(PyObject* obj) const
-{
-    return downcast<T>(obj)->invert();
-}
-
-template <class T>
-PyObject* class_t<T>::instance_number_lshift(PyObject* obj, PyObject* other) const
-{
-    return downcast<T>(obj)->lshift(other);
-}
-
-template <class T>
-PyObject* class_t<T>::instance_number_rshift(PyObject* obj, PyObject* other) const
-{
-    return downcast<T>(obj)->rshift(other);
-}
-
-template <class T>
-PyObject* class_t<T>::instance_number_and(PyObject* obj, PyObject* other) const
-{
-    return downcast<T>(obj)->do_and(other);
-}
-
-template <class T>
-PyObject* class_t<T>::instance_number_xor(PyObject* obj, PyObject* other) const
-{
-    return downcast<T>(obj)->do_xor(other);
-}
-
-template <class T>
-PyObject* class_t<T>::instance_number_or(PyObject* obj, PyObject* other) const
-{
-    return downcast<T>(obj)->do_or(other);
-}
-
-template <class T>
-int class_t<T>::instance_number_coerce(PyObject* obj, PyObject** x, PyObject** y) const
-{
-    return downcast<T>(obj)->coerce(x, y);
-}
-
-template <class T>
-PyObject* class_t<T>::instance_number_int(PyObject* obj) const
-{
-    return downcast<T>(obj)->as_int();
-}
-
-template <class T>
-PyObject* class_t<T>::instance_number_long(PyObject* obj) const
-{
-    return downcast<T>(obj)->as_long();
-}
-
-template <class T>
-PyObject* class_t<T>::instance_number_float(PyObject* obj) const
-{
-    return downcast<T>(obj)->as_float();
-}
-
-template <class T>
-PyObject* class_t<T>::instance_number_oct(PyObject* obj) const
-{
-    return downcast<T>(obj)->oct();
-}
-
-template <class T>
-PyObject* class_t<T>::instance_number_hex(PyObject* obj) const
-{
-    return downcast<T>(obj)->hex();
-}
-
-namespace detail {
-  inline dictionary& class_base::dict()
-  {
-      return m_name_space;
-  }
-
-  inline tuple class_base::bases() const
-  {
-      return m_bases;
-  }
-}
-
-template <class T>
-PyObject* meta_class<T>::call(PyObject* args, PyObject* /*keywords*/)
+PyObject* MetaClass<T>::call(PyObject* args, PyObject* /*keywords*/)
 {
     PyObject* name;
     PyObject* bases;
@@ -505,23 +354,18 @@ PyObject* meta_class<T>::call(PyObject* args, PyObject* /*keywords*/)
     }
     
     return as_object(
-        new class_t<T>(this, string(ref(name, ref::increment_count)),
-                  tuple(ref(bases, ref::increment_count)),
-                  dictionary(ref(name_space, ref::increment_count)))
+        new Class<T>(this, String(Ptr(name, Ptr::borrowed)),
+                  Tuple(Ptr(bases, Ptr::borrowed)),
+                  Dict(Ptr(name_space, Ptr::borrowed)))
         );
 }
 
 namespace detail {
-  const string& setattr_string();
-  const string& getattr_string();
-  const string& delattr_string();
-
-  inline string class_base::name() const
-  {
-      return m_name;
-  }
+const String& setattr_string();
+const String& getattr_string();
+const String& delattr_string();
 }
 
 
-} // namespace python
+} // namespace py
 #endif

@@ -15,11 +15,10 @@ a single long parameter.
       File "<stdin>", line 1, in ?
     TypeError: function requires exactly 1 argument; 0 given
 
-    >>> try: ext = Foo('foo')
-    ... except TypeError, err:
-    ...     assert re.match(
-    ... '(illegal argument type for built-in operation)|(an integer is required)', str(err))
-    ... else: print 'no exception'
+    >>> ext = Foo('foo')
+    Traceback (innermost last):
+      File "<stdin>", line 1, in ?
+    TypeError: illegal argument type for built-in operation
 
     >>> ext = Foo(1)
 
@@ -119,39 +118,6 @@ And, yes, we can multiply inherit from these classes.
     >>> mi.mumble()
     'mumble'
 
-We can even mulitply inherit from built-in Python classes, even if they are
-first in the list of bases
-
-    >>> class RealPythonClass:
-    ...     def real_python_method(self):
-    ...         print 'RealPythonClass.real_python_method()'
-    ...     def other_first(self, other):
-    ...         return other.first()
-    
-    >>> class MISubclass2(RealPythonClass, Bar):
-    ...    def new_method(self):
-    ...        print 'MISubclass2.new_method()'
-    ...    bound_function = RealPythonClass().other_first
-    ...
-    >>> mi2 = MISubclass2(7, 8)
-    >>> mi2.first() # we can call inherited member functions from Bar
-    7
-    >>> mi2.real_python_method() # we can call inherited member functions from RealPythonClass
-    RealPythonClass.real_python_method()
-    
-    >>> mi2.new_method() # we can call methods on the common derived class
-    MISubclass2.new_method()
-
-  We can call unbound methods from the base class accessed through the derived class
-    >>> MISubclass2.real_python_method(mi2)
-    RealPythonClass.real_python_method()
-
-  We have not interfered with ordinary python bound methods
-    >>> MISubclass2.bound_function(mi2)
-    7
-    >>> mi2.bound_function()
-    7
-    
 Any object whose class is derived from Bar can be passed to a function expecting
 a Bar parameter:
 
@@ -163,10 +129,10 @@ But objects not derived from Bar cannot:
     >>> baz.pass_bar(baz)
     Traceback (innermost last):
         ...
-    TypeError: extension class 'Baz' is not convertible into 'Bar'.
+    TypeError: extension class 'Baz' is not derived from 'Bar'.
 
 The clone function on Baz returns a smart pointer; we wrap it into an
-extension_instance and  make it look just like any other Baz obj.
+ExtensionInstance and  make it look just like any other Baz instance.
 
     >>> baz_clone = baz.clone()
     >>> baz_clone.pass_bar(mi).first()
@@ -178,8 +144,6 @@ Functions expecting an std::auto_ptr<Baz> parameter will not accept a raw Baz
     ... except RuntimeError, err:
     ...     assert re.match("Object of extension class 'Baz' does not wrap <.*>.",
     ...                     str(err))
-    ... else:
-    ...     print 'no exception'
 
 We can pass std::auto_ptr<Baz> where it is expected
 
@@ -195,8 +159,6 @@ And if the auto_ptr has given up ownership?
     ...     try: baz_clone.clone()
     ...     except RuntimeError, err:
     ...         assert re.match('Converting from python, pointer or smart pointer to <.*> is NULL.', str(err))
-    ...     else:
-    ...         print 'no exeption'
     
 Polymorphism also works:
     
@@ -206,91 +168,8 @@ Polymorphism also works:
     >>> baz.get_foo_value(polymorphic_foo)
     1000
 
-Pickling tests:
-
-    >>> world.__module__
-    'demo'
-    >>> world.__safe_for_unpickling__
-    1
-    >>> world.__reduce__()
-    'world'
-    >>> reduced = world('Hello').__reduce__()
-    >>> reduced[0] == world
-    1
-    >>> reduced[1:]
-    (('Hello',), (0,))
-    >>> import StringIO
-    >>> import cPickle
-    >>> pickle = cPickle
-    >>> for number in (24, 42):
-    ...     wd = world('California')
-    ...     wd.set_secret_number(number)
-    ...     # Dump it out and read it back in.
-    ...     f = StringIO.StringIO()
-    ...     pickle.dump(wd, f)
-    ...     f = StringIO.StringIO(f.getvalue())
-    ...     wl = pickle.load(f)
-    ...     #
-    ...     print wd.greet(), wd.get_secret_number()
-    ...     print wl.greet(), wl.get_secret_number()
-    ...
-    Hello from California! 24
-    Hello from California! 24
-    Hello from California! 42
-    Hello from California! 0
-
-Special member attributes. Tests courtesy of Barry Scott <barry@scottb.demon.co.uk>
-
-    >>> class DerivedFromFoo(Foo):
-    ...     def __init__(self):
-    ...         Foo.__init__( self, 1 )
-    ...     def fred(self):
-    ...         'Docs for DerivedFromFoo.fred'
-    ...         print 'Barry.fred'
-    ...     def __del__(self):
-    ...         print 'Deleting DerivedFromFoo'
-
-    >>> class Base:
-    ...     i_am_base = 'yes'
-    ...     def fred(self):
-    ...         'Docs for Base.fred'
-    ...         pass
-
-
-    >>> class DerivedFromBase(Base):
-    ...     i_am_derived_from_base = 'yes'
-    ...     def fred(self):
-    ...         'Docs for DerivedFromBase.fred'
-    ...         pass
-
-    >>> df = DerivedFromFoo()
-    >>> dir(df)
-    []
-    >>> dir(DerivedFromFoo)
-    ['__del__', '__doc__', '__init__', '__module__', 'fred']
-    >>> df.__dict__
-    {}
-
-    >>> df.fred.__doc__
-    'Docs for DerivedFromFoo.fred'
-    >>> db = DerivedFromBase()
-    >>> dir(db)
-    []
-    >>> dir(DerivedFromBase)
-    ['__doc__', '__module__', 'fred', 'i_am_derived_from_base']
-    >>> db.__dict__
-    {}
-    >>> db.fred.__doc__
-    'Docs for DerivedFromBase.fred'
-
 Special member functions in action
-    >>> del df
-    Deleting DerivedFromFoo
-    
-    # force method table sharing
-    >>> class DerivedFromStringMap(StringMap): pass
-    ...
-    
+  
     >>> m = StringMap()
 
 __getitem__(<unknown key>)
@@ -335,10 +214,7 @@ Check for sequence/mapping confusion:
       File "<stdin>", line 1, in ?
     KeyError: 0
 
-Check for the ability to pass a non-const reference as a constructor parameter
-    >>> x = Fubar(Foo(1))
-    
-Some simple overloading tests:
+Overloading tests:
     >>> r = Range(3)
     >>> print str(r)
     (3, 3)
@@ -356,7 +232,6 @@ Some simple overloading tests:
     ...     assert re.match(
     ... 'No overloaded functions match [(]Range, string[)]\. Candidates are:\n.*\n.*',
     ...  str(e))
-    ... else: print 'no exception'
     
 Sequence tests:
     >>> len(Range(3, 10))
@@ -383,27 +258,11 @@ Sequence tests:
     >>> map(lambda x:x, Range(3, 10)[0:4])
     [3, 4, 5, 6]
 
-Numeric tests:
-    >>> x = Rational(2,3)
-    >>> y = Rational(1,4)
-    >>> print x + y
-    11/12
-    >>> print x - y
-    5/12
-    >>> print x * y
-    1/6
-    >>> print x / y
-    8/3
-    >>> print x + 1 # testing coercion
-    5/3
-    >>> print 1 + x # coercion the other way
-    5/3
-    
 delete non-existent attribute:
     del m.foobar
     Traceback (innermost last):
       File "<stdin>", line 1, in ?
-    AttributeError: delete non-existing obj attribute
+    AttributeError: delete non-existing instance attribute
     
 Testing __getattr__ and __getattr__<name>:
   
@@ -509,7 +368,8 @@ some __str__ and __repr__ tests:
     >>> range = Range(5, 20)
     >>> str(range)
     '(5, 20)'
-    >>> assert re.match('<Range object at [0-9a-fA-FxX]+>', repr(range))
+    >>> assert re.match('<Range object at [0-9a-f]+>', repr(range))
+
 
 __hash__ and __cmp__ tests:
     # Range has both __hash__ and __cmp__, thus is hashable
@@ -545,530 +405,6 @@ Testing __call__:
     >>> comparator(couple, couple2)
     0
     >>> comparator(couple2, couple)
-    1
-
-Testing overloaded free functions
-    >>> overloaded()
-    'Hello world!'
-    >>> overloaded(1)
-    1
-    >>> overloaded('foo')
-    'foo'
-    >>> overloaded(1,2)
-    3
-    >>> overloaded(1,2,3)
-    6
-    >>> overloaded(1,2,3,4)
-    10
-    >>> overloaded(1,2,3,4,5)
-    15
-    >>> try: overloaded(1, 'foo')
-    ... except TypeError, err:
-    ...     assert re.match("No overloaded functions match \(int, string\)\. Candidates are:",
-    ...                     str(err))
-    ... else:
-    ...     print 'no exception'
-    
-Testing overloaded constructors
-
-    >>> over = OverloadTest()
-    >>> over.getX()
-    1000
-    >>> over = OverloadTest(1)
-    >>> over.getX()
-    1
-    >>> over = OverloadTest(1,1)
-    >>> over.getX()
-    2
-    >>> over = OverloadTest(1,1,1)
-    >>> over.getX()
-    3
-    >>> over = OverloadTest(1,1,1,1)
-    >>> over.getX()
-    4
-    >>> over = OverloadTest(1,1,1,1,1)
-    >>> over.getX()
-    5
-    >>> over = OverloadTest(over)
-    >>> over.getX()
-    5
-    >>> try: over = OverloadTest(1, 'foo')
-    ... except TypeError, err:
-    ...     assert re.match("No overloaded functions match \(OverloadTest, int, string\)\. Candidates are:",
-    ...                     str(err))
-    ... else:
-    ...     print 'no exception'
-    
-Testing overloaded methods
-
-    >>> over.setX(3)
-    >>> over.overloaded()
-    3
-    >>> over.overloaded(1)
-    1
-    >>> over.overloaded(1,1)
-    2
-    >>> over.overloaded(1,1,1)
-    3
-    >>> over.overloaded(1,1,1,1)
-    4
-    >>> over.overloaded(1,1,1,1,1)
-    5
-    >>> try: over.overloaded(1,'foo')
-    ... except TypeError, err:
-    ...     assert re.match("No overloaded functions match \(OverloadTest, int, string\)\. Candidates are:",
-    ...                     str(err))
-    ... else:
-    ...     print 'no exception'
-
-Testing base class conversions
-
-    >>> testUpcast(over)
-    Traceback (innermost last):
-    TypeError: extension class 'OverloadTest' is not convertible into 'Base'.
-    >>> der1 = Derived1(333)
-    >>> der1.x()
-    333
-    >>> testUpcast(der1)
-    333
-    >>> der1 = derived1Factory(1000)
-    >>> testDowncast1(der1)
-    1000
-    >>> testDowncast2(der1)
-    Traceback (innermost last):
-    TypeError: extension class 'Base' is not convertible into 'Derived2'.
-    >>> der2 = Derived2(444)
-    >>> der2.x()
-    444
-    >>> testUpcast(der2)
-    444
-    >>> der2 = derived2Factory(1111)
-    >>> testDowncast2(der2)
-    Traceback (innermost last):
-    TypeError: extension class 'Base' is not convertible into 'Derived2'.
-    
-Testing interaction between callbacks, base declarations, and overloading
-- testCallback() calls callback() (within C++)
-- callback() is overloaded (in the wrapped class CallbackTest)
-- callback() is redefined in RedefineCallback (overloading is simulated by type casing)
-- testCallback() should use the redefined callback()
-
-    >>> c = CallbackTest()
-    >>> c.testCallback(1)
-    2
-    >>> c.testCallback('foo')
-    Traceback (innermost last):
-      File "<stdin>", line 1, in ?
-    TypeError: illegal argument type for built-in operation
-    >>> c.callback(1)
-    2
-    >>> c.callback('foo')
-    'foo 1'
-    
-    >>> import types
-    >>> class RedefineCallback(CallbackTest):
-    ...     def callback(self, x): 
-    ...             if type(x) is types.IntType:
-    ...                     return x - 2
-    ...             else:
-    ...                     return CallbackTest.callback(self,x)
-    ... 
-    >>> r = RedefineCallback()
-    >>> r.callback(1)
-    -1
-    >>> r.callback('foo')
-    'foo 1'
-    >>> r.testCallback('foo')
-    Traceback (innermost last):
-      File "<stdin>", line 1, in ?
-    TypeError: illegal argument type for built-in operation
-    >>> r.testCallback(1)
-    -1
-    >>> testCallback(r, 1)
-    -1
-
-Regression test for a reference-counting bug thanks to Mark Evans
-(<mark.evans@clarisay.com>)
-    >>> sizelist([])
-    0.0
-    >>> sizelist([1, 2, 4])
-    3.0
-    
-And another for doubles
-    >>> vector_double().push_back(3.0)
-
-Tests for method lookup in the context of inheritance
-Set up the tests
-
-    >>> a1 = A1()
-    >>> a2 = A2()
-    >>> b1 = B1()
-    >>> b2 = B2()
-    >>> pa1_a1 = factoryA1asA1()
-    >>> pb1_a1 = factoryB1asA1()
-    >>> pb2_a1 = factoryB2asA1()
-    >>> pc_a1 = factoryCasA1()
-    >>> pa2_a2 = factoryA2asA2()
-    >>> pb1_a2 = factoryB1asA2()
-    >>> pb1_b1 = factoryB1asB1()
-    >>> pc_b1 = factoryCasB1()
-    >>> class DA1(A1):
-    ...     def overrideA1(self):
-    ...         return 'DA1.overrideA1'
-    ...
-    >>> da1 = DA1()
-    >>> class DB1(B1):
-    ...     def overrideA1(self):
-    ...         return 'DB1.overrideA1'
-    ...     def overrideB1(self):
-    ...         return 'DB1.overrideB1'
-    ...
-    >>> db1 = DB1()
-    >>> class DB2(B2): pass
-    ...
-    >>> db2 = DB2()
-
-test overrideA1
-
-    >>> a1.overrideA1()
-    'A1::overrideA1'
-    >>> b1.overrideA1()
-    'B1::overrideA1'
-    >>> b2.overrideA1()
-    'B2::overrideA1'
-    >>> da1.overrideA1()
-    'DA1.overrideA1'
-    >>> db1.overrideA1()
-    'DB1.overrideA1'
-    >>> pa1_a1.overrideA1()
-    'A1::overrideA1'
-    >>> pb1_a1.overrideA1()
-    'B1::overrideA1'
-    >>> pb2_a1.overrideA1()
-    'B2::overrideA1'
-    >>> pb1_b1.overrideA1()
-    'B1::overrideA1'
-    >>> pc_a1.overrideA1()
-    'B1::overrideA1'
-    >>> pc_b1.overrideA1()
-    'B1::overrideA1'
-
-test call_overrideA1
-
-    >>> call_overrideA1(a1)
-    'A1::overrideA1'
-    >>> call_overrideA1(b1)
-    'B1::overrideA1'
-    >>> call_overrideA1(b2)
-    'B2::overrideA1'
-    >>> call_overrideA1(da1)
-    'DA1.overrideA1'
-    >>> call_overrideA1(db1)
-    'DB1.overrideA1'
-    >>> call_overrideA1(pa1_a1)
-    'A1::overrideA1'
-    >>> call_overrideA1(pb1_a1)
-    'B1::overrideA1'
-    >>> call_overrideA1(pb2_a1)
-    'B2::overrideA1'
-    >>> call_overrideA1(pb1_b1)
-    'B1::overrideA1'
-    >>> call_overrideA1(pc_a1)
-    'B1::overrideA1'
-    >>> call_overrideA1(pc_b1)
-    'B1::overrideA1'
-
-test inheritA1
-
-    >>> a1.inheritA1()
-    'A1::inheritA1'
-    >>> b1.inheritA1()
-    'A1::inheritA1'
-    >>> b2.inheritA1()
-    'A1::inheritA1'
-    >>> da1.inheritA1()
-    'A1::inheritA1'
-    >>> db1.inheritA1()
-    'A1::inheritA1'
-    >>> pa1_a1.inheritA1()
-    'A1::inheritA1'
-    >>> pb1_a1.inheritA1()
-    'A1::inheritA1'
-    >>> pb2_a1.inheritA1()
-    'A1::inheritA1'
-    >>> pb1_b1.inheritA1()
-    'A1::inheritA1'
-    >>> pc_a1.inheritA1()
-    'A1::inheritA1'
-    >>> pc_b1.inheritA1()
-    'A1::inheritA1'
-
-test call_inheritA1
-
-    >>> call_inheritA1(a1)
-    'A1::inheritA1'
-    >>> call_inheritA1(b1)
-    'A1::inheritA1'
-    >>> call_inheritA1(b2)
-    'A1::inheritA1'
-    >>> call_inheritA1(da1)
-    'A1::inheritA1'
-    >>> call_inheritA1(db1)
-    'A1::inheritA1'
-    >>> call_inheritA1(pa1_a1)
-    'A1::inheritA1'
-    >>> call_inheritA1(pb1_a1)
-    'A1::inheritA1'
-    >>> call_inheritA1(pb2_a1)
-    'A1::inheritA1'
-    >>> call_inheritA1(pb1_b1)
-    'A1::inheritA1'
-    >>> call_inheritA1(pc_a1)
-    'A1::inheritA1'
-    >>> call_inheritA1(pc_b1)
-    'A1::inheritA1'
-
-test inheritA2
-
-    >>> a2.inheritA2()
-    'A2::inheritA2'
-    >>> b1.inheritA2()
-    'A2::inheritA2'
-    >>> b2.inheritA2()
-    'A2::inheritA2'
-    >>> db1.inheritA2()
-    'A2::inheritA2'
-    >>> pa2_a2.inheritA2()
-    'A2::inheritA2'
-    >>> pb1_a2.inheritA2()
-    'A2::inheritA2'
-    >>> pb1_b1.inheritA2()
-    'A2::inheritA2'
-
-test overrideB1
-
-    >>> b1.overrideB1()
-    'B1::overrideB1'
-    >>> db1.overrideB1()
-    'DB1.overrideB1'
-    >>> pb1_b1.overrideB1()
-    'B1::overrideB1'
-    >>> pc_b1.overrideB1()
-    'C::overrideB1'
-
-test call_overrideB1
-
-    >>> call_overrideB1(b1)
-    'B1::overrideB1'
-    >>> call_overrideB1(db1)
-    'DB1.overrideB1'
-    >>> call_overrideB1(pb1_a1)
-    'B1::overrideB1'
-    >>> call_overrideB1(pc_a1)
-    'C::overrideB1'
-    >>> call_overrideB1(pb1_b1)
-    'B1::overrideB1'
-    >>> call_overrideB1(pc_b1)
-    'C::overrideB1'
-
-test inheritB2
-
-    >>> b2.inheritB2()
-    'B2::inheritB2'
-    >>> db2.inheritB2()
-    'B2::inheritB2'
-
-========= test the new def_raw() feature ==========
-
-    >>> r = RawTest(1)
-    >>> raw(r,1,third=1,fourth=1)
-    4
-    >>> r.raw(1,third=1,fourth=1)
-    4
-    >>> raw(r,1,third=1,f=1)
-    Traceback (innermost last):
-    KeyError: fourth
-    >>> raw(r,1,third=1)
-    Traceback (innermost last):
-    TypeError: wrong number of arguments
-    >>> raw(r,1)
-    Traceback (innermost last):
-    TypeError: wrong number of arguments
-    >>> raw()
-    Traceback (innermost last):
-    TypeError: wrong number of arguments
-    >>> raw1(1,second=1)
-    2
-    >>> raw1(1)
-    1
-    >>> raw1(second=1)
-    1
-    >>> raw1()
-    0
-    >>> raw2(1,second=1)
-    2
-    >>> raw2(1)
-    1
-    >>> raw2(second=1)
-    1
-    >>> raw2()
-    0
-    
-========= test export of operators ==========
-
-    >>> i = Int(2)
-    >>> j = i+i
-    >>> j.i()
-    4
-    >>> j = i-i
-    >>> j.i()
-    0
-    >>> j = i*i
-    >>> j.i()
-    4
-    >>> i<i
-    0
-    >>> cmp(i,i)
-    0
-    >>> k = Int(5)
-    >>> j = divmod(k, i)
-    >>> j[0].i()
-    2
-    >>> j[1].i()
-    1
-    >>> j = pow(i, k)
-    >>> j.i()
-    32
-    >>> j = pow(i, k, k)
-    >>> j.i()
-    2
-    >>> j = -i
-    >>> j.i()
-    -2
-    >>> str(i)
-    '2'
-    >>> j = i/i
-    Traceback (innermost last):
-    TypeError: bad operand type(s) for /
-    >>> j = abs(i)
-    Traceback (innermost last):
-    TypeError: bad operand type for abs()
-    >>> j = i+1
-    >>> j.i()
-    3
-    >>> j = i-1
-    >>> j.i()
-    1
-    >>> j = i*1
-    >>> j.i()
-    2
-    >>> i<1
-    0
-    >>> cmp(i,1)
-    1
-    >>> j = pow(i, 5)
-    >>> j.i()
-    32
-    >>> j = pow(i, 5, k)
-    Traceback (innermost last):
-    TypeError: bad operand type(s) for pow()
-    >>> j = pow(i, 5, 5)
-    Traceback (innermost last):
-    TypeError: bad operand type(s) for pow()
-    >>> j = i/1
-    Traceback (innermost last):
-    TypeError: bad operand type(s) for /
-    >>> j = 1+i
-    >>> j.i()
-    3
-    >>> j = 1-i
-    >>> j.i()
-    -1
-    >>> j = 1*i
-    >>> j.i()
-    2
-    >>> 1<i
-    1
-    >>> cmp(1,i)
-    -1
-    >>> j = 1/i
-    Traceback (innermost last):
-    TypeError: bad operand type(s) for /
-    >>> pow(1,i)
-    Traceback (innermost last):
-    TypeError: bad operand type(s) for pow()
-
-Test operator export to a subclass
-
-    # force method table sharing
-    >>> class IntDerived1(Int): pass
-    ...
-
-    >>> class IntDerived(Int):
-    ...     def __init__(self, i):
-    ...             Int.__init__(self, i)
-    ...     def __str__(self):
-    ...             return 'IntDerived: ' + str(self.i())
-    ... 
-    >>> f = IntDerived(3)
-    >>> str(f)
-    'IntDerived: 3'
-    >>> j = f * f
-    >>> j.i()
-    9
-    >>> j = f * i
-    >>> j.i()
-    6
-    >>> j = f * 5
-    >>> j.i()
-    15
-    >>> j = i * f
-    >>> j.i()
-    6
-    >>> j = 5 * f
-    >>> j.i()
-    15
-
-
-========= Prove that the "phantom base class" issue is resolved ==========
-
-    >>> assert pa1_a1.__class__ == A1
-    >>> assert pb1_a1.__class__ == A1
-    >>> assert pb2_a1.__class__ == A1
-    >>> assert pc_a1.__class__ == A1
-    >>> assert pa2_a2.__class__ == A2
-    >>> assert pb1_a2.__class__ == A2
-    >>> assert pb1_b1.__class__ == B1
-    >>> assert pc_b1.__class__ == B1
-    >>> assert A1 in B1.__bases__
-    >>> assert A2 in B1.__bases__
-    >>> assert A1 in B2.__bases__
-    >>> assert A2 in B2.__bases__
-    >>> assert A1 in DA1.__bases__
-    >>> assert B1 in DB1.__bases__
-    >>> assert B2 in DB2.__bases__
-    
-===============================================================
-test methodologies for wrapping functions that return a pointer
-
-    >>> get_record().value
-    1234
-
-    In this methodology, the referent is copied
-    >>> get_record() == get_record()
-    0
-
-======== Enums and non-method class attributes ==============
-    >>> eo = EnumOwner(EnumOwner.one, EnumOwner.two)
-    >>> eo.first
-    1
-    >>> eo.second
-    2
-    >>> eo.first = EnumOwner.three
-    >>> eo.second = EnumOwner.one
-    >>> eo.first
-    3
-    >>> eo.second
     1
 '''
 

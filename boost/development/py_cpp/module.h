@@ -11,38 +11,28 @@
 
 # include "pyconfig.h"
 # include "pyptr.h"
-# include "objects.h"
 # include "functions.h"
 
-namespace python {
+namespace py {
 
-class module_builder
+class ExtensionType;
+
+class Module
 {
-    typedef PyObject * (*raw_function_ptr)(python::tuple const &, python::dictionary const &);
-    
- public:
-    // Create a module. REQUIRES: only one module_builder is created per module.
-    module_builder(const char* name);
+public:
+    Module(const char* name);
 
-    // Add elements to the module
-    void add(detail::function* x, const char* name);
+    void add(Function* x, const char* name);
+    
     void add(PyTypeObject* x, const char* name = 0);
-    void add(ref x, const char*name);
-
-    template <class Fn>
-    void def_raw(Fn fn, const char* name)
-    {
-        add(detail::new_raw_arguments_function(fn), name);
-    }
     
+    void add(Ptr x, const char*name);
+
     template <class Fn>
     void def(Fn fn, const char* name)
     {
-        add(detail::new_wrapped_function(fn), name);
+        add(new_wrapped_function(fn), name);
     }
-
-    static string name();
-    
  private:
     PyObject* m_module;
     static PyMethodDef initial_methods[1];

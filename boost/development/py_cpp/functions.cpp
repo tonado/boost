@@ -12,30 +12,30 @@
 #include "objects.h"
 #include "errors.h"
 
-namespace python { namespace detail {
+namespace py {
 
-struct function::type_object :
-        singleton<function::type_object, callable<python::detail::type_object<function> > >
+struct Function::TypeObject :
+        Singleton<Function::TypeObject, Callable<py::TypeObject<Function> > >
 {
-    type_object() : singleton_base(&PyType_Type) {}
+    TypeObject() : SingletonBase(&PyType_Type) {}
 };
 
 
-void function::add_to_namespace(reference<function> new_function, const char* name, PyObject* dict)
+void Function::add_to_namespace(PyPtr<Function> new_function, const char* name, PyObject* dict)
 {
-    dictionary d(ref(dict, ref::increment_count));
-    string key(name);
+    Dict d(Ptr(dict, Ptr::borrowed));
+    String key(name);
     
-    ref existing_object = d.get_item(key.reference());
+    Ptr existing_object = d.get_item(key.reference());
     if (existing_object.get() == 0)
     {
-        d[key] = ref(new_function.get(), ref::increment_count);
+        d[key] = Ptr(new_function.get(), Ptr::borrowed);
     }
     else
     {
-        if (existing_object->ob_type == type_object::instance())
+        if (existing_object->ob_type == TypeObject::singleton())
         {
-            function* f = static_cast<function*>(existing_object.get());
+            Function* f = static_cast<Function*>(existing_object.get());
             while (f->m_overloads.get() != 0)
                 f = f->m_overloads.get();
             f->m_overloads = new_function;
@@ -43,22 +43,22 @@ void function::add_to_namespace(reference<function> new_function, const char* na
         else
         {
             PyErr_SetObject(PyExc_RuntimeError,
-                            (string("Attempt to overload ") + name
+                            (String("Attempt to overload ") + name
                              + " failed. The existing attribute has type "
                              + existing_object->ob_type->tp_name).get());
-            throw error_already_set();
+            throw ErrorAlreadySet();
         }
     }
 }
 
-function::function()
-    : python_object(type_object::instance())
+Function::Function()
+    : PythonObject(TypeObject::singleton())
 {
 }
 
-PyObject* function::call(PyObject* args, PyObject* keywords) const
+PyObject* Function::call(PyObject* args, PyObject* keywords) const
 {
-    for (const function* f = this; f != 0; f = f->m_overloads.get())
+    for (const Function* f = this; f != 0; f = f->m_overloads.get())
     {
         PyErr_Clear();
         try
@@ -67,7 +67,7 @@ PyObject* function::call(PyObject* args, PyObject* keywords) const
             if (result != 0)
                 return result;
         }
-        catch(const argument_error&)
+        catch(const ArgumentError&)
         {
         }
     }
@@ -76,8 +76,8 @@ PyObject* function::call(PyObject* args, PyObject* keywords) const
         return 0;
 
     PyErr_Clear();
-    string message("No overloaded functions match (");
-    tuple arguments(ref(args, ref::increment_count));
+    String message("No overloaded functions match (");
+    Tuple arguments(Ptr(args, Ptr::borrowed));
     for (std::size_t i = 0; i < arguments.size(); ++i)
     {
         if (i != 0)
@@ -86,7 +86,7 @@ PyObject* function::call(PyObject* args, PyObject* keywords) const
     }
 
     message += "). Candidates are:\n";
-    for (const function* f1 = this; f1 != 0; f1 = f1->m_overloads.get())
+    for (const Function* f1 = this; f1 != 0; f1 = f1->m_overloads.get())
     {
         if (f1 != this)
             message += "\n";
@@ -97,34 +97,33 @@ PyObject* function::call(PyObject* args, PyObject* keywords) const
     return 0;
 }
 
-bound_function* bound_function::create(const ref& target, const ref& fn)
+Ptr BoundFunction::create(Ptr target, Ptr fn)
 {
-    bound_function* const result = free_list;
-    if (result == 0)
-        return new bound_function(target, fn);
-    
-    free_list = result->m_free_list_link;
-    result->m_target = target;
-    result->m_unbound_function = fn;
-    Py_INCREF(result);
-    return result;
+    BoundFunction* result = free_list;
+    if (result != 0)
+    {
+        free_list = result->m_free_list_link;
+        result->m_target = target;
+        result->m_unbound_function = fn;
+    }
+    else
+    {
+        result = new BoundFunction(target, fn);
+    }
+    return Ptr(result, Ptr::new_ref);
 }
 
-// The instance class whose obj represents the type of bound_function
-// objects in Python. bound_functions must be GetAttrable so the __doc__
-// attribute of built-in Python functions can be accessed when bound.
-struct bound_function::type_object :
-    singleton<bound_function::type_object,
-              getattrable<callable<python::detail::type_object<bound_function> > > >
+struct BoundFunction::TypeObject :
+    Singleton<BoundFunction::TypeObject, Callable<py::TypeObject<BoundFunction> > >
 {
-    type_object() : singleton_base(&PyType_Type) {}
+    TypeObject() : SingletonBase(&PyType_Type) {}
     
-private: // type_object<bound_function> hook override
-    void dealloc(bound_function*) const;
+private: // TypeObject<BoundFunction> hook override
+    void dealloc(BoundFunction*) const;
 };
 
-bound_function::bound_function(const ref& target, const ref& fn)
-    : python_object(type_object::instance()),
+BoundFunction::BoundFunction(Ptr target, Ptr fn)
+    : PythonObject(TypeObject::singleton()),
       m_target(target),
       m_unbound_function(fn),
       m_free_list_link(0)
@@ -132,11 +131,11 @@ bound_function::bound_function(const ref& target, const ref& fn)
 }
 
 PyObject*
-bound_function::call(PyObject* args, PyObject* keywords) const
+BoundFunction::call(PyObject* args, PyObject* keywords) const
 {
     // Build a new tuple which prepends the target to the arguments
-    tuple tail_arguments(ref(args, ref::increment_count));
-    ref all_arguments(PyTuple_New(tail_arguments.size() + 1));
+    Tuple tail_arguments(Ptr(args, Ptr::borrowed));
+    Ptr all_arguments(PyTuple_New(tail_arguments.size() + 1));
 
     PyTuple_SET_ITEM(all_arguments.get(), 0, m_target.get());
     Py_INCREF(m_target.get());
@@ -149,19 +148,14 @@ bound_function::call(PyObject* args, PyObject* keywords) const
     return PyEval_CallObjectWithKeywords(m_unbound_function.get(), all_arguments.get(), keywords);
 }
 
-PyObject* bound_function::getattr(const char* name) const
+void BoundFunction::TypeObject::dealloc(BoundFunction* instance) const
 {
-    return PyObject_GetAttrString(m_unbound_function.get(), const_cast<char*>(name));
+    instance->m_free_list_link = free_list;
+    free_list = instance;
+    instance->m_target.reset();
+    instance->m_unbound_function.reset();
 }
 
-void bound_function::type_object::dealloc(bound_function* obj) const
-{
-    obj->m_free_list_link = free_list;
-    free_list = obj;
-    obj->m_target.reset();
-    obj->m_unbound_function.reset();
+BoundFunction* BoundFunction::free_list;
+
 }
-
-bound_function* bound_function::free_list;
-
-}} // namespace python::detail

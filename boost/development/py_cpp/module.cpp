@@ -8,45 +8,32 @@
 
 #include "module.h"
 
-namespace python {
+namespace py {
 
-namespace {
-  ref name_holder;
-}
-
-string module_builder::name()
-{
-    // If this fails, you haven't created a module_builder object
-    assert(name_holder.get() != 0);
-    return string(name_holder);
-}
-
-module_builder::module_builder(const char* name)
+Module::Module(const char* name)
     : m_module(Py_InitModule(const_cast<char*>(name), initial_methods))
 {
-    // If this fails, you've created more than 1 module_builder object in your module    
-    assert(name_holder.get() == 0);
-    name_holder = ref(PyObject_GetAttrString(m_module, const_cast<char*>("__name__")));
 }
 
 void
-module_builder::add(detail::function* x, const char* name)
+Module::add(Function* x, const char* name)
 {
-    reference<detail::function> f(x); // First take possession of the object.
-    detail::function::add_to_namespace(f, name, PyModule_GetDict(m_module));
+    PyPtr<Function> f(x); // First take possession of the object.
+    Function::add_to_namespace(f, name, PyModule_GetDict(m_module));
 }
 
-void module_builder::add(ref x, const char* name)
+void Module::add(Ptr x, const char* name)
 {
-	PyObject* dictionary = PyModule_GetDict(m_module);
+	PyObject* dictionary = PyModule_GetDict( m_module );
     PyDict_SetItemString(dictionary, const_cast<char*>(name), x.get());
-}
+};
 
-void module_builder::add(PyTypeObject* x, const char* name /*= 0*/)
+void Module::add(PyTypeObject* x, const char* name /*= 0*/)
 {
-    this->add(ref(as_object(x)), name ? name : x->tp_name);
+    this->add(Ptr(as_object(x), Ptr::new_ref),
+        name ? name : x->tp_name);
 }
 
-PyMethodDef module_builder::initial_methods[] = { { 0, 0, 0, 0 } };
+PyMethodDef Module::initial_methods[] = { { 0, 0, 0, 0 } };
 
 }

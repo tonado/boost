@@ -10,14 +10,14 @@ def gen_all(args):
     open('caller.h', 'w').write(gen_caller(args))
     open('init_function.h', 'w').write(gen_init_function(args))
     open('signatures.h', 'w').write(gen_signatures(args))
-    open('instance.h', 'w').write(gen_singleton(args))
-    open('extclass.h', 'w').write(gen_extclass(args))
+    open('singleton.h', 'w').write(gen_singleton(args))
+    open('extclass_pygen.h', 'w').write(gen_extclass(args))
 
 if __name__ == '__main__':
     import sys
 
     if len(sys.argv) == 1:
-        args = 10
+        args = 5
     else:
         args = int(sys.argv[1])
 

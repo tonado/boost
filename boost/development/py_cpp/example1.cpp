@@ -25,13 +25,13 @@ void inithello()
     try
     {
        // create an object representing this extension module
-       python::module_builder hello("hello");
+       py::Module hello("hello");
 
        // Create the Python type object for our extension class
-       python::class_builder<hello::world> world_class(hello, "world");
+       py::ClassWrapper<hello::world> world_class(hello, "world");
 
        // Add the __init__ function
-       world_class.def(python::constructor<int>());
+       world_class.def(py::Constructor<int>());
        // Add a regular member function
        world_class.def(&hello::world::get, "get");
 
@@ -40,7 +40,7 @@ void inithello()
     }
     catch(...)
     {
-       python::handle_exception();    // Deal with the exception for Python
+       py::handle_exception();    // Deal with the exception for Python
     }
 }
 

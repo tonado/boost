@@ -12,7 +12,7 @@
 // Example code demonstrating extension class usage
 //
 
-# include "class_wrapper.h"
+# include "extclass.h"
 # include "callback.h"
 # include <boost/utility.hpp>
 # include <cstring>
@@ -39,7 +39,7 @@ class Foo                // prohibit copying, proving that it doesn't choke
     void set(long x);     // change the held value
 
     // These two call virtual functions
-    std::string call_pure();                    // call a pure virtual fuction
+    const char* call_pure();                    // call a pure virtual fuction
     int call_add_len(const char* s) const;      // virtual function with a default implementation
 
  private:
@@ -47,12 +47,12 @@ class Foo                // prohibit copying, proving that it doesn't choke
     virtual int add_len(const char* s) const;
     
     // Derived classes can do whatever they want here, but they must do something!
-    virtual std::string pure() const = 0;     
+    virtual const char* pure() const = 0;     
 
  public: // friend declarations
     // If you have private virtual functions such as add_len which you want to
     // override in Python and have default implementations, they must be
-    // accessible by the thing making the def() call on the extension_class (in
+    // accessible by the thing making the def() call on the ExtensionClass (in
     // this case, the nested PythonClass itself), and by the C++ derived class
     // which is used to cause the Python callbacks (in this case,
     // FooCallback). See the definition of FooCallback::add_len()
@@ -177,28 +177,28 @@ class FooCallback : public Foo
     // Since Foo::pure() is pure virtual, we don't need a corresponding
     // default_pure(). A failure to override it in Python will result in an
     // exception at runtime when pure() is called.
-    std::string pure() const;
+    const char* pure() const;
 
  private: // Required boilerplate if functions will be overridden
-    PyObject* m_self; // No, we don't want a python::ref here, or we'd get an ownership cycle.
+    PyObject* m_self; // No, we don't want a py::Ptr here, or we'd get an ownership cycle.
 };
 
 // Define the Python base class
-struct Foo::PythonClass : python::class_builder<Foo, FooCallback> { PythonClass(python::module_builder&); };
+struct Foo::PythonClass : py::ExtensionClass<Foo, FooCallback> { PythonClass(); };
 
 // No virtual functions on Bar or Baz which are actually supposed to behave
 // virtually from C++, so we'll rely on the library to define a wrapper for
-// us. Even so, Python class_t types for each type we're wrapping should be
+// us. Even so, Python Class types for each type we're wrapping should be
 // _defined_ here in a header where they can be seen by other extension class
-// definitions, since it is the definition of the python::class_builder<> that
+// definitions, since it is the definition of the py::ExtensionClass<> that
 // causes to_python/from_python conversion functions to be generated.
-struct BarPythonClass : python::class_builder<Bar> { BarPythonClass(python::module_builder&); };
-struct BazPythonClass : python::class_builder<Baz> { BazPythonClass(python::module_builder&); };
+struct BarPythonClass : py::ExtensionClass<Bar> { BarPythonClass(); };
+struct BazPythonClass : py::ExtensionClass<Baz> { BazPythonClass(); };
 
 struct StringMapPythonClass
-    : python::class_builder<StringMap>
+    : py::ExtensionClass<StringMap>
 {
-    StringMapPythonClass(python::module_builder&);
+    StringMapPythonClass();
     
     // These static functions implement the right argument protocols for
     // implementing the Python "special member functions" for mapping on
@@ -209,9 +209,9 @@ struct StringMapPythonClass
 };
 
 struct IntPairPythonClass
-    : python::class_builder<IntPair>
+    : py::ExtensionClass<IntPair>
 {
-    IntPairPythonClass(python::module_builder&);
+    IntPairPythonClass();
     
     // The following could just as well be a free function; it implements the
     // getattr functionality for IntPair.
@@ -221,9 +221,9 @@ struct IntPairPythonClass
 };
 
 struct CompareIntPairPythonClass
-    : python::class_builder<CompareIntPair>
+    : py::ExtensionClass<CompareIntPair>
 {
-    CompareIntPairPythonClass(python::module_builder&);
+    CompareIntPairPythonClass();
 };
 
 } // namespace extclass_demo
