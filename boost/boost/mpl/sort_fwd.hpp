@@ -17,26 +17,26 @@
 #ifndef BOOST_MPL_SORT_FWD_HPP_INCLUDED
 #define BOOST_MPL_SORT_FWD_HPP_INCLUDED
 
-#include "boost/mpl/less.hpp"
-#include "boost/mpl/placeholders.hpp"
-#include "boost/mpl/aux_/void_spec.hpp"
+#include <boost/mpl/less.hpp>
+#include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/aux_/na_spec.hpp>
 
 namespace boost {
 namespace mpl {
 
-template< typename Tag > struct sort_traits;
+template< typename Tag > struct sort_impl;
 
 BOOST_MPL_AUX_AGLORITHM_NAMESPACE_BEGIN
 
 template <
-      typename BOOST_MPL_AUX_VOID_SPEC_PARAM(Sequence)
+      typename BOOST_MPL_AUX_NA_PARAM(Sequence)
     , typename Predicate = less<_,_>
     >
 struct sort;
 
 BOOST_MPL_AUX_AGLORITHM_NAMESPACE_END
 
-BOOST_MPL_AUX_ALGORITHM_VOID_SPEC(1, sort)
+BOOST_MPL_AUX_NA_ALGORITHM_SPEC(1, sort)
 
 } // namespace mpl
 } // namespace boost

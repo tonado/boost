@@ -2,10 +2,7 @@
 #ifndef BOOST_MPL_MULTISET_AUX_ITEM_HPP_INCLUDED
 #define BOOST_MPL_MULTISET_AUX_ITEM_HPP_INCLUDED
 
-// + file: boost/mpl/multiset/aux_/item.hpp
-// + last modified: 05/nov/03
-
-// Copyright Aleksey Gurtovoy 2003
+// Copyright (c) Aleksey Gurtovoy 2003-2004
 //
 // Use, modification and distribution are subject to the Boost Software 
 // License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy 
@@ -13,25 +10,26 @@
 //
 // See http://www.boost.org/libs/mpl for documentation.
 
-#include "boost/mpl/multiset/aux_/tag.hpp"
-#include "boost/mpl/int.hpp"
-#include "boost/mpl/aux_/type_wrapper.hpp"
-#include "boost/mpl/aux_/yes_no.hpp"
-#include "boost/mpl/aux_/value_wknd.hpp"
-#include "boost/mpl/aux_/static_cast.hpp"
-#include "boost/mpl/aux_/config/workaround.hpp"
-#include "boost/mpl/aux_/config/msvc.hpp"
+// $Source$
+// $Date$
+// $Revision$
+
+#include <boost/mpl/multiset/aux_/tag.hpp>
+#include <boost/mpl/int.hpp>
+#include <boost/mpl/aux_/type_wrapper.hpp>
+#include <boost/mpl/aux_/yes_no.hpp>
+#include <boost/mpl/aux_/value_wknd.hpp>
+#include <boost/mpl/aux_/static_cast.hpp>
+#include <boost/mpl/aux_/config/arrays.hpp>
+#include <boost/mpl/aux_/config/msvc.hpp>
+#include <boost/mpl/aux_/config/workaround.hpp>
 
 #if BOOST_WORKAROUND(BOOST_MSVC, <= 1300)
-#   include "boost/mpl/apply_if.hpp"
-#   include "boost/mpl/next.hpp"
-#   include "boost/type_traits/is_same.hpp"
+#   include <boost/mpl/apply_if.hpp>
+#   include <boost/mpl/next.hpp>
+#   include <boost/type_traits/is_same.hpp>
 #endif
 
-#if    BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x561)) \
-    || BOOST_WORKAROUND(BOOST_MSVC, == 1300)
-#   define BOOST_MPL_CFG_NO_DEPENDENT_ARRAY_TYPES
-#endif
 
 namespace boost { namespace mpl {
 

@@ -17,32 +17,31 @@
 #ifndef BOOST_MPL_AUX_ITER_FOLD_IF_IMPL_HPP_INCLUDED
 #define BOOST_MPL_AUX_ITER_FOLD_IF_IMPL_HPP_INCLUDED
 
-#include "boost/mpl/aux_/apply.hpp"
-
 #if !defined(BOOST_MPL_PREPROCESSING_MODE)
-#   include "boost/mpl/identity.hpp"
-#   include "boost/mpl/next.hpp"
-#   include "boost/mpl/if.hpp"
-#   include "boost/mpl/aux_/value_wknd.hpp"
-#   include "boost/mpl/aux_/bool_value_wknd.hpp"
+#   include <boost/mpl/identity.hpp>
+#   include <boost/mpl/next.hpp>
+#   include <boost/mpl/if.hpp>
+#   include <boost/mpl/apply.hpp>
+#   include <boost/mpl/aux_/value_wknd.hpp>
+#   include <boost/mpl/aux_/bool_value_wknd.hpp>
 #endif
 
-#include "boost/mpl/aux_/config/use_preprocessed.hpp"
+#include <boost/mpl/aux_/config/use_preprocessed.hpp>
 
-#if !defined(BOOST_MPL_NO_PREPROCESSED_HEADERS) && \
-    !defined(BOOST_MPL_PREPROCESSING_MODE)
+#if !defined(BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS) \
+    && !defined(BOOST_MPL_PREPROCESSING_MODE)
 
 #   define BOOST_MPL_PREPROCESSED_HEADER iter_fold_if_impl.hpp
-#   include "boost/mpl/aux_/include_preprocessed.hpp"
+#   include <boost/mpl/aux_/include_preprocessed.hpp>
 
 #else
 
-#   include "boost/mpl/limits/unrolling.hpp"
-#   include "boost/preprocessor/arithmetic/sub.hpp"
-#   include "boost/preprocessor/repeat.hpp"
-#   include "boost/preprocessor/inc.hpp"
-#   include "boost/preprocessor/dec.hpp"
-#   include "boost/preprocessor/cat.hpp"
+#   include <boost/mpl/limits/unrolling.hpp>
+#   include <boost/preprocessor/arithmetic/sub.hpp>
+#   include <boost/preprocessor/repeat.hpp>
+#   include <boost/preprocessor/inc.hpp>
+#   include <boost/preprocessor/dec.hpp>
+#   include <boost/preprocessor/cat.hpp>
 
 namespace boost {
 namespace mpl {
@@ -147,16 +146,16 @@ struct iter_fold_if_backward_step
 
 #   define AUX_ITER_FOLD_BACKWARD_STEP(unused, i, unused2) \
     AUX_ITER_FOLD_BACKWARD_STEP_FUNC( \
-        BOOST_PP_SUB_D(1,BOOST_MPL_UNROLLING_LIMIT,i) \
+        BOOST_PP_SUB_D(1,BOOST_MPL_LIMIT_UNROLLING,i) \
         ) \
     /**/
 
 #   define AUX_LAST_FORWARD_STEP \
-    BOOST_PP_CAT(forward_step, BOOST_MPL_UNROLLING_LIMIT) \
+    BOOST_PP_CAT(forward_step, BOOST_MPL_LIMIT_UNROLLING) \
     /**/
 
 #   define AUX_LAST_BACKWARD_STEP \
-    BOOST_PP_CAT(backward_step, BOOST_MPL_UNROLLING_LIMIT) \
+    BOOST_PP_CAT(backward_step, BOOST_MPL_LIMIT_UNROLLING) \
     /**/
 
 template<
@@ -172,7 +171,7 @@ struct iter_fold_if_impl
  private:
     typedef iter_fold_if_null_step<Iterator,State> forward_step0;
     BOOST_PP_REPEAT_1(
-          BOOST_MPL_UNROLLING_LIMIT
+          BOOST_MPL_LIMIT_UNROLLING
         , AUX_ITER_FOLD_FORWARD_STEP
         , unused
         )
@@ -194,7 +193,7 @@ struct iter_fold_if_impl
         >::type AUX_LAST_BACKWARD_STEP;
 
     BOOST_PP_REPEAT_1(
-          BOOST_MPL_UNROLLING_LIMIT
+          BOOST_MPL_LIMIT_UNROLLING
         , AUX_ITER_FOLD_BACKWARD_STEP
         , unused
         )
@@ -214,5 +213,5 @@ struct iter_fold_if_impl
 } // namespace mpl
 } // namespace boost
 
-#endif // BOOST_MPL_USE_PREPROCESSED_HEADERS
+#endif // BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS
 #endif // BOOST_MPL_AUX_ITER_FOLD_IF_IMPL_HPP_INCLUDED

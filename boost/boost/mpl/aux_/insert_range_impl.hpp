@@ -1,73 +1,61 @@
-//-----------------------------------------------------------------------------
-// boost mpl/insert_range_impl.hpp header file
-// See http://www.boost.org for updates, documentation, and revision history.
-//-----------------------------------------------------------------------------
-//
-// Copyright (c) 2000-02
-// Aleksey Gurtovoy
-//
-// Permission to use, copy, modify, distribute and sell this software
-// and its documentation for any purpose is hereby granted without fee, 
-// provided that the above copyright notice appears in all copies and 
-// that both the copyright notice and this permission notice appear in 
-// supporting documentation. No representations are made about the 
-// suitability of this software for any purpose. It is provided "as is" 
-// without express or implied warranty.
 
 #ifndef BOOST_MPL_AUX_INSERT_RANGE_IMPL_HPP_INCLUDED
 #define BOOST_MPL_AUX_INSERT_RANGE_IMPL_HPP_INCLUDED
 
-#include "boost/mpl/copy_backward.hpp"
-#include "boost/mpl/clear.hpp"
-#include "boost/mpl/push_front.hpp"
-#include "boost/mpl/iterator_range.hpp"
-#include "boost/mpl/begin_end.hpp"
-#include "boost/mpl/aux_/void_spec.hpp"
-#include "boost/mpl/aux_/iter_push_front.hpp"
-#include "boost/mpl/aux_/traits_lambda_spec.hpp"
-#include "boost/type_traits/same_traits.hpp"
+// Copyright (c) Aleksey Gurtovoy 2000-2004
+//
+// Use, modification and distribution are subject to the Boost Software 
+// License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy 
+// at http://www.boost.org/LICENSE_1_0.txt)
+//
+// See http://www.boost.org/libs/mpl for documentation.
 
-namespace boost {
-namespace mpl {
+// $Source$
+// $Date$
+// $Revision$
+
+#include <boost/mpl/copy.hpp>
+#include <boost/mpl/clear.hpp>
+#include <boost/mpl/front_inserter.hpp>
+#include <boost/mpl/joint_view.hpp>
+#include <boost/mpl/iterator_range.hpp>
+#include <boost/mpl/aux_/na_spec.hpp>
+#include <boost/mpl/aux_/iter_push_front.hpp>
+#include <boost/mpl/aux_/traits_lambda_spec.hpp>
+#include <boost/type_traits/same_traits.hpp>
+
+namespace boost { namespace mpl {
 
 // default implementation; conrete sequences might override it by 
-// specializing either the |insert_range_traits| or the primary 
-// |insert_range| template
+// specializing either the 'insert_range_impl' or the primary 
+// 'insert_range' template
 
 
 template< typename Tag >
-struct insert_range_traits
+struct insert_range_impl
 {
     template<
           typename Sequence
         , typename Pos
         , typename Range
         >
-    struct algorithm
+    struct apply
+        : reverse_copy<
+              joint_view< 
+                  iterator_range<typename begin<Sequence>::type,Pos>
+                , joint_view< 
+                      Range
+                    , iterator_range<Pos,typename end<Sequence>::type>
+                    >
+                >
+            , front_inserter< typename clear<Sequence>::type >
+            >
     {
-        typedef typename copy_backward<
-              iterator_range<Pos, typename end<Sequence>::type>
-            , typename clear<Sequence>::type
-            , push_front<_,_> 
-            >::type first_part_;
-        
-        typedef typename copy_backward< 
-              Range
-            , first_part_
-            , push_front<_,_> 
-            >::type second_part_;
-        
-        typedef typename copy_backward<
-              iterator_range<typename begin<Sequence>::type,Pos>
-            , second_part_
-            , push_front<_,_>
-            >::type type;
     };
 };
 
-BOOST_MPL_ALGORITM_TRAITS_LAMBDA_SPEC(3,insert_range_traits)
+BOOST_MPL_ALGORITM_TRAITS_LAMBDA_SPEC(3,insert_range_impl)
 
-} // namespace mpl
-} // namespace boost
+}}
 
 #endif // BOOST_MPL_AUX_INSERT_RANGE_IMPL_HPP_INCLUDED

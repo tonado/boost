@@ -17,14 +17,14 @@
 #ifndef BOOST_MPL_STABLE_PARTITION_HPP_INCLUDED
 #define BOOST_MPL_STABLE_PARTITION_HPP_INCLUDED
 
-#include "boost/mpl/aux_/partition_op.hpp"
-#include "boost/mpl/clear.hpp"
-#include "boost/mpl/iter_fold_backward.hpp"
-#include "boost/mpl/lambda.hpp"
-#include "boost/mpl/pair.hpp"
-#include "boost/mpl/protect.hpp"
-#include "boost/mpl/aux_/void_spec.hpp"
-#include "boost/mpl/aux_/lambda_support.hpp"
+#include <boost/mpl/aux_/partition_op.hpp>
+#include <boost/mpl/clear.hpp>
+#include <boost/mpl/reverse_iter_fold.hpp>
+#include <boost/mpl/lambda.hpp>
+#include <boost/mpl/pair.hpp>
+#include <boost/mpl/protect.hpp>
+#include <boost/mpl/aux_/na_spec.hpp>
+#include <boost/mpl/aux_/lambda_support.hpp>
 
 namespace boost {
 namespace mpl {
@@ -32,8 +32,8 @@ namespace mpl {
 BOOST_MPL_AUX_AGLORITHM_NAMESPACE_BEGIN
 
 template <
-      typename BOOST_MPL_AUX_VOID_SPEC_PARAM(Sequence)
-    , typename BOOST_MPL_AUX_VOID_SPEC_PARAM(Predicate)
+      typename BOOST_MPL_AUX_NA_PARAM(Sequence)
+    , typename BOOST_MPL_AUX_NA_PARAM(Predicate)
     >
 struct stable_partition
 {
@@ -42,7 +42,7 @@ private:
     typedef typename clear<Sequence>::type cleared_;
 
 public:
-    typedef typename iter_fold_backward<
+    typedef typename reverse_iter_fold<
           Sequence
         , pair< cleared_,cleared_ >
         , protect< aux::partition_op<pred_> >
@@ -53,7 +53,7 @@ public:
 
 BOOST_MPL_AUX_AGLORITHM_NAMESPACE_END
 
-BOOST_MPL_AUX_ALGORITHM_VOID_SPEC(2, stable_partition)
+BOOST_MPL_AUX_NA_ALGORITHM_SPEC(2, stable_partition)
 
 } // namespace mpl
 } // namespace boost

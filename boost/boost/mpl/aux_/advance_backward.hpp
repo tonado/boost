@@ -22,26 +22,25 @@
 //
 // See http://www.boost.org/libs/mpl for documentation.
 
-#include "boost/mpl/aux_/apply.hpp"
-#include "boost/mpl/aux_/prior.hpp"
-#include "boost/mpl/aux_/config/eti.hpp"
+#include <boost/mpl/aux_/prior.hpp>
+#include <boost/mpl/aux_/config/eti.hpp>
 
-#include "boost/mpl/aux_/config/use_preprocessed.hpp"
+#include <boost/mpl/aux_/config/use_preprocessed.hpp>
 
-#if    !defined(BOOST_MPL_NO_PREPROCESSED_HEADERS) \
+#if    !defined(BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS) \
     && !defined(BOOST_MPL_PREPROCESSING_MODE)
 
 #   define BOOST_MPL_PREPROCESSED_HEADER advance_backward.hpp
-#   include "boost/mpl/aux_/include_preprocessed.hpp"
+#   include <boost/mpl/aux_/include_preprocessed.hpp>
 
 #else
 
-#   include "boost/mpl/limits/unrolling.hpp"
-#   include "boost/mpl/aux_/config/nttp.hpp"
+#   include <boost/mpl/limits/unrolling.hpp>
+#   include <boost/mpl/aux_/config/nttp.hpp>
 
-#   include "boost/preprocessor/iterate.hpp"
-#   include "boost/preprocessor/cat.hpp"
-#   include "boost/preprocessor/inc.hpp"
+#   include <boost/preprocessor/iterate.hpp>
+#   include <boost/preprocessor/cat.hpp>
+#   include <boost/preprocessor/inc.hpp>
 
 namespace boost {
 namespace mpl {
@@ -51,25 +50,25 @@ namespace aux {
 template< BOOST_MPL_AUX_NTTP_DECL(long, N) > struct advance_backward;
 
 #   define BOOST_PP_ITERATION_PARAMS_1 \
-    (3,(0, BOOST_MPL_UNROLLING_LIMIT, "boost/mpl/aux_/advance_backward.hpp"))
+    (3,(0, BOOST_MPL_LIMIT_UNROLLING, <boost/mpl/aux_/advance_backward.hpp>))
 #   include BOOST_PP_ITERATE()
 
-// implementation for N that exceeds BOOST_MPL_UNROLLING_LIMIT
+// implementation for N that exceeds BOOST_MPL_LIMIT_UNROLLING
 template< BOOST_MPL_AUX_NTTP_DECL(long, N) >
 struct advance_backward
 {
     template< typename Iterator > struct apply
     {
         typedef typename BOOST_MPL_AUX_APPLY1(
-              advance_backward<BOOST_MPL_UNROLLING_LIMIT>
+              advance_backward<BOOST_MPL_LIMIT_UNROLLING>
             , Iterator
             )::type chunk_result_;
 
         typedef typename BOOST_MPL_AUX_APPLY1(
               advance_backward<(
-                (N - BOOST_MPL_UNROLLING_LIMIT) < 0
+                (N - BOOST_MPL_LIMIT_UNROLLING) < 0
                     ? 0
-                    : N - BOOST_MPL_UNROLLING_LIMIT
+                    : N - BOOST_MPL_LIMIT_UNROLLING
                     )>
             , chunk_result_
             )::type type;
@@ -80,7 +79,7 @@ struct advance_backward
 } // namespace mpl
 } // namespace boost
 
-#endif // BOOST_MPL_USE_PREPROCESSED_HEADERS
+#endif // BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS
 #endif // BOOST_MPL_AUX_ADVANCE_BACKWARD_HPP_INCLUDED
 
 ///// iteration, depth == 1
@@ -97,14 +96,14 @@ struct advance_backward< BOOST_PP_FRAME_ITERATION(1) >
 
 #if i > 0
 #   define BOOST_PP_ITERATION_PARAMS_2 \
-    (3,(1, BOOST_PP_FRAME_ITERATION(1), "boost/mpl/aux_/advance_backward.hpp"))
+    (3,(1, BOOST_PP_FRAME_ITERATION(1), <boost/mpl/aux_/advance_backward.hpp>))
 #   include BOOST_PP_ITERATE()
 #endif
 
         typedef BOOST_PP_CAT(iter,BOOST_PP_FRAME_ITERATION(1)) type;
     };
 
-#if defined(BOOST_MPL_MSVC_60_ETI_BUG)
+#if defined(BOOST_MPL_CFG_MSVC_60_ETI_BUG)
     //: ETI workaround
     template<> struct apply<int>
     {
