@@ -1,6 +1,0 @@
-16. change header types.hpp to metafunctions.hpp
-
-17. post-review question: should Range mean lowest common denominator? or
-    perhaps Forward Range? problem with not being explicit.
-    
-18) change use of types.hpp -> metefunctions.hpp
