@@ -28,7 +28,11 @@
 namespace boost {
 namespace mpl {
 
-template< typename T, typename Base >
+template<
+      long Size
+    , typename T
+    , typename Base
+    >
 struct vector_node
     : Base
 {
@@ -36,7 +40,7 @@ struct vector_node
     static aux::type_wrapper<T> item(typename Base::size);
 
     typedef aux::vector_tag tag;
-    typedef typename BOOST_MPL_AUX_NEXT(Base::size) size;
+    typedef integral_c<long,Size> size;
     typedef vector_node type;
     typedef Base base;
 };

@@ -18,33 +18,19 @@
 #define BOOST_MPL_COPY_HPP_INCLUDED
 
 #include "boost/mpl/fold.hpp"
-#include "boost/mpl/aux_/copy_op.hpp"
-#include "boost/mpl/lambda.hpp"
-#include "boost/mpl/protect.hpp"
 #include "boost/mpl/aux_/void_spec.hpp"
-#include "boost/mpl/aux_/lambda_support.hpp"
 
 namespace boost {
 namespace mpl {
 
 template<
-      typename BOOST_MPL_AUX_VOID_SPEC_PARAM(InputSequence)
-    , typename BOOST_MPL_AUX_VOID_SPEC_PARAM(Operation)
-    , typename BOOST_MPL_AUX_VOID_SPEC_PARAM(OutputSequence)
+      typename BOOST_MPL_AUX_VOID_SPEC_PARAM(Sequence)
+    , typename BOOST_MPL_AUX_VOID_SPEC_PARAM(State)
+    , typename BOOST_MPL_AUX_VOID_SPEC_PARAM(BinaryOp)
     >
 struct copy
+    : fold< Sequence,State,BinaryOp >
 {
- private:
-    typedef typename lambda<Operation>::type op_;
-
- public:
-    typedef typename fold<
-          InputSequence
-        , OutputSequence
-        , protect< aux::copy_op<op_> >
-        >::type type;
-
-    BOOST_MPL_AUX_LAMBDA_SUPPORT(3,copy,(InputSequence,Operation,OutputSequence))
 };
 
 BOOST_MPL_AUX_VOID_SPEC(3, copy)
