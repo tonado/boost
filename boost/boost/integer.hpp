@@ -9,7 +9,6 @@
 //  See http://www.boost.org for most recent version including documentation.
 
 //  Revision History
-//   30 Jul 00  Add typename syntax fix (Jens Maurer) 
 //   28 Aug 99  Initial version
 
 #ifndef BOOST_INTEGER_HPP
@@ -46,7 +45,7 @@ namespace boost
   template< int Bits >   // bits (including sign) required
   struct int_t 
   {
-      typedef typename int_least_helper
+      typedef int_least_helper
         <
           (Bits-1 <= std::numeric_limits<long>::digits) +
           (Bits-1 <= std::numeric_limits<int>::digits) +
@@ -60,7 +59,7 @@ namespace boost
   template< int Bits >   // bits required
   struct uint_t 
   {
-      typedef typename int_least_helper
+      typedef int_least_helper
         < 
           5 +
           (Bits <= std::numeric_limits<unsigned long>::digits) +
