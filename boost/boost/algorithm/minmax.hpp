@@ -26,7 +26,6 @@
  */
 
 #include <boost/tuple/tuple.hpp> // for using pairs with boost::cref
-#include <boost/ref.hpp>
 
 namespace boost {
 

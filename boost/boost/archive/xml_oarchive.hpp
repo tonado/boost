@@ -16,15 +16,8 @@
 
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-#include <ostream>
-
 #include <cstddef> // size_t
-#include <boost/config.hpp>
-#if defined(BOOST_NO_STDC_NAMESPACE)
-namespace std{ 
-    using ::size_t; 
-} // namespace std
-#endif
+#include <ostream>
 
 #include <boost/archive/basic_text_oprimitive.hpp>
 #include <boost/archive/basic_xml_oarchive.hpp>

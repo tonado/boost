@@ -35,12 +35,6 @@
 #include <cstddef>
 
 #include <boost/config.hpp>
-#if defined(BOOST_NO_STDC_NAMESPACE)
-namespace std{ 
-    using ::size_t; 
-} // namespace std
-#endif
-
 #include <boost/limits.hpp>
 #include <boost/io/ios_state.hpp>
 #include <boost/scoped_ptr.hpp>

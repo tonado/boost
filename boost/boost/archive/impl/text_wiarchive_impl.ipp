@@ -9,14 +9,7 @@
 
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-#include <cstddef> // size_t
-
 #include <boost/config.hpp>
-#if defined(BOOST_NO_STDC_NAMESPACE)
-namespace std{ 
-    using ::size_t; 
-} // namespace std
-#endif
 
 #include <boost/detail/workaround.hpp>  // fixup for RogueWave
 
@@ -32,7 +25,7 @@ namespace archive {
 template<class Archive>
 void text_wiarchive_impl<Archive>::load(char *s)
 {
-    std::size_t size;
+    size_t size;
     * this->This() >> size;
     // skip separating space
     is.get();
@@ -45,7 +38,7 @@ void text_wiarchive_impl<Archive>::load(char *s)
 template<class Archive>
 void text_wiarchive_impl<Archive>::load(std::string &s)
 {
-    std::size_t size;
+    size_t size;
     * this->This() >> size;
     // skip separating space
     is.get();
@@ -64,7 +57,7 @@ void text_wiarchive_impl<Archive>::load(std::string &s)
 template<class Archive>
 void text_wiarchive_impl<Archive>::load(wchar_t *s)
 {
-    std::size_t size;
+    size_t size;
     * this->This() >> size;
     // skip separating space
     is.get();
@@ -78,7 +71,7 @@ void text_wiarchive_impl<Archive>::load(wchar_t *s)
 template<class Archive>
 void text_wiarchive_impl<Archive>::load(std::wstring &ws)
 {
-    std::size_t size;
+    size_t size;
     * this->This() >> size;
     // skip separating space
     is.get();

@@ -48,20 +48,21 @@
 // specialized on those types for this to work.
 
 #include <locale>
-#include <cstddef> // size_t
 
-namespace std{ 
-    #if defined(__COMO__)
-        using ::mbstate_t;
-    #elif defined(BOOST_MSVC)
-        using ::mbstate_t;
-    #elif defined(BOOST_INTEL)
-        using ::mbstate_t;
-    #elif defined(BOOST_NO_STDC_NAMESPACE)
+#if defined(__COMO__)
+    namespace std{ 
+		using ::mbstate_t;
+    } // namespace std
+#elif (defined(BOOST_MSVC) && (_MSC_VER <= 1300))
+    namespace std{ 
+		using ::mbstate_t;
+    } // namespace std
+#elif defined(BOOST_NO_STDC_NAMESPACE)
+    namespace std{ 
         using ::codecvt;
-        using ::mbstate_t;
-    #endif
-} // namespace std
+		using ::mbstate_t;
+    } // namespace std
+#endif
 
 // maximum lenght of a multibyte string
 #define MB_LENGTH_MAX 8
@@ -134,7 +135,7 @@ protected:
         const std::mbstate_t &,
         const char * from,
         const char * from_end, 
-        std::size_t max_limit
+        size_t max_limit
     ) const throw();
 
     // Largest possible value do_length(state,from,from_end,1) could return.
@@ -180,7 +181,7 @@ protected:
         const std::mbstate_t&, 
         const char * from,
         const char * from_end, 
-        std::size_t max_limit
+        size_t max_limit
     ) const;
 };
 #endif

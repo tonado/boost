@@ -16,13 +16,7 @@
 
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-#include <cstddef> // size_t
 #include <boost/config.hpp>
-#if defined(BOOST_NO_STDC_NAMESPACE)
-namespace std{ 
-    using ::size_t; 
-} // namespace std
-#endif
 
 #ifndef BOOST_NO_CWCHAR
 
@@ -34,7 +28,7 @@ namespace std{ using ::wcslen; }
 #else
 
 namespace std {
-inline std::size_t wcslen(const wchar_t * ws)
+inline size_t wcslen(const wchar_t * ws)
 {
     const wchar_t * eows = ws;
     while(* eows != 0)

@@ -17,14 +17,9 @@
 //  See http://www.boost.org for updates, documentation, and revision history.
 
 #include <cassert>
-
 #include <cstddef> // std::size_t
+
 #include <boost/config.hpp>
-#if defined(BOOST_NO_STDC_NAMESPACE)
-namespace std{ 
-    using ::size_t; 
-} // namespace std
-#endif
 
 #include <boost/preprocessor/stringize.hpp>
 #include <boost/serialization/tracking.hpp>

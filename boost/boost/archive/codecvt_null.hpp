@@ -20,18 +20,20 @@
 
 #include <boost/config.hpp>
 
-namespace std{ 
-    #if defined(__COMO__)
-        using ::mbstate_t;
-    #elif defined(BOOST_MSVC)
-        using ::mbstate_t;
-    #elif defined(BOOST_INTEL)
-        using ::mbstate_t;
-    #elif defined(BOOST_NO_STDC_NAMESPACE)
+#if defined(__COMO__)
+    namespace std{ 
+		using ::mbstate_t;
+    } // namespace std
+#elif (defined(BOOST_MSVC) && (_MSC_VER <= 1300))
+    namespace std{ 
+		using ::mbstate_t;
+    } // namespace std
+#elif defined(BOOST_NO_STDC_NAMESPACE)
+    namespace std{ 
         using ::codecvt;
-        using ::mbstate_t;
-    #endif
-} // namespace std
+		using ::mbstate_t;
+    } // namespace std
+#endif
 
 namespace boost { 
 namespace archive {

@@ -29,7 +29,7 @@ namespace archive {
 template<class IStream>
 void basic_text_iprimitive<IStream>::load_binary(
     void *address, 
-    std::size_t count
+    size_t count
 ){
     typedef BOOST_DEDUCED_TYPENAME IStream::char_type CharType;
     

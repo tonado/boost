@@ -20,12 +20,6 @@
 #include <string>
 
 #include <boost/config.hpp>
-#if defined(BOOST_NO_STDC_NAMESPACE)
-namespace std{ 
-    using ::size_t; 
-} // namespace std
-#endif
-
 #include <boost/cstdint.hpp>
 
 #include <boost/pfto.hpp>
