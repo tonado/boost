@@ -16,7 +16,7 @@
  /*
   *   LOCATION:    see http://www.boost.org for most recent version.
   *   FILE         regex_match.hpp
-  *   VERSION      3.03
+  *   VERSION      3.04
   *   DESCRIPTION: Regular expression matching algorithms.
   *                Note this is an internal header file included
   *                by regex.hpp, do not include on its own.
@@ -879,6 +879,7 @@ bool query_match_aux(iterator first,
       && (first == last))      // end of input has been reached
    {
       have_partial_match = true;
+      temp_match.set_second(first, 0, false);
       m.maybe_assign(temp_match);
    }
 

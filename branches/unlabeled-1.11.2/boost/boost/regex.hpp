@@ -16,7 +16,7 @@
  /*
   *   LOCATION:    see http://www.boost.org for most recent version.
   *   FILE         regex.cpp
-  *   VERSION      3.03
+  *   VERSION      3.04
   *   DESCRIPTION: Declares boost::reg_expression<> and associated
   *                functions and classes. This header is the main
   *                entry point for the template regex code.
@@ -521,7 +521,7 @@ public:
 
    template <class ST, class SA>
    explicit reg_expression(const std::basic_string<charT, ST, SA>& p, flag_type f = regbase::normal, const Allocator& a = Allocator())
-    : data(a), pkmp(0) { set_expression(p, f); }
+    : data(a), pkmp(0) { set_expression(p, f | regbase::use_except); }
 
    template <class I>
    reg_expression(I first, I last, flag_type f = regbase::normal, const Allocator& al = Allocator())
@@ -562,10 +562,10 @@ public:
    }
 #elif !defined(BOOST_RE_NO_STRING_DEF_ARGS)
    unsigned int BOOST_RE_CALL set_expression(const std::basic_string<charT>& p, flag_type f = regbase::normal)
-   { return set_expression(p.data(), p.data() + p.size(), f); }
+   { return set_expression(p.data(), p.data() + p.size(), f | regbase::use_except); }
 
    reg_expression(const std::basic_string<charT>& p, flag_type f = regbase::normal, const Allocator& a = Allocator())
-    : data(a), pkmp(0) { set_expression(p, f); }
+    : data(a), pkmp(0) { set_expression(p, f | regbase::use_except); }
 
    reg_expression& BOOST_RE_CALL operator=(const std::basic_string<charT>& p)
    {
@@ -836,12 +836,14 @@ class match_results_base
 {
 public:
    typedef Allocator                                                 alloc_type;
-   typedef typename REBIND_TYPE(iterator, Allocator)::size_type      size_type;
-#ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+   typedef BOOST_RE_MAYBE_TYPENAME REBIND_TYPE(iterator, Allocator)  iterator_alloc;
+   typedef typename iterator_alloc::size_type                        size_type;
+#if !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) || !defined(BOOST_NO_STD_ITERATOR_TRAITS)
    typedef typename std::iterator_traits<iterator>::difference_type  difference_type;
    typedef typename std::iterator_traits<iterator>::value_type       char_type;
 #else
    typedef std::ptrdiff_t                                            difference_type;
+   typedef typename re_detail::regex_iterator_traits<iterator>::value_type char_type;
 #endif
    typedef sub_match<iterator>                                       value_type;
    typedef iterator                                                  iterator_type;
@@ -922,17 +924,10 @@ public:
       return n;
    }
 
-#ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
-   std::basic_string<value_type> str(int i)const
+   std::basic_string<char_type> str(int i)const
    {
-      return static_cast<std::basic_string<value_type> >((*this)[i]);
+      return static_cast<std::basic_string<char_type> >((*this)[i]);
    }
-#else
-   std::basic_string<char> str(int i)const
-   {
-      return static_cast<std::basic_string<char> >((*this)[i]);
-   }
-#endif
 
    unsigned int BOOST_RE_CALL line()const
    {
@@ -985,11 +980,11 @@ public:
       ref->tail.matched = (ref->tail.first == ref->tail.second) ? false : true;
    }
 
-   void BOOST_RE_CALL set_second(iterator i, size_t pos)
+   void BOOST_RE_CALL set_second(iterator i, size_t pos, bool m = true)
    {
       cow();
       ((sub_match<iterator>*)((char*)ref + sizeof(c_reference) + sizeof(sub_match<iterator>) * pos))->second = i;
-      ((sub_match<iterator>*)((char*)ref + sizeof(c_reference) + sizeof(sub_match<iterator>) * pos))->matched = true;
+      ((sub_match<iterator>*)((char*)ref + sizeof(c_reference) + sizeof(sub_match<iterator>) * pos))->matched = m;
       if(pos == 0)
       {
          ref->tail.first = i;
@@ -1342,6 +1337,14 @@ class match_results : public re_detail::match_results_base<iterator, Allocator>
 {
    typedef re_detail::match_results_base<iterator, Allocator> base_type;
 public:
+
+   typedef typename base_type::alloc_type          alloc_type;
+   typedef typename base_type::size_type           size_type;
+   typedef typename base_type::char_type           char_type;
+   typedef typename base_type::value_type          value_type;
+   typedef typename base_type::difference_type     difference_type;
+   typedef typename base_type::iterator_type       iterator_type;
+
    explicit match_results(const Allocator& a = Allocator())
       : re_detail::match_results_base<iterator, Allocator>(a){}
 
@@ -1357,12 +1360,44 @@ public:
 
    match_results(const match_results& m);
    match_results& operator=(const match_results& m);
-   /*
+   //
+   // the following function definitions should *not* be required, except
+   // when this class is used as a template inside another template definition,
+   // in which members of the base class are not visible to the calling code.
+   // As a workaround we define simple forwarding functions:
+   //
+   size_type size()const
+   { return static_cast<const base_type*>(this)->size(); }
+
+   const sub_match<iterator>& operator[](int n) const
+   { return (*static_cast<const base_type*>(this))[n]; }
+
+   Allocator allocator()const
+   { return static_cast<const base_type*>(this)->allocator(); }
+
+   difference_type length(int sub = 0)const
+   { return static_cast<const base_type*>(this)->length(sub); }
+
+   difference_type position(unsigned int sub = 0)const
+   { return static_cast<const base_type*>(this)->position(sub); }
+
+   unsigned int line()const
+   { return static_cast<const base_type*>(this)->line(); }
+
+   iterator line_start()const
+   { return static_cast<const base_type*>(this)->line_start(); }
+
+   std::basic_string<char_type> str(int sub = 0)const
+   { return static_cast<const base_type*>(this)->str(sub); }
+
+   void swap(match_results& that)
+   { static_cast<base_type*>(this)->swap(that); }
+
    bool operator==(const match_results& that)const
-   { return re_detail::match_results_base<iterator, Allocator>::operator==(that); }
+   { return static_cast<const base_type&>(*this) == static_cast<const base_type&>(that); }
+
    bool operator<(const match_results& that) const
    { return position() < that.position(); }
-   */
 };
 
 template <class iterator, class Allocator>
@@ -1454,6 +1489,7 @@ typedef match_results<const wchar_t*> wcmatch;
 #endif  // __cplusplus
 
 #endif  // include
+
 
 
 

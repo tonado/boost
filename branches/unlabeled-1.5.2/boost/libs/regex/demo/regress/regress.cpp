@@ -16,7 +16,7 @@
  /*
   *
   *   FILE     regress.cpp
-  *   VERSION  3.03
+  *   VERSION  3.04
   *
   * main() and associated code for regress.
   *
@@ -40,6 +40,10 @@ using std::endl;
 #endif
 
 #include "regress.h"
+
+#if defined(BOOST_MSVC) && defined(_DEBUG)
+#include <CRTDBG.H>
+#endif
 
 
 //
@@ -70,6 +74,13 @@ void usage()
 
 int main(int argc, char * argv[])
 {
+#if defined(BOOST_MSVC) && defined(_DEBUG)
+   // turn on heap reporting at program exit:
+   int tmpFlag = _CrtSetDbgFlag( _CRTDBG_REPORT_FLAG );
+   tmpFlag |= _CRTDBG_LEAK_CHECK_DF;
+   tmpFlag &= ~_CRTDBG_CHECK_CRT_DF;
+   _CrtSetDbgFlag( tmpFlag );
+#endif
    if(argc < 2)
        usage();
    int i;
@@ -90,7 +101,7 @@ int main(int argc, char * argv[])
          string_type s;
          get_line(is, s);
          ++line;
-         jm_trace("Reading test script line " << line << " " << s);
+         jm_trace("Reading test script line " << line << " " << make_narrow(s.c_str()));
          parse_input_line(s);
          if(do_test)
          {
@@ -100,32 +111,38 @@ int main(int argc, char * argv[])
       }
       cout << line << " lines, " << tests << " tests completed in file " << argv[i] << endl;
    }
+
    return error_count;
 }
 
 #ifdef TEST_UNICODE
 
-ostream& operator << (ostream& os, const wchar_t* s)
+std::string make_narrow(const wchar_t* ptr)
 {
-   while(*s)
+   std::string result;
+   while(*ptr)
    {
-      os.put((char)*s);
-      ++s;
+      if(*ptr & ~0x7F)
+      {
+         char buf[10];
+         std::sprintf(buf, "\\x%.4x", (int)*ptr);
+         result.append(buf);
+         ++ptr;
+      }
+      else
+      {
+         result.append(1, (char)*ptr);
+         ++ptr;
+      }
    }
-   return os;
-}
-
-ostream& operator << (ostream& os, const std::wstring& s)
-{
-   os << s.c_str();
-   return os;
+   return result;
 }
 
 istream& get_line(istream& is, nstring_type& s, char delim)
 {
    char c = (char)is.get();
    s.erase(s.begin(), s.end());
-   while((c != delim) && (c != EOF))
+   while((c != delim) && is.good())
    {
       s.append(1, c);
       c = (char)is.get();
@@ -164,7 +181,7 @@ istream& get_line(istream& is, string_type& s, char delim)
 {
    char c = (char)is.get();
    s.erase(s.begin(), s.end());
-   while((c != delim) && (c != EOF))
+   while((c != delim) && is.good())
    {
       s.append(1, c);
       c = (char)is.get();
@@ -192,7 +209,7 @@ jm_debug_alloc::jm_debug_alloc(const jm_debug_alloc& d)
 }
 jm_debug_alloc& jm_debug_alloc::operator=(const jm_debug_alloc& d)
 {
-   free();
+   free_();
    blocks = d.blocks;
    count = d.count;
    ++(*count);
@@ -207,11 +224,11 @@ jm_debug_alloc::~jm_debug_alloc()
    }
    else
    {
-      free();
+      free_();
       guard = 0;
    }
 }
-void jm_debug_alloc::free()
+void jm_debug_alloc::free_()
 {
     if(--(*count) == 0)
     {
@@ -225,7 +242,7 @@ void jm_debug_alloc::free()
     }
 }
 
-jm_debug_alloc::pointer jm_debug_alloc::allocate(size_type n, void* hint)
+jm_debug_alloc::pointer jm_debug_alloc::allocate(size_type n, void*)
 {
    pointer p = new char[n + maxi(sizeof(size_type), boost::re_detail::padding_size)];
    *(size_type*)p = n;

@@ -16,7 +16,7 @@
  /*
   *   LOCATION:    see http://www.boost.org for most recent version.
   *   FILE         regex_test.cpp
-  *   VERSION      3.03
+  *   VERSION      3.04
   *   DESCRIPTION: Builds regression test program with default
   *                locale and wide character tests.  Also
   *                instantiates all the templates in the library
@@ -25,9 +25,12 @@
 
 // disable automatic selection of support library:
 #define BOOST_RE_NO_LIB
-#define TEST_UNICODE
 
 #include <boost/regex.hpp>
+
+#ifdef BOOST_RE_NO_WCSTRING
+#error The regex library is not configured for wide character support
+#endif
 
 //
 // instantiate templates used:
@@ -171,6 +174,7 @@ template test_string_type regex_merge(const test_string_type&,
 #elif !defined(BOOST_RE_LOCALE_C)
 #define BOOST_RE_TEST_LOCALE_CPP
 #endif
+#define TEST_UNICODE
 #include "tests.cpp"
 #include "parse.cpp"
 #include "regress.cpp"
@@ -192,4 +196,6 @@ template test_string_type regex_merge(const test_string_type&,
 #include "libs/regex/src/regex_debug.cpp"
 #include "libs/regex/src/regex_synch.cpp"
 #include "libs/regex/src/wide_posix_api.cpp"
+
+
 

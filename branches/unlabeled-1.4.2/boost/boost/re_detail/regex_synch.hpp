@@ -16,7 +16,7 @@
  /*
   *   LOCATION:    see http://www.boost.org for most recent version.
   *   FILE         regex_synch.hpp
-  *   VERSION      3.03
+  *   VERSION      3.04
   *   DESCRIPTION: Thread synchronisation for regex code.
   *                Note this is an internal header file included
   *                by regex.hpp, do not include on its own.
@@ -107,6 +107,8 @@ public:
 private:
    lock_type& mut;
    bool owned;
+   // VC6 warning suppression:
+   lock_guard& operator=(const lock_guard&);
 };
 
 

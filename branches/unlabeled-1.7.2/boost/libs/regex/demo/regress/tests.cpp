@@ -16,7 +16,7 @@
  /*
   *
   *   FILE     tests.cpp
-  *   VERSION  3.03
+  *   VERSION  3.04
   *
   * the actual tests conducted by regress.
   *
@@ -213,7 +213,7 @@ void cpp_tests(const reg_expression<C, T, A>& e, bool recurse = true)
       if(s != merge_string)
       {
          begin_error();
-         cout << "merge result mismatch: found \"" << s.c_str() << "\" expected \"" << merge_string.c_str() << "\"" << endl;
+         cout << "merge result mismatch: found \"" << make_narrow(s.c_str()) << "\" expected \"" << make_narrow(merge_string.c_str()) << "\"" << endl;
       }
       return;
    }
@@ -490,13 +490,13 @@ bool hl_grep_test_proc(const RegEx& e)
    end = start + e.Length(-2);
    if(start == -1)
    {
-      if(matches[hl_match_id + 1] != search_text.size())
+      if(matches[hl_match_id + 1] != (int)search_text.size())
       {
          begin_error();
          cout << "class RegEx grep error in $': found [" << start << "," << end << "] expected [" << matches[hl_match_id + 1] << "," << (search_text.size()) << "]" << endl;
       }
    }
-   else if((start != matches[hl_match_id + 1]) || (end != search_text.size()))
+   else if((start != matches[hl_match_id + 1]) || (end != (int)search_text.size()))
    {
       begin_error();
       cout << "class RegEx grep error in $': found [" << start << "," << end << "] expected [" << matches[hl_match_id + 1] << "," << (search_text.size()) << "]" << endl;
@@ -535,7 +535,7 @@ void cpp_hl_tests(RegEx& e, bool recurse = true)
          unsigned int j = 0;
          while(matches[j] != -2)
          {
-            if( (matches[j] != e.Position(i)) || (matches[j+1] - matches[j] != e.Length(i)) )
+            if( (matches[j] != (int)e.Position(i)) || (matches[j+1] - matches[j] != (int)e.Length(i)) )
             {
                begin_error();
                cout << "RegEx::Search error in subexpression " << i << ": found [" << e.Position(i) << "," << (e.Position(i) + e.Length(i)) << "] expected [" << matches[j] << "," << matches[j+1] << "]" << endl;
@@ -559,7 +559,7 @@ void cpp_hl_tests(RegEx& e, bool recurse = true)
          unsigned int j = 0;
          while(matches[j] != -2)
          {
-            if( (matches[j] != e.Position(i)) || (matches[j+1] - matches[j] != e.Length(i)) )
+            if( (matches[j] != (int)e.Position(i)) || (matches[j+1] - matches[j] != (int)e.Length(i)) )
             {
                begin_error();
                cout << "RegEx::Match error in subexpression " << i << ": found [" << e.Position(i) << "," << (e.Position(i) + e.Length(i)) << "] expected [" << matches[j] << "," << matches[j+1] << "]" << endl;
@@ -642,7 +642,7 @@ void run_tests()
          cpp_hl_tests(e, true);
       }
    }
-   catch(const std::exception& e)
+   catch(const std::exception& )
    {
       if(search_text != BOOST_RE_STR("!"))
       {
@@ -715,8 +715,8 @@ void begin_error()
    if(line != last_line)
    {
       cout << "Error in line " << line << " of file " << file << endl;
-      cout << "Expression: " << expression.c_str() << endl;
-      cout << "Search text: " << search_text.c_str() << endl;
+      cout << "Expression: " << make_narrow(expression.c_str()) << endl;
+      cout << "Search text: " << make_narrow(search_text.c_str()) << endl;
       cout << "Flags: ";
       bool started = false;
       unsigned int id = 0;
@@ -726,7 +726,7 @@ void begin_error()
          {
             if(started)
                cout << " | ";
-            cout << flag_data[id].name;
+            cout << make_narrow(flag_data[id].name);
             started = true;
          }
          ++id;
