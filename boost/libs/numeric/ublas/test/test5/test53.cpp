@@ -27,7 +27,9 @@ struct test_my_matrix {
             value_type t;
 
             // Default Construct
-            default_construct<MP>::test ();
+            MP default_constuct;
+            initialize_matrix (default_constuct);
+            std::cout << "default construct = " << default_constuct << std::endl;
             
             // Copy and swap
             initialize_matrix (m1);

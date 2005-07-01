@@ -14,8 +14,8 @@
 //  GeNeSys mbH & Co. KG in producing this work.
 //
 
-#ifndef _BOOST_UBLAS_BLAS_
-#define _BOOST_UBLAS_BLAS_
+#ifndef BOOST_UBLAS_BLAS_H
+#define BOOST_UBLAS_BLAS_H
 
 #include <boost/numeric/ublas/traits.hpp>
 

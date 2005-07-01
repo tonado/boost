@@ -12,8 +12,8 @@
 //
 //
 
-#ifndef _BOOST_UBLAS_RAW_
-#define _BOOST_UBLAS_RAW_
+#ifndef BOOST_UBLAS_RAW_H
+#define BOOST_UBLAS_RAW_H
 
 namespace boost { namespace numeric { namespace ublas { namespace raw {
 

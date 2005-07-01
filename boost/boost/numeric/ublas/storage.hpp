@@ -14,9 +14,10 @@
 //  GeNeSys mbH & Co. KG in producing this work.
 //
 
-#ifndef _BOOST_UBLAS_STORAGE_
-#define _BOOST_UBLAS_STORAGE_
+#ifndef BOOST_UBLAS_STORAGE_H
+#define BOOST_UBLAS_STORAGE_H
 
+#include <algorithm>
 #ifdef BOOST_UBLAS_SHALLOW_ARRAY_ADAPTOR
 #include <boost/shared_array.hpp>
 #endif

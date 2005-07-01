@@ -14,8 +14,8 @@
 //  GeNeSys mbH & Co. KG in producing this work.
 //
 
-#ifndef _BOOST_UBLAS_DEFINITIONS_
-#define _BOOST_UBLAS_DEFINITIONS_
+#ifndef BOOST_UBLAS_DEFINITIONS_H
+#define BOOST_UBLAS_DEFINITIONS_H
 
 
 namespace boost { namespace numeric { namespace ublas {

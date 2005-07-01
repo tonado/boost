@@ -14,8 +14,8 @@
 //  GeNeSys mbH & Co. KG in producing this work.
 //
 
-#ifndef _BOOST_UBLAS_EXCEPTION_
-#define _BOOST_UBLAS_EXCEPTION_
+#ifndef BOOST_UBLAS_EXCEPTION_H
+#define BOOST_UBLAS_EXCEPTION_H
 
 #if ! defined (BOOST_NO_EXCEPTIONS) && ! defined (BOOST_UBLAS_NO_EXCEPTIONS)
 #include <stdexcept>

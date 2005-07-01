@@ -14,8 +14,8 @@
 //  GeNeSys mbH & Co. KG in producing this work.
 //
 
-#ifndef _BOOST_UBLAS_VECTOR_PROXY_
-#define _BOOST_UBLAS_VECTOR_PROXY_
+#ifndef BOOST_UBLAS_VECTOR_PROXY_H
+#define BOOST_UBLAS_VECTOR_PROXY_H
 
 #include <boost/numeric/ublas/vector_expression.hpp>
 #include <boost/numeric/ublas/detail/vector_assign.hpp>
@@ -32,7 +32,7 @@ namespace boost { namespace numeric { namespace ublas {
 
         typedef vector_range<V> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using vector_expression<self_type>::operator ();
 #endif
         typedef const V const_vector_type;
@@ -481,12 +481,12 @@ namespace boost { namespace numeric { namespace ublas {
     // Projections
     template<class V>
     BOOST_UBLAS_INLINE
-    vector_range<V> project (V &data, typename vector_range<V>::range_type const &r) {
+    vector_range<V> project (V &data, const typename vector_range<V>::range_type &r) {
         return vector_range<V> (data, r);
     }
     template<class V>
     BOOST_UBLAS_INLINE
-    const vector_range<const V> project (const V &data, typename vector_range<V>::range_type const &r) {
+    const vector_range<const V> project (const V &data, const typename vector_range<V>::range_type &r) {
         // ISSUE was: return vector_range<V> (const_cast<V &> (data), r);
         return vector_range<const V> (data, r);
     }
@@ -514,7 +514,7 @@ namespace boost { namespace numeric { namespace ublas {
 
         typedef vector_slice<V> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using vector_expression<self_type>::operator ();
 #endif
         typedef const V const_vector_type;
@@ -990,17 +990,18 @@ namespace boost { namespace numeric { namespace ublas {
     const vector_slice<V> project (const vector_slice<V> &data, const typename vector_slice<V>::slice_type &s) {
         return data.project (s);
     }
-    // ISSUE in the following two functions it would be logical to use vector_slice<V>::range_type but this confuses VC7.1 and 8.0
+#ifndef BOOST_UBLAS_MSVC71_FUNCTION_TEMPLATE_ORDERING
     template<class V>
     BOOST_UBLAS_INLINE
-    vector_slice<V> project (vector_slice<V> &data, const typename vector_range<V>::range_type &r) {
+    vector_slice<V> project (vector_slice<V> &data, const typename vector_slice<V>::range_type &r) {
         return data.project (r);
     }
     template<class V>
     BOOST_UBLAS_INLINE
-    const vector_slice<V> project (const vector_slice<V> &data, const typename vector_range<V>::range_type &r) {
+    const vector_slice<V> project (const vector_slice<V> &data, const typename vector_slice<V>::range_type &r) {
         return data.project (r);
     }
+#endif
 
     // Specialization of temporary_traits
     template <class V>
@@ -1017,7 +1018,7 @@ namespace boost { namespace numeric { namespace ublas {
 
         typedef vector_indirect<V, IA> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using vector_expression<self_type>::operator ();
 #endif
         typedef const V const_vector_type;

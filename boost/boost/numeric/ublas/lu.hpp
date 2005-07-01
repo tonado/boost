@@ -14,15 +14,16 @@
 //  GeNeSys mbH & Co. KG in producing this work.
 //
 
-#ifndef _BOOST_UBLAS_LU_
-#define _BOOST_UBLAS_LU_
+// LU factorizations in the spirit of LAPACK and Golub & van Loan
+
+#ifndef BOOST_UBLAS_LU_H
+#define BOOST_UBLAS_LU_H
 
 #include <boost/numeric/ublas/operation.hpp>
 #include <boost/numeric/ublas/matrix_expression.hpp>
 #include <boost/numeric/ublas/vector.hpp>
 #include <boost/numeric/ublas/detail/matrix_assign.hpp>
 
-// LU factorizations in the spirit of LAPACK and Golub & van Loan
 
 namespace boost { namespace numeric { namespace ublas {
 

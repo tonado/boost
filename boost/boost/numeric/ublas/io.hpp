@@ -14,8 +14,8 @@
 //  GeNeSys mbH & Co. KG in producing this work.
 //
 
-#ifndef _BOOST_UBLAS_IO_
-#define _BOOST_UBLAS_IO_
+#ifndef BOOST_UBLAS_IO_H
+#define BOOST_UBLAS_IO_H
 
 // Only forward definition required to define stream operations
 #include <iosfwd>

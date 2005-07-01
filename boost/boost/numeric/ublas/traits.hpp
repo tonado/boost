@@ -14,9 +14,10 @@
 //  GeNeSys mbH & Co. KG in producing this work.
 //
 
-#ifndef _BOOST_UBLAS_TRAITS_
-#define _BOOST_UBLAS_TRAITS_
+#ifndef BOOST_UBLAS_TRAITS_H
+#define BOOST_UBLAS_TRAITS_H
 
+#include <algorithm>
 #include <iterator>
 #include <complex>
 #include <cmath>

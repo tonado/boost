@@ -14,11 +14,11 @@
 //  GeNeSys mbH & Co. KG in producing this work.
 //
 
-#ifndef _BOOST_UBLAS_VECTOR_
-#define _BOOST_UBLAS_VECTOR_
+#ifndef BOOST_UBLAS_VECTOR_H
+#define BOOST_UBLAS_VECTOR_H
 
-#include <boost/numeric/ublas/storage.hpp>
 #include <boost/numeric/ublas/vector_expression.hpp>
+#include <boost/numeric/ublas/storage.hpp>
 #include <boost/numeric/ublas/detail/vector_assign.hpp>
 
 // Iterators based on ideas of Jeremy Siek
@@ -34,7 +34,7 @@ namespace boost { namespace numeric { namespace ublas {
         typedef const T *const_pointer;
         typedef vector<T, A> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using vector_expression<self_type>::operator ();
 #endif
         typedef typename A::size_type size_type;
@@ -131,10 +131,6 @@ namespace boost { namespace numeric { namespace ublas {
         BOOST_UBLAS_INLINE
         reference insert_element (size_type i, const_reference t) {
             return (data () [i] = t);
-        }
-        BOOST_UBLAS_INLINE
-        void erase_element (size_type i) {
-            data () [i] = value_type/*zero*/();
         }
         
         // Zeroing
@@ -537,7 +533,7 @@ namespace boost { namespace numeric { namespace ublas {
         typedef const T *const_pointer;
         typedef zero_vector<T> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using vector_expression<self_type>::operator ();
 #endif
         typedef std::size_t size_type;
@@ -726,7 +722,7 @@ namespace boost { namespace numeric { namespace ublas {
         typedef const T *const_pointer;
         typedef unit_vector<T> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using vector_expression<self_type>::operator ();
 #endif
         typedef std::size_t size_type;
@@ -940,7 +936,7 @@ namespace boost { namespace numeric { namespace ublas {
         typedef const T *const_pointer;
         typedef scalar_vector<T> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using vector_expression<self_type>::operator ();
 #endif
         typedef std::size_t size_type;
@@ -1160,7 +1156,7 @@ namespace boost { namespace numeric { namespace ublas {
 
         typedef c_vector<T, N> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using vector_expression<self_type>::operator ();
 #endif
         typedef std::size_t size_type;
@@ -1261,11 +1257,6 @@ namespace boost { namespace numeric { namespace ublas {
         reference insert_element (size_type i, const_reference t) {
             BOOST_UBLAS_CHECK (i < size_, bad_index ());
             return (data_ [i] = t);
-        }
-        BOOST_UBLAS_INLINE
-        void erase_element (size_type i) {
-            BOOST_UBLAS_CHECK (i < size_, bad_index ());
-            return (data_ [i] = value_type/*zero*/());
         }
         
         // Zeroing

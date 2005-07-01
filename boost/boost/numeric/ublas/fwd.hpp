@@ -14,8 +14,8 @@
 //  GeNeSys mbH & Co. KG in producing this work.
 //
 
-#ifndef _BOOST_UBLAS_FWD_
-#define _BOOST_UBLAS_FWD_
+#ifndef BOOST_UBLAS_FWD_H
+#define BOOST_UBLAS_FWD_H
 
 #include <memory>
 
@@ -85,11 +85,11 @@ namespace boost { namespace numeric { namespace ublas {
     template<class T, std::size_t N>
     class bounded_vector;
 
-    template<class T = int>
+    template<class T>
     class unit_vector;
-    template<class T = int>
+    template<class T>
     class zero_vector;
-    template<class T = int>
+    template<class T>
     class scalar_vector;
 
     template<class T, std::size_t N>
@@ -122,11 +122,11 @@ namespace boost { namespace numeric { namespace ublas {
     template<class T, std::size_t M, std::size_t N, class L = row_major>
     class bounded_matrix;
 
-    template<class T = int>
+    template<class T>
     class identity_matrix;
-    template<class T = int>
+    template<class T>
     class zero_matrix;
-    template<class T = int>
+    template<class T>
     class scalar_matrix;
 
     template<class T, std::size_t M, std::size_t N>

@@ -14,11 +14,11 @@
 //  GeNeSys mbH & Co. KG in producing this work.
 //
 
-#ifndef _BOOST_UBLAS_VECTOR_SPARSE_
-#define _BOOST_UBLAS_VECTOR_SPARSE_
+#ifndef BOOST_UBLAS_VECTOR_SPARSE_H
+#define BOOST_UBLAS_VECTOR_SPARSE_H
 
-#include <boost/numeric/ublas/storage_sparse.hpp>
 #include <boost/numeric/ublas/vector_expression.hpp>
+#include <boost/numeric/ublas/storage_sparse.hpp>
 #include <boost/numeric/ublas/detail/vector_assign.hpp>
 
 // Iterators based on ideas of Jeremy Siek
@@ -270,7 +270,7 @@ namespace boost { namespace numeric { namespace ublas {
         typedef const T *const_pointer;
         typedef mapped_vector<T, A> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using vector_expression<self_type>::operator ();
 #endif
         typedef typename A::size_type size_type;
@@ -734,7 +734,7 @@ namespace boost { namespace numeric { namespace ublas {
         typedef const T *const_pointer;
         typedef compressed_vector<T, IB, IA, TA> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using vector_expression<self_type>::operator ();
 #endif
         // ISSUE require type consistency check
@@ -1307,7 +1307,7 @@ namespace boost { namespace numeric { namespace ublas {
         typedef const T *const_pointer;
         typedef coordinate_vector<T, IB, IA, TA> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using vector_expression<self_type>::operator ();
 #endif
         // ISSUE require type consistency check

@@ -14,8 +14,8 @@
 //  GeNeSys mbH & Co. KG in producing this work.
 //
 
-#ifndef _BOOST_UBLAS_MATRIX_PROXY_
-#define _BOOST_UBLAS_MATRIX_PROXY_
+#ifndef BOOST_UBLAS_MATRIX_PROXY_H
+#define BOOST_UBLAS_MATRIX_PROXY_H
 
 #include <boost/numeric/ublas/matrix_expression.hpp>
 #include <boost/numeric/ublas/detail/vector_assign.hpp>
@@ -33,7 +33,7 @@ namespace boost { namespace numeric { namespace ublas {
 
         typedef matrix_row<M> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using vector_expression<self_type>::operator ();
 #endif
         typedef M matrix_type;
@@ -490,7 +490,7 @@ namespace boost { namespace numeric { namespace ublas {
 
         typedef matrix_column<M> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using vector_expression<self_type>::operator ();
 #endif
         typedef M matrix_type;
@@ -946,7 +946,7 @@ namespace boost { namespace numeric { namespace ublas {
 
         typedef matrix_vector_range<M> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using vector_expression<self_type>::operator ();
 #endif
         typedef M matrix_type;
@@ -1396,7 +1396,7 @@ namespace boost { namespace numeric { namespace ublas {
 
         typedef matrix_vector_slice<M> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using vector_expression<self_type>::operator ();
 #endif
         typedef M matrix_type;
@@ -1856,7 +1856,7 @@ namespace boost { namespace numeric { namespace ublas {
 
         typedef matrix_vector_indirect<M, IA> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using vector_expression<self_type>::operator ();
 #endif
         typedef M matrix_type;
@@ -2314,7 +2314,7 @@ namespace boost { namespace numeric { namespace ublas {
 
         typedef matrix_range<M> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using matrix_expression<self_type>::operator ();
 #endif
         typedef M matrix_type;
@@ -3171,7 +3171,7 @@ namespace boost { namespace numeric { namespace ublas {
         return data.project (r1, r2);
     }
 
-    // Specialization of temporary_traits
+    // Specialize temporary
     template <class M>
     struct matrix_temporary_traits< matrix_range<M> >
     : matrix_temporary_traits< M > {} ;
@@ -3187,7 +3187,7 @@ namespace boost { namespace numeric { namespace ublas {
 
         typedef matrix_slice<M> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using matrix_expression<self_type>::operator ();
 #endif
         typedef M matrix_type;
@@ -4056,17 +4056,18 @@ namespace boost { namespace numeric { namespace ublas {
         // ISSUE was: return matrix_slice<M> (const_cast<M &> (data), s1, s2);
         return matrix_slice<const M> (data, s1, s2);
     }
-    // ISSUE in the following two functions it would be logical to use matrix_slice<V>::range_type but this confuses VC7.1 and 8.0
+#ifndef BOOST_UBLAS_MSVC71_FUNCTION_TEMPLATE_ORDERING
     template<class M>
     BOOST_UBLAS_INLINE
-    matrix_slice<M> project (matrix_slice<M> &data, const typename matrix_range<M>::range_type &r1, const typename matrix_range<M>::range_type &r2) {
+    matrix_slice<M> project (matrix_slice<M> &data, const typename matrix_slice<M>::range_type &r1, const typename matrix_slice<M>::range_type &r2) {
         return data.project (r1, r2);
     }
     template<class M>
     BOOST_UBLAS_INLINE
-    const matrix_slice<M> project (const matrix_slice<M> &data, const typename matrix_range<M>::range_type &r1, const typename matrix_range<M>::range_type &r2) {
+    const matrix_slice<M> project (const matrix_slice<M> &data, const typename matrix_slice<M>::range_type &r1, const typename matrix_slice<M>::range_type &r2) {
         return data.project (r1, r2);
     }
+#endif
     template<class M>
     BOOST_UBLAS_INLINE
     matrix_slice<M> project (matrix_slice<M> &data, const typename matrix_slice<M>::slice_type &s1, const typename matrix_slice<M>::slice_type &s2) {
@@ -4078,7 +4079,7 @@ namespace boost { namespace numeric { namespace ublas {
         return data.project (s1, s2);
     }
 
-    // Specialization of temporary_traits
+    /// Specialization of temporary_traits
     template <class M>
     struct matrix_temporary_traits< matrix_slice<M> >
     : matrix_temporary_traits< M > {};
@@ -4096,7 +4097,7 @@ namespace boost { namespace numeric { namespace ublas {
 
         typedef matrix_indirect<M, IA> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using matrix_expression<self_type>::operator ();
 #endif
         typedef M matrix_type;

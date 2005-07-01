@@ -14,8 +14,8 @@
 //  GeNeSys mbH & Co. KG in producing this work.
 //
 
-#ifndef _BOOST_UBLAS_VECTOR_OF_VECTOR_
-#define _BOOST_UBLAS_VECTOR_OF_VECTOR_
+#ifndef BOOST_UBLAS_VECTOR_OF_VECTOR_H
+#define BOOST_UBLAS_VECTOR_OF_VECTOR_H
 
 #include <boost/type_traits.hpp>
 
@@ -38,7 +38,7 @@ namespace boost { namespace numeric { namespace ublas {
         typedef L layout_type;
         typedef generalized_vector_of_vector<T, L, A> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using matrix_expression<self_type>::operator ();
 #endif
         typedef typename A::size_type size_type;

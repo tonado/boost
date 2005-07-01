@@ -14,8 +14,8 @@
 //  GeNeSys mbH & Co. KG in producing this work.
 //
 
-#ifndef _BOOST_UBLAS_TRIANGULAR_
-#define _BOOST_UBLAS_TRIANGULAR_
+#ifndef BOOST_UBLAS_TRIANGULAR_H
+#define BOOST_UBLAS_TRIANGULAR_H
 
 #include <boost/numeric/ublas/matrix.hpp>
 #include <boost/numeric/ublas/detail/temporary.hpp>
@@ -35,7 +35,7 @@ namespace boost { namespace numeric { namespace ublas {
         typedef L layout_type;
         typedef triangular_matrix<T, TRI, L, A> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using matrix_expression<self_type>::operator ();
 #endif
         typedef typename A::size_type size_type;
@@ -152,10 +152,6 @@ namespace boost { namespace numeric { namespace ublas {
         BOOST_UBLAS_INLINE
         reference insert_element (size_type i, size_type j, const_reference t) {
             return (operator () (i, j) = t);
-        }
-        BOOST_UBLAS_INLINE
-        void erase_element (size_type i, size_type j) {
-            return (operator () (i, j) = value_type/*zero*/());
         }
         
         // Zeroing
@@ -908,7 +904,7 @@ namespace boost { namespace numeric { namespace ublas {
         typedef triangular_adaptor<M, TRI> self_type;
 
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using matrix_expression<self_type>::operator ();
 #endif
         typedef const M const_matrix_type;

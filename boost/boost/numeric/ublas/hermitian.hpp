@@ -14,8 +14,8 @@
 //  GeNeSys mbH & Co. KG in producing this work.
 //
 
-#ifndef _BOOST_UBLAS_HERMITIAN_
-#define _BOOST_UBLAS_HERMITIAN_
+#ifndef BOOST_UBLAS_HERMITIAN_H
+#define BOOST_UBLAS_HERMITIAN_H
 
 #include <boost/numeric/ublas/matrix.hpp>
 #include <boost/numeric/ublas/detail/temporary.hpp>
@@ -240,7 +240,7 @@ namespace boost { namespace numeric { namespace ublas {
         typedef L layout_type;
         typedef hermitian_matrix<T, TRI, L, A> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using matrix_expression<self_type>::operator ();
 #endif
         typedef typename A::size_type size_type;
@@ -383,12 +383,6 @@ namespace boost { namespace numeric { namespace ublas {
             } else {
                 return (data () [triangular_type::element (layout_type (), j, size_, i, size_)] = type_traits<value_type>::conj (t));
             }
-        }
-        BOOST_UBLAS_INLINE
-        void erase_element (size_type i, size_type j) {
-            BOOST_UBLAS_CHECK (i < size_, bad_index ());
-            BOOST_UBLAS_CHECK (j < size_, bad_index ());
-            data () [triangular_type::element (layout_type (), i, size_, j, size_)] = value_type/*zero*/();
         }
 
         // Zeroing
@@ -1122,7 +1116,7 @@ namespace boost { namespace numeric { namespace ublas {
         typedef hermitian_adaptor<M, TRI> self_type;
         typedef typename M::value_type &true_reference;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using matrix_expression<self_type>::operator ();
 #endif
         typedef const M const_matrix_type;

@@ -14,8 +14,8 @@
 //  GeNeSys mbH & Co. KG in producing this work.
 //
 
-#ifndef _BOOST_UBLAS_OPERATION_BLOCKED_
-#define _BOOST_UBLAS_OPERATION_BLOCKED_
+#ifndef BOOST_UBLAS_OPERATION_BLOCKED_H
+#define BOOST_UBLAS_OPERATION_BLOCKED_H
 
 #include <boost/numeric/ublas/traits.hpp>
 

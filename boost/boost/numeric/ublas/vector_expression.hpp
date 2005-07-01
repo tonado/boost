@@ -14,8 +14,8 @@
 //  GeNeSys mbH & Co. KG in producing this work.
 //
 
-#ifndef _BOOST_UBLAS_VECTOR_EXPRESSION_
-#define _BOOST_UBLAS_VECTOR_EXPRESSION_
+#ifndef VECTOR_EXPRESSION_H
+#define VECTOR_EXPRESSION_H
 
 #include <boost/numeric/ublas/exception.hpp>
 #include <boost/numeric/ublas/traits.hpp>
@@ -29,11 +29,14 @@ namespace boost { namespace numeric { namespace ublas {
 
     // Base class for uBLAS staticaly derived expressions - see the Barton Nackman trick
     //  Provides numeric properties for linear algebra
+    // FIXME
+    // The template instantiation order needs to be analyses to ensure
+     // class typedefs of E are fully defined.
     template<class E>
     class ublas_expression {
     public:
         typedef E expression_type;
-        /* E can be an incomplete type - to define the following we would need more template arguments
+        /* FIXME
         typedef typename E::type_category type_category;
         typedef typename E::value_type value_type;
         */
@@ -184,10 +187,17 @@ namespace boost { namespace numeric { namespace ublas {
         typedef E expression_type;
         typedef vector_tag type_category;
         typedef abstract_tag simd_category;
-        /* E can be an incomplete type - to define the following we would need more template arguments
-        typedef typename E::size_type size_type;
-        */
+        // FIXME Template instantiation order problem
+        // typedef typename E::size_type size_type;
  
+        typedef noalias_proxy<E> noalias_proxy_type;
+        typedef const vector_range<const E> const_vector_range_type;
+        typedef vector_range<E> vector_range_type;
+        typedef const vector_slice<const E> const_vector_slice_type;
+        typedef vector_slice<E> vector_slice_type;
+        typedef const vector_indirect<const E> const_vector_indirect_type;
+        typedef vector_indirect<E> vector_indirect_type;
+
         BOOST_UBLAS_INLINE
         const expression_type &operator () () const {
             return *static_cast<const expression_type *> (this);
@@ -197,83 +207,66 @@ namespace boost { namespace numeric { namespace ublas {
             return *static_cast<expression_type *> (this);
         }
 
-    private:
-        // projection types
-        typedef vector_range<E> vector_range_type;
-        typedef vector_slice<E> vector_slice_type;
-        // vector_indirect_type will depend on the A template parameter 
-        typedef basic_range<> default_range;
-        typedef basic_slice<> default_slice;
-   public:
-        // projection functions - projects must be constructable from default size_t, range and slice types
         BOOST_UBLAS_INLINE
-        const vector_range_type range (std::size_t start, std::size_t stop) const {
-            return vector_range_type (operator () (), default_range (start, stop));
+        noalias_proxy_type noalias () {
+            return noalias_proxy_type (operator () ());
+        }
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
+        BOOST_UBLAS_INLINE
+        const_vector_range_type operator () (const range &r) const {
+            return const_vector_range_type (operator () (), r);
         }
         BOOST_UBLAS_INLINE
-        vector_range_type range (std::size_t start, std::size_t stop) {
-            return vector_range_type (operator () (), default_range (start, stop));
-        }
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
-        BOOST_UBLAS_INLINE
-        const vector_range_type operator () (const default_range &r) const {
+        vector_range_type operator () (const range &r) {
             return vector_range_type (operator () (), r);
         }
         BOOST_UBLAS_INLINE
-        vector_range_type operator () (const default_range &r) {
-            return vector_range_type (operator () (), r);
+        const_vector_slice_type operator () (const slice &s) const {
+            return const_vector_slice_type (operator () (), s);
         }
         BOOST_UBLAS_INLINE
-        const vector_slice_type operator () (const default_slice &s) const {
-            return vector_slice_type (operator () (), s);
-        }
-        BOOST_UBLAS_INLINE
-        vector_slice_type operator () (const default_slice &s) {
+        vector_slice_type operator () (const slice &s) {
             return vector_slice_type (operator () (), s);
         }
         template<class A>
         BOOST_UBLAS_INLINE
-        const vector_indirect<const E, A> operator () (const indirect_array<A> &ia) const {
-            return vector_indirect<const E, A>  (operator () (), ia);
+        const_vector_indirect_type operator () (const indirect_array<A> &ia) const {
+            return const_vector_indirect_type (operator () (), ia);
         }
         template<class A>
         BOOST_UBLAS_INLINE
-        vector_indirect<E, A> operator () (const indirect_array<A> &ia) {
-            return vector_indirect<E, A> (operator () (), ia);
+        vector_indirect_type operator () (const indirect_array<A> &ia) {
+            return vector_indirect_type (operator () (), ia);
+        }
+#else
+        BOOST_UBLAS_INLINE
+        const_vector_range_type project (const range &r) const {
+            return const_vector_range_type (operator () (), r);
+        }
+        BOOST_UBLAS_INLINE
+        vector_range_type project (const range &r) {
+            return vector_range_type (operator () (), r);
+        }
+        BOOST_UBLAS_INLINE
+        const_vector_slice_type project (const slice &s) const {
+            return const_vector_slice_type (operator () (), s);
+        }
+        BOOST_UBLAS_INLINE
+        vector_slice_type project (const slice &s) {
+            return vector_slice_type (operator () (), s);
+        }
+        template<class A>
+        BOOST_UBLAS_INLINE
+        const_vector_indirect_type project (const indirect_array<A> &ia) const {
+            return const_vector_indirect_type (operator () (), ia);
+        }
+        template<class A>
+        BOOST_UBLAS_INLINE
+        vector_indirect_type project (const indirect_array<A> &ia) {
+            return vector_indirect_type (operator () (), ia);
         }
 #endif
-        BOOST_UBLAS_INLINE
-        const vector_range_type project (const default_range &r) const {
-            return vector_range_type (operator () (), r);
-        }
-        BOOST_UBLAS_INLINE
-        vector_range_type project (const default_range &r) {
-            return vector_range_type (operator () (), r);
-        }
-        BOOST_UBLAS_INLINE
-        const vector_slice_type project (const default_slice &s) const {
-            return vector_slice_type (operator () (), s);
-        }
-        BOOST_UBLAS_INLINE
-        vector_slice_type project (const default_slice &s) {
-            return vector_slice_type (operator () (), s);
-        }
-        template<class A>
-        BOOST_UBLAS_INLINE
-        const vector_indirect<const E, A> project (const indirect_array<A> &ia) const {
-            return vector_indirect<const E, A> (operator () (), ia);
-        }
-        template<class A>
-        BOOST_UBLAS_INLINE
-        vector_indirect<E, A> project (const indirect_array<A> &ia) {
-            return vector_indirect<E, A> (operator () (), ia);
-        }
     };
-
-
-    /*
-     * All subsequent classes model the Vector Expression concept
-    */
 
     template<class T>
     class vector_reference:
@@ -281,7 +274,7 @@ namespace boost { namespace numeric { namespace ublas {
 
         typedef vector_reference<T> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using vector_expression<vector_reference<T> >::operator ();
 #endif
         typedef typename T::size_type size_type;
@@ -499,7 +492,7 @@ namespace boost { namespace numeric { namespace ublas {
                                           typename E::closure_type>::type expression_closure_type;
         typedef vector_unary<E, F> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using vector_expression<vector_unary<E, F> >::operator ();
 #endif
         typedef typename E::size_type size_type;
@@ -783,7 +776,7 @@ namespace boost { namespace numeric { namespace ublas {
         typedef typename E2::const_closure_type expression2_closure_type;
         typedef vector_binary<E1, E2, F> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using vector_expression<vector_binary<E1, E2, F> >::operator ();
 #endif
         typedef typename promote_traits<typename E1::size_type, typename E2::size_type>::promote_type size_type;
@@ -1167,7 +1160,7 @@ namespace boost { namespace numeric { namespace ublas {
     private:
         typedef vector_binary_scalar1<E1, E2, F> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using vector_expression<vector_binary_scalar1<E1, E2, F> >::operator ();
 #endif
         typedef typename E2::size_type size_type;
@@ -1391,7 +1384,7 @@ namespace boost { namespace numeric { namespace ublas {
         typedef const E2& expression2_closure_type;
         typedef vector_binary_scalar2<E1, E2, F> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using vector_expression<vector_binary_scalar2<E1, E2, F> >::operator ();
 #endif
         typedef typename E1::size_type size_type;

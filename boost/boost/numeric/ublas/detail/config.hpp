@@ -14,12 +14,11 @@
 //  GeNeSys mbH & Co. KG in producing this work.
 //
 
-#ifndef _BOOST_UBLAS_CONFIG_
-#define _BOOST_UBLAS_CONFIG_
+#ifndef BOOST_UBLAS_CONFIG_H
+#define BOOST_UBLAS_CONFIG_H
 
 #include <cassert>
 #include <cstddef>
-#include <algorithm>
 
 #include <boost/config.hpp>
 #include <boost/static_assert.hpp>
@@ -36,13 +35,16 @@
 // Microsoft Visual C++
 #if defined (BOOST_MSVC) && ! defined (BOOST_STRICT_CONFIG)
 
-// Version 6.0 and 7.0
+// Version 6.0 & 7.0
 #if BOOST_MSVC <= 1300
 #define BOOST_UBLAS_UNSUPPORTED_COMPILER
 #endif
 
 // Version 7.1
 #if BOOST_MSVC == 1310
+
+// Seeming still some problems with function templates
+#define BOOST_UBLAS_MSVC71_FUNCTION_TEMPLATE_ORDERING
 // One of these workarounds is needed for MSVC 7.1 AFAIK
 // (thanks to John Maddock and Martin Lauer).
 #if !(defined(BOOST_UBLAS_NO_NESTED_CLASS_RELATION) || defined(BOOST_UBLAS_MSVC_NESTED_CLASS_RELATION))
@@ -130,9 +132,8 @@ namespace std {
 
 //  HP aCC C++ compiler
 #if defined (__HP_aCC) && ! defined (BOOST_STRICT_CONFIG)
-#  if (__HP_aCC >= 60000 )
-#    define BOOST_UBLAS_USEFUL_ARRAY_PLACEMENT_NEW
-#endif
+// No version specific configuration
+// #if (__HP_aCC <= 53800)
 #endif
 
 
@@ -169,7 +170,7 @@ namespace std {
 
 // Cannot continue with an unsupported compiler
 #ifdef BOOST_UBLAS_UNSUPPORTED_COMPILER
-#error Your compiler is unsupported by this verions of uBLAS. Boost 1.32.0 includes uBLAS with support for many old compilers.
+#error Your compiler is unsupported by this verions of uBLAS. Try using Boost 1.31.0 which support many old compilers.
 #endif
 
 
@@ -241,8 +242,8 @@ bool disable_type_check<Dummy>::value = false;
  * General Configuration
  */
 
-// Proxy shortcuts overload the alreadly heavily over used operator ()
-//#define BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+// Operator () is alreadly heavily over used. Use project member function for proxies
+//#define BOOST_UBLAS_NO_PROXY_SHORTCUTS
 
 // In order to simplify debugging is is possible to simplify expression template
 // so they are restricted to a single operation

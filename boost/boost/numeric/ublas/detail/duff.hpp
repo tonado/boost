@@ -14,8 +14,8 @@
 //  GeNeSys mbH & Co. KG in producing this work.
 //
 
-#ifndef _BOOST_UBLAS_DUFF_
-#define _BOOST_UBLAS_DUFF_
+#ifndef BOOST_UBLAS_DUFF_H
+#define BOOST_UBLAS_DUFF_H
 
 #define DD_SWITCH(n, d, r, expr) \
     { \

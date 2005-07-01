@@ -14,12 +14,14 @@
 //  GeNeSys mbH & Co. KG in producing this work.
 //
 
-#ifndef _BOOST_UBLAS_MATRIX_SPARSE_
-#define _BOOST_UBLAS_MATRIX_SPARSE_
+#ifndef BOOST_UBLAS_MATRIX_SPARSE_H
+#define BOOST_UBLAS_MATRIX_SPARSE_H
 
 #include <boost/numeric/ublas/vector_sparse.hpp>
 #include <boost/numeric/ublas/matrix_expression.hpp>
 #include <boost/numeric/ublas/detail/matrix_assign.hpp>
+
+#include <algorithm>  // std::lower_bound, std::copy
 
 // Iterators based on ideas of Jeremy Siek
 
@@ -258,7 +260,7 @@ namespace boost { namespace numeric { namespace ublas {
         typedef L layout_type;
         typedef mapped_matrix<T, L, A> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using matrix_expression<self_type>::operator ();
 #endif
         typedef typename A::size_type size_type;
@@ -1300,7 +1302,7 @@ namespace boost { namespace numeric { namespace ublas {
         typedef L layout_type;
         typedef mapped_vector_of_mapped_vector<T, L, A> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using matrix_expression<self_type>::operator ();
 #endif
         typedef typename A::size_type size_type;
@@ -2471,7 +2473,7 @@ namespace boost { namespace numeric { namespace ublas {
         typedef L layout_type;
         typedef compressed_matrix<T, L, IB, IA, TA> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using matrix_expression<self_type>::operator ();
 #endif
         // ISSUE require type consistency check
@@ -3817,7 +3819,7 @@ namespace boost { namespace numeric { namespace ublas {
         typedef L layout_type;
         typedef coordinate_matrix<T, L, IB, IA, TA> self_type;
     public:
-#ifdef BOOST_UBLAS_ENABLE_PROXY_SHORTCUTS
+#ifndef BOOST_UBLAS_NO_PROXY_SHORTCUTS
         using matrix_expression<self_type>::operator ();
 #endif
         // ISSUE require type consistency check
