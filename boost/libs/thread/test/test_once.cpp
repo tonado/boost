@@ -13,6 +13,7 @@
 
 #include <boost/thread/once.hpp>
 #include <boost/thread/thread.hpp>
+#include <boost/thread/mutex.hpp>
 
 #include <boost/test/unit_test.hpp>
 
@@ -20,20 +21,28 @@
 
 int once_value = 0;
 boost::once_flag once = BOOST_ONCE_INIT;
+boost::mutex mutex;
 
 void init_once_value()
 {
+    boost::mutex::scoped_lock lock(mutex);
     once_value++;
+    BOOST_CHECK_EQUAL(once_value, 1);
 }
 
 void test_once_thread()
 {
-    boost::call_once(init_once_value, once);
+    unsigned const loop_count=100;
+    for(unsigned i=0;i<loop_count;++i)
+    {
+        boost::call_once(init_once_value, once);
+        BOOST_CHECK_EQUAL(once_value, 1);
+    }
 }
 
 void do_test_once()
 {
-    const int NUMTHREADS=5;
+    const int NUMTHREADS=100;
     boost::thread_group threads;
     for (int i=0; i<NUMTHREADS; ++i)
         threads.create_thread(&test_once_thread);

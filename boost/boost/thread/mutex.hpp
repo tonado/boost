@@ -14,9 +14,11 @@
 
 #include <boost/thread/detail/config.hpp>
 
+#ifdef BOOST_HAS_WINTHREADS
+# include <boost/thread/detail/mutex_win32.hpp>
+#else
 #include <boost/utility.hpp>
 #include <boost/thread/detail/lock.hpp>
-
 #if defined(BOOST_HAS_PTHREADS)
 #   include <pthread.h>
 #endif
@@ -41,9 +43,7 @@ public:
     ~mutex();
 
 private:
-#if defined(BOOST_HAS_WINTHREADS)
-    typedef void* cv_state;
-#elif defined(BOOST_HAS_PTHREADS)
+#if defined(BOOST_HAS_PTHREADS)
     struct cv_state
     {
         pthread_mutex_t* pmutex;
@@ -58,10 +58,7 @@ private:
     void do_lock(cv_state& state);
     void do_unlock(cv_state& state);
 
-#if defined(BOOST_HAS_WINTHREADS)
-    void* m_mutex;
-    bool m_critical_section;
-#elif defined(BOOST_HAS_PTHREADS)
+#if defined(BOOST_HAS_PTHREADS)
     pthread_mutex_t m_mutex;
 #elif defined(BOOST_HAS_MPTASKS)
     threads::mac::detail::scoped_critical_region m_mutex;
@@ -82,9 +79,7 @@ public:
     ~try_mutex();
 
 private:
-#if defined(BOOST_HAS_WINTHREADS)
-    typedef void* cv_state;
-#elif defined(BOOST_HAS_PTHREADS)
+#if defined(BOOST_HAS_PTHREADS)
     struct cv_state
     {
         pthread_mutex_t* pmutex;
@@ -100,10 +95,7 @@ private:
     void do_lock(cv_state& state);
     void do_unlock(cv_state& state);
 
-#if defined(BOOST_HAS_WINTHREADS)
-    void* m_mutex;
-    bool m_critical_section;
-#elif defined(BOOST_HAS_PTHREADS)
+#if defined(BOOST_HAS_PTHREADS)
     pthread_mutex_t m_mutex;
 #elif defined(BOOST_HAS_MPTASKS)
     threads::mac::detail::scoped_critical_region m_mutex;
@@ -125,9 +117,7 @@ public:
     ~timed_mutex();
 
 private:
-#if defined(BOOST_HAS_WINTHREADS)
-    typedef void* cv_state;
-#elif defined(BOOST_HAS_PTHREADS)
+#if defined(BOOST_HAS_PTHREADS)
     struct cv_state
     {
         pthread_mutex_t* pmutex;
@@ -144,9 +134,7 @@ private:
     void do_lock(cv_state& state);
     void do_unlock(cv_state& state);
 
-#if defined(BOOST_HAS_WINTHREADS)
-    void* m_mutex;
-#elif defined(BOOST_HAS_PTHREADS)
+#if defined(BOOST_HAS_PTHREADS)
     pthread_mutex_t m_mutex;
     pthread_cond_t m_condition;
     bool m_locked;
@@ -157,6 +145,7 @@ private:
 };
 
 } // namespace boost
+#endif
 
 // Change Log:
 //    8 Feb 01  WEKEMPF Initial version.

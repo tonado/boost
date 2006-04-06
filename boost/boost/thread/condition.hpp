@@ -14,6 +14,9 @@
 
 #include <boost/thread/detail/config.hpp>
 
+#if defined(BOOST_HAS_WINTHREADS)
+# include <boost/thread/detail/condition_win32.hpp>
+#else
 #include <boost/thread/exceptions.hpp>
 #include <boost/utility.hpp>
 #include <boost/thread/detail/lock.hpp>
@@ -41,7 +44,7 @@ public:
     void notify_one();
     void notify_all();
 
-#if (defined(BOOST_HAS_WINTHREADS) || defined(BOOST_HAS_MPTASKS))
+#if defined(BOOST_HAS_MPTASKS)
     void enter_wait();
     void do_wait();
     bool do_timed_wait(const xtime& xt);
@@ -50,15 +53,7 @@ public:
     bool do_timed_wait(const xtime& xt, pthread_mutex_t* pmutex);
 #endif
 
-#if defined(BOOST_HAS_WINTHREADS)
-    void* m_gate;
-    void* m_queue;
-    void* m_mutex;
-    unsigned m_gone;  // # threads that timed out and never made it to m_queue
-    unsigned long m_blocked; // # threads blocked on the condition
-    unsigned m_waiting; // # threads no longer waiting for the condition but
-                        // still waiting to be removed from m_queue
-#elif defined(BOOST_HAS_PTHREADS)
+#if defined(BOOST_HAS_PTHREADS)
     pthread_cond_t m_condition;
 #elif defined(BOOST_HAS_MPTASKS)
     MPSemaphoreID m_gate;
@@ -132,7 +127,7 @@ private:
     template <typename M>
     void do_wait(M& mutex)
     {
-#if (defined(BOOST_HAS_WINTHREADS) || defined(BOOST_HAS_MPTASKS))
+#if defined(BOOST_HAS_MPTASKS)
         m_impl.enter_wait();
 #endif
 
@@ -147,7 +142,7 @@ private:
 
 #if defined(BOOST_HAS_PTHREADS)
         m_impl.do_wait(state.pmutex);
-#elif (defined(BOOST_HAS_WINTHREADS) || defined(BOOST_HAS_MPTASKS))
+#elif defined(BOOST_HAS_MPTASKS)
         m_impl.do_wait();
 #endif
 
@@ -158,7 +153,7 @@ private:
     template <typename M>
     bool do_timed_wait(M& mutex, const xtime& xt)
     {
-#if (defined(BOOST_HAS_WINTHREADS) || defined(BOOST_HAS_MPTASKS))
+#if defined(BOOST_HAS_MPTASKS)
         m_impl.enter_wait();
 #endif
 
@@ -175,7 +170,7 @@ private:
 
 #if defined(BOOST_HAS_PTHREADS)
         ret = m_impl.do_timed_wait(xt, state.pmutex);
-#elif (defined(BOOST_HAS_WINTHREADS) || defined(BOOST_HAS_MPTASKS))
+#elif defined(BOOST_HAS_MPTASKS)
         ret = m_impl.do_timed_wait(xt);
 #endif
 
@@ -187,6 +182,7 @@ private:
 };
 
 } // namespace boost
+#endif
 
 // Change Log:
 //    8 Feb 01  WEKEMPF Initial version.
