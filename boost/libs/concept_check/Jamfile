@@ -1,6 +1,3 @@
-# Copyright David Abrahams, Jeremy Siek 2006. Distributed under the
-# Boost Software License, Version 1.0. (See accompanying file
-# LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 subproject libs/concept_check ;
 
 import testing ;
@@ -15,7 +12,6 @@ test-suite concept_check
       
     [ run where.cpp ]
     [ compile-fail where_fail.cpp ]
-    [ compile-fail usage_fail.cpp ]
       
       # Backward compatibility tests
     [ run old_concept_pass.cpp ]
