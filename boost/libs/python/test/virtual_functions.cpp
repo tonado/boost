@@ -11,7 +11,6 @@
 #include <boost/ref.hpp>
 #include <boost/utility.hpp>
 
-#define BOOST_ENABLE_ASSERT_HANDLER
 #include <boost/assert.hpp>
 
 using namespace boost::python;

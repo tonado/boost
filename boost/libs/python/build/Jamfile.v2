@@ -11,8 +11,8 @@ if [ python.configured ] {
     
 
 project boost/python
-  : source-location ../src
-  ;
+    : source-location ../src
+    ;
 
 lib boost_python
     : # sources
