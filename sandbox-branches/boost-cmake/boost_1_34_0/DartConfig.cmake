@@ -1,11 +1,6 @@
 # while developing, nice to start your nightly builds with the very latest 
 # code
 set(CTEST_START_WITH_EMPTY_BINARY_DIRECTORY TRUE)
-# fixme on windows
-execute_process(COMMAND /bin/date "+%H:%M:%S %Z" OUTPUT_VARIABLE CURRENT_TIME)
-set(NIGHTLY_START_TIME ${CURRENT_TIME})
-
-#set(NIGHTLY_START_TIME "23:30:00 EDT")
 
 set(DROP_METHOD "xmlrpc")
 #set(DROP_SITE "http://public.kitware.com:8081")
