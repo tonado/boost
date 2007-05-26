@@ -7,6 +7,12 @@
 boost_test_fail("multipledefs")
 boost_test_fail("msvc-stlport")
 
+if (NOT ${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
+  FILE(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/libs/date_time/data")
+  execute_process(COMMAND cmake -E copy "${CMAKE_SOURCE_DIR}/libs/xpressive/test/regress.txt" "${CMAKE_CURRENT_BINARY_DIR}")
+endif (NOT ${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
+
+
 SET(runtests 
   regress
   c_traits
