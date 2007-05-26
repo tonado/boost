@@ -14,9 +14,13 @@ boost_test_run(iterators_test
 boost_test_run(next_prior_test LIBRARIES boost_test_exec_monitor-static)
 boost_test_compile_fail(noncopyable_test SOURCES ../noncopyable_test.cpp)
 boost_test_run(numeric_traits_test SOURCES ../numeric_traits_test.cpp)
+if (${CMAKE_SYSTEM} MATCHES "FreeBSD-.*")
+boost_test_fail("operators_test_compilerbug")
+elseif(${CMAKE_SYSTEM} MATCHES "FreeBSD-.*")
 boost_test_run(operators_test 
   SOURCES ../operators_test.cpp
   LIBRARIES boost_test_exec_monitor-static)
+endif(${CMAKE_SYSTEM} MATCHES "FreeBSD-.*")
 boost_test_compile(ref_ct_test SOURCES ../ref_ct_test.cpp)
 boost_test_run(ref_test 
   SOURCES ../ref_test.cpp
