@@ -4,6 +4,9 @@
 include(list_contains)
 include(parse_arguments)
 
+if(CMAKE_COMPILER_IS_GNUCC)
+  add_definitions(-pipe)
+endif(CMAKE_COMPILER_IS_GNUCC)
 include(boost-core)
 include(boost-testing)
 
