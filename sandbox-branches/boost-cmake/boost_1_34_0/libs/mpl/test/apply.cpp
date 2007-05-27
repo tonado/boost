@@ -17,6 +17,9 @@
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/aux_/test.hpp>
 
+#if defined (__GNUC__) && (__GNUC__ == 4) && (__GNUC_MINOR__ == 1) && (__GNUC_PATCHLEVEL__ == 2)
+#warning Turning off certain tests due to internal compiler error
+#else
 
 template< typename T > struct std_vector
 {
@@ -58,6 +61,7 @@ MPL_TEST_CASE()
     MPL_ASSERT_RELATION( res::value, ==, 5 );
 }
 
+
 MPL_TEST_CASE()
 {
     typedef lambda< lambda<_1> >::type make_lambda;
@@ -68,6 +72,7 @@ MPL_TEST_CASE()
     typedef apply_wrap1< make_vector,int >::type v_int;
     MPL_ASSERT(( is_same< v_int,std_vector<int> > ));
 }
+
 
 MPL_TEST_CASE()
 {
@@ -113,11 +118,13 @@ MPL_TEST_CASE()
 #endif
 }
 
+
 MPL_TEST_CASE()
 {
     typedef apply1< bind2<plus<>,_1,_1>, int_<5> >::type res;
     MPL_ASSERT_RELATION( res::value, ==, 10 );
 }
+
 
 MPL_TEST_CASE()
 {
@@ -126,3 +133,5 @@ MPL_TEST_CASE()
 
     MPL_ASSERT_RELATION( res::value, ==, 5 );
 }
+
+#endif
