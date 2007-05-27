@@ -38,6 +38,8 @@
 #  define BOOST_HAS_SCHED_YIELD
 #  define BOOST_HAS_GETTIMEOFDAY
 #  define BOOST_HAS_SIGACTION
+#  define BOOST_HAS_NANOSLEEP
+#  define BOOST_HAS_PTHREAD_MUTEXATTR_SETTYPE
 
 #  if (__GNUC__ < 3) && !defined( __APPLE_CC__)
 
