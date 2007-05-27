@@ -21,7 +21,7 @@
 #include <boost/config.hpp>
 #include "test.hpp"
 
-#ifdef BOOST_DEDUCED_TYPENAME
+#ifdef BOOST_NO_DEDUCED_TYPENAME
 #include "boost_no_ded_typename.ipp"
 #else
 #error "this file should not compile"
