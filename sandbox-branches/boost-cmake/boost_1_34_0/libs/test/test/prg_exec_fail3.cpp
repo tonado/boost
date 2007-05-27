@@ -21,6 +21,11 @@ int cpp_main( int, char *[] )  // note the name
 
   assert( div != 0 );
 
+#if NDEBUG
+  printf("assert check turned off under NDEBUG");
+  return 1;
+#endif
+
   return 0;
 }
 
