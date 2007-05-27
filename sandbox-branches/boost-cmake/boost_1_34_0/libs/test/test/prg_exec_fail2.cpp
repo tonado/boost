@@ -26,11 +26,17 @@
 #include <cstddef> //Metrowerks linker needs at least one standard library
 #endif
 
+#include <stdio.h>
 
 int cpp_main( int, char *[] )  // note the name
 {
-    int div = 0;
-    return 10 / div;
+#if defined(__APPLE__) && defined(__ppc__)
+  printf("The ppc doesn't throw on divice-by-zero.   No check.\n");
+  return 1;
+#else
+  int div = 0;
+  return 10 / div;
+#endif
 }
 
 //____________________________________________________________________________//
