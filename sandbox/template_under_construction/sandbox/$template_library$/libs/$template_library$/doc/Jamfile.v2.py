@@ -6,10 +6,9 @@
 # http://www.boost.org/LICENSE_1_0.txt)
 
 docs = template.options.get('docs')
-doxygen = docs != 'qb'
-    
+doxygen = docs != 'qb'    
 
-content = """$template_start$
+template.append_content("""$template_start$
 $template_python_copyright$
 
 project boost/$template_library$/doc ;
@@ -20,13 +19,29 @@ using quickbook ;
 local loc = [ path.native [ path.pwd ] ] ;
 local root = [ path.native [ path.join [ path.pwd ] ../../.. ] ] ;
 
-xml $template_library$_xml : $template_library$.qbk ;"""
+xml $template_library$_xml : $template_library$.qbk ;""")
+
+doxy_source_files = list()
+for root, dirs, files in results.walk(
+    # we want the returned root to be relative to $template_library$
+    template.replace_name('$template_library$'),
+    # and want to walk the boost/$template_library$ directory underneath that
+    template.replace_name('boost/$template_library$')):
+    if os.path.basename(root) != 'detail':
+        doxy_source_files.append(
+            template.replace_name(os.path.join(os.path.join('../../..',
+            root), '*.hpp').replace('\\','/')))
+
+if docs=='qb+doxy':
+    doxy_source_files.append('dox/*.hpp')
 
 if doxygen:
-    content += """
+    template.append_content("""
 doxygen $template_library$_doxygen
    :
-      [ glob ../../../boost/$template_library$/*.hpp dox/*.hpp ]
+      [ glob
+             """ + """
+             """.join(doxy_source_files) + """ ]
    :
         <doxygen:param>EXAMPLE_PATH=../example
         <doxygen:param>STRIP_FROM_PATH=$(root)
@@ -39,26 +54,26 @@ doxygen $template_library$_doxygen
         <doxygen:param>MACRO_EXPANSION=YES
         <doxygen:param>SEARCH_INCLUDES=YES
         <doxygen:param>INCLUDE_PATH=../../..
-        <doxygen:param>PREDEFINED=DOXYGEN_DOCS_ONLY"""
+        <doxygen:param>PREDEFINED=DOXYGEN_DOCS_ONLY""")
 
     if docs=='qb+doxy':
-        content += """
+        template.append_content("""
         <doxygen:param>GENERATE_HTML=YES
         <doxygen:param>HTML_OUTPUT=$(loc)/html/doxygen
-        <doxygen:param>HTML_STYLESHEET=$(loc)/html/boostbook_doxygen.css"""
-    content +="""
+        <doxygen:param>HTML_STYLESHEET=$(loc)/html/boostbook_doxygen.css""")
+    template.append_content("""
    ;
-"""
+""")
 
-content += """
+template.append_content("""
 boostbook standalone
    :
-      $template_library$_xml"""
+      $template_library$_xml""")
 if (doxygen):
-    content+="""
-      $template_library$_doxygen"""
+    template.append_content("""
+      $template_library$_doxygen""")
 
-content +="""
+template.append_content("""
     :
         <xsl:param>chunk.first.sections=1
         <xsl:param>chunk.section.depth=3
@@ -66,6 +81,5 @@ content +="""
         <xsl:param>toc.max.depth=3
         <xsl:param>generate.section.toc.level=3
     ;
-"""
+""")
 
-template.submit_content(content)

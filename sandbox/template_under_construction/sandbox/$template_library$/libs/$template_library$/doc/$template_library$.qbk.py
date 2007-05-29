@@ -7,7 +7,7 @@
 
 docs = template.options.get('docs')
                      
-content="""
+template.append_content("""
 [library $template_Library$
     [quickbook 1.4]
     [version 0.01e-10]
@@ -34,40 +34,37 @@ User, this is $template_Library$.  $template_Library$, this is the user.  Be nic
 
 The $template_Library$ is located in the $template_library$ directory of the boost sandbox.
 
-"""
+""")
 if docs!='qb':
-    content+="""
+    template.append_content("""
 You might also want to look at the [link $template_library$.reference reference].
 
-"""
+""")
 
-content+="""
+template.append_content("""
 [endsect]
 
 [endsect]
-"""
+""")
 if docs=='qb+doxy':
-    content+="""
+    template.append_content("""
 [section:reference Reference]
 
 The reference for this library is [@doxygen/index.html generated separately].
 
 [endsect]
 
-"""
+""")
+elif docs=='qb+doxyref':
+    template.append_content("""
+[xinclude $template_library$_doxygen.xml]
+""")
 
-content+="""
+template.append_content("""
 [section:license License]
 
 $template_qbk_copyright$
 
 [endsect]
-"""
-
-if docs=='qb+doxyref':
-    content+="""
-[xinclude $template_library$_doxygen.xml]
-"""
-
-template.submit_content(content)
+""")
 
