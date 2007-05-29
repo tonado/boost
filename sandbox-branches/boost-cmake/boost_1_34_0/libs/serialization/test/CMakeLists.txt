@@ -64,8 +64,8 @@ serialization_test(test_derived_class)
 serialization_test(test_derived_class_ptr)
 serialization_test(test_diamond)
 serialization_test(test_exported)
-serialization_test(test_class_info_load)
-serialization_test(test_class_info_save)
+serialization_test(test_class_info_0save)
+serialization_test(test_class_info_1load)
 serialization_test(test_object)
 serialization_test(test_primitive)
 serialization_test(test_list)
@@ -120,8 +120,8 @@ serialization_test(test_demo_polymorphic
 serialization_test(test_demo_portable_archive)
 serialization_test(test_demo_shared_ptr)
 serialization_test(test_demo_xml)
-serialization_test(test_demo_xml_load)
-serialization_test(test_demo_xml_save)
+serialization_test(test_demo_xml_0save)
+serialization_test(test_demo_xml_1load)
 
 # should fail compilation
 boost_test_compile_fail(test_not_serializable) # FIXME std:locale-support ]
