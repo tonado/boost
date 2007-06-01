@@ -1,4 +1,4 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.4.4 FATAL_ERROR)
+cmake_minimum_required(VERSION 2.4.4 FATAL_ERROR)
 
 project(Boost)
 
@@ -82,10 +82,4 @@ endif(WIN32 AND NOT UNIX)
 include(CPack)
 ##########################################################################
 
-option(BOOST_SELFTEST "Build internal testing projects... not the boost libraries" OFF)
-# Subdirectories of Boost
-if (BOOST_SELFTEST)
-  add_subdirectory(tools/build/CMake/testing)
-else (BOOST_SELFTEST)
-  add_subdirectory(libs)
-endif(BOOST_SELFTEST)
+add_subdirectory(libs)
