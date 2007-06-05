@@ -1,2 +1,3 @@
-boost_test_run(ios_state_unit_test LIBRARIES boost_unit_test_framework-static)
-boost_test_run(ios_state_test LIBRARIES boost_test_exec_monitor-static)
+boost_test_run(ios_state_unit_test DEPENDS boost_unit_test_framework-static)
+boost_test_run(ios_state_test DEPENDS boost_test_exec_monitor-static)
+

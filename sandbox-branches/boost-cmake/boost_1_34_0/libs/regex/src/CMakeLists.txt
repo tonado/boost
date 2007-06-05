@@ -25,7 +25,7 @@ boost_library(boost_regex
    wide_posix_api.cpp
    winstances.cpp 
    usinstances.cpp 
-   LIBRARIES ${BOOST_REGEX_LIBRARIES}
+   LINK_LIBS ${BOOST_REGEX_LIBRARIES}
    SHARED_COMPILE_FLAGS -DBOOST_REGEX_DYN_LINK=1)
 
 
