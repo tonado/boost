@@ -1,6 +1,6 @@
-boost_test_compile(largest_int SOURCES aux_/largest_int.cpp)
-boost_test_compile(msvc_is_class SOURCES aux_/msvc_is_class.cpp)
-boost_test_compile(template_arity SOURCES aux_/template_arity.cpp)
+boost_test_compile(largest_int aux_/largest_int.cpp)
+boost_test_compile(msvc_is_class aux_/msvc_is_class.cpp)
+boost_test_compile(template_arity aux_/template_arity.cpp)
 
 boost_test_compile(advance)
 boost_test_compile(always)

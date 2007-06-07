@@ -32,8 +32,8 @@ hash_no_ext_macro_1
 hash_no_ext_macro_2
 )
 
-boost_test_run(link_test SOURCES link_test.cpp link_test_2.cpp)
-boost_test_run(link_ext_test SOURCES link_ext_test.cpp link_no_ext_test.cpp)
+boost_test_run(link_test link_test.cpp link_test_2.cpp)
+boost_test_run(link_ext_test link_ext_test.cpp link_no_ext_test.cpp)
 
 foreach(test ${tests})
   boost_test_run(${test})

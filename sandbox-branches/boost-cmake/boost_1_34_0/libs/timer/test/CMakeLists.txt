@@ -1,1 +1,1 @@
-boost_test_compile(timer_test SOURCES ../timer_test.cpp)
+boost_test_compile(timer_test ../timer_test.cpp)

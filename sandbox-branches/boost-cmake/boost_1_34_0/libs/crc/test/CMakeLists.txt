@@ -1,2 +1,2 @@
-boost_test_run(crc_test SOURCES ../crc_test.cpp)
+boost_test_run(crc_test ../crc_test.cpp)
 
