@@ -9,7 +9,7 @@ macro(BOOST_COLLECT_SUBPROJECT_DIRECTORY_NAMES varname)
   MESSAGE(STATUS "Scanning subdirectories:")
   foreach(BOOST_LIB_CMAKE_FILE ${BOOST_LIBRARY_CMAKE_FILES})
     get_filename_component(BOOST_LIB_DIR ${BOOST_LIB_CMAKE_FILE} PATH)
-    append(${varname} ${BOOST_LIB_DIR})
+    set(${varname} ${${varname}} ${BOOST_LIB_DIR})
   endforeach(BOOST_LIB_CMAKE_FILE ${BOOST_LIBRARY_CMAKE_FILES})
 endmacro(BOOST_COLLECT_SUBPROJECT_DIRECTORY_NAMES varname)
 
