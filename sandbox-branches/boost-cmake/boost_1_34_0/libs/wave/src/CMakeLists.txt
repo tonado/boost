@@ -1,4 +1,4 @@
-boost_library(
+boost_add_library(
   boost_wave 
   instantiate_cpp_exprgrammar.cpp
   instantiate_cpp_grammar.cpp

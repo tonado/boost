@@ -42,14 +42,14 @@ set(WSOURCES
     xml_woarchive.cpp
     )
 
-boost_library(boost_serialization
+boost_add_library(boost_serialization
   ${SOURCES}
   SHARED_COMPILE_FLAGS -DBOOST_SERIALIZATION_DYN_LINK=1
 )
 
 option(BUILD_BOOST_WSERIALIZATION "Build wide-char boost serialization libs" ON)
 if (BUILD_BOOST_WSERIALIZATION)
-  boost_library(boost_wserialization
+  boost_add_library(boost_wserialization
     ${WSOURCES}
     SHARED_COMPILE_FLAGS "-DBOOST_SERIALIZATION_DYN_LINK=1 -DBOOST_WSERIALIZATION_DYN_LINK=1"
     DEPENDS boost_serialization
