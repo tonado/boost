@@ -24,7 +24,15 @@ void init_TryEnterCriticalSection()
         version_info.dwMajorVersion >= 4)
     {
         if (HMODULE kernel_module = GetModuleHandle(TEXT("KERNEL32.DLL")))
-            g_TryEnterCriticalSection = reinterpret_cast<TryEnterCriticalSection_type>(GetProcAddress(kernel_module, TEXT("TryEnterCriticalSection")));
+        {
+            g_TryEnterCriticalSection = reinterpret_cast<TryEnterCriticalSection_type>(
+#if defined(BOOST_NO_ANSI_APIS)
+                GetProcAddressW(kernel_module, L"TryEnterCriticalSection")
+#else
+                GetProcAddress(kernel_module, "TryEnterCriticalSection")
+#endif        
+                );
+        }
     }
 }
 
@@ -62,10 +70,8 @@ inline void* new_critical_section()
 inline void* new_mutex(const char* name)
 {
 #if defined(BOOST_NO_ANSI_APIS)
-    int num_wide_chars = (strlen(name) + 1);
-    LPWSTR wide_name = (LPWSTR)_alloca( num_wide_chars * 2 );
-    ::MultiByteToWideChar(CP_ACP, 0, name, -1, wide_name, num_wide_chars);
-    HANDLE mutex = CreateMutexW(0, 0, wide_name);
+    USES_CONVERSION;
+    HANDLE mutex = CreateMutexW(0, 0, A2CW(name));
 #else
     HANDLE mutex = CreateMutexA(0, 0, name);
 #endif

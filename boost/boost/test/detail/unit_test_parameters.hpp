@@ -62,7 +62,8 @@ int                     BOOST_TEST_DECL random_seed();
 //  Revision History :
 //  
 //  $Log$
-//  Revision 1.24  2006/11/13 20:03:48  jhunold
+//  Revision 1.23.2.1  2006/11/13 20:06:57  jhunold
+//  Merge from HEAD:
 //  Added missing export declarations.
 //
 //  Revision 1.23  2006/01/30 07:29:49  rogeeff

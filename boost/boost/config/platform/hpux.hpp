@@ -36,7 +36,6 @@
 #     define BOOST_HAS_PTHREADS
 #  endif
 #elif defined(__HP_aCC) && !defined(BOOST_DISABLE_THREADS)
-//#  define BOOST_HAS_THREADS
 #  define BOOST_HAS_PTHREADS
 #endif
 
@@ -81,5 +80,6 @@
 #ifndef BOOST_HAS_EXPM1
 #  define BOOST_HAS_EXPM1
 #endif
+
 
 

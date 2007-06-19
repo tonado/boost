@@ -82,49 +82,7 @@
 #define BOOST_HAS_NRVO
 #endif
 
-//
-// C++0x features
-//
-#if __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ > 2)
-// C++0x features are only enabled when -std=c++0x or -std=gnu++0x are
-// passed on the command line, which in turn defines
-// __GXX_EXPERIMENTAL_CXX0X__. Note: __GXX_EXPERIMENTAL_CPP0X__ is
-// defined by some very early development versions of GCC 4.3; we will
-// remove this part of the check in the near future.
-#  if defined(__GXX_EXPERIMENTAL_CPP0X__) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#    define BOOST_HAS_STATIC_ASSERT
-#    ifndef __STRICT_ANSI__
-#      define BOOST_HAS_VARIADIC_TMPL
-#    endif
-#  endif
-#endif
-
-//
-// Potential C++0x features
-//
-
-// Variadic templates compiler: 
-//   http://www.generic-programming.org/~dgregor/cpp/variadic-templates.html
-#ifdef __VARIADIC_TEMPLATES
-#  define BOOST_HAS_VARIADIC_TMPL
-#endif
-
-// Rvalue reference support
-#ifdef __RVALUE_REFS
-#  define BOOST_HAS_RVALUE_REFS
-#endif
-
-// ConceptGCC compiler:
-//   http://www.generic-programming.org/software/ConceptGCC/
-#ifdef __GXX_CONCEPTS__
-#  define BOOST_HAS_CONCEPTS
-#  define BOOST_HAS_RVALUE_REFS
-#  define BOOST_COMPILER "ConceptGCC version " __VERSION__
-#endif
-
-#ifndef BOOST_COMPILER
-#  define BOOST_COMPILER "GNU C++ version " __VERSION__
-#endif
+#define BOOST_COMPILER "GNU C++ version " __VERSION__
 
 //
 // versions check:
@@ -133,8 +91,8 @@
 #  error "Compiler not configured - please reconfigure"
 #endif
 //
-// last known and checked version is 4.3 (Pre-release):
-#if (__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ > 3))
+// last known and checked version is 4.0 (Pre-release):
+#if (__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ > 0))
 #  if defined(BOOST_ASSERT_CONFIG)
 #     error "Unknown compiler version - please run the configure tests and report the results"
 #  else

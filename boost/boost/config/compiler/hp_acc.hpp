@@ -1,9 +1,11 @@
 //  (C) Copyright John Maddock 2001 - 2003. 
 //  (C) Copyright Jens Maurer 2001 - 2003. 
+//  (C) Copyright John Maddock 2001 - 2003. 
+//  (C) Copyright Jens Maurer 2001 - 2003. 
 //  (C) Copyright Aleksey Gurtovoy 2002. 
 //  (C) Copyright David Abrahams 2002 - 2003. 
 //  (C) Copyright Toon Knapen 2003. 
-//  (C) Copyright Boris Gubenko 2006 - 2007.
+//  (C) Copyright Boris Gubenko 2006.
 //  Use, modification and distribution are subject to the 
 //  Boost Software License, Version 1.0. (See accompanying file 
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -51,15 +53,6 @@
 #    define BOOST_NO_MEMBER_TEMPLATE_KEYWORD
 #endif
 
-// This macro should not be defined when compiling in strict ansi
-// mode, but, currently, we don't have the ability to determine
-// what standard mode we are compiling with. Some future version
-// of aCC6 compiler will provide predefined macros reflecting the
-// compilation options, including the standard mode.
-#if (__HP_aCC >= 60000)
-#    define BOOST_NO_TWO_PHASE_NAME_LOOKUP
-#endif
-
 #define BOOST_COMPILER "HP aCC version " BOOST_STRINGIZE(__HP_aCC)
 
 //
@@ -75,7 +68,5 @@
 #     error "Unknown compiler version - please run the configure tests and report the results"
 #  endif
 #endif
-
-
 
 

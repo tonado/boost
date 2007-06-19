@@ -44,7 +44,6 @@
 // STL
 #include <cstddef>          // for std::size_t
 #include <iosfwd>
-#include <climits>          // for CHAR_BIT
 
 #include <boost/test/detail/suppress_warnings.hpp>
 
@@ -155,12 +154,20 @@ do {                                                                \
 
 //____________________________________________________________________________//
 
+// The argument version of the following macros are causing "Internal Compiler Errors"
+// on MSVC 6.5 when inlining is turned on (i.e. usually in release builds)
+#if BOOST_WORKAROUND(BOOST_MSVC, <=1200) && defined(NDEBUG)
+#define BOOST_WARN_EQUAL( L, R ) BOOST_WARN( (L) == (R) )
+#define BOOST_CHECK_EQUAL( L, R ) BOOST_CHECK( (L) == (R) )
+#define BOOST_REQUIRE_EQUAL( L, R ) BOOST_REQUIRE( (L) == (R) )
+#else
 #define BOOST_WARN_EQUAL( L, R ) \
     BOOST_CHECK_WITH_ARGS_IMPL( ::boost::test_tools::tt_detail::equal_impl_frwd(), "", WARN, CHECK_EQUAL, (L)(R) )
 #define BOOST_CHECK_EQUAL( L, R ) \
     BOOST_CHECK_WITH_ARGS_IMPL( ::boost::test_tools::tt_detail::equal_impl_frwd(), "", CHECK, CHECK_EQUAL, (L)(R) )
 #define BOOST_REQUIRE_EQUAL( L, R ) \
     BOOST_CHECK_WITH_ARGS_IMPL( ::boost::test_tools::tt_detail::equal_impl_frwd(), "", REQUIRE, CHECK_EQUAL, (L)(R) )
+#endif
 //____________________________________________________________________________//
 
 #define BOOST_WARN_CLOSE( L, R, T ) \
@@ -380,7 +387,7 @@ inline print_helper_t<T> print_helper( T const& t )
     return print_helper_t<T>( t );
 }
 
-#if BOOST_WORKAROUND(__SUNPRO_CC, BOOST_TESTED_AT(0x530)) 
+#if BOOST_WORKAROUND(__SUNPRO_CC, < 0x580) 
 template<typename T, std::size_t N>
 inline print_helper_t<T*> print_helper( T (&t)[N] )
 {
@@ -481,8 +488,10 @@ inline predicate_result equal_impl( wchar_t* left, wchar_t* right )       { retu
 #endif
 
 //____________________________________________________________________________//
-
-struct BOOST_TEST_DECL equal_impl_frwd {
+//
+// Declaring this class as exported causes linker errors when building
+// the serialisation tests with VC6, disable this for now. (JM 2006/10/30)
+struct /*BOOST_TEST_DECL*/ equal_impl_frwd {
     template <typename Left, typename Right>
     inline predicate_result
     call_impl( Left const& left, Right const& right, mpl::false_ ) const
@@ -600,23 +609,27 @@ namespace test_toolbox = test_tools;
 //  Revision History :
 //
 //  $Log$
-//  Revision 1.66  2007/04/05 14:46:47  dgregor
-//  Add include of climits
+//  Revision 1.60.2.7  2007/02/22 17:57:29  speedsnail
+//  Make the msvc-6.5 hack even more specific, i.e. apply only in release builds.
 //
-//  Revision 1.65  2007/02/22 18:00:39  speedsnail
-//  Removed the msvc-6.5 hack from HEAD again. Gennadiy Rozental didn't like it anyways...
+//  Revision 1.60.2.6  2006/12/16 15:02:16  speedsnail
+//  Merged from HEAD
 //
-//  Revision 1.64  2006/12/16 14:36:23  speedsnail
-//  Workaround for msvc-6.5: *_EQUAL macros give Internal Compiler Errors, when inlining is turned on.
+//  Revision 1.60.2.5  2006/11/14 21:33:26  jhunold
+//  Merge from HEAD: Add missing export macros for print_log_value<>
 //
-//  Revision 1.63  2006/11/14 21:33:01  jhunold
-//  Add missing export macros for print_log_value<>
+//  Revision 1.60.2.4  2006/11/14 07:35:43  jhunold
+//  Merge from HEAD: Removed wrong export declarations.
 //
-//  Revision 1.62  2006/11/14 07:34:30  jhunold
-//  Removed wrong export declarations.
-//
-//  Revision 1.61  2006/11/13 20:03:48  jhunold
+//  Revision 1.60.2.3  2006/11/13 20:06:57  jhunold
+//  Merge from HEAD:
 //  Added missing export declarations.
+//
+//  Revision 1.60.2.2  2006/10/30 18:37:36  johnmaddock
+//  Patch for serialisation test failures.
+//
+//  Revision 1.60.2.1  2006/07/24 00:43:17  gennaro_prota
+//  Tentative fix for Sun C++ 5.8 (don't add more specialized print_helper function template)
 //
 //  Revision 1.60  2006/03/19 07:27:11  rogeeff
 //  avoid warning
@@ -676,3 +689,4 @@ namespace test_toolbox = test_tools;
 // ***************************************************************************
 
 #endif // BOOST_TEST_TEST_TOOLS_HPP_012705GER
+

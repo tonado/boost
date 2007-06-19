@@ -5,7 +5,7 @@
 //  shared_ptr.hpp
 //
 //  (C) Copyright Greg Colvin and Beman Dawes 1998, 1999.
-//  Copyright (c) 2001-2007 Peter Dimov
+//  Copyright (c) 2001-2006 Peter Dimov
 //
 //  Distributed under the Boost Software License, Version 1.0. (See
 //  accompanying file LICENSE_1_0.txt or copy at
@@ -88,21 +88,6 @@ template<class T, class Y> void sp_enable_shared_from_this( shared_count const &
     if(pe != 0) pe->_internal_weak_this._internal_assign(const_cast<Y*>(px), pn);
 }
 
-#ifdef _MANAGED
-
-// Avoid C4793, ... causes native code generation
-
-struct sp_any_pointer
-{
-    template<class T> sp_any_pointer( T* ) {}
-};
-
-inline void sp_enable_shared_from_this( shared_count const & /*pn*/, sp_any_pointer, sp_any_pointer )
-{
-}
-
-#else // _MANAGED
-
 #ifdef sgi
 // Turn off: the last argument of the varargs function "sp_enable_shared_from_this" is unnamed
 # pragma set woff 3506
@@ -115,8 +100,6 @@ inline void sp_enable_shared_from_this( shared_count const & /*pn*/, ... )
 #ifdef sgi
 # pragma reset woff 3506
 #endif
-
-#endif // _MANAGED
 
 #if !defined( BOOST_NO_SFINAE ) && !defined( BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION ) && !defined( BOOST_NO_AUTO_PTR )
 
@@ -212,12 +195,6 @@ public:
     {
     }
 
-    // aliasing
-    template< class Y >
-    shared_ptr( shared_ptr<Y> const & r, T * p ): px( p ), pn( r.pn ) // never throws
-    {
-    }
-
     template<class Y>
     shared_ptr(shared_ptr<Y> const & r, boost::detail::static_cast_tag): px(static_cast<element_type *>(r.px)), pn(r.pn)
     {
@@ -259,7 +236,7 @@ public:
 #if !defined( BOOST_NO_SFINAE ) && !defined( BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION )
 
     template<class Ap>
-    shared_ptr( Ap r, typename boost::detail::sp_enable_if_auto_ptr<Ap, int>::type = 0 ): px( r.get() ), pn()
+    explicit shared_ptr( Ap r, typename boost::detail::sp_enable_if_auto_ptr<Ap, int>::type = 0 ): px( r.get() ), pn()
     {
         typename Ap::element_type * tmp = r.get();
         pn = boost::detail::shared_count( r );
@@ -306,38 +283,6 @@ public:
 
 #endif // BOOST_NO_AUTO_PTR
 
-// Move support
-
-#if defined( BOOST_HAS_RVALUE_REFS )
-
-    shared_ptr( shared_ptr && r ): px( r.px ), pn() // never throws
-    {
-        pn.swap( r.pn );
-        r.px = 0;
-    }
-
-    template<class Y>
-    shared_ptr( shared_ptr<Y> && r ): px( r.px ), pn() // never throws
-    {
-        pn.swap( r.pn );
-        r.px = 0;
-    }
-
-    shared_ptr & operator=( shared_ptr && r ) // never throws
-    {
-        this_type( static_cast< shared_ptr && >( r ) ).swap( *this );
-        return *this;
-    }
-
-    template<class Y>
-    shared_ptr & operator=( shared_ptr<Y> && r ) // never throws
-    {
-        this_type( static_cast< shared_ptr<Y> && >( r ) ).swap( *this );
-        return *this;
-    }
-
-#endif
-
     void reset() // never throws in 1.30+
     {
         this_type().swap(*this);
@@ -359,11 +304,6 @@ public:
         this_type( p, d, a ).swap( *this );
     }
 
-    template<class Y> void reset( shared_ptr<Y> const & r, T * p )
-    {
-        this_type( r, p ).swap( *this );
-    }
-
     reference operator* () const // never throws
     {
         BOOST_ASSERT(px != 0);
@@ -383,7 +323,7 @@ public:
 
     // implicit conversion to "bool"
 
-#if defined(__SUNPRO_CC) && BOOST_WORKAROUND(__SUNPRO_CC, <= 0x530)
+#if defined(__SUNPRO_CC) && BOOST_WORKAROUND(__SUNPRO_CC, <= 0x580)
 
     operator bool () const
     {
@@ -583,7 +523,7 @@ template<class E, class T, class Y> std::basic_ostream<E, T> & operator<< (std::
 
 #endif // __GNUC__ < 3
 
-// get_deleter
+// get_deleter (experimental)
 
 #if ( defined(__GNUC__) && BOOST_WORKAROUND(__GNUC__, < 3) ) || \
     ( defined(__EDG_VERSION__) && BOOST_WORKAROUND(__EDG_VERSION__, <= 238) ) || \
