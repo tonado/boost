@@ -25,7 +25,6 @@
 
 namespace boost { namespace mpl {
 
-
 namespace aux { 
 
 template< typename Sequence > 

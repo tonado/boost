@@ -2,7 +2,7 @@
 #ifndef BOOST_MPL_SET_AUX_ITERATOR_HPP_INCLUDED
 #define BOOST_MPL_SET_AUX_ITERATOR_HPP_INCLUDED
 
-// Copyright Aleksey Gurtovoy 2003-2007
+// Copyright Aleksey Gurtovoy 2003-2004
 // Copyright David Abrahams 2003-2004
 //
 // Distributed under the Boost Software License, Version 1.0. 
@@ -26,26 +26,21 @@
 
 namespace boost { namespace mpl {
 
-// used by 's_iter_get'
+// used by 's_iter_impl'
 template< typename Set, typename Tail > struct s_iter;
-
-template< typename Set, typename Tail > struct s_iter_get
-    : eval_if< 
-          has_key< Set,typename Tail::item_type_ >
-        , identity< s_iter<Set,Tail> >
-        , next< s_iter<Set,Tail> >
-        >
-{
-};
 
 template< typename Set, typename Tail > struct s_iter_impl
 {
     typedef Tail                        tail_;
     typedef forward_iterator_tag        category;
-    typedef typename Tail::item_type_   type;
+    typedef typename Tail::item_::type  type;
 
 #if defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
-    typedef typename s_iter_get< Set,typename Tail::base >::type next;
+    typedef typename eval_if< 
+          has_key< Set,typename Tail::next_::type >
+        , identity< s_iter<Set,typename Tail::next_> >
+        , next< s_iter<Set,typename Tail::next_> >
+        >::type next;        
 #endif
 };
 
@@ -53,7 +48,11 @@ template< typename Set, typename Tail > struct s_iter_impl
 
 template< typename Set, typename Tail > 
 struct next< s_iter<Set,Tail> >
-    : s_iter_get< Set,typename Tail::base >
+    : eval_if< 
+          has_key< Set,typename Tail::next_::type >
+        , identity< s_iter<Set,typename Tail::next_> >
+        , next< s_iter<Set,typename Tail::next_> >
+        >
 {
 };
 

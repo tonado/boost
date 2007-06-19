@@ -52,9 +52,9 @@ compiler_log_formatter::log_start( std::ostream& output, counter_t test_cases_am
 //____________________________________________________________________________//
 
 void
-compiler_log_formatter::log_finish( std::ostream& ostr )
+compiler_log_formatter::log_finish( std::ostream& )
 {
-    ostr.flush();
+    // do nothing
 }
 
 //____________________________________________________________________________//
@@ -196,9 +196,6 @@ compiler_log_formatter::print_prefix( std::ostream& output, const_string file, s
 //  Revision History :
 //
 //  $Log$
-//  Revision 1.5  2006/07/28 15:01:59  rogeeff
-//  flush log stream on exit
-//
 //  Revision 1.4  2005/12/14 05:26:32  rogeeff
 //  report aborted test units
 //

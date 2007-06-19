@@ -89,18 +89,6 @@ public:
     bool m_started;
 };
 
-#if defined(BOOST_HAS_WINTHREADS)
-
-struct on_thread_exit_guard
-{
-    ~on_thread_exit_guard()
-    {
-        on_thread_exit();
-    }
-};
-
-#endif
-
 } // unnamed namespace
 
 extern "C" {
@@ -112,25 +100,22 @@ extern "C" {
         static OSStatus thread_proxy(void* param)
 #endif
     {
-//        try
-        {
-#if defined(BOOST_HAS_WINTHREADS)
-
-            on_thread_exit_guard guard;
-
-#endif
-
+        //try
+        //{
             thread_param* p = static_cast<thread_param*>(param);
             boost::function0<void> threadfunc = p->m_threadfunc;
             p->started();
             threadfunc();
-        }
-//        catch (...)
-//        {
-//#if defined(BOOST_HAS_WINTHREADS)
-//            on_thread_exit();
-//#endif
-//        }
+#if defined(BOOST_HAS_WINTHREADS)
+            on_thread_exit();
+#endif
+        //}
+        //catch (...)
+        //{
+#if defined(BOOST_HAS_WINTHREADS)
+        //    on_thread_exit();
+#endif
+        //}
 #if defined(BOOST_HAS_MPTASKS)
         ::boost::detail::thread_cleanup();
 #endif
@@ -378,7 +363,7 @@ void thread_group::join_all()
     }
 }
 
-int thread_group::size() const
+int thread_group::size()
 {
         return m_threads.size();
 }
