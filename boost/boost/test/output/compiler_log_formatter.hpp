@@ -68,7 +68,8 @@ protected:
 //  Revision History :
 //  
 //  $Log$
-//  Revision 1.3  2006/11/13 20:03:48  jhunold
+//  Revision 1.2.6.1  2006/11/13 20:06:57  jhunold
+//  Merge from HEAD:
 //  Added missing export declarations.
 //
 //  Revision 1.2  2005/02/20 08:27:08  rogeeff

@@ -1,4 +1,4 @@
-// (C) 2002, Fernando Luis Cacciola Carballal.
+// Copyright 2002, Fernando Luis Cacciola Carballal.
 //
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
@@ -9,9 +9,8 @@
 #ifndef BOOST_UTILITY_VALUE_INIT_21AGO2002_HPP
 #define BOOST_UTILITY_VALUE_INIT_21AGO2002_HPP
 
-#include <boost/detail/select_type.hpp>
-#include <boost/type_traits/cv_traits.hpp>
-#include <boost/detail/workaround.hpp>
+#include "boost/detail/select_type.hpp"
+#include "boost/type_traits/cv_traits.hpp"
 
 namespace boost {
 
@@ -40,11 +39,8 @@ struct non_const_T_base
 template<class T>
 struct select_base
 {
-  typedef
-#if !BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x564))
-  typename
-#endif 
-    ::boost::detail::if_true< ::boost::is_const<T>::value >
+  typedef typename
+    boost::detail::if_true< ::boost::is_const<T>::value >
       ::template then< const_T_base<T>, non_const_T_base<T> >::type type ;
 } ;
 

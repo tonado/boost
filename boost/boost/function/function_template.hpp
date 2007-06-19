@@ -70,6 +70,16 @@
 #  define BOOST_FUNCTION_RETURN(X) X; return BOOST_FUNCTION_VOID_RETURN_TYPE ()
 #endif
 
+#ifdef BOOST_MSVC
+#  pragma warning(push)
+#  pragma warning(disable: 4127) // conditional expression is constant.
+#endif
+
+#ifdef BOOST_MSVC
+#  pragma warning(push)
+#  pragma warning(disable: 4127) // conditional expression is constant.
+#endif
+
 namespace boost {
   namespace detail {
     namespace function {
@@ -446,17 +456,6 @@ namespace boost {
     typename Allocator = BOOST_FUNCTION_DEFAULT_ALLOCATOR
   >
   class BOOST_FUNCTION_FUNCTION : public function_base
-
-#if BOOST_FUNCTION_NUM_ARGS == 1
-
-    , public std::unary_function<T0,R>
-
-#elif BOOST_FUNCTION_NUM_ARGS == 2
-
-    , public std::binary_function<T0,T1,R>
-
-#endif
-
   {
   public:
 #ifndef BOOST_NO_VOID_RETURNS
@@ -799,10 +798,18 @@ public:
   }
 };
 
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
+
 #undef BOOST_FUNCTION_PARTIAL_SPEC
 #endif // have partial specialization
 
 } // end namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 // Cleanup after ourselves...
 #undef BOOST_FUNCTION_VTABLE

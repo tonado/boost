@@ -95,9 +95,8 @@ import regex ;
 import errors ;
 import "class" : new ;
 import common ;
-import sequence ;
 
-constant BOOST_VERSION : 1.35.0 ;
+constant BOOST_VERSION : 1.34.1 ;
 
 local version-tag = [ MATCH "^([^.]+)[.]([^.]+)[.]([^.]+)" : $(BOOST_VERSION) ] ;
 if $(version-tag[3]) = 0
@@ -166,10 +165,8 @@ project boost
 # Setup convenient aliases for all libraries.
 
 all-libraries =
-    [ MATCH .*libs/(.*)/build/.* : [ glob libs/*/build/Jamfile.v2 ] [ glob libs/*/build/Jamfile ] ]
+    [ MATCH .*libs/(.*)/build/.* : [ glob libs/*/build/Jamfile.v2 ] ]
     ;
-    
-all-libraries = [ sequence.unique $(all-libraries) ] ;    
 
 # First, the complicated libraries: where the target name in
 # Jamfile is different from directory name.
@@ -333,6 +330,15 @@ else if [ modules.peek : UNIX ]
 local headers =
     [ path.glob-tree boost : *.hpp *.ipp *.h *.inc : CVS ]
     [ path.glob-tree boost/compatibility/cpp_c_headers : c* : CVS ]
+    [ path.glob-tree boost/test/utils/runtime : *.cpp : CVS ]
+    [ path.glob-tree boost/spirit/tree :
+        parsetree.dtd : CVS ]
+    [ path.glob-tree boost/tr1/tr1 :
+        algorithm array bitset complex deque exception fstream functional
+        iomanip ios iostream istream iterator limits list locale map
+        memory new numeric ostream queue random regex set sstream stack
+        stdexcept streambuf string strstream tuple type_traits typeinfo
+        utility valarray vector *.SUNWCCh : CVS ]
     ;
 
 
@@ -401,7 +407,8 @@ if $(layout-versioned)
             {
                 noversion-file = 
                   [ MATCH "(.*)-[0-9_]+([.]so)[.0-9]*" : $(name) ] 
-                  [ MATCH "(.*)-[0-9_]+([.]a)" : $(name) ] ;
+                  [ MATCH "(.*)-[0-9_]+([.]a)" : $(name) ] 
+                  [ MATCH "(.*)-[0-9_]+([.]dll[.]a)" : $(name) ] ;
             }
                         
             local new-name = 

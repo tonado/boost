@@ -10,7 +10,7 @@
 //
 //  detail/sp_counted_base.hpp
 //
-//  Copyright 2005, 2006 Peter Dimov
+//  Copyright 2005 Peter Dimov
 //
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
@@ -46,14 +46,6 @@
 #elif defined( __GNUC__ ) && ( defined( __powerpc__ ) || defined( __ppc__ ) )
 
 # include <boost/detail/sp_counted_base_gcc_ppc.hpp>
-
-#elif defined(__GNUC__) && ( __GNUC__ * 100 + __GNUC_MINOR__ >= 401 )
-
-# include <boost/detail/sp_counted_base_sync.hpp>
-
-#elif defined(__GNUC__) && ( defined( __sparcv8 ) || defined( __sparcv9 ) )
-
-# include <boost/detail/sp_counted_base_gcc_sparc.hpp>
 
 #elif defined( WIN32 ) || defined( _WIN32 ) || defined( __WIN32__ )
 

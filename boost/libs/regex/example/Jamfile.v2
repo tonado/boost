@@ -20,7 +20,6 @@ rule regex-test-run ( sources + : input * : name * )
             $(input)
          :  # test-files
          :  # requirements
-            <toolset>msvc-7.1:<define>TEST_MFC=1 <toolset>msvc-7.0:<define>TEST_MFC=1
          :  # test name
             $(name)
         ] ;
@@ -34,7 +33,6 @@ test-suite regex-examples :
 [ regex-test-run snippets/mfc_example.cpp ]
 [ regex-test-run snippets/icu_example.cpp ]
 [ regex-test-run snippets/partial_regex_grep.cpp : $(BOOST_ROOT)/libs/regex/index.htm ]
-[ regex-test-run snippets/partial_regex_iterate.cpp : $(BOOST_ROOT)/libs/regex/index.htm ]
 [ regex-test-run snippets/partial_regex_match.cpp : 1234-5678-8765-4 ]
 [ regex-test-run snippets/regex_grep_example_1.cpp : $(BOOST_ROOT)/boost/rational.hpp ]
 [ regex-test-run snippets/regex_grep_example_2.cpp : $(BOOST_ROOT)/boost/rational.hpp ]
@@ -54,8 +52,6 @@ test-suite regex-examples :
   : : :  <threading>multi <define>BOOST_REGEX_MATCH_EXTRA=1 ]
 
 ;
-
-
 
 
 
