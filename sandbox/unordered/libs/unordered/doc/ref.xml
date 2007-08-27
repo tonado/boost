@@ -102,77 +102,75 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
           </typedef>
           <typedef name="reference">
             <type>typename allocator_type::reference</type>
-            <description>
-              <para>lvalue of 
-                <type>value_type</type>.
-              </para>
-            </description>
+            <purpose>lvalue of <type>value_type</type>.</purpose>
           </typedef>
           <typedef name="const_reference">
             <type>typename allocator_type::const_reference</type>
-            <description>
-              <para>const lvalue of 
-                <type>value_type</type>.
-              </para>
-            </description>
+            <purpose>const lvalue of <type>value_type</type>.</purpose>
           </typedef>
           <typedef name="size_type">
             <type><emphasis>implementation-defined</emphasis></type>
-            <description>unsigned integral type
-              <notes>
+            <description>
+              <para>An unsigned integral type.
+              </para>
+              <para>
                 <type>size_type</type> can represent any non-negative value of 
                 <type>difference_type</type>.
-              </notes>
+              </para>
             </description>
           </typedef>
           <typedef name="difference_type">
             <type><emphasis>implementation-defined</emphasis></type>
-            <description>signed integral type
-              <notes>Is identical to the difference type of 
+            <description>
+              <para>A signed integral type.
+              </para>
+              <para>Is identical to the difference type of 
                 <type>iterator</type> and 
                 <type>const_iterator</type>.
-              </notes>
+              </para>
             </description>
           </typedef>
           <typedef name="iterator">
             <type><emphasis>implementation-defined</emphasis></type>
             <description>
               <para>A constant iterator whose value type is 
-                <type>value_type</type>.
+                <type>value_type</type>. 
               </para>
-              <notes>
-                <para>Any iterator category except output iterator.
-                </para>
-                <para>Convertible to 
-                  <type>const_iterator</type>.
-                </para>
-              </notes>
+              <para>Any iterator category except output iterator.
+              </para>
+              <para>Convertible to 
+                <type>const_iterator</type>.
+              </para>
             </description>
           </typedef>
           <typedef name="const_iterator">
             <type><emphasis>implementation-defined</emphasis></type>
-            <description>A constant iterator whose value type is 
-              <type>value_type</type>.
-              <notes>
-                <para>Any iterator category except output iterator.
-                </para>
-              </notes>
+            <description>
+              <para>A constant iterator whose value type is 
+                <type>value_type</type>. 
+              </para>
+              <para>Any iterator category except output iterator.
+              </para>
             </description>
           </typedef>
           <typedef name="local_iterator">
             <type><emphasis>implementation-defined</emphasis></type>
-            <description>An iterator with the same value type, difference type and pointer and reference type as 
-              <type>iterator</type>.
-            </description>
-            <description>A local_iterator object can be used to iterate through a single bucket.
+            <description>
+              <para>An iterator with the same value type, difference type and pointer and reference type as 
+                <type>iterator</type>.
+              </para>
+              <para>A local_iterator object can be used to iterate through a single bucket.
+              </para>
             </description>
           </typedef>
           <typedef name="const_local_iterator">
             <type><emphasis>implementation-defined</emphasis></type>
-            <description>A constant iterator with the same value type, difference type and pointer and reference type as 
-              <type>const_iterator</type>.
-            </description>
-            <description>A const_local_iterator object can be used to iterate through a single bucket.
+            <description>
+              <para>A constant iterator with the same value type, difference type and pointer and reference type as 
+                <type>const_iterator</type>.
+              </para>
+              <para>A const_local_iterator object can be used to iterate through a single bucket.
+              </para>
             </description>
           </typedef>
           <constructor>
@@ -825,77 +823,75 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
           </typedef>
           <typedef name="reference">
             <type>typename allocator_type::reference</type>
-            <description>
-              <para>lvalue of 
-                <type>value_type</type>.
-              </para>
-            </description>
+            <purpose>lvalue of <type>value_type</type>.</purpose>
           </typedef>
           <typedef name="const_reference">
             <type>typename allocator_type::const_reference</type>
-            <description>
-              <para>const lvalue of 
-                <type>value_type</type>.
-              </para>
-            </description>
+            <purpose>const lvalue of <type>value_type</type>.</purpose>
           </typedef>
           <typedef name="size_type">
             <type><emphasis>implementation-defined</emphasis></type>
-            <description>unsigned integral type
-              <notes>
+            <description>
+              <para>An unsigned integral type.
+              </para>
+              <para>
                 <type>size_type</type> can represent any non-negative value of 
                 <type>difference_type</type>.
-              </notes>
+              </para>
             </description>
           </typedef>
           <typedef name="difference_type">
             <type><emphasis>implementation-defined</emphasis></type>
-            <description>signed integral type
-              <notes>Is identical to the difference type of 
+            <description>
+              <para>A signed integral type.
+              </para>
+              <para>Is identical to the difference type of 
                 <type>iterator</type> and 
                 <type>const_iterator</type>.
-              </notes>
+              </para>
             </description>
           </typedef>
           <typedef name="iterator">
             <type><emphasis>implementation-defined</emphasis></type>
             <description>
               <para>A constant iterator whose value type is 
-                <type>value_type</type>.
+                <type>value_type</type>. 
               </para>
-              <notes>
-                <para>Any iterator category except output iterator.
-                </para>
-                <para>Convertible to 
-                  <type>const_iterator</type>.
-                </para>
-              </notes>
+              <para>Any iterator category except output iterator.
+              </para>
+              <para>Convertible to 
+                <type>const_iterator</type>.
+              </para>
             </description>
           </typedef>
           <typedef name="const_iterator">
             <type><emphasis>implementation-defined</emphasis></type>
-            <description>A constant iterator whose value type is 
-              <type>value_type</type>.
-              <notes>
-                <para>Any iterator category except output iterator.
-                </para>
-              </notes>
+            <description>
+              <para>A constant iterator whose value type is 
+                <type>value_type</type>. 
+              </para>
+              <para>Any iterator category except output iterator.
+              </para>
             </description>
           </typedef>
           <typedef name="local_iterator">
             <type><emphasis>implementation-defined</emphasis></type>
-            <description>An iterator with the same value type, difference type and pointer and reference type as 
-              <type>iterator</type>.
-            </description>
-            <description>A local_iterator object can be used to iterate through a single bucket.
+            <description>
+              <para>An iterator with the same value type, difference type and pointer and reference type as 
+                <type>iterator</type>.
+              </para>
+              <para>A local_iterator object can be used to iterate through a single bucket.
+              </para>
             </description>
           </typedef>
           <typedef name="const_local_iterator">
             <type><emphasis>implementation-defined</emphasis></type>
-            <description>A constant iterator with the same value type, difference type and pointer and reference type as 
-              <type>const_iterator</type>.
-            </description>
-            <description>A const_local_iterator object can be used to iterate through a single bucket.
+            <description>
+              <para>A constant iterator with the same value type, difference type and pointer and reference type as 
+                <type>const_iterator</type>.
+              </para>
+              <para>A const_local_iterator object can be used to iterate through a single bucket.
+              </para>
             </description>
           </typedef>
           <constructor>
@@ -1562,77 +1558,75 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
           </typedef>
           <typedef name="reference">
             <type>typename allocator_type::reference</type>
-            <description>
-              <para>lvalue of 
-                <type>value_type</type>.
-              </para>
-            </description>
+            <purpose>lvalue of <type>value_type</type>.</purpose>
           </typedef>
           <typedef name="const_reference">
             <type>typename allocator_type::const_reference</type>
-            <description>
-              <para>const lvalue of 
-                <type>value_type</type>.
-              </para>
-            </description>
+            <purpose>const lvalue of <type>value_type</type>.</purpose>
           </typedef>
           <typedef name="size_type">
             <type><emphasis>implementation-defined</emphasis></type>
-            <description>unsigned integral type
-              <notes>
+            <description>
+              <para>An unsigned integral type.
+              </para>
+              <para>
                 <type>size_type</type> can represent any non-negative value of 
                 <type>difference_type</type>.
-              </notes>
+              </para>
             </description>
           </typedef>
           <typedef name="difference_type">
             <type><emphasis>implementation-defined</emphasis></type>
-            <description>signed integral type
-              <notes>Is identical to the difference type of 
+            <description>
+              <para>A signed integral type.
+              </para>
+              <para>Is identical to the difference type of 
                 <type>iterator</type> and 
                 <type>const_iterator</type>.
-              </notes>
+              </para>
             </description>
           </typedef>
           <typedef name="iterator">
             <type><emphasis>implementation-defined</emphasis></type>
             <description>
               <para>A iterator whose value type is 
-                <type>value_type</type>.
+                <type>value_type</type>. 
               </para>
-              <notes>
-                <para>Any iterator category except output iterator.
-                </para>
-                <para>Convertible to 
-                  <type>const_iterator</type>.
-                </para>
-              </notes>
+              <para>Any iterator category except output iterator.
+              </para>
+              <para>Convertible to 
+                <type>const_iterator</type>.
+              </para>
             </description>
           </typedef>
           <typedef name="const_iterator">
             <type><emphasis>implementation-defined</emphasis></type>
-            <description>A constant iterator whose value type is 
-              <type>value_type</type>.
-              <notes>
-                <para>Any iterator category except output iterator.
-                </para>
-              </notes>
+            <description>
+              <para>A constant iterator whose value type is 
+                <type>value_type</type>. 
+              </para>
+              <para>Any iterator category except output iterator.
+              </para>
             </description>
           </typedef>
           <typedef name="local_iterator">
             <type><emphasis>implementation-defined</emphasis></type>
-            <description>An iterator with the same value type, difference type and pointer and reference type as 
-              <type>iterator</type>.
-            </description>
-            <description>A local_iterator object can be used to iterate through a single bucket.
+            <description>
+              <para>An iterator with the same value type, difference type and pointer and reference type as 
+                <type>iterator</type>.
+              </para>
+              <para>A local_iterator object can be used to iterate through a single bucket.
+              </para>
             </description>
           </typedef>
           <typedef name="const_local_iterator">
             <type><emphasis>implementation-defined</emphasis></type>
-            <description>A constant iterator with the same value type, difference type and pointer and reference type as 
-              <type>const_iterator</type>.
-            </description>
-            <description>A const_local_iterator object can be used to iterate through a single bucket.
+            <description>
+              <para>A constant iterator with the same value type, difference type and pointer and reference type as 
+                <type>const_iterator</type>.
+              </para>
+              <para>A const_local_iterator object can be used to iterate through a single bucket.
+              </para>
             </description>
           </typedef>
           <constructor>
@@ -2321,77 +2315,75 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
           </typedef>
           <typedef name="reference">
             <type>typename allocator_type::reference</type>
-            <description>
-              <para>lvalue of 
-                <type>value_type</type>.
-              </para>
-            </description>
+            <purpose>lvalue of <type>value_type</type>.</purpose>
           </typedef>
           <typedef name="const_reference">
             <type>typename allocator_type::const_reference</type>
-            <description>
-              <para>const lvalue of 
-                <type>value_type</type>.
-              </para>
-            </description>
+            <purpose>const lvalue of <type>value_type</type>.</purpose>
           </typedef>
           <typedef name="size_type">
             <type><emphasis>implementation-defined</emphasis></type>
-            <description>unsigned integral type
-              <notes>
+            <description>
+              <para>An unsigned integral type.
+              </para>
+              <para>
                 <type>size_type</type> can represent any non-negative value of 
                 <type>difference_type</type>.
-              </notes>
+              </para>
             </description>
           </typedef>
           <typedef name="difference_type">
             <type><emphasis>implementation-defined</emphasis></type>
-            <description>signed integral type
-              <notes>Is identical to the difference type of 
+            <description>
+              <para>A signed integral type.
+              </para>
+              <para>Is identical to the difference type of 
                 <type>iterator</type> and 
                 <type>const_iterator</type>.
-              </notes>
+              </para>
             </description>
           </typedef>
           <typedef name="iterator">
             <type><emphasis>implementation-defined</emphasis></type>
             <description>
               <para>A iterator whose value type is 
-                <type>value_type</type>.
+                <type>value_type</type>. 
               </para>
-              <notes>
-                <para>Any iterator category except output iterator.
-                </para>
-                <para>Convertible to 
-                  <type>const_iterator</type>.
-                </para>
-              </notes>
+              <para>Any iterator category except output iterator.
+              </para>
+              <para>Convertible to 
+                <type>const_iterator</type>.
+              </para>
             </description>
           </typedef>
           <typedef name="const_iterator">
             <type><emphasis>implementation-defined</emphasis></type>
-            <description>A constant iterator whose value type is 
-              <type>value_type</type>.
-              <notes>
-                <para>Any iterator category except output iterator.
-                </para>
-              </notes>
+            <description>
+              <para>A constant iterator whose value type is 
+                <type>value_type</type>. 
+              </para>
+              <para>Any iterator category except output iterator.
+              </para>
             </description>
           </typedef>
           <typedef name="local_iterator">
             <type><emphasis>implementation-defined</emphasis></type>
-            <description>An iterator with the same value type, difference type and pointer and reference type as 
-              <type>iterator</type>.
-            </description>
-            <description>A local_iterator object can be used to iterate through a single bucket.
+            <description>
+              <para>An iterator with the same value type, difference type and pointer and reference type as 
+                <type>iterator</type>.
+              </para>
+              <para>A local_iterator object can be used to iterate through a single bucket.
+              </para>
             </description>
           </typedef>
           <typedef name="const_local_iterator">
             <type><emphasis>implementation-defined</emphasis></type>
-            <description>A constant iterator with the same value type, difference type and pointer and reference type as 
-              <type>const_iterator</type>.
-            </description>
-            <description>A const_local_iterator object can be used to iterate through a single bucket.
+            <description>
+              <para>A constant iterator with the same value type, difference type and pointer and reference type as 
+                <type>const_iterator</type>.
+              </para>
+              <para>A const_local_iterator object can be used to iterate through a single bucket.
+              </para>
             </description>
           </typedef>
           <constructor>
