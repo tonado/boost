@@ -242,21 +242,11 @@ var_string(
                     
                     if (!split)
                     {
-                        /*  the @() reference doesn't match the @(foo:E=bar) format.
-                            hence we leave it alone by copying directly to output. */
-                        int l = 0;
-                        if ( out+2 >= oute ) return -1;
-                        *(out++) = '@';
-                        *(out++) = '(';
-                        l = var_string(in+2,out,oute-out,lol);
-                        if ( l < 0 ) return -1;
-                        out += l;
-                        if ( out+1 >= oute ) return -1;
-                        *(out++) = ')';
-                        in = ine;
+                        printf( "no file specified!\n" );
+                        exit( EXITBAD );
                     }
                     
-                    else if ( depth == 0 )
+                    if ( depth == 0 )
                     {
                         string file_name_v;
                         int file_name_l = 0;

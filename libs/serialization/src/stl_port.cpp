@@ -18,7 +18,8 @@
 
 #include <boost/config.hpp>
 
-#if defined(__SGI_STL_PORT) && (__SGI_STL_PORT < 0x500)
+#if defined(__SGI_STL_PORT) 
+#if defined(_STLPORT_VERSION) && (_STLPORT_VERSION < 0x500)
 
 #include <boost/archive/codecvt_null.hpp>
 
@@ -38,6 +39,7 @@ locale::locale(
 
 } // namespace std
 
+#endif
 #endif
 
 #endif

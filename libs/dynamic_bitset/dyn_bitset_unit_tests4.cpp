@@ -1,20 +1,18 @@
 // --------------------------------------------------------
 //        (C) Copyright Jeremy Siek   2001.
-//        (C) Copyright Gennaro Prota 2003 - 2006.
+//        (C) Copyright Gennaro Prota 2003 - 2004.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 //
 // -----------------------------------------------------------
-//
-// $Id$
 
 #include <fstream>
 #include <string>
-#include <cstddef>   // for std::size_t
+#include <cstddef> // for std::size_t
 #include <stdexcept> // for std::logic_error
-#include <assert.h>
+#include <cassert>
 
 #include "boost/config.hpp"
 #if !defined (BOOST_NO_STRINGSTREAM)
@@ -22,14 +20,14 @@
 #endif
 
 #include "bitset_test.hpp"
-#include "boost/dynamic_bitset/dynamic_bitset.hpp"
+#include "boost/dynamic_bitset.hpp"
 #include "boost/detail/workaround.hpp"
 
 
 // Codewarrior 8.3 for Win fails without this.
 // Thanks Howard Hinnant ;)
-#if defined __MWERKS__ && BOOST_WORKAROUND(__MWERKS__, <= 0x3003) // 8.x
-# pragma parse_func_templ off
+#if BOOST_WORKAROUND(__MWERKS__, <= 0x3003) // 8.x
+#pragma parse_func_templ off
 #endif
 
 
@@ -44,15 +42,9 @@ std::wstring widen_string( const std::string & str,
   std::wstring result;
   const std::string::size_type len = str.length();
   if(len != 0) {
-
-    typedef std::ctype<wchar_t> ct_type;
-    typedef std::wstring::traits_type tr_type;
-    const ct_type & ct = BOOST_USE_FACET(ct_type, loc);
-
     result.resize(len);
-    for (std::size_t i = 0; i < len; ++i)
-        tr_type::assign(result[i], ct.widen(str[i]));
-
+    BOOST_USE_FACET(std::ctype<wchar_t>, loc)
+                  .widen(&str[0], 1 + &str[len-1], &result[0]);
   }
   return result;
 }
@@ -136,7 +128,7 @@ void run_test_cases( BOOST_EXPLICIT_TEMPLATE_TYPE(Block) )
 
             }
             {
-              //NOTE: there are NO string stream tests
+              //NOTE: there are NO string stream tests - gps
             }
 #if !defined (BOOST_DYNAMIC_BITSET_NO_WCHAR_T_TESTS)
             {
@@ -171,7 +163,7 @@ void run_test_cases( BOOST_EXPLICIT_TEMPLATE_TYPE(Block) )
   // a good "real life" test. Some characters, such as '\v' and '\f', are not
   // used exactly because they are the ones which will most likely give problems
   // on some systems (for instance '\f' could actually be written as a sequence
-  // of new-lines, and we could never be able to read it back)
+  // of new-lines, and we could never be able to read it back) [gps]
   //
   // Note how the bitset object is not initially empty. That helps checking
   // that it isn't erroneously clear()ed by operator>>.

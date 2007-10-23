@@ -107,8 +107,6 @@ namespace
       && local.find("doc/xml") != 0
       // ignore some web files
       && leaf != ".htaccess"
-      // ignore svn files:
-      && leaf != ".svn"
       ;
   }
 
@@ -504,7 +502,6 @@ namespace boost
       register_signature( ".xml" );
       register_signature( ".xsd" );
       register_signature( ".xsl" );
-      register_signature( ".qbk" );
     }
 
     hypertext_inspector::hypertext_inspector()

@@ -26,22 +26,21 @@ namespace std{
 
 #include "A.hpp"
 
-template <class T>
-int test_vector(T)
+int test_main( int /* argc */, char* /* argv */[] )
 {
     const char * testfile = boost::archive::tmpnam(NULL);
     BOOST_REQUIRE(NULL != testfile);
 
     // test array of objects
-    std::vector<T> avector;
-    avector.push_back(T());
-    avector.push_back(T());
+    std::vector<A> avector;
+    avector.push_back(A());
+    avector.push_back(A());
     {   
         test_ostream os(testfile, TEST_STREAM_FLAGS);
         test_oarchive oa(os);
         oa << boost::serialization::make_nvp("avector", avector);
     }
-    std::vector<T> avector1;
+    std::vector<A> avector1;
     {
         test_istream is(testfile, TEST_STREAM_FLAGS);
         test_iarchive ia(is);
@@ -50,18 +49,6 @@ int test_vector(T)
     BOOST_CHECK(avector == avector1);
     std::remove(testfile);
     return EXIT_SUCCESS;
-}
-
-int test_main( int /* argc */, char* /* argv */[] )
-{
-   int res = test_vector(A());
-    // test an int vector for which optimized versions should be available
-   if (res == EXIT_SUCCESS)
-     res = test_vector(0);  
-    // test a bool vector
-   if (res == EXIT_SUCCESS)
-     res = test_vector(false);  
-   return res;
 }
 
 // EOF

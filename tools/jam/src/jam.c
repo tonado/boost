@@ -121,6 +121,7 @@
 # include "make.h"
 # include "strings.h"
 # include "expand.h"
+# include "debug.h"
 # include "filesys.h"
 
 /* Macintosh is "special" */
@@ -133,7 +134,6 @@
 
 # ifdef unix
 # include <sys/utsname.h>
-# include <signal.h>
 # endif
 
 struct globs globs = {
@@ -141,7 +141,6 @@ struct globs globs = {
 	1,			/* jobs */
 	0,			/* quitquick */
 	0,			/* newestfirst */
-        0,                      /* pipes action stdout and stderr merged to action output */
 # ifdef OS_MAC
 	{ 0, 0 },		/* debug - suppress tracing output */
 # else
@@ -206,12 +205,6 @@ static void run_unit_tests()
  
     extern PyObject*
     bjam_import_rule(PyObject* self, PyObject* args);
-
-    extern PyObject*
-    bjam_define_action(PyObject* self, PyObject* args);
-
-    extern PyObject*
-    bjam_variable(PyObject* self, PyObject* args);
 #endif
 
 int  main( int argc, char **argv, char **arg_environ )
@@ -226,29 +219,25 @@ int  main( int argc, char **argv, char **arg_environ )
     char ** arg_v = argv;
     const char *progname = argv[0];
 
-    BJAM_MEM_INIT();
-
 # ifdef OS_MAC
     InitGraf(&qd.thePort);
 # endif
 
     argc--, argv++;
 
-    if( getoptions( argc, argv, "-:l:d:j:p:f:gs:t:ano:qv", optv ) < 0 )
+	if( getoptions( argc, argv, "-:l:d:j:f:gs:t:ano:qv", optv ) < 0 )
     {
         printf( "\nusage: %s [ options ] targets...\n\n", progname );
 
         printf( "-a      Build all targets, even if they are current.\n" );
         printf( "-dx     Set the debug level to x (0-9).\n" );
         printf( "-fx     Read x instead of Jambase.\n" );
-        /* printf( "-g      Build from newest sources first.\n" ); */
+	    /* printf( "-g      Build from newest sources first.\n" ); */
         printf( "-jx     Run up to x shell commands concurrently.\n" );
         printf( "-lx     Limit actions to x number of seconds after which they are stopped.\n" );
         printf( "-n      Don't actually execute the updating actions.\n" );
         printf( "-ox     Write the updating actions to file x.\n" );
-	printf( "-px     x=0, pipes action stdout and stderr merged into action output.\n" );
-	printf( "-q      Quit quickly as soon as a target fails.\n" );
-	printf( "-r      Enable Dart results.\n" );
+		printf( "-q      Quit quickly as soon as a target fails.\n" );
         printf( "-sx=y   Set variable x=y, overriding environment.\n" );
         printf( "-tx     Rebuild x, even if it is up-to-date.\n" );
         printf( "-v      Print the version of jam and exit.\n" );
@@ -263,7 +252,7 @@ int  main( int argc, char **argv, char **arg_environ )
     {
         printf( "Boost.Jam  " );
         printf( "Version %s. %s.\n", VERSION, OSMINOR );
-        printf( "   Copyright 1993-2002 Christopher Seiwald and Perforce Software, Inc.  \n" );
+	   printf( "   Copyright 1993-2002 Christopher Seiwald and Perforce Software, Inc.  \n" );
         printf( "   Copyright 2001 David Turner.\n" );
         printf( "   Copyright 2001-2004 David Abrahams.\n" );
         printf( "   Copyright 2002-2005 Rene Rivera.\n" );
@@ -277,28 +266,16 @@ int  main( int argc, char **argv, char **arg_environ )
     if( ( s = getoptval( optv, 'n', 0 ) ) )
         globs.noexec++, globs.debug[2] = 1;
 
-    if( ( s = getoptval( optv, 'p', 0 ) ) )
-    {
-        /* undocumented -p3 (acts like both -p1 -p2) means separate pipe action stdout and stderr */
-        globs.pipe_action = atoi(s);
-        if (3 < globs.pipe_action || globs.pipe_action < 0)
-        {
-            printf( "Invalid pipe descriptor '%d', valid values are -p[0..3].\n", globs.pipe_action);
-            exit(EXITBAD);
-        }
-    }
-
-    if( ( s = getoptval( optv, 'q', 0 ) ) )
- 	globs.quitquick = 1;
-
+	if( ( s = getoptval( optv, 'q', 0 ) ) )
+ 	    globs.quitquick = 1;
     if( ( s = getoptval( optv, 'a', 0 ) ) )
         anyhow++;
 
     if( ( s = getoptval( optv, 'j', 0 ) ) )
         globs.jobs = atoi( s );
 
-    if( ( s = getoptval( optv, 'g', 0 ) ) )
-        globs.newestfirst = 1;
+	if( ( s = getoptval( optv, 'g', 0 ) ) )
+	    globs.newestfirst = 1;
 
     if( ( s = getoptval( optv, 'l', 0 ) ) )
         globs.timeout = atoi( s );
@@ -345,10 +322,6 @@ int  main( int argc, char **argv, char **arg_environ )
                  "Call the specified bjam rule."},
                 {"import_rule", bjam_import_rule, METH_VARARGS,
                  "Imports Python callable to bjam."},
-                {"define_action", bjam_define_action, METH_VARARGS,
-                 "Defines a command line action."},
-                {"variable", bjam_variable, METH_VARARGS,
-                 "Obtains a variable from bjam's global module."},
                 {NULL, NULL, 0, NULL}
             };
     
@@ -439,9 +412,6 @@ int  main( int argc, char **argv, char **arg_environ )
         symv[0] = s;
         symv[1] = 0;
         var_defines( symv, 1 );
-        enter_module( bindmodule(".ENVIRON") );
-        var_defines( symv, 0 );
-        exit_module( bindmodule(".ENVIRON") );
     }
 
     /* Set the ARGV to reflect the complete list of arguments of invocation. */
@@ -515,8 +485,10 @@ int  main( int argc, char **argv, char **arg_environ )
         else 
         {
             int targets_count = list_length(targets);
-            const char **targets2 = (const char **)BJAM_MALLOC(targets_count * sizeof(char *));
+            const char **targets2 = (const char **)malloc(targets_count * sizeof(char *));
             int n = 0;
+            if ( DEBUG_PROFILE )
+                profile_memory( targets_count * sizeof(char *) );
             for ( ; targets; targets = list_next(targets) )
             {
                 targets2[n++] = targets->string;
@@ -550,8 +522,6 @@ int  main( int argc, char **argv, char **arg_environ )
 #ifdef HAVE_PYTHON
     Py_Finalize();
 #endif
-    
-    BJAM_MEM_CLOSE();
 
 
     return status ? EXITBAD : EXITOK;

@@ -176,6 +176,9 @@
 			<File
 				RelativePath="..\..\..\boost\xpressive\xpressive_static.hpp">
 			</File>
+			<File
+				RelativePath="..\..\..\boost\xpressive\xpressive_typeof.hpp">
+			</File>
 			<Filter
 				Name="detail"
 				Filter="">
@@ -301,9 +304,6 @@
 						</File>
 						<File
 							RelativePath="..\..\..\boost\xpressive\detail\core\matcher\mark_matcher.hpp">
-						</File>
-						<File
-							RelativePath="..\..\..\boost\xpressive\detail\core\matcher\optional_matcher.hpp">
 						</File>
 						<File
 							RelativePath="..\..\..\boost\xpressive\detail\core\matcher\posix_charset_matcher.hpp">
@@ -436,9 +436,6 @@
 						RelativePath="..\..\..\boost\xpressive\detail\utility\cons.hpp">
 					</File>
 					<File
-						RelativePath="..\..\..\boost\xpressive\detail\utility\counted_base.hpp">
-					</File>
-					<File
 						RelativePath="..\..\..\boost\xpressive\detail\utility\dont_care.hpp">
 					</File>
 					<File
@@ -464,9 +461,6 @@
 					</File>
 					<File
 						RelativePath="..\..\..\boost\xpressive\detail\utility\traits_utils.hpp">
-					</File>
-					<File
-						RelativePath="..\..\..\boost\xpressive\detail\utility\width.hpp">
 					</File>
 					<Filter
 						Name="chset"
@@ -509,9 +503,6 @@
 					<File
 						RelativePath="..\..\..\boost\xpressive\detail\dynamic\parser_traits.hpp">
 					</File>
-					<File
-						RelativePath="..\..\..\boost\xpressive\detail\dynamic\sequence.hpp">
-					</File>
 				</Filter>
 			</Filter>
 			<Filter
@@ -538,13 +529,13 @@
 				Name="proto"
 				Filter="">
 				<File
-					RelativePath="..\..\..\boost\xpressive\proto\basic_expr.hpp">
+					RelativePath="..\..\..\boost\xpressive\proto\arg_traits.hpp">
 				</File>
 				<File
-					RelativePath="..\..\..\boost\xpressive\proto\compile.hpp">
+					RelativePath="..\..\..\boost\xpressive\proto\op_base.hpp">
 				</File>
 				<File
-					RelativePath="..\..\..\boost\xpressive\proto\fusion.hpp">
+					RelativePath="..\..\..\boost\xpressive\proto\op_tags.hpp">
 				</File>
 				<File
 					RelativePath="..\..\..\boost\xpressive\proto\operators.hpp">
@@ -557,15 +548,6 @@
 				</File>
 				<File
 					RelativePath="..\..\..\boost\xpressive\proto\proto_typeof.hpp">
-				</File>
-				<File
-					RelativePath="..\..\..\boost\xpressive\proto\ref.hpp">
-				</File>
-				<File
-					RelativePath="..\..\..\boost\xpressive\proto\tags.hpp">
-				</File>
-				<File
-					RelativePath="..\..\..\boost\xpressive\proto\traits.hpp">
 				</File>
 				<Filter
 					Name="compiler"

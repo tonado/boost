@@ -18,14 +18,9 @@ using namespace boost;
 #include <boost/test/test_tools.hpp>
 
 #include <sstream>
-#include <iostream>
 using namespace std;
 
-#if defined(__sun)
-#include <stdlib.h> // for putenv on solaris
-#else
 #include <cstdlib> // for putenv
-#endif
 
 #define TEST_CHECK_THROW(expression, exception, description) \
     try \
@@ -243,20 +238,6 @@ void test_unregistered()
           vm);
 
     BOOST_CHECK_EQUAL(vm.size(), 0u);   
-
-
-    const char content1[] =
-    "gv1 = 0\n"
-    "[m1]\n"
-    "v1 = 1\n"
-    ;
-
-    stringstream ss(content1);
-    vector<option> a3 = parse_config_file(ss, desc, true).options;
-    BOOST_REQUIRE(a3.size() == 2);
-    cout << "XXX" << a3[0].value.front() << "\n";
-    check_value(a3[0], "gv1", "0");
-    check_value(a3[1], "m1.v1", "1");
 }
 
 int test_main(int, char* [])

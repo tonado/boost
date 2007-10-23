@@ -32,11 +32,10 @@ extern "C"
 {
     static PyObject* enum_repr(PyObject* self_)
     {
-        const char *mod = PyString_AsString(PyObject_GetAttrString( self_, "__module__"));
         enum_object* self = downcast<enum_object>(self_);
         if (!self->name)
         {
-            return PyString_FromFormat("%s.%s(%ld)", mod, self_->ob_type->tp_name, PyInt_AS_LONG(self_));
+            return PyString_FromFormat("%s(%ld)", self_->ob_type->tp_name, PyInt_AS_LONG(self_));
         }
         else
         {
@@ -44,7 +43,7 @@ extern "C"
             if (name == 0)
                 return 0;
             
-            return PyString_FromFormat("%s.%s.%s", mod, self_->ob_type->tp_name, name);
+            return PyString_FromFormat("%s.%s", self_->ob_type->tp_name, name);
         }
     }
 
@@ -121,7 +120,7 @@ object module_prefix();
 
 namespace
 {
-  object new_enum_type(char const* name, char const *doc)
+  object new_enum_type(char const* name)
   {
       if (enum_type_object.tp_dict == 0)
       {
@@ -142,11 +141,10 @@ namespace
 
       object module_name = module_prefix();
       if (module_name)
-         d["__module__"] = module_name;
-      if (doc)
-         d["__doc__"] = doc;
+          module_name += '.';
       
-      object result = (object(metatype))(name, make_tuple(base), d);
+      object result = (object(metatype))(
+          module_name + name, make_tuple(base), d);
       
       scope().attr(name) = result;
 
@@ -160,9 +158,8 @@ enum_base::enum_base(
     , converter::convertible_function convertible
     , converter::constructor_function construct
     , type_info id
-    , char const *doc
     )
-    : object(new_enum_type(name, doc))
+    : object(new_enum_type(name))
 {
     converter::registration& converters
         = const_cast<converter::registration&>(

@@ -21,7 +21,7 @@
 				Optimization="0"
 				ImproveFloatingPointConsistency="TRUE"
 				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\..\&quot;"
-				PreprocessorDefinitions=" BOOST_LIB_DIAGNOSTIC=1;WIN32;_DEBUG;_CONSOLE;BOOST_ARCHIVE_TEST=text_archive.hpp"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;BOOST_ARCHIVE_TEST=text_archive.hpp"
 				RuntimeLibrary="3"
 				BufferSecurityCheck="FALSE"
 				EnableFunctionLevelLinking="TRUE"
@@ -36,9 +36,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/debug/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/debug/threading-multi&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/debug/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/debug/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/debug/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/boost_wserialization.dll/vc-7_1/debug/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/boost_serialization.dll/vc-7_1/debug/threading-multi&quot;"
 				GenerateDebugInformation="TRUE"
 				SubSystem="1"/>
 			<Tool
@@ -75,7 +76,7 @@
 				ImproveFloatingPointConsistency="TRUE"
 				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\..\&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;BOOST_ARCHIVE_TEST=text_archive.hpp"
-				RuntimeLibrary="3"
+				RuntimeLibrary="5"
 				BufferSecurityCheck="FALSE"
 				EnableFunctionLevelLinking="TRUE"
 				TreatWChar_tAsBuiltInType="TRUE"
@@ -89,9 +90,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/debug/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/debug/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/debug/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_unit_test_framework.lib/vc-7_1/debug/threading-multi&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/debug/runtime-link-static&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/debug/runtime-link-static&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/debug/runtime-link-static&quot;"
 				GenerateDebugInformation="TRUE"
 				SubSystem="1"/>
 			<Tool
@@ -142,9 +144,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/debug/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/debug/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/debug/threading-multi&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/debug/runtime-link-static/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/debug/runtime-link-static/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/debug/runtime-link-static/threading-multi&quot;"
 				GenerateDebugInformation="TRUE"
 				SubSystem="1"/>
 			<Tool
@@ -199,6 +202,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/release/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/release/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/release/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/boost_wserialization.dll/vc-7_1/release/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/boost_serialization.dll/vc-7_1/release/threading-multi&quot;"
@@ -256,6 +260,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/release/runtime-link-static&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/release/runtime-link-static&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/release/runtime-link-static&quot;"
@@ -313,9 +318,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/debug/runtime-link-static/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.dll/vc-7_1/debug/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.dll/vc-7_1/threading-multi&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/release/runtime-link-static/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/release/runtime-link-static/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/release/runtime-link-static/threading-multi&quot;"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
@@ -366,6 +372,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/debug/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/debug/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/debug/threading-multi&quot;;"
@@ -419,6 +426,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/debug/runtime-link-static&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/debug/runtime-link-static&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/debug/runtime-link-static&quot;"
@@ -472,6 +480,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/debug/runtime-link-static/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/debug/runtime-link-static/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/debug/runtime-link-static/threading-multi&quot;"
@@ -529,6 +538,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/release/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/release/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/release/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/boost_wserialization.dll/vc-7_1/release/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/boost_serialization.dll/vc-7_1/release/threading-multi&quot;"
@@ -586,6 +596,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/release/runtime-link-static&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/release/runtime-link-static&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/release/runtime-link-static&quot;"
@@ -643,6 +654,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/release/runtime-link-static/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/release/runtime-link-static/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/release/runtime-link-static/threading-multi&quot;"
@@ -696,6 +708,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/debug/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/debug/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/debug/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/boost_wserialization.dll/vc-7_1/debug/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/boost_serialization.dll/vc-7_1/debug/threading-multi&quot;"
@@ -749,6 +762,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/debug/runtime-link-static&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/debug/runtime-link-static&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/debug/runtime-link-static&quot;"
@@ -802,6 +816,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/debug/runtime-link-static/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/debug/runtime-link-static/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/debug/runtime-link-static/threading-multi&quot;"
@@ -859,6 +874,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/release/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/release/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/release/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/boost_wserialization.dll/vc-7_1/release/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/boost_serialization.dll/vc-7_1/release/threading-multi&quot;"
@@ -916,6 +932,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/release/runtime-link-static&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/release/runtime-link-static&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/release/runtime-link-static&quot;"
@@ -973,6 +990,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/release/runtime-link-static/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/release/runtime-link-static/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/release/runtime-link-static/threading-multi&quot;"
@@ -1026,6 +1044,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/debug/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/debug/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/debug/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/boost_wserialization.dll/vc-7_1/debug/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/boost_serialization.dll/vc-7_1/debug/threading-multi&quot;"
@@ -1079,6 +1098,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/debug/runtime-link-static&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/debug/runtime-link-static&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/debug/runtime-link-static&quot;"
@@ -1132,6 +1152,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/debug/runtime-link-static/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/debug/runtime-link-static/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/debug/runtime-link-static/threading-multi&quot;"
@@ -1189,6 +1210,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/release/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/release/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/release/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/boost_wserialization.dll/vc-7_1/release/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/boost_serialization.dll/vc-7_1/release/threading-multi&quot;"
@@ -1246,6 +1268,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/release/runtime-link-static&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/release/runtime-link-static&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/release/runtime-link-static&quot;"
@@ -1303,6 +1326,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/release/runtime-link-static/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/release/runtime-link-static/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/release/runtime-link-static/threading-multi&quot;"
@@ -1356,6 +1380,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/debug/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/debug/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/debug/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/boost_wserialization.dll/vc-7_1/debug/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/boost_serialization.dll/vc-7_1/debug/threading-multi&quot;"
@@ -1409,6 +1434,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/debug/runtime-link-static&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/debug/runtime-link-static&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/debug/runtime-link-static&quot;"
@@ -1462,6 +1488,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/debug/runtime-link-static/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/debug/runtime-link-static/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/debug/runtime-link-static/threading-multi&quot;"
@@ -1519,6 +1546,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/release/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/release/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/release/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/boost_wserialization.dll/vc-7_1/release/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/boost_serialization.dll/vc-7_1/release/threading-multi&quot;"
@@ -1576,6 +1604,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/release/runtime-link-static&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/release/runtime-link-static&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/release/runtime-link-static&quot;"
@@ -1633,6 +1662,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="libboost_test_exec_monitor.lib"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)../../../bin/boost/libs/test/build/libboost_test_exec_monitor.lib/vc-7_1/release/runtime-link-static/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_wserialization.lib/vc-7_1/release/runtime-link-static/threading-multi&quot;;&quot;$(ProjectDir)../../../bin/boost/libs/serialization/build/libboost_serialization.lib/vc-7_1/release/runtime-link-static/threading-multi&quot;"

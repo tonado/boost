@@ -22,7 +22,6 @@
 #include <cstddef> // size_t
 
 #include <boost/config.hpp>
-
 #if defined(BOOST_NO_STDC_NAMESPACE)
 namespace std{
     using ::rand; 
@@ -31,7 +30,7 @@ namespace std{
 }
 #endif
 
-//#include <boost/test/test_exec_monitor.hpp>
+#include <boost/test/test_tools.hpp>
 #include <boost/limits.hpp>
 #include <boost/cstdint.hpp>
 
@@ -134,9 +133,7 @@ public:
     friend std::istream & operator>>(std::istream & is, A & a);
 };
 
-#ifdef BOOST_TEST_DONT_PRINT_LOG_VALUE
 BOOST_TEST_DONT_PRINT_LOG_VALUE(A)
-#endif
 
 template<class S>
 void randomize(S &x)

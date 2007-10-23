@@ -17,6 +17,7 @@
 
 #if defined(BOOST_HAS_PTHREADS)
 #   include <pthread.h>
+#   include <boost/thread/condition.hpp>
 #elif defined(BOOST_HAS_MPTASKS)
 #   include <Multiprocessing.h>
 #endif
@@ -69,7 +70,7 @@ public:
     void add_thread(thread* thrd);
     void remove_thread(thread* thrd);
     void join_all();
-        int size() const;
+        int size();
 
 private:
     std::list<thread*> m_threads;

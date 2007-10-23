@@ -1,6 +1,5 @@
 // Copyright (C) 2001-2003
 // William E. Kempf
-// Copyright (C) 2007 Anthony Williams
 //
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying 
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -10,7 +9,6 @@
 #include <boost/thread/thread.hpp>
 #include <boost/thread/xtime.hpp>
 #include <boost/thread/condition.hpp>
-#include <boost/thread/locks.hpp>
 #include <cassert>
 
 #if defined(BOOST_HAS_WINTHREADS)
@@ -102,13 +100,22 @@ extern "C" {
         static OSStatus thread_proxy(void* param)
 #endif
     {
-        thread_param* p = static_cast<thread_param*>(param);
-        boost::function0<void> threadfunc = p->m_threadfunc;
-        p->started();
-        threadfunc();
+        //try
+        //{
+            thread_param* p = static_cast<thread_param*>(param);
+            boost::function0<void> threadfunc = p->m_threadfunc;
+            p->started();
+            threadfunc();
 #if defined(BOOST_HAS_WINTHREADS)
-        on_thread_exit();
+            on_thread_exit();
 #endif
+        //}
+        //catch (...)
+        //{
+#if defined(BOOST_HAS_WINTHREADS)
+        //    on_thread_exit();
+#endif
+        //}
 #if defined(BOOST_HAS_MPTASKS)
         ::boost::detail::thread_cleanup();
 #endif
@@ -356,7 +363,7 @@ void thread_group::join_all()
     }
 }
 
-int thread_group::size() const
+int thread_group::size()
 {
         return m_threads.size();
 }

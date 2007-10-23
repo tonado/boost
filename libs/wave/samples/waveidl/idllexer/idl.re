@@ -33,7 +33,6 @@
 #include <boost/wave/token_ids.hpp>
 #include <boost/wave/cpplexer/re2clex/aq.hpp>
 #include <boost/wave/cpplexer/re2clex/scanner.hpp>
-#include <boost/wave/cpplexer/cpplexer_exceptions.hpp>
 
 #include "idl_re.hpp"
 
@@ -71,7 +70,13 @@ int
 get_one_char(boost::wave::cpplexer::re2clex::Scanner *s)
 {
     using namespace boost::wave::cpplexer::re2clex;
-    if (0 != s->act) {
+    if (s->fd != -1) {
+    uchar val;
+    
+        if (read(s->fd, &val, sizeof(val)))
+            return val;
+    }
+    else if (0 != s->act) {
         RE2C_ASSERT(s->first != 0 && s->last != 0);
         RE2C_ASSERT(s->first <= s->act && s->act <= s->last);
         if (s->act < s->last) 
@@ -83,7 +88,10 @@ get_one_char(boost::wave::cpplexer::re2clex::Scanner *s)
 std::ptrdiff_t 
 rewind_stream (boost::wave::cpplexer::re2clex::Scanner *s, int cnt)
 {
-    if (0 != s->act) {
+    if (s->fd != -1) {
+        return lseek(s->fd, cnt, SEEK_CUR);
+    }
+    else if (0 != s->act) {
         RE2C_ASSERT(s->first != 0 && s->last != 0);
         s->act += cnt;
         RE2C_ASSERT(s->first <= s->act && s->act <= s->last);
@@ -200,11 +208,8 @@ fill(boost::wave::cpplexer::re2clex::Scanner *s,
             if (buf == 0)
             {
                 using namespace std;      // some systems have printf in std
-                if (0 != s->error_proc) {
-                    (*s->error_proc)(s, 
-                        cpplexer::lexing_exception::unexpected_error,
-                        "Out of memory!");
-                }
+                if (0 != s->error_proc)
+                    (*s->error_proc)(s, "Out of memory!");
                 else 
                     printf("Out of memory!\n");
                     
@@ -223,7 +228,13 @@ fill(boost::wave::cpplexer::re2clex::Scanner *s,
             s->bot = buf;
         }
 
-        if (s->act != 0) {
+        if (s->fd != -1) {
+            if((cnt = read(s->fd, (char*) s->lim, BOOST_WAVE_BSIZE)) != BOOST_WAVE_BSIZE)
+            {
+                s->eof = &s->lim[cnt]; *(s->eof)++ = '\0';
+            }
+        }
+        else if (s->act != 0) {
             cnt = s->last - s->act;
             if (cnt > BOOST_WAVE_BSIZE)
                 cnt = BOOST_WAVE_BSIZE;
@@ -310,7 +321,7 @@ fill(boost::wave::cpplexer::re2clex::Scanner *s,
                 else if (next != -1) /* -1 means end of file */
                 {
                     /* next was something else, so rewind the stream */
-                    rewind_stream(s, -1);
+                    lseek(s->fd, -1, SEEK_CUR);
                 }
             }
             /* check \ \r EOB */
@@ -357,9 +368,7 @@ scan(boost::wave::cpplexer::re2clex::Scanner *s)
     uchar *cursor = s->tok = s->cur;
 
 /*!re2c
-re2c:indent:string = "    "; 
 any                = [\t\v\f\r\n\040-\377];
-anyctrl            = [\000-\377];
 OctalDigit         = [0-7];
 Digit              = [0-9];
 HexDigit           = [a-fA-F0-9];
@@ -477,19 +486,21 @@ Pound              = "#" | "??=" | "%:";
         if(cursor != s->eof) 
         {
             using namespace std;      // some systems have printf in std
-            if (0 != s->error_proc) {
-                (*s->error_proc)(s, 
-                    cpplexer::lexing_exception::generic_lexing_error,
-                    "'\\000' in input stream");
-            }
+            if (0 != s->error_proc)
+                (*s->error_proc)(s, "'\\000' in input stream");
             else
                 printf("Error: 0 in file\n");
         }
         BOOST_WAVE_RET(T_EOF);
     }
 
-    anyctrl
+    any
     {
+        /* if (0 != s->error_proc)
+            (*s->error_proc)(s, "Unexpected character: '%c'", *s->tok);
+        else
+            printf("unexpected character: '%c'\n", *s->tok);
+        */
         BOOST_WAVE_RET(TOKEN_FROM_ID(*s->tok, UnknownTokenType));
     }
 */
@@ -513,18 +524,14 @@ ccomment:
         if(cursor == s->eof) 
         {
             if (s->error_proc)
-                (*s->error_proc)(s, 
-                    cpplexer::lexing_exception::generic_lexing_warning,
-                    "Unterminated comment");
+                (*s->error_proc)(s, "Unterminated comment");
             else
                 printf("Error: Unterminated comment\n");
         }
         else
         {
             if (s->error_proc)
-                (*s->error_proc)(s, 
-                    cpplexer::lexing_exception::generic_lexing_error,
-                    "'\\000' in input stream");
+                (*s->error_proc)(s, "'\\000' in input stream");
             else
                 printf("Error: 0 in file");
         }
@@ -532,16 +539,6 @@ ccomment:
         --YYCURSOR;
         /* the comment is unterminated, but nevertheless its a comment */
         BOOST_WAVE_RET(T_CCOMMENT);
-    }
-
-    anyctrl
-    {
-        if (s->error_proc)
-            (*s->error_proc)(s, 
-                cpplexer::lexing_exception::generic_lexing_error,
-                "invalid character in input stream");
-        else
-            printf("Error: 0 in file");
     }
 
 */
@@ -564,9 +561,7 @@ cppcomment:
         if(cursor != s->eof) 
         {
             if (s->error_proc)
-                (*s->error_proc)(s, 
-                    cpplexer::lexing_exception::generic_lexing_error,
-                    "'\\000' in input stream");
+                (*s->error_proc)(s, "'\\000' in input stream");
             else
                 printf("Error: 0 in file");
         }

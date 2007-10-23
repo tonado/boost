@@ -11,6 +11,7 @@
  */
 
 # include "jam.h"
+# include "debug.h"
 
 # include "lists.h"
 # include "parse.h"
@@ -266,7 +267,7 @@ compile_foreach(
         
         if ( parse->num )
         {
-            s = addsettings( s, VAR_SET, parse->string, L0 );
+            s = addsettings( s, 0, parse->string, L0 );
             pushsettings( s );
         }
 
@@ -492,7 +493,7 @@ compile_local(
     /* Initial value is ns */
 
     for( l = nt; l; l = list_next( l ) )
-        s = addsettings( s, VAR_SET, l->string, list_copy( (LIST*)0, ns ) );
+        s = addsettings( s, 0, l->string, list_copy( (LIST*)0, ns ) );
 
     list_free( ns );
     list_free( nt );
@@ -783,7 +784,7 @@ collect_arguments( RULE* rule, FRAME* frame )
                         }
                     }
                 
-                    locals = addsettings( locals, VAR_SET, name, value );
+                    locals = addsettings( locals, 0, name, value );
                     type_check( type_name, value, frame, rule, arg_name );
                     type_name = 0;
                 }
@@ -896,15 +897,6 @@ call_python_function(RULE* r, FRAME* frame)
     
     return result;
 }
-
-module_t* python_module()
-{
-    static module_t* python = 0;
-    if ( !python )
-        python = bindmodule("__python__");
-    return python;
-}
-
 #endif
 
 /*
@@ -946,41 +938,7 @@ evaluate_rule(
 #ifdef HAVE_PYTHON
     if (rule->python_function)
     {
-        /* The below messing with modules is due to the
-           way modules are implemented in jam.  
-           Suppose we're in module M1 now.  The global
-           variable map actually holds 'M1' variables,
-           and M1->variables hold global variables.
-
-           If we call Python right away, and then Python
-           call back Jam, and jam does:
-
-              module M1 {  }
-
-           then jam will try to swap current global 
-           variables with M1->variables. The result will
-           be that global variables map will hold
-           global variables, and any variables settings
-           we do will go to global module, not M1.
-
-           By restoring basic state, where global
-           variable map hold global variable, we make
-           sure any fugure 'module M1' will work OK.  */
-           
-        LIST *result;
-        module_t *m = python_module();
-
-        frame->module = m;
-        
-        exit_module( prev_module );
-        enter_module( m );
-
-        result = call_python_function(rule, frame);
-
-        exit_module( m );
-        enter_module ( prev_module );
-
-        return result;
+        return call_python_function(rule, frame);
     }
 #endif
 
@@ -1049,31 +1007,15 @@ evaluate_rule(
 
         /* The action is associated with this instance of this rule */
 
-        action = (ACTION *)BJAM_MALLOC( sizeof( ACTION ) );
+        action = (ACTION *)malloc( sizeof( ACTION ) );
         memset( (char *)action, '\0', sizeof( *action ) );
+
+        if ( DEBUG_PROFILE )
+            profile_memory( sizeof( ACTION ) );
 
         action->rule = rule;
         action->targets = targetlist( (TARGETS *)0, lol_get( frame->args, 0 ) );
         action->sources = targetlist( (TARGETS *)0, lol_get( frame->args, 1 ) );
-        
-        /*  Make targets[1,N-1] depend on targets[0], to describe the multply
-            generated targets for the rule. Do it with includes, to reflect
-            non-build dependency. */
-        if ( action->targets )
-        {
-            TARGET * t0 = action->targets->target;
-            for ( t = action->targets->next; t; t = t->next )
-            {
-                TARGET * tn = t->target;
-                if ( !tn->includes )
-                {
-                    tn->includes = copytarget( tn );
-                    tn->includes->original_target = tn;
-                }
-                tn = tn->includes;
-                tn->depends = targetentry( tn->depends, t0 );
-            }
-        }
 
         /* Append this action to the actions of each target */
 
@@ -1174,26 +1116,6 @@ compile_rules(
 }
 
 /*
- * assign_var_mode() - convert ASSIGN_XXX compilation flag into
- *                     corresponding VAR_XXX variable set flag.
- */
-static int assign_var_mode(int parsenum, const char **tracetext)
-{
-    const char *trace;
-    int setflag;
-    switch( parsenum )
-    {
-        case ASSIGN_SET:     setflag = VAR_SET; trace = "="; break;
-        case ASSIGN_APPEND:  setflag = VAR_APPEND; trace = "+="; break;
-        case ASSIGN_DEFAULT: setflag = VAR_DEFAULT; trace = "?="; break;
-        default:             setflag = VAR_SET; trace = ""; break;
-    }
-    if (tracetext)
-        *tracetext = trace ;
-    return setflag;
-}
-
-/*
  * compile_set() - compile the "set variable" statement
  *
  *  parse->left variable names
@@ -1209,8 +1131,16 @@ compile_set(
     LIST    *nt = parse_evaluate( parse->left, frame );
     LIST    *ns = parse_evaluate( parse->right, frame );
     LIST    *l;
-    const char *trace;
-    int     setflag = assign_var_mode( parse->num, &trace );
+    int     setflag;
+    char    *trace;
+
+    switch( parse->num )
+    {
+    case ASSIGN_SET:    setflag = VAR_SET; trace = "="; break;
+    case ASSIGN_APPEND: setflag = VAR_APPEND; trace = "+="; break;
+    case ASSIGN_DEFAULT:    setflag = VAR_DEFAULT; trace = "?="; break;
+    default:        setflag = VAR_SET; trace = ""; break;
+    }
 
     if( DEBUG_COMPILE )
     {
@@ -1302,8 +1232,7 @@ compile_settings(
     LIST    *ns = parse_evaluate( parse->third, frame );
     LIST    *targets = parse_evaluate( parse->right, frame );
     LIST    *ts;
-    const char *trace;
-    int     setflag = assign_var_mode( parse->num, &trace );
+    int append = parse->num == ASSIGN_APPEND;
 
     if( DEBUG_COMPILE )
     {
@@ -1311,7 +1240,7 @@ compile_settings(
         list_print( nt );
         printf( " on " );
         list_print( targets );
-        printf( " %s ", trace );
+        printf( " %s ", append ? "+=" : "=" );
         list_print( ns );
         printf( "\n" );
     }
@@ -1326,7 +1255,7 @@ compile_settings(
         LIST    *l;
 
         for( l = nt; l; l = list_next( l ) )
-        t->settings = addsettings( t->settings, setflag, 
+        t->settings = addsettings( t->settings, append, 
                 l->string, list_copy( (LIST*)0, ns ) );
     }
 

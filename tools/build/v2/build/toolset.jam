@@ -18,15 +18,6 @@ import sequence ;
 
 .flag-no = 1 ;
 
-.ignore-requirements = ;
-
-# This is used only for testing, to make sure
-# we don't get random extra elements in paths.
-if --ignore-toolset-requirements in [ modules.peek : ARGV ]
-{
-    .ignore-requirements = 1 ;
-}
-
 # Initializes an additional toolset-like module.
 # First load 'toolset-module' and then calls its 'init'
 # rule with trailing arguments
@@ -489,10 +480,7 @@ rule requirements ( )
 # indirect conditional.
 rule add-requirements ( requirements * )
 {
-    if ! $(.ignore-requirements)
-    {
-        .requirements += $(requirements) ;
-    }
+    .requirements += $(requirements) ;
 }
 
 local rule __test__ ( )

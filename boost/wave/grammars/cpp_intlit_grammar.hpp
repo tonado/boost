@@ -50,11 +50,10 @@ namespace boost {
 namespace wave { 
 namespace grammars {
 
-///////////////////////////////////////////////////////////////////////////////
 namespace closures {
 
     struct intlit_closure 
-    :   boost::spirit::closure<intlit_closure, uint_literal_type> 
+    :   boost::spirit::closure<intlit_closure, unsigned long> 
     {
         member1 val;
     };
@@ -104,7 +103,7 @@ struct intlit_grammar :
 
                     hex_lit =
                             (ch_p('X') | ch_p('x'))
-                        >>  uint_parser<uint_literal_type, 16>()
+                        >>  uint_parser<unsigned long, 16>()
                             [
                                 self.val = arg1,
                                 var(self.is_unsigned) = true
@@ -112,7 +111,7 @@ struct intlit_grammar :
                     ,
                         
                     oct_lit =
-                       !uint_parser<uint_literal_type, 8>()
+                       !uint_parser<unsigned long, 8>()
                         [
                             self.val = arg1,
                             var(self.is_unsigned) = true
@@ -120,7 +119,7 @@ struct intlit_grammar :
                     ,
                         
                     dec_lit =
-                        uint_parser<uint_literal_type, 10>()
+                        int_parser<long, 10>()
                         [
                             self.val = arg1
                         ]
@@ -159,14 +158,14 @@ struct intlit_grammar :
 
 template <typename TokenT>
 BOOST_WAVE_INTLITGRAMMAR_GEN_INLINE 
-uint_literal_type 
+unsigned long 
 intlit_grammar_gen<TokenT>::evaluate(TokenT const &token, 
     bool &is_unsigned)
 {
     using namespace boost::spirit;
     
 intlit_grammar g(is_unsigned);
-uint_literal_type result = 0;
+unsigned long result = 0;
 typename TokenT::string_type const &token_val = token.get_value();
 parse_info<typename TokenT::string_type::const_iterator> hit =
     parse(token_val.begin(), token_val.end(), g[spirit_assign_actor(result)]);

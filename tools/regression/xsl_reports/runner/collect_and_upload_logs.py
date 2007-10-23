@@ -10,9 +10,6 @@ import zipfile
 import ftplib
 import time
 import stat
-import xml.dom.minidom
-import xmlrpclib
-import httplib
 
 import os.path
 import string
@@ -45,136 +42,6 @@ def collect_test_logs( input_dirs, test_results_writer ):
         utils.log( 'Walking directory "%s" ...' % input_dir )
         os.path.walk( input_dir, process_test_log_files, test_results_writer )
 
-dart_status_from_result = {
-    'succeed': 'passed',
-    'fail': 'failed',
-    'note': 'passed',
-    '': 'notrun'
-    }
-
-dart_project = {
-    'trunk': 'Boost_HEAD',
-    '': 'Boost_HEAD'
-    }
-
-dart_track = {
-    'full': 'Nightly',
-    'incremental': 'Continuous',
-    '': 'Experimental'
-    }
-
-ascii_only_table = ""
-for i in range(0,256):
-    if chr(i) == '\n' or chr(i) == '\r':
-        ascii_only_table += chr(i)
-    elif i < 32 or i >= 0x80:
-        ascii_only_table += '?'
-    else:
-        ascii_only_table += chr(i)
-
-class xmlrpcProxyTransport(xmlrpclib.Transport):
-    def __init__(self, proxy):
-        self.proxy = proxy
-    def make_connection(self, host):
-        self.realhost = host
-        return httplib.HTTP(self.proxy)
-    def send_request(self, connection, handler, request_body):
-        connection.putrequest('POST','http://%s%s' % (self.realhost,handler))
-    def send_host(self, connection, host):
-        connection.putheader('Host',self.realhost)
-    
-
-def publish_test_logs(
-    input_dirs,
-    runner_id, tag, platform, comment_file, timestamp, user, source, run_type,
-    dart_server = None,
-    http_proxy = None,
-    **unused
-    ):
-    __log__ = 1
-    utils.log( 'Publishing test logs ...' )
-    dart_rpc = None
-    dart_dom = {}
-    
-    def _publish_test_log_files_ ( unused, dir, names ):
-        for file in names:
-            if os.path.basename( file ) == 'test_log.xml':
-                utils.log( 'Publishing test log "%s"' % os.path.join(dir,file) )
-                if dart_server:
-                    log_xml = open(os.path.join(dir,file)).read().translate(ascii_only_table)
-                    #~ utils.log( '--- XML:\n%s' % log_xml)
-                    #~ It seems possible to get an empty XML result file :-(
-                    if log_xml == "": continue
-                    log_dom = xml.dom.minidom.parseString(log_xml)
-                    test = {
-                        'library': log_dom.documentElement.getAttribute('library'),
-                        'test-name': log_dom.documentElement.getAttribute('test-name'),
-                        'toolset': log_dom.documentElement.getAttribute('toolset')
-                        }
-                    if not test['test-name'] or test['test-name'] == '':
-                        test['test-name'] = 'unknown'
-                    if not test['toolset'] or test['toolset'] == '':
-                        test['toolset'] = 'unknown'
-                    if not dart_dom.has_key(test['toolset']):
-                        dart_dom[test['toolset']] = xml.dom.minidom.parseString(
-'''<?xml version="1.0" encoding="UTF-8"?>
-<DartSubmission version="2.0" createdby="collect_and_upload_logs.py">
-    <Site>%(site)s</Site>
-    <BuildName>%(buildname)s</BuildName>
-    <Track>%(track)s</Track>
-    <DateTimeStamp>%(datetimestamp)s</DateTimeStamp>
-</DartSubmission>
-'''                         % {
-                                'site': runner_id,
-                                'buildname': "%s -- %s (%s)" % (platform,test['toolset'],run_type),
-                                'track': dart_track[run_type],
-                                'datetimestamp' : timestamp
-                            } )
-                    submission_dom = dart_dom[test['toolset']]
-                    for node in log_dom.documentElement.childNodes:
-                        if node.nodeType == xml.dom.Node.ELEMENT_NODE:
-                            if node.firstChild:
-                                log_data = xml.sax.saxutils.escape(node.firstChild.data)
-                            else:
-                                log_data = ''
-                            test_dom = xml.dom.minidom.parseString('''<?xml version="1.0" encoding="UTF-8"?>
-<Test>
-    <Name>.Test.Boost.%(tag)s.%(library)s.%(test-name)s.%(type)s</Name>
-    <Status>%(result)s</Status>
-    <Measurement name="Toolset" type="text/string">%(toolset)s</Measurement>
-    <Measurement name="Timestamp" type="text/string">%(timestamp)s</Measurement>
-    <Measurement name="Log" type="text/text">%(log)s</Measurement>
-</Test>
-    '''                         % {
-                                    'tag': tag,
-                                    'library': test['library'],
-                                    'test-name': test['test-name'],
-                                    'toolset': test['toolset'],
-                                    'type': node.nodeName,
-                                    'result': dart_status_from_result[node.getAttribute('result')],
-                                    'timestamp': node.getAttribute('timestamp'),
-                                    'log': log_data
-                                })
-                            submission_dom.documentElement.appendChild(
-                                test_dom.documentElement.cloneNode(1) )
-    
-    for input_dir in input_dirs:
-        utils.log( 'Walking directory "%s" ...' % input_dir )
-        os.path.walk( input_dir, _publish_test_log_files_, None )
-    if dart_server:
-        try:
-            rpc_transport = None
-            if http_proxy:
-                rpc_transport = xmlrpcProxyTransport(http_proxy)
-            dart_rpc = xmlrpclib.ServerProxy(
-                'http://%s/%s/Command/' % (dart_server,dart_project[tag]),
-                rpc_transport )
-            for dom in dart_dom.values():
-                #~ utils.log('Dart XML: %s' % dom.toxml('utf-8'))
-                dart_rpc.Submit.put(xmlrpclib.Binary(dom.toxml('utf-8')))
-        except Exception, e:
-            utils.log('Dart server error: %s' % e)
-
 
 def upload_to_ftp( tag, results_file, ftp_proxy, debug_level ):
     ftp_site = 'fx.meta-comm.com'
@@ -196,9 +63,8 @@ def upload_to_ftp( tag, results_file, ftp_proxy, debug_level ):
     try:
         ftp.cwd( tag )
     except ftplib.error_perm:
-        for dir in tag.split( '/' ):
-            ftp.mkd( dir )
-            ftp.cwd( dir )
+        ftp.mkd( tag )
+        ftp.cwd( tag )
 
     f = open( results_file, 'rb' )
     ftp.storbinary( 'STOR %s' % os.path.basename( results_file ), f )
@@ -266,19 +132,8 @@ def collect_logs(
         , user
         , source
         , run_type
-        , dart_server = None
-        , http_proxy = None
-        , revision = ''
         , **unused
         ):
-    
-    timestamp = time.strftime( '%Y-%m-%dT%H:%M:%SZ', read_timestamp( timestamp_file ) )
-    
-    if dart_server:
-        publish_test_logs( [ results_dir ],
-            runner_id, tag, platform, comment_file, timestamp, user, source, run_type,
-            dart_server = dart_server,
-            http_proxy = http_proxy )
     
     results_file = os.path.join( results_dir, '%s.xml' % runner_id )
     results_writer = open( results_file, 'w' )
@@ -292,10 +147,9 @@ def collect_logs(
               'tag':        tag
             , 'platform':   platform
             , 'runner':     runner_id
-            , 'timestamp':  timestamp
+            , 'timestamp':  time.strftime( '%Y-%m-%dT%H:%M:%SZ', read_timestamp( timestamp_file ) )
             , 'source':     source
             , 'run-type':   run_type
-            , 'revision':   revision
             }
         )
     
@@ -322,7 +176,6 @@ def upload_logs(
         , debug_level
         , send_bjam_log = False
         , timestamp_file = None
-        , dart_server = None
         , **unused
         ):
 
@@ -349,12 +202,9 @@ def collect_and_upload_logs(
         , user
         , source
         , run_type
-        , revision = None
         , ftp_proxy = None
         , debug_level = 0
         , send_bjam_log = False
-        , dart_server = None
-        , http_proxy = None
         , **unused
         ):
     
@@ -368,9 +218,6 @@ def collect_and_upload_logs(
         , user
         , source
         , run_type
-        , revision = revision
-        , dart_server = dart_server
-        , http_proxy = http_proxy
         )
     
     upload_logs(
@@ -382,7 +229,6 @@ def collect_and_upload_logs(
         , debug_level
         , send_bjam_log
         , timestamp_file
-        , dart_server = dart_server
         )
 
 
@@ -398,28 +244,21 @@ def accept_args( args ):
         , 'run-type='
         , 'user='
         , 'ftp-proxy='
-        , 'proxy='
         , 'debug-level='
         , 'send-bjam-log'
         , 'help'
-        , 'dart-server='
-        , 'revision='
         ]
     
     options = {
-          '--tag'           : 'trunk'
+          '--tag'           : 'CVS-HEAD'
         , '--platform'      : sys.platform
         , '--comment'       : 'comment.html'
         , '--timestamp'     : 'timestamp'
         , '--user'          : None
-        , '--source'        : 'SVN'
+        , '--source'        : 'CVS'
         , '--run-type'      : 'full'
         , '--ftp-proxy'     : None
-        , '--proxy'         : None
         , '--debug-level'   : 0
-        , '--dart-server'   : 'beta.boost.org:8081'
-        , '--revision'      : None
-        
         }
     
     utils.accept_args( args_spec, args, options, usage )
@@ -435,11 +274,8 @@ def accept_args( args ):
         , 'source'          : options[ '--source' ]
         , 'run_type'        : options[ '--run-type' ]
         , 'ftp_proxy'       : options[ '--ftp-proxy' ]
-        , 'http_proxy'      : options[ '--proxy' ]
         , 'debug_level'     : int(options[ '--debug-level' ])
         , 'send_bjam_log'   : options.has_key( '--send-bjam-log' )
-        , 'dart_server'     : options[ '--dart-server' ]
-        , 'revision   '     : options[ '--revision' ]
         }
 
 
@@ -462,19 +298,16 @@ Options:
 \t                as a timestamp of the run ("timestamp" by default)
 \t--comment       an HTML comment file to be inserted in the reports
 \t                ("comment.html" by default)
-\t--tag           the tag for the results ("trunk" by default)
+\t--tag           the tag for the results ("CVS-HEAD" by default)
 \t--user          SourceForge user name for a shell account (optional)
-\t--source        where Boost sources came from ("SVN" or "tarball";
-\t                "SVN" by default)
+\t--source        where Boost sources came from (e.g. "CVS", "tarball",
+\t                "anonymous CVS"; "CVS" by default)
 \t--run-type      "incremental" or "full" ("full" by default)
 \t--send-bjam-log in addition to regular XML results, send in full bjam
 \t                log of the regression run
-\t--proxy         HTTP proxy server address and port (e.g.
-\t                'http://www.someproxy.com:3128', optional)
 \t--ftp-proxy     FTP proxy server (e.g. 'ftpproxy', optional)
 \t--debug-level   debugging level; controls the amount of debugging 
 \t                output printed; 0 by default (no debug output)
-\t--dart-server   The dart server to send results to.
 ''' % '\n\t'.join( commands.keys() )
 
     

@@ -88,9 +88,7 @@ t.run_build_system("--build-dir=build")
 t.expect_addition(["build/foo/bin.v2/$toolset/debug/a.exe",                   
                    "build/foo/bin.v2/sub/$toolset/debug/b.exe"])
 
-# Try building in subdir. We expect that the entire build
-# tree with be in 'sub/build'.  Today, I'm not sure if
-# this is what the user expects,  but let it be.
+# Try building in subdir
 t.rm('build')
 t.run_build_system("--build-dir=build", subdir="sub")
 t.expect_addition(["sub/build/foo/bin.v2/sub/$toolset/debug/b.exe"])

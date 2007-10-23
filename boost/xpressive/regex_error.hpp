@@ -2,7 +2,7 @@
 /// \file regex_error.hpp
 /// Contains the definition of the regex_error exception class.
 //
-//  Copyright 2007 Eric Niebler. Distributed under the Boost
+//  Copyright 2004 Eric Niebler. Distributed under the Boost
 //  Software License, Version 1.0. (See accompanying file
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
@@ -74,11 +74,7 @@ namespace detail
 /// INTERNAL ONLY
 inline bool ensure(bool predicate, regex_constants::error_type code, char const *str = "")
 {
-    if(!predicate)
-    {
-        throw regex_error(code, str);
-    }
-    return true;
+    return predicate ? true : throw regex_error(code, str);
 }
 
 }}} // namespace boost::xpressive::detail

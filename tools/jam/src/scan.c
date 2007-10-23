@@ -11,6 +11,7 @@
 # include "jamgram.h"
 # include "jambase.h"
 # include "newstr.h"
+# include "debug.h"
 
 /*
  * scan.c - the jam yacc scanner
@@ -81,7 +82,9 @@ yyanyerrors()
 void
 yyfparse( char *s )
 {
-	struct include *i = (struct include *)BJAM_MALLOC( sizeof( *i ) );
+	struct include *i = (struct include *)malloc( sizeof( *i ) );
+    if ( DEBUG_PROFILE )
+        profile_memory( sizeof( *i ) );
 
 	/* Push this onto the incp chain. */
 
@@ -168,7 +171,7 @@ yyline()
 	if( i->file && i->file != stdin )
 	    fclose( i->file );
 	freestr( i->fname );
-	BJAM_FREE( (char *)i );
+	free( (char *)i );
 
 	return EOF;
 }

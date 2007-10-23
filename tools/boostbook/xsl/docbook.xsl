@@ -7,7 +7,6 @@
    http://www.boost.org/LICENSE_1_0.txt)
   -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:xi="http://www.w3.org/2001/XInclude"
                 version="1.0">
   <xsl:include href="reference.xsl"/>
 
@@ -291,7 +290,7 @@ Error: XSL template 'link-or-anchor' called with invalid link-type '<xsl:value-o
       <refnamediv>
         <refname><xsl:value-of select="$refname"/></refname>
         <refpurpose>
-		  <xsl:apply-templates mode="purpose" select="$purpose"/>
+		  <xsl:apply-templates mode="annotation" select="$purpose"/>
 		</refpurpose>
       </refnamediv>
       <refsynopsisdiv>

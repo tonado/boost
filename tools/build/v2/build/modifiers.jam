@@ -14,7 +14,7 @@ import feature ;
 import errors ;
 import type ;
 import "class" : new ;
-import generators ;
+import generators : generator ;
 import property ;
 import virtual-target ;
 import numbers ;
@@ -25,23 +25,17 @@ import property-set ;
 # Base generator for creating targets that are modifications of existing
 # targets.
 #
-class modifier : generator
+rule modifier (
+    id
+    composing ?
+    : source-types *
+    : target-types-and-names +   
+    : requirements *
+    )
 {
-    rule __init__ (
-        id
-        composing ?
-        : source-types *
-        : target-types-and-names +   
-        : requirements *
-        )
-    {
-        generator.__init__ $(id) $(composing)
-            : $(source-types)
-            : $(target-types-and-names)
-            : $(requirements) ;
+    generator.__init__ $(id) $(composing) : $(source-types) : $(target-types-and-names) : $(requirements) ;
     
-        self.targets-in-progress = ;
-    }
+    self.targets-in-progress = ;
     
     # Wraps the generation of the target to call before and after rules to
     # affect the real target.
@@ -53,21 +47,16 @@ class modifier : generator
         if ! $(current-target) in $(self.targets-in-progress)
         {
             # Before modifications...
-            local project_ =
-                [ modify-project-before
-                    $(project) $(name) : $(property-set) : $(sources) : $(multiple) ] ;
-            local name_ =
-                [ modify-name-before
-                    $(project) $(name) : $(property-set) : $(sources) : $(multiple) ] ;
-            local property-set_ =
-                [ modify-properties-before
-                    $(project) $(name) : $(property-set) : $(sources) : $(multiple) ] ;
-            local sources_ =
-                [ modify-sources-before
-                    $(project) $(name) : $(property-set) : $(sources) : $(multiple) ] ;
-            local multiple_ =
-                [ modify-multiple-before
-                    $(project) $(name) : $(property-set) : $(sources) : $(multiple) ] ;
+            local project_ = [ modify-project-before
+                $(project) $(name) : $(property-set) : $(sources) : $(multiple) ] ;
+            local name_ = [ modify-name-before
+                $(project) $(name) : $(property-set) : $(sources) : $(multiple) ] ;
+            local property-set_ = [ modify-properties-before
+                $(project) $(name) : $(property-set) : $(sources) : $(multiple) ] ;
+            local sources_ = [ modify-sources-before
+                $(project) $(name) : $(property-set) : $(sources) : $(multiple) ] ;
+            local multiple_ = [ modify-multiple-before
+                $(project) $(name) : $(property-set) : $(sources) : $(multiple) ] ;
             project = $(project_) ;
             name = $(name_) ;
             property-set = $(property-set_) ;
@@ -75,23 +64,16 @@ class modifier : generator
             multiple = $(multiple_) ;
             
             # Generate the real target...
-            local target-type-p =
-                [ property.select <main-target-type> : [ $(property-set).raw ] ] ;
+            local target-type-p = [ property.select <main-target-type> : [ $(property-set).raw ] ] ;
             self.targets-in-progress += $(current-target) ;
             result =
-                [ generators.construct $(project) $(name)
-                    : $(target-type-p:G=) $(multiple)
-                    : $(property-set)
-                    : $(sources) ] ;
+                [ generators.construct $(project) $(name) : $(target-type-p:G=) $(multiple) :
+                    $(property-set) : $(sources) ] ;
             self.targets-in-progress = $(self.targets-in-progress[1--2]) ;
             
             # After modifications...
-            result =
-                [ modify-target-after $(result)
-                    : $(project) $(name)
-                    : $(property-set)
-                    : $(sources)
-                    : $(multiple) ] ;
+            result = [ modify-target-after $(result) :
+                $(project) $(name) : $(property-set) : $(sources) : $(multiple) ] ;
         }
         return $(result) ;
     }
@@ -153,19 +135,17 @@ class modifier : generator
         return $(result) ;
     }
 }
+class modifier : generator ;
 
 # A modifier that changes the name of a target, after it's generated, given
 # a regular expression to slpit the name, and a set of token to insert
 # between the split tokens of the name. This also exposes the target for other
 # uses with a symlink to the original name (optionally).
 #
-class name-modifier : modifier
+rule name-modifier ( )
 {
-    rule __init__ ( )
-    {
-        # Apply ourselves to EXE targets, for now.
-        modifier.__init__ name.modifier : : EXE LIB : <name-modify>yes ;
-    }
+    # Apply ourselves to EXE targets, for now.
+    modifier.__init__ name.modifier : : EXE LIB : <name-modify>yes ;
     
     # Modifies the name, by cloning the target with the new name.
     #
@@ -223,6 +203,7 @@ class name-modifier : modifier
         return <name-modify>yes ;
     }
 }
+class name-modifier : modifier ;
 feature.feature name-modifier : : free ;
 feature.feature name-modify : no yes : incidental optional ;
 generators.register [ new name-modifier ] ;

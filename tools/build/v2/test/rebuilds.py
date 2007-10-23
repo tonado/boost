@@ -35,7 +35,6 @@ t.run_build_system('-ffile.jam bar')
 t.expect_addition('bar')
 t.expect_nothing_more()
 
-t.wait_for_time_change()
 t.run_build_system('-ffile.jam foo')
 t.expect_touch('bar')
 t.expect_addition('foo')
@@ -47,7 +46,7 @@ t.expect_nothing_more()
 
 t.touch('bar')
 t.run_build_system('-ffile.jam')
-t.expect_touch(['foo', 'aux1', 'aux2'])
+t.expect_touch(['foo', 'aux1', 'aux2', 'bar'])
 t.expect_nothing_more()
 
 t.cleanup()

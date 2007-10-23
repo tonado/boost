@@ -50,8 +50,7 @@ namespace boost
                     const allocator_type& alloc = allocator_type() )
           : base_class(alloc)
         {
-            if( n > 0 )
-                this->base().reserve( n );
+            this->c_private().reserve( n );
         }
 
     public: // serialization

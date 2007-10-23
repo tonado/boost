@@ -29,12 +29,10 @@
 // has to be checked in a separate condition, otherwise GCC complains 
 // about 'and' being an alternative token
 #if defined(_MSC_VER) 
-#ifndef __GCCXML__
 #if defined(and) 
 #   pragma push_macro("and")
 #   undef and
 #   define and(x)
-#endif
 #endif
 #endif
 
@@ -42,10 +40,8 @@
 #   include <boost/mpl/aux_/include_preprocessed.hpp>
 
 #if defined(_MSC_VER)
-#ifndef __GCCXML__
 #if defined(and) 
 #   pragma pop_macro("and")
-#endif
 #endif
 #endif
 

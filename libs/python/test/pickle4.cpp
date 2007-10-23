@@ -15,7 +15,7 @@
 
 #include <string>
 
-namespace boost_python_test {
+namespace {
 
   // A friendly class.
   class world
@@ -35,7 +35,6 @@ namespace boost_python_test {
 BOOST_PYTHON_MODULE(pickle4_ext)
 {
   using namespace boost::python;
-  using namespace boost_python_test;
   class_<world>("world", init<const std::string&>())
       .enable_pickling()
       .def("greet", &world::greet)

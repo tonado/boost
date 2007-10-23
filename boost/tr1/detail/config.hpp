@@ -1,38 +1,73 @@
-//  (C) Copyright John Maddock 2005-7.
+//  (C) Copyright John Maddock 2005.
 //  Use, modification and distribution are subject to the
 //  Boost Software License, Version 1.0. (See accompanying file
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
+
 #ifndef BOOST_TR1_DETAIL_CONFIG_HPP_INCLUDED
 #  define BOOST_TR1_DETAIL_CONFIG_HPP_INCLUDED
 
+//
+// IMPORTANT: we must figure out the basics, such as how to
+// forward to the real std lib headers *without* including
+// boost/config.hpp or any of the std lib headers.  A classic 
+// chicken and the egg problem....
+//
+// Including <cstddef> at least lets us detect STLport:
+//
 #include <cstddef>
 
-#ifdef __GNUC__
-#if !defined(BOOST_HAS_INCLUDE_NEXT)
-#  define BOOST_HAS_INCLUDE_NEXT
+#  if (defined(__SGI_STL_PORT) || defined(_STLPORT_VERSION)) && !defined(__BORLANDC__)
+#     ifdef __SUNPRO_CC
+         // can't use <../stlport/name> since some compilers put stlport in a different directory:
+#        define BOOST_TR1_STD_HEADER(name) <../stlport4/name>
+#     else
+#        define BOOST_TR1_STD_HEADER(name) <../stlport/name>
+#     endif
+#  elif defined(__HP_aCC)
+#     define BOOST_TR1_STD_HEADER(name) <../include_std/name>
+#  elif defined(__DECCXX)
+#     define BOOST_TR1_STD_HEADER(name) <../cxx/name>
+#  elif defined(__BORLANDC__) && __BORLANDC__ >= 0x570
+#     define BOOST_TR1_STD_HEADER(name) <../include/dinkumware/name>
+#  else
+#     define BOOST_TR1_STD_HEADER(name) <../include/name>
+#  endif
+
+#if defined(__GNUC__) || (!defined(_AIX) && defined(__IBMCPP__)  && __IBMCPP__ >= 800)
+#  ifndef BOOST_HAS_INCLUDE_NEXT
+#     define BOOST_HAS_INCLUDE_NEXT
+#  endif
 #endif
-// Need to find out if we're using GLIBC:
-#ifdef BOOST_TR1_UTILITY_INCLUDED
-// Oops we're in a recursive include path!!
-// Need to include utility, or some std lib header,
-// but *not* via <utility> or <boost/config/no_tr1/utility.hpp>
+
+// Can't use BOOST_WORKAROUND here, it leads to recursive includes:
+#if (defined(__BORLANDC__) && (__BORLANDC__ <= 0x600)) || (defined(_MSC_VER) && (_MSC_VER < 1310))
+#  define BOOST_TR1_USE_OLD_TUPLE
+#endif
+
+//
+// We may be in the middle of parsing boost/config.hpp
+// when this header is included, so don't rely on config
+// stuff in the rest of this header...
+//
+// Find our actual std lib:
+//
+#ifdef BOOST_HAS_INCLUDE_NEXT
 #  ifndef BOOST_TR1_NO_RECURSION
 #     define BOOST_TR1_NO_RECURSION
 #     define BOOST_TR1_NO_CONFIG_RECURSION
 #  endif
-#  ifdef BOOST_HAS_INCLUDE_NEXT
-#     include_next <utility>
-#  else
-#     include BOOST_TR1_STD_HEADER(utility)
+#  include_next <utility>
+#  if (__GNUC__ < 3)
+#     include_next <algorithm>
+#     include_next <iterator>
 #  endif
 #  ifdef BOOST_TR1_NO_CONFIG_RECURSION
 #     undef BOOST_TR1_NO_CONFIG_RECURSION
 #     undef BOOST_TR1_NO_RECURSION
 #  endif
 #else
-#include <boost/config/no_tr1/utility.hpp>
-#endif
+#  include BOOST_TR1_STD_HEADER(utility)
 #endif
 
 #if defined(__GLIBCXX__) && !defined(BOOST_TR1_PATH)
@@ -43,11 +78,6 @@
 #endif
 
 #define BOOST_TR1_HEADER(name) <BOOST_TR1_PATH(name)>
-
-// Can't use BOOST_WORKAROUND here, it leads to recursive includes:
-#if (defined(__BORLANDC__) && (__BORLANDC__ <= 0x600)) || (defined(_MSC_VER) && (_MSC_VER < 1310))
-#  define BOOST_TR1_USE_OLD_TUPLE
-#endif
 
 #ifdef BOOST_HAS_TR1
    // turn on support for everything:
@@ -104,13 +134,7 @@
 
 #endif
 
-#ifdef __IBMCPP_TR1__
-   // turn on support for everything:
-#  define BOOST_HAS_TR1
-#endif
-
 #include <boost/config.hpp>
 
 #endif
-
 

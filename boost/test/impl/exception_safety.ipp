@@ -493,7 +493,7 @@ exception_safety_tester::report_error()
         if( m_invairant_failed )
             formatter << " and ";
 
-        formatter << (unsigned int)m_memory_in_use.size() << " memory leak";
+        formatter << m_memory_in_use.size() << " memory leak";
         if( m_memory_in_use.size() > 1 )
             formatter << 's';
     }
@@ -540,6 +540,9 @@ exception_safety( callback0<> const& F, const_string test_name )
 //  Revision History :
 //
 //  $Log$
+//  Revision 1.7.2.1  2006/07/27 11:48:49  gennaro_prota
+//  boost guidelines (mainly from inspect tool: tabs, license reference text, etc.); more to do...
+//
 //  Revision 1.7  2006/02/23 15:10:00  rogeeff
 //  vc70 out
 //

@@ -19,7 +19,6 @@ namespace std{
 #endif
 
 #include "test_tools.hpp"
-#include <boost/preprocessor/stringize.hpp>
 #include BOOST_PP_STRINGIZE(BOOST_ARCHIVE_TEST)
 
 #include <boost/serialization/shared_ptr_132.hpp>
@@ -212,7 +211,7 @@ int test_main(int /* argc */, char * /* argv */[])
     // trivial test 1
     save_and_load(spa);
 
-    //trivial test 2
+    //trivival test 2
     spa.reset();
     spa = boost_132::shared_ptr<A>(new A);
     save_and_load(spa);

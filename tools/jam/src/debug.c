@@ -5,6 +5,7 @@
 */
 
 # include "jam.h"
+# include "debug.h"
 
 # include "hash.h"
 
@@ -99,21 +100,14 @@ static void dump_profile_entry(void* p_, void* ignored)
 {
     profile_info* p = (profile_info*)p_;
     unsigned long mem_each = (p->memory/(p->num_entries ? p->num_entries : 1));
-    double cumulative = p->cumulative;
-    double net = p->net;
-    double q = p->net;
-    q /= (p->num_entries ? p->num_entries : 1);
-    cumulative /= CLOCKS_PER_SEC;
-    net /= CLOCKS_PER_SEC;
-    q /= CLOCKS_PER_SEC;
+    double q = p->net; q /= (p->num_entries ? p->num_entries : 1);
     if (!ignored)
     {
         profile_total.cumulative += p->net;
         profile_total.memory += p->memory;
     }
-    printf("%10d %12.6f %12.6f %12.8f %10d %10d %s\n",
-        p->num_entries,
-        cumulative,net,q,
+    printf("%10d %10d %10d %12.6f %10d %10d %s\n",
+        p->num_entries, p->cumulative, p->net, q,
         p->memory, mem_each,
         p->name);
 }
@@ -122,7 +116,7 @@ void profile_dump()
 {
     if ( profile_hash )
     {
-        printf("%10s %12s %12s %12s %10s %10s %s\n",
+        printf("%10s %10s %10s %12s %10s %10s %s\n",
             "--count--", "--gross--", "--net--", "--each--",
             "--mem--", "--each--",
             "--name--");

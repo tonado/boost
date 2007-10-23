@@ -19,7 +19,6 @@
 #include <boost/test/detail/config.hpp>
 
 #include <boost/test/utils/callback.hpp>
-#include <boost/test/utils/basic_cstring/basic_cstring_fwd.hpp>
 
 // STL
 #include <memory>
@@ -50,7 +49,7 @@ BOOST_AUTO_TC_REGISTRAR( test_name )(                                   \
     boost::unit_test::make_test_case(                                   \
         &BOOST_AUTO_TC_INVOKER( test_name ), #test_name ),              \
     boost::unit_test::ut_detail::auto_tc_exp_fail<                      \
-        BOOST_AUTO_TC_UNIQUE_ID( test_name )>::instance()->value() );   \
+        BOOST_AUTO_TC_UNIQUE_ID( test_name )>::value );                 \
                                                                         \
 void test_name::test_method()                                           \
 /**/

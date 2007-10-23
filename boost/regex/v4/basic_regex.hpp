@@ -19,21 +19,14 @@
 #ifndef BOOST_REGEX_V4_BASIC_REGEX_HPP
 #define BOOST_REGEX_V4_BASIC_REGEX_HPP
 
-#ifdef BOOST_MSVC
-#pragma warning(push)
-#pragma warning(disable: 4103)
-#endif
 #ifdef BOOST_HAS_ABI_HEADERS
 #  include BOOST_ABI_PREFIX
-#endif
-#ifdef BOOST_MSVC
-#pragma warning(pop)
 #endif
 
 namespace boost{
 #ifdef BOOST_MSVC
 #pragma warning(push)
-#pragma warning(disable : 4251 4231 4660 4800)
+#pragma warning(disable : 4251 4231 4660)
 #endif
 
 namespace re_detail{
@@ -261,7 +254,7 @@ public:
    {
       return do_assign(p1, p2, f);
    }
-#if !defined(BOOST_NO_MEMBER_TEMPLATES) && !defined(__IBMCPP__)
+#if !defined(BOOST_NO_MEMBER_TEMPLATES)
 
    template <class ST, class SA>
    unsigned int BOOST_REGEX_CALL set_expression(const std::basic_string<charT, ST, SA>& p, flag_type f = regex_constants::normal)
@@ -597,7 +590,7 @@ public:
       return this->assign(that);
    }
 
-#if !defined(BOOST_NO_MEMBER_TEMPLATES) && !defined(__IBMCPP__)
+#if !defined(BOOST_NO_MEMBER_TEMPLATES)
    template <class ST, class SA>
    explicit reg_expression(const std::basic_string<charT, ST, SA>& p, flag_type f = regex_constants::normal)
    : basic_regex<charT, traits>(p, f)
@@ -637,15 +630,8 @@ public:
 
 } // namespace boost
 
-#ifdef BOOST_MSVC
-#pragma warning(push)
-#pragma warning(disable: 4103)
-#endif
 #ifdef BOOST_HAS_ABI_HEADERS
 #  include BOOST_ABI_SUFFIX
-#endif
-#ifdef BOOST_MSVC
-#pragma warning(pop)
 #endif
 
 #endif

@@ -16,6 +16,7 @@
 # include "lists.h"
 # include "pathsys.h"
 # include "timestamp.h"
+# include "debug.h"
 
 /*  This file is ALSO:
  *  Copyright 2001-2004 David Abrahams.
@@ -264,7 +265,9 @@ copytarget( const TARGET *ot )
 {
 	TARGET *t;
 
-	t = (TARGET *)BJAM_MALLOC( sizeof( *t ) );
+	t = (TARGET *)malloc( sizeof( *t ) );
+    if ( DEBUG_PROFILE )
+        profile_memory( sizeof( *t ) );
 	memset( (char *)t, '\0', sizeof( *t ) );
 	t->name = copystr( ot->name );
 	t->boundname = t->name;
@@ -318,7 +321,9 @@ targetentry(
 {
 	TARGETS *c;
 
-	c = (TARGETS *)BJAM_MALLOC( sizeof( TARGETS ) );
+	c = (TARGETS *)malloc( sizeof( TARGETS ) );
+    if ( DEBUG_PROFILE )
+        profile_memory( sizeof( TARGETS ) );
 	c->target = target;
 
 	if( !chain ) chain = c;
@@ -364,7 +369,9 @@ actionlist(
 	ACTIONS	*chain,
 	ACTION	*action )
 {
-	ACTIONS *actions = (ACTIONS *)BJAM_MALLOC( sizeof( ACTIONS ) );
+	ACTIONS *actions = (ACTIONS *)malloc( sizeof( ACTIONS ) );
+    if ( DEBUG_PROFILE )
+        profile_memory( sizeof( ACTIONS ) );
 
 	actions->action = action;
 
@@ -382,16 +389,15 @@ static SETTINGS* settings_freelist;
  * addsettings() - add a deferred "set" command to a target
  *
  * Adds a variable setting (varname=list) onto a chain of settings
- * for a particular target.
- * 'flag' controls the relationship between new and old values in the same
- * way as in var_set() function (see variable.c).
+ * for a particular target.  Replaces the previous previous value,
+ * if any, unless 'append' says to append the new list onto the old.
  * Returns the head of the chain of settings.
  */
 
 SETTINGS *
 addsettings(
 	SETTINGS *head,
-	int	flag,
+	int	append,
 	char	*symbol,
 	LIST	*value )
 {
@@ -415,7 +421,9 @@ addsettings(
             settings_freelist = v->next;
         else
         {
-            v = (SETTINGS *)BJAM_MALLOC( sizeof( *v ) );
+            v = (SETTINGS *)malloc( sizeof( *v ) );
+            if ( DEBUG_PROFILE )
+                profile_memory( sizeof( *v ) );
         }
         
 	    v->symbol = newstr( symbol );
@@ -423,17 +431,15 @@ addsettings(
 	    v->next = head;
 	    head = v;
 	}
-	else if( flag == VAR_APPEND )
+	else if( append )
 	{
 	    v->value = list_append( v->value, value );
 	}
-	else if( flag != VAR_DEFAULT )
+	else
 	{
 	    list_free( v->value );
 	    v->value = value;
 	} 
-        else
-            list_free( value );
 
 	/* Return (new) head of list. */
 
@@ -470,7 +476,7 @@ copysettings( SETTINGS *head )
     SETTINGS *copy = 0, *v;
 
     for (v = head; v; v = v->next)
-	copy = addsettings(copy, VAR_SET, v->symbol, list_copy(0, v->value));
+	copy = addsettings(copy, 0, v->symbol, list_copy(0, v->value));
 
     return copy;
 }
@@ -483,7 +489,7 @@ void freetargets( TARGETS *chain )
     while( chain )
     {
         TARGETS* n = chain->next;
-        BJAM_FREE( chain );
+        free( chain );
         chain = n;
     }
 }
@@ -496,7 +502,7 @@ void freeactions( ACTIONS *chain )
     while( chain )
     {
         ACTIONS* n = chain->next;
-        BJAM_FREE( chain );
+        free( chain );
         chain = n;
     }
 }
@@ -547,7 +553,7 @@ donerules()
     while ( settings_freelist )
     {
         SETTINGS* n = settings_freelist->next;
-        BJAM_FREE( settings_freelist );
+        free( settings_freelist );
         settings_freelist = n;
     }
 }
@@ -557,7 +563,9 @@ donerules()
  */
 argument_list* args_new()
 {
-    argument_list* r = (argument_list*)BJAM_MALLOC( sizeof(argument_list) );
+    argument_list* r = (argument_list*)malloc( sizeof(argument_list) );
+    if ( DEBUG_PROFILE )
+        profile_memory( sizeof(argument_list) );
     r->reference_count = 0;
     lol_init(r->data);
     return r;
@@ -579,7 +587,7 @@ void args_free( argument_list* a )
     if (--a->reference_count <= 0)
     {
         lol_free(a->data);
-        BJAM_FREE(a);
+        free(a);
     }
 }
 
@@ -600,7 +608,7 @@ void actions_free(rule_actions* a)
     {
         freestr(a->command);
         list_free(a->bindlist);
-        BJAM_FREE(a);
+        free(a);
     }
 }
 
@@ -694,7 +702,9 @@ static void set_rule_actions( RULE* rule, rule_actions* actions )
 
 static rule_actions* actions_new( char* command, LIST* bindlist, int flags )
 {
-    rule_actions* result = (rule_actions*)BJAM_MALLOC(sizeof(rule_actions));
+    rule_actions* result = (rule_actions*)malloc(sizeof(rule_actions));
+    if ( DEBUG_PROFILE )
+        profile_memory( sizeof(rule_actions) );
     result->command = copystr( command );
     result->bindlist = bindlist;
     result->flags = flags;

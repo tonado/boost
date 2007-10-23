@@ -16,7 +16,6 @@
 
 #include <ostream>
 #include <string>
-#include <stack>
 
 #include <boost/assert.hpp>
 #include <boost/config.hpp>
@@ -61,28 +60,27 @@ enum trace_flags {
 //  disabled
 //
 ///////////////////////////////////////////////////////////////////////////////
-class bad_pragma_exception :
+class no_pragma_system_exception :
     public boost::wave::preprocess_exception
 {
 public:
     enum error_code {
-        pragma_system_not_enabled = boost::wave::preprocess_exception::last_error_number + 1,
-        pragma_mismatched_push_pop,
+        pragma_system_not_enabled = boost::wave::preprocess_exception::last_error_number + 1
     };
     
-    bad_pragma_exception(char const *what_, error_code code, int line_, 
+    no_pragma_system_exception(char const *what_, error_code code, int line_, 
         int column_, char const *filename_) throw() 
     :   boost::wave::preprocess_exception(what_, 
             (boost::wave::preprocess_exception::error_code)code, line_, 
             column_, filename_)
     {
     }
-    ~bad_pragma_exception() throw() {}
+    ~no_pragma_system_exception() throw() {}
     
     
     virtual char const *what() const throw()
     {
-        return "boost::wave::bad_pragma_exception";
+        return "boost::wave::no_pragma_system_exception";
     }
     virtual bool is_recoverable() const throw()
     {
@@ -95,26 +93,12 @@ public:
     
     static char const *error_text(int code)
     {
-        switch(code) {
-        case pragma_system_not_enabled:
-            return "the directive '#pragma wave system()' was not enabled, use the "
-                   "-x command line argument to enable the execution of";
-                   
-        case pragma_mismatched_push_pop:
-            return "unbalanced #pragma push/pop in input file(s) for option";
-        }
-        return "Unknown exception";
+        return "the directive '#pragma wave system()' was not enabled, use the "
+               "-x command line argument to enable the execution of";
     }
     static boost::wave::util::severity severity_level(int code)
     {
-        switch(code) {
-        case pragma_system_not_enabled:
-            return boost::wave::util::severity_remark;
-    
-        case pragma_mismatched_push_pop:
-            return boost::wave::util::severity_error;
-        }
-        return boost::wave::util::severity_fatal;
+        return boost::wave::util::severity_remark;
     }
     static char const *severity_text(int code)
     {
@@ -162,55 +146,29 @@ public:
     
     ///////////////////////////////////////////////////////////////////////////
     //  
-    //  The function 'expanding_function_like_macro' is called whenever a 
+    //  The function 'expanding_function_like_macro' is called, whenever a 
     //  function-like macro is to be expanded.
     //
-    //  The parameter 'ctx' is a reference to the context object used for 
-    //  instantiating the preprocessing iterators by the user.
-    //
-    //  The parameter 'macrodef' marks the position, where the macro to expand 
+    //  The 'macrodef' parameter marks the position, where the macro to expand 
     //  is defined.
-    //
-    //  The parameter 'formal_args' holds the formal arguments used during the
+    //  The 'formal_args' parameter holds the formal arguments used during the
     //  definition of the macro.
-    //
-    //  The parameter 'definition' holds the macro definition for the macro to 
+    //  The 'definition' parameter holds the macro definition for the macro to 
     //  trace.
     //
-    //  The parameter 'macro_call' marks the position, where this macro invoked.
-    //
-    //  The parameter 'arguments' holds the macro arguments used during the 
+    //  The 'macrocall' parameter marks the position, where this macro invoked.
+    //  The 'arguments' parameter holds the macro arguments used during the 
     //  invocation of the macro
     //
-    //  The parameters 'seqstart' and 'seqend' point into the input token 
-    //  stream allowing to access the whole token sequence comprising the macro
-    //  invocation (starting with the opening parenthesis and ending after the
-    //  closing one).
-    //
     ///////////////////////////////////////////////////////////////////////////
-#if BOOST_WAVE_USE_DEPRECIATED_PREPROCESSING_HOOKS != 0
-    // old signature
     template <typename ContainerT>
     void expanding_function_like_macro(
         TokenT const &macrodef, std::vector<TokenT> const &formal_args, 
         ContainerT const &definition,
         TokenT const &macrocall, std::vector<ContainerT> const &arguments) 
     {
-        if (!enabled_macro_tracing()) 
-            return;
-#else
-    // new signature
-    template <typename ContextT, typename ContainerT, typename IteratorT>
-    bool 
-    expanding_function_like_macro(ContextT const& ctx,
-        TokenT const &macrodef, std::vector<TokenT> const &formal_args, 
-        ContainerT const &definition,
-        TokenT const &macrocall, std::vector<ContainerT> const &arguments,
-        IteratorT const& seqstart, IteratorT const& seqend) 
-    {
-        if (!enabled_macro_tracing()) 
-            return false;
-#endif
+        if (!enabled_macro_tracing()) return;
+        
         if (0 == get_level()) {
         // output header line
         BOOST_WAVE_OSSTREAM stream;
@@ -282,48 +240,27 @@ public:
             close_trace_body();
         }
         open_trace_body();
-        
-#if BOOST_WAVE_USE_DEPRECIATED_PREPROCESSING_HOOKS == 0
-        return false;
-#endif
     }
 
     ///////////////////////////////////////////////////////////////////////////
     //  
-    //  The function 'expanding_object_like_macro' is called whenever a 
+    //  The function 'expanding_object_like_macro' is called, whenever a 
     //  object-like macro is to be expanded .
     //
-    //  The parameter 'ctx' is a reference to the context object used for 
-    //  instantiating the preprocessing iterators by the user.
-    //
-    //  The parameter 'macrodef' marks the position, where the macro to expand 
+    //  The 'macrodef' parameter marks the position, where the macro to expand 
     //  is defined.
-    //
-    //  The definition 'definition' holds the macro definition for the macro to 
+    //  The 'definition' parameter holds the macro definition for the macro to 
     //  trace.
     //
-    //  The parameter 'macrocall' marks the position, where this macro invoked.
+    //  The 'macrocall' parameter marks the position, where this macro invoked.
     //
     ///////////////////////////////////////////////////////////////////////////
-#if BOOST_WAVE_USE_DEPRECIATED_PREPROCESSING_HOOKS != 0
-    // old signature
     template <typename ContainerT>
     void expanding_object_like_macro(TokenT const &macrodef, 
         ContainerT const &definition, TokenT const &macrocall)
     {
-        if (!enabled_macro_tracing()) 
-            return;
-#else
-    // new signature
-    template <typename ContextT, typename ContainerT>
-    bool 
-    expanding_object_like_macro(ContextT const& ctx,
-        TokenT const &macrodef, ContainerT const &definition, 
-        TokenT const &macrocall)
-    {
-        if (!enabled_macro_tracing()) 
-            return false;
-#endif
+        if (!enabled_macro_tracing()) return;
+        
         if (0 == get_level()) {
         // output header line
         BOOST_WAVE_OSSTREAM stream;
@@ -345,33 +282,19 @@ public:
             output(BOOST_WAVE_GETSTRING(stream));
         }
         open_trace_body();
-
-#if BOOST_WAVE_USE_DEPRECIATED_PREPROCESSING_HOOKS == 0
-        return false;
-#endif
     }
     
     ///////////////////////////////////////////////////////////////////////////
     //  
-    //  The function 'expanded_macro' is called whenever the expansion of a 
+    //  The function 'expanded_macro' is called, whenever the expansion of a 
     //  macro is finished but before the rescanning process starts.
-    //
-    //  The parameter 'ctx' is a reference to the context object used for 
-    //  instantiating the preprocessing iterators by the user.
     //
     //  The parameter 'result' contains the token sequence generated as the 
     //  result of the macro expansion.
     //
     ///////////////////////////////////////////////////////////////////////////
-#if BOOST_WAVE_USE_DEPRECIATED_PREPROCESSING_HOOKS != 0
-    // old signature
     template <typename ContainerT>
     void expanded_macro(ContainerT const &result)
-#else
-    // new signature
-    template <typename ContextT, typename ContainerT>
-    void expanded_macro(ContextT const& ctx,ContainerT const &result)
-#endif
     {
         if (!enabled_macro_tracing()) return;
         
@@ -384,25 +307,15 @@ public:
 
     ///////////////////////////////////////////////////////////////////////////
     //  
-    //  The function 'rescanned_macro' is called whenever the rescanning of a 
+    //  The function 'rescanned_macro' is called, whenever the rescanning of a 
     //  macro is finished.
-    //
-    //  The parameter 'ctx' is a reference to the context object used for 
-    //  instantiating the preprocessing iterators by the user.
     //
     //  The parameter 'result' contains the token sequence generated as the 
     //  result of the rescanning.
     //
     ///////////////////////////////////////////////////////////////////////////
-#if BOOST_WAVE_USE_DEPRECIATED_PREPROCESSING_HOOKS != 0
-    // old signature
     template <typename ContainerT>
     void rescanned_macro(ContainerT const &result)
-#else
-    // new signature
-    template <typename ContextT, typename ContainerT>
-    void rescanned_macro(ContextT const& ctx,ContainerT const &result)
-#endif
     {
         if (!enabled_macro_tracing() || get_level() == 0) 
             return;
@@ -419,17 +332,15 @@ public:
 
     ///////////////////////////////////////////////////////////////////////////
     //  
-    //  The function 'interpret_pragma' is called whenever a #pragma command 
-    //  directive is found which isn't known to the core Wave library, where
-    //  command is the value defined as the BOOST_WAVE_PRAGMA_KEYWORD constant
-    //  which defaults to "wave".
+    //  The function 'interpret_pragma' is called, whenever a #pragma wave 
+    //  directive is found, which isn't known to the core Wave library. 
     //
     //  The parameter 'ctx' is a reference to the context object used for 
     //  instantiating the preprocessing iterators by the user.
     //
     //  The parameter 'pending' may be used to push tokens back into the input 
     //  stream, which are to be used as the replacement text for the whole 
-    //  #pragma directive.
+    //  #pragma wave() directive.
     //
     //  The parameter 'option' contains the name of the interpreted pragma.
     //
@@ -476,11 +387,10 @@ public:
             if (!enable_system_command) {
             // if the #pragma wave system() directive is not enabled, throw
             // a corresponding error (actually its a remark),
-                BOOST_WAVE_THROW_CTX(ctx, bad_pragma_exception, 
+                BOOST_WAVE_THROW(no_pragma_system_exception, 
                     pragma_system_not_enabled,
                     boost::wave::util::impl::as_string(values).c_str(), 
                     act_token.get_position());
-                return false;
             }
             
         // try to spawn the given argument as a system command and return the
@@ -489,10 +399,9 @@ public:
         }
         if (option.get_value() == "stop") {
         // stop the execution and output the argument
-            BOOST_WAVE_THROW_CTX(ctx, preprocess_exception, error_directive,
+            BOOST_WAVE_THROW(preprocess_exception, error_directive,
                 boost::wave::util::impl::as_string(values).c_str(), 
                 act_token.get_position());
-            return false;
         }
         if (option.get_value() == "option") {
         // handle different options 
@@ -503,11 +412,8 @@ public:
         
     ///////////////////////////////////////////////////////////////////////////
     //  
-    //  The function 'opened_include_file' is called whenever a file referred 
+    //  The function 'opened_include_file' is called, whenever a file referred 
     //  by an #include directive was successfully located and opened.
-    //
-    //  The parameter 'ctx' is a reference to the context object used for 
-    //  instantiating the preprocessing iterators by the user.
     //
     //  The parameter 'filename' contains the file system path of the 
     //  opened file (this is relative to the directory of the currently 
@@ -520,21 +426,10 @@ public:
     //  found as a result of a #include <...> directive.
     //  
     ///////////////////////////////////////////////////////////////////////////
-#if BOOST_WAVE_USE_DEPRECIATED_PREPROCESSING_HOOKS != 0
-    // old signature
     void 
     opened_include_file(std::string const &relname, std::string const &absname, 
         std::size_t include_depth, bool is_system_include) 
     {
-#else
-    // new signature
-    template <typename ContextT>
-    void 
-    opened_include_file(ContextT const& ctx, std::string const &relname, 
-        std::string const &absname, bool is_system_include) 
-    {
-        std::size_t include_depth = ctx.get_max_include_nesting_depth();
-#endif
         if (enabled_include_tracing()) {
             // print indented filename
             for (std::size_t i = 0; i < include_depth; ++i)
@@ -551,8 +446,8 @@ public:
 
     ///////////////////////////////////////////////////////////////////////////
     //
-    //  The function 'may_skip_whitespace' will be called by the 
-    //  library whenever a token is about to be returned to the calling 
+    //  The function 'may_skip_whitespace' is called, will be called by the 
+    //  library, whenever a token is about to be returned to the calling 
     //  application. 
     //
     //  The parameter 'ctx' is a reference to the context object used for 
@@ -575,62 +470,18 @@ public:
     //
     ///////////////////////////////////////////////////////////////////////////
     template <typename ContextT>
-    bool may_skip_whitespace(ContextT const &ctx, TokenT &token, 
-        bool &skipped_newline)
+    bool may_skip_whitespace(ContextT const &ctx, TokenT &token, bool &skipped_newline)
     {
         return this->base_type::may_skip_whitespace(ctx, token, skipped_newline) ?
             !preserve_whitespace : false;
     }
 
-    ///////////////////////////////////////////////////////////////////////////
-    //
-    //  The function 'throw_exception' will be called by the library whenever a
-    //  preprocessing exception occurs.
-    //
-    //  The parameter 'ctx' is a reference to the context object used for 
-    //  instantiating the preprocessing iterators by the user.
-    //
-    //  The parameter 'e' is the exception object containing detailed error 
-    //  information.
-    //
-    //  The default behavior is to call the function boost::throw_exception.
-    //  
-    ///////////////////////////////////////////////////////////////////////////
-    template <typename ContextT>
-    void
-    throw_exception(ContextT const& ctx, boost::wave::preprocess_exception const& e)
-    {
-#if BOOST_WAVE_SUPPORT_MS_EXTENSIONS != 0
-        if (!is_import_directive_error(e))
-            boost::throw_exception(e);
-#else
-        boost::throw_exception(e);
-#endif
-    }
-    using base_type::throw_exception; 
-    
 protected:
-#if BOOST_WAVE_SUPPORT_MS_EXTENSIONS != 0
-    ///////////////////////////////////////////////////////////////////////////
-    //  Avoid throwing an error from a #import directive
-    bool is_import_directive_error(boost::wave::preprocess_exception const& e)
-    {
-        using namespace boost::wave;
-        if (e.get_errorcode() != preprocess_exception::ill_formed_directive)
-            return false;
-            
-        // the error string is formatted as 'severity: error: directive'
-        std::string error(e.description());
-        std::string::size_type p = error.find_last_of(":");
-        return p != std::string::npos && error.substr(p+2) == "import";
-    }
-#endif
-
     ///////////////////////////////////////////////////////////////////////////
     //  Interpret the different Wave specific pragma directives/operators
     template <typename ContextT, typename ContainerT>
     bool 
-    interpret_pragma_trace(ContextT& ctx, ContainerT const &values, 
+    interpret_pragma_trace(ContextT const &/*ctx*/, ContainerT const &values, 
         typename ContextT::token_type const &act_token)
     {
         typedef typename ContextT::token_type token_type;
@@ -669,44 +520,14 @@ protected:
                 option_str += boost::wave::util::impl::as_string(values);
                 option_str += ")";
             }
-            BOOST_WAVE_THROW_CTX(ctx, preprocess_exception, 
-                ill_formed_pragma_option, option_str.c_str(), 
-                act_token.get_position());
-            return false;
+            BOOST_WAVE_THROW(preprocess_exception, ill_formed_pragma_option,
+                option_str.c_str(), act_token.get_position());
         }
         return true;
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    //  interpret the pragma wave option(preserve: [0|1|2|push|pop]) directive
-    template <typename ContextT>
-    static bool 
-    interpret_pragma_option_preserve_set(int mode, bool &preserve_whitespace, 
-        ContextT &ctx)
-    {
-        switch(mode) {
-        case 0:   
-            preserve_whitespace = false;
-            ctx.set_language(
-                enable_preserve_comments(ctx.get_language(), false),
-                false);
-            break;
-
-        case 2:
-            preserve_whitespace = true;
-              /* fall through */
-        case 1:
-            ctx.set_language(
-                enable_preserve_comments(ctx.get_language()),
-                false);
-            break;
-
-        default:
-              return false;
-        }
-        return true;
-    }
-
+    //  interpret the pragma wave option(preserve: [0|1|2]) directive
     template <typename ContextT, typename IteratorT>
     bool 
     interpret_pragma_option_preserve(ContextT &ctx, IteratorT &it,
@@ -718,47 +539,34 @@ protected:
         if (T_COLON == id)
             id = util::impl::skip_whitespace(it, end);
         
-        // implement push/pop
-        if (T_IDENTIFIER == id) {
-            if ((*it).get_value() == "push") {
-            // push current preserve option onto the internal option stack
-                if (preserve_whitespace) {
-                    if (need_preserve_comments(ctx.get_language()))
-                        preserve_options.push(2);
-                    else
-                        preserve_options.push(1);
-                }
-                else {
-                    preserve_options.push(0);
-                }                    
-                return true;
-            }
-            else if ((*it).get_value() == "pop") {
-            // test for mismatched push/pop #pragmas
-                if (preserve_options.empty()) {
-                    BOOST_WAVE_THROW_CTX(ctx, bad_pragma_exception, 
-                        pragma_mismatched_push_pop, "preserve", 
-                        act_token.get_position());
-                }
-                
-            // pop output preserve from the internal option stack
-                bool result = interpret_pragma_option_preserve_set(
-                    preserve_options.top(), preserve_whitespace, ctx);
-                line_options.pop();
-                return result;
-            }
-            return false;
-        }
-
         if (T_PP_NUMBER != id) 
             return false;
             
         using namespace std;    // some platforms have atoi in namespace std
-        return interpret_pragma_option_preserve_set(
-            atoi((*it).get_value().c_str()), preserve_whitespace, ctx);
+        switch(atoi((*it).get_value().c_str())) {
+        case 0:   
+            preserve_whitespace = false;
+            ctx.set_language(
+                enable_preserve_comments(ctx.get_language(), false),
+                false);
+            break;
+            
+        case 2:
+            preserve_whitespace = true;
+            /* fall through */
+        case 1:
+            ctx.set_language(
+                enable_preserve_comments(ctx.get_language()),
+                false);
+            break;
+            
+        default:
+            return false;
+        }
+        return true;
     }
     
-    //  interpret the pragma wave option(line: [0|1|push|pop]) directive
+    //  interpret the pragma wave option(line: [0|1]) directive
     template <typename ContextT, typename IteratorT>
     bool 
     interpret_pragma_option_line(ContextT &ctx, IteratorT &it,
@@ -770,31 +578,6 @@ protected:
         if (T_COLON == id)
             id = util::impl::skip_whitespace(it, end);
         
-        // implement push/pop
-        if (T_IDENTIFIER == id) {
-            if ((*it).get_value() == "push") {
-            // push current line option onto the internal option stack
-                line_options.push(need_emit_line_directives(ctx.get_language()));
-                return true;
-            }
-            else if ((*it).get_value() == "pop") {
-            // test for mismatched push/pop #pragmas
-                if (line_options.empty()) {
-                    BOOST_WAVE_THROW_CTX(ctx, bad_pragma_exception, 
-                        pragma_mismatched_push_pop, "line", 
-                        act_token.get_position());
-                }
-                
-            // pop output line from the internal option stack
-                ctx.set_language(
-                    enable_emit_line_directives(ctx.get_language(), line_options.top()),
-                    false);
-                line_options.pop();
-                return true;
-            }
-            return false;
-        }
-
         if (T_PP_NUMBER != id) 
             return false;
             
@@ -810,49 +593,7 @@ protected:
         return false;
     }
 
-    //  interpret the pragma wave option(output: ["filename"|null|default|push|pop]) 
-    //  directive
-    template <typename ContextT>
-    bool 
-    interpret_pragma_option_output_open(boost::filesystem::path &fpath, 
-        ContextT& ctx, typename ContextT::token_type const &act_token)
-    {
-        namespace fs = boost::filesystem;
-        
-        // ensure all directories for this file do exist
-        fs::create_directories(fpath.branch_path());
-
-        // figure out, whether the file to open was last accessed by us
-        std::ios::openmode mode = std::ios::out;
-        if (fs::exists(fpath) && fs::last_write_time(fpath) >= started_at)
-            mode = (std::ios::openmode)(std::ios::out | std::ios::app);
-
-        // close the current file
-        if (outputstrm.is_open())
-            outputstrm.close();
-
-        // open the new file
-        outputstrm.open(fpath.string().c_str(), mode);
-        if (!outputstrm.is_open()) { 
-            BOOST_WAVE_THROW_CTX(ctx, preprocess_exception, 
-                could_not_open_output_file,
-                fpath.string().c_str(), act_token.get_position());
-            return false;
-        }
-        generate_output = true;
-        current_outfile = fpath;
-        return true;        
-    }
-    
-    bool interpret_pragma_option_output_close(bool generate)
-    {
-        if (outputstrm.is_open())
-            outputstrm.close();
-        current_outfile = boost::filesystem::path();
-        generate_output = generate;
-        return true;
-    }
-
+    //  interpret the pragma wave option(output: ["filename"|null]) directive
     template <typename ContextT, typename IteratorT>
     bool 
     interpret_pragma_option_output(ContextT &ctx, IteratorT &it,
@@ -868,7 +609,6 @@ protected:
         if (T_COLON == id)
             id = util::impl::skip_whitespace(it, end);
         
-        bool result = false;
         if (T_STRINGLIT == id) {
             namespace fs = boost::filesystem;
             
@@ -877,72 +617,71 @@ protected:
                 util::impl::unescape_lit(fname.substr(1, fname.size()-2)).c_str(),
                 fs::native);
             fpath = fs::complete(fpath, ctx.get_current_directory());
-            result = interpret_pragma_option_output_open(fpath, ctx, act_token);
-        }
-        else if (T_IDENTIFIER == id) {
-            if ((*it).get_value() == "null") {
-            // suppress all output from this point on
-                result = interpret_pragma_option_output_close(false);
-            }        
-            else if ((*it).get_value() == "push") {
-            // initialize the current_outfile, if appropriate
-                if (output_options.empty() && current_outfile.empty() &&
-                    !default_outfile.empty() && default_outfile != "-")
-                {
-                    current_outfile = fs::complete(default_outfile, 
-                        ctx.get_current_directory());
-                }
+            
+            // close the current file
+            if (outputstrm.is_open())
+                outputstrm.close();
 
-            // push current output option onto the internal option stack
-                output_options.push(
-                    output_option_type(generate_output, current_outfile));
-                result = true;
+            // ensure all directories for this file do exist
+            fs::create_directories(fpath.branch_path());
+            
+            // figure out, whether the file to open was last accessed by us
+            std::ios::openmode mode = std::ios::out;
+            if (fs::exists(fpath) && fs::last_write_time(fpath) >= started_at)
+                mode = (std::ios::openmode)(std::ios::out | std::ios::app);
+
+            // open the new file
+            outputstrm.open(fpath.string().c_str(), mode);
+            if (!outputstrm.is_open()) { 
+                BOOST_WAVE_THROW(preprocess_exception, could_not_open_output_file,
+                    fpath.string().c_str(), act_token.get_position());
             }
-            else if ((*it).get_value() == "pop") {
-            // test for mismatched push/pop #pragmas
-                if (output_options.empty()) {
-                    BOOST_WAVE_THROW_CTX(ctx, bad_pragma_exception, 
-                        pragma_mismatched_push_pop, "output", 
-                        act_token.get_position());
-                    return false;
-                }
-                
-            // pop output option from the internal option stack
-                output_option_type const& opts = output_options.top();
-                generate_output = opts.first;
-                current_outfile = opts.second;
-                if (!current_outfile.empty()) {
-                // re-open the last file
-                    result = interpret_pragma_option_output_open(current_outfile, 
-                        ctx, act_token);
-                }
-                else {
-                // either no output or generate to std::cout
-                    result = interpret_pragma_option_output_close(generate_output);
-                }
-                output_options.pop();
-            }
+            generate_output = true;
+            return true;        
         }
-        else if (T_DEFAULT == id) {
+        if (T_IDENTIFIER == id && (*it).get_value() == "null") {
+        // suppress all output from this point on
+            if (outputstrm.is_open())
+                outputstrm.close();
+            generate_output = false;
+            return true;        
+        }
+        if (T_DEFAULT == id) {
         // re-open the default output given on command line
+            if (outputstrm.is_open())
+                outputstrm.close();
+            
             if (!default_outfile.empty()) {
                 if (default_outfile == "-") {
                 // the output was suppressed on the command line
-                    result = interpret_pragma_option_output_close(false);
+                    generate_output = false;
                 }
                 else {
                 // there was a file name on the command line
-                    fs::path fpath(default_outfile, fs::native);
-                    result = interpret_pragma_option_output_open(fpath, ctx, 
-                        act_token);
+                fs::path fpath(default_outfile, fs::native);
+                    
+                    // figure out, whether the file to open was last accessed by us
+                    std::ios::openmode mode = std::ios::out;
+                    if (fs::exists(fpath) && fs::last_write_time(fpath) >= started_at)
+                        mode = (std::ios::openmode)(std::ios::out | std::ios::app);
+
+                    // open the new file
+                    outputstrm.open(fpath.string().c_str(), mode);
+                    if (!outputstrm.is_open()) { 
+                        BOOST_WAVE_THROW(preprocess_exception, 
+                            could_not_open_output_file, fpath.string().c_str(), 
+                            act_token.get_position());
+                    }
+                    generate_output = true;
                 }
             }
             else {
             // generate the output to std::cout
-                result = interpret_pragma_option_output_close(true);
+                generate_output = true;
             }
+            return true;        
         }
-        return result;      
+        return false;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -964,17 +703,17 @@ protected:
             
             token_type const &value = *it;
             if (value.get_value() == "preserve") {
-            // #pragma wave option(preserve: [0|1|2|push|pop])
+            // #pragma wave option(preserve: [0|1|2])
                 valid_option = interpret_pragma_option_preserve(ctx, it, end, 
                     act_token);
             }
             else if (value.get_value() == "line") {
-            // #pragma wave option(line: [0|1|push|pop])
+            // #pragma wave option(line: [0|1])
                 valid_option = interpret_pragma_option_line(ctx, it, end, 
                     act_token);
             }
             else if (value.get_value() == "output") {
-            // #pragma wave option(output: ["filename"|null|default|push|pop])
+            // #pragma wave option(output: ["filename"|null])
                 valid_option = interpret_pragma_option_output(ctx, it, end, 
                     act_token);
             }
@@ -988,10 +727,8 @@ protected:
                     option_str += util::impl::as_string(values);
                     option_str += ")";
                 }
-                BOOST_WAVE_THROW_CTX(ctx, preprocess_exception, 
-                    ill_formed_pragma_option,
+                BOOST_WAVE_THROW(preprocess_exception, ill_formed_pragma_option,
                     option_str.c_str(), act_token.get_position());
-                return false;
             }
             
             token_id id = util::impl::skip_whitespace(it, end);
@@ -1005,7 +742,7 @@ protected:
     // interpret the #pragma wave system() directive
     template <typename ContextT, typename ContainerT>
     bool
-    interpret_pragma_system(ContextT& ctx, ContainerT &pending, 
+    interpret_pragma_system(ContextT const &ctx, ContainerT &pending, 
         ContainerT const &values, 
         typename ContextT::token_type const &act_token)
     {
@@ -1025,21 +762,18 @@ protected:
         string_type error_str("unable to spawn command: ");
         
             error_str += native_cmd;
-            BOOST_WAVE_THROW_CTX(ctx, preprocess_exception, 
-                ill_formed_pragma_option,
+            BOOST_WAVE_THROW(preprocess_exception, ill_formed_pragma_option,
                 error_str.c_str(), act_token.get_position());
-            return false;
         }
         
     // rescan the content of the stdout_file and insert it as the 
     // _Pragma replacement
         typedef typename ContextT::lexer_type lexer_type;
         typedef typename ContextT::input_policy_type input_policy_type;
-        typedef boost::wave::iteration_context<
-                ContextT, lexer_type, input_policy_type> 
+        typedef boost::wave::iteration_context<lexer_type, input_policy_type> 
             iteration_context_type;
 
-    iteration_context_type iter_ctx(ctx, stdout_file.c_str(), 
+    iteration_context_type iter_ctx(stdout_file.c_str(), 
         act_token.get_position(), ctx.get_language());
     ContainerT pragma;
 
@@ -1142,16 +876,10 @@ private:
     bool enable_system_command;     // enable #pragma wave system() command
     bool preserve_whitespace;       // enable whitespace preservation
     bool& generate_output;          // allow generated tokens to be streamed to output
-    std::string const& default_outfile;         // name of the output file given on command line
-    boost::filesystem::path current_outfile;    // name of the current output file 
+    std::string const& default_outfile;    // name of the output file given on command line
     
     stop_watch elapsed_time;        // trace timings
     std::time_t started_at;         // time, this process was started at
-    
-    typedef std::pair<bool, boost::filesystem::path> output_option_type;
-    std::stack<output_option_type> output_options;  // output option stack
-    std::stack<int> line_options;       // line option stack
-    std::stack<int> preserve_options;   // preserve option stack
 };
 
 #undef BOOST_WAVE_GETSTRING

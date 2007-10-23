@@ -123,7 +123,6 @@ namespace boost {
             for(std::size_t i=0; i < nbitems; ++i)
                 items_[i].reset(fill); //  strings are resized, instead of reallocated
         }
-        prefix_.resize(0);
     }
 
     template< class Ch, class Tr, class Alloc>

@@ -453,7 +453,7 @@ int main()
       , name = S("foo")
     );
 
-#if ! defined(BOOST_NO_SFINAE) && ! BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x592))
+#ifndef BOOST_NO_SFINAE
     assert(sfinae("foo") == 1);
     assert(sfinae(1) == 0);
 

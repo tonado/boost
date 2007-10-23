@@ -726,7 +726,7 @@ rule use ( id : location )
           && $($(id).jamfile-module) != $(project-module)
         {
             errors.user-error 
-              "Attempt to redeclare already existing project id '$(id)'" ;
+              "Attempt to redeclare already existing project id" ;
         }                  
         $(id).jamfile-module = $(project-module) ;
     }
@@ -882,12 +882,7 @@ module project-rules
         
         if $(global-build-dir)
         {                
-            local location = [ $(attributes).get location ] ;
-            # Project with empty location is 'standalone' project, like
-            # user-config, or qt.  It has no build dir.
-            # If we try to set build dir for user-config, we'll then
-            # try to inherit it, with either weird, or wrong consequences.
-            if $(location) && $(location) = [ $(attributes).get project-root ]
+            if [ $(attributes).get location ]  = [ $(attributes).get project-root ]
             {
                 # This is Jamroot.
                 if $(id)

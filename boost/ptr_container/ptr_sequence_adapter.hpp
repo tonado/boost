@@ -174,7 +174,7 @@ namespace ptr_container_detail
             this->enforce_null_policy( x, "Null pointer in 'push_back()'" );
 
             auto_type ptr( x );                // notrow
-            this->base().push_back( x );  // strong, commit
+            this->c_private().push_back( x );  // strong, commit
             ptr.release();                     // nothrow
         }
 
@@ -189,7 +189,7 @@ namespace ptr_container_detail
             this->enforce_null_policy( x, "Null pointer in 'push_front()'" );
 
             auto_type ptr( x );                // nothrow
-            this->base().push_front( x ); // strong, commit
+            this->c_private().push_front( x ); // strong, commit
             ptr.release();                     // nothrow
         }
 
@@ -205,8 +205,8 @@ namespace ptr_container_detail
                                                  bad_ptr_container_operation,
                                           "'pop_back()' on empty container" );
             auto_type ptr( static_cast<value_type>( 
-                         this->base().back() ) ); // nothrow
-            this->base().pop_back();              // nothrow
+                         this->c_private().back() ) ); // nothrow
+            this->c_private().pop_back();              // nothrow
             return ptr_container_detail::move( ptr );  // nothrow
         }
 
@@ -216,8 +216,8 @@ namespace ptr_container_detail
                                                  bad_ptr_container_operation,
                                          "'pop_front()' on empty container" ); 
             auto_type ptr( static_cast<value_type>(
-                        this->base().front() ) ); // nothrow 
-            this->base().pop_front();             // nothrow
+                        this->c_private().front() ) ); // nothrow 
+            this->c_private().pop_front();             // nothrow
             return ptr_container_detail::move( ptr ); 
         }
         
@@ -263,14 +263,14 @@ namespace ptr_container_detail
         {
             BOOST_ASSERT( n < this->size() );
             BOOST_ASSERT( !this->is_null( n ) );
-            return *static_cast<value_type>( this->base()[n] ); 
+            return *static_cast<value_type>( this->c_private()[n] ); 
         }
         
         const_reference operator[]( size_type n ) const // nothrow  
         { 
             BOOST_ASSERT( n < this->size() ); 
             BOOST_ASSERT( !this->is_null( n ) );
-            return *static_cast<value_type>( this->base()[n] );
+            return *static_cast<value_type>( this->c_private()[n] );
         }
         
         reference at( size_type n )
@@ -293,17 +293,17 @@ namespace ptr_container_detail
         
         size_type capacity() const
         {
-            return this->base().capacity();
+            return this->c_private().capacity();
         }
         
         void reserve( size_type n )
         {
-            this->base().reserve( n ); 
+            this->c_private().reserve( n ); 
         }
 
         void reverse()
         {
-            this->base().reverse(); 
+            this->c_private().reverse(); 
         }
 
     public: // assign, insert, transfer
@@ -312,11 +312,6 @@ namespace ptr_container_detail
         template< class InputIterator >
         void assign( InputIterator first, InputIterator last ) // strong
         { 
-//#ifdef BOOST_NO_SFINAE
-//#else
-//            BOOST_STATIC_ASSERT(( boost::is_convertible< typename iterator_reference<InputIterator>::type,
-//                                                         reference_type >::value ));
-//#endif            
             base_type temp( first, last );
             this->swap( temp );
         }
@@ -355,7 +350,7 @@ namespace ptr_container_detail
                          iterator_category<InputIterator>::type() );
         } 
 
-#if defined(BOOST_NO_SFINAE) || defined(BOOST_NO_FUNCTION_TEMPLATE_ORDERING)
+#if defined(BOOST_NO_SFINAE) || BOOST_WORKAROUND(__SUNPRO_CC, <= 0x580)
 #else
         template< class Range >
         BOOST_DEDUCED_TYPENAME
@@ -376,11 +371,11 @@ namespace ptr_container_detail
             BOOST_ASSERT( (void*)&from != (void*)this );
             if( from.empty() )
                 return;
-            this->base().
+            this->c_private().
                 insert( before.base(), 
                         first.base(), last.base() ); // strong
-            from.base().erase( first.base(),
-                               last.base() );   // nothrow
+            from.c_private().erase( first.base(),
+                                    last.base() );   // nothrow
         }
 
         template< class PtrSeqAdapter >
@@ -391,13 +386,13 @@ namespace ptr_container_detail
             BOOST_ASSERT( (void*)&from != (void*)this );
             if( from.empty() )
                 return;
-            this->base().
+            this->c_private().
                 insert( before.base(),
                         *object.base() );                 // strong
-            from.base().erase( object.base() );      // nothrow
+            from.c_private().erase( object.base() );      // nothrow
         }
 
-#ifdef BOOST_NO_SFINAE
+#if defined(BOOST_NO_SFINAE) || BOOST_WORKAROUND(__SUNPRO_CC, <= 0x580)
 #else
         
         template< class PtrSeqAdapter, class Range >
@@ -415,10 +410,10 @@ namespace ptr_container_detail
             BOOST_ASSERT( (void*)&from != (void*)this );
             if( from.empty() )
                 return;
-            this->base().
+            this->c_private().
                 insert( before.base(),
                         from.begin().base(), from.end().base() ); // strong
-            from.base().clear();                             // nothrow
+            from.c_private().clear();                             // nothrow
         }
 
     public: // null functions
@@ -426,7 +421,7 @@ namespace ptr_container_detail
         bool is_null( size_type idx ) const
         {
             BOOST_ASSERT( idx < this->size() );
-            return this->base()[idx] == 0;
+            return this->c_private()[idx] == 0;
         }
 
     public: // algorithms
@@ -485,7 +480,7 @@ namespace ptr_container_detail
                                                     first.base(), 
                                                     last.base(), 
                                                     is_not_zero_ptr() );
-            this->base().erase( p, this->end().base() );
+            this->c_private().erase( p, this->end().base() );
             
         }
 

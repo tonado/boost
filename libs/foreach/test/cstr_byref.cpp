@@ -22,7 +22,7 @@ typedef char const &foreach_const_reference_type;
 #include "./utility.hpp"
 
 ///////////////////////////////////////////////////////////////////////////////
-// define some containers
+// define come containers
 //
 char my_ntcs_buffer[] = "\1\2\3\4\5";
 char *my_ntcs  = my_ntcs_buffer;

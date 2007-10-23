@@ -45,21 +45,18 @@ typedef std::map<edge_t,double> weight_map_t;
 template <typename Directedness, typename OutEdgeList>
 bool test_graph(std::istream& dotfile, mass_map_t const& masses,
                 weight_map_t const& weights,
-                std::string const& node_id = "node_id",
-                std::string const& g_name = std::string()) {
+                std::string const& node_id = "node_id") {
 
-  typedef property < vertex_name_t, std::string,
-            property < vertex_color_t, float > > vertex_p;  
-  typedef property < edge_weight_t, double > edge_p;
-  typedef property < graph_name_t, std::string > graph_p;
   typedef adjacency_list < OutEdgeList, vecS, Directedness,
-    vertex_p, edge_p, graph_p > graph_t;
+    property < vertex_name_t, std::string,
+    property < vertex_color_t, float > >,
+    property < edge_weight_t, double > > graph_t;
   typedef typename graph_traits < graph_t >::edge_descriptor edge_t;
   typedef typename graph_traits < graph_t >::vertex_descriptor vertex_t;
 
   // Construct a graph and set up the dynamic_property_maps.
   graph_t graph(0);
-  dynamic_properties dp(ignore_other_properties);
+  dynamic_properties dp;
   typename property_map<graph_t, vertex_name_t>::type name =
     get(vertex_name, graph);
   dp.property(node_id,name);
@@ -70,9 +67,8 @@ bool test_graph(std::istream& dotfile, mass_map_t const& masses,
     get(edge_weight, graph);
   dp.property("weight",weight);
 
-  boost::ref_property_map<graph_t*,std::string> gname(
-    get_property(graph,graph_name));
-  dp.property("name",gname);
+  // Read in space characters too!
+  dotfile >> noskipws;
 
   bool result = true;
 #ifdef BOOST_GRAPHVIZ_USE_ISTREAM
@@ -96,6 +92,7 @@ bool test_graph(std::istream& dotfile, mass_map_t const& masses,
         float node_mass = get(mass,*i);
         float ref_mass = masses.find(node_name)->second;
         //  - compare the mass to the result in the table
+
         BOOST_CHECK_CLOSE(node_mass, ref_mass, 0.01f);
       }
     }
@@ -115,10 +112,6 @@ bool test_graph(std::istream& dotfile, mass_map_t const& masses,
         // - compare the weight to teh result in the table
         BOOST_CHECK_CLOSE(edge_weight, ref_weight, 0.01);
       }
-    }
-    if(!g_name.empty()) {
-      std::string parsed_name = get_property(graph,graph_name);
-      BOOST_CHECK(parsed_name == g_name);
     }
 
 
@@ -184,7 +177,6 @@ int test_main(int, char*[]) {
     gs_t gs("graph { a  nodE [mass = 7.7] c e [mass = 6.66] }");
     try {
       test_graph<directedS,vecS>(gs,masses,weight_map_t());
-      BOOST_ERROR("Failed to throw boost::directed_graph_error.");
     } catch (boost::undirected_graph_error&) {}
   }
 
@@ -218,35 +210,5 @@ int test_main(int, char*[]) {
     BOOST_CHECK((test_graph<directedS,vecS>(gs,mass_map_t(),weights)));
   }
 
-  // Graph Property Test 1
-  {
-    mass_map_t masses;
-    insert ( masses )  ("a",0.0f) ("c",0.0f) ("e", 6.66f);
-    gs_t gs("digraph { graph [name=\"foo\"]  a  c e [mass = 6.66] }");
-    std::string graph_name("foo");
-    BOOST_CHECK((test_graph<directedS,vecS>(gs,masses,weight_map_t(),"",
-                                            graph_name)));
-  }
-
-  // Graph Property Test 2
-  {
-    mass_map_t masses;
-    insert ( masses )  ("a",0.0f) ("c",0.0f) ("e", 6.66f);
-    gs_t gs("digraph { name=\"foo\"  a  c e [mass = 6.66] }");
-    std::string graph_name("foo");
-    BOOST_CHECK((test_graph<directedS,vecS>(gs,masses,weight_map_t(),"",
-                                            graph_name)));
-  }
-
-  // Comments embedded in strings
-  { 
-    gs_t gs( 
-      "digraph { "
-      "a0 [ label = \"//depot/path/to/file_14#4\" ];"
-      "a1 [ label = \"//depot/path/to/file_29#9\" ];"
-      "a0 -> a1 [ color=gray ];"
-      "}");
-    BOOST_CHECK((test_graph<directedS,vecS>(gs,mass_map_t(),weight_map_t())));
-  }
   return 0;
 }

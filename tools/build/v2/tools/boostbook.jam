@@ -1,6 +1,6 @@
 # Copyright 2003, 2004, 2005 Dave Abrahams 
 # Copyright 2003, 2004, 2005 Douglas Gregor 
-# Copyright 2005, 2006, 2007 Rene Rivera 
+# Copyright 2005, 2006 Rene Rivera 
 # Copyright 2003, 2004, 2005 Vladimir Prus 
 # Distributed under the Boost Software License, Version 1.0. 
 # (See accompanying file LICENSE_1_0.txt or http://www.boost.org/LICENSE_1_0.txt) 
@@ -28,13 +28,8 @@ import build-system ;
 
 import xsltproc : xslt xslt-dir ;
 
-# Make this module into a project.
-project.initialize $(__name__) ;
-project boostbook ;
-
-
-feature.feature format : html xhtml htmlhelp onehtml man pdf ps docbook fo tests
-  : incidental implicit composite propagated ;
+feature.feature format : html onehtml man pdf ps docbook fo tests
+  : incidental implicit composite ;
 
 type.register DTDXML : dtdxml ;
 type.register XML : xml ;
@@ -45,8 +40,6 @@ type.register PDF : pdf ;
 type.register PS : ps ;
 type.register XSLT : xsl : XML ;
 type.register HTMLDIR ;
-type.register XHTMLDIR ;
-type.register HTMLHELP ;
 type.register MANPAGES ;
 type.register TESTS : tests ;
 # Artificial target type, used to require invocation of top-level
@@ -127,8 +120,6 @@ rule init ( docbook-xsl-dir ? : docbook-dtd-dir ? : boostbook-dir ? )
     generators.register-standard boostbook.boostbook-to-tests : XML : TESTS ;
     generators.register-standard boostbook.docbook-to-onehtml : DOCBOOK : HTML ;
     generators.register-standard boostbook.docbook-to-htmldir : DOCBOOK : HTMLDIR ;
-    generators.register-standard boostbook.docbook-to-xhtmldir : DOCBOOK : XHTMLDIR ;
-    generators.register-standard boostbook.docbook-to-htmlhelp : DOCBOOK : HTMLHELP ;
     generators.register-standard boostbook.docbook-to-manpages : DOCBOOK : MANPAGES ;
     generators.register-standard boostbook.docbook-to-fo : DOCBOOK : FO ;
     
@@ -181,18 +172,6 @@ rule docbook-to-htmldir ( target : source : properties * )
   xslt-dir $(target) : $(source) $(stylesheet) : $(properties) : html ;
 }
 
-rule docbook-to-xhtmldir ( target : source : properties * )
-{
-  local stylesheet = [ path.native $(.boostbook-xsl-dir)/xhtml.xsl ] ;
-  xslt-dir $(target) : $(source) $(stylesheet) : $(properties) : xhtml ;
-}
-
-rule docbook-to-htmlhelp ( target : source : properties * )
-{
-  local stylesheet = [ path.native $(.boostbook-xsl-dir)/html-help.xsl ] ;
-  xslt-dir $(target) : $(source) $(stylesheet) : $(properties) : htmlhelp ;
-}
-
 rule docbook-to-manpages ( target : source : properties * )
 {
   local stylesheet = [ path.native $(.boostbook-xsl-dir)/manpages.xsl ] ;
@@ -211,7 +190,6 @@ rule generate-xml-catalog ( target : sources * : properties * )
 
   # BoostBook DTD catalog entry
   local boostbook-dtd-dir = [ boostbook.dtd-dir ] ;
-  boostbook-dtd-dir = [ regex.replace $(boostbook-dtd-dir) " " "%20" ] ;
   
   print.text
     "<?xml version=\"1.0\"?>"
@@ -223,7 +201,6 @@ rule generate-xml-catalog ( target : sources * : properties * )
     : true ;
 
   local docbook-xsl-dir = [ boostbook.docbook-xsl-dir ] ;
-  docbook-xsl-dir = [ regex.replace $(docbook-xsl-dir) " " "%20" ] ;
   if ! $(docbook-xsl-dir) 
   {
     ECHO "BoostBook warning: no DocBook XSL directory specified." ;
@@ -240,7 +217,6 @@ rule generate-xml-catalog ( target : sources * : properties * )
   }
 
   local docbook-dtd-dir = [ boostbook.docbook-dtd-dir ] ;
-  docbook-dtd-dir = [ regex.replace $(docbook-dtd-dir) " " "%20" ] ;
   if ! $(docbook-dtd-dir)
   {
     ECHO "BoostBook warning: no DocBook DTD directory specified." ;
@@ -259,42 +235,11 @@ rule generate-xml-catalog ( target : sources * : properties * )
   print.text "</catalog>" ;
 }
 
-rule xml-catalog ( )
-{
-    if ! $(.xml-catalog)
-    {
-        # The target is created as part of the root project. But ideally
-        # it would be created as part of the boostbook project. This is not
-        # current possible as such global projects don't inherit things like
-        # the build directory.
-        
-        # Find the root project.
-        local root-project = [ project.current ] ;
-        root-project = [ $(root-project).project-module ] ;
-        while
-            [ project.attribute $(root-project) parent-module ] &&
-            [ project.attribute $(root-project) parent-module ] != user-config
-        {
-            root-project = [ project.attribute $(root-project) parent-module ] ;
-        }
-        .xml-catalog = [ new file-target boostbook_catalog
-            : XML
-            : [ project.target $(root-project) ]
-            : [ new action : boostbook.generate-xml-catalog ]
-            :
-            ] ;
-        .xml-catalog-file = [ $(.xml-catalog).path ] [ $(.xml-catalog).name ] ;
-        .xml-catalog-file = $(.xml-catalog-file:J=/) ;
-    }
-    return $(.xml-catalog) $(.xml-catalog-file) ;
-}
-
 class boostbook-generator : generator
 {
     import feature ;
     import virtual-target ;
     import generators ;
-    import boostbook ;
       
     
     rule __init__ ( * : * )
@@ -304,13 +249,21 @@ class boostbook-generator : generator
     
     rule run ( project name ? : property-set : sources * : multiple ? )
     {
-        # Generate the catalog, but only once...
-        local global-catalog = [ boostbook.xml-catalog ] ;
-        local catalog = $(global-catalog[1]) ;
-        local catalog-file = $(global-catalog[2]) ;
+        # Generate the catalog
+        local catalog = [ new file-target catalog 
+                            : XML 
+                            : $(project)
+                            : [ new action 
+                                  : boostbook.generate-xml-catalog 
+                                  : $(property-set) ] ] ;
+
+        #  catalog = [ virtual-target.register $(catalog) ] ;
        
         # Add the catalog to the property set
-        property-set = [ $(property-set).add-raw <catalog>$(catalog-file) ] ;
+        local catalog-path = [ $(catalog).path ] ;
+        property-set = [ $(property-set).add-raw <catalog>$(catalog-path)/catalog.xml ] ;
+
+        # local targets = $(catalog) ;
 
         local type = none ;
         local manifest ; 
@@ -321,15 +274,6 @@ class boostbook-generator : generator
             {
                 type = HTMLDIR ;
                 manifest = HTML.manifest ;
-            }
-            case xhtml    : 
-            {
-                type = XHTMLDIR ;
-                manifest = HTML.manifest ;
-            }
-            case htmlhelp    : 
-            {
-                type = HTMLHELP ;
             }
             
             case onehtml : type = HTML ;
@@ -356,11 +300,8 @@ class boostbook-generator : generator
             $(base-target).depends $(catalog) ;
             
             # Generate HTML/PDF/PS from DOCBOOK.
-            local target = [ generators.construct $(project) $(name)_$(manifest)
-                : $(type)
-                : [ $(property-set).add-raw
-                    <xsl:param>manifest=$(name)_$(manifest) ]
-                : $(base-target) ] ;
+            local target = [ generators.construct $(project) $(manifest)
+              : $(type) : $(property-set) : $(base-target) ] ;
             local name = [ $(property-set).get <name> ] ;
             name ?= $(format) ;
             $(target[2]).set-path $(name) ;
@@ -452,5 +393,3 @@ rule boostbook-to-tests ( target : source : properties * )
                  : $(properties) <xsl:param>boost.root=$(boost_root) 
                  ;
 }
-
-

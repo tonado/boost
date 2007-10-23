@@ -11,42 +11,26 @@
    7 March 2004 : Initial version.
 */
 
-#include <locale>
-#include <vector>
-#include <string>
-#include <fstream>
-#include <iostream>
-#include <boost/lexical_cast.hpp>
-#include <boost/xpressive/xpressive.hpp>
-#include <boost/test/unit_test.hpp>
-
 #if defined(_MSC_VER) && defined(_DEBUG)
-# define _CRTDBG_MAP_ALLOC
 # include <crtdbg.h>
 #endif
 
-#ifndef BOOST_XPRESSIVE_NO_WREGEX
-namespace std
-{
-    inline std::ostream &operator <<(std::ostream &sout, std::wstring const &wstr)
-    {
-        for(std::size_t n = 0; n < wstr.size(); ++n)
-            sout.put(sout.narrow(wstr[n], '?'));
-        return sout;
-    }
-}
-#endif
+#include <locale>
+#include <vector>
+#include <fstream>
+#include <boost/lexical_cast.hpp>
+#include <boost/xpressive/xpressive.hpp>
+#include "./test_minimal.hpp"
 
 #define BOOST_XPR_CHECK(pred)                                                   \
-    if(pred) {} else { BOOST_ERROR(case_ << #pred); }
+    if(pred) {} else { BOOST_ERROR(format_msg(#pred).c_str()); }
 
-using namespace boost::unit_test;
 using namespace boost::xpressive;
 
 //////////////////////////////////////////////////////////////////////////////
-// xpr_test_case
+// test_case
 template<typename Char>
-struct xpr_test_case
+struct test_case
 {
     typedef std::basic_string<Char> string_type;
     std::string section;
@@ -58,7 +42,7 @@ struct xpr_test_case
     regex_constants::match_flag_type match_flags;
     std::vector<string_type> br;
 
-    xpr_test_case()
+    test_case()
     {
         this->reset();
     }
@@ -82,7 +66,7 @@ std::ifstream in;
 unsigned int test_count = 0;
 
 // The global object that contains the current test case
-xpr_test_case<char> test;
+test_case<char> test;
 
 sregex const rx_sec = '[' >> (s1= +_) >> ']';
 sregex const rx_str = "str=" >> (s1= *_);
@@ -92,27 +76,23 @@ sregex const rx_sub = "sub=" >> (s1= *_);
 sregex const rx_res = "res=" >> (s1= *_);
 sregex const rx_br = "br" >> (s1= +digit) >> '=' >> (s2= *_);
 
-struct test_case_formatter
+///////////////////////////////////////////////////////////////////////////////
+// format_msg
+std::string format_msg(char const *msg)
 {
-    friend std::ostream &operator <<(std::ostream &sout, test_case_formatter)
-    {
-        sout << test.section << " /" << test.pat << "/ : ";
-        return sout;
-    }
-};
-
-test_case_formatter const case_ = {};
+    return test.section + " /" + test.pat + "/ : " + msg;
+}
 
 #ifndef BOOST_XPRESSIVE_NO_WREGEX
 ///////////////////////////////////////////////////////////////////////////////
 // widen
 //  make a std::wstring from a std::string by widening according to the
 //  current ctype<char> facet
-inline std::wstring widen(std::string const &str)
+std::wstring widen(std::string const &str)
 {
     std::ctype<char> const &ct = BOOST_USE_FACET(std::ctype<char>, std::locale());
     std::wstring res;
-    for(size_t i=0; i<str.size(); ++i)
+    for(int i=0; i<str.size(); ++i)
     {
         res += ct.widen(str[i]);
     }
@@ -122,9 +102,9 @@ inline std::wstring widen(std::string const &str)
 ///////////////////////////////////////////////////////////////////////////////
 // widen
 //  widens an entire test case
-xpr_test_case<wchar_t> widen(xpr_test_case<char> const &test)
+test_case<wchar_t> widen(test_case<char> const &test)
 {
-    xpr_test_case<wchar_t> wtest;
+    test_case<wchar_t> wtest;
     wtest.section = test.section;
     wtest.str = ::widen(test.str);
     wtest.pat = ::widen(test.pat);
@@ -227,18 +207,6 @@ bool get_test()
             {
                 test.match_flags = test.match_flags & ~regex_constants::format_first_only;
             }
-            if(std::string::npos != flg.find('a'))
-            {
-                test.match_flags = test.match_flags | regex_constants::format_all;
-            }
-            if(std::string::npos != flg.find('p'))
-            {
-                test.match_flags = test.match_flags | regex_constants::format_perl;
-            }
-            if(std::string::npos != flg.find('d'))
-            {
-                test.match_flags = test.match_flags | regex_constants::format_sed;
-            }
         }
         else if(regex_match(line, what, rx_br))
         {
@@ -264,7 +232,7 @@ bool get_test()
 // run_test_impl
 //   run the test
 template<typename Char>
-void run_test_impl(xpr_test_case<Char> const &test)
+void run_test_impl(test_case<Char> const &test)
 {
     try
     {
@@ -276,52 +244,26 @@ void run_test_impl(xpr_test_case<Char> const &test)
         {
             // test regex_replace
             std::basic_string<Char> res = regex_replace(test.str, rx, test.sub, test.match_flags);
-            BOOST_CHECK_MESSAGE(res == test.res, case_ << res << " != " << test.res );
+            BOOST_XPR_CHECK(res == test.res);
         }
 
         if(0 == (test.match_flags & regex_constants::format_first_only))
         {
+            // global search, use regex_iterator
+            std::vector<sub_match<iterator> > br;
+            regex_iterator<iterator> begin(test.str.begin(), test.str.end(), rx, test.match_flags), end;
+            for(; begin != end; ++begin)
             {
-                // global search, use regex_iterator
-                std::vector<sub_match<iterator> > br;
-                regex_iterator<iterator> begin(test.str.begin(), test.str.end(), rx, test.match_flags), end;
-                for(; begin != end; ++begin)
-                {
-                    match_results<iterator> const &what = *begin;
-                    br.insert(br.end(), what.begin(), what.end());
-                }
-
-                // match succeeded: was it expected to succeed?
-                BOOST_XPR_CHECK(br.size() == test.br.size());
-
-                for(std::size_t i = 0; i < br.size() && i < test.br.size(); ++i)
-                {
-                    BOOST_XPR_CHECK(!br[i].matched && test.br[i] == empty || test.br[i] == br[i].str());
-                }
+                match_results<iterator> const &what = *begin;
+                br.insert(br.end(), what.begin(), what.end());
             }
 
+            // match succeeded: was it expected to succeed?
+            BOOST_XPR_CHECK(br.size() == test.br.size());
+
+            for(std::size_t i = 0; i < br.size() && i < test.br.size(); ++i)
             {
-                // global search, use regex_token_iterator
-                std::vector<typename sub_match<iterator>::string_type> br2;
-                std::vector<int> subs(rx.mark_count() + 1, 0);
-                // regex_token_iterator will extract all sub_matches, in order:
-                for(std::size_t i = 0; i < subs.size(); ++i)
-                {
-                    subs[i] = static_cast<int>(i);
-                }
-                regex_token_iterator<iterator> begin2(test.str.begin(), test.str.end(), rx, subs, test.match_flags), end2;
-                for(; begin2 != end2; ++begin2)
-                {
-                    br2.push_back(*begin2);
-                }
-
-                // match succeeded: was it expected to succeed?
-                BOOST_XPR_CHECK(br2.size() == test.br.size());
-
-                for(std::size_t i = 0; i < br2.size() && i < test.br.size(); ++i)
-                {
-                    BOOST_XPR_CHECK(test.br[i] == br2[i]);
-                }
+                BOOST_XPR_CHECK(!br[i].matched && test.br[i] == empty || test.br[i] == br[i].str());
             }
         }
         else
@@ -347,7 +289,7 @@ void run_test_impl(xpr_test_case<Char> const &test)
     }
     catch(regex_error const &e)
     {
-        BOOST_ERROR(case_ << e.what());
+        BOOST_ERROR(format_msg(e.what()).c_str());
     }
 }
 
@@ -365,7 +307,7 @@ void run_test_a()
 void run_test_u()
 {
     #ifndef BOOST_XPRESSIVE_NO_WREGEX
-    xpr_test_case<wchar_t> wtest = ::widen(test);
+    test_case<wchar_t> wtest = ::widen(test);
     run_test_impl(wtest);
     #endif
 }
@@ -403,11 +345,12 @@ bool open_test()
 ///////////////////////////////////////////////////////////////////////////////
 // test_main
 //   read the tests from the input file and execute them
-void test_main()
+int test_main(int argc, char* argv[])
 {
     if(!open_test())
     {
-        BOOST_ERROR("Error: unable to open input file.");
+        std::cout << "Error: unable to open input file." << std::endl;
+        return -1;
     }
 
     while(get_test())
@@ -417,16 +360,8 @@ void test_main()
     }
 
     std::cout << test_count << " tests completed." << std::endl;
-}
 
-///////////////////////////////////////////////////////////////////////////////
-// init_unit_test_suite
-//
-test_suite* init_unit_test_suite( int argc, char* argv[] )
-{
-    test_suite *test = BOOST_TEST_SUITE("basic regression test");
-    test->add(BOOST_TEST_CASE(&test_main));
-    return test;
+    return 0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

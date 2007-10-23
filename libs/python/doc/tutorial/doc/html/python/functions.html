@@ -38,15 +38,9 @@
       see facilities that will make it even easier for us to expose C++ functions
       that take advantage of C++ features such as overloading and default arguments.
     </p>
-<div class="blockquote"><blockquote class="blockquote">
-<p>
-        </p>
-<p>
-          <span class="emphasis"><em>Read on...</em></span>
-        </p>
-<p>
-      </p>
-</blockquote></div>
+<div class="blockquote"><blockquote class="blockquote"><p>
+        <span class="emphasis"><em>Read on...</em></span>
+      </p></blockquote></div>
 <p>
       But before you do, you might want to fire up Python 2.2 or later and type
       <code class="literal">&gt;&gt;&gt; import this</code>.
@@ -96,9 +90,9 @@ Namespaces are one honking great idea -- let's do more of those!
         Here's an example where it didn't
       </p>
 <pre class="programlisting">
-<span class="special">&gt;&gt;&gt;</span> <span class="identifier">x</span> <span class="special">=</span> <span class="identifier">f</span><span class="special">(</span><span class="identifier">y</span><span class="special">,</span> <span class="identifier">z</span><span class="special">)</span> <span class="preprocessor"># x</span> <span class="identifier">refers</span> <span class="identifier">to</span> <span class="identifier">some</span> <span class="identifier">C</span><span class="special">++</span> <span class="identifier">X</span>
+<span class="special">&gt;&gt;&gt;</span> <span class="identifier">x</span> <span class="special">=</span> <span class="identifier">f</span><span class="special">(</span><span class="identifier">y</span><span class="special">,</span> <span class="identifier">z</span><span class="special">)</span> # <span class="identifier">x</span> <span class="identifier">refers</span> <span class="identifier">to</span> <span class="identifier">some</span> <span class="identifier">C</span><span class="special">++</span> <span class="identifier">X</span>
 <span class="special">&gt;&gt;&gt;</span> <span class="identifier">del</span> <span class="identifier">y</span>
-<span class="special">&gt;&gt;&gt;</span> <span class="identifier">x</span><span class="special">.</span><span class="identifier">some_method</span><span class="special">()</span> <span class="preprocessor"># CRASH</span><span class="special">!</span>
+<span class="special">&gt;&gt;&gt;</span> <span class="identifier">x</span><span class="special">.</span><span class="identifier">some_method</span><span class="special">()</span> # <span class="identifier">CRASH</span><span class="special">!</span>
 </pre>
 <p>
         What's the problem?
@@ -172,9 +166,9 @@ Namespaces are one honking great idea -- let's do more of those!
         a raw pointer. Now we have a potential dangling pointer problem inside Y:
       </p>
 <pre class="programlisting">
-<span class="special">&gt;&gt;&gt;</span> <span class="identifier">x</span> <span class="special">=</span> <span class="identifier">f</span><span class="special">(</span><span class="identifier">y</span><span class="special">,</span> <span class="identifier">z</span><span class="special">)</span> <span class="preprocessor"># y</span> <span class="identifier">refers</span> <span class="identifier">to</span> <span class="identifier">z</span>
-<span class="special">&gt;&gt;&gt;</span> <span class="identifier">del</span> <span class="identifier">z</span>       <span class="preprocessor"># Kill</span> <span class="identifier">the</span> <span class="identifier">z</span> <span class="identifier">object</span>
-<span class="special">&gt;&gt;&gt;</span> <span class="identifier">y</span><span class="special">.</span><span class="identifier">z_value</span><span class="special">()</span> <span class="preprocessor"># CRASH</span><span class="special">!</span>
+<span class="special">&gt;&gt;&gt;</span> <span class="identifier">x</span> <span class="special">=</span> <span class="identifier">f</span><span class="special">(</span><span class="identifier">y</span><span class="special">,</span> <span class="identifier">z</span><span class="special">)</span> # <span class="identifier">y</span> <span class="identifier">refers</span> <span class="identifier">to</span> <span class="identifier">z</span>
+<span class="special">&gt;&gt;&gt;</span> <span class="identifier">del</span> <span class="identifier">z</span>       # <span class="identifier">Kill</span> <span class="identifier">the</span> <span class="identifier">z</span> <span class="identifier">object</span>
+<span class="special">&gt;&gt;&gt;</span> <span class="identifier">y</span><span class="special">.</span><span class="identifier">z_value</span><span class="special">()</span> # <span class="identifier">CRASH</span><span class="special">!</span>
 </pre>
 <p>
         For reference, here's the implementation of <code class="literal">f</code> again:
@@ -212,7 +206,7 @@ Namespaces are one honking great idea -- let's do more of those!
 <li><span class="bold"><strong>BOOM!</strong></span></li>
 </ol></div>
 <a name="call_policies.call_policies"></a><h3>
-<a name="id2648560"></a>
+<a name="id3144432"></a>
         Call Policies
       </h3>
 <p>
@@ -293,14 +287,13 @@ Namespaces are one honking great idea -- let's do more of those!
           and hold the instance
         </li>
 </ul></div>
-<div class="sidebar">
-<p class="title"><b></b></p>
-<p>
-        <span class="inlinemediaobject"><img src="../images/smiley.png" alt="smiley"></span> <span class="bold"><strong>Remember the Zen, Luke:</strong></span><br>
-        <br> "Explicit is better than implicit"<br> "In the face
-        of ambiguity, refuse the temptation to guess"<br>
-      </p>
-</div>
+<div class="informaltable"><table class="table">
+<colgroup><col></colgroup>
+<tbody><tr><td class="blurb"> <span class="inlinemediaobject"><img src="../images/smiley.png" alt="smiley"></span> <span class="bold"><strong>Remember the Zen, Luke:</strong></span><br>
+              <br> "Explicit is better than implicit"<br> "In
+              the face of ambiguity, refuse the temptation to guess"<br>
+              </td></tr></tbody>
+</table></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
@@ -411,7 +404,7 @@ Namespaces are one honking great idea -- let's do more of those!
         </li>
 </ul></div>
 <a name="default_arguments.boost_python_function_overloads"></a><h3>
-<a name="id2650414"></a>
+<a name="id3146300"></a>
         BOOST_PYTHON_FUNCTION_OVERLOADS
       </h3>
 <p>
@@ -441,7 +434,7 @@ Namespaces are one honking great idea -- let's do more of those!
 <span class="identifier">def</span><span class="special">(</span><span class="string">"foo"</span><span class="special">,</span> <span class="identifier">foo</span><span class="special">,</span> <span class="identifier">foo_overloads</span><span class="special">());</span>
 </pre>
 <a name="default_arguments.boost_python_member_function_overloads"></a><h3>
-<a name="id2650701"></a>
+<a name="id3146587"></a>
         BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS
       </h3>
 <p>
@@ -487,7 +480,7 @@ Namespaces are one honking great idea -- let's do more of those!
         reference</a> for details.
       </p>
 <a name="default_arguments.init_and_optional"></a><h3>
-<a name="id2651031"></a>
+<a name="id3146923"></a>
         init and optional
       </h3>
 <p>
@@ -561,7 +554,7 @@ Namespaces are one honking great idea -- let's do more of those!
         (0) arguments and a maximum of 3 arguments.
       </p>
 <a name="auto_overloading.manual_wrapping"></a><h3>
-<a name="id2651734"></a>
+<a name="id3147627"></a>
         Manual Wrapping
       </h3>
 <p>

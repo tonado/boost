@@ -126,8 +126,7 @@ t.run_build_system(subdir="a")
 t.expect_addition("a/dist/a.dll")
 
 if (os.name == 'nt' or os.uname()[0].lower().startswith('cygwin')) and get_toolset() != 'gcc':
-    # This is windows import library -- we know the exact name.
-    file = "a/dist/a.lib"
+    file = t.adjust_names(["a/dist/a.lib"])[0]
 else:
     file = t.adjust_names(["a/dist/a.dll"])[0]
 

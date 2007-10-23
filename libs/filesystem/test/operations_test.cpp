@@ -1,9 +1,9 @@
 //  Boost operations_test.cpp  -----------------------------------------------//
 
 //  Copyright Beman Dawes 2002.
-
-//  Distributed under the Boost Software License, Version 1.0. (See accompanying
-//  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+//  Use, modification, and distribution is subject to the Boost Software
+//  License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
+//  http://www.boost.org/LICENSE_1_0.txt)
 
 //  See library home page at http://www.boost.org/libs/filesystem
 
@@ -16,16 +16,14 @@
 
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/convenience.hpp>
-#include <boost/cerrno.hpp>
+#include <boost/filesystem/cerrno.hpp>
 namespace fs = boost::filesystem;
 
 #include <boost/config.hpp>
 #include <boost/test/minimal.hpp>
-//#include <boost/concept_check.hpp>
-
-using boost::system::error_code;
-using boost::system::system_category;
-using boost::system::system_error;
+#include <boost/concept_check.hpp>
+#include <boost/bind.hpp>
+using boost::bind;
 
 #include <fstream>
 #include <iostream>
@@ -53,20 +51,12 @@ using boost::system::system_error;
     using ::difftime; using ::time; using ::tm; using ::mktime; using ::system; }
 # endif
 
-#ifdef BOOST_WINDOWS_API
-# include <windows.h>
-#endif
-
-#define CHECK_EXCEPTION(Functor,Expect) throws_fs_error(Functor,Expect,__LINE__)
+#define CHECK_EXCEPTION(b,e) throws_fs_error(b,e,__LINE__)
 
 namespace
 {
-  typedef int errno_t;
-  std::string platform( BOOST_PLATFORM );
   bool report_throws;
   fs::directory_iterator end_itr;
-
-  unsigned short language_id;  // 0 except for Windows
 
   const char * temp_dir_name = "temp_fs_test_dir";
 
@@ -74,8 +64,8 @@ namespace
   {
     std::ofstream f( ph.file_string().c_str() );
     if ( !f )
-      throw fs::filesystem_error( "operations_test create_file",
-      ph, error_code(errno, system_category) );
+      throw fs::filesystem_path_error( "operations_test create_file",
+        ph, errno );
     if ( !contents.empty() ) f << contents;
   }
 
@@ -83,34 +73,34 @@ namespace
   {
     std::ifstream f( ph.file_string().c_str() );
     if ( !f )
-      throw fs::filesystem_error( "operations_test verify_file",
-        ph, error_code(errno, system_category) );
+      throw fs::filesystem_path_error( "operations_test verify_file",
+        ph, errno );
     std::string contents;
     f >> contents;
     if ( contents != expected )
-      throw fs::filesystem_error( "operations_test verify_file contents \""
-        + contents  + "\" != \"" + expected + "\"", ph, error_code() );
+      throw fs::filesystem_path_error( "operations_test verify_file contents \""
+        + contents  + "\" != \"" + expected + "\"", ph, 0 );
   }
 
   template< typename F >
-    bool throws_fs_error( F func, errno_t en, int line )
+    bool throws_fs_error( F func, fs::errno_type ec, int line )
   {
     try { func(); }
 
-    catch ( const fs::filesystem_error & ex )
+    catch ( const fs::filesystem_path_error & ex )
     {
       if ( report_throws )
       {
         // use the what() convenience function to display exceptions
-        std::cout << "\n" << ex.what() << "\n";
+        std::cout << fs::what(ex) << "\n";
       }
-      if ( en == 0
-        || en == ex.code().default_error_condition().value() ) return true;
+      if ( ec == 0
+        || ec == fs::lookup_error_code(ex.system_error()) ) return true;
       std::cout
         << "\nWarning: line " << line
-        << " exception reports default_error_condition().value() " << ex.code().default_error_condition().value()
-        << ", should be " << en
-        << "\n value() is " << ex.code().value()
+        << " exception reports " << fs::lookup_error_code(ex.system_error())
+        << ", should be " << ec
+        << "\n system_error() is " << ex.system_error()
         << std::endl;
       return true;
     }
@@ -135,125 +125,6 @@ namespace
     fs::copy_file( a, a );
   }
 
-  void exception_tests()
-  {
-    bool exception_thrown;
-    exception_thrown = false;
-    try
-    {
-      fs::create_directory( "no-such-dir/foo/bar" );
-    }
-    catch ( std::runtime_error x )
-    {
-      exception_thrown = true;
-      if ( report_throws ) std::cout << x.what() << std::endl;
-      if ( platform == "Windows" && language_id == 0x0409 ) // English (United States)
-        BOOST_CHECK( std::strcmp( x.what(),
-          "boost::filesystem::create_directory" ) == 0 );
-    }
-    BOOST_CHECK( exception_thrown );
-
-    exception_thrown = false;
-    try
-    {
-      fs::create_directory( "no-such-dir/foo/bar" );
-    }
-    catch ( system_error x )
-    {
-      exception_thrown = true;
-      if ( report_throws ) std::cout << x.what() << std::endl;
-      if ( platform == "Windows" && language_id == 0x0409 ) // English (United States)
-        BOOST_CHECK( std::strcmp( x.what(),
-          "boost::filesystem::create_directory: The system cannot find the path specified" ) == 0 );
-    }
-    BOOST_CHECK( exception_thrown );
-
-    exception_thrown = false;
-    try
-    {
-      fs::create_directory( "no-such-dir/foo/bar" );
-    }
-    catch ( fs::filesystem_error x )
-    {
-      exception_thrown = true;
-      if ( report_throws ) std::cout << x.what() << std::endl;
-      if ( platform == "Windows" && language_id == 0x0409 ) // English (United States)
-      {
-        bool ok ( std::strcmp( x.what(),
-          "boost::filesystem::create_directory: The system cannot find the path specified: \"no-such-dir\\foo\\bar\"" ) == 0 );
-        BOOST_CHECK( ok );
-        if ( !ok )
-        {
-          std::cout << "what returns \"" << x.what() << "\"" << std::endl;
-        }
-      }
-    }
-    BOOST_CHECK( exception_thrown );
-
-    exception_thrown = false;
-    try
-    {
-      fs::create_directory( "no-such-dir/foo/bar" );
-    }
-    catch ( const fs::filesystem_error & x )
-    {
-      exception_thrown = true;
-      if ( report_throws ) std::cout << x.what() << std::endl;
-      if ( platform == "Windows" && language_id == 0x0409 ) // English (United States)
-      {
-        bool ok ( std::strcmp( x.what(),
-          "boost::filesystem::create_directory: The system cannot find the path specified: \"no-such-dir\\foo\\bar\"" ) == 0 );
-        BOOST_CHECK( ok );
-        if ( !ok )
-        {
-          std::cout << "what returns \"" << x.what() << "\"" << std::endl;
-        }
-      }
-    }
-    BOOST_CHECK( exception_thrown );
-  }
-
-  void bad_file_size()
-  {
-    fs::file_size( " No way, Jose" );
-  }
-  
-  void bad_directory_size()
-  {
-    fs::file_size( fs::current_path() );
-  }
-  
-  fs::path bad_create_directory_path;
-  void bad_create_directory()
-  {
-    fs::create_directory( bad_create_directory_path );
-  }
-  
-  void bad_equivalent()
-  {
-    fs::equivalent( "no-such-path", "another-not-present-path" );
-  }
-
-  fs::path bad_remove_dir;
-  void bad_remove()
-  {
-    fs::remove( bad_remove_dir );
-  }
-
-  class renamer
-  {
-  public:
-    renamer( const fs::path & p1, const fs::path & p2 )
-      : from(p1), to(p2) {}
-    void operator()()
-    {
-      fs::rename( from, to );
-    }
-  private:
-    fs::path from;
-    fs::path to;
-  };
-  
 } // unnamed namespace
 
 //  test_main  ---------------------------------------------------------------//
@@ -262,6 +133,8 @@ int test_main( int argc, char * argv[] )
 {
   if ( argc > 1 && *argv[1]=='-' && *(argv[1]+1)=='t' ) report_throws = true;
 
+  std::string platform( BOOST_PLATFORM );
+
   // The choice of platform is make at runtime rather than compile-time
   // so that compile errors for all platforms will be detected even though
   // only the current platform is runtime tested.
@@ -269,15 +142,12 @@ int test_main( int argc, char * argv[] )
     platform = "POSIX";
 # elif defined( BOOST_WINDOWS_API )
     platform = "Windows";
-    language_id = ::GetUserDefaultUILanguage();
 # else
     platform = ( platform == "Win32" || platform == "Win64" || platform == "Cygwin" )
                ? "Windows"
                : "POSIX";
 # endif
-  std::cout << "API is " << platform << std::endl;
-
-  exception_tests();
+  std::cout << "API is " << platform << '\n';
 
   std::cout << "\ninitial_path<path>().string() is\n  \""
     << fs::initial_path<fs::path>().string()
@@ -369,44 +239,21 @@ int test_main( int argc, char * argv[] )
   BOOST_CHECK( !fs::exists( dir ) );
 
   // the bound functions should throw, so CHECK_EXCEPTION() should return true
-  BOOST_CHECK( CHECK_EXCEPTION( bad_file_size, ENOENT ) );
+  BOOST_CHECK( CHECK_EXCEPTION( bind( BOOST_BND(fs::file_size), ng ), ENOENT ) );
 
   // test path::exception members
   try { fs::file_size( ng ); } // will throw
 
-  catch ( const fs::filesystem_error & ex )
+  catch ( const fs::filesystem_path_error & ex )
   {
     BOOST_CHECK( ex.path1().string() == " no-way, Jose" );
   }
+
+  BOOST_CHECK( fs::create_directory( dir ) );
+
   // several functions give unreasonable results if uintmax_t isn't 64-bits
   std::cout << "sizeof(boost::uintmax_t) = " << sizeof(boost::uintmax_t) << '\n';
   BOOST_CHECK( sizeof( boost::uintmax_t ) >= 8 );
-
-  // create a directory, then check it for consistency
-  BOOST_CHECK( fs::create_directory( dir ) );
-
-  BOOST_CHECK( fs::exists( dir ) );
-  BOOST_CHECK( BOOST_FS_IS_EMPTY( dir ) );
-  BOOST_CHECK( fs::is_directory( dir ) );
-  BOOST_CHECK( !fs::is_regular( dir ) );
-  BOOST_CHECK( !fs::is_other( dir ) );
-  BOOST_CHECK( !fs::is_symlink( dir ) );
-  stat = fs::status( dir );
-  BOOST_CHECK( fs::exists( stat ) );
-  BOOST_CHECK( fs::is_directory( stat ) );
-  BOOST_CHECK( !fs::is_regular( stat ) );
-  BOOST_CHECK( !fs::is_other( stat ) );
-  BOOST_CHECK( !fs::is_symlink( stat ) );
-
-  // set the current directory, then check it for consistency
-  fs::path original_dir = fs::current_path<fs::path>();
-  BOOST_CHECK( dir != original_dir );
-  fs::current_path( dir );
-  BOOST_CHECK( fs::current_path<fs::path>() == dir );
-  BOOST_CHECK( fs::current_path<fs::path>() != original_dir );
-  fs::current_path( original_dir );
-  BOOST_CHECK( fs::current_path<fs::path>() == original_dir );
-  BOOST_CHECK( fs::current_path<fs::path>() != dir );
 
   // make some reasonable assuptions for testing purposes
   fs::space_info spi( fs::space( dir ) );
@@ -422,10 +269,24 @@ int test_main( int argc, char * argv[] )
     std::cout << "available = " << spi.available << '\n';
 # endif
 
+  BOOST_CHECK( fs::exists( dir ) );
+  BOOST_CHECK( BOOST_FS_IS_EMPTY( dir ) );
+  BOOST_CHECK( fs::is_directory( dir ) );
+  BOOST_CHECK( !fs::is_regular( dir ) );
+  BOOST_CHECK( !fs::is_other( dir ) );
+  BOOST_CHECK( !fs::is_symlink( dir ) );
+  stat = fs::status( dir );
+  BOOST_CHECK( fs::exists( stat ) );
+  BOOST_CHECK( fs::is_directory( stat ) );
+  BOOST_CHECK( !fs::is_regular( stat ) );
+  BOOST_CHECK( !fs::is_other( stat ) );
+  BOOST_CHECK( !fs::is_symlink( stat ) );
+
   if ( platform == "Windows" )
-    BOOST_CHECK( CHECK_EXCEPTION( bad_directory_size, ENOENT ) );
+    BOOST_CHECK( CHECK_EXCEPTION( bind( BOOST_BND(fs::file_size), dir ), 
+      ENOENT ) );
   else
-    BOOST_CHECK( CHECK_EXCEPTION( bad_directory_size, 0 ) );
+    BOOST_CHECK( CHECK_EXCEPTION( bind( BOOST_BND(fs::file_size), dir ), 0 ) );
   BOOST_CHECK( !fs::create_directory( dir ) );
 
   BOOST_CHECK( !fs::is_symlink( dir ) );
@@ -440,7 +301,7 @@ int test_main( int argc, char * argv[] )
   BOOST_CHECK( fs::is_directory( d1 ) );
   BOOST_CHECK( BOOST_FS_IS_EMPTY( d1 ) );
 
-//  boost::function_requires< boost::InputIteratorConcept< fs::directory_iterator > >();
+  boost::function_requires< boost::InputIteratorConcept< fs::directory_iterator > >();
 
   bool dir_itr_exception(false);
   try { fs::directory_iterator it( "" ); }
@@ -455,10 +316,10 @@ int test_main( int argc, char * argv[] )
   dir_itr_exception = false;
   try
   {
-    error_code ec;
+    fs::system_error_type ec(0);
     fs::directory_iterator it( "nosuchdirectory", ec );
-    BOOST_CHECK( ec );
-    BOOST_CHECK( ec == fs::detail::not_found_error() );
+    BOOST_CHECK( ec != 0 );
+    BOOST_CHECK( ec == fs::detail::not_found_error );
   }
   catch ( const fs::filesystem_error & ) { dir_itr_exception = true; }
   BOOST_CHECK( !dir_itr_exception );
@@ -565,8 +426,8 @@ int test_main( int argc, char * argv[] )
   BOOST_CHECK( fs::is_regular( file_ph ) );
   BOOST_CHECK( BOOST_FS_IS_EMPTY( file_ph ) );
   BOOST_CHECK( fs::file_size( file_ph ) == 0 );
-  bad_create_directory_path = file_ph;
-  BOOST_CHECK( CHECK_EXCEPTION( bad_create_directory, EEXIST ) );
+  BOOST_CHECK( CHECK_EXCEPTION( bind( BOOST_BND(fs::create_directory),
+    file_ph ), EEXIST ) );
   stat = fs::status( file_ph );
   BOOST_CHECK( fs::status_known( stat ) );
   BOOST_CHECK( fs::exists( stat ) );
@@ -586,7 +447,9 @@ int test_main( int argc, char * argv[] )
   verify_file( file_ph, "foobar1" );
 
   // equivalence tests
-  BOOST_CHECK( CHECK_EXCEPTION( bad_equivalent, ENOENT ) );
+  fs::path ng2("does_not_exist2");
+  BOOST_CHECK( CHECK_EXCEPTION(
+    bind( BOOST_BND(fs::equivalent), ng, ng2 ), ENOENT ) );
   BOOST_CHECK( fs::equivalent( file_ph, dir / "f1" ) );
   BOOST_CHECK( fs::equivalent( dir, d1 / ".." ) );
   BOOST_CHECK( !fs::equivalent( file_ph, dir ) );
@@ -620,10 +483,10 @@ int test_main( int argc, char * argv[] )
     BOOST_CHECK( fs::equivalent( from_ph, file_ph ) );
   }
 
-  error_code ec;
+  fs::system_error_type ec(0);
   BOOST_CHECK( fs::create_hard_link( fs::path("doesnotexist"),
-    fs::path("shouldnotwork"), ec ) );
-  BOOST_CHECK( ec );
+    fs::path("shouldnotwork"), ec ) != 0 );
+  BOOST_CHECK( ec != 0 );
 
   // symbolic link tests
   from_ph = dir / "f4";
@@ -655,9 +518,9 @@ int test_main( int argc, char * argv[] )
     BOOST_CHECK( fs::is_symlink( stat ) );
   }
 
-  ec = error_code();
-  BOOST_CHECK( fs::create_symlink( "doesnotexist", "", ec ) );
-  BOOST_CHECK( ec );
+  ec = 0;
+  BOOST_CHECK( fs::create_symlink( "doesnotexist", "", ec ) != 0 );
+  BOOST_CHECK( ec != 0 );
 
   // there was an inital bug in directory_iterator that caused premature
   // close of an OS handle. This block will detect regression.
@@ -682,30 +545,29 @@ int test_main( int argc, char * argv[] )
   // [case 1] make sure can't rename() a non-existent file
   BOOST_CHECK( !fs::exists( d1 / "f99" ) );
   BOOST_CHECK( !fs::exists( d1 / "f98" ) );
-  renamer n1a( d1 / "f99", d1 / "f98" );
-  BOOST_CHECK( CHECK_EXCEPTION( n1a, ENOENT ) );
-  renamer n1b( fs::path(""), d1 / "f98" );
-  BOOST_CHECK( CHECK_EXCEPTION( n1b, ENOENT ) );
+  BOOST_CHECK( CHECK_EXCEPTION( bind( BOOST_BND(fs::rename), d1 / "f99", d1 / "f98" ),
+    ENOENT ) );
+  BOOST_CHECK( CHECK_EXCEPTION( bind( BOOST_BND(fs::rename), fs::path(""), d1 / "f98" ),
+    ENOENT ) );
 
   // [case 2] rename() target.empty()
-  renamer n2( file_ph, "" );
-  BOOST_CHECK( CHECK_EXCEPTION( n2, ENOENT ) );
+  BOOST_CHECK( CHECK_EXCEPTION( bind( BOOST_BND(fs::rename), file_ph, "" ),
+    ENOENT ) );
 
   // [case 3] make sure can't rename() to an existent file or directory
   BOOST_CHECK( fs::exists( dir / "f1" ) );
   BOOST_CHECK( fs::exists( d1 / "f2" ) );
-  renamer n3a( dir / "f1", d1 / "f2" );
-  BOOST_CHECK( CHECK_EXCEPTION( n3a, EEXIST ) );
+  BOOST_CHECK( CHECK_EXCEPTION( bind( BOOST_BND(fs::rename),
+    dir / "f1", d1 / "f2" ), EEXIST ) );
   // several POSIX implementations (cygwin, openBSD) report ENOENT instead of EEXIST,
   // so we don't verify error type on the above test.
-  renamer n3b( dir, d1 );
-  BOOST_CHECK( CHECK_EXCEPTION( n3b, 0 ) );
+  BOOST_CHECK( CHECK_EXCEPTION( bind( BOOST_BND(fs::rename), dir, d1 ), 0 ) );
 
   // [case 4A] can't rename() file to a nonexistent parent directory
   BOOST_CHECK( !fs::is_directory( dir / "f1" ) );
   BOOST_CHECK( !fs::exists( dir / "d3/f3" ) );
-  renamer n4a( dir / "f1", dir / "d3/f3" );
-  BOOST_CHECK( CHECK_EXCEPTION( n4a, ENOENT ) );
+  BOOST_CHECK( CHECK_EXCEPTION( bind( BOOST_BND(fs::rename), dir / "f1", dir / "d3/f3" ),
+    ENOENT ) );
 
   // [case 4B] rename() file in same directory
   BOOST_CHECK( fs::exists( d1 / "f2" ) );
@@ -731,8 +593,8 @@ int test_main( int argc, char * argv[] )
   BOOST_CHECK( fs::exists( d1 ) );
   BOOST_CHECK( !fs::exists( dir / "d3/d5" ) );
   BOOST_CHECK( !fs::exists( dir / "d3" ) );
-  renamer n5a( d1, dir / "d3/d5" );
-  BOOST_CHECK( CHECK_EXCEPTION( n5a, ENOENT ) );
+  BOOST_CHECK( CHECK_EXCEPTION( bind( BOOST_BND(fs::rename), d1, dir / "d3/d5" ),
+    ENOENT ) );
 
   // [case 5B] rename() on directory
   fs::path d3( dir / "d3" );
@@ -781,8 +643,7 @@ int test_main( int argc, char * argv[] )
   BOOST_CHECK( fs::exists( d1 ) );
   BOOST_CHECK( fs::is_directory( d1 ) );
   BOOST_CHECK( BOOST_FS_IS_EMPTY( d1 ) );
-  bad_remove_dir = dir;
-  BOOST_CHECK( CHECK_EXCEPTION( bad_remove, ENOTEMPTY ) );
+  BOOST_CHECK( CHECK_EXCEPTION( bind( BOOST_BND(fs::remove), dir ), ENOTEMPTY ) );
   BOOST_CHECK( fs::remove( d1 ) );
   BOOST_CHECK( !fs::exists( d1 ) );
 

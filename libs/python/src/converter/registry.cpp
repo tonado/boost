@@ -20,35 +20,6 @@
 #endif
 
 namespace boost { namespace python { namespace converter { 
-BOOST_PYTHON_DECL PyTypeObject const* registration::expected_from_python_type() const
-{
-    if (this->m_class_object != 0)
-        return this->m_class_object;
-
-    std::set<PyTypeObject const*> pool;
-
-    for(rvalue_from_python_chain* r = rvalue_chain; r ; r=r->next)
-        if(r->expected_pytype)
-            pool.insert(r->expected_pytype());
-
-    //for now I skip the search for common base
-    if (pool.size()==1)
-        return *pool.begin();
-
-    return 0;
-
-}
-
-BOOST_PYTHON_DECL PyTypeObject const* registration::to_python_target_type() const
-{
-    if (this->m_class_object != 0)
-        return this->m_class_object;
-
-    if (this->m_to_python_target_type != 0)
-        return this->m_to_python_target_type();
-
-    return 0;
-}
 
 BOOST_PYTHON_DECL PyTypeObject* registration::get_class_object() const
 {
@@ -85,24 +56,6 @@ BOOST_PYTHON_DECL PyObject* registration::to_python(void const volatile* source)
         ? incref(Py_None)
         : this->m_to_python(const_cast<void*>(source));
 }
-
-namespace
-{
-  template< typename T >
-  void delete_node( T* node )
-  {
-      if( !!node && !!node->next )
-          delete_node( node->next );
-      delete node;
-  }
-}
-
-registration::~registration()
-{
-  delete_node(lvalue_chain);
-  delete_node(rvalue_chain);
-}
-
 
 namespace // <unnamed>
 {
@@ -197,15 +150,15 @@ namespace // <unnamed>
 
 namespace registry
 {
-  void insert(to_python_function_t f, type_info source_t, PyTypeObject const* (*to_python_target_type)())
+  void insert(to_python_function_t f, type_info source_t)
   {
 #  ifdef BOOST_PYTHON_TRACE_REGISTRY
       std::cout << "inserting to_python " << source_t << "\n";
 #  endif 
-      entry* slot = get(source_t);
+      to_python_function_t& slot = get(source_t)->m_to_python;
       
-      assert(slot->m_to_python == 0); // we have a problem otherwise
-      if (slot->m_to_python != 0)
+      assert(slot == 0); // we have a problem otherwise
+      if (slot != 0)
       {
           std::string msg = (
               std::string("to-Python converter for ")
@@ -218,12 +171,11 @@ namespace registry
               throw_error_already_set();
           }
       }
-      slot->m_to_python = f;
-      slot->m_to_python_target_type = to_python_target_type;
+      slot = f;
   }
 
   // Insert an lvalue from_python converter
-  void insert(convertible_function convert, type_info key, PyTypeObject const* (*exp_pytype)())
+  void insert(convertible_function convert, type_info key)
   {
 #  ifdef BOOST_PYTHON_TRACE_REGISTRY
       std::cout << "inserting lvalue from_python " << key << "\n";
@@ -234,14 +186,13 @@ namespace registry
       registration->next = found->lvalue_chain;
       found->lvalue_chain = registration;
       
-      insert(convert, 0, key,exp_pytype);
+      insert(convert, 0, key);
   }
 
   // Insert an rvalue from_python converter
   void insert(void* (*convertible)(PyObject*)
               , constructor_function construct
-              , type_info key
-              , PyTypeObject const* (*exp_pytype)())
+              , type_info key)
   {
 #  ifdef BOOST_PYTHON_TRACE_REGISTRY
       std::cout << "inserting rvalue from_python " << key << "\n";
@@ -250,7 +201,6 @@ namespace registry
       rvalue_from_python_chain *registration = new rvalue_from_python_chain;
       registration->convertible = convertible;
       registration->construct = construct;
-      registration->expected_pytype = exp_pytype;
       registration->next = found->rvalue_chain;
       found->rvalue_chain = registration;
   }
@@ -258,8 +208,7 @@ namespace registry
   // Insert an rvalue from_python converter
   void push_back(void* (*convertible)(PyObject*)
               , constructor_function construct
-              , type_info key
-              , PyTypeObject const* (*exp_pytype)())
+              , type_info key)
   {
 #  ifdef BOOST_PYTHON_TRACE_REGISTRY
       std::cout << "push_back rvalue from_python " << key << "\n";
@@ -271,7 +220,6 @@ namespace registry
       rvalue_from_python_chain *registration = new rvalue_from_python_chain;
       registration->convertible = convertible;
       registration->construct = construct;
-      registration->expected_pytype = exp_pytype;
       registration->next = 0;
       *found = registration;
   }

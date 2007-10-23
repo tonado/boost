@@ -49,11 +49,9 @@ char tempnambuf[ L_tmpnam + 1 + 4 ] = {0};
 void
 execcmd( 
 	char *string,
-        void (*func)( void *closure, int status, timing_info*, char *, char * ),
+	void (*func)( void *closure, int status ),
 	void *closure,
-	LIST *shell,
-    char *rule_name,
-    char *target )
+	LIST *shell )
 {
 	char *s, *e, *p;
 	int rstat = EXEC_CMD_OK;

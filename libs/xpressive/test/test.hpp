@@ -20,15 +20,13 @@
 #include <functional>
 #include <boost/range/iterator_range.hpp>
 #include <boost/xpressive/xpressive_static.hpp>
-#include <boost/test/unit_test.hpp>
-
-using namespace boost::unit_test;
+#include "./test_minimal.hpp"
 using namespace boost::xpressive;
 
 #define L(x) BOOST_XPR_CSTR_(char_type, x)
 
 #define BOOST_XPR_CHECK(pred)                                                   \
-    if( pred ) {} else { BOOST_ERROR( this->section_ << " : " << #pred ); }
+    if( pred ) {} else { BOOST_ERROR( this->format_msg(#pred).c_str() ); }
 
 using namespace boost::xpressive;
 
@@ -60,11 +58,17 @@ inline std::vector<std::basic_string<Char> > backrefs(Char const *br0, ...)
 struct no_match_t {};
 no_match_t const no_match = {};
 
+template<typename BidiIter>
+struct test_case;
+
+template<typename BidiIter>
+std::string format_msg(test_case<BidiIter> const &test, char const *msg);
+
 ///////////////////////////////////////////////////////////////////////////////
-// xpr_test_case
+// test_case
 //
 template<typename BidiIter>
-struct xpr_test_case
+struct test_case
 {
     typedef BidiIter iterator_type;
     typedef typename boost::iterator_value<iterator_type>::type char_type;
@@ -72,7 +76,7 @@ struct xpr_test_case
     typedef std::basic_string<char_type> string_type;
     typedef std::vector<string_type> backrefs_type;
 
-    xpr_test_case(std::string section, string_type str, regex_type rex, backrefs_type brs)
+    test_case(std::string section, string_type str, regex_type rex, backrefs_type brs)
       : section_(section)
       , str_(str)
       , rex_(rex)
@@ -80,7 +84,7 @@ struct xpr_test_case
     {
     }
 
-    xpr_test_case(std::string section, string_type str, regex_type rex, no_match_t)
+    test_case(std::string section, string_type str, regex_type rex, no_match_t)
       : section_(section)
       , str_(str)
       , rex_(rex)
@@ -111,6 +115,11 @@ struct xpr_test_case
 
 private:
 
+    std::string format_msg(char const *msg) const
+    {
+        return this->section_ + " : " + msg;
+    }
+
     std::string section_;
     string_type str_;
     regex_type rex_;
@@ -121,9 +130,9 @@ private:
 // test_runner
 template<typename BidiIter>
 struct test_runner
-  : std::unary_function<xpr_test_case<BidiIter>, void>
+  : std::unary_function<test_case<BidiIter>, void>
 {
-    void operator ()(xpr_test_case<BidiIter> const &test) const
+    void operator ()(test_case<BidiIter> const &test) const
     {
         test.run();
     }
@@ -159,9 +168,9 @@ inline void display_type2()
     string_remove(str, "fusion::");
 
     //std::printf("%s\n\n", str.c_str());
-    std::printf("%s\nwdith=%d\nuse_simple_repeat=%s\n\n", str.c_str()
-        , detail::width_of<T, char>::value
-        , detail::use_simple_repeat<T, char>::value ? "true" : "false");
+    std::printf("%s\nwdith=%d\nis_pure=%s\n\n", str.c_str()
+        , detail::width_of<T>::value
+        , detail::is_pure<T>::value ? "true" : "false");
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -171,6 +180,24 @@ template<typename T>
 inline void display_type(T const &)
 {
     display_type2<T>();
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// test_compile
+//  try to compile a given static regular expression
+template<typename BidiIter, typename Xpr>
+inline void test_compile(Xpr const &xpr)
+{
+    typedef typename boost::iterator_value<BidiIter>::type char_type;
+    typedef boost::xpressive::regex_traits<char_type> traits_type;
+    boost::xpressive::detail::xpression_visitor<BidiIter, boost::mpl::false_, traits_type> visitor;
+
+    display_type(boost::proto::compile(
+        xpr
+      , boost::xpressive::detail::end_xpression()
+      , visitor
+      , boost::xpressive::detail::seq_tag()
+    ));
 }
 
 #endif

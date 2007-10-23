@@ -8,9 +8,8 @@
 #include <iostream>
 #include <boost/xpressive/xpressive.hpp>
 #include <boost/xpressive/traits/cpp_regex_traits.hpp>
-#include <boost/test/unit_test.hpp>
+#include "./test_minimal.hpp"
 
-using namespace boost::unit_test;
 using namespace boost::xpressive;
 
 void test1()
@@ -19,11 +18,7 @@ void test1()
     sregex a = _;
     sregex b = _;
     sregex c = a >> b;
-    c = 'a' >> b;
-    c = a >> 'b';
     c = a | b;
-    c = 'a' | b;
-    c = a | 'b';
     c = !a;
     c = *a;
     c = +a;
@@ -204,49 +199,14 @@ void test4()
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// test for a sub-match scoping
+// test_main
 //
-void test5()
+int test_main( int, char*[] )
 {
-    sregex inner = sregex::compile( "(.)\\1" );
-    sregex outer = (s1= _) >> inner >> s1;
-    std::string abba("ABBA");
+    test1();
+    test2();
+    test3();
+    test4();
 
-    BOOST_CHECK(regex_match(abba, outer));
-}
-
-///////////////////////////////////////////////////////////////////////////////
-// Ye olde calculator. Test recursive grammar.
-//
-void test6()
-{
-    sregex group, factor, term, expression;
-
-    group       = '(' >> by_ref(expression) >> ')';
-    factor      = +_d | group;
-    term        = factor >> *(('*' >> factor) | ('/' >> factor));
-    expression  = term >> *(('+' >> term) | ('-' >> term));
-
-    smatch what;
-    std::string str("foo 9*(10+3) bar");
-
-    BOOST_REQUIRE(regex_search(str, what, expression));
-    BOOST_CHECK("9*(10+3)" == what[0]);
-}
-
-///////////////////////////////////////////////////////////////////////////////
-// init_unit_test_suite
-//
-test_suite* init_unit_test_suite( int argc, char* argv[] )
-{
-    test_suite *test = BOOST_TEST_SUITE("miscelaneous tests and examples from the docs");
-
-    test->add(BOOST_TEST_CASE(&test1));
-    test->add(BOOST_TEST_CASE(&test2));
-    test->add(BOOST_TEST_CASE(&test3));
-    test->add(BOOST_TEST_CASE(&test4));
-    test->add(BOOST_TEST_CASE(&test5));
-    test->add(BOOST_TEST_CASE(&test6));
-
-    return test;
+    return 0;
 }

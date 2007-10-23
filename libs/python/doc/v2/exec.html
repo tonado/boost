@@ -127,7 +127,7 @@ void greet()
 
   // Define greet function in Python.
   object result = exec(
-    "def greet():                   \n"
+    "def greet(self):               \n"
     "   return 'Hello from Python!' \n",
     global, global);
 
@@ -144,7 +144,7 @@ void greet()
       we could also store it in an a file...</para>
 
 <pre>
-def greet():
+def greet(self):
    return 'Hello from Python!'
 </pre>
     <para>... and execute that instead.</para>

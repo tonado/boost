@@ -19,11 +19,9 @@ typedef struct timing_info
 
 void execcmd(
 	char *string,
-	void (*func)( void *closure, int status, timing_info*, char *, char * ),
+	void (*func)( void *closure, int status, timing_info* ),
 	void *closure,
-	LIST *shell,
-        char *action,
-        char *target);
+	LIST *shell );
 
 int execwait();
 

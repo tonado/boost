@@ -28,7 +28,7 @@
 #include <boost/python/tuple.hpp>
 #include <boost/python/extract.hpp>
 
-namespace boost_python_test {
+namespace { // Avoid cluttering the global namespace.
 
   // A friendly class.
   class world
@@ -88,7 +88,6 @@ namespace boost_python_test {
 
 BOOST_PYTHON_MODULE(pickle2_ext)
 {
-    using namespace boost_python_test;
     boost::python::class_<world>(
         "world", boost::python::init<const std::string&>())
         .def("greet", &world::greet)

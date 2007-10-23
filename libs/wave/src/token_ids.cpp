@@ -205,8 +205,6 @@ static char const *tok_names[] = {
     /* 419 */   "MSEXT_ASM",
     /* 420 */   "MSEXT_REGION",
     /* 421 */   "MSEXT_ENDREGION",
-    
-    /* 422 */   "IMPORT",
     };
 
     // make sure, I have not forgotten any commas (as I did more than once)
@@ -396,8 +394,6 @@ static char const *tok_values[] = {
     /* 419 */   "__asm",
     /* 420 */   "#region",
     /* 421 */   "#endregion",
-
-    /* 422 */   "import",
     };   
      
     // make sure, I have not forgotten any commas (as I did more than once)

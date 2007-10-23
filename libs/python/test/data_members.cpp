@@ -52,7 +52,7 @@ int Var::static1 = 0;
 Y Var::static2(0);
 
 // Compilability regression tests
-namespace boost_python_test
+namespace
 {
   struct trivial
   {
@@ -86,7 +86,6 @@ namespace boost_python_test
 
 BOOST_PYTHON_MODULE(data_members_ext)
 {
-    using namespace boost_python_test;
     class_<X>("X", init<int>())
         .def("value", &X::value)
         .def("set", &X::set)

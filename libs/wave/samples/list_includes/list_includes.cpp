@@ -29,8 +29,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 // Include the lexer stuff
-#include <boost/wave/cpplexer/cpp_lex_token.hpp>    // standard token type
-#include "lexertl_iterator.hpp"                     // lexertl based lexer
+#include <boost/wave/cpplexer/cpp_lex_token.hpp>
+#include <boost/wave/cpplexer/cpp_lex_iterator.hpp>
 
 ///////////////////////////////////////////////////////////////////////////////
 // Include the default context trace policies
@@ -105,20 +105,11 @@ long seconds = long(std::difftime(compilation_time.get_time(),
 struct trace_include_files 
 :   public boost::wave::context_policies::default_preprocessing_hooks 
 {
-    trace_include_files(set<string> &files_) 
-    :   files(files_), include_depth(0) 
-    {}
+    trace_include_files(set<string> &files_) : files(files_) {}
     
-#if BOOST_WAVE_USE_DEPRECIATED_PREPROCESSING_HOOKS != 0
     void 
     opened_include_file(string const &relname, string const &filename, 
-        std::size_t /*include_depth*/, bool is_system_include) 
-#else
-    template <typename ContextT>
-    void 
-    opened_include_file(ContextT const& ctx, std::string const& relname, 
-        std::string const& filename, bool is_system_include) 
-#endif
+        std::size_t include_depth, bool is_system_include) 
     {
         set<string>::iterator it = files.find(filename);
         if (it == files.end()) {
@@ -129,21 +120,9 @@ struct trace_include_files
             
             files.insert(filename);
         }
-        ++include_depth;
-    }
-
-#if BOOST_WAVE_USE_DEPRECIATED_PREPROCESSING_HOOKS != 0
-    void returning_from_include_file() 
-#else
-    template <typename ContextT>
-    void returning_from_include_file(ContextT const& ctx) 
-#endif
-    {
-        --include_depth;
     }
 
     set<string> &files;
-    std::size_t include_depth;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -173,7 +152,7 @@ boost::wave::util::file_position_type current_position;
             
         //  The template boost::wave::cpplexer::lex_token<> is the token type to be 
         //  used by the Wave library.
-            typedef boost::wave::cpplexer::lexertl::lex_iterator<
+            typedef boost::wave::cpplexer::lex_iterator<
                     boost::wave::cpplexer::lex_token<> >
                 lex_iterator_type;
             typedef boost::wave::context<

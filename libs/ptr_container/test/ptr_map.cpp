@@ -326,10 +326,10 @@ void test_map()
     a_reference.second->foo();
     map_type::const_reference  a_creference = *const_begin(m2);
     //
-    // @remark: taking the adress of an rvalue is not valid, though
+    // @remark: taking the adress of an rvalue is not valid, thought
     //          many compilers accept it.
     //
-    //map_type::pointer          a_pointer    = &*m2.begin();
+    // map_type::pointer          a_pointer    = &*m2.begin();
     //a_pointer->second->foo();
     //map_type::const_pointer    a_cpointer   = &*const_begin(m2);
    

@@ -201,8 +201,6 @@ namespace boost { namespace program_options {
         return *this;
     }
 
-    const unsigned options_description::m_default_line_length = 80;
-
     options_description::options_description(unsigned line_length)
     : m_line_length(line_length)
     {}
@@ -254,12 +252,11 @@ namespace boost { namespace program_options {
         return m_options;
     }
 
-    const option_description*
+    const option_description* 
     options_description::find_nothrow(const std::string& name, 
                                       bool approx) const
     {
-        shared_ptr<option_description> found;
-        vector<string> approximate_matches;
+        int found = -1;
         // We use linear search because matching specified option
         // name with the declared option name need to take care about
         // case sensitivity and trailing '*' and so we can't use simple map.
@@ -279,22 +276,31 @@ namespace boost { namespace program_options {
             //
             // For now, we don't check the situation when there are 
             // two full matches. 
-
+                            
             if (r == option_description::full_match)
             {
-                return m_options[i].get();
+                return m_options[i].get();                
             }
 
-            found = m_options[i];
-            // FIXME: the use of 'key' here might not
-            // be the best approach.
-            approximate_matches.push_back(m_options[i]->key(name));
+            if (found != -1)
+            {
+                vector<string> alts;
+                // FIXME: the use of 'key' here might not
+                // be the best approach.
+                alts.push_back(m_options[found]->key(name));
+                alts.push_back(m_options[i]->key(name));
+                boost::throw_exception(ambiguous_option(name, alts));
+            }
+            else
+            {
+                found = i;
+            }
         }
-        if (approximate_matches.size() > 1)
-            boost::throw_exception(
-                ambiguous_option(name, approximate_matches));
-
-        return found.get();
+        if (found != -1) {
+            return m_options[found].get();
+        } else {
+            return 0;
+        }
     }
 
     BOOST_PROGRAM_OPTIONS_DECL
@@ -406,9 +412,9 @@ namespace boost { namespace program_options {
                 
                         if (last_space != line_begin)
                         {                 
-                            // is last_space within the second half ot the 
+                            // is last_space within the second half of the 
                             // current line
-                            if ((unsigned)distance(last_space, line_end) < 
+                            if ((unsigned)std::distance(last_space, line_end) < 
                                 (line_length - indent) / 2)
                             {
                                 line_end = last_space;

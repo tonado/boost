@@ -1,5 +1,5 @@
 /*=============================================================================
-    Copyright (c) 2002 2004 2006 Joel de Guzman
+    Copyright (c) 2002 2004 Joel de Guzman
     Copyright (c) 2004 Eric Niebler
     http://spirit.sourceforge.net/
 
@@ -48,7 +48,7 @@ namespace quickbook
                 program
                     =
                     *(  (+space_p)      [Space(self.out)]
-                    |   macro
+                    |   self.macro      [self.do_macro]
                     |   escape
                     |   preprocessor    [Process("preprocessor", self.out)]
                     |   comment         [Process("comment", self.out)]
@@ -60,12 +60,6 @@ namespace quickbook
                     |   number          [Process("number", self.out)]
                     |   anychar_p       [Unexpected(self.out)]
                     )
-                    ;
-
-                macro = 
-                    eps_p(self.macro                    // must not be followed by
-                        >> (eps_p - (alpha_p | '_')))   // alpha or underscore
-                    >> self.macro                       [self.do_macro]
                     ;
 
                 qbk_phrase =
@@ -84,7 +78,7 @@ namespace quickbook
                     ;
 
                 preprocessor
-                    =   '#' >> *space_p >> ((alpha_p | '_') >> *(alnum_p | '_'))
+                    =   '#' >> ((alpha_p | '_') >> *(alnum_p | '_'))
                     ;
 
                 comment
@@ -185,7 +179,7 @@ namespace quickbook
                 program
                     =
                     *(  (+space_p)      [Space(self.out)]
-                    |   macro
+                    |   self.macro      [self.do_macro]
                     |   escape          
                     |   comment         [Process("comment", self.out)]
                     |   keyword         [Process("keyword", self.out)]
@@ -195,12 +189,6 @@ namespace quickbook
                     |   number          [Process("number", self.out)]
                     |   anychar_p       [Unexpected(self.out)]
                     )
-                    ;
-
-                macro = 
-                    eps_p(self.macro                    // must not be followed by
-                        >> (eps_p - (alpha_p | '_')))   // alpha or underscore
-                    >> self.macro                       [self.do_macro]
                     ;
 
                 qbk_phrase =

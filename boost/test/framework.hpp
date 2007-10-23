@@ -32,24 +32,13 @@ namespace boost {
 namespace unit_test {
 
 // ************************************************************************** //
-// **************              init_unit_test_func             ************** //
-// ************************************************************************** //
-
-#ifdef BOOST_TEST_ALTERNATIVE_INIT_API
-typedef bool        (*init_unit_test_func)();
-#else
-typedef test_suite* (*init_unit_test_func)( int, char* [] );
-#endif
-
-// ************************************************************************** //
 // **************                   framework                  ************** //
 // ************************************************************************** //
 
 namespace framework {
 
 // initialization
-BOOST_TEST_DECL void    init( init_unit_test_func init_func, int argc, char* argv[] );
-BOOST_TEST_DECL bool    is_initialized();
+BOOST_TEST_DECL void    init( int argc, char* argv[] );
 
 // mutation access methods
 BOOST_TEST_DECL void    register_test_unit( test_case* tc );
@@ -65,17 +54,17 @@ BOOST_TEST_DECL master_test_suite_t& master_test_suite();
 BOOST_TEST_DECL test_case const&    current_test_case();
 #if BOOST_WORKAROUND(__SUNPRO_CC, BOOST_TESTED_AT(0x530) )
 template<typename UnitType>
-UnitType&               get( test_unit_id id )
+UnitType const&         get( test_unit_id id )
 {
-    return static_cast<UnitType&>( get( id, (test_unit_type)UnitType::type ) );
+    return static_cast<UnitType const&>( get( id, (test_unit_type)UnitType::type ) );
 }
-BOOST_TEST_DECL test_unit&  get( test_unit_id, test_unit_type );
+test_unit const&        get( test_unit_id, test_unit_type );
 #else
-BOOST_TEST_DECL test_unit&  get( test_unit_id, test_unit_type );
+test_unit const&        get( test_unit_id, test_unit_type );
 template<typename UnitType>
-UnitType&               get( test_unit_id id )
+UnitType const&         get( test_unit_id id )
 {
-    return static_cast<UnitType&>( get( id, (test_unit_type)UnitType::type ) );
+    return static_cast<UnitType const&>( get( id, (test_unit_type)UnitType::type ) );
 }
 #endif
 
@@ -109,6 +98,27 @@ struct setup_error : std::runtime_error {
 //____________________________________________________________________________//
 
 #include <boost/test/detail/enable_warnings.hpp>
+
+// ***************************************************************************
+//  Revision History :
+//  
+//  $Log$
+//  Revision 1.5  2006/03/19 07:27:52  rogeeff
+//  streamline test setup error message
+//
+//  Revision 1.4  2005/12/14 05:08:44  rogeeff
+//  dll support introduced
+//
+//  Revision 1.3  2005/03/24 04:02:32  rogeeff
+//  portability fixes
+//
+//  Revision 1.2  2005/03/23 21:02:10  rogeeff
+//  Sunpro CC 5.3 fixes
+//
+//  Revision 1.1  2005/02/20 08:27:05  rogeeff
+//  This a major update for Boost.Test framework. See release docs for complete list of fixes/updates
+//
+// ***************************************************************************
 
 #endif // BOOST_TEST_FRAMEWORK_HPP_020805GER
 

@@ -43,7 +43,6 @@ struct functions
     }
 
     static shared_ptr<T> get() { return storage; }
-    static shared_ptr<T> &get1() { return storage; }
         
     static int look_store()
     {
@@ -72,8 +71,6 @@ struct functions
             .staticmethod("identity")
             .def("null", &null)
             .staticmethod("null")
-            .def("get1", &get1, return_internal_reference<>())
-            .staticmethod("get1")
             .def("get", &get)
             .staticmethod("get")
             .def("count", &T::count)
@@ -157,14 +154,6 @@ shared_ptr<Y> factory(int n)
 
 // ------
 
-// from Neal Becker
-
-struct Test {
-  boost::shared_ptr<X> x;
-};
-// ------
-
-
 BOOST_PYTHON_MODULE(shared_ptr_ext)
 {
     class_<A, boost::shared_ptr<A_Wrapper>, boost::noncopyable>("A")
@@ -204,12 +193,6 @@ BOOST_PYTHON_MODULE(shared_ptr_ext)
             .def("value", &Z::value)
             .def("v", &Z::v, &ZWrap::default_v)
         );
-
-// from Neal Becker
-    class_<Test> ("Test")
-       .def_readonly ("x", &Test::x, "x") 
-       ;
-// ------
 }
 
 #include "module_tail.cpp"

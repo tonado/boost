@@ -15,6 +15,7 @@
 
 // Test for the compressed sparse row graph type
 #include <boost/graph/compressed_sparse_row_graph.hpp>
+#include <boost/test/minimal.hpp>
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/erdos_renyi_generator.hpp>
 #include <boost/graph/graph_utility.hpp>
@@ -29,7 +30,6 @@
 #include <boost/limits.hpp>
 #include <string>
 #include <boost/graph/iteration_macros.hpp>
-#include <boost/test/minimal.hpp>
 
 // Algorithms to test against
 #include <boost/graph/betweenness_centrality.hpp>

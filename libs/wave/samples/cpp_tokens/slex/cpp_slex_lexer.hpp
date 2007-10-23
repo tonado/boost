@@ -32,7 +32,6 @@
 #if BOOST_WAVE_SUPPORT_PRAGMA_ONCE != 0
 #include <boost/wave/cpplexer/detect_include_guards.hpp>
 #endif
-#include <boost/wave/cpplexer/cpp_lex_interface.hpp>
 
 #include "../slex_interface.hpp"
 #include "../slex_token.hpp"
@@ -48,12 +47,12 @@ namespace slex {
 namespace lexer {
 
 ///////////////////////////////////////////////////////////////////////////////
-//  The following numbers are the array sizes of the token regex's which we
+//  The following numbers are the arraysizes of the token regex's which we
 //  need to specify to make the CW compiler happy (at least up to V9.5).
 #if BOOST_WAVE_SUPPORT_MS_EXTENSIONS != 0
-#define INIT_DATA_SIZE              175
+#define INIT_DATA_SIZE              176
 #else
-#define INIT_DATA_SIZE              158
+#define INIT_DATA_SIZE              159
 #endif
 #define INIT_DATA_CPP_SIZE          15
 #define INIT_DATA_PP_NUMBER_SIZE    2
@@ -148,24 +147,24 @@ private:
 #define LONGINTEGER_SUFFIX  "(" "[uU]" "(" "[lL][lL]" ")" OR \
                             "(" "[lL][lL]" ")" "[uU]" "?" ")"
 #endif
-#define FLOAT_SUFFIX        "(" "[fF][lL]?" OR "[lL][fF]?" ")"
+#define FLOAT_SUFFIX        "(" "[fF][lL]?|[lL][fF]?" ")"
 #define CHAR_SPEC           "L?"
 
 #define BACKSLASH           "(" Q("\\") OR TRI(Q("/")) ")"
-#define ESCAPESEQ           "(" BACKSLASH "(" \
+#define ESCAPESEQ           BACKSLASH "(" \
                                 "[abfnrtv?'\"]" OR \
                                 BACKSLASH OR \
                                 "x" HEXDIGIT "+" OR \
                                 OCTALDIGIT OCTALDIGIT "?" OCTALDIGIT "?" \
-                            "))"
-#define HEXQUAD             "(" HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT ")"
-#define UNIVERSALCHAR       "(" BACKSLASH "(" \
+                            ")"
+#define HEXQUAD             HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT 
+#define UNIVERSALCHAR       BACKSLASH "(" \
                                 "u" HEXQUAD OR \
                                 "U" HEXQUAD HEXQUAD \
-                            "))" 
+                            ")" 
 
 #define POUNDDEF            "(" "#" OR TRI("=") OR Q("%:") ")"
-#define NEWLINEDEF          "(" "\n" OR "\r" OR "\r\n" ")"
+#define NEWLINEDEF          "(" "\\n" OR "\\r" OR "\\r\\n" ")"
 
 #if BOOST_WAVE_SUPPORT_INCLUDE_NEXT != 0
 #define INCLUDEDEF          "(include|include_next)"
@@ -378,9 +377,9 @@ lexer<IteratorT, PositionT>::init_data[INIT_DATA_SIZE] =
                 "(" ESCAPESEQ OR "[^\\n\\r']" OR UNIVERSALCHAR ")+" "'"),
     TOKEN_DATA(STRINGLIT, CHAR_SPEC Q("\"") 
                 "(" ESCAPESEQ OR "[^\\n\\r\"]" OR UNIVERSALCHAR ")*" Q("\"")),
-    TOKEN_DATA(SPACE, "[ \t\v\f]+"),
-//    TOKEN_DATA(SPACE2, "[\\v\\f]+"),
-    TOKEN_DATA(CONTLINE, "\\" "\\n"), 
+    TOKEN_DATA(SPACE, BLANK "+"),
+    TOKEN_DATA(SPACE2, "[\\v\\f]+"),
+    TOKEN_DATA(CONTLINE, Q("\\") "\\n"), 
     TOKEN_DATA(NEWLINE, NEWLINEDEF),
     TOKEN_DATA(POUND_POUND, "##"),
     TOKEN_DATA(POUND_POUND_ALT, Q("%:") Q("%:")),
@@ -388,9 +387,9 @@ lexer<IteratorT, PositionT>::init_data[INIT_DATA_SIZE] =
     TOKEN_DATA(POUND, "#"),
     TOKEN_DATA(POUND_ALT, Q("%:")),
     TOKEN_DATA(POUND_TRIGRAPH, TRI("=")),
+    TOKEN_DATA(ANY, "."),
     TOKEN_DATA(ANY_TRIGRAPH, TRI(Q("/"))),
-    TOKEN_DATA(ANY, "."),     // this should be the last recognized token
-    { token_id(0) }           // this should be the last entry
+    { token_id(0) }       // this should be the last entry
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -410,9 +409,6 @@ lexer<IteratorT, PositionT>::init_data_cpp[INIT_DATA_CPP_SIZE] =
     TOKEN_DATA(NOTEQUAL_ALT, "not_eq"),
     TOKEN_DATA(NOT_ALT, "not"),
     TOKEN_DATA(COMPL_ALT, "compl"),
-#if BOOST_WAVE_SUPPORT_IMPORT_KEYWORD != 0
-    TOKEN_DATA(IMPORT, "import"),
-#endif
     TOKEN_DATA(ARROWSTAR, Q("->") Q("*")),
     TOKEN_DATA(DOTSTAR, Q(".") Q("*")),
     TOKEN_DATA(COLON_COLON, "::"),
@@ -602,7 +598,7 @@ public:
                     case T_IDENTIFIER:
                     // test identifier characters for validity (throws if 
                     // invalid chars found)
-                        if (!boost::wave::need_no_character_validation(language)) {
+                        if (!(language & support_option_no_character_validation)) {
                             using boost::wave::cpplexer::impl::validate_identifier_name;
                             validate_identifier_name(token_val, 
                                 pos.get_line(), pos.get_column(), pos.get_file()); 
@@ -613,11 +609,11 @@ public:
                     case T_CHARLIT:
                     // test literal characters for validity (throws if invalid 
                     // chars found)
-                        if (boost::wave::need_convert_trigraphs(language)) {
+                        if (language & support_option_convert_trigraphs) {
                             using boost::wave::cpplexer::impl::convert_trigraphs;
                             token_val = convert_trigraphs(token_val); 
                         }
-                        if (!boost::wave::need_no_character_validation(language)) {
+                        if (!(language & support_option_no_character_validation)) {
                             using boost::wave::cpplexer::impl::validate_literal;
                             validate_literal(token_val, 
                                 pos.get_line(), pos.get_column(), pos.get_file()); 
@@ -666,7 +662,7 @@ public:
                     case T_COMPL_TRIGRAPH:
                     case T_POUND_TRIGRAPH:
                     case T_ANY_TRIGRAPH:
-                        if (boost::wave::need_convert_trigraphs(language))
+                        if (language & support_option_convert_trigraphs)
                         {
                             using boost::wave::cpplexer::impl::convert_trigraph;
                             token_val = convert_trigraph(token_val);
@@ -750,7 +746,7 @@ lexer::lexer<IteratorT, PositionT> slex_functor<IteratorT, PositionT>::lexer;
 
 template <typename IteratorT, typename PositionT>
 BOOST_WAVE_SLEX_NEW_LEXER_INLINE
-lex_input_interface<slex_token<PositionT> > *
+slex_input_interface<slex_token<PositionT> > *
 new_lexer_gen<IteratorT, PositionT>::new_lexer(IteratorT const &first,
     IteratorT const &last, PositionT const &pos, 
     boost::wave::language_support language)

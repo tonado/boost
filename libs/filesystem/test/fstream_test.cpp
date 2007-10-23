@@ -37,8 +37,6 @@ namespace fs = boost::filesystem;
 
 namespace
 {
-  bool cleanup = true;
-  
   template< class Path >
   void test( const Path & p )
   {
@@ -143,16 +141,12 @@ namespace
       BOOST_CHECK( tfs.is_open() );
     }
 #  endif
-
-    if ( cleanup ) fs::remove( p );
-
   } // test
 } // unnamed namespace
 
-int test_main( int argc, char*[] )
+int test_main( int, char*[] )
 {
-  if ( argc > 1 ) cleanup = false;
-
+ 
   // test fs::path
   std::cout << "path tests:\n";
   test( fs::path( "fstream_test_foo" ) );

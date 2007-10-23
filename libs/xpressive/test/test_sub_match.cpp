@@ -7,3 +7,10 @@
 
 #include <boost/xpressive/sub_match.hpp>
 
+///////////////////////////////////////////////////////////////////////////////
+// test_main
+//   read the tests from the input file and execute them
+int test_main( int, char*[] )
+{
+    return 0;
+}

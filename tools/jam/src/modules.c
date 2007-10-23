@@ -4,6 +4,7 @@
  *  (See accompanying file LICENSE_1_0.txt or http://www.boost.org/LICENSE_1_0.txt)
  */
 #include "jam.h"
+#include "debug.h"
 
 #include "modules.h"
 #include "string.h"

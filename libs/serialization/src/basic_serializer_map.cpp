@@ -12,8 +12,6 @@
 #  pragma warning (disable : 4786) // too long name, harmless warning
 #endif
 
-#include <stdlib.h> // for NULL
-
 #include <set>
 
 #define BOOST_ARCHIVE_SOURCE

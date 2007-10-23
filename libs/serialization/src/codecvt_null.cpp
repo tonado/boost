@@ -7,7 +7,6 @@
 // License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-#define BOOST_ARCHIVE_SOURCE
 #include <boost/archive/codecvt_null.hpp>
 
 // codecvt implementation for passing wchar_t objects to char output
@@ -19,7 +18,7 @@ namespace archive {
 
 std::codecvt_base::result 
 codecvt_null<wchar_t>::do_out(
-    std::mbstate_t & state,
+    std::mbstate_t & /* state */,
     const wchar_t * first1, 
     const wchar_t * last1,
     const wchar_t * & next1,
@@ -47,7 +46,7 @@ codecvt_null<wchar_t>::do_out(
 
 std::codecvt_base::result 
 codecvt_null<wchar_t>::do_in(
-    std::mbstate_t & state,
+    std::mbstate_t & /* state */,
     const char * first1, 
     const char * last1, 
     const char * & next1,

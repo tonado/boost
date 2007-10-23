@@ -27,7 +27,7 @@ namespace std{
 namespace std{ using ::wcslen; }
 #endif
 
-#include "test_tools.hpp"
+#include <boost/test/test_tools.hpp>
 #include <boost/archive/iterators/istream_iterator.hpp>
 #include <boost/archive/iterators/ostream_iterator.hpp>
 

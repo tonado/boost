@@ -126,14 +126,12 @@ make(
     */
     bind_explicitly_located_targets();
 
-    { PROFILE_ENTER(MAKE_MAKE0);
 	for( i = 0; i < n_targets; i++ )
 	{
 	    TARGET *t = bindtarget( targets[i] );
 
 	    make0( t, 0, 0, counts, anyhow );
 	}
-    PROFILE_EXIT(MAKE_MAKE0); }
         
 #ifdef OPT_GRAPH_DEBUG_EXT
 	if( DEBUG_GRAPH )
@@ -171,10 +169,8 @@ make(
 
 	status = counts->cantfind || counts->cantmake;
 
-    { PROFILE_ENTER(MAKE_MAKE1);
 	for( i = 0; i < n_targets; i++ )
 	    status |= make1( bindtarget( targets[i] ) );
-    PROFILE_EXIT(MAKE_MAKE1); }
 
 	return status;
 }
@@ -799,7 +795,6 @@ dependGraphOutput( TARGET *t, int depth )
 static TARGETS *
 make0sort( TARGETS *chain )
 {
-    PROFILE_ENTER(MAKE_MAKE0SORT);
 	TARGETS *result = 0;
 
 	/* We walk chain, taking each item and inserting it on the */
@@ -834,7 +829,6 @@ make0sort( TARGETS *chain )
 	    s->tail = c;			/* make next's prev us */
 	}
 
-    PROFILE_EXIT(MAKE_MAKE0SORT);
 	return result;
 }
 
