@@ -17,7 +17,7 @@
 // See http://www.boost.org for updates, documentation, and revision history.
 //
 
-#include <boost/fusion/sequence/container/vector/vector.hpp>
+#include <boost/fusion/container/vector/vector.hpp>
 
 namespace boost {
   namespace serialization {
