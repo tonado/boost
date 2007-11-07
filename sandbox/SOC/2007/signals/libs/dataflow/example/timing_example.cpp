@@ -23,8 +23,8 @@ int main()
     std::vector<float> v(1);
     
 	// instantiate all of the components we need
-	signals::storage<void (std::vector<float> &, std::vector<float>), signals::unfused> floater;
-	signals::storage<void (std::vector<float> &, std::vector<float>), signals::unfused> collector;
+	signals::storage<void (std::vector<float> &, std::vector<float>)> floater;
+	signals::storage<void (std::vector<float> &, std::vector<float>)> collector;
     
 	// create the network
 	floater >>= collector;
