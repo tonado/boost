@@ -16,11 +16,11 @@
 #include <boost/system/error_code.hpp>
 #include <boost/asio.hpp>
 
-#include "../basic_connection_fwd.hpp"
-#include "../tags.hpp"
-#include "../connection_base.hpp"
-#include "../data_sink.hpp"
-//#include "../io_service.hpp"
+#include "boost/cgi/basic_connection_fwd.hpp"
+#include "boost/cgi/tags.hpp"
+#include "boost/cgi/connection_base.hpp"
+#include "boost/cgi/data_sink.hpp"
+//#include "boost/cgi/io_service.hpp"
 
 namespace cgi {
 
@@ -34,7 +34,6 @@ namespace cgi {
     basic_connection()
       : in_(std::cin)
       , out_(std::cout)
-      , err_(std::cerr)
     {
     }
 
@@ -42,7 +41,6 @@ namespace cgi {
     basic_connection(T&)
       : in_(std::cin)
       , out_(std::cout)
-      , err_(std::cerr)
     {
     }
 
@@ -53,8 +51,7 @@ namespace cgi {
 
     template<typename MutableBufferSequence>
     std::size_t read_some(MutableBufferSequence buf
-                         , boost::system::error_code& ec
-                         , cgi::sink origin)
+                         , boost::system::error_code& ec)
     {
       if( buf.data() != in_.rdbuf() )
         return in_.read(buf.begin(), buf.size());
@@ -81,7 +78,6 @@ namespace cgi {
   protected:
     std::istream& in_;
     std::ostream& out_;
-    std::ostream& err_;
   };
 
   typedef basic_connection<tags::stdio> stdio_connection;

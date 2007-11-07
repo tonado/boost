@@ -13,8 +13,8 @@
 #include <ostream>
 #include <boost/asio.hpp>
 
-#include "tags.hpp"
-#include "connection_base.hpp"
+#include "boost/cgi/tags.hpp"
+#include "boost/cgi/connection_base.hpp"
 //#include "connections/async_stdio_connection_impl.hpp"
 
 namespace cgi {
