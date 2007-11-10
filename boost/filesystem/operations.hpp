@@ -80,8 +80,7 @@ namespace boost
       character_file,
       fifo_file,
       socket_file,
-      type_unknown // file does exist, but isn't one of the above types or
-                   // we don't have strong enough permission to find its type
+      type_unknown // file does exist, but isn't one of the above types
     };
 
     class file_status

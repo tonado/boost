@@ -59,22 +59,22 @@ void expected_results()
 #endif
 
    //
-   // HP-UX and Solaris rates are very slightly higher:
+   // HP-UX rates are very slightly higher:
    //
    add_expected_result(
       ".*",                          // compiler
       ".*",                          // stdlib
-      "HP-UX|Sun Solaris",                          // platform
+      "HP-UX",                          // platform
       largest_type,                // test type(s)
       ".*(Y[nv]|y).*Random.*",           // test data group
       ".*", 30000, 30000);             // test function
    add_expected_result(
       ".*",                          // compiler
       ".*",                          // stdlib
-      "HP-UX|Sun Solaris",                          // platform
+      "HP-UX",                          // platform
       largest_type,                  // test type(s)
       ".*Y[01Nv].*",           // test data group
-      ".*", 1300, 500);               // test function
+      ".*", 400, 200);               // test function
    //
    // Tru64:
    //

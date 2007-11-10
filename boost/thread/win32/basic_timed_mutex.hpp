@@ -59,7 +59,8 @@ namespace boost
             
             void lock()
             {
-                BOOST_VERIFY(timed_lock(::boost::detail::get_system_time_sentinel()));
+                bool const success=timed_lock(::boost::detail::get_system_time_sentinel());
+                BOOST_ASSERT(success);
             }
             bool timed_lock(::boost::system_time const& wait_until)
             {

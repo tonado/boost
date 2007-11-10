@@ -16,10 +16,10 @@ namespace boost
 {
     namespace ptr_container_detail
     {
-        inline const char* count()  { return "count"; }
-        inline const char* item()   { return "item"; }
-        inline const char* first()  { return "first"; }
-        inline const char* second() { return "second"; }
+        const char* count  = "count";
+        const char* item   = "item";
+        const char* first  = "first";
+        const char* second = "second";
     }
 }
 #endif

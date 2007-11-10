@@ -14,7 +14,6 @@
 # define BOOST_FT_cc BOOST_PP_EMPTY
 # define BOOST_FT_cond BOOST_FT_CC_IMPLICIT
 # if BOOST_FT_cond
-# define BOOST_FT_config_valid 1
 # include BOOST_PP_EXPAND ( <BOOST_FT_cc_file> )
 # endif
 # undef BOOST_FT_cond
@@ -26,7 +25,6 @@
 # define BOOST_FT_cc BOOST_PP_IDENTITY(__cdecl )
 # define BOOST_FT_cond BOOST_FT_CC_CDECL
 # if BOOST_FT_cond
-# define BOOST_FT_config_valid 1
 # include BOOST_PP_EXPAND ( <BOOST_FT_cc_file> )
 # endif
 # undef BOOST_FT_cond
@@ -38,7 +36,6 @@
 # define BOOST_FT_cc BOOST_PP_IDENTITY(__stdcall )
 # define BOOST_FT_cond BOOST_FT_CC_STDCALL
 # if BOOST_FT_cond
-# define BOOST_FT_config_valid 1
 # include BOOST_PP_EXPAND ( <BOOST_FT_cc_file> )
 # endif
 # undef BOOST_FT_cond
@@ -50,7 +47,6 @@
 # define BOOST_FT_cc BOOST_PP_IDENTITY(pascal )
 # define BOOST_FT_cond BOOST_FT_CC_PASCAL
 # if BOOST_FT_cond
-# define BOOST_FT_config_valid 1
 # include BOOST_PP_EXPAND ( <BOOST_FT_cc_file> )
 # endif
 # undef BOOST_FT_cond
@@ -62,7 +58,6 @@
 # define BOOST_FT_cc BOOST_PP_IDENTITY(__fastcall)
 # define BOOST_FT_cond BOOST_FT_CC_FASTCALL
 # if BOOST_FT_cond
-# define BOOST_FT_config_valid 1
 # include BOOST_PP_EXPAND ( <BOOST_FT_cc_file> )
 # endif
 # undef BOOST_FT_cond
@@ -74,7 +69,6 @@
 # define BOOST_FT_cc BOOST_PP_IDENTITY(__clrcall )
 # define BOOST_FT_cond BOOST_FT_CC_CLRCALL
 # if BOOST_FT_cond
-# define BOOST_FT_config_valid 1
 # include BOOST_PP_EXPAND ( <BOOST_FT_cc_file> )
 # endif
 # undef BOOST_FT_cond
@@ -86,7 +80,6 @@
 # define BOOST_FT_cc BOOST_PP_IDENTITY(__thiscall)
 # define BOOST_FT_cond BOOST_FT_CC_THISCALL
 # if BOOST_FT_cond
-# define BOOST_FT_config_valid 1
 # include BOOST_PP_EXPAND ( <BOOST_FT_cc_file> )
 # endif
 # undef BOOST_FT_cond
@@ -98,23 +91,9 @@
 # define BOOST_FT_cc BOOST_PP_EMPTY
 # define BOOST_FT_cond BOOST_FT_CC_IMPLICIT_THISCALL
 # if BOOST_FT_cond
-# define BOOST_FT_config_valid 1
 # include BOOST_PP_EXPAND ( <BOOST_FT_cc_file> )
 # endif
 # undef BOOST_FT_cond
 # undef BOOST_FT_cc_name
 # undef BOOST_FT_cc
 # undef BOOST_FT_cc_id
-# ifndef BOOST_FT_config_valid
-# define BOOST_FT_cc_id 1
-# define BOOST_FT_cc_name implicit_cc
-# define BOOST_FT_cc BOOST_PP_EMPTY
-# define BOOST_FT_cond 0x00000001
-# include BOOST_PP_EXPAND ( <BOOST_FT_cc_file> )
-# undef BOOST_FT_cond
-# undef BOOST_FT_cc_name
-# undef BOOST_FT_cc
-# undef BOOST_FT_cc_id
-# else
-# undef BOOST_FT_config_valid
-# endif

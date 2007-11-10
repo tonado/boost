@@ -53,7 +53,6 @@ namespace std { using ::strerror; using ::strlen; using ::strncat; }
 // to use vsnprintf
 #if defined(__SUNPRO_CC) && defined(__SunOS)
 #  include <stdio.h>
-#  include <stdarg.h>
 using std::va_list;
 #endif
 
@@ -73,7 +72,7 @@ using std::va_list;
 #    include <stdint.h>
 #endif
 
-#  if BOOST_WORKAROUND(_MSC_VER,  < 1300 ) || defined(UNDER_CE)
+#  if BOOST_WORKAROUND(BOOST_MSVC,  < 1300 ) || defined(UNDER_CE)
 typedef void* uintptr_t;
 #  endif
 

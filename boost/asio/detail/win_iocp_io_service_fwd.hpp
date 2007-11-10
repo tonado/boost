@@ -27,7 +27,6 @@
 #if !defined(BOOST_ASIO_DISABLE_IOCP)
 #if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
 #if defined(_WIN32_WINNT) && (_WIN32_WINNT >= 0x0400)
-#if !defined(UNDER_CE)
 
 // Define this to indicate that IOCP is supported on the target platform.
 #define BOOST_ASIO_HAS_IOCP 1
@@ -42,7 +41,6 @@ class win_iocp_io_service;
 } // namespace asio
 } // namespace boost
 
-#endif // !defined(UNDER_CE)
 #endif // defined(_WIN32_WINNT) && (_WIN32_WINNT >= 0x0400)
 #endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
 #endif // !defined(BOOST_ASIO_DISABLE_IOCP)

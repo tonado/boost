@@ -11,7 +11,6 @@
 
 #include <boost/xpressive/proto/detail/prefix.hpp>
 #include <boost/mpl/apply.hpp>
-#include <boost/xpressive/proto/proto_fwd.hpp> // is_transform
 #include <boost/xpressive/proto/detail/suffix.hpp>
 
 namespace boost { namespace proto { namespace transform

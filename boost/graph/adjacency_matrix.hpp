@@ -28,7 +28,6 @@
 #include <boost/graph/properties.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/static_assert.hpp>
-#include <boost/type_traits/ice.hpp>
 
 namespace boost {
   
@@ -437,9 +436,7 @@ namespace boost {
     // graph type. Instead, use directedS, which also provides the
     // functionality required for a Bidirectional Graph (in_edges,
     // in_degree, etc.).
-#if !defined(_MSC_VER) || _MSC_VER > 1300
-    BOOST_STATIC_ASSERT(type_traits::ice_not<(is_same<Directed, bidirectionalS>::value)>::value);
-#endif
+    BOOST_STATIC_ASSERT(!(is_same<Directed, bidirectionalS>::value));
 
     typedef typename mpl::if_<is_directed,
                                     bidirectional_tag, undirected_tag>::type
@@ -474,13 +471,11 @@ namespace boost {
     typedef adjacency_matrix_traits<Directed> Traits;
     
   public:
-#if !defined(BOOST_MSVC) || BOOST_MSVC > 1300
     // The bidirectionalS tag is not allowed with the adjacency_matrix
     // graph type. Instead, use directedS, which also provides the
     // functionality required for a Bidirectional Graph (in_edges,
     // in_degree, etc.).
     BOOST_STATIC_ASSERT(!(is_same<Directed, bidirectionalS>::value));
-#endif
 
 #ifndef BOOST_GRAPH_NO_BUNDLED_PROPERTIES
     typedef typename detail::retag_property_list<vertex_bundle_t, VertexProperty>::type

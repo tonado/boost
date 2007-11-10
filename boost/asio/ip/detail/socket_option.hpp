@@ -253,13 +253,6 @@ template <int IPv4_Level, int IPv4_Name, int IPv6_Level, int IPv6_Name>
 class multicast_hops
 {
 public:
-#if defined(BOOST_WINDOWS) && defined(UNDER_CE)
-  typedef int ipv4_value_type;
-#else
-  typedef unsigned char ipv4_value_type;
-#endif
-  typedef int ipv6_value_type;
-
   // Default constructor.
   multicast_hops()
     : ipv4_value_(0),
@@ -272,7 +265,7 @@ public:
   {
     if (v < 0 || v > 255)
       throw std::out_of_range("multicast hops value out of range");
-    ipv4_value_ = (ipv4_value_type)v;
+    ipv4_value_ = static_cast<unsigned char>(v);
     ipv6_value_ = v;
   }
 
@@ -281,7 +274,7 @@ public:
   {
     if (v < 0 || v > 255)
       throw std::out_of_range("multicast hops value out of range");
-    ipv4_value_ = (ipv4_value_type)v;
+    ipv4_value_ = static_cast<unsigned char>(v);
     ipv6_value_ = v;
     return *this;
   }
@@ -350,7 +343,7 @@ public:
       else if (ipv6_value_ > 255)
         ipv4_value_ = 255;
       else
-        ipv4_value_ = (ipv4_value_type)ipv6_value_;
+        ipv4_value_ = static_cast<unsigned char>(ipv6_value_);
     }
     else
     {
@@ -361,8 +354,8 @@ public:
   }
 
 private:
-  ipv4_value_type ipv4_value_;
-  ipv6_value_type ipv6_value_;
+  unsigned char ipv4_value_;
+  int ipv6_value_;
 };
 
 // Helper template for implementing ip_mreq-based options.

@@ -30,7 +30,7 @@
         class CScopedCSLock
         {
         public:
-            CScopedCSLock(LPCRITICAL_SECTION cs) : lk(true), cs(cs) {
+            CScopedCSLock(LPCRITICAL_SECTION cs) : cs(cs), lk(true) {
                 ::EnterCriticalSection(cs);
             }
             ~CScopedCSLock() {

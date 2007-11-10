@@ -16,7 +16,7 @@ using namespace boost::python;
 #endif 
 
 // See if we can invoke array() from C++
-numeric::array new_array()
+object new_array()
 {
     return numeric::array(
         make_tuple(

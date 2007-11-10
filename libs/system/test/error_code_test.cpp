@@ -144,47 +144,18 @@ int test_main( int, char ** )
   BOOST_CHECK( system_category == native_ecat );
   BOOST_CHECK( posix_category == errno_ecat );
 
-  // test error_code and error_condition message();
+  // test error_code and error_condition message(),
   // see Boost.Filesystem operations_test for code specific message() tests
   ec = error_code( -1, system_category );
-  std::cout << "error_code message for -1 is \"" << ec.message() << "\"\n";
-#if defined(BOOST_WINDOWS_API)
-  // Borland appends newline, so just check text
-  BOOST_CHECK( ec.message().substr(0,13) == "Unknown error" );
-#elif  defined(linux) || defined(__linux) || defined(__linux__)
-  // Linux appends value to message as unsigned, so it varies with # of bits
-  BOOST_CHECK( ec.message().substr(0,13) == "Unknown error" );
-#elif defined(__hpux)
-  BOOST_CHECK( ec.message() == "" );
-#elif defined(__osf__)
-  BOOST_CHECK( ec.message() == "Error -1 occurred." );
-#elif defined(__vms)
-  BOOST_CHECK( ec.message() == "error -1" );
-#endif
-
+  BOOST_CHECK( ec.message() == "Unknown error" );
   ec = error_code( BOOST_ACCESS_ERROR_MACRO, system_category );
   BOOST_CHECK( ec.message() != "" );
-  BOOST_CHECK( ec.message().substr( 0, 13) != "Unknown error" );
-
+  BOOST_CHECK( ec.message() != "Unknown error" );
   dec = error_condition( -1, posix_category );
-  std::cout << "error_condition message for -1 is \"" << dec.message() << "\"\n";
-#if defined(BOOST_WINDOWS_API)
-  // Borland appends newline, so just check text
-  BOOST_CHECK( dec.message().substr(0,13) == "Unknown error" );
-#elif  defined(linux) || defined(__linux) || defined(__linux__)
-  // Linux appends value to message as unsigned, so it varies with # of bits
-  BOOST_CHECK( dec.message().substr(0,13) == "Unknown error" );
-#elif defined(__hpux)
-  BOOST_CHECK( dec.message() == "" );
-#elif defined(__osf__)
-  BOOST_CHECK( dec.message() == "Error -1 occurred." );
-#elif defined(__vms)
-  BOOST_CHECK( dec.message() == "error -1" );
-#endif
-
+  BOOST_CHECK( dec.message() == "Unknown error" );
   dec = error_condition( BOOST_ACCESS_ERROR_MACRO, posix_category );
   BOOST_CHECK( dec.message() != "" );
-  BOOST_CHECK( dec.message().substr( 0, 13) != "Unknown error" );
+  BOOST_CHECK( dec.message() != "Unknown error" );
 
 #ifdef BOOST_WINDOWS_API
   std::cout << "Windows tests...\n";

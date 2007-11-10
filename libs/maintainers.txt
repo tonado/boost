@@ -2,7 +2,6 @@ algorithm/minmax      Herve Bronnimann <hbr -at- poly.edu>
 algorithm/string      Pavol Droba <droba -at- topmail.sk>
 any                   Alexander Nasonov <alexander.nasonov -at- gmail.com>
 array
-asio                  Chris Kohlhoff <chris -at- kohlhoff.com>
 assign                Thorsten Ottosen <nesotto -at- cs.auc.dk>
 bimap                 Matias Capeletto <matias.capeletto -at- gmail.com>
 bind                  Peter Dimov <pdimov -at- mmltd.net>
@@ -21,7 +20,6 @@ function              Douglas Gregor <dgregor -at- cs.indiana.edu>
 functional
 functional/hash       Daniel James <daniel_james -at- fmail.co.uk>
 fusion                Joel de Guzman <joel -at- boost-consulting.com>, Dan Marsden <danmarsden -at- yahoo.co.uk>
-gil                   Lubomir Bourdev <lbourdev -at- adobe.com>, Hailin Jin <hljin -at- adobe.com>
 graph                 Douglas Gregor <dgregor -at- cs.indiana.edu>
 integer               Daryle Walker <darylew -at- hotmail.com>
 interprocess          Ion Gaztanaga <igaztanaga -at- gmail.com>
@@ -69,8 +67,4 @@ utility/enable_if     Jaakko Jarvi <jarvi -at- cs.tamu.edu>, Jeremiah Willcock <
 variant               Eric Friedman <ericbrandon -at- gmail.com>
 wave                  Hartmut Kaiser <hartmut.kaiser -at- gmail.com>
 xpressive             Eric Niebler <eric -at- boost-consulting.com>
-
-© Copyright Douglas Gregor 2005
-Distributed under the Boost Software License, Version 1.0. See www.boost.org/LICENSE_1_0.txt
-
 

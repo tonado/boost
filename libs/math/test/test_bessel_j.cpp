@@ -59,9 +59,7 @@ void expected_results()
    //
    // HP-UX specific rates:
    //
-   // Error rate for double precision are limited by the accuracy of
-   // the approximations use, which bracket rather than preserve the root.
-   //
+   // Does this need more investigation or is test data limited????
    add_expected_result(
       ".*",                          // compiler
       ".*",                          // stdlib
@@ -108,33 +106,6 @@ void expected_results()
       ".*Tricky large.*",              // test data group
       ".*", 3000, 1000);         // test function
    //
-   // Solaris specific rates:
-   //
-   // Error rate for double precision are limited by the accuracy of
-   // the approximations use, which bracket rather than preserve the root.
-   //
-   add_expected_result(
-      ".*",                              // compiler
-      ".*",                              // stdlib
-      "Sun Solaris",                     // platform
-      largest_type,                      // test type(s)
-      "Bessel J: Random Data.*Tricky.*", // test data group
-      ".*", 3000, 500);                  // test function
-   add_expected_result(
-      ".*",                          // compiler
-      ".*",                          // stdlib
-      "Sun Solaris",                 // platform
-      "double",                      // test type(s)
-      ".*Tricky.*",                  // test data group
-      ".*", 200000, 100000);         // test function
-   add_expected_result(
-      ".*",                          // compiler
-      ".*",                          // stdlib
-      "Sun Solaris",                 // platform
-      largest_type,                  // test type(s)
-      ".*J.*tricky.*",               // test data group
-      ".*", 400000000, 200000000);    // test function
-   //
    // Mac OS X:
    //
    add_expected_result(
@@ -150,7 +121,7 @@ void expected_results()
       "Mac OS",                          // platform
       largest_type,                  // test type(s)
       ".*J1.*Tricky.*",              // test data group
-      ".*", 3000000, 2000000);       // test function
+      ".*", 900000, 800000);       // test function
    add_expected_result(
       ".*",                          // compiler
       ".*",                          // stdlib

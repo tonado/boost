@@ -55,7 +55,8 @@ namespace boost
 
             void create_current_thread_tls_key()
             {
-                BOOST_VERIFY(!pthread_key_create(&current_thread_tls_key,NULL));
+                int const res=pthread_key_create(&current_thread_tls_key,NULL);
+                BOOST_ASSERT(!res);
             }
         }
         
@@ -68,7 +69,8 @@ namespace boost
         void set_current_thread_data(detail::thread_data_base* new_data)
         {
             boost::call_once(current_thread_tls_init_flag,create_current_thread_tls_key);
-            BOOST_VERIFY(!pthread_setspecific(current_thread_tls_key,new_data));
+            int const res=pthread_setspecific(current_thread_tls_key,new_data);
+            BOOST_ASSERT(!res);
         }
     }
     
@@ -170,7 +172,8 @@ namespace boost
             if(do_join)
             {
                 void* result=0;
-                BOOST_VERIFY(!pthread_join(local_thread_info->thread_handle,&result));
+                int const res=pthread_join(local_thread_info->thread_handle,&result);
+                BOOST_ASSERT(!res);
                 lock_guard<mutex> lock(local_thread_info->data_mutex);
                 local_thread_info->joined=true;
                 local_thread_info->done_condition.notify_all();
@@ -217,7 +220,8 @@ namespace boost
             if(do_join)
             {
                 void* result=0;
-                BOOST_VERIFY(!pthread_join(local_thread_info->thread_handle,&result));
+                int const res=pthread_join(local_thread_info->thread_handle,&result);
+                BOOST_ASSERT(!res);
                 lock_guard<mutex> lock(local_thread_info->data_mutex);
                 local_thread_info->joined=true;
                 local_thread_info->done_condition.notify_all();
@@ -251,7 +255,8 @@ namespace boost
             lock_guard<mutex> lock(local_thread_info->data_mutex);
             if(!local_thread_info->join_started)
             {
-                BOOST_VERIFY(!pthread_detach(local_thread_info->thread_handle));
+                int const res=pthread_detach(local_thread_info->thread_handle);
+                BOOST_ASSERT(!res);
                 local_thread_info->join_started=true;
                 local_thread_info->joined=true;
             }
@@ -276,7 +281,9 @@ namespace boost
 #   if defined(BOOST_HAS_PTHREAD_DELAY_NP)
                 timespec ts;
                 to_timespec_duration(xt, ts);
-                BOOST_VERIFY(!pthread_delay_np(&ts));
+                int res = 0;
+                res = pthread_delay_np(&ts);
+                BOOST_ASSERT(res == 0);
 #   elif defined(BOOST_HAS_NANOSLEEP)
                 timespec ts;
                 to_timespec_duration(xt, ts);
@@ -301,9 +308,13 @@ namespace boost
     void thread::yield()
     {
 #   if defined(BOOST_HAS_SCHED_YIELD)
-        BOOST_VERIFY(!sched_yield());
+        int res = 0;
+        res = sched_yield();
+        BOOST_ASSERT(res == 0);
 #   elif defined(BOOST_HAS_PTHREAD_YIELD)
-        BOOST_VERIFY(!pthread_yield());
+        int res = 0;
+        res = pthread_yield();
+        BOOST_ASSERT(res == 0);
 #   else
         xtime xt;
         xtime_get(&xt, TIME_UTC);
@@ -338,7 +349,8 @@ namespace boost
             local_thread_info->interrupt_requested=true;
             if(local_thread_info->current_cond)
             {
-                BOOST_VERIFY(!pthread_cond_broadcast(local_thread_info->current_cond));
+                int const res=pthread_cond_broadcast(local_thread_info->current_cond);
+                BOOST_ASSERT(!res);
             }
         }
     }

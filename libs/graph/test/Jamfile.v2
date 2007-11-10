@@ -1,9 +1,3 @@
-# Copyright (c) 2002 Trustees of Indiana University
-#
-# Distributed under the Boost Software License, Version 1.0.
-# (See accompanying file LICENSE_1_0.txt or copy at
-# http://www.boost.org/LICENSE_1_0.txt)
-
 # Define SGB (stanford graph base top level directory) and 
 # LEDA (also top level directory) at the command line of jam using -s
 
@@ -119,7 +113,7 @@ test-suite graph_test :
 
     [ run make_connected_test.cpp ]
 
-    [ run make_bicon_planar_test.cpp ]
+    [ run make_biconnected_planar_test.cpp ]
 
     [ run make_maximal_planar_test.cpp ]
 

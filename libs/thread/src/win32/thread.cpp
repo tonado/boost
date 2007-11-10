@@ -58,7 +58,8 @@ namespace boost
         void set_current_thread_data(detail::thread_data_base* new_data)
         {
             boost::call_once(current_thread_tls_init_flag,create_current_thread_tls_key);
-            BOOST_VERIFY(TlsSetValue(current_thread_tls_key,new_data));
+            BOOL const res=TlsSetValue(current_thread_tls_key,new_data);
+            BOOST_ASSERT(res);
         }
 #endif
 

@@ -1,10 +1,3 @@
-[/ 
-  Copyright 2006-2007 John Maddock.
-  Distributed under the Boost Software License, Version 1.0.
-  (See accompanying file LICENSE_1_0.txt or copy at
-  http://www.boost.org/LICENSE_1_0.txt).
-]
-
 
 [section:basic_extended POSIX Extended Regular Expression Syntax]
 
@@ -426,5 +419,4 @@ IEEE Std 1003.1-2001, Portable Operating System Interface (POSIX ), Shells and U
 IEEE Std 1003.1-2001, Portable Operating System Interface (POSIX ), Shells and Utilities, Section 4, Utilities, awk.]
 
 [endsect]
-
 

@@ -78,8 +78,6 @@ void expected_results()
 #else
    largest_type = "(long\\s+)?double";
 #endif
-
-#ifndef BOOST_MATH_NO_LONG_DOUBLE_MATH_FUNCTIONS
    //
    // Linux etc,
    // Extended exponent range of long double
@@ -109,7 +107,6 @@ void expected_results()
          ".*",                          // test data group
          ".*", 5000000L, 500000);         // test function
    }
-#endif
    //
    // MinGW,
    // Extended exponent range of long double
@@ -131,30 +128,17 @@ void expected_results()
       ".*", 300000, 20000);         // test function
 
    //
-   // HP-UX and Solaris:
+   // HP-UX
    // Extended exponent range of long double
    // causes more extreme test cases to be executed:
    //
    add_expected_result(
       ".*",                          // compiler
       ".*",                          // stdlib
-      "HP-UX|Sun Solaris",           // platform
-      "long double",                 // test type(s)
+      "HP-UX",                       // platform
+      "long double",                      // test type(s)
       ".*",                          // test data group
-      ".*", 200000, 100000);         // test function
-
-   //
-   // HP Tru64:
-   // Extended exponent range of long double
-   // causes more extreme test cases to be executed:
-   //
-   add_expected_result(
-      "HP Tru64.*",                  // compiler
-      ".*",                          // stdlib
-      ".*",                          // platform
-      "long double",                 // test type(s)
-      ".*",                          // test data group
-      ".*", 200000, 100000);         // test function
+      ".*", 200000, 100000);            // test function
 
    //
    // Catch all cases come last:
@@ -203,9 +187,7 @@ void test_inverses(const T& data)
       //
       if(data[i][5] == 0)
          BOOST_CHECK_EQUAL(boost::math::ibeta_inv(data[i][0], data[i][1], data[i][5]), value_type(0));
-      else if((1 - data[i][5] > 0.001) 
-         && (fabs(data[i][5]) > 2 * boost::math::tools::min_value<value_type>()) 
-         && (fabs(data[i][5]) > 2 * boost::math::tools::min_value<double>()))
+      else if((1 - data[i][5] > 0.001) && (fabs(data[i][5]) >= boost::math::tools::min_value<value_type>()) && (fabs(data[i][5]) >= boost::math::tools::min_value<double>()))
       {
          value_type inv = boost::math::ibeta_inv(data[i][0], data[i][1], data[i][5]);
          BOOST_CHECK_CLOSE(data[i][2], inv, precision);
@@ -215,9 +197,7 @@ void test_inverses(const T& data)
 
       if(data[i][6] == 0)
          BOOST_CHECK_EQUAL(boost::math::ibetac_inv(data[i][0], data[i][1], data[i][6]), value_type(1));
-      else if((1 - data[i][6] > 0.001) 
-         && (fabs(data[i][6]) > 2 * boost::math::tools::min_value<value_type>()) 
-         && (fabs(data[i][6]) > 2 * boost::math::tools::min_value<double>()))
+      else if((1 - data[i][6] > 0.001) && (fabs(data[i][6]) >= boost::math::tools::min_value<value_type>()) && (fabs(data[i][6]) >= boost::math::tools::min_value<double>()))
       {
          value_type inv = boost::math::ibetac_inv(data[i][0], data[i][1], data[i][6]);
          BOOST_CHECK_CLOSE(data[i][2], inv, precision);

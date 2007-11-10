@@ -103,13 +103,6 @@ void expected_results()
    // *very* extreme due to the increased exponent range
    // of 80-bit long doubles.  Also effect Mac OS.
    //
-   add_expected_result(
-      "[^|]*",                          // compiler
-      "[^|]*",                          // stdlib
-      "linux|Mac OS",                          // platform
-      largest_type,                     // test type(s)
-      "(?i).*large.*",                      // test data group
-      ".*", 200000, 10000);                 // test function
 #ifndef BOOST_MATH_NO_REAL_CONCEPT_TESTS
    add_expected_result(
       "[^|]*",                          // compiler
@@ -119,6 +112,13 @@ void expected_results()
       "(?i).*large.*",                      // test data group
       ".*", 40, 20);                 // test function
 #endif
+   add_expected_result(
+      "[^|]*",                          // compiler
+      "[^|]*",                          // stdlib
+      "linux|Mac OS",                          // platform
+      largest_type,                     // test type(s)
+      "(?i).*large.*",                      // test data group
+      ".*", 200000, 10000);                 // test function
    add_expected_result(
       "[^|]*",                          // compiler
       "[^|]*",                          // stdlib
@@ -150,7 +150,7 @@ void expected_results()
       ".*",                          // platform
       largest_type,                     // test type(s)
       "(?i).*large.*",                      // test data group
-      ".*", 130000, 10000);                 // test function
+      ".*", 100000, 10000);                 // test function
    //
    // Sun OS:
    //
@@ -160,7 +160,7 @@ void expected_results()
       "Sun.*",                          // platform
       largest_type,                     // test type(s)
       "(?i).*large.*",                      // test data group
-      ".*", 130000, 10000);                 // test function
+      ".*", 110000, 10000);                 // test function
    add_expected_result(
       "[^|]*",                          // compiler
       "[^|]*",                          // stdlib
