@@ -21,7 +21,7 @@
     struct ihash
         : std::unary_function<std::string, bool>
     {
-        bool operator()(std::string const& x) const
+        std::size_t operator()(std::string const& x) const
         {
             std::size_t seed = 0;
 
