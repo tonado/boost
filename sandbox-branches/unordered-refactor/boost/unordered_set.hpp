@@ -72,6 +72,7 @@ namespace boost
             : base(f, l, boost::unordered_detail::default_initial_bucket_count,
                 hasher(), key_equal(), allocator_type())
         {
+            base.insert_unique(f, l);
         }
 
         template <class InputIterator>
@@ -81,6 +82,7 @@ namespace boost
                 const allocator_type &a = allocator_type())
             : base(f, l, n, hf, eql, a)
         {
+            base.insert_unique(f, l);
         }
 
     private:
@@ -152,18 +154,18 @@ namespace boost
         std::pair<iterator, bool> insert(const value_type& obj)
         {
             return boost::unordered_detail::pair_cast<iterator, bool>(
-                    base.insert(obj));
+                    base.insert_unique(obj));
         }
 
         iterator insert(const_iterator hint, const value_type& obj)
         {
-            return iterator(base.insert(get(hint), obj));
+            return iterator(base.insert_unique(get(hint), obj));
         }
 
         template <class InputIterator>
             void insert(InputIterator first, InputIterator last)
         {
-            base.insert(first, last);
+            base.insert_unique(first, last);
         }
 
         iterator erase(const_iterator position)
@@ -357,6 +359,7 @@ namespace boost
             : base(f, l, boost::unordered_detail::default_initial_bucket_count,
                 hasher(), key_equal(), allocator_type())
         {
+            base.insert_equiv(f, l);
         }
 
         template <class InputIterator>
@@ -366,6 +369,7 @@ namespace boost
                 const allocator_type &a = allocator_type())
           : base(f, l, n, hf, eql, a)
         {
+            base.insert_equiv(f, l);
         }
 
     private:
@@ -436,18 +440,18 @@ namespace boost
 
         iterator insert(const value_type& obj)
         {
-            return iterator(base.insert(obj));
+            return iterator(base.insert_equiv(obj));
         }
 
         iterator insert(const_iterator hint, const value_type& obj)
         {
-            return iterator(base.insert(get(hint), obj));
+            return iterator(base.insert_equiv(get(hint), obj));
         }
 
         template <class InputIterator>
             void insert(InputIterator first, InputIterator last)
         {
-            base.insert(first, last);
+            base.insert_equiv(first, last);
         }
 
         iterator erase(const_iterator position)

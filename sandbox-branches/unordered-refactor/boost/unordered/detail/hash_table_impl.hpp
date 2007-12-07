@@ -1120,9 +1120,9 @@ namespace boost {
                     mlf_(1.0f)                     // no throw
             {
                 calculate_max_load(); // no throw
-
-                // This can throw, but HASH_TABLE_DATA's destructor will clean up.
-                insert(i, j);
+                // Inserting elements is left to the containing class.
+                // This is a little odd, but hopefully will be cleaned up with
+                // future development.
             }
             // Copy Construct
 
@@ -1507,13 +1507,11 @@ namespace boost {
             // basic exception safety, if hash function throws
             // strong otherwise.
 
-#if BOOST_UNORDERED_HASH_EQUIVALENT
-
             // Insert (equivalent key containers)
 
             // if hash function throws, basic exception safety
             // strong otherwise
-            iterator_base insert(value_type const& v)
+            iterator_base insert_equiv(value_type const& v)
             {
                 key_type const& k = extract_key(v);
                 size_type hash_value = hash_function()(k);
@@ -1549,13 +1547,13 @@ namespace boost {
 
             // if hash function throws, basic exception safety
             // strong otherwise
-            iterator_base insert(iterator_base const& it, value_type const& v)
+            iterator_base insert_equiv(iterator_base const& it, value_type const& v)
             {
                 // equal can throw, but with no effects
                 if (it == this->end() || !equal(extract_key(v), *it)) {
                     // Use the standard insert if the iterator doesn't point
                     // to a matching key.
-                    return insert(v);
+                    return insert_equiv(v);
                 }
                 else {
                     // Find the first node in the group - so that the node
@@ -1591,11 +1589,11 @@ namespace boost {
             // if hash function throws, or inserting > 1 element, basic exception safety
             // strong otherwise
             template <typename I>
-            void insert_for_range(I i, I j, forward_traversal_tag)
+            void insert_for_range_equiv(I i, I j, forward_traversal_tag)
             {
                 size_type distance = std::distance(i, j);
                 if(distance == 1) {
-                    insert(*i);
+                    insert_equiv(*i);
                 }
                 else {
                     // Only require basic exception safety here
@@ -1620,12 +1618,12 @@ namespace boost {
             // if hash function throws, or inserting > 1 element, basic exception safety
             // strong otherwise
             template <typename I>
-            void insert_for_range(I i, I j,
+            void insert_for_range_equiv(I i, I j,
                     boost::incrementable_traversal_tag)
             {
                 // If only inserting 1 element, get the required
                 // safety since insert is only called once.
-                for (; i != j; ++i) insert(*i);
+                for (; i != j; ++i) insert_equiv(*i);
             }
 
         public:
@@ -1633,13 +1631,13 @@ namespace boost {
             // if hash function throws, or inserting > 1 element, basic exception safety
             // strong otherwise
             template <typename I>
-            void insert(I i, I j)
+            void insert_equiv(I i, I j)
             {
                 BOOST_DEDUCED_TYPENAME boost::iterator_traversal<I>::type
                     iterator_traversal_tag;
-                insert_for_range(i, j, iterator_traversal_tag);
+                insert_for_range_equiv(i, j, iterator_traversal_tag);
             }
-#else
+
             // if hash function throws, basic exception safety
             // strong otherwise
             value_type& operator[](key_type const& k)
@@ -1681,7 +1679,7 @@ namespace boost {
 
             // if hash function throws, basic exception safety
             // strong otherwise
-            std::pair<iterator_base, bool> insert(value_type const& v)
+            std::pair<iterator_base, bool> insert_unique(value_type const& v)
             {
                 // No side effects in this initial code
                 key_type const& k = extract_key(v);
@@ -1722,40 +1720,40 @@ namespace boost {
 
             // if hash function throws, basic exception safety
             // strong otherwise
-            iterator_base insert(iterator_base const& it, value_type const& v)
+            iterator_base insert_unique(iterator_base const& it, value_type const& v)
             {
                 if(it != this->end() && equal(extract_key(v), *it))
                     return it;
                 else
-                    return insert(v).first;
+                    return insert_unique(v).first;
             }
 
             // Insert from iterators (unique keys)
 
             template <typename I>
-            size_type insert_size(I i, I j, boost::forward_traversal_tag)
+            size_type insert_size_unique(I i, I j, boost::forward_traversal_tag)
             {
                 return std::distance(i, j);
             }
 
             template <typename I>
-            size_type insert_size(I, I, boost::incrementable_traversal_tag)
+            size_type insert_size_unique(I, I, boost::incrementable_traversal_tag)
             {
                 return 1;
             }
 
             template <typename I>
-            size_type insert_size(I i, I j)
+            size_type insert_size_unique(I i, I j)
             {
                 BOOST_DEDUCED_TYPENAME boost::iterator_traversal<I>::type
                     iterator_traversal_tag;
-                return insert_size(i, j, iterator_traversal_tag);
+                return insert_size_unique(i, j, iterator_traversal_tag);
             }
 
             // if hash function throws, or inserting > 1 element, basic exception safety
             // strong otherwise
             template <typename InputIterator>
-            void insert(InputIterator i, InputIterator j)
+            void insert_unique(InputIterator i, InputIterator j)
             {
                 // If only inserting 1 element, get the required
                 // safety since insert is only called once.
@@ -1779,7 +1777,7 @@ namespace boost {
                         // reserve has basic exception safety if the hash function
                         // throws, strong otherwise.
                         if(size() + 1 >= max_load_) {
-                            reserve(size() + insert_size(i, j));
+                            reserve(size() + insert_size_unique(i, j));
                             bucket = this->buckets_ + this->index_from_hash(hash_value);
                         }
 
@@ -1788,7 +1786,7 @@ namespace boost {
                     }
                 }
             }
-#endif
+
         public:
 
             // erase
