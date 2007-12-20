@@ -1886,14 +1886,14 @@ public:
                 return true;
             }
 
-            inline bool group_hash(link_ptr it, type_wrapper<key_type>*) const
+            inline std::size_t group_hash(link_ptr it, type_wrapper<key_type>*) const
             {
                 std::size_t seed = data::group_count(it);
                 boost::hash_combine(seed, hash_function()(data::get_value(it)));
                 return seed;
             }
 
-            inline bool group_hash(link_ptr it, void*) const
+            inline std::size_t group_hash(link_ptr it, void*) const
             {
                 std::size_t seed = hash_function()(data::get_value(it).first);
 
