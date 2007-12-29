@@ -20,17 +20,16 @@ value of type `std::size_t`.  `std::size_t` has a much greater range of values
 then the number of buckets, so that container applies another transformation to
 that value to choose a bucket to place the element in.
 
-If at a later date the container wants to find an element in the container it
-just has to apply the same process to the element's key to discover which
-bucket it is in. If the hash function has worked well the elements will be
-evenly distributed amongst the buckets so it will only have to examine a small
-number of elements.
+Retreiving the elements for a given key is simple. The same process is applied
+to the key to find the correct bucket. Then the key is compared with the
+elements in the bucket to find any elements that match.  If the hash
+function has worked well the elements will be evenly distributed amongst the
+buckets so only a small number of elements will need to be examined.
 
 You can see in the diagram that `A` & `D` have been placed in the same bucket.
-This means that when looking for these elements, of another element that would
-be placed in the same bucket, up to 2 comparison have to be made, making
-searching slower. This is known as a collision. To keep things fast we try to
-keep these to a minimum.  
+When looking for elements in this bucket up to 2 comparisons are made, making
+the search slower. This is known as a collision. To keep things fast we try to
+keep collisions to a minimum.
 
 [table Methods for Accessing Buckets
     [[Method] [Description]]
