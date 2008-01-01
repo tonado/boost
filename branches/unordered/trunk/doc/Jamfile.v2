@@ -8,8 +8,8 @@ boostbook doc : src/boost.xml
 
      <dependency>../libs/unordered/doc//unordered
      <implicit-dependency>../libs/unordered/doc//unordered
-     #<dependency>../libs/functional/hash/doc//hash
-     #<implicit-dependency>../libs/functional/hash/doc//hash
+     <dependency>../libs/functional/hash/doc//hash
+     <implicit-dependency>../libs/functional/hash/doc//hash
 
      <xsl:param>boost.libraries=../../libs/libraries.htm
     ;
