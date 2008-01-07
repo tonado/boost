@@ -215,18 +215,7 @@ namespace test
                 memory_area(void const* s, void const* e)
                     : start(s), end(e)
                 {
-                }
-
-                // This is a bit dodgy as it defines overlapping
-                // areas as 'equal', so this isn't a total ordering.
-                // But it is for non-overlapping memory regions - which
-                // is what'll be stored.
-                //
-                // All searches will be for areas entirely contained by
-                // a member of the set - so it should find the area that contains
-                // the region that is searched for.
-                bool operator<(memory_area const& other) const {
-                    return end < other.start;
+                    BOOST_ASSERT(start != end);
                 }
             };
 
@@ -239,7 +228,22 @@ namespace test
                 int tag_;
             };
 
-            typedef std::map<memory_area, memory_track> allocated_memory_type;
+            // This is a bit dodgy as it defines overlapping
+            // areas as 'equal', so this isn't a total ordering.
+            // But it is for non-overlapping memory regions - which
+            // is what'll be stored.
+            //
+            // All searches will be for areas entirely contained by
+            // a member of the set - so it should find the area that contains
+            // the region that is searched for.
+
+            struct memory_area_compare {
+                bool operator()(memory_area const& x, memory_area const& y) const {
+                    return x.end <= y.start;
+                }
+            };
+
+            typedef std::map<memory_area, memory_track, memory_area_compare> allocated_memory_type;
             allocated_memory_type allocated_memory;
             unsigned int count_allocators = 0;
             unsigned int count_allocations = 0;
@@ -293,7 +297,7 @@ namespace test
         void track_deallocate(void* ptr, std::size_t n, std::size_t size, int tag)
         {
             allocated_memory_type::iterator pos
-                = allocated_memory.find(memory_area(ptr, ptr));
+                = allocated_memory.find(memory_area(ptr, (char*) ptr + n));
             if(pos == allocated_memory.end()) {
                 BOOST_ERROR("Deallocating unknown pointer.");
             } else {
@@ -307,28 +311,33 @@ namespace test
             if(count_allocations > 0) --count_allocations;
         }
 
-        void track_construct(void* ptr, std::size_t /*size*/, int tag)
+        void track_construct(void* ptr, std::size_t size, int tag)
         {
             allocated_memory_type::iterator pos
-                = allocated_memory.find(memory_area(ptr, ptr));
-            if(pos == allocated_memory.end())
+                = allocated_memory.find(memory_area(ptr, (char*) ptr + size));
+            if(pos == allocated_memory.end()) {
                 BOOST_ERROR("Constructing unknown pointer.");
-            BOOST_TEST(pos->second.tag_ == tag);
+            }
+            else {
+                BOOST_TEST(pos->second.tag_ == tag);
+                ++pos->second.constructed_;
+            }
             ++count_constructions;
-            ++pos->second.constructed_;
         }
 
-        void track_destroy(void* ptr, std::size_t /*size*/, int tag)
+        void track_destroy(void* ptr, std::size_t size, int tag)
         {
             allocated_memory_type::iterator pos
-                = allocated_memory.find(memory_area(ptr, ptr));
+                = allocated_memory.find(memory_area(ptr, (char*) ptr + size));
             if(pos == allocated_memory.end())
                 BOOST_ERROR("Destroying unknown pointer.");
+            else {
+                BOOST_TEST(pos->second.tag_ == tag);
+                BOOST_TEST(pos->second.constructed_ > 0);
+                if(pos->second.constructed_ > 0) --pos->second.constructed_;
+            }
             BOOST_TEST(count_constructions > 0);
-            BOOST_TEST(pos->second.tag_ == tag);
-            BOOST_TEST(pos->second.constructed_ > 0);
             if(count_constructions > 0) --count_constructions;
-            if(pos->second.constructed_ > 0) --pos->second.constructed_;
         }
     }
 
