@@ -1,11 +1,11 @@
 
-project cgi.examples.fcgi.hello_world ;
+project cgi.examples.fcgi.echo ;
 
-exe fast_hw : main.cpp ;
+exe fcgi_echo : main.cpp ;
 
 install install
   :
-    fast_hw
+    fcgi_echo
   :
     <location>$(fcgi-bin)
   ;
