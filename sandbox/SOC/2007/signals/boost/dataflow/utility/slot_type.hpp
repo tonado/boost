@@ -1,23 +1,23 @@
-// Copyright Stjepan Rajko 2007. Use, modification and
+// Copyright Stjepan Rajko 2007,2008. Use, modification and
 // distribution is subject to the Boost Software License, Version
 // 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef SIGNAL_NETWORK_SLOT_TYPE_HPP
-#define SIGNAL_NETWORK_SLOT_TYPE_HPP
-
-// Constructs a type corresponding to pointer to member of T with signature Signature.
-// e.g. slot_type<some_class, void(float)>::type is void (some_class::*) (float)
+#ifndef BOOST_DATAFLOW_UTILITY_SLOT_TYPE_HPP
+#define BOOST_DATAFLOW_UTILITY_SLOT_TYPE_HPP
 
 #include <boost/function_types/member_function_pointer.hpp>
 #include <boost/function_types/parameter_types.hpp>
 #include <boost/function_types/result_type.hpp>
 #include <boost/mpl/push_front.hpp>
 
-namespace boost { namespace signals {
+namespace boost {  namespace dataflow {
 
-namespace detail {
-        
+namespace utility {
+
+// Constructs a type corresponding to pointer to member of T with signature Signature.
+// e.g. slot_type<some_class, void(float)>::type is void (some_class::*) (float)
+
     template <typename Signature, typename T>
     struct slot_type
     {
@@ -31,8 +31,8 @@ namespace detail {
             >::type type;
     };
         
-} // namespace detail
+} // namespace utility
 
-} } // namespace boost::signals
+} } // namespace boost::dataflow
 
-#endif // SIGNAL_NETWORK_SLOT_TYPE_HPP
+#endif // BOOST_DATAFLOW_UTILITY_SLOT_TYPE_HPP
