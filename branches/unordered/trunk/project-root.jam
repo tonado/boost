@@ -44,15 +44,10 @@ use-project /boost/unit_test : $(boost-root)/libs/test/build ;
 
 project unordered
     : requirements
+        <include>.
         <include>$(boost-root)
     :   #   build everything in ./bin.v2
         build-dir bin.v2
     ;
 
-
-
-
-
-
-
-
+path-constant BOOST_ROOT : $(boost-root) ;
