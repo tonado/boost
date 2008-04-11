@@ -65,9 +65,9 @@ namespace has_swap_
       BOOST_STATIC_CONSTANT(bool, value = sizeof(swap(x,x),'x') == 1);
       
 #if BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x564))
-      typedef boost::mpl::bool_<has_swap_impl<T>::value> type;
+      typedef ::boost::mpl::bool_<has_swap_impl<T>::value> type;
 #else
-      typedef boost::mpl::bool_<value> type;
+      typedef ::boost::mpl::bool_<value> type;
 #endif      
   };
 }

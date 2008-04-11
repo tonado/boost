@@ -154,7 +154,7 @@ struct move_from : const_lvalue<X>
 // Detect whether T is movable
 template <class T>
 struct is_movable
-  : boost::is_convertible<T,move_from<T> >
+  : ::boost::is_convertible<T,move_from<T> >
 {
 };
 
