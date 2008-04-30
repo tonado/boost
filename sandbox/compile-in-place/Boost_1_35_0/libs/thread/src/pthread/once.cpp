@@ -13,7 +13,7 @@ namespace boost
 {
     namespace detail
     {
-        BOOST_THREAD_DECL boost::uintmax_t once_global_epoch=UINTMAX_C(~0);
+        BOOST_THREAD_DECL boost::uintmax_t once_global_epoch = static_cast<boost::uintmax_t>(-1);
         BOOST_THREAD_DECL pthread_mutex_t once_epoch_mutex=PTHREAD_MUTEX_INITIALIZER;
         BOOST_THREAD_DECL pthread_cond_t once_epoch_cv = PTHREAD_COND_INITIALIZER;
 
@@ -42,7 +42,7 @@ namespace boost
             {
                 data=malloc(sizeof(boost::uintmax_t));
                 BOOST_VERIFY(!pthread_setspecific(epoch_tss_key,data));
-                *static_cast<boost::uintmax_t*>(data)=UINTMAX_C(~0);
+                *static_cast<boost::uintmax_t*>(data) = static_cast<boost::uintmax_t>(-1);
             }
             return *static_cast<boost::uintmax_t*>(data);
         }
