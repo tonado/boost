@@ -1,6 +1,6 @@
 
-#ifndef EDGE_HPP
-#define EDGE_HPP
+#ifndef UNDIRECTED_EDGE_HPP
+#define UNDIRECTED_EDGE_HPP
 
 #include "unordered_pair.hpp"
 
