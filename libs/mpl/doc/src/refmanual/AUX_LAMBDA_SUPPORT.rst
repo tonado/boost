@@ -102,4 +102,5 @@ See also
 |Macros|, |Metafunctions|, |Lambda Expression|
 
 
-.. |PP-tuple| replace:: `PP-tuple <http://www.boost.org/libs/preprocessor/doc/data/tuples.html>`__
+.. |PP-tuple| replace:: `PP-tuple`__
+__ http://www.boost.org/libs/preprocessor/doc/data/tuples.html

@@ -20,8 +20,7 @@ ECHO ###
 ECHO ### You can specify the toolset as the argument, i.e.:
 ECHO ###     .\build.bat msvc
 ECHO ###
-ECHO ### Toolsets supported by this script are: borland, como, gcc, gcc-nocygwin,
-ECHO ###     intel-win32, metrowerks, mingw, msvc, vc7, vc8, vc9
+ECHO ### Toolsets supported by this script are: borland, como, gcc, gcc-nocygwin, intel-win32, metrowerks, mingw, msvc, vc7, vc8
 ECHO ###
 set _error_=
 endlocal
@@ -41,7 +40,7 @@ goto :eof
 
 
 :Test_Option
-REM Tests whether the given string is in the form of an option: "--*"
+REM Tests wether the given string is in the form of an option: "--*"
 setlocal & endlocal
 setlocal
 set test=%1
@@ -380,7 +379,7 @@ set BJAM_SOURCES=%BJAM_SOURCES% hdrmacro.c headers.c jam.c jambase.c jamgram.c l
 set BJAM_SOURCES=%BJAM_SOURCES% newstr.c option.c output.c parse.c pathunix.c regexp.c
 set BJAM_SOURCES=%BJAM_SOURCES% rules.c scan.c search.c subst.c timestamp.c variable.c modules.c
 set BJAM_SOURCES=%BJAM_SOURCES% strings.c filesys.c builtins.c pwd.c class.c w32_getreg.c native.c
-set BJAM_SOURCES=%BJAM_SOURCES% modules/set.c modules/path.c modules/regex.c
+set BJAM_SOURCES=%BJAM_SOURCES% modules/set.c modules/path.c modules/regex.c 
 set BJAM_SOURCES=%BJAM_SOURCES% modules/property-set.c modules/sequence.c modules/order.c
 
 set BJAM_UPDATE=

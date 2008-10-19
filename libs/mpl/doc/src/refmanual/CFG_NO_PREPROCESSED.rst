@@ -40,4 +40,5 @@ See also
 
 |Macros|, |Configuration|
 
-.. |preprocessed headers| replace:: `preprocessed headers <|BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS link|>`__
+.. |preprocessed headers| replace:: `preprocessed headers`__
+__ `BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS`_
