@@ -30,7 +30,9 @@
 
 #if !defined(BOOST_IOSTREAMS_SOURCE) && \
     !defined(BOOST_ALL_NO_LIB) && \
-    !defined(BOOST_IOSTREAMS_NO_LIB) \
+    !defined(BOOST_IOSTREAMS_NO_LIB) && \
+    !defined(BOOST_ALL_COMPILE_IN_PLACE) && \
+    !defined(BOOST_IOSTREAMS_COMPILE_IN_PLACE) \
     /**/
 
 // Set the name of our library, this will get undef'ed by auto_link.hpp
