@@ -25,7 +25,27 @@ void slider::draw_prologue()
     base_type::draw_prologue();
 
     use_active_color();
-    glRectd(0,0,(m_value-m_min) * size().x / (m_max-m_min), size().y);
+
+    double position = (m_value-m_min) * size().x / (m_max-m_min);
+    glRectd(0,0,position, size().y);
+
+    glLineWidth(2.5);
+    glEnable(GL_LINE_SMOOTH);
+    glHint(GL_LINE_SMOOTH_HINT, GL_DONT_CARE);
+    glEnable (GL_BLEND);
+    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glHint (GL_LINE_SMOOTH_HINT, GL_DONT_CARE);
+
+    draw::color(black(0.3f));
+    draw::line(
+      position_type(position, 0),
+      position_type(position, size().y));
+
+    draw::line_loop
+      (0, 0)
+      (0, size().y)
+      (size().x, size().y)
+      (size().x, 0);
 }
 
 void slider::draw_epilogue()

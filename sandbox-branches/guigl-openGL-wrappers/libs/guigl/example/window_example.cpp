@@ -26,10 +26,15 @@
 
 using namespace boost::guigl;
 
-color_type make_grey(float value)
-{
-    return color_type(value, value, value);
-}
+//color_type make_grey(float value)
+//{
+//    return color_type(value, value, value);
+//}
+
+color_type make_grey(double value)
+  {
+  return color_type((float)value, (float)value, (float)value, (float)value);
+  }
 
 void idle()
 {
@@ -51,15 +56,15 @@ int main()
     test_window1 << new widget::label((
         _label = "Label",
         _size=size_type(100,30),
-        _background=color_type(1,1,1),
-        _color=color_type(0,0,0) ));
+        _background=blue(),
+        _color=black() ));
 
     widget::labeled_button *b1 = new widget::labeled_button((
         _size=size_type(100,30),
         _position=position_type(50, 50),
-        _background=color_type(1,1,1),
-        _active_color=color_type(1,0,0),
-        _color=color_type(0,0,0),
+        _background=color_type(1,1,1,1),
+        _active_color=color_type(1,0,0,1),
+        _color=color_type(0,0,0,1),
         _label="Button"));
     test_window1 << b1;
     
@@ -67,10 +72,10 @@ int main()
         _label="Slider",
         _size=size_type(100,30),
         _position=position_type(50,80),
-        _background=color_type(0.5,0.5,0.5),
-        _active_color=color_type(0,1,0),
+        _background=color_type(0.5,0.5,0.5,1),
+        _active_color=color_type(0,1,0,1),
         _min=0.1,_max=0.9,_value=0.5,
-        _step=0.1 ));
+        _step=0.02 ));
     test_window1 << s;
     
 
@@ -86,10 +91,10 @@ int main()
     
     layout::grid grid_layout(( _grid_size=test_window3.size(), _horizontal=3, _vertical=3 ));
     for(int i=1; i<=9; i++)
-        test_window3 << grid_layout.create<widget::button>(( _background=color_type(1.0f/i,1.0f/i,1.0f/i) ));
+        test_window3 << grid_layout.create<widget::button>(( _background=color_type(1.0f/i,1.0f/i,1.0f/i,1) ));
     
-    window test_window_3d(( _depth = true, _label="3D", _color=make_grey(1) ));
-    test_window_3d << new two_spheres(_period = 0.01);
+    //window test_window_3d(( _depth = true, _label="3D", _color=make_grey(1) ));
+    //test_window_3d << new two_spheres(_period = 0.01);
     
     application::on_idle().connect(&idle);
     application::timeout(&timer, 5000);
