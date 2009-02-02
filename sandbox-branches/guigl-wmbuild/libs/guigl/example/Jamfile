@@ -11,10 +11,16 @@ project boost/guigl/example
         <library>$(TOP)/libs/guigl/build//boost_guigl
     ;
 
-exe window_example : window_example.cpp two_spheres.cpp two_buttons.cpp ;
+exe window_example
+    :
+        window_example.cpp two_spheres.cpp two_buttons.cpp
+    :
+        # default choice - can be omitted
+        <use-window-manager>platform_glut
+    ;
 
 install window_example_stage : window_example
            : <install-dependencies>on <install-type>EXE
-             <install-type>LIB <location>$(TOP)/bin.v2/stage/window_example
+             <install-type>LIB <location>$(TOP)/bin/stage/window_example
            ;
  
