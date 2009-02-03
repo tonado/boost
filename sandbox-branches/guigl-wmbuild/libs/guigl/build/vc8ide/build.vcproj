@@ -373,6 +373,14 @@
 				</File>
 			</Filter>
 		</Filter>
+		<Filter
+			Name="window_manager"
+			>
+			<File
+				RelativePath="..\..\window_manager\Jamfile"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath="..\Jamfile"
 			>
