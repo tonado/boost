@@ -13,12 +13,16 @@
 
 #include <boost/guigl/platform/opengl.hpp>
 
+#include <boost/guigl/gl.hpp>
+
 using namespace boost::guigl;
 
 void draw_stuff()
 {
-    glColor3d(1.0, 0.0, 0.0);
-    glRectd(0.0, 0.0, 50.0, 50.0);
+    using namespace boost::guigl::gl;
+
+    color(1.0, 0.0, 0.0);
+    rect(0.0, 0.0, 50.0, 50.0);
 }
 
 int main()

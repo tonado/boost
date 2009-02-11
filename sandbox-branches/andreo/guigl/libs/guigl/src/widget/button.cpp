@@ -13,6 +13,7 @@
 #include <boost/guigl/view/impl/clickable.hpp>
 #include <boost/guigl/view/impl/positioned.hpp>
 #include <boost/guigl/view/impl/solid_background.hpp>
+#include <boost/guigl/gl.hpp>
 
 namespace boost { namespace guigl { namespace widget {
 
@@ -24,7 +25,7 @@ void button::draw_prologue()
     if(button_down())
     {
         use_active_color();
-        glRectd(0,0,size().x, size().y);
+        gl::rect(0., 0., size().x, size().y);
     }
 }
 

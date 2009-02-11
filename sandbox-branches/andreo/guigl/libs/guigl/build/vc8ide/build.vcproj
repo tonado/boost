@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="build"
 	ProjectGUID="{96DD7085-0763-49FF-9986-0244D7B43704}"
 	>
@@ -88,6 +88,10 @@
 				RelativePath="..\..\..\..\boost\guigl\export_symbols.hpp"
 				>
 			</File>
+			<File
+				RelativePath="..\..\..\..\boost\guigl\gl.hpp"
+				>
+			</File>
 			<Filter
 				Name="component"
 				>
@@ -115,6 +119,30 @@
 					RelativePath="..\..\..\../boost/guigl/platform/opengl.hpp"
 					>
 				</File>
+				<Filter
+					Name="impl"
+					>
+					<File
+						RelativePath="..\..\..\..\boost\guigl\platform\impl\color.hpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\boost\guigl\platform\impl\glut.hpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\boost\guigl\platform\impl\rect.hpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\boost\guigl\platform\impl\transform.hpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\boost\guigl\platform\impl\vertex.hpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="view"

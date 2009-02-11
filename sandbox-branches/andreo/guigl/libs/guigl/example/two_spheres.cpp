@@ -15,18 +15,28 @@
 #include <boost/guigl/view/impl/solid_background.hpp>
 #include <boost/guigl/view/impl/three_dimensional.hpp>
 #include <boost/guigl/platform/glu.hpp>
+#include <boost/guigl/gl.hpp>
 
 #include <iostream>
 
 void two_spheres::draw_prologue()
 {
+    using namespace boost::guigl::gl;
+
     base_type::draw_prologue();
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    gluSphere(static_cast<GLUquadric *>(sphere()), 10, 4, 4);
+
+    wire_sphere(20, 20, 20);
     glLoadIdentity();
-    glTranslatef(50,50,50);
-    gluSphere(static_cast<GLUquadric *>(sphere()), 10, 4, 4);
+    translate(50.f, 50.f, 50.f);
+    wire_sphere(20, 20, 20);
+
+    {
+        scoped_matrix m;
+        translate_x(-70.0f);
+        wire_teapot(20);
+    }
 }
 
 void two_spheres::draw()

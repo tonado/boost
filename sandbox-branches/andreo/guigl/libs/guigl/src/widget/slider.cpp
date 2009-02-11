@@ -13,6 +13,7 @@
 #include <boost/guigl/view/impl/positioned.hpp>
 #include <boost/guigl/view/impl/solid_background.hpp>
 #include <boost/guigl/view/impl/draggable.hpp>
+#include <boost/guigl/gl.hpp>
 #include <iostream>
 #include <cmath>
 
@@ -25,7 +26,7 @@ void slider::draw_prologue()
     base_type::draw_prologue();
 
     use_active_color();
-    glRectd(0,0,(m_value-m_min) * size().x / (m_max-m_min), size().y);
+    gl::rect(0.0, 0.0, (m_value-m_min) * size().x / (m_max-m_min), size().y);
 }
 
 void slider::draw_epilogue()
