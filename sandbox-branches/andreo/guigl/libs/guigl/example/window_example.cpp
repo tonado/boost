@@ -23,12 +23,11 @@
 
 #include <iostream>
 
-
 using namespace boost::guigl;
 
-color_type make_grey(float value)
+color_type make_grey(double value)
 {
-    return color_type(value, value, value);
+    return color_type((float)value, (float)value, (float)value);
 }
 
 void idle()
