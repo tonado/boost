@@ -30,7 +30,13 @@ public:
         , m_draw_prologue(rhs.m_draw_prologue)
         , m_draw_epilogue(rhs.m_draw_epilogue)
     {}
-    
+    template<typename T>
+    void set_draw_prologue(const T &t)
+    {   m_draw_prologue = t; }
+    template<typename T>
+    void set_draw_epilogue(const T &t)
+    {   m_draw_epilogue = t; }
+
 protected:
     void draw_prologue()
     {
@@ -50,4 +56,4 @@ private:
 
 }}}
 
-#endif // BOOST__GUIGL__VIEW__CUSTOM_DRAW_HPP
+#endif // BOOST__GUIGL__VIEW__CUSTOM_DRAWABLE_HPP

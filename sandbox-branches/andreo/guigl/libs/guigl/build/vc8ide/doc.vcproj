@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="doc"
 	ProjectGUID="{9D6EDF83-2360-4267-8075-64934F754048}"
 	>
@@ -742,15 +742,19 @@
 			</Filter>
 		</Filter>
 		<File
-			RelativePath="..\../doc/guigl.qbk"
-			>
-		</File>
-		<File
 			RelativePath="..\../doc/guigl_doxygen.xml"
 			>
 		</File>
 		<File
-			RelativePath="..\../doc/Jamfile"
+			RelativePath="..\..\doc\guigl.qbk"
+			>
+		</File>
+		<File
+			RelativePath="..\..\doc\Jamfile"
+			>
+		</File>
+		<File
+			RelativePath="..\..\doc\usage.qbk"
 			>
 		</File>
 	</Files>
