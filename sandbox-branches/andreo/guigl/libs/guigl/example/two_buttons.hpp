@@ -30,7 +30,7 @@ public:
     template<typename Args>
     two_buttons(const Args &args)
         : base_type((args, boost::guigl::_children=boost::fusion::make_vector(
-            boost::guigl::widget::labeled_button((boost::guigl::_label = "top button", boost::guigl::_background = boost::guigl::color_type(0.5,0.5,0.5))),
+            boost::guigl::widget::labeled_button((boost::guigl::_label = "top button", boost::guigl::_background = boost::guigl::make_color(0.5,0.5,0.5))),
             boost::guigl::widget::labeled_button(boost::guigl::_label = "bottom button")
         ) ))
     {

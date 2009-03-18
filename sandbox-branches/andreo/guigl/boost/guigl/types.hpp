@@ -17,7 +17,13 @@ namespace boost { namespace guigl {
 
 typedef gil::point2<double> size_type;
 typedef gil::point2<double> position_type;
-typedef gil::rgb32f_pixel_t color_type;
+typedef gil::rgba32f_pixel_t color_type;
+
+//TODO: move 'make_color' to appropriate place
+inline color_type make_color(float r, float g, float b, float a = 1.0f)
+{
+    return color_type(r, g, b, a);
+}
 
 }}
 
