@@ -58,6 +58,7 @@ namespace detail {
         bool operator()(const movement_event &event_info) const
         {
             m_mouse_tracking.m_mouse_state.position = event_info.position;
+            m_mouse_tracking.on_mouse_move();
             return false;
         }
 
@@ -70,11 +71,15 @@ namespace detail {
         bool operator()(const entry_exit_event &event_info) const
         {
             if(event_info.region == region::exit)
+              {
                 m_mouse_tracking.m_mouse_state.inside = false;
+                m_mouse_tracking.on_mouse_leave();
+              }
             else
             {
                 m_mouse_tracking.m_mouse_state.inside = true;
                 m_mouse_tracking.m_mouse_state.button_down = get_button_state<BaseView>::is_down(m_mouse_tracking);
+                m_mouse_tracking.on_mouse_enter();
             }
             return false;
         }

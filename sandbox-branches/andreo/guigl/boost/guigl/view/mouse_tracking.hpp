@@ -53,6 +53,10 @@ public:
 protected:
     bool BOOST_EXPORT_SYMBOLS on_event(const event_type &event_info);
 
+    virtual void on_mouse_enter() {};
+    virtual void on_mouse_leave() {};
+    virtual void on_mouse_move() {};
+
 private:
     guigl::mouse_state m_mouse_state;
 
