@@ -53,6 +53,7 @@ private:
     void button_down(bool state);
     void clickable_on_click()
     {
+        int i = 0;
         static_cast<Derived *>(this)->clickable_on_click();
     }
 
