@@ -6,6 +6,7 @@
     http://www.boost.org/LICENSE_1_0.txt)
 -----------------------------------------------===============================*/
 
+#include "pch.hpp"
 
 #include "two_buttons.hpp"
 #include <boost/guigl/view/impl/static_compound.hpp>
