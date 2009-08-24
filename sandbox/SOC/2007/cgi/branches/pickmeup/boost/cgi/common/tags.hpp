@@ -40,6 +40,7 @@ namespace cgi {
 
     // Connection types
     struct stdio {};
+    //struct stderr {};
     struct async_stdio {};
     struct tcp_socket {};
     // A shareable tcp_socket (ie. one that can be locked)
