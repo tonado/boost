@@ -39058,7 +39058,7 @@ Implements IP version 4 style addresses.
   
   [
     [[link boost_asio.reference.ip__address_v4.to_bytes [*to_bytes]]]
-    [Get the address in bytes. ]
+    [Get the address in bytes, in network order. ]
   ]
   
   [
@@ -39873,7 +39873,7 @@ Implements IP version 6 style addresses.
   
   [
     [[link boost_asio.reference.ip__address_v6.to_bytes [*to_bytes]]]
-    [Get the address in bytes. ]
+    [Get the address in bytes, in network order. ]
   ]
   
   [
