@@ -44,12 +44,6 @@ namespace cgi {
     typedef Protocol                                  protocol_type;
     typedef common::basic_protocol_service<Protocol>  protocol_service_type;
 
-    /// The unique service identifier
-    //static boost::asio::io_service::id id;
-    //explicit request_service()
-    //{
-    //}
-
     request_service(::cgi::common::io_service& ios)
       : detail::service_base<request_service<Protocol> >(ios)
       , service_impl_(boost::asio::use_service<service_impl_type>(ios))
@@ -123,7 +117,6 @@ namespace cgi {
     {
       return service_impl_.read_some(impl, buf, ec);
     }
-*/
     std::string
       GET(impl_type& impl, const std::string& name
          , boost::system::error_code& ec)
@@ -145,6 +138,7 @@ namespace cgi {
       return service_impl_.cookie(impl, name, ec);
     }
 
+*/
     /*
     std::string
       header(impl_type& impl, const std::string& name
