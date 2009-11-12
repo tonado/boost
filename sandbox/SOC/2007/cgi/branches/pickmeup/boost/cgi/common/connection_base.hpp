@@ -9,7 +9,9 @@
 #ifndef CGI_CONNECTION_BASE_HPP_INCLUDED__
 #define CGI_CONNECTION_BASE_HPP_INCLUDED__
 
-namespace cgi {
+#include "boost/cgi/config.hpp"
+
+BOOST_CGI_NAMESPACE_BEGIN
 
   /// Abstract Base Class for all connection types
   class connection_base
@@ -35,6 +37,6 @@ namespace cgi {
     //~connection_base() { }
   };
 
-} // namespace cgi
+BOOST_CGI_NAMESPACE_END
 
 #endif // CGI_CONNECTION_BASE_HPP_INCLUDED__
