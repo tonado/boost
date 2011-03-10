@@ -1,1 +1,0 @@
-exe line-compare-tool : text_diff.cpp ;
