@@ -24,8 +24,15 @@ BEGIN __LINE__ == 100 END
 
 # if BOOST_PP_VARIADICS
 
-BOOST_PP_ASSERT_IS_TUPLE((x,3,e,2))
+BOOST_PP_ASSERT_IS_TUPLE((t,3,e,2))
+BOOST_PP_ASSERT_IS_TUPLE(((y,s,w),3,e,2))
 BOOST_PP_ASSERT_IS_ARRAY((4,(x,3,e,2)))
+BOOST_PP_ASSERT_IS_ARRAY((6,(x,3,e,2,(4,(x,3,e,2)),$)))
 BOOST_PP_ASSERT_IS_LIST((4,(x,BOOST_PP_NIL)))
+BOOST_PP_ASSERT_IS_LIST(((3,6m,irj),(x,BOOST_PP_NIL)))
+// BOOST_PP_ASSERT_IS_SEQ((x)(y)(z)(2)(3)(4))
+// BOOST_PP_ASSERT_IS_SEQ((x)(y)(z)((1,2))(3)(4))
+// BOOST_PP_ASSERT_IS_SEQ((x)(y)(z)((1,2))(3)((4,(x,BOOST_PP_NIL))))
+// BOOST_PP_ASSERT_IS_SEQ((x)(y)((x)(y)(z)(2)(3)(4))((1,2))(3)((4,(x,BOOST_PP_NIL))))
 
 # endif

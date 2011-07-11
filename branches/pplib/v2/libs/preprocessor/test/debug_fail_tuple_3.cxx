@@ -1,6 +1,6 @@
 # /* **************************************************************************
 #  *                                                                          *
-#  *     (C) Copyright Paul Mensonides 2002.
+#  *     (C) Copyright Edward Diener 2011.
 #  *     Distributed under the Boost Software License, Version 1.0. (See
 #  *     accompanying file LICENSE_1_0.txt or copy at
 #  *     http://www.boost.org/LICENSE_1_0.txt)
@@ -9,14 +9,11 @@
 #
 # /* See http://www.boost.org for most recent version. */
 #
-# ifndef BOOST_PREPROCESSOR_DEBUG_HPP
-# define BOOST_PREPROCESSOR_DEBUG_HPP
-#
-# include <boost/preprocessor/debug/assert.hpp>
-# include <boost/preprocessor/debug/assert_is_array.hpp>
-# include <boost/preprocessor/debug/assert_is_list.hpp>
-# include <boost/preprocessor/debug/assert_is_seq.hpp>
-# include <boost/preprocessor/debug/assert_is_tuple.hpp>
-# include <boost/preprocessor/debug/line.hpp>
-#
+# include <boost/preprocessor/debug.hpp>
+# include <libs/preprocessor/test/test.h>
+
+# if BOOST_PP_VARIADICS
+
+BOOST_PP_ASSERT_IS_TUPLE(x,3,e,2)
+
 # endif
