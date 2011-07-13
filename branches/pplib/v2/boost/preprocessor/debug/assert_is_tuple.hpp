@@ -38,24 +38,6 @@
       ) \
 /**/
 #
-# define BOOST_PP_ASSERT_IS_TUPLE_DETAIL_RETURN(x) \
-    BOOST_PP_IS_TUPLE_DETAIL_ASSERT \
-      ( \
-      BOOST_PP_IIF \
-        ( \
-        BOOST_PP_IS_TUPLE_BEGIN(x), \
-        BOOST_PP_IS_TUPLE_DETAIL_IS_NOT_AFTER, \
-        BOOST_PP_IS_TUPLE_DETAIL_GEN_ZERO \
-        ) \
-      (x) \
-      ) \
-/**/
-#
-# define BOOST_PP_IS_TUPLE_DETAIL_ASSERT(x) \
-    BOOST_PP_ASSERT(x) \
-    x \
-/**/
-#
 # define BOOST_PP_IS_TUPLE_DETAIL_IS_NOT_AFTER(x) \
     BOOST_PP_IS_EMPTY(BOOST_PP_IS_TUPLE_DETAIL_EXPAND_AFTER x) \
 /**/
