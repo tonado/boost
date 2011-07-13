@@ -31,6 +31,10 @@
 # else
 #
 # define BOOST_PP_ASSERT_IS_SEQ(x) \
+    BOOST_PP_ASSERT \
+      ( \
+      BOOST_PP_IS_TUPLE_BEGIN(x) \
+      ) \
     BOOST_PP_IS_SEQ_DETAIL_GEN_EMPTY \
       ( \
       BOOST_PP_WHILE \
@@ -49,13 +53,7 @@
 # define BOOST_PP_IS_SEQ_DETAIL_GEN_EMPTY_I(x)
 #
 # define BOOST_PP_IS_SEQ_DETAIL_PRED(d,state) \
-    BOOST_PP_IIF \
-      ( \
-      BOOST_PP_IS_TUPLE_BEGIN(state), \
-      BOOST_PP_IS_SEQ_DETAIL_GEN_ONE, \
-      BOOST_PP_IS_SEQ_DETAIL_CHECK_NIL \
-      ) \
-    (state) \
+    BOOST_PP_IS_TUPLE_BEGIN(state) \
 /**/
 #
 # define BOOST_PP_IS_SEQ_DETAIL_OP(d,state) \
@@ -68,32 +66,6 @@
     (state) \
 /**/
 #
-# define BOOST_PP_IS_SEQ_DETAIL_ASSERT_FIRST_TUPLE_SIZE(x) \
-    BOOST_PP_IS_SEQ_DETAIL_EMPTY \
-      ( \
-      BOOST_PP_IS_SEQ_DETAIL_ASSERT_SIZE x \
-      ) \
-/**/
-#
-# define BOOST_PP_IS_SEQ_DETAIL_GET_AFTER_FIRST_TUPLE(x) \
-    BOOST_PP_IS_SEQ_DETAIL_EMPTY x \
-/**/
-#
-# define BOOST_PP_IS_SEQ_DETAIL_GEN_NOT_TUPLE(x) \
-    BOOST_PP_IS_SEQ_DETAIL_GEN_NIL \
-/**/
-#
-# define BOOST_PP_IS_SEQ_DETAIL_IS_AFTER_FIRST_TUPLE(x) \
-    BOOST_PP_IS_SEQ_DETAIL_ASSERT_FIRST_TUPLE_SIZE(x) \
-    BOOST_PP_NOT \
-      ( \
-      BOOST_PP_IS_EMPTY \
-        ( \
-        BOOST_PP_IS_SEQ_DETAIL_EMPTY x \
-        ) \
-      ) \
-/**/
-#
 # define BOOST_PP_IS_SEQ_DETAIL_ASSERT_SIZE(...) \
     BOOST_PP_ASSERT \
       ( \
@@ -103,34 +75,45 @@
         1 \
         ) \
       ) \
+    1 \
+/**/
+#
+# define BOOST_PP_IS_SEQ_DETAIL_ASSERT_FIRST_TUPLE_SIZE(x) \
+    BOOST_PP_IS_SEQ_DETAIL_EMPTY_E \
+      ( \
+      BOOST_PP_IS_SEQ_DETAIL_ASSERT_SIZE x \
+      ) \
+/**/
+# define BOOST_PP_IS_SEQ_DETAIL_GET_AFTER_FIRST_TUPLE(x) \
+    BOOST_PP_IS_SEQ_DETAIL_EMPTY x \
+/**/
+#
+# define BOOST_PP_IS_SEQ_DETAIL_GEN_NOT_TUPLE(x) \
+    BOOST_PP_ASSERT \
+      ( \
+      BOOST_PP_IS_EMPTY \
+        ( \
+        BOOST_PP_IS_SEQ_DETAIL_EMPTY x \
+        ) \
+      ) \
+    BOOST_PP_IS_SEQ_DETAIL_NIL \
+/**/
+#
+# define BOOST_PP_IS_SEQ_DETAIL_IS_AFTER_FIRST_TUPLE(x) \
+    BOOST_PP_IS_SEQ_DETAIL_ASSERT_FIRST_TUPLE_SIZE(x) \
+    BOOST_PP_IS_TUPLE_BEGIN \
+      ( \
+      BOOST_PP_IS_SEQ_DETAIL_EMPTY x \
+      ) \
 /**/
 #
 # define BOOST_PP_IS_SEQ_DETAIL_EMPTY(...)
 #
-# define BOOST_PP_IS_SEQ_DETAIL_GEN_ONE(x) \
-    1 \
+# define BOOST_PP_IS_SEQ_DETAIL_EMPTY_E(...) \
+    BOOST_PP_IS_SEQ_DETAIL_EMPTY_1(__VA_ARGS__) \
 /**/
 #
-# define BOOST_PP_IS_SEQ_DETAIL_CHECK_NIL(x) \
-    BOOST_PP_ASSERT \
-      ( \
-      BOOST_PP_IS_SEQ_DETAIL_NIL(x) \
-      ) \
-    0 \
-/**/
-#
-# define BOOST_PP_IS_SEQ_DETAIL_NIL(x) \
-    BOOST_PP_IS_EMPTY \
-      ( \
-      BOOST_PP_CAT \
-        ( \
-        BOOST_PP_IS_SEQ_DETAIL_NIL_HELPER_, \
-        x \
-        ) \
-      ) \
-/**/
-#
-# define BOOST_PP_IS_SEQ_DETAIL_NIL_HELPER_BOOST_PP_IS_SEQ_DETAIL_GEN_NIL
+# define BOOST_PP_IS_SEQ_DETAIL_EMPTY_1(...)
 #
 # endif /* NDEBUG */
 # endif /* BOOST_PP_VARIADICS */
