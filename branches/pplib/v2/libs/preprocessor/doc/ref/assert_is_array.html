@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <meta content="text/html;charset=ISO-8859-1" http-equiv="Content-Type">
+    <title>BOOST_PP_ASSERT_IS_ARRAY
+    </title>
+	<link rel="stylesheet" type="text/css" href="../styles.css">
+  </head>
+  <body>
+	<div style="margin-left: 0px;">
+		The <b>BOOST_PP_ASSERT_IS_ARRAY</b> macro conditionally causes a preprocessing error if its parameter is not an <i>array</i>. <br>
+Although the macro itself is not a variadic macro, it needs variadic macro support in order to be invoked.
+	</div>
+	<h4>Usage</h4>
+		<div class="code">
+			<b>BOOST_PP_ASSERT_IS_ARRAY</b>(<i>param</i>) <sup>(v)</sup>
+		</div>
+	<h4>Arguments</h4>
+		<dl>
+			<dt>param</dt>
+			<dd>
+				A parameter to check for an <i>array</i>.
+			</dd>
+		</dl>
+	<h4>Remarks</h4>
+		<div>
+			If <i>param</i> is <b>not</b> an <i>array</i>, this macro causes a preprocessing error.&nbsp;
+			Otherwise, it expands to nothing.<br>
+
+		</div>
+	<h4>See Also</h4>
+		<ul>
+			<li><a href="assert_is_list.html">BOOST_PP_ASSERT_IS_LIST</a></li>
+  <li><a href="assert_is_seq.html">BOOST_PP_ASSERT_IS_SEQ</a></li>
+  <li><a href="assert_is_tuple.html">BOOST_PP_ASSERT_IS_TUPLE</a></li>
+		</ul>
+	<h4>Requirements</h4>
+		<div>
+			<b>Header:</b> &nbsp;<a href="../headers/debug/assert_is_array.html">&lt;boost/preprocessor/debug/assert_is_array.hpp&gt;</a>
+		</div>
+	<h4>Sample Code</h4>
+<div><pre>#include <a href="../headers/debug/assert_is_array.html">&lt;boost/preprocessor/debug/assert_is_array.hpp&gt;</a><br><br>#define AN_ARRAY (3,(a,b,c))<br>#define NOT_JUST_ARRAY (3,(a,b,c)) text<br>#define A_TUPLE (a,b,c)<br>#define A_LIST (a,(b,(c,BOOST_PP_NIL)))<br>#define A_SEQ (a)(b)(c)<br>#define A_TEXT text<br><br>BOOST_PP_ASSERT_IS_ARRAY(AN_ARRAY) // no output<br>BOOST_PP_ASSERT_IS_ARRAY(NOT_JUST_ARRAY) // generates preprocessing error<br>BOOST_PP_ASSERT_IS_ARRAY(A_TUPLE) // generates preprocessing error<br>BOOST_PP_ASSERT_IS_ARRAY(A_LIST) // generates preprocessing error<br>BOOST_PP_ASSERT_IS_ARRAY(A_SEQ) // generates preprocessing error<br>BOOST_PP_ASSERT_IS_ARRAY(A_TEXT) // generates preprocessing error</pre></div>
+	<hr size="1">
+	<div style="margin-left: 0px;">
+		<i></i><i>© Copyright Edward Diener 2011</i><br>
+
+	</div>
+	<div style="margin-left: 0px;">
+		<p><small>Distributed under the Boost Software License, Version 1.0. (See
+		accompanying file <a href="../../../../LICENSE_1_0.txt">LICENSE_1_0.txt</a> or
+		copy at <a href="http://www.boost.org/LICENSE_1_0.txt">www.boost.org/LICENSE_1_0.txt</a>)</small></p>
+	</div>
+  </body>
+</html>

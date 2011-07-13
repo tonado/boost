@@ -1,0 +1,44 @@
+<html>
+  <head>
+  <meta content="text/html;charset=ISO-8859-1" http-equiv="Content-Type">
+  <title>BOOST_PP_IS_TUPLE_BEGIN
+  </title>
+    <link rel="stylesheet" type="text/css" href="../styles.css">
+  </head>
+  <body>
+<div style="margin-left: 0px;"> The <b>BOOST_PP_IS_TUPLE_BEGIN </b>macro
+tests whether its parameter begins with a tuple. Although the macro
+itself is not a variadic macro, it needs variadic macro support in
+order to be invoked.<br>
+ </div>
+<h4>Usage</h4>
+<div class="code"> <b>BOOST_PP_IS_TUPLE_BEGIN</b>(param) <sup>(v)</sup><br>
+ </div>
+<h4>Arguments</h4>
+<dl>
+<dt>param<br>
+</dt><dd>
+				The parameter to test.
+			</dd></dl>
+<h4>Remarks</h4>
+<div>If the <i>param </i>begins with a tuple the macro returns 1, otherwise returns 0. The <i>param </i>may contain other tokens after the tuple and it still will return 1. Therefore this macro is <b>NOT </b>a test whether or not the <i>param </i>is a tuple or not, since there is absolutely no safe way to test that. In order to assert that the <i>param </i>is a tuple, use BOOST_PP_ASSERT_IS_TUPLE.
+</div>See Also
+<ul>
+<li><a href="assert_is_tuple.html">BOOST_PP_ASSERT_IS_TUPLE</a></li>
+</ul>
+<b>Requirements</b>
+<div> <b>Header:</b> &nbsp;<a href="../headers/facilities/is_tuple_begin.html">&lt;boost/preprocessor/facilities/is_tuple_begin.hpp&gt;</a><br>
+</div>
+<h4>Sample Code</h4>
+<div>
+<pre>#include &lt;<a href="../headers/facilities/is_tuple_begin.html">boost/preprocessor/facilities/is_tuple_begin.hpp</a>&gt;<br>#include &lt;<a href="../headers/debug/assert_is_tuple.html">boost/preprocessor/debug/assert_is_tuple.hpp</a>&gt;<br><br>#define ONLY_TUPLE (a,b,c)<br>#define STARTS_WITH_TUPLE (a,b,c) cheers<br>#define ENDS_WITH_TUPLE cheers (a,b,c)<br>#define HAS_NO_TUPLE cheers<br><br>BOOST_PP_IS_TUPLE_BEGIN(ONLY_TUPLE) // output is 1<br>BOOST_PP_IS_TUPLE_BEGIN(STARTS_WITH_TUPLE) // output is 1<br>BOOST_PP_IS_TUPLE_BEGIN(ENDS_WITH_TUPLE) // output is 0<br>BOOST_PP_IS_TUPLEv(HAS_NO_TUPLE) // output is 0<br><br>BOOST_PP_ASSERT_IS_TUPLE(ONLY_TUPLE) // no output<br>BOOST_PP_ASSERT_IS_TUPLE(STARTS_WITH_TUPLE) // generates a preprocessing error<br>BOOST_PP_ASSERT_IS_TUPLE(ENDS_WITH_TUPLE) // generates a preprocessing error<br>BOOST_PP_ASSERT_IS_TUPLE(HAS_NO_TUPLE) // generates a preprocessing error</pre>
+</div>
+<hr size="1">
+<div style="margin-left: 0px;"> <i></i><i>© Copyright Edward Diener 2011</i> </div>
+<div style="margin-left: 0px;">
+<p><small>Disributed under the Boost Software License, Version 1.0.
+(See accompanying file <a href="../../../../LICENSE_1_0.txt">LICENSE_1_0.txt</a>
+or copy at <a href="http://www.boost.org/LICENSE_1_0.txt">www.boost.org/LICENSE_1_0.txt</a>)</small></p>
+</div>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+<html>
+  <head>
+  <meta content="text/html;charset=ISO-8859-1" http-equiv="Content-Type">
+  <title>BOOST_PP_REMOVE_PARENS
+  </title>
+    <link rel="stylesheet" type="text/css" href="../styles.css">
+  </head>
+  <body>
+<div style="margin-left: 0px;"> The <b>BOOST_PP_REMOVE_PARENS </b>macro expands to its argument with the starting pair of parens removed if it exists. Although the macro itself is not a variadic macro, it needs variadic macro support in order to be invoked.
+ </div>
+<h4>Usage</h4>
+<div class="code"> <b>BOOST_PP_REMOVE_PARENS</b>(<i>param</i>) <sup>(v)</sup><br>
+ </div>
+<h4>Arguments</h4>
+<dl>
+<dt>param<br>
+</dt><dd>
+				The parameter whose parens will be removed.
+			</dd></dl>
+<h4>Remarks</h4>
+<div> This macro returns its argument with the starting pair of parens removed. If <i>param </i>does not start with parens, the macro just returns its argument.
+</div><b>Requirements</b>
+<div> <b>Header:</b> &nbsp;<a href="../headers/facilities/remove_parens.html">&lt;boost/preprocessor/facilities/remove_parens.hpp&gt;</a>
+</div>
+<h4>Sample Code</h4>
+<div>
+<pre>#include <a href="../headers/facilities/remove_parens.html">&lt;boost/preprocessor/facilities/remove_parens.hpp&gt;</a><br><br>#define ONLY_PARENS (a,b,c)<br>#define STARTS_WITH_PARENS (a,b,c) cheers (d,e)<br>#define ENDS_WITH_PARENS cheers (a,b,c)<br><br>BOOST_PP_REMOVE_PARENS(ONLY_PARENS) // output is: a,b,c<br>BOOST_PP_REMOVE_PARENS(STARTS_WITH_PARENS) // output is: a,b,c cheers (d,e)<br>BOOST_PP_REMOVE_PARENS(ENDS_WITH_PARENS) // output is: cheers (a,b,c)</pre>
+</div>
+<hr size="1">
+<div style="margin-left: 0px;"> <i></i><i>© Copyright Edward Diener 2011</i> </div>
+<div style="margin-left: 0px;">
+<p><small>Distributed under the Boost Software License, Version 1.0.
+(See accompanying file <a href="../../../../LICENSE_1_0.txt">LICENSE_1_0.txt</a>
+or copy at <a href="http://www.boost.org/LICENSE_1_0.txt">www.boost.org/LICENSE_1_0.txt</a>)</small></p>
+</div>
+  </body>
+</html>

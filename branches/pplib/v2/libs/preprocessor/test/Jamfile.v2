@@ -34,79 +34,6 @@ test-suite preprocessor
         [ compile variadic.cpp ]
    ;
 
-test-suite preprocessor_gcc 
-   :   
-        [ compile arithmetic.cpp 
-          : <cxxflags>-std=c++0x
-          : arithmetic_gcc 
-        ] 
-        [ compile array.cpp 
-          : <cxxflags>-std=c++0x 
-          : array_gcc 
-        ] 
-        [ compile comparison.cpp 
-          : <cxxflags>-std=c++0x 
-          : comparison_gcc 
-        ] 
-        [ compile control.cpp 
-          : <cxxflags>-std=c++0x 
-          : control_gcc 
-        ] 
-        [ compile debug.cpp 
-          : <cxxflags>-std=c++0x 
-          : debug_gcc 
-        ] 
-        [ compile facilities.cpp 
-          : <cxxflags>-std=c++0x 
-          : facilities_gcc 
-        ] 
-        [ compile iteration.cpp 
-          : <cxxflags>-std=c++0x 
-          : iteration_gcc 
-        ] 
-        [ compile list.cpp 
-          : <cxxflags>-std=c++0x 
-          : list_gcc 
-        ] 
-        [ compile logical.cpp 
-          : <cxxflags>-std=c++0x 
-          : logical_gcc 
-        ] 
-        [ compile repetition.cpp 
-          : <cxxflags>-std=c++0x 
-          : repetition_gcc 
-        ] 
-        [ compile selection.cpp 
-          : <cxxflags>-std=c++0x 
-          : selection_gcc 
-        ] 
-        [ compile seq.cpp 
-          : <cxxflags>-std=c++0x 
-          : seq_gcc 
-        ] 
-        [ compile slot.cpp 
-          : <cxxflags>-std=c++0x 
-          : slot_gcc 
-        ] 
-        [ compile tuple.cpp 
-          : <cxxflags>-std=c++0x 
-          : tuple_gcc 
-        ] 
-        [ compile variadic.cpp 
-          : <cxxflags>-std=c++0x 
-          : variadic_gcc 
-        ] 
-   :     
-   <toolset>gcc-4.3.0
-   <toolset>gcc-4.4.0
-   <toolset>gcc-4.5.0
-   <toolset>gcc-4.5.2
-   <toolset>gcc-4.6.0
-   ;
-
-test-suite preprocessor_gcc 
-   ;
-
 test-suite preprocessor_nvm
    :   
         [ compile arithmetic.cpp : <define>BOOST_PP_VARIADICS=0 : arithmetic_nvm ]
@@ -130,89 +57,88 @@ test-suite preprocessor_dbg
         [ compile-fail debug_fail_tuple.cpp 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cxxflags>-std=c++0x
+            <cxxflags>-std=c++0x
         ]
         [ compile-fail debug_fail_array.cpp 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cxxflags>-std=c++0x
+            <cxxflags>-std=c++0x
         ]
         [ compile-fail debug_fail_list.cpp 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cxxflags>-std=c++0x
+            <cxxflags>-std=c++0x
         ]
         [ compile-fail debug_fail_seq.cpp
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cxxflags>-std=c++0x
+            <cxxflags>-std=c++0x
         ]
         [ compile-fail debug_fail_tuple_2.cpp 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cxxflags>-std=c++0x
+            <cxxflags>-std=c++0x
         ]
         [ compile-fail debug_fail_array_2.cpp 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cxxflags>-std=c++0x
+            <cxxflags>-std=c++0x
         ]
         [ compile-fail debug_fail_list_2.cpp 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cxxflags>-std=c++0x
+            <cxxflags>-std=c++0x
         ]
         [ compile-fail debug_fail_seq_2.cpp
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cxxflags>-std=c++0x
+            <cxxflags>-std=c++0x
         ]
         [ compile-fail debug_fail_tuple_3.cpp 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cxxflags>-std=c++0x
+            <cxxflags>-std=c++0x
         ]
         [ compile-fail debug_fail_array_3.cpp 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cxxflags>-std=c++0x
+            <cxxflags>-std=c++0x
         ]
         [ compile-fail debug_fail_list_3.cpp 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cxxflags>-std=c++0x
+            <cxxflags>-std=c++0x
         ]
         [ compile-fail debug_fail_seq_3.cpp
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cxxflags>-std=c++0x
+            <cxxflags>-std=c++0x
         ]
         [ compile-fail debug_fail_tuple_4.cpp 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cxxflags>-std=c++0x
+            <cxxflags>-std=c++0x
         ]
         [ compile-fail debug_fail_array_4.cpp 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cxxflags>-std=c++0x
+            <cxxflags>-std=c++0x
         ]
         [ compile-fail debug_fail_list_4.cpp 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cxxflags>-std=c++0x
+            <cxxflags>-std=c++0x
         ]
         [ compile-fail debug_fail_seq_4.cpp
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cxxflags>-std=c++0x
+            <cxxflags>-std=c++0x
         ]
+   : 
+   <toolset>gcc
    ;
 
-test-suite preprocessor_dbg
- :   
- : <toolset>msvc
- ;
+test-suite preprocessor_dbg ;
 
 test-suite preprocessor_c
    :   
@@ -339,102 +265,101 @@ test-suite preprocessor_c_dbg
         [ compile-fail debug_fail_tuple.c 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cflags>-std=c99
+            <cflags>-std=c99
           : debug_fail_tuple_c
         ]
         [ compile-fail debug_fail_array.c 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cflags>-std=c99
+            <cflags>-std=c99
           : debug_fail_array_c  
         ]
         [ compile-fail debug_fail_list.c 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cflags>-std=c99
+            <cflags>-std=c99
           : debug_fail_list_c
         ]
         [ compile-fail debug_fail_seq.c 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cflags>-std=c99
+            <cflags>-std=c99
           : debug_fail_seq_c
         ]
         [ compile-fail debug_fail_tuple_2.c 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cflags>-std=c99
+            <cflags>-std=c99
           : debug_fail_tuple_2_c
         ]
         [ compile-fail debug_fail_array_2.c 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cflags>-std=c99
+            <cflags>-std=c99
           : debug_fail_array_2_c  
         ]
         [ compile-fail debug_fail_list_2.c 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cflags>-std=c99
+            <cflags>-std=c99
           : debug_fail_list_2_c
         ]
         [ compile-fail debug_fail_seq_2.c 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cflags>-std=c99
+            <cflags>-std=c99
           : debug_fail_seq_2_c
         ]
         [ compile-fail debug_fail_tuple_3.c 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cflags>-std=c99
+            <cflags>-std=c99
           : debug_fail_tuple_3_c
         ]
         [ compile-fail debug_fail_array_3.c 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cflags>-std=c99
+            <cflags>-std=c99
           : debug_fail_array_3_c  
         ]
         [ compile-fail debug_fail_list_3.c 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cflags>-std=c99
+            <cflags>-std=c99
           : debug_fail_list_3_c
         ]
         [ compile-fail debug_fail_seq_3.c 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cflags>-std=c99
+            <cflags>-std=c99
           : debug_fail_seq_3_c
         ]
         [ compile-fail debug_fail_tuple_4.c 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cflags>-std=c99
+            <cflags>-std=c99
           : debug_fail_tuple_4_c
         ]
         [ compile-fail debug_fail_array_4.c 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cflags>-std=c99
+            <cflags>-std=c99
           : debug_fail_array_4_c  
         ]
         [ compile-fail debug_fail_list_4.c 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cflags>-std=c99
+            <cflags>-std=c99
           : debug_fail_list_4_c
         ]
         [ compile-fail debug_fail_seq_4.c 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <toolset>gcc:<cflags>-std=c99
+            <cflags>-std=c99
           : debug_fail_seq_4_c
         ]
+   :
+   <toolset>gcc
    ;
 
-test-suite preprocessor_c_dbg
- :   
- : <toolset>msvc
- ;
+test-suite preprocessor_c_dbg ;
