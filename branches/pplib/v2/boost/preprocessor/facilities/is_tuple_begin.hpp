@@ -14,22 +14,13 @@
 #
 # include <boost/preprocessor/config/config.hpp>
 # include <boost/preprocessor/arithmetic/dec.hpp>
-# include <boost/preprocessor/control/if.hpp>
 # include <boost/preprocessor/variadic/size.hpp>
 #
 # /* BOOST_PP_IS_TUPLE_BEGIN */
 #
 # if BOOST_PP_VARIADICS
-# define BOOST_PP_IS_TUPLE_BEGIN(x) \
-    BOOST_PP_IF \
-      ( \
-      BOOST_PP_IS_TUPLE_BEGIN_DETAIL(x), \
-      1, \
-      0 \
-      ) \
-/**/
 #
-# define BOOST_PP_IS_TUPLE_BEGIN_DETAIL(x) \
+# define BOOST_PP_IS_TUPLE_BEGIN(x) \
     BOOST_PP_DEC \
       ( \
       BOOST_PP_VARIADIC_SIZE \

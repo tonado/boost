@@ -14,6 +14,7 @@
 #
 # include <boost/preprocessor/config/config.hpp>
 # include <boost/preprocessor/comparison/equal.hpp>
+# include <boost/preprocessor/control/expr_iif.hpp>
 # include <boost/preprocessor/control/iif.hpp>
 # include <boost/preprocessor/control/while.hpp>
 # include <boost/preprocessor/debug/assert.hpp>
@@ -31,10 +32,6 @@
 # else
 #
 # define BOOST_PP_ASSERT_IS_SEQ(x) \
-    BOOST_PP_ASSERT \
-      ( \
-      BOOST_PP_IS_TUPLE_BEGIN(x) \
-      ) \
     BOOST_PP_IS_SEQ_DETAIL_GEN_EMPTY \
       ( \
       BOOST_PP_WHILE \
@@ -53,10 +50,26 @@
 # define BOOST_PP_IS_SEQ_DETAIL_GEN_EMPTY_I(x)
 #
 # define BOOST_PP_IS_SEQ_DETAIL_PRED(d,state) \
-    BOOST_PP_IS_TUPLE_BEGIN(state) \
+    BOOST_PP_IIF \
+      ( \
+      BOOST_PP_IS_TUPLE_BEGIN(state), \
+      BOOST_PP_IS_SEQ_DETAIL_GEN_ONE, \
+      BOOST_PP_IS_SEQ_DETAIL_NOT_NIL \
+      ) \
+    (state) \
 /**/
 #
 # define BOOST_PP_IS_SEQ_DETAIL_OP(d,state) \
+    BOOST_PP_IIF \
+      ( \
+      BOOST_PP_IS_TUPLE_BEGIN(state), \
+      BOOST_PP_IS_SEQ_DETAIL_CHECK_AFTER_FIRST_TUPLE, \
+      BOOST_PP_IS_SEQ_DETAIL_GEN_RETURN_ASSERT \
+      ) \
+    (state) \
+/**/
+#
+# define BOOST_PP_IS_SEQ_DETAIL_CHECK_AFTER_FIRST_TUPLE(state) \
     BOOST_PP_IIF \
       ( \
       BOOST_PP_IS_SEQ_DETAIL_IS_AFTER_FIRST_TUPLE(state), \
@@ -107,6 +120,23 @@
       ) \
 /**/
 #
+# define BOOST_PP_IS_SEQ_DETAIL_GEN_RETURN_ASSERT(x) \
+    BOOST_PP_ASSERT(0) \
+    BOOST_PP_IS_SEQ_DETAIL_NIL \
+/**/
+# define BOOST_PP_IS_SEQ_DETAIL_GEN_RETURN(x) \
+    BOOST_PP_IS_SEQ_DETAIL_NIL \
+/**/
+#
+# define BOOST_PP_IS_SEQ_DETAIL_NOT_NIL(x) \
+    BOOST_PP_NOT \
+      ( \
+      BOOST_PP_IS_SEQ_DETAIL_IS_NIL(x) \
+      ) \
+/**/
+#
+# define BOOST_PP_IS_SEQ_DETAIL_GEN_ONE(x) 1
+#
 # define BOOST_PP_IS_SEQ_DETAIL_EMPTY(...)
 #
 # define BOOST_PP_IS_SEQ_DETAIL_EMPTY_E(...) \
@@ -114,6 +144,19 @@
 /**/
 #
 # define BOOST_PP_IS_SEQ_DETAIL_EMPTY_1(...)
+#
+# define BOOST_PP_IS_SEQ_DETAIL_IS_NIL(x) \
+    BOOST_PP_IS_EMPTY \
+      ( \
+      BOOST_PP_CAT \
+        ( \
+        BOOST_PP_IS_SEQ_DETAIL_HELPER_, \
+        x \
+        ) \
+      ) \
+/**/
+#
+# define BOOST_PP_IS_SEQ_DETAIL_HELPER_BOOST_PP_IS_SEQ_DETAIL_NIL
 #
 # endif /* NDEBUG */
 # endif /* BOOST_PP_VARIADICS */
