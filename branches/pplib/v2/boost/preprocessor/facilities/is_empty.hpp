@@ -45,6 +45,13 @@
 /**/
 #define BOOST_PP_IS_EMPTY_DETAIL_IIF_0(t, b) b
 #define BOOST_PP_IS_EMPTY_DETAIL_IIF_1(t, b) t
+#define BOOST_PP_IS_EMPTY_DETAIL_GEN_0(param) 0
+#define BOOST_PP_IS_EMPTY_DETAIL_NON_FUNCTION(param) \
+    BOOST_PP_IS_EMPTY_DETAIL_IS_TUPLE_BEGIN \
+      ( \
+      BOOST_PP_IS_EMPTY_DETAIL_IS_EMPTY_NON_FUNCTION_C param () \
+      ) \
+/**/
 #define BOOST_PP_IS_EMPTY(param) \
     BOOST_PP_IS_EMPTY_DETAIL_IIF \
       ( \
@@ -54,12 +61,10 @@
         ) \
       ) \
       ( \
-      0, \
-      BOOST_PP_IS_EMPTY_DETAIL_IS_TUPLE_BEGIN \
-        ( \
-        BOOST_PP_IS_EMPTY_DETAIL_IS_EMPTY_NON_FUNCTION_C param () \
-        ) \
+      BOOST_PP_IS_EMPTY_DETAIL_GEN_0, \
+      BOOST_PP_IS_EMPTY_DETAIL_NON_FUNCTION \
       ) \
+    (param) \
 /**/
 # else
 #define BOOST_PP_IS_EMPTY_DETAIL_CAT(a, ...) BOOST_PP_IS_EMPTY_DETAIL_PRIMITIVE_CAT(a,__VA_ARGS__)
