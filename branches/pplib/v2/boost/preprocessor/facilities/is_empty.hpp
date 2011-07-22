@@ -7,6 +7,8 @@
 #  *                                                                          *
 #  ************************************************************************** */
 #
+# /* Revised by Edward Diener (2011) */
+#
 # /* See http://www.boost.org for most recent version. */
 #
 # ifndef BOOST_PREPROCESSOR_FACILITIES_IS_EMPTY_HPP
@@ -21,7 +23,6 @@
 # if BOOST_PP_VARIADICS_MSVC
 #
 # include <boost/preprocessor/arithmetic/dec.hpp>
-# include <boost/preprocessor/control/if.hpp>
 # include <boost/preprocessor/variadic/size.hpp>
 #
 # define BOOST_PP_IS_EMPTY_DETAIL_IS_TUPLE_BEGIN(x) \

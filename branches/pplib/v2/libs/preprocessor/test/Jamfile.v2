@@ -22,7 +22,6 @@ test-suite preprocessor
         [ compile comparison.cpp ]
         [ compile control.cpp ]
         [ compile debug.cpp ]
-        [ compile debug_test.cpp ]
         [ compile facilities.cpp ]
         [ compile iteration.cpp ]
         [ compile list.cpp ]
@@ -55,100 +54,100 @@ test-suite preprocessor_nvm
 
 test-suite preprocessor_cpp_dbg
    :   
-        [ compile-fail debug_fail_tuple.c 
+        [ compile-fail debug_fail_tuple.cpp
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <cflags>-std=c++0x
+            <cxxflags>-std=c++0x
           : debug_fail_tuple_cpp
         ]
-        [ compile-fail debug_fail_array.c 
+        [ compile-fail debug_fail_array.cpp 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <cflags>-std=c++0x
+            <cxxflags>-std=c++0x
           : debug_fail_array_cpp
         ]
-        [ compile-fail debug_fail_list.c 
+        [ compile-fail debug_fail_list.cpp 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <cflags>-std=c++0x
+            <cxxflags>-std=c++0x
           : debug_fail_list_cpp
         ]
-        [ compile-fail debug_fail_seq.c 
+        [ compile-fail debug_fail_seq.cpp 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <cflags>-std=c++0x
+            <cxxflags>-std=c++0x
           : debug_fail_seq_cpp
         ]
-        [ compile-fail debug_fail_tuple_2.c 
+        [ compile-fail debug_fail_tuple_2.cpp 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <cflags>-std=c++0x
+            <cxxflags>-std=c++0x
           : debug_fail_tuple_2_cpp
         ]
-        [ compile-fail debug_fail_array_2.c 
+        [ compile-fail debug_fail_array_2.cpp 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <cflags>-std=c++0x
+            <cxxflags>-std=c++0x
           : debug_fail_array_2_cpp
         ]
-        [ compile-fail debug_fail_list_2.c 
+        [ compile-fail debug_fail_list_2.cpp 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <cflags>-std=c++0x
+            <cxxflags>-std=c++0x
           : debug_fail_list_2_cpp
         ]
-        [ compile-fail debug_fail_seq_2.c 
+        [ compile-fail debug_fail_seq_2.cpp 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <cflags>-std=c++0x
+            <cxxflags>-std=c++0x
           : debug_fail_seq_2_cpp
         ]
-        [ compile-fail debug_fail_tuple_3.c 
+        [ compile-fail debug_fail_tuple_3.cpp 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <cflags>-std=c++0x
+            <cxxflags>-std=c++0x
           : debug_fail_tuple_3_cpp
         ]
-        [ compile-fail debug_fail_array_3.c 
+        [ compile-fail debug_fail_array_3.cpp 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <cflags>-std=c++0x
+            <cxxflags>-std=c++0x
           : debug_fail_array_3_cpp
         ]
-        [ compile-fail debug_fail_list_3.c 
+        [ compile-fail debug_fail_list_3.cpp 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <cflags>-std=c++0x
+            <cxxflags>-std=c++0x
           : debug_fail_list_3_cpp
         ]
-        [ compile-fail debug_fail_seq_3.c 
+        [ compile-fail debug_fail_seq_3.cpp 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <cflags>-std=c++0x
+            <cxxflags>-std=c++0x
           : debug_fail_seq_3_cpp
         ]
-        [ compile-fail debug_fail_tuple_4.c 
+        [ compile-fail debug_fail_tuple_4.cpp 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <cflags>-std=c++0x
+            <cxxflags>-std=c++0x
           : debug_fail_tuple_4_cpp
         ]
-        [ compile-fail debug_fail_array_4.c 
+        [ compile-fail debug_fail_array_4.cpp 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <cflags>-std=c++0x
+            <cxxflags>-std=c++0x
           : debug_fail_array_4_cpp
         ]
-        [ compile-fail debug_fail_list_4.c 
+        [ compile-fail debug_fail_list_4.cpp 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <cflags>-std=c++0x
+            <cxxflags>-std=c++0x
           : debug_fail_list_4_cpp
         ]
-        [ compile-fail debug_fail_seq_4.c 
+        [ compile-fail debug_fail_seq_4.cpp 
           : <variant>debug
             <define>BOOST_PP_VARIADICS=1
-            <cflags>-std=c++0x
+            <cxxflags>-std=c++0x
           : debug_fail_seq_4_cpp
         ]
    :
