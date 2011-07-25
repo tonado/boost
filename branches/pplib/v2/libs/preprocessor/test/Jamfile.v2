@@ -22,7 +22,6 @@ test-suite preprocessor
         [ compile comparison.cpp ]
         [ compile control.cpp ]
         [ compile debug.cpp : <variant>debug ]
-#        [ compile debug_test.cpp : <variant>debug ]
         [ compile facilities.cpp ]
         [ compile iteration.cpp ]
         [ compile list.cpp ]

@@ -19,6 +19,7 @@
 # include <boost/preprocessor/control/iif.hpp>
 # include <boost/preprocessor/control/while.hpp>
 # include <boost/preprocessor/debug/assert.hpp>
+# include <boost/preprocessor/facilities/expand.hpp>
 # include <boost/preprocessor/facilities/is_empty.hpp>
 # include <boost/preprocessor/facilities/is_tuple_begin.hpp>
 # include <boost/preprocessor/logical/not.hpp>
@@ -34,7 +35,7 @@
 # else
 #
 # define BOOST_PP_ASSERT_IS_SEQ(x) \
-    BOOST_PP_IS_SEQ_DETAIL_EMPTY_F \
+    BOOST_PP_IS_SEQ_DETAIL_CHECK_RETURN_FAILURE \
       ( \
       BOOST_PP_WHILE \
         ( \
@@ -139,6 +140,38 @@
     (x) \
 /**/
 #
+# if BOOST_PP_VARIADICS_MSVC
+# define BOOST_PP_IS_SEQ_DETAIL_ASSERT_FIRST_TUPLE_SIZE_EMPTY(x) \
+    BOOST_PP_EXPAND(BOOST_PP_IS_SEQ_DETAIL_ASSERT_SIZE x) \
+/**/
+#
+# define BOOST_PP_IS_SEQ_DETAIL_ASSERT_FIRST_TUPLE_SIZE_FULL(x) \
+    BOOST_PP_VARIADIC_ELEM \
+      ( \
+      0, \
+      BOOST_PP_EXPAND(BOOST_PP_IS_SEQ_DETAIL_ASSERT_SIZE_AFTER x) \
+      ) \
+/**/
+#
+# define BOOST_PP_IS_SEQ_DETAIL_GET_AFTER_FIRST_TUPLE(x) \
+    BOOST_PP_EXPAND(BOOST_PP_IS_SEQ_DETAIL_EMPTY x) \
+/**/
+#
+# define BOOST_PP_IS_SEQ_DETAIL_GEN_NOT_TUPLE(x) \
+    BOOST_PP_IS_SEQ_DETAIL_GEN_NOT_TUPLE_GET \
+      ( \
+      BOOST_PP_EXPAND(BOOST_PP_IS_SEQ_DETAIL_EMPTY x) \
+      ) \
+/**/
+#
+# define BOOST_PP_IS_SEQ_DETAIL_IS_AFTER_FIRST_TUPLE(x) \
+    BOOST_PP_IS_TUPLE_BEGIN \
+      ( \
+      BOOST_PP_EXPAND(BOOST_PP_IS_SEQ_DETAIL_EMPTY x) \
+      ) \
+/**/
+#
+# else
 # define BOOST_PP_IS_SEQ_DETAIL_ASSERT_FIRST_TUPLE_SIZE_EMPTY(x) \
     BOOST_PP_IS_SEQ_DETAIL_APPLY(BOOST_PP_IS_SEQ_DETAIL_ASSERT_SIZE,x) \
 /**/
@@ -162,6 +195,15 @@
       ) \
 /**/
 #
+# define BOOST_PP_IS_SEQ_DETAIL_IS_AFTER_FIRST_TUPLE(x) \
+    BOOST_PP_IS_TUPLE_BEGIN \
+      ( \
+      BOOST_PP_IS_SEQ_DETAIL_APPLY(BOOST_PP_IS_SEQ_DETAIL_EMPTY,x) \
+      ) \
+/**/
+#
+# endif
+#
 # define BOOST_PP_IS_SEQ_DETAIL_GEN_NOT_TUPLE_GET(x) \
     BOOST_PP_IIF \
       ( \
@@ -181,13 +223,6 @@
   BOOST_PP_IS_SEQ_DETAIL_APPLY_I(macro, args) \
 /**/
 #
-# define BOOST_PP_IS_SEQ_DETAIL_IS_AFTER_FIRST_TUPLE(x) \
-    BOOST_PP_IS_TUPLE_BEGIN \
-      ( \
-      BOOST_PP_IS_SEQ_DETAIL_APPLY(BOOST_PP_IS_SEQ_DETAIL_EMPTY,x) \
-      ) \
-/**/
-#
 # define BOOST_PP_IS_SEQ_DETAIL_GEN_RETURN_ASSERT(x) \
     BOOST_PP_IIF \
       ( \
@@ -197,9 +232,11 @@
       ) \
 /**/
 #
-# define BOOST_PP_IS_SEQ_DETAIL_EMPTY(...)
+# define BOOST_PP_IS_SEQ_DETAIL_EMPTY(...) BOOST_PP_IS_SEQ_DETAIL_EMPTY1(__VA_ARGS__)
 #
-# define BOOST_PP_IS_SEQ_DETAIL_EMPTY_F(x) \
+# define BOOST_PP_IS_SEQ_DETAIL_EMPTY1(...)
+#
+# define BOOST_PP_IS_SEQ_DETAIL_CHECK_RETURN_FAILURE(x) \
     BOOST_PP_ASSERT \
       ( \
       BOOST_PP_NOT \

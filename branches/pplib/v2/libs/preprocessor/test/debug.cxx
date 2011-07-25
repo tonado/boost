@@ -30,9 +30,6 @@ BOOST_PP_ASSERT_IS_ARRAY((4,(x,3,e,2)))
 BOOST_PP_ASSERT_IS_ARRAY((6,(x,3,e,2,(4,(x,3,e,2)),$)))
 BOOST_PP_ASSERT_IS_LIST((4,(x,BOOST_PP_NIL)))
 BOOST_PP_ASSERT_IS_LIST(((3,6m,irj),(x,BOOST_PP_NIL)))
-
-#if !BOOST_PP_VARIADICS_MSVC
-
 BOOST_PP_ASSERT_IS_SEQ((x))
 BOOST_PP_ASSERT_IS_SEQ((x)(y))
 BOOST_PP_ASSERT_IS_SEQ((x)(y)(z)(2)(3)(4))
@@ -40,5 +37,4 @@ BOOST_PP_ASSERT_IS_SEQ((x)(y)(z)((1,2))(3)(4))
 BOOST_PP_ASSERT_IS_SEQ((x)(y)(z)((1,2))(3)((4,(x,BOOST_PP_NIL))))
 BOOST_PP_ASSERT_IS_SEQ((x)(y)((x)(y)(z)(2)(3)(4))((1,2))(3)((4,(x,BOOST_PP_NIL))))
 
-# endif
 # endif
