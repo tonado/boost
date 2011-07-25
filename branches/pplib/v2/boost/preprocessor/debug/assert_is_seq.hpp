@@ -34,6 +34,10 @@
 #
 # else
 #
+# if BOOST_PP_VARIADICS_MSVC
+# include <boost/preprocessor/facilities/empty.hpp>
+# endif
+#
 # define BOOST_PP_ASSERT_IS_SEQ(x) \
     BOOST_PP_IS_SEQ_DETAIL_CHECK_RETURN_FAILURE \
       ( \
@@ -140,6 +144,7 @@
     (x) \
 /**/
 #
+#
 # if BOOST_PP_VARIADICS_MSVC
 # define BOOST_PP_IS_SEQ_DETAIL_ASSERT_FIRST_TUPLE_SIZE_EMPTY(x) \
     BOOST_PP_EXPAND(BOOST_PP_IS_SEQ_DETAIL_ASSERT_SIZE x) \
@@ -171,7 +176,36 @@
       ) \
 /**/
 #
+# define BOOST_PP_IS_SEQ_DETAIL_CHECK_RETURN_FAILURE(x) \
+    BOOST_PP_IS_SEQ_DETAIL_VC_CHECK_RETURN_FAILURE \
+      ( \
+      BOOST_PP_NOT \
+        ( \
+        BOOST_PP_IS_SEQ_DETAIL_IS_FAILURE(x) \
+        ) \
+      ) \
+/**/
+#
+# define BOOST_PP_IS_SEQ_DETAIL_VC_CHECK_RETURN_FAILURE(x) \
+    BOOST_PP_ASSERT \
+      ( \
+      x \
+      ) \
+    BOOST_PP_IIF \
+      ( \
+      x, \
+      BOOST_PP_EMPTY, \
+      BOOST_PP_IS_SEQ_DETAIL_VC_GEN_ERROR_OUTPUT \
+      ) \
+    () \
+/**/
+#
+# define BOOST_PP_IS_SEQ_DETAIL_VC_GEN_ERROR_OUTPUT() \
+    typedef char BOOST_PP_IS_SEQ_DETAIL_CASSERT_ERROR[-1]; \
+/**/
+#
 # else
+#
 # define BOOST_PP_IS_SEQ_DETAIL_ASSERT_FIRST_TUPLE_SIZE_EMPTY(x) \
     BOOST_PP_IS_SEQ_DETAIL_APPLY(BOOST_PP_IS_SEQ_DETAIL_ASSERT_SIZE,x) \
 /**/
@@ -202,7 +236,18 @@
       ) \
 /**/
 #
+# define BOOST_PP_IS_SEQ_DETAIL_CHECK_RETURN_FAILURE(x) \
+    BOOST_PP_ASSERT \
+      ( \
+      BOOST_PP_NOT \
+        ( \
+        BOOST_PP_IS_SEQ_DETAIL_IS_FAILURE(x) \
+        ) \
+      ) \
+/**/
+#
 # endif
+#
 #
 # define BOOST_PP_IS_SEQ_DETAIL_GEN_NOT_TUPLE_GET(x) \
     BOOST_PP_IIF \
@@ -235,16 +280,6 @@
 # define BOOST_PP_IS_SEQ_DETAIL_EMPTY(...) BOOST_PP_IS_SEQ_DETAIL_EMPTY1(__VA_ARGS__)
 #
 # define BOOST_PP_IS_SEQ_DETAIL_EMPTY1(...)
-#
-# define BOOST_PP_IS_SEQ_DETAIL_CHECK_RETURN_FAILURE(x) \
-    BOOST_PP_ASSERT \
-      ( \
-      BOOST_PP_NOT \
-        ( \
-        BOOST_PP_IS_SEQ_DETAIL_IS_FAILURE(x) \
-        ) \
-      ) \
-/**/
 #
 # define BOOST_PP_IS_SEQ_DETAIL_IS_SUCCESS(x) \
     BOOST_PP_IS_EMPTY \

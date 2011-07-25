@@ -13,6 +13,7 @@
 # define BOOST_PREPROCESSOR_DEBUG_ASSERT_IS_LIST_HPP
 #
 # include <boost/preprocessor/config/config.hpp>
+# include <boost/preprocessor/cat.hpp>
 # include <boost/preprocessor/comparison/equal.hpp>
 # include <boost/preprocessor/control/iif.hpp>
 # include <boost/preprocessor/control/while.hpp>
@@ -20,6 +21,7 @@
 # include <boost/preprocessor/debug/assert_is_tuple.hpp>
 # include <boost/preprocessor/facilities/is_empty.hpp>
 # include <boost/preprocessor/facilities/is_tuple_begin.hpp>
+# include <boost/preprocessor/logical/bitor.hpp>
 # include <boost/preprocessor/logical/not.hpp>
 # include <boost/preprocessor/tuple/elem.hpp>
 # include <boost/preprocessor/tuple/size.hpp>
@@ -34,7 +36,7 @@
 # else
 #
 # define BOOST_PP_ASSERT_IS_LIST(x) \
-    BOOST_PP_IS_LIST_DETAIL_GEN_EMPTY \
+    BOOST_PP_IS_LIST_DETAIL_CHECK_RETURN_FAILURE \
       ( \
       BOOST_PP_WHILE \
         ( \
@@ -45,11 +47,49 @@
       ) \
 /**/
 #
-# define BOOST_PP_IS_LIST_DETAIL_GEN_EMPTY(x) \
-    BOOST_PP_IS_LIST_DETAIL_GEN_EMPTY_I(x) \
+# if BOOST_PP_VARIADICS_MSVC
+#
+# define BOOST_PP_IS_LIST_DETAIL_CHECK_RETURN_FAILURE(x) \
+    BOOST_PP_IS_LIST_DETAIL_VC_CHECK_RETURN_FAILURE \
+      ( \
+      BOOST_PP_NOT \
+        ( \
+        BOOST_PP_IS_LIST_DETAIL_IS_FAILURE(x) \
+        ) \
+      ) \
 /**/
 #
-# define BOOST_PP_IS_LIST_DETAIL_GEN_EMPTY_I(x)
+# define BOOST_PP_IS_LIST_DETAIL_VC_CHECK_RETURN_FAILURE(x) \
+    BOOST_PP_ASSERT \
+      ( \
+      x \
+      ) \
+    BOOST_PP_IIF \
+      ( \
+      x, \
+      BOOST_PP_EMPTY, \
+      BOOST_PP_IS_LIST_DETAIL_VC_GEN_ERROR_OUTPUT \
+      ) \
+    () \
+/**/
+#
+# define BOOST_PP_IS_LIST_DETAIL_VC_GEN_ERROR_OUTPUT() \
+    typedef char BOOST_PP_IS_LIST_DETAIL_CASSERT_ERROR[-1]; \
+/**/
+#
+# else
+#
+# define BOOST_PP_IS_LIST_DETAIL_CHECK_RETURN_FAILURE(x) \
+    BOOST_PP_ASSERT \
+      ( \
+      BOOST_PP_NOT \
+        ( \
+        BOOST_PP_IS_LIST_DETAIL_IS_FAILURE(x) \
+        ) \
+      ) \
+/**/
+#
+# endif
 #
 #define BOOST_PP_IS_LIST_DETAIL_PRED(d,state) \
     BOOST_PP_IIF \
@@ -87,20 +127,16 @@
 /**/
 #
 #define BOOST_PP_IS_LIST_DETAIL_PROCESS_IF_BOOST_PP_NIL(x) \
-    BOOST_PP_ASSERT \
+    BOOST_PP_IIF \
       ( \
-      BOOST_PP_IS_LIST_DETAIL_BOOST_PP_NIL(x) \
+      BOOST_PP_IS_LIST_DETAIL_BOOST_PP_NIL(x), \
+      BOOST_PP_NIL, \
+      BOOST_PP_IS_LIST_FAILURE \
       ) \
-    BOOST_PP_NIL \
-/**/
-#
-#define BOOST_PP_IS_LIST_DETAIL_RETURN_NIL(x) \
-    BOOST_PP_NIL \
 /**/
 #
 # define BOOST_PP_IS_LIST_DETAIL_ASSERT(x) \
-    BOOST_PP_ASSERT(0) \
-    BOOST_PP_NIL \
+    BOOST_PP_IS_LIST_FAILURE \
 /**/
 #
 # define BOOST_PP_IS_LIST_DETAIL_GEN_ONE(x) \
@@ -110,7 +146,11 @@
 # define BOOST_PP_IS_LIST_DETAIL_NOT_BOOST_PP_NIL(x) \
     BOOST_PP_NOT \
       ( \
-      BOOST_PP_IS_LIST_DETAIL_BOOST_PP_NIL(x) \
+      BOOST_PP_BITOR \
+        ( \
+        BOOST_PP_IS_LIST_DETAIL_BOOST_PP_NIL(x), \
+        BOOST_PP_IS_LIST_DETAIL_IS_FAILURE(x) \
+        ) \
       ) \
 /**/
 #
@@ -126,6 +166,15 @@
 /**/
 #
 # define BOOST_PP_IS_LIST_DETAIL_NIL_HELPER_BOOST_PP_NIL
+#
+# define BOOST_PP_IS_LIST_DETAIL_IS_FAILURE(x) \
+    BOOST_PP_IS_EMPTY \
+      ( \
+      BOOST_PP_CAT(BOOST_PP_IS_LIST_DETAIL_FHELPER_,x) \
+      ) \
+/**/
+#
+# define BOOST_PP_IS_LIST_DETAIL_FHELPER_BOOST_PP_IS_LIST_FAILURE
 #
 # endif /* NDEBUG */
 # endif /* BOOST_PP_VARIADICS */
