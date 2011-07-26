@@ -40,7 +40,6 @@
 # if BOOST_PP_VARIADICS_MSVC
 #
 # include <boost/preprocessor/facilities/empty.hpp>
-# include <boost/preprocessor/facilities/expand.hpp>
 #
 # endif
 #
@@ -153,32 +152,32 @@
 #
 # if BOOST_PP_VARIADICS_MSVC
 # define BOOST_PP_IS_SEQ_DETAIL_ASSERT_FIRST_TUPLE_SIZE_EMPTY(x) \
-    BOOST_PP_EXPAND(BOOST_PP_IS_SEQ_DETAIL_ASSERT_SIZE x) \
+    BOOST_PP_IS_SEQ_DETAIL_ASSERT_SIZE x \
 /**/
 #
 # define BOOST_PP_IS_SEQ_DETAIL_ASSERT_FIRST_TUPLE_SIZE_FULL(x) \
     BOOST_PP_VARIADIC_ELEM \
       ( \
       0, \
-      BOOST_PP_EXPAND(BOOST_PP_IS_SEQ_DETAIL_ASSERT_SIZE_AFTER x) \
+      BOOST_PP_IS_SEQ_DETAIL_ASSERT_SIZE_AFTER x \
       ) \
 /**/
 #
 # define BOOST_PP_IS_SEQ_DETAIL_GET_AFTER_FIRST_TUPLE(x) \
-    BOOST_PP_EXPAND(BOOST_PP_IS_SEQ_DETAIL_EMPTY x) \
+    BOOST_PP_IS_SEQ_DETAIL_EMPTY x \
 /**/
 #
 # define BOOST_PP_IS_SEQ_DETAIL_GEN_NOT_TUPLE(x) \
     BOOST_PP_IS_SEQ_DETAIL_GEN_NOT_TUPLE_GET \
       ( \
-      BOOST_PP_EXPAND(BOOST_PP_IS_SEQ_DETAIL_EMPTY x) \
+      BOOST_PP_IS_SEQ_DETAIL_EMPTY x \
       ) \
 /**/
 #
 # define BOOST_PP_IS_SEQ_DETAIL_IS_AFTER_FIRST_TUPLE(x) \
     BOOST_PP_IS_TUPLE_BEGIN \
       ( \
-      BOOST_PP_EXPAND(BOOST_PP_IS_SEQ_DETAIL_EMPTY x) \
+      BOOST_PP_IS_SEQ_DETAIL_EMPTY x \
       ) \
 /**/
 #
