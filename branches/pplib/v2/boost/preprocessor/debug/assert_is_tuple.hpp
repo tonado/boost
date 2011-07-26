@@ -18,7 +18,9 @@
 #
 # if BOOST_PP_VARIADICS
 #
-# if defined(NDEBUG)
+# include <boost/preprocessor/debug/assert_data_check.hpp>
+#
+# if !BOOST_PP_ASSERT_DATA
 #
 # define BOOST_PP_ASSERT_IS_TUPLE(x)
 #

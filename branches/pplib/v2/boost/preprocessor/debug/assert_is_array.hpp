@@ -13,21 +13,28 @@
 # define BOOST_PREPROCESSOR_DEBUG_ASSERT_IS_ARRAY_HPP
 #
 # include <boost/preprocessor/config/config.hpp>
-# include <boost/preprocessor/comparison/equal.hpp>
-# include <boost/preprocessor/control/iif.hpp>
-# include <boost/preprocessor/debug/assert.hpp>
-# include <boost/preprocessor/debug/assert_is_tuple.hpp>
-# include <boost/preprocessor/logical/bitand.hpp>
-# include <boost/preprocessor/tuple/elem.hpp>
-# include <boost/preprocessor/tuple/size.hpp>
 #
 # /* BOOST_PP_ASSERT_IS_ARRAY */
 #
 # if BOOST_PP_VARIADICS
-# if defined(NDEBUG)
+#
+# include <boost/preprocessor/debug/assert_data_check.hpp>
+#
+# if !BOOST_PP_ASSERT_DATA
+#
 # define BOOST_PP_ASSERT_IS_ARRAY(x) \
 /**/
+#
 # else
+#
+# include <boost/preprocessor/cat.hpp>
+# include <boost/preprocessor/comparison/equal.hpp>
+# include <boost/preprocessor/control/iif.hpp>
+# include <boost/preprocessor/debug/assert.hpp>
+# include <boost/preprocessor/debug/assert_is_tuple.hpp>
+# include <boost/preprocessor/facilities/is_empty.hpp>
+# include <boost/preprocessor/tuple/elem.hpp>
+# include <boost/preprocessor/tuple/size.hpp>
 #
 # if BOOST_PP_VARIADICS_MSVC
 #
@@ -85,12 +92,6 @@
 /**/
 #
 # endif
-
-/*
-
-  Check if the array is a two element tuple
-
-*/
 
 /*
 
