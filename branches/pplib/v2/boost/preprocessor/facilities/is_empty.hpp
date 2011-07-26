@@ -39,32 +39,29 @@
     1,1 \
 /**/
 #
+#define BOOST_PP_IS_EMPTY_DETAIL_GEN_ZERO(x) 0
 #define BOOST_PP_IS_EMPTY_DETAIL_PRIMITIVE_CAT(a, b) a ## b
 #define BOOST_PP_IS_EMPTY_DETAIL_IIF(bit) \
     BOOST_PP_IS_EMPTY_DETAIL_PRIMITIVE_CAT(BOOST_PP_IS_EMPTY_DETAIL_IIF_,bit) \
 /**/
 #define BOOST_PP_IS_EMPTY_DETAIL_IIF_0(t, b) b
 #define BOOST_PP_IS_EMPTY_DETAIL_IIF_1(t, b) t
-#define BOOST_PP_IS_EMPTY_DETAIL_GEN_0(param) 0
-#define BOOST_PP_IS_EMPTY_DETAIL_NON_FUNCTION(param) \
-    BOOST_PP_IS_EMPTY_DETAIL_IS_TUPLE_BEGIN \
-      ( \
-      BOOST_PP_IS_EMPTY_DETAIL_IS_EMPTY_NON_FUNCTION_C param () \
-      ) \
-/**/
 #define BOOST_PP_IS_EMPTY(param) \
     BOOST_PP_IS_EMPTY_DETAIL_IIF \
       ( \
-      BOOST_PP_IS_EMPTY_DETAIL_IS_TUPLE_BEGIN \
+      BOOST_PP_DEC \
         ( \
-        param \
+        BOOST_PP_VARIADIC_SIZE \
+          ( \
+          BOOST_PP_IS_EMPTY_DETAIL_IS_TUPLE_BEGIN_DETAIL_EXPAND param \
+          ) \
         ) \
       ) \
       ( \
-      BOOST_PP_IS_EMPTY_DETAIL_GEN_0, \
-      BOOST_PP_IS_EMPTY_DETAIL_NON_FUNCTION \
+      BOOST_PP_IS_EMPTY_DETAIL_GEN_ZERO, \
+      BOOST_PP_IS_EMPTY_DETAIL_IS_TUPLE_BEGIN \
       ) \
-    (param) \
+    (BOOST_PP_IS_EMPTY_DETAIL_IS_EMPTY_NON_FUNCTION_C param ()) \
 /**/
 # else
 #define BOOST_PP_IS_EMPTY_DETAIL_CAT(a, ...) BOOST_PP_IS_EMPTY_DETAIL_PRIMITIVE_CAT(a,__VA_ARGS__)
