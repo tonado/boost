@@ -13,6 +13,17 @@
 # define BOOST_PREPROCESSOR_DEBUG_ASSERT_IS_LIST_HPP
 #
 # include <boost/preprocessor/config/config.hpp>
+#
+# /* BOOST_PP_ASSERT_IS_LIST */
+#
+# if BOOST_PP_VARIADICS
+#
+# if defined(NDEBUG)
+#
+# define BOOST_PP_ASSERT_IS_LIST(x)
+#
+# else
+#
 # include <boost/preprocessor/cat.hpp>
 # include <boost/preprocessor/comparison/equal.hpp>
 # include <boost/preprocessor/control/iif.hpp>
@@ -26,14 +37,11 @@
 # include <boost/preprocessor/tuple/elem.hpp>
 # include <boost/preprocessor/tuple/size.hpp>
 #
-# /* BOOST_PP_ASSERT_IS_LIST */
+# if BOOST_PP_VARIADICS_MSVC
 #
-# if BOOST_PP_VARIADICS
-# if defined(NDEBUG)
-# define BOOST_PP_ASSERT_IS_LIST(x) \
-/**/
+# include <boost/preprocessor/facilities/empty.hpp>
 #
-# else
+# endif
 #
 # define BOOST_PP_ASSERT_IS_LIST(x) \
     BOOST_PP_IS_LIST_DETAIL_CHECK_RETURN_FAILURE \

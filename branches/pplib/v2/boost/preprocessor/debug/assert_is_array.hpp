@@ -28,13 +28,48 @@
 # define BOOST_PP_ASSERT_IS_ARRAY(x) \
 /**/
 # else
-
-/*
-
-  Check if the array is a two element tuple
-
-*/
-
+#
+# if BOOST_PP_VARIADICS_MSVC
+#
+# include <boost/preprocessor/facilities/empty.hpp>
+#
+# define BOOST_PP_ASSERT_IS_ARRAY(x) \
+    BOOST_PP_ASSERT_IS_TUPLE(x) \
+    BOOST_PP_ASSERT_IS_ARRAY_DETAIL_VC_CHECK_RETURN_FAILURE BOOST_PP_ASSERT_IS_ARRAY_DETAIL_VC_IMP(x) \
+/**/
+#
+# define BOOST_PP_ASSERT_IS_ARRAY_DETAIL_VC_IMP(x) \
+    ( \
+    BOOST_PP_IIF \
+      ( \
+      BOOST_PP_EQUAL(2,BOOST_PP_TUPLE_SIZE(x)), \
+      BOOST_PP_IS_ARRAY_DETAIL_CHECK_ARRAY_FORM, \
+      BOOST_PP_IS_ARRAY_DETAIL_GEN_ZERO \
+      ) \
+    (x) \
+    ) \
+/**/
+#
+# define BOOST_PP_ASSERT_IS_ARRAY_DETAIL_VC_CHECK_RETURN_FAILURE(x) \
+    BOOST_PP_ASSERT \
+      ( \
+      x \
+      ) \
+    BOOST_PP_IIF \
+      ( \
+      x, \
+      BOOST_PP_EMPTY, \
+      BOOST_PP_IS_ARRAY_DETAIL_VC_GEN_ERROR_OUTPUT \
+      ) \
+    () \
+/**/
+#
+# define BOOST_PP_IS_ARRAY_DETAIL_VC_GEN_ERROR_OUTPUT() \
+    typedef char BOOST_PP_IS_ARRAY_DETAIL_CASSERT_ERROR[-1]; \
+/**/
+#
+# else
+#
 # define BOOST_PP_ASSERT_IS_ARRAY(x) \
     BOOST_PP_ASSERT_IS_TUPLE(x) \
     BOOST_PP_ASSERT \
@@ -49,6 +84,13 @@
       ) \
 /**/
 #
+# endif
+
+/*
+
+  Check if the array is a two element tuple
+
+*/
 
 /*
 

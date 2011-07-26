@@ -13,29 +13,33 @@
 # define BOOST_PREPROCESSOR_DEBUG_ASSERT_IS_SEQ_HPP
 #
 # include <boost/preprocessor/config/config.hpp>
+#   
+# /* BOOST_PP_ASSERT_IS_SEQ */
+#
+# if BOOST_PP_VARIADICS
+#
+# if defined(NDEBUG)
+#
+# define BOOST_PP_ASSERT_IS_SEQ(x)
+#
+# else
+#
 # include <boost/preprocessor/cat.hpp>
 # include <boost/preprocessor/comparison/equal.hpp>
-# include <boost/preprocessor/control/expr_iif.hpp>
 # include <boost/preprocessor/control/iif.hpp>
 # include <boost/preprocessor/control/while.hpp>
 # include <boost/preprocessor/debug/assert.hpp>
-# include <boost/preprocessor/facilities/expand.hpp>
 # include <boost/preprocessor/facilities/is_empty.hpp>
 # include <boost/preprocessor/facilities/is_tuple_begin.hpp>
 # include <boost/preprocessor/logical/not.hpp>
 # include <boost/preprocessor/variadic/size.hpp>
 # include <boost/preprocessor/variadic/elem.hpp>
-#   
-# /* BOOST_PP_ASSERT_IS_SEQ */
-#
-# if BOOST_PP_VARIADICS
-# if defined(NDEBUG)
-# define BOOST_PP_ASSERT_IS_SEQ(x)
-#
-# else
 #
 # if BOOST_PP_VARIADICS_MSVC
+#
 # include <boost/preprocessor/facilities/empty.hpp>
+# include <boost/preprocessor/facilities/expand.hpp>
+#
 # endif
 #
 # define BOOST_PP_ASSERT_IS_SEQ(x) \

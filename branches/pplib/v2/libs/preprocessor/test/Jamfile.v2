@@ -152,12 +152,6 @@ test-suite preprocessor_cpp_dbg
         ]
    ;
 
-test-suite preprocessor_cpp_dbg
-   :
-   :
-   <toolset>msvc
-   ;
-
 test-suite preprocessor_c
    :   
         [ compile arithmetic.c 
@@ -377,10 +371,4 @@ test-suite preprocessor_c_dbg
             <toolset>gcc:<cflags>-std=c99
           : debug_fail_seq_4_c
         ]
-   ;
-
-test-suite preprocessor_c_dbg 
-   :
-   :
-   <toolset>msvc
    ;

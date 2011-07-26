@@ -13,18 +13,59 @@
 # define BOOST_PREPROCESSOR_DEBUG_ASSERT_IS_TUPLE_HPP
 #
 # include <boost/preprocessor/config/config.hpp>
+#
+# /* BOOST_PP_ASSERT_IS_TUPLE */
+#
+# if BOOST_PP_VARIADICS
+#
+# if defined(NDEBUG)
+#
+# define BOOST_PP_ASSERT_IS_TUPLE(x)
+#
+# else
+#
 # include <boost/preprocessor/control/iif.hpp>
 # include <boost/preprocessor/debug/assert.hpp>
 # include <boost/preprocessor/facilities/is_empty.hpp>
 # include <boost/preprocessor/facilities/is_tuple_begin.hpp>
 #
-# /* BOOST_PP_ASSERT_IS_TUPLE */
+# if BOOST_PP_VARIADICS_MSVC
 #
-# if BOOST_PP_VARIADICS
-# if defined(NDEBUG)
+# include <boost/preprocessor/facilities/empty.hpp>
+#
 # define BOOST_PP_ASSERT_IS_TUPLE(x) \
+    BOOST_PP_IS_TUPLE_DETAIL_VC_CHECK_RETURN_FAILURE \
+      ( \
+      BOOST_PP_IIF \
+        ( \
+        BOOST_PP_IS_TUPLE_BEGIN(x), \
+        BOOST_PP_IS_TUPLE_DETAIL_IS_NOT_AFTER, \
+        BOOST_PP_IS_TUPLE_DETAIL_GEN_ZERO \
+        ) \
+      (x) \
+      ) \
 /**/
+#
+# define BOOST_PP_IS_TUPLE_DETAIL_VC_CHECK_RETURN_FAILURE(x) \
+    BOOST_PP_ASSERT \
+      ( \
+      x \
+      ) \
+    BOOST_PP_IIF \
+      ( \
+      x, \
+      BOOST_PP_EMPTY, \
+      BOOST_PP_IS_TUPLE_DETAIL_VC_GEN_ERROR_OUTPUT \
+      ) \
+    () \
+/**/
+#
+# define BOOST_PP_IS_TUPLE_DETAIL_VC_GEN_ERROR_OUTPUT() \
+    typedef char BOOST_PP_IS_TUPLE_DETAIL_CASSERT_ERROR[-1]; \
+/**/
+#
 # else
+#
 # define BOOST_PP_ASSERT_IS_TUPLE(x) \
     BOOST_PP_ASSERT \
       ( \
@@ -37,6 +78,8 @@
       (x) \
       ) \
 /**/
+#
+# endif
 #
 # define BOOST_PP_IS_TUPLE_DETAIL_IS_NOT_AFTER(x) \
     BOOST_PP_IS_EMPTY(BOOST_PP_IS_TUPLE_DETAIL_EXPAND_AFTER x) \
