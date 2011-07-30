@@ -25,6 +25,8 @@
 # include <boost/preprocessor/arithmetic/dec.hpp>
 # include <boost/preprocessor/variadic/size.hpp>
 #
+# pragma warning(once:4002)
+#
 # define BOOST_PP_IS_EMPTY_DETAIL_IS_TUPLE_BEGIN(x) \
     BOOST_PP_DEC \
       ( \
@@ -39,14 +41,15 @@
     1,1 \
 /**/
 #
-#define BOOST_PP_IS_EMPTY_DETAIL_GEN_ZERO(x) 0
-#define BOOST_PP_IS_EMPTY_DETAIL_PRIMITIVE_CAT(a, b) a ## b
-#define BOOST_PP_IS_EMPTY_DETAIL_IIF(bit) \
+# define BOOST_PP_IS_EMPTY_DETAIL_GEN_ZERO(x) 0
+# define BOOST_PP_IS_EMPTY_DETAIL_PRIMITIVE_CAT(a, b) a ## b
+# define BOOST_PP_IS_EMPTY_DETAIL_IIF(bit) \
     BOOST_PP_IS_EMPTY_DETAIL_PRIMITIVE_CAT(BOOST_PP_IS_EMPTY_DETAIL_IIF_,bit) \
 /**/
-#define BOOST_PP_IS_EMPTY_DETAIL_IIF_0(t, b) b
-#define BOOST_PP_IS_EMPTY_DETAIL_IIF_1(t, b) t
-#define BOOST_PP_IS_EMPTY(param) \
+# define BOOST_PP_IS_EMPTY_DETAIL_IIF_0(t, b) b
+# define BOOST_PP_IS_EMPTY_DETAIL_IIF_1(t, b) t
+#
+# define BOOST_PP_IS_EMPTY(param) \
     BOOST_PP_IS_EMPTY_DETAIL_IIF \
       ( \
       BOOST_PP_DEC \
@@ -63,20 +66,22 @@
       ) \
     (BOOST_PP_IS_EMPTY_DETAIL_IS_EMPTY_NON_FUNCTION_C param ()) \
 /**/
+#
 # else
-#define BOOST_PP_IS_EMPTY_DETAIL_CAT(a, ...) BOOST_PP_IS_EMPTY_DETAIL_PRIMITIVE_CAT(a,__VA_ARGS__)
-#define BOOST_PP_IS_EMPTY_DETAIL_PRIMITIVE_CAT(a, ...) a ## __VA_ARGS__
-#define BOOST_PP_IS_EMPTY_DETAIL_IIF(bit) \
+#
+# define BOOST_PP_IS_EMPTY_DETAIL_CAT(a, ...) BOOST_PP_IS_EMPTY_DETAIL_PRIMITIVE_CAT(a,__VA_ARGS__)
+# define BOOST_PP_IS_EMPTY_DETAIL_PRIMITIVE_CAT(a, ...) a ## __VA_ARGS__
+# define BOOST_PP_IS_EMPTY_DETAIL_IIF(bit) \
     BOOST_PP_IS_EMPTY_DETAIL_PRIMITIVE_CAT(BOOST_PP_IS_EMPTY_DETAIL_IIF_,bit) \
 /**/
-#define BOOST_PP_IS_EMPTY_DETAIL_IIF_0(t, ...) __VA_ARGS__
-#define BOOST_PP_IS_EMPTY_DETAIL_IIF_1(t, ...) t
-#define BOOST_PP_IS_EMPTY_DETAIL_SPLIT(i, ...) \
+# define BOOST_PP_IS_EMPTY_DETAIL_IIF_0(t, ...) __VA_ARGS__
+# define BOOST_PP_IS_EMPTY_DETAIL_IIF_1(t, ...) t
+# define BOOST_PP_IS_EMPTY_DETAIL_SPLIT(i, ...) \
     BOOST_PP_IS_EMPTY_DETAIL_PRIMITIVE_CAT(BOOST_PP_IS_EMPTY_DETAIL_SPLIT_,i)(__VA_ARGS__) \
 /**/
-#define BOOST_PP_IS_EMPTY_DETAIL_SPLIT_0(a, ...) a
-#define BOOST_PP_IS_EMPTY_DETAIL_SPLIT_1(a, ...) __VA_ARGS__
-#define BOOST_PP_IS_EMPTY_DETAIL_IS_VARIADIC(...) \
+# define BOOST_PP_IS_EMPTY_DETAIL_SPLIT_0(a, ...) a
+# define BOOST_PP_IS_EMPTY_DETAIL_SPLIT_1(a, ...) __VA_ARGS__
+# define BOOST_PP_IS_EMPTY_DETAIL_IS_VARIADIC(...) \
     BOOST_PP_IS_EMPTY_DETAIL_SPLIT \
       ( \
       0, \
@@ -87,10 +92,10 @@
         ) \
       ) \
 /**/
-#define BOOST_PP_IS_EMPTY_DETAIL_IS_VARIADIC_C(...) 1
-#define BOOST_PP_IS_EMPTY_DETAIL_IS_VARIADIC_R_1 1,
-#define BOOST_PP_IS_EMPTY_DETAIL_IS_VARIADIC_R_BOOST_PP_IS_EMPTY_DETAIL_IS_VARIADIC_C 0,
-#define BOOST_PP_IS_EMPTY(...) \
+# define BOOST_PP_IS_EMPTY_DETAIL_IS_VARIADIC_C(...) 1
+# define BOOST_PP_IS_EMPTY_DETAIL_IS_VARIADIC_R_1 1,
+# define BOOST_PP_IS_EMPTY_DETAIL_IS_VARIADIC_R_BOOST_PP_IS_EMPTY_DETAIL_IS_VARIADIC_C 0,
+# define BOOST_PP_IS_EMPTY(...) \
     BOOST_PP_IS_EMPTY_DETAIL_IIF \
       ( \
       BOOST_PP_IS_EMPTY_DETAIL_IS_VARIADIC \
@@ -107,7 +112,8 @@
       ) \
 /**/
 # endif
-#define BOOST_PP_IS_EMPTY_DETAIL_IS_EMPTY_NON_FUNCTION_C() ()
+#
+# define BOOST_PP_IS_EMPTY_DETAIL_IS_EMPTY_NON_FUNCTION_C() ()
 #
 # else
 #
