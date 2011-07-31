@@ -13,13 +13,16 @@
 # define BOOST_PREPROCESSOR_FACILITIES_REMOVE_PARENS_HPP
 #
 # include <boost/preprocessor/config/config.hpp>
-# include <boost/preprocessor/control/iif.hpp>
-# include <boost/preprocessor/facilities/is_tuple_begin.hpp>
-# include <boost/preprocessor/tuple/enum.hpp>
 #
 # /* BOOST_PP_REMOVE_PARENS */
 #
 # if BOOST_PP_VARIADICS
+#
+# include <boost/preprocessor/control/iif.hpp>
+# include <boost/preprocessor/facilities/identity.hpp>
+# include <boost/preprocessor/facilities/is_tuple_begin.hpp>
+# include <boost/preprocessor/tuple/enum.hpp>
+#
 # define BOOST_PP_REMOVE_PARENS(x) \
     BOOST_PP_IIF \
       ( \
