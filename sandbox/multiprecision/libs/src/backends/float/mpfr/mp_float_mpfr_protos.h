@@ -8,8 +8,8 @@
 // "Algorithm 910: A Portable C++ Multiple-Precision System for Special-Function Calculations",
 // in ACM TOMS, {VOL 37, ISSUE 4, (February 2011)} (C) ACM, 2011. http://doi.acm.org/10.1145/1916461.1916469
 
-#ifndef _E_FLOAT_MPFR_PROTOS_2009_11_15_H_
-  #define _E_FLOAT_MPFR_PROTOS_2009_11_15_H_
+#ifndef _MP_FLOAT_MPFR_PROTOS_2009_11_15_H_
+  #define _MP_FLOAT_MPFR_PROTOS_2009_11_15_H_
 
   // Wrap the function names of MPFR.
   extern "C"
@@ -89,4 +89,4 @@
     int mpfr_yn   (mpfr_ptr, long, mpfr_srcptr, mp_rnd_t);
   }
 
-#endif // _E_FLOAT_MPFR_PROTOS_2009_11_15_H_
+#endif // _MP_FLOAT_MPFR_PROTOS_2009_11_15_H_

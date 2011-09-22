@@ -30,7 +30,7 @@ namespace test
         static const std::string str("TestCase_case_00071_various_int_func");
         return str;
       }
-      virtual void e_float_test(std::vector<mp_float>& data) const
+      virtual void mp_float_test(std::vector<mp_float>& data) const
       {
         data.clear();
         data.push_back(boost::multiprecision::factorial2(-1301));

@@ -30,7 +30,7 @@ namespace test
         static const std::string str("TestCase_case_00115_various_elem_trans");
         return str;
       }
-      virtual void e_float_test(std::vector<mp_float>& data) const
+      virtual void mp_float_test(std::vector<mp_float>& data) const
       {
         data.clear();
         data.push_back(boost::multiprecision::sqrt(mp_float(11.1))); // 11.1 = ((1745144855606067 / (2^52)) + 1)*2^3

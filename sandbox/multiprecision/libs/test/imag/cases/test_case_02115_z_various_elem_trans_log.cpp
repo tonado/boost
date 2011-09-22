@@ -31,7 +31,7 @@ namespace test
         static const std::string str("TestCase_case_02115_z_various_elem_trans_log");
         return str;
       }
-      virtual void e_float_test(std::vector<mp_complex>& data) const
+      virtual void mp_float_test(std::vector<mp_complex>& data) const
       {
         data.clear();
         data.push_back(boost::multiprecision::log10(mp_complex(boost::multiprecision::euler_gamma() * boost::multiprecision::thousand(), boost::multiprecision::golden_ratio() * boost::multiprecision::hundred())));

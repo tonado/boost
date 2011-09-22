@@ -30,7 +30,7 @@ namespace test
         static const std::string str("TestCase_case_00203_gamma_small_x");
         return str;
       }
-      virtual void e_float_test(std::vector<mp_float>& data) const
+      virtual void mp_float_test(std::vector<mp_float>& data) const
       {
         data.resize(51u);
         static const mp_float fifty_three = mp_float(53);

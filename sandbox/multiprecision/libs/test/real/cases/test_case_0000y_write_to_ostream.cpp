@@ -105,15 +105,15 @@ namespace test
       {
         std::cout << name() << " : ";
 
-        std::vector<mp_float> e_float_data;
+        std::vector<mp_float> mp_float_data;
 
         // Calculate the mp_float test data.
-        e_float_test(e_float_data);
+        mp_float_test(mp_float_data);
 
         // Optionally write the mp_float test data to an output file.
         if(b_write_output)
         {
-          if(!write_output_file(e_float_data))
+          if(!write_output_file(mp_float_data))
           {
             std::cout << "Can not write output: FAIL" << std::endl;
             return false;
@@ -144,7 +144,7 @@ namespace test
         static const std::string str("TestCase_case_00006_write_os_floatfield_fixed");
         return str;
       }
-      virtual void e_float_test(std::vector<mp_float>& data) const
+      virtual void mp_float_test(std::vector<mp_float>& data) const
       {
         data.clear();
 
@@ -257,7 +257,7 @@ namespace test
         static const std::string str("TestCase_case_00007_write_os_floatfield_scientific");
         return str;
       }
-      virtual void e_float_test(std::vector<mp_float>& data) const
+      virtual void mp_float_test(std::vector<mp_float>& data) const
       {
         data.clear();
 
@@ -340,7 +340,7 @@ namespace test
         static const std::string str("TestCase_case_00008_write_os_floatfield_not_set");
         return str;
       }
-      virtual void e_float_test(std::vector<mp_float>& data) const
+      virtual void mp_float_test(std::vector<mp_float>& data) const
       {
         data.clear();
 

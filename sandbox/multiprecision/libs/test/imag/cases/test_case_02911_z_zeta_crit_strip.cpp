@@ -31,7 +31,7 @@ namespace test
         static const std::string str("TestCase_case_02911_z_zeta_crit_strip");
         return str;
       }
-      virtual void e_float_test(std::vector<mp_complex>& data) const
+      virtual void mp_float_test(std::vector<mp_complex>& data) const
       {
         data.resize(5u);
         boost::int32_t ten_pow_k = static_cast<boost::int32_t>(1);

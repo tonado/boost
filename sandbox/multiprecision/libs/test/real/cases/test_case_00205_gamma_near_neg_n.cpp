@@ -30,7 +30,7 @@ namespace test
         static const std::string str("TestCase_case_00205_gamma_near_neg_n");
         return str;
       }
-      virtual void e_float_test(std::vector<mp_float>& data) const
+      virtual void mp_float_test(std::vector<mp_float>& data) const
       {
         data.resize(51u);
         mp_float ten_pow_k = boost::multiprecision::one();

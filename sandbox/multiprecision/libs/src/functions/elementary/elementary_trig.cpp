@@ -9,7 +9,7 @@
 // in ACM TOMS, {VOL 37, ISSUE 4, (February 2011)} (C) ACM, 2011. http://doi.acm.org/10.1145/1916461.1916469
 
 // *****************************************************************************
-// Filename    : e_float_math.cpp
+// Filename    : elementary_trig.cpp
 // 
 // Project     : Multiple precision mathematics
 // 

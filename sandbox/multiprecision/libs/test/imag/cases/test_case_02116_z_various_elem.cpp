@@ -31,7 +31,7 @@ namespace test
         static const std::string str("TestCase_case_02116_z_various_elem");
         return str;
       }
-      virtual void e_float_test(std::vector<mp_complex>& data) const
+      virtual void mp_float_test(std::vector<mp_complex>& data) const
       {
         data.clear();
         data.push_back(mp_complex(boost::multiprecision::euler_gamma(), boost::multiprecision::golden_ratio()) + static_cast<boost::int32_t>(123));

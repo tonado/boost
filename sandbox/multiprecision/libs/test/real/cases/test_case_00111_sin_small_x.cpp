@@ -30,7 +30,7 @@ namespace test
         static const std::string str("TestCase_case_00111_sin_small_x");
         return str;
       }
-      virtual void e_float_test(std::vector<mp_float>& data) const
+      virtual void mp_float_test(std::vector<mp_float>& data) const
       {
         data.resize(51u);
         for(boost::int32_t k = static_cast<boost::int32_t>(0); k < static_cast<boost::int32_t>(data.size()); k++)

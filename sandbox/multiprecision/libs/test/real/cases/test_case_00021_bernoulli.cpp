@@ -30,7 +30,7 @@ namespace test
         static const std::string str("TestCase_case_00021_bernoulli");
         return str;
       }
-      virtual void e_float_test(std::vector<mp_float>& data) const
+      virtual void mp_float_test(std::vector<mp_float>& data) const
       {
         data.resize(101u);
         for(boost::uint32_t k = static_cast<boost::uint32_t>(0u); k < static_cast<boost::uint32_t>(data.size()); k++)

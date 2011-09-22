@@ -9,7 +9,7 @@
 // in ACM TOMS, {VOL 37, ISSUE 4, (February 2011)} (C) ACM, 2011. http://doi.acm.org/10.1145/1916461.1916469
 
 // *****************************************************************************
-// Filename    : e_float_efx.cpp
+// Filename    : mp_float_efx.cpp
 // 
 // Project     : Multiple precision mathematics
 // 
@@ -123,10 +123,10 @@ mp_float_efx::mp_float_efx(const unsigned long n) : data     (),
 }
 
 mp_float_efx::mp_float_efx(const signed long long n) : data     (),
-                                                       exp      (static_cast<boost::int64_t>(0)),
-                                                       neg      (n < static_cast<signed long long>(0)),
-                                                       fpclass  (mp_finite),
-                                                       prec_elem(mp_elem_number)
+                                                  exp      (static_cast<boost::int64_t>(0)),
+                                                  neg      (n < static_cast<signed long long>(0)),
+                                                  fpclass  (mp_finite),
+                                                  prec_elem(mp_elem_number)
 {
   from_unsigned_long_long((!neg) ? static_cast<unsigned long long>(n) : static_cast<unsigned long long>(-n));
 }
@@ -160,7 +160,7 @@ mp_float_efx::mp_float_efx(const float f) : data     (),
     return;
   }
 
-  const native_float_parts<float> fb((!b_neg) ? f : -f);
+  const built_in_float_parts<float> fb((!b_neg) ? f : -f);
 
   // Create an mp_float_efx from the fractional part of the
   // mantissa expressed as an unsigned long long.
@@ -176,10 +176,10 @@ mp_float_efx::mp_float_efx(const float f) : data     (),
 }
 
 mp_float_efx::mp_float_efx(const double d) : data     (),
-                                             exp      (static_cast<boost::int64_t>(0)),
-                                             neg      (false),
-                                             fpclass  (mp_finite),
-                                             prec_elem(mp_elem_number)
+                                        exp      (static_cast<boost::int64_t>(0)),
+                                        neg      (false),
+                                        fpclass  (mp_finite),
+                                        prec_elem(mp_elem_number)
 {
   const bool b_neg = (d < 0.0);
 
@@ -195,7 +195,7 @@ mp_float_efx::mp_float_efx(const double d) : data     (),
     return;
   }
 
-  const native_float_parts<double> db((!b_neg) ? d : -d);
+  const built_in_float_parts<double> db((!b_neg) ? d : -d);
 
   // Create an mp_float_efx from the fractional part of the
   // mantissa expressed as an unsigned long long.
@@ -211,10 +211,10 @@ mp_float_efx::mp_float_efx(const double d) : data     (),
 }
 
 mp_float_efx::mp_float_efx(const long double ld) : data     (),
-                                                   exp      (static_cast<boost::int64_t>(0)),
-                                                   neg      (false),
-                                                   fpclass  (mp_finite),
-                                                   prec_elem(mp_elem_number)
+                                              exp      (static_cast<boost::int64_t>(0)),
+                                              neg      (false),
+                                              fpclass  (mp_finite),
+                                              prec_elem(mp_elem_number)
 {
   const bool b_neg = (ld < static_cast<long double>(0.0));
 
@@ -230,7 +230,7 @@ mp_float_efx::mp_float_efx(const long double ld) : data     (),
     return;
   }
 
-  const native_float_parts<long double> ldb((!b_neg) ? ld : -ld);
+  const built_in_float_parts<long double> ldb((!b_neg) ? ld : -ld);
 
   // Create an mp_float_efx from the fractional part of the
   // mantissa expressed as an unsigned long long.
@@ -246,10 +246,10 @@ mp_float_efx::mp_float_efx(const long double ld) : data     (),
 }
 
 mp_float_efx::mp_float_efx(const char* const s) : data     (),
-                                                  exp      (static_cast<boost::int64_t>(0)),
-                                                  neg      (false),
-                                                  fpclass  (mp_finite),
-                                                  prec_elem(mp_elem_number)
+                                             exp      (static_cast<boost::int64_t>(0)),
+                                             neg      (false),
+                                             fpclass  (mp_finite),
+                                             prec_elem(mp_elem_number)
 {
   if(!rd_string(s))
   {
@@ -261,10 +261,10 @@ mp_float_efx::mp_float_efx(const char* const s) : data     (),
 }
 
 mp_float_efx::mp_float_efx(const std::string& str) : data     (),
-                                                     exp      (static_cast<boost::int64_t>(0)),
-                                                     neg      (false),
-                                                     fpclass  (mp_finite),
-                                                     prec_elem(mp_elem_number)
+                                                exp      (static_cast<boost::int64_t>(0)),
+                                                neg      (false),
+                                                fpclass  (mp_finite),
+                                                prec_elem(mp_elem_number)
 {
   if(!rd_string(str.c_str()))
   {
@@ -276,11 +276,11 @@ mp_float_efx::mp_float_efx(const std::string& str) : data     (),
 }
 
 mp_float_efx::mp_float_efx(const double mantissa,
-                           const boost::int64_t exponent) : data     (),
-                                                            exp      (static_cast<boost::int64_t>(0)),
-                                                            neg      (false),
-                                                            fpclass  (mp_finite),
-                                                            prec_elem(mp_elem_number)
+                      const boost::int64_t exponent) : data     (),
+                                              exp      (static_cast<boost::int64_t>(0)),
+                                              neg      (false),
+                                              fpclass  (mp_finite),
+                                              prec_elem(mp_elem_number)
 {
   // Create an mp_float_efx from mantissa and exponent.
   // This ctor does not maintain the full precision of double.
@@ -433,7 +433,7 @@ boost::uint32_t mp_float_efx::div_loop_n(boost::uint32_t* const u, boost::uint32
 
 void mp_float_efx::precision(const boost::int32_t prec_digits)
 {
-  if(prec_digits >= mp_digits10)
+  if(prec_digits >= mp_float_digits10)
   {
     prec_elem = mp_elem_number;
   }
@@ -711,7 +711,7 @@ mp_float_efx& mp_float_efx::operator*=(const mp_float_efx& v)
     const boost::int64_t v_exp = ((!v_exp_is_neg) ? v.exp : static_cast<boost::int64_t>(-v.exp));
 
     // Check the range of the upcoming multiplication.
-    const bool b_result_is_out_of_range = (v_exp >= static_cast<boost::int64_t>(mp_max_exp10 - u_exp));
+    const bool b_result_is_out_of_range = (v_exp >= static_cast<boost::int64_t>(mp_float_max_exp10 - u_exp));
 
     if(b_result_is_out_of_range)
     {

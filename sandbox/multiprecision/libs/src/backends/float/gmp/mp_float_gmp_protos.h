@@ -8,8 +8,8 @@
 // "Algorithm 910: A Portable C++ Multiple-Precision System for Special-Function Calculations",
 // in ACM TOMS, {VOL 37, ISSUE 4, (February 2011)} (C) ACM, 2011. http://doi.acm.org/10.1145/1916461.1916469
 
-#ifndef _E_FLOAT_GMP_PROTOS_2009_05_02_H_
-  #define _E_FLOAT_GMP_PROTOS_2009_05_02_H_
+#ifndef _MP_FLOAT_GMP_PROTOS_2009_05_02_H_
+  #define _MP_FLOAT_GMP_PROTOS_2009_05_02_H_
 
   // Wrap the function names of GMP.
   extern "C"
@@ -70,4 +70,4 @@
   inline char*  mpf_get_str         (char* str, mp_exp_t* e, int i, size_t s, mpf_srcptr x) { return ::__gmpf_get_str            (str, e, i, s, x); }
   #define       gmp_sprintf         __gmp_sprintf
 
-#endif // _E_FLOAT_GMP_PROTOS_2009_05_02_H_
+#endif // _MP_FLOAT_GMP_PROTOS_2009_05_02_H_

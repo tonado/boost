@@ -12,11 +12,11 @@
   #define _TEST_CASE_BASE_2009_11_12_H_
 
   #include <string>
+  #include <iostream>
   #include <fstream>
   #include <iomanip>
   #include <algorithm>
   #include <iterator>
-
 
   #include <boost/multiprecision/mp_float_functions.hpp>
   #include <boost/noncopyable.hpp>
@@ -47,7 +47,7 @@
 
       virtual const std::vector<T>& control_data(void) const = 0;
 
-      virtual void e_float_test(std::vector<T>&) const = 0;
+      virtual void mp_float_test(std::vector<T>&) const = 0;
 
       bool write_output_file(const std::vector<T>& data) const
       {
@@ -78,13 +78,13 @@
       {
         std::cout << name() << " : ";
 
-        std::vector<T> e_float_data;
+        std::vector<T> mp_float_data;
 
         // Calculate the mp_float test data.
-        e_float_test(e_float_data);
+        mp_float_test(mp_float_data);
 
         // Verify equal length of the data tables.
-        if(e_float_data.size() != control_data().size())
+        if(mp_float_data.size() != control_data().size())
         {
           std::cout << "Table size mismatch: FAIL" << std::endl;
           return false;
@@ -93,7 +93,7 @@
         // Optionally write the mp_float test data to an output file.
         if(b_write_output)
         {
-          if(!write_output_file(e_float_data))
+          if(!write_output_file(mp_float_data))
           {
             std::cout << "Can not write output: FAIL" << std::endl;
             return false;
@@ -102,11 +102,11 @@
 
         bool b_compare = true;
 
-        for(typename std::vector<T>::size_type i = 0u; i < e_float_data.size(); i++)
+        for(typename std::vector<T>::size_type i = 0u; i < mp_float_data.size(); i++)
         {
           std::string str_result;
 
-          const bool b_result = compare_value(str_result, e_float_data[i], control_data()[i]);
+          const bool b_result = compare_value(str_result, mp_float_data[i], control_data()[i]);
 
           b_compare &= b_result;
 

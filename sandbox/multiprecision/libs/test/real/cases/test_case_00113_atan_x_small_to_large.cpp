@@ -30,7 +30,7 @@ namespace test
         static const std::string str("TestCase_case_00113_atan_x_small_to_large");
         return str;
       }
-      virtual void e_float_test(std::vector<mp_float>& data) const
+      virtual void mp_float_test(std::vector<mp_float>& data) const
       {
         data.resize(51u);
         mp_float ten_pow_4k = mp_float("1e-100");

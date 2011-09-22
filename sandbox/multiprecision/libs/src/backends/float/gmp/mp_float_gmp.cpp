@@ -51,33 +51,33 @@ void mp_float_gmp::init(void)
   if(precision_is_initialized == false)
   {
     precision_is_initialized = true;
-    ::mpf_set_default_prec(static_cast<unsigned long>(mp_digits2 + static_cast<boost::int32_t>(4)));
+    ::mpf_set_default_prec(static_cast<unsigned long>(mp_float_digits2 + static_cast<boost::int32_t>(4)));
   }
 }
 
 const boost::int64_t& mp_float_gmp::max_exp2(void)
 {
-  static const boost::int64_t val_max_exp2 = static_cast<boost::int64_t>(static_cast<double>(mp_max_exp10) / ::d_log2());
+  static const boost::int64_t val_max_exp2 = static_cast<boost::int64_t>(static_cast<double>(mp_float_max_exp10) / ::d_log2());
   return val_max_exp2;
 }
 
 const boost::int64_t& mp_float_gmp::min_exp2(void)
 {
-  static const boost::int64_t val_min_exp2 = static_cast<boost::int64_t>(static_cast<double>(mp_min_exp10) / ::d_log2());
+  static const boost::int64_t val_min_exp2 = static_cast<boost::int64_t>(static_cast<double>(mp_float_min_exp10) / ::d_log2());
   return val_min_exp2;
 }
 
 
 
 mp_float_gmp::mp_float_gmp() : fpclass  (mp_finite),
-                          prec_elem(mp_max_digits10)
+                          prec_elem(mp_float_max_digits10)
 {
   init();
   ::mpf_init(rop);
 }
 
 mp_float_gmp::mp_float_gmp(const char n) : fpclass  (mp_finite),
-                                      prec_elem(mp_max_digits10)
+                                      prec_elem(mp_float_max_digits10)
 {
   init();
   const bool b_neg = (std::numeric_limits<char>::is_signed ? (n < static_cast<char>(0)) : false);
@@ -86,7 +86,7 @@ mp_float_gmp::mp_float_gmp(const char n) : fpclass  (mp_finite),
 }
 
 mp_float_gmp::mp_float_gmp(const wchar_t n) : fpclass  (mp_finite),
-                                         prec_elem(mp_max_digits10)
+                                         prec_elem(mp_float_max_digits10)
 {
   init();
   const bool b_neg = (std::numeric_limits<wchar_t>::is_signed ? (n < static_cast<wchar_t>(0)) : false);
@@ -95,7 +95,7 @@ mp_float_gmp::mp_float_gmp(const wchar_t n) : fpclass  (mp_finite),
 }
 
 mp_float_gmp::mp_float_gmp(const signed char n) : fpclass  (mp_finite),
-                                             prec_elem(mp_max_digits10)
+                                             prec_elem(mp_float_max_digits10)
 {
   init();
   const bool b_neg = (n < static_cast<signed char>(0));
@@ -104,7 +104,7 @@ mp_float_gmp::mp_float_gmp(const signed char n) : fpclass  (mp_finite),
 }
 
 mp_float_gmp::mp_float_gmp(const signed short n) : fpclass  (mp_finite),
-                                              prec_elem(mp_max_digits10)
+                                              prec_elem(mp_float_max_digits10)
 {
   init();
   const bool b_neg = (n < static_cast<signed short>(0));
@@ -113,7 +113,7 @@ mp_float_gmp::mp_float_gmp(const signed short n) : fpclass  (mp_finite),
 }
 
 mp_float_gmp::mp_float_gmp(const signed int n) : fpclass  (mp_finite),
-                                            prec_elem(mp_max_digits10)
+                                            prec_elem(mp_float_max_digits10)
 {
   init();
   const bool b_neg = (n < static_cast<signed int>(0));
@@ -122,7 +122,7 @@ mp_float_gmp::mp_float_gmp(const signed int n) : fpclass  (mp_finite),
 }
 
 mp_float_gmp::mp_float_gmp(const signed long n) : fpclass  (mp_finite),
-                                             prec_elem(mp_max_digits10)
+                                             prec_elem(mp_float_max_digits10)
 {
   init();
   const bool b_neg = (n < static_cast<signed long>(0));
@@ -131,7 +131,7 @@ mp_float_gmp::mp_float_gmp(const signed long n) : fpclass  (mp_finite),
 }
 
 mp_float_gmp::mp_float_gmp(const signed long long n) : fpclass  (mp_finite),
-                                                  prec_elem(mp_max_digits10)
+                                                  prec_elem(mp_float_max_digits10)
 {
   init();
   const bool b_neg = (n < static_cast<signed long long>(0));
@@ -140,42 +140,42 @@ mp_float_gmp::mp_float_gmp(const signed long long n) : fpclass  (mp_finite),
 }
 
 mp_float_gmp::mp_float_gmp(const unsigned char n) : fpclass  (mp_finite),
-                                               prec_elem(mp_max_digits10)
+                                               prec_elem(mp_float_max_digits10)
 {
   init();
   from_unsigned_long(static_cast<unsigned long>(n));
 }
 
 mp_float_gmp::mp_float_gmp(const unsigned short n) : fpclass  (mp_finite),
-                                                prec_elem(mp_max_digits10)
+                                                prec_elem(mp_float_max_digits10)
 {
   init();
   from_unsigned_long(static_cast<unsigned long>(n));
 }
 
 mp_float_gmp::mp_float_gmp(const unsigned int n) : fpclass  (mp_finite),
-                                              prec_elem(mp_max_digits10)
+                                              prec_elem(mp_float_max_digits10)
 {
   init();
   from_unsigned_long(static_cast<unsigned long>(n));
 }
 
 mp_float_gmp::mp_float_gmp(const unsigned long n) : fpclass  (mp_finite),
-                                               prec_elem(mp_max_digits10)
+                                               prec_elem(mp_float_max_digits10)
 {
   init();
   from_unsigned_long(static_cast<unsigned long>(n));
 }
 
 mp_float_gmp::mp_float_gmp(const unsigned long long n) : fpclass  (mp_finite),
-                                                    prec_elem(mp_max_digits10)
+                                                    prec_elem(mp_float_max_digits10)
 {
   init();
   from_unsigned_long_long(static_cast<unsigned long long>(n));
 }
 
 mp_float_gmp::mp_float_gmp(const float f) : fpclass  (mp_finite),
-                                       prec_elem(mp_max_digits10)
+                                       prec_elem(mp_float_max_digits10)
 {
   init();
 
@@ -187,7 +187,7 @@ mp_float_gmp::mp_float_gmp(const float f) : fpclass  (mp_finite),
     return;
   }
 
-  const native_float_parts<float> fb((!b_neg) ? f : -f);
+  const built_in_float_parts<float> fb((!b_neg) ? f : -f);
 
   // Create an mp_float_gmp from the fractional part of the
   // mantissa expressed as an unsigned long long.
@@ -206,14 +206,14 @@ mp_float_gmp::mp_float_gmp(const float f) : fpclass  (mp_finite),
 }
 
 mp_float_gmp::mp_float_gmp(const double d) : fpclass  (mp_finite),
-                                        prec_elem(mp_max_digits10)
+                                        prec_elem(mp_float_max_digits10)
 {
   init();
   ::mpf_init_set_d(rop, d);
 }
 
 mp_float_gmp::mp_float_gmp(const long double ld) : fpclass  (mp_finite),
-                                              prec_elem(mp_max_digits10)
+                                              prec_elem(mp_float_max_digits10)
 {
   init();
 
@@ -225,7 +225,7 @@ mp_float_gmp::mp_float_gmp(const long double ld) : fpclass  (mp_finite),
     return;
   }
 
-  const native_float_parts<long double> fb((!b_neg) ? ld : -ld);
+  const built_in_float_parts<long double> fb((!b_neg) ? ld : -ld);
 
   // Create an mp_float_gmp from the fractional part of the
   // mantissa expressed as an unsigned long long.
@@ -244,14 +244,14 @@ mp_float_gmp::mp_float_gmp(const long double ld) : fpclass  (mp_finite),
 }
 
 mp_float_gmp::mp_float_gmp(const char* const s) : fpclass  (mp_finite),
-                                             prec_elem(mp_max_digits10)
+                                             prec_elem(mp_float_max_digits10)
 {
   init();
   static_cast<void>(rd_string(s));
 }
 
 mp_float_gmp::mp_float_gmp(const std::string& str) : fpclass  (mp_finite),
-                                                prec_elem(mp_max_digits10)
+                                                prec_elem(mp_float_max_digits10)
 {
   init();
   static_cast<void>(rd_string(str.c_str()));
@@ -265,7 +265,7 @@ mp_float_gmp::mp_float_gmp(const mp_float_gmp& mp) : fpclass  (mp.fpclass),
 }
 
 mp_float_gmp::mp_float_gmp(const double mantissa, const boost::int64_t exponent) : fpclass  (mp_finite),
-                                                                     prec_elem(mp_max_digits10)
+                                                                     prec_elem(mp_float_max_digits10)
 {
   init();
 
@@ -291,7 +291,7 @@ mp_float_gmp::mp_float_gmp(const double mantissa, const boost::int64_t exponent)
 }
 
 mp_float_gmp::mp_float_gmp(const ::mpf_t& op) : fpclass  (mp_finite),
-                                           prec_elem(mp_max_digits10)
+                                           prec_elem(mp_float_max_digits10)
 {
   init();
   ::mpf_init_set(rop, op);
@@ -299,7 +299,7 @@ mp_float_gmp::mp_float_gmp(const ::mpf_t& op) : fpclass  (mp_finite),
 
 mp_float_gmp::~mp_float_gmp()
 {
-  ::mpf_set_prec_raw(rop, static_cast<unsigned long int>(mp_digits2));
+  ::mpf_set_prec_raw(rop, static_cast<unsigned long int>(mp_float_digits2));
   ::mpf_clear(rop);
 }
 
@@ -323,7 +323,7 @@ void mp_float_gmp::from_unsigned_long(const unsigned long u)
 void mp_float_gmp::precision(const boost::int32_t prec_digits)
 {
   const unsigned long int digits2_request = static_cast<unsigned long int>(static_cast<boost::uint64_t>(static_cast<double>(prec_digits) / ::d_log2()));
-  const unsigned long int d2              = static_cast<unsigned long int>(mp_digits2);
+  const unsigned long int d2              = static_cast<unsigned long int>(mp_float_digits2);
   const unsigned long int digits2_set     = (std::min)(digits2_request, d2);
 
   prec_elem = static_cast<boost::int32_t>(static_cast<boost::int64_t>(static_cast<double>(digits2_set) * ::d_log2()));
@@ -424,7 +424,7 @@ mp_float_gmp& mp_float_gmp::operator*=(const mp_float_gmp& v)
     const boost::int64_t v_exp2 = ((!v_exp2_is_neg) ? v_exp2_signed : -v_exp2_signed);
 
     // Check the range of the upcoming multiplication.
-    const bool b_result_is_out_of_range = (v_exp2 >= static_cast<long>(static_cast<long>(mp_max_exp) - u_exp2));
+    const bool b_result_is_out_of_range = (v_exp2 >= static_cast<long>(static_cast<long>(mp_float_max_exp) - u_exp2));
 
     if(b_result_is_out_of_range)
     {
@@ -1032,7 +1032,7 @@ void mp_float_gmp::get_output_string(std::string& str, boost::int64_t& my_exp, c
   const std::string str_fmt = std::string("%.") + (boost::lexical_cast<std::string>(the_number_of_digits_scientific) + "Fe");
 
   // Get the string representation of the mp_float_gmp in scientific notation (lowercase, noshowpos).
-  boost::array<char, static_cast<std::size_t>(mp_float_gmp::mp_max_digits10 + 32)> buf = {{ static_cast<char>('0') }};
+  boost::array<char, static_cast<std::size_t>(mp_float_gmp::mp_float_max_digits10 + 32)> buf = {{ static_cast<char>('0') }};
 
   static_cast<void>(gmp_sprintf(buf.data(), str_fmt.c_str(), rop));
 

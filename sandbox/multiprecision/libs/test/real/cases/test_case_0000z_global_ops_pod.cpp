@@ -23,7 +23,7 @@ using boost::multiprecision::mp_float;
 
 namespace
 {
-  struct e_float_equate_to
+  struct mp_float_equate_to
   {
     static mp_float the_value_min;
     static mp_float the_value_max;
@@ -49,8 +49,8 @@ namespace
     }
   };
 
-  mp_float e_float_equate_to::the_value_min;
-  mp_float e_float_equate_to::the_value_max;
+  mp_float mp_float_equate_to::the_value_min;
+  mp_float mp_float_equate_to::the_value_max;
 }
 
 namespace test
@@ -78,15 +78,15 @@ namespace test
       {
         std::cout << name() << " : ";
 
-        std::vector<mp_float> e_float_data;
+        std::vector<mp_float> mp_float_data;
 
         // Calculate the mp_float test data.
-        e_float_test(e_float_data);
+        mp_float_test(mp_float_data);
 
         // Optionally write the mp_float test data to an output file.
         if(b_write_output)
         {
-          if(!write_output_file(e_float_data))
+          if(!write_output_file(mp_float_data))
           {
             std::cout << "Can not write output: FAIL" << std::endl;
             return false;
@@ -118,28 +118,28 @@ namespace test
         static const std::string str("TestCase_case_00009_global_ops_pod_equate");
         return str;
       }
-      virtual void e_float_test(std::vector<mp_float>& data) const
+      virtual void mp_float_test(std::vector<mp_float>& data) const
       {
         data.clear();
 
         my_test_result = true;
 
-        my_test_result &= (std::numeric_limits<char>::is_signed ? ::e_float_equate_to::check_type<char, signed long long>()
-                                                                : ::e_float_equate_to::check_type<char, unsigned long long>());
-        my_test_result &= (std::numeric_limits<wchar_t>::is_signed ? ::e_float_equate_to::check_type<wchar_t, signed long long>()
-                                                                   : ::e_float_equate_to::check_type<wchar_t, unsigned long long>());
+        my_test_result &= (std::numeric_limits<char>::is_signed ? ::mp_float_equate_to::check_type<char, signed long long>()
+                                                                : ::mp_float_equate_to::check_type<char, unsigned long long>());
+        my_test_result &= (std::numeric_limits<wchar_t>::is_signed ? ::mp_float_equate_to::check_type<wchar_t, signed long long>()
+                                                                   : ::mp_float_equate_to::check_type<wchar_t, unsigned long long>());
 
-        my_test_result &= ::e_float_equate_to::check_type<signed char, signed long long>();
-        my_test_result &= ::e_float_equate_to::check_type<signed short, signed long long>();
-        my_test_result &= ::e_float_equate_to::check_type<signed int, signed long long>();
-        my_test_result &= ::e_float_equate_to::check_type<signed long, signed long long>();
-        my_test_result &= ::e_float_equate_to::check_type<signed long long, signed long long>();
+        my_test_result &= ::mp_float_equate_to::check_type<signed char, signed long long>();
+        my_test_result &= ::mp_float_equate_to::check_type<signed short, signed long long>();
+        my_test_result &= ::mp_float_equate_to::check_type<signed int, signed long long>();
+        my_test_result &= ::mp_float_equate_to::check_type<signed long, signed long long>();
+        my_test_result &= ::mp_float_equate_to::check_type<signed long long, signed long long>();
 
-        my_test_result &= ::e_float_equate_to::check_type<unsigned char, unsigned long long>();
-        my_test_result &= ::e_float_equate_to::check_type<unsigned short, unsigned long long>();
-        my_test_result &= ::e_float_equate_to::check_type<unsigned int, unsigned long long>();
-        my_test_result &= ::e_float_equate_to::check_type<unsigned long, unsigned long long>();
-        my_test_result &= ::e_float_equate_to::check_type<unsigned long long, unsigned long long>();
+        my_test_result &= ::mp_float_equate_to::check_type<unsigned char, unsigned long long>();
+        my_test_result &= ::mp_float_equate_to::check_type<unsigned short, unsigned long long>();
+        my_test_result &= ::mp_float_equate_to::check_type<unsigned int, unsigned long long>();
+        my_test_result &= ::mp_float_equate_to::check_type<unsigned long, unsigned long long>();
+        my_test_result &= ::mp_float_equate_to::check_type<unsigned long long, unsigned long long>();
 
         mp_float x(123u); // Initialize x with something.
 
@@ -166,7 +166,7 @@ namespace test
         static const std::string str("TestCase_case_00010_global_ops_pod_operations");
         return str;
       }
-      virtual void e_float_test(std::vector<mp_float>& data) const
+      virtual void mp_float_test(std::vector<mp_float>& data) const
       {
         data.clear();
 

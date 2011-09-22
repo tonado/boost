@@ -31,7 +31,7 @@ namespace test
         static const std::string str("TestCase_case_00011_various_elem_math");
         return str;
       }
-      virtual void e_float_test(std::vector<mp_float>& data) const
+      virtual void mp_float_test(std::vector<mp_float>& data) const
       {
         data.clear();
         data.push_back(boost::multiprecision::floor(boost::multiprecision::pi()));

@@ -37,7 +37,7 @@ void mp_float_mpfr::init(void)
   if(precision_is_initialized == false)
   {
     precision_is_initialized = true;
-    ::mpfr_set_default_prec(static_cast<mp_prec_t>(mp_digits2 + static_cast<boost::int32_t>(4)));
+    ::mpfr_set_default_prec(static_cast<mp_prec_t>(mp_float_digits2 + static_cast<boost::int32_t>(4)));
   }
 }
 
@@ -76,7 +76,7 @@ mp_float_mpfr::mp_float_mpfr(const float f)
     return;
   }
 
-  const native_float_parts<float> fb((!b_neg) ? f : -f);
+  const built_in_float_parts<float> fb((!b_neg) ? f : -f);
 
   // Create an mp_float_mpfr from the fractional part of the
   // mantissa expressed as an unsigned long long.
@@ -571,7 +571,7 @@ void mp_float_mpfr::get_output_string(std::string& str, boost::int64_t&, const s
   const std::string str_fmt = std::string("%.") + (boost::lexical_cast<std::string>(the_number_of_digits_scientific) + "RNe");
 
   // Get the string representation of the mp_float_mpfr in scientific notation (lowercase, noshowpos).
-  boost::array<char, static_cast<std::size_t>(mp_float_mpfr::mp_max_digits10 + 32)> buf = {{ static_cast<char>(0) }};
+  boost::array<char, static_cast<std::size_t>(mp_float_mpfr::mp_float_max_digits10 + 32)> buf = {{ static_cast<char>(0) }};
 
   ::mpfr_sprintf(buf.data(), str_fmt.c_str(), rop);
 

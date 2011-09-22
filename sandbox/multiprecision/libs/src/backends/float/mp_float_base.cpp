@@ -8,6 +8,7 @@
 // "Algorithm 910: A Portable C++ Multiple-Precision System for Special-Function Calculations",
 // in ACM TOMS, {VOL 37, ISSUE 4, (February 2011)} (C) ACM, 2011. http://doi.acm.org/10.1145/1916461.1916469
 
+#include <iostream>
 #include <algorithm>
 
 #include <boost/multiprecision/mp_float.hpp>
@@ -47,11 +48,11 @@ namespace
   void special_extend_string_to_precision(std::string& str, const std::size_t os_precision);
 }
 
-bool mp_float_base::digits_match_lib_dll_is_ok;
+bool mp_float_base::my_mp_float_digits10_do_match_those_of_lib_dll;
 
 // Create a loud link error if the digits in the
 // mp_float headers mismatch those in a Lib or DLL.
-template<> boost::int32_t boost::multiprecision::digits_match_lib_dll<mp_float_base::mp_digits10>(void) { return mp_float_base::mp_digits10; }
+template<> boost::int_fast32_t boost::multiprecision::template_mp_float_digits10_match_those_of_lib_dll<mp_float_base::mp_float_digits10>(void) { return mp_float_base::mp_float_digits10; }
 
 std::ostream& boost::multiprecision::operator<<(std::ostream& os, const mp_float_base& f)
 {
@@ -70,7 +71,7 @@ std::istream& boost::multiprecision::operator>>(std::istream& is, mp_float_base&
 
 const mp_float& mp_float_base::my_value_max(void) const
 {
-  static const std::string str_max =   std::string("9." + std::string(static_cast<std::size_t>(mp_max_digits10), static_cast<char>('9')))
+  static const std::string str_max =   std::string("9." + std::string(static_cast<std::size_t>(mp_float_max_digits10), static_cast<char>('9')))
                                      + std::string("e+" + boost::lexical_cast<std::string>(std::numeric_limits<mp_float>::max_exponent10));
   static const mp_float val_max(str_max);
   return val_max;
@@ -182,7 +183,7 @@ void mp_float_base::wr_string(std::string& str, std::ostream& os) const
   }
 
   // Ascertain the number of digits requested from mp_float.
-  std::size_t the_number_of_digits_i_want_from_e_float = static_cast<std::size_t>(0u);
+  std::size_t the_number_of_digits_i_want_from_mp_float = static_cast<std::size_t>(0u);
   const std::size_t max10_plus_one = static_cast<std::size_t>(std::numeric_limits<mp_float>::max_digits10 + 1);
 
   if(use_scientific)
@@ -190,7 +191,7 @@ void mp_float_base::wr_string(std::string& str, std::ostream& os) const
     // The float-field is scientific. The number of digits is given by
     // (1 + the ostream's precision), not to exceed (max_digits10 + 1).
     const std::size_t prec_plus_one  = static_cast<std::size_t>(1u + os_precision);
-    the_number_of_digits_i_want_from_e_float = (std::min)(max10_plus_one, prec_plus_one);
+    the_number_of_digits_i_want_from_mp_float = (std::min)(max10_plus_one, prec_plus_one);
   }
   else if(use_fixed)
   {
@@ -205,14 +206,14 @@ void mp_float_base::wr_string(std::string& str, std::ostream& os) const
       const std::size_t exp_plus_one = static_cast<std::size_t>(my_exp + 1);
       const std::size_t exp_plus_one_plus_my_precision = static_cast<std::size_t>(exp_plus_one + os_precision);
 
-      the_number_of_digits_i_want_from_e_float = (std::min)(exp_plus_one_plus_my_precision, max10_plus_one);
+      the_number_of_digits_i_want_from_mp_float = (std::min)(exp_plus_one_plus_my_precision, max10_plus_one);
     }
     else
     {
       const boost::int64_t exp_plus_one = static_cast<boost::int64_t>(my_exp + 1);
       const boost::int64_t exp_plus_one_plus_my_precision = static_cast<boost::int64_t>(exp_plus_one + static_cast<boost::int64_t>(os_precision));
 
-      the_number_of_digits_i_want_from_e_float = (std::min)(static_cast<std::size_t>((std::max)(exp_plus_one_plus_my_precision, static_cast<boost::int64_t>(0))), max10_plus_one);
+      the_number_of_digits_i_want_from_mp_float = (std::min)(static_cast<std::size_t>((std::max)(exp_plus_one_plus_my_precision, static_cast<boost::int64_t>(0))), max10_plus_one);
     }
   }
 
@@ -222,11 +223,11 @@ void mp_float_base::wr_string(std::string& str, std::ostream& os) const
   if(my_float_field == os_float_field_none)
   {
     const std::size_t max_digits = (std::min)(os_precision, static_cast<std::size_t>(std::numeric_limits<mp_float>::max_digits10));
-    the_number_of_digits_i_want_from_e_float = (std::min)(the_number_of_digits_i_want_from_e_float, max_digits);
+    the_number_of_digits_i_want_from_mp_float = (std::min)(the_number_of_digits_i_want_from_mp_float, max_digits);
   }
 
   // Extract the rounded output string with the desired number of digits.
-  get_output_string(str, my_exp, the_number_of_digits_i_want_from_e_float);
+  get_output_string(str, my_exp, the_number_of_digits_i_want_from_mp_float);
 
   // Obtain additional format information.
   const bool my_showpoint  = ((my_flags & std::ios::showpoint)  != static_cast<std::ios::fmtflags>(0u));

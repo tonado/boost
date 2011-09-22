@@ -254,7 +254,7 @@ mp_float boost::multiprecision::riemann_zeta(const boost::int32_t n)
   }
 
   // Check if there is a simple form for Zeta(n).
-  if(!Zeta_Series::has_simple_form_for_zeta_n(n))
+  if(Zeta_Series::has_simple_form_for_zeta_n(n) == false)
   {
     // There is no simple form for Zeta(n). Do the mp_float calculation.
     return riemann_zeta(mp_float(n));
@@ -272,9 +272,9 @@ mp_float boost::multiprecision::riemann_zeta(const boost::int32_t n)
       {
         const boost::uint32_t two_n = static_cast<boost::uint32_t>(static_cast<boost::int32_t>(-n) + static_cast<boost::int32_t>(1));
 
-        const bool is_even = (n % static_cast<boost::int32_t>(2)) == static_cast<boost::int32_t>(0);
+        const bool is_even = (static_cast<boost::int32_t>(n % static_cast<boost::int32_t>(2)) == static_cast<boost::int32_t>(0));
 
-        return is_even ? boost::multiprecision::zero() : -boost::multiprecision::bernoulli(two_n) / static_cast<boost::int32_t>(two_n);
+        return (is_even ? boost::multiprecision::zero() : -boost::multiprecision::bernoulli(two_n) / static_cast<boost::int32_t>(two_n));
       }
       else
       {

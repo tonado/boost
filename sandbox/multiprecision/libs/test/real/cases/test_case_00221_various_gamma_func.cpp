@@ -31,7 +31,7 @@ namespace test
         static const std::string str("TestCase_case_00221_various_gamma_func");
         return str;
       }
-      virtual void e_float_test(std::vector<mp_float>& data) const
+      virtual void mp_float_test(std::vector<mp_float>& data) const
       {
         data.clear();
         data.push_back(boost::multiprecision::binomial(  20u,   10u));

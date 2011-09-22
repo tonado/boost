@@ -20,6 +20,8 @@ bool operator!=(const mp_complex& u, const mp_float& v) { return ((u.real() != v
 bool operator==(const mp_float& u, const mp_complex& v) { return ((u == v.real()) &&  boost::multiprecision::iszero(v.imag())); }
 bool operator!=(const mp_float& u, const mp_complex& v) { return ((u != v.real()) || !boost::multiprecision::iszero(v.imag())); }
 
+std::ostream& boost::multiprecision::operator<<(std::ostream& os, const mp_complex& z) { return os << '(' << z.real() << ',' << z.imag() << ')'; }
+
 mp_float boost::multiprecision::abs(const mp_complex& z) { return boost::multiprecision::sqrt(boost::multiprecision::norm(z)); }
 mp_float boost::multiprecision::arg(const mp_complex& z) { return boost::multiprecision::atan2(z.imag(), z.real()); }
 

@@ -44,15 +44,15 @@ namespace test
       {
         std::cout << name() << " : ";
 
-        std::vector<mp_float> e_float_data;
+        std::vector<mp_float> mp_float_data;
 
         // Calculate the mp_float test data.
-        e_float_test(e_float_data);
+        mp_float_test(mp_float_data);
 
         // Optionally write the mp_float test data to an output file.
         if(b_write_output)
         {
-          if(!write_output_file(e_float_data))
+          if(!write_output_file(mp_float_data))
           {
             std::cout << "Can not write output: FAIL" << std::endl;
             return false;
@@ -83,7 +83,7 @@ namespace test
         static const std::string str("TestCase_case_00001_overflow_mul_x");
         return str;
       }
-      virtual void e_float_test(std::vector<mp_float>& data) const
+      virtual void mp_float_test(std::vector<mp_float>& data) const
       {
         data.clear();
 
@@ -116,7 +116,7 @@ namespace test
         static const std::string str("TestCase_case_00002_underflow_mul_x");
         return str;
       }
-      virtual void e_float_test(std::vector<mp_float>& data) const
+      virtual void mp_float_test(std::vector<mp_float>& data) const
       {
         data.clear();
 
@@ -149,7 +149,7 @@ namespace test
         static const std::string str("TestCase_case_00003_overflow_x_mul_by_n");
         return str;
       }
-      virtual void e_float_test(std::vector<mp_float>& data) const
+      virtual void mp_float_test(std::vector<mp_float>& data) const
       {
         data.clear();
 
@@ -183,7 +183,7 @@ namespace test
         static const std::string str("TestCase_case_00004_underflow_x_div_by_n");
         return str;
       }
-      virtual void e_float_test(std::vector<mp_float>& data) const
+      virtual void mp_float_test(std::vector<mp_float>& data) const
       {
         data.clear();
 

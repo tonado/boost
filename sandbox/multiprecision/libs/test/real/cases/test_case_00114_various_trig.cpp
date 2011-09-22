@@ -30,7 +30,7 @@ namespace test
         static const std::string str("TestCase_case_00114_various_trig");
         return str;
       }
-      virtual void e_float_test(std::vector<mp_float>& data) const
+      virtual void mp_float_test(std::vector<mp_float>& data) const
       {
         data.clear();
         data.push_back(boost::multiprecision::sec(boost::multiprecision::euler_gamma()));

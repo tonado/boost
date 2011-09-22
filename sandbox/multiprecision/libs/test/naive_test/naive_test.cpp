@@ -89,7 +89,7 @@ using std::string;
 // but NOT 0.1.
 // Integral may be an integer or a double having an integral value.
 
-BOOST_AUTO_TEST_CASE(e_float_test_template)
+BOOST_AUTO_TEST_CASE(mp_float_test_template)
 { // These are just examples of using Boost.Test.
   // Need to be removed when no longer helpful.
   BOOST_TEST_MESSAGE("Test Boost.mp_float"); // Only appears if command line has --log_level="message"
@@ -170,23 +170,23 @@ BOOST_AUTO_TEST_CASE(e_float_test_template)
     CHECK_OUT_IN(std::fixed << w, result, value);
   }
 
-} // BOOST_AUTO_TEST_CASE(e_float_template)
+} // BOOST_AUTO_TEST_CASE(mp_float_template)
 
-BOOST_AUTO_TEST_CASE(e_float_test_macros)
+BOOST_AUTO_TEST_CASE(mp_float_test_macros)
 { // Check some macro values.
   // 
   BOOST_CHECK_EQUAL(BOOST_MULTIPRECISION_BACKEND_MP_FLOAT_DIGITS10, 50); // Assumes we are testing at 50 digits, NOT the default.
-} // BOOST_AUTO_TEST_CASE(e_float_test_macros)
+} // BOOST_AUTO_TEST_CASE(mp_float_test_macros)
 
 
-BOOST_AUTO_TEST_CASE(e_float_test_ios)
+BOOST_AUTO_TEST_CASE(mp_float_test_ios)
 { // Check some IOS defaults.
   BOOST_CHECK_EQUAL(cout.precision(), 6);
   std::ostringstream oss;
   BOOST_CHECK_EQUAL(oss.precision(), 6);
   }
 
-BOOST_AUTO_TEST_CASE(e_float_test_input)
+BOOST_AUTO_TEST_CASE(mp_float_test_input)
 { // 
   BOOST_TEST_MESSAGE("Test Boost.mp_float input."); 
 
@@ -199,9 +199,9 @@ BOOST_AUTO_TEST_CASE(e_float_test_input)
    CHECK_IN("0.0123456", mp_float("0.0123456"));
    CHECK_IN("1e-6", mp_float("1e-6"));
    CHECK_IN("-1e-6", mp_float("-1e-6"));
-} // BOOST_AUTO_TEST_CASE(e_float_test_input)
+} // BOOST_AUTO_TEST_CASE(mp_float_test_input)
 
-BOOST_AUTO_TEST_CASE(e_float_test_output)
+BOOST_AUTO_TEST_CASE(mp_float_test_output)
 { // 
 
   BOOST_TEST_MESSAGE("Test Boost.mp_float output."); 
@@ -313,9 +313,9 @@ BOOST_AUTO_TEST_CASE(e_float_test_output)
   CHECK_OUT(fixed << setprecision(50) << -boost::multiprecision::pi(), "-3.14159265358979323846264338327950288419716939937511"); 
   CHECK_OUT(fixed << setprecision(std::numeric_limits<mp_float>::max_digits10) << -boost::multiprecision::pi(), "-3.141592653589793238462643383279502884197169399375106"); 
 
-} // BOOST_AUTO_TEST_CASE(e_float_test_output)
+} // BOOST_AUTO_TEST_CASE(mp_float_test_output)
 
-BOOST_AUTO_TEST_CASE(e_float_test_int_arith)
+BOOST_AUTO_TEST_CASE(mp_float_test_int_arith)
 { // 
 
   BOOST_TEST_MESSAGE("Test Boost.mp_float integer arithmetic."); 
@@ -327,10 +327,10 @@ BOOST_AUTO_TEST_CASE(e_float_test_int_arith)
   my_float = mp_float(2) +  mp_float(2); // OK
 
   BOOST_CHECK_EQUAL(my_float, e_four);
-} // BOOST_AUTO_TEST_CASE(e_float_test_int_arith)
+} // BOOST_AUTO_TEST_CASE(mp_float_test_int_arith)
 
 
-BOOST_AUTO_TEST_CASE(e_float_test_float_arith)
+BOOST_AUTO_TEST_CASE(mp_float_test_float_arith)
 { // 
 
   BOOST_TEST_MESSAGE("Test Boost.mp_float float arithmetic.");
@@ -349,7 +349,7 @@ BOOST_AUTO_TEST_CASE(e_float_test_float_arith)
   BOOST_CHECK_EQUAL(mp_float(2.), mp_float(2.)); // Constructed from two integral value doubles.
   BOOST_CHECK_EQUAL(mp_float(0.5), mp_float(0.5)); // Constructed from two exact doubles.
 
-  const mp_float e_float_max = boost::multiprecision::value_max(); // mp_float 
+  const mp_float mp_float_max = boost::multiprecision::value_max(); // mp_float 
 
 
   mp_float my_float;
@@ -387,9 +387,9 @@ BOOST_AUTO_TEST_CASE(e_float_test_float_arith)
   
 // Compare exact double.
 
-} // BOOST_AUTO_TEST_CASE(e_float_test_float_arith)
+} // BOOST_AUTO_TEST_CASE(mp_float_test_float_arith)
 
-BOOST_AUTO_TEST_CASE(e_float_test_numeric_limits)
+BOOST_AUTO_TEST_CASE(mp_float_test_numeric_limits)
 { 
   BOOST_CHECK(BOOST_MULTIPRECISION_BACKEND_MP_FLOAT_TYPE_EFX);
   BOOST_CHECK_EQUAL(BOOST_MULTIPRECISION_BACKEND_MP_FLOAT_TYPE_EFX, 1);
@@ -453,9 +453,9 @@ BOOST_AUTO_TEST_CASE(e_float_test_numeric_limits)
   //BOOST_CHECK_EQUAL(std::numeric_limits<mp_float>::infinity(), "INF");
   //BOOST_CHECK_EQUAL(-std::numeric_limits<mp_float>::infinity(), "INF");
   
-} // BOOST_AUTO_TEST_CASE(e_float_test_numeric_limits)
+} // BOOST_AUTO_TEST_CASE(mp_float_test_numeric_limits)
 
-BOOST_AUTO_TEST_CASE(e_float_test_constants)
+BOOST_AUTO_TEST_CASE(mp_float_test_constants)
 { // 
   BOOST_CHECK_EQUAL(boost::multiprecision::one(), mp_float(1)); // Integer.
   BOOST_CHECK_EQUAL(boost::multiprecision::one_minus(), mp_float(-1)); // Negative Integer.
@@ -464,7 +464,7 @@ BOOST_AUTO_TEST_CASE(e_float_test_constants)
   BOOST_CHECK_EQUAL(boost::multiprecision::sixteenth(), mp_float(0.0625)); // Exactly representable as double.
 
   //BOOST_CHECK_EQUAL(boost::multiprecision::tenth(), mp_float(0.1)); // NOT exactly representable as double.
-  //   naive_test.cpp(319): error in "e_float_test_constants": check boost::multiprecision::tenth() == mp_float(0.1) failed [0.1 != 0.100000000000000005551115123125782702118158340454102]
+  //   naive_test.cpp(319): error in "mp_float_test_constants": check boost::multiprecision::tenth() == mp_float(0.1) failed [0.1 != 0.100000000000000005551115123125782702118158340454102]
   BOOST_CHECK_EQUAL(boost::multiprecision::tenth(), mp_float("0.1")); // OK, exactly representable as mp_float.
 
   double my_pi = 3.141592653589793238462643383279502884197169399375105820974944;
@@ -507,7 +507,7 @@ BOOST_AUTO_TEST_CASE(e_float_test_constants)
 
 
 
-} // BOOST_AUTO_TEST_CASE(e_float_test_constants)
+} // BOOST_AUTO_TEST_CASE(mp_float_test_constants)
 //3.14159265358979323846264338327950288419716939937511
 //3.14159265358979323846264338327950288419716939937511
 //3.141592653589793238462643383279502884197169399375105820974944
