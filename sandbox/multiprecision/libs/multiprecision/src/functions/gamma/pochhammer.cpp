@@ -13,45 +13,51 @@
 using boost::multiprecision::mp_float;
 using boost::multiprecision::mp_complex;
 
-namespace Pochhammer_Series
+namespace boost
 {
-  template<typename T,
-           typename TR>
-  T Pochhammer_Template(const T& x, const boost::uint32_t n)
+  namespace multiprecision
   {
-    using boost::multiprecision::real;
-    using boost::multiprecision::real;
-    using boost::multiprecision::gamma;
-    using boost::multiprecision::gamma;
-    using boost::multiprecision::one;
-
-    if(n == static_cast<boost::uint32_t>(0u))
+    namespace pochhammer_series
     {
-      return one();
-    }
-    else if(n == static_cast<boost::uint32_t>(1u))
-    {
-      return x;
-    }
-    else
-    {
-      if(n < static_cast<boost::uint32_t>(50u))
+      template<typename T,
+               typename TR>
+      T my_pochhammer(const T& x, const boost::uint32_t n)
       {
-        T val (x);
-        T term(x);
+        using boost::multiprecision::real;
+        using boost::multiprecision::real;
+        using boost::multiprecision::gamma;
+        using boost::multiprecision::gamma;
+        using boost::multiprecision::one;
 
-        for(boost::uint32_t i = static_cast<boost::uint32_t>(1u); i < n; i++)
+        if(n == static_cast<boost::uint32_t>(0u))
         {
-          val *= ++term;
+          return one();
         }
+        else if(n == static_cast<boost::uint32_t>(1u))
+        {
+          return x;
+        }
+        else
+        {
+          if(n < static_cast<boost::uint32_t>(50u))
+          {
+            T val (x);
+            T term(x);
 
-        return val;
-      }
-      else
-      {
-        const TR nr(n);
+            for(boost::uint32_t i = static_cast<boost::uint32_t>(1u); i < n; i++)
+            {
+              val *= ++term;
+            }
 
-        return gamma(x + nr) / gamma(x);
+            return val;
+          }
+          else
+          {
+            const TR nr(n);
+
+            return gamma(x + nr) / gamma(x);
+          }
+        }
       }
     }
   }
@@ -59,12 +65,12 @@ namespace Pochhammer_Series
 
 mp_float boost::multiprecision::pochhammer(const mp_float& x, const boost::uint32_t n)
 {
-  return Pochhammer_Series::Pochhammer_Template<mp_float, mp_float>(x, n);
+  return boost::multiprecision::pochhammer_series::my_pochhammer<mp_float, mp_float>(x, n);
 }
 
 mp_complex boost::multiprecision::pochhammer(const mp_complex& x, const boost::uint32_t n)
 {
-  return Pochhammer_Series::Pochhammer_Template<mp_complex, mp_float>(x, n);
+  return boost::multiprecision::pochhammer_series::my_pochhammer<mp_complex, mp_float>(x, n);
 }
 
 mp_float boost::multiprecision::pochhammer(const mp_float& x, const mp_float& a)

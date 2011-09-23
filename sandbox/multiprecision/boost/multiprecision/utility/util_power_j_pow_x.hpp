@@ -13,6 +13,7 @@
 
   #include <map>
 
+  #include <boost/cstdint.hpp>
   #include <boost/multiprecision/mp_float_functions.hpp>
 
   namespace boost
@@ -21,8 +22,8 @@
     {
       namespace utility
       {
-        boost::multiprecision::mp_float   j_pow_x(const boost::uint32_t j, const boost::multiprecision::mp_float&   x, std::map<boost::uint32_t, boost::multiprecision::mp_float>&   n_pow_x_prime_factor_map);
-        boost::multiprecision::mp_complex j_pow_x(const boost::uint32_t j, const boost::multiprecision::mp_complex& x, std::map<boost::uint32_t, boost::multiprecision::mp_complex>& n_pow_x_prime_factor_map);
+        boost::multiprecision::mp_float   j_pow_x(const boost::uint_fast32_t j, const boost::multiprecision::mp_float&   x, std::map<boost::uint_fast32_t, boost::multiprecision::mp_float>&   n_pow_x_prime_factor_map);
+        boost::multiprecision::mp_complex j_pow_x(const boost::uint_fast32_t j, const boost::multiprecision::mp_complex& x, std::map<boost::uint_fast32_t, boost::multiprecision::mp_complex>& n_pow_x_prime_factor_map);
       }
     }
   }

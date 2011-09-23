@@ -43,7 +43,7 @@ mp_float_efx::mp_float_efx(const char n) : data     (),
 
 mp_float_efx::mp_float_efx(const signed char n) : data     (),
                                                   exp      (static_cast<boost::int64_t>(0)),
-                                                  neg      (n < static_cast<boost::int32_t>(0)),
+                                                  neg      (n < static_cast<signed char>(0)),
                                                   fpclass  (mp_finite),
                                                   prec_elem(mp_elem_number)
 {
@@ -70,7 +70,7 @@ mp_float_efx::mp_float_efx(const wchar_t n) : data     (),
 
 mp_float_efx::mp_float_efx(const signed short n) : data     (),
                                                    exp      (static_cast<boost::int64_t>(0)),
-                                                   neg      (n < static_cast<boost::int32_t>(0)),
+                                                   neg      (n < static_cast<signed short>(0)),
                                                    fpclass  (mp_finite),
                                                    prec_elem(mp_elem_number)
 {
@@ -86,11 +86,11 @@ mp_float_efx::mp_float_efx(const unsigned short n) : data     (),
   from_unsigned_long(static_cast<unsigned long>(n));
 }
 
-mp_float_efx::mp_float_efx(const signed int n) : data     (),
-                                                 exp      (static_cast<boost::int64_t>(0)),
-                                                 neg      (n < 0),
-                                                 fpclass  (mp_finite),
-                                                 prec_elem(mp_elem_number)
+mp_float_efx::mp_float_efx(const int n) : data     (),
+                                          exp      (static_cast<boost::int64_t>(0)),
+                                          neg      (n < 0),
+                                          fpclass  (mp_finite),
+                                          prec_elem(mp_elem_number)
 {
   from_unsigned_long((!neg) ? static_cast<unsigned long>(n) : static_cast<unsigned long>(-n));
 }
@@ -468,7 +468,7 @@ mp_float_efx& mp_float_efx::operator+=(const mp_float_efx& v)
   {
     if(v.isinf() && (isneg() != v.isneg()))
     {
-      *this = std::numeric_limits<mp_float_efx>::quiet_NaN();
+      *this = std::numeric_limits<mp_float>::quiet_NaN();
     }
 
     return *this;
@@ -646,14 +646,14 @@ mp_float_efx& mp_float_efx::operator+=(const mp_float_efx& v)
   if(iszero()) { return (*this = boost::multiprecision::zero()); }
 
   // Check for overflow.
-  if(   (exp >= std::numeric_limits<mp_float_efx>::max_exponent10)
-     && (boost::multiprecision::fabs(*this) > (std::numeric_limits<mp_float_efx>::max)())
+  if(   (exp >= std::numeric_limits<mp_float>::max_exponent10)
+     && (boost::multiprecision::fabs(*this) > (std::numeric_limits<mp_float>::max)())
     )
   {
     const bool b_result_is_neg = neg;
 
-    *this = ((!b_result_is_neg) ?  std::numeric_limits<mp_float_efx>::infinity()
-                                : -std::numeric_limits<mp_float_efx>::infinity());
+    *this = ((!b_result_is_neg) ?  std::numeric_limits<mp_float>::infinity()
+                                : -std::numeric_limits<mp_float>::infinity());
   }
 
   return *this;
@@ -684,13 +684,13 @@ mp_float_efx& mp_float_efx::operator*=(const mp_float_efx& v)
      || (b_v_is_inf && b_u_is_zero)
     )
   {
-    return (*this = std::numeric_limits<mp_float_efx>::quiet_NaN());
+    return (*this = std::numeric_limits<mp_float>::quiet_NaN());
   }
 
   if(b_u_is_inf || b_v_is_inf)
   {
-    *this = ((!b_result_is_neg) ?  std::numeric_limits<mp_float_efx>::infinity()
-                                : -std::numeric_limits<mp_float_efx>::infinity());
+    *this = ((!b_result_is_neg) ?  std::numeric_limits<mp_float>::infinity()
+                                : -std::numeric_limits<mp_float>::infinity());
 
     return *this;
   }
@@ -721,8 +721,8 @@ mp_float_efx& mp_float_efx::operator*=(const mp_float_efx& v)
       }
       else
       {
-        *this = ((!b_result_is_neg) ?  std::numeric_limits<mp_float_efx>::infinity()
-                                    : -std::numeric_limits<mp_float_efx>::infinity());
+        *this = ((!b_result_is_neg) ?  std::numeric_limits<mp_float>::infinity()
+                                    : -std::numeric_limits<mp_float>::infinity());
       }
 
       return *this;
@@ -792,13 +792,13 @@ mp_float_efx& mp_float_efx::mul_unsigned_long_long(const unsigned long long n)
 
   if(isnan() || (b_u_is_inf && b_n_is_zero))
   {
-    return (*this = std::numeric_limits<mp_float_efx>::quiet_NaN());
+    return (*this = std::numeric_limits<mp_float>::quiet_NaN());
   }
 
   if(b_u_is_inf)
   {
-    *this = ((!b_neg) ?  std::numeric_limits<mp_float_efx>::infinity()
-                      : -std::numeric_limits<mp_float_efx>::infinity());
+    *this = ((!b_neg) ?  std::numeric_limits<mp_float>::infinity()
+                      : -std::numeric_limits<mp_float>::infinity());
 
     return *this;
   }
@@ -838,12 +838,12 @@ mp_float_efx& mp_float_efx::mul_unsigned_long_long(const unsigned long long n)
     data.front() = static_cast<boost::uint32_t>(carry);
   }
 
-  if(   (exp >= std::numeric_limits<mp_float_efx>::max_exponent10)
-     && (*this > (std::numeric_limits<mp_float_efx>::max)())
+  if(   (exp >= std::numeric_limits<mp_float>::max_exponent10)
+     && (*this > (std::numeric_limits<mp_float>::max)())
     )
   {
-    *this = ((!b_neg) ?  std::numeric_limits<mp_float_efx>::infinity()
-                      : -std::numeric_limits<mp_float_efx>::infinity());
+    *this = ((!b_neg) ?  std::numeric_limits<mp_float>::infinity()
+                      : -std::numeric_limits<mp_float>::infinity());
 
     return *this;
   }
@@ -872,8 +872,8 @@ mp_float_efx& mp_float_efx::div_unsigned_long_long(const unsigned long long n)
 
   if(isinf())
   {
-    *this = ((!b_neg) ?  std::numeric_limits<mp_float_efx>::infinity()
-                      : -std::numeric_limits<mp_float_efx>::infinity());
+    *this = ((!b_neg) ?  std::numeric_limits<mp_float>::infinity()
+                      : -std::numeric_limits<mp_float>::infinity());
 
     return *this;
   }
@@ -883,12 +883,12 @@ mp_float_efx& mp_float_efx::div_unsigned_long_long(const unsigned long long n)
     // Divide by 0.
     if(iszero())
     {
-      return (*this = std::numeric_limits<mp_float_efx>::quiet_NaN());
+      return (*this = std::numeric_limits<mp_float>::quiet_NaN());
     }
     else
     {
-      *this = ((!isneg()) ?  std::numeric_limits<mp_float_efx>::infinity()
-                          : -std::numeric_limits<mp_float_efx>::infinity());
+      *this = ((!isneg()) ?  std::numeric_limits<mp_float>::infinity()
+                          : -std::numeric_limits<mp_float>::infinity());
 
       return *this;
     }
@@ -946,8 +946,8 @@ mp_float_efx& mp_float_efx::calculate_inv(void)
   // Handle special cases like zero, inf and NaN.
   if(iszero())
   {
-    *this = ((!b_neg) ?  std::numeric_limits<mp_float_efx>::infinity()
-                      : -std::numeric_limits<mp_float_efx>::infinity());
+    *this = ((!b_neg) ?  std::numeric_limits<mp_float>::infinity()
+                      : -std::numeric_limits<mp_float>::infinity());
 
     return *this;
   }
@@ -1011,7 +1011,7 @@ mp_float_efx& mp_float_efx::calculate_sqrt(void)
 
   if(isneg() || (!isfinite()))
   {
-    return (*this = std::numeric_limits<mp_float_efx>::quiet_NaN());
+    return (*this = std::numeric_limits<mp_float>::quiet_NaN());
   }
 
   if(iszero() || isone())
@@ -1448,7 +1448,7 @@ mp_float_efx mp_float_efx::extract_integer_part(void) const
     // Thus the integer part is zero.
     return boost::multiprecision::zero();
   }
-  else if(exp >= static_cast<boost::int64_t>(std::numeric_limits<mp_float_efx>::digits10 - 1))
+  else if(exp >= static_cast<boost::int64_t>(std::numeric_limits<mp_float>::digits10 - 1))
   {
     // The number is too large to resolve the integer part.
     // Thus it is already a pure integer part.
@@ -1487,7 +1487,7 @@ mp_float_efx mp_float_efx::extract_decimal_part(void) const
     // Thus it is already a pure decimal part.
     return *this;
   }
-  else if(exp >= static_cast<boost::int64_t>(std::numeric_limits<mp_float_efx>::digits10 - 1))
+  else if(exp >= static_cast<boost::int64_t>(std::numeric_limits<mp_float>::digits10 - 1))
   {
     // The number is too large to have a decimal part.
     // Thus the decimal part is zero.
@@ -1562,15 +1562,10 @@ const mp_float_efx& mp_float_efx::my_value_inf(void) const
 
 boost::int64_t mp_float_efx::get_order_fast(void) const
 {
-  if((!isfinite()) || (data[0] == static_cast<boost::uint32_t>(0u)))
-  {
-    return static_cast<boost::int64_t>(0);
-  }
-  else
-  {
-    const double dx = ::log10(static_cast<double>(data[0])) + (std::numeric_limits<double>::epsilon() * 0.9);
-    return static_cast<boost::int64_t>(exp + static_cast<boost::int64_t>(static_cast<boost::int32_t>(dx)));
-  }
+  const bool bo_order_is_zero = ((!isfinite()) || (data[0] == static_cast<boost::uint32_t>(0u)));
+
+  return (bo_order_is_zero ? static_cast<boost::int64_t>(0)
+                           : static_cast<boost::int64_t>(exp + boost::multiprecision::order_of(static_cast<double>(data[0]))));
 }
 
 void mp_float_efx::get_output_string(std::string& str, boost::int64_t& my_exp, const std::size_t number_of_digits) const
@@ -1840,18 +1835,18 @@ bool mp_float_efx::rd_string(const char* const s)
   }
 
   // Check for overflow...
-  if(exp > std::numeric_limits<mp_float_efx>::max_exponent10)
+  if(exp > std::numeric_limits<mp_float>::max_exponent10)
   {
     const bool b_result_is_neg = neg;
 
-    *this = ((!b_result_is_neg) ?  std::numeric_limits<mp_float_efx>::infinity()
-                                : -std::numeric_limits<mp_float_efx>::infinity());
+    *this = ((!b_result_is_neg) ?  std::numeric_limits<mp_float>::infinity()
+                                : -std::numeric_limits<mp_float>::infinity());
   }
 
   // ...and check for underflow.
-  if(exp <= std::numeric_limits<mp_float_efx>::min_exponent10)
+  if(exp <= std::numeric_limits<mp_float>::min_exponent10)
   {
-    if(exp == std::numeric_limits<mp_float_efx>::min_exponent10)
+    if(exp == std::numeric_limits<mp_float>::min_exponent10)
     {
       // Check for identity with the minimum value.
       mp_float_efx test = *this;

@@ -11,13 +11,16 @@
 #ifndef _UTIL_POWER_X_POW_N_2009_11_23_HPP_
   #define _UTIL_POWER_X_POW_N_2009_11_23_HPP_
 
+  #include <boost/cstdint.hpp>
+
   namespace boost
   {
     namespace multiprecision
     {
       namespace utility
       {
-        template<typename T> inline T x_pow_n_template(const T& t, const boost::int64_t p)
+        template<typename T>
+        inline T x_pow_n_template(const T& t, const boost::int64_t p)
         {
           // Compute the pure power of typename T t^p. Binary splitting of the power is
           // used. The resulting computational complexity has the order of log2[abs(p)].

@@ -33,7 +33,6 @@ FILES_FUNCTIONS = ../src/functions/constants/constants \
                   ../src/functions/gamma/factorial \
                   ../src/functions/gamma/factorial2 \
                   ../src/functions/gamma/gamma \
-                  ../src/functions/gamma/gamma_util \
                   ../src/functions/gamma/pochhammer \
                   ../src/functions/integer/bernoulli_b \
                   ../src/functions/integer/prime \

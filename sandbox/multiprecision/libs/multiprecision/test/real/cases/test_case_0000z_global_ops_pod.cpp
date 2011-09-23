@@ -131,7 +131,7 @@ namespace test
 
         my_test_result &= ::mp_float_equate_to::check_type<signed char, signed long long>();
         my_test_result &= ::mp_float_equate_to::check_type<signed short, signed long long>();
-        my_test_result &= ::mp_float_equate_to::check_type<signed int, signed long long>();
+        my_test_result &= ::mp_float_equate_to::check_type<int, signed long long>();
         my_test_result &= ::mp_float_equate_to::check_type<signed long, signed long long>();
         my_test_result &= ::mp_float_equate_to::check_type<signed long long, signed long long>();
 

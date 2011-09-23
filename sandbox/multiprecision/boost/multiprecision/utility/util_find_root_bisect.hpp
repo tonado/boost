@@ -11,8 +11,9 @@
 #ifndef _UTIL_FIND_ROOT_BISECT_2009_10_31_HPP_
   #define _UTIL_FIND_ROOT_BISECT_2009_10_31_HPP_
 
-  #include <utility/util_find_root_base.h>
+  #include <boost/cstdint.hpp>
   #include <boost/multiprecision/mp_float.hpp>
+  #include <utility/util_find_root_base.h>
 
   namespace boost
   {
@@ -20,25 +21,25 @@
     {
       namespace utility
       {
-        template<typename T> class find_root_bisect : public find_root_base<T>
+        template<typename T>
+        class find_root_bisect : public find_root_base<T>
         {
-        protected:
-    
-          find_root_bisect(const T& lo,
-                         const T& hi,
-                         const T& tol) : find_root_base<T>(lo, hi, tol) { }
-
         public:
-
           virtual ~find_root_bisect() { }
 
+        protected:
+          find_root_bisect(const T& lo,
+                           const T& hi,
+                           const T& tol) : find_root_base<T>(lo, hi, tol) { }
+
         private:
+          // Set a maximum of 2048 iterations.
+          static const boost::int_fast32_t my_max_iteration = static_cast<boost::int_fast32_t>(2048);
 
           virtual T my_operation(void) const
           {
             // Bisection method as described in Numerical Recipes in C++ 2nd Ed., chapter 9.1.
-            // The program on page 358 was taken directly from the book and slightly modified
-            // to improve adherence with standard C++ coding practices.
+            // This template implementation was inspired by the program on page 358.
 
             function_operation<T>::op_ok = true;
 
@@ -70,8 +71,9 @@
               rt = hi;
             }
 
-            // Bisection iteration loop, maximum 2048 times.
-            for(boost::uint32_t i = static_cast<boost::uint32_t>(0u); i < static_cast<boost::uint32_t>(2048u); i++)
+            // Bisection iteration loop, maximum my_max_iteration times.
+            boost::int_fast32_t i;
+            for(i = static_cast<boost::int_fast32_t>(0); i < my_max_iteration; i++)
             {
               dx /= static_cast<boost::int32_t>(2);
 
@@ -86,17 +88,27 @@
               // Check for convergence to within a tolerance.
               const T dx_abs = ((dx < t_zero) ? -dx : dx);
 
-              if(dx_abs < ranged_function_operation<T>::eps || boost::multiprecision::iszero(f_mid))
+              const bool f_mid_is_zero = (f_mid == T(0));
+
+              if(dx_abs < ranged_function_operation<T>::eps || f_mid_is_zero)
               {
-                // Return root.
-                return rt;
+                // Break and return root.
+                break;
               }
             }
 
-            // Bisection iteration did not converge.
-            function_operation<T>::op_ok = false;
+            const bool bo_did_not_converge = (i == my_max_iteration);
 
-            return t_zero;
+            if(bo_did_not_converge)
+            {
+              // Bisection iteration did not converge.
+              function_operation<T>::op_ok = false;
+              return t_zero;
+            }
+            else
+            {
+              return rt;
+            }
           }
         };
       }

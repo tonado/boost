@@ -11,8 +11,10 @@
 #ifndef _UTIL_FUNCTION_DERIVATIVE_2009_11_17_HPP_
   #define _UTIL_FUNCTION_DERIVATIVE_2009_11_17_HPP_
 
+  #include <limits>
   #include <string>
   #include <sstream>
+  #include <boost/cstdint.hpp>
 
   #include "util_function_operation.h"
   #include <boost/lexical_cast.hpp>
@@ -23,50 +25,17 @@
     {
       namespace utility
       {
-        template<typename T> class function_derivative : public function_operation<T>
+        template<typename T>
+        class function_derivative : public function_operation<T>
         {
-        private:
-
-          static const T& my_tol(void)
-          {
-            static bool is_init = false;
-
-            static T val_tol;
-
-            if(!is_init)
-            {
-              is_init = true;
-
-              // Set the default tolerance to be approximately 10^[-(digits10 * 1.15)/5].
-              static const double      tx = (static_cast<double>(std::numeric_limits<T>::digits10) * 1.15) / 5.0;
-              static const std::size_t tn = static_cast<std::size_t>(tx + 0.5);
-
-              std::stringstream ss;
-
-              ss << "1E-" + boost::lexical_cast(tn);
-
-              ss >> val_tol;
-            }
-
-            static const T the_tol = val_tol;
-
-            return the_tol;
-          }
-
-        protected:
-
-          const T my_x;
-          const T my_dx;
-
-        protected:
-
-          function_derivative(const T& x, const T& dx = my_tol()) : my_x(x), my_dx(dx) { }
-
         public:
-
           virtual ~function_derivative() { }
 
         protected:
+          const T my_x;
+          const T my_dx;
+
+          function_derivative(const T& x, const T& dx = my_tol()) : my_x(x), my_dx(dx) { }
 
           virtual T my_operation(void) const
           {
@@ -87,6 +56,33 @@
             const T ten_dx1    = static_cast<boost::int32_t>(10) * dx1;
 
             return ((fifteen_m1 - six_m2) + m3) / ten_dx1;
+          }
+
+        private:
+          static const T& my_tol(void)
+          {
+            static bool is_init = false;
+
+            static T val_tol;
+
+            if(!is_init)
+            {
+              is_init = true;
+
+              // Set the default tolerance to be approximately 10^[-(digits10 * 1.15)/5].
+              static const double      tx = (static_cast<double>(std::numeric_limits<T>::digits10) * 1.15) / 5.0;
+              static const std::size_t tn = static_cast<std::size_t>(tx + 0.5);
+
+              std::stringstream ss;
+
+              ss << std::string("1E-" + boost::lexical_cast<std::string>(tn));
+
+              ss >> val_tol;
+            }
+
+            static const T the_tol = val_tol;
+
+            return the_tol;
           }
         };
       }

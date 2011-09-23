@@ -22,7 +22,9 @@
     {
       namespace utility
       {
-        template<typename T1, typename T2 = T1> struct linear_interpolate
+        template<typename T1,
+                 typename T2 = T1>
+        struct linear_interpolate
         {
           static T2 interpolate(const T1& x, const std::vector<boost::multiprecision::utility::point<T1, T2> >& points)
           {

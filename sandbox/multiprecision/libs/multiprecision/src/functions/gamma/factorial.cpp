@@ -15,59 +15,57 @@
 
 using boost::multiprecision::mp_float;
 
-namespace Factorial_Series
+namespace
 {
-  mp_float AtInfinity(const boost::uint32_t n);
-}
-
-mp_float Factorial_Series::AtInfinity(const boost::uint32_t n)
-{
-  const mp_float x                              = mp_float(n);
-        mp_float one_over_x_pow_two_n_minus_one = boost::multiprecision::one() / x;
-  const mp_float one_over_x2                    = one_over_x_pow_two_n_minus_one * one_over_x_pow_two_n_minus_one;
-
-  static const mp_float B2 =   Tables::A000367()[static_cast<std::size_t>(1u)]()
-                            / Tables::A002445()[static_cast<std::size_t>(1u)]();
-
-  mp_float sum = (B2 * one_over_x_pow_two_n_minus_one) / static_cast<boost::int32_t>(2);
-
-  static const std::size_t sz_A000367 = Tables::A000367().size();
-  static const std::size_t sz_A002445 = Tables::A002445().size();
-  static const std::size_t sz_max     = (std::min)(sz_A000367, sz_A002445);
-
-  // Perform the Bernoulli series expansion without explicitly calling the function
-  // boost::multiprecision::Bernoulli in order to avoid any recursive calls of boost::multiprecision::factorial. This is
-  // because boost::multiprecision::bernoulli_b calls boost::multiprecision::factorial for large integers.
-
-  for(boost::int32_t k = static_cast<boost::int32_t>(2); k < static_cast<boost::int32_t>(sz_max); k++)
+  mp_float my_factorial_series_at_infinity(const boost::uint32_t n)
   {
-    one_over_x_pow_two_n_minus_one *= one_over_x2;
+    const mp_float x                              = mp_float(n);
+          mp_float one_over_x_pow_two_n_minus_one = boost::multiprecision::one() / x;
+    const mp_float one_over_x2                    = one_over_x_pow_two_n_minus_one * one_over_x_pow_two_n_minus_one;
 
-    const boost::int32_t two_k           = static_cast<boost::int32_t>(k     * static_cast<boost::int32_t>(2));
-    const boost::int32_t two_k_minus_one = static_cast<boost::int32_t>(two_k - static_cast<boost::int32_t>(1));
+    static const mp_float B2 =   boost::multiprecision::tables::A000367()[static_cast<std::size_t>(1u)]()
+                              / boost::multiprecision::tables::A002445()[static_cast<std::size_t>(1u)]();
 
-    const mp_float B2k =   Tables::A000367()[static_cast<std::size_t>(k)]()
-                        / Tables::A002445()[static_cast<std::size_t>(k)]();
+    mp_float sum = (B2 * one_over_x_pow_two_n_minus_one) / static_cast<boost::int32_t>(2);
 
-    const mp_float term = ((B2k * one_over_x_pow_two_n_minus_one) / two_k) / two_k_minus_one;
+    static const std::size_t sz_A000367 = boost::multiprecision::tables::A000367().size();
+    static const std::size_t sz_A002445 = boost::multiprecision::tables::A002445().size();
+    static const std::size_t sz_max     = (std::min)(sz_A000367, sz_A002445);
 
-    if(term.order() < -boost::multiprecision::tol())
+    // Perform the Bernoulli series expansion without explicitly calling the function
+    // boost::multiprecision::Bernoulli in order to avoid any recursive calls of boost::multiprecision::factorial. This is
+    // because boost::multiprecision::bernoulli_b calls boost::multiprecision::factorial for large integers.
+
+    for(boost::int32_t k = static_cast<boost::int32_t>(2); k < static_cast<boost::int32_t>(sz_max); k++)
     {
-      break;
+      one_over_x_pow_two_n_minus_one *= one_over_x2;
+
+      const boost::int32_t two_k           = static_cast<boost::int32_t>(k     * static_cast<boost::int32_t>(2));
+      const boost::int32_t two_k_minus_one = static_cast<boost::int32_t>(two_k - static_cast<boost::int32_t>(1));
+
+      const mp_float B2k =   boost::multiprecision::tables::A000367()[static_cast<std::size_t>(k)]()
+                          / boost::multiprecision::tables::A002445()[static_cast<std::size_t>(k)]();
+
+      const mp_float term = ((B2k * one_over_x_pow_two_n_minus_one) / two_k) / two_k_minus_one;
+
+      if(term.order() < -boost::multiprecision::tol())
+      {
+        break;
+      }
+
+      sum += term;
     }
 
-    sum += term;
+    static const mp_float half_ln_two_pi = boost::multiprecision::log(boost::multiprecision::two_pi()) / static_cast<boost::int32_t>(2);
+
+    return boost::multiprecision::exp(((((x - boost::multiprecision::half()) * boost::multiprecision::log(x)) - x) + half_ln_two_pi) + sum);
   }
-
-  static const mp_float half_ln_two_pi = boost::multiprecision::log(boost::multiprecision::two_pi()) / static_cast<boost::int32_t>(2);
-
-  return boost::multiprecision::exp(((((x - boost::multiprecision::half()) * boost::multiprecision::log(x)) - x) + half_ln_two_pi) + sum);
 }
 
 mp_float boost::multiprecision::factorial(const boost::uint32_t n)
 {
-  return (static_cast<std::size_t>(n) < Tables::A000142().size()) ? Tables::A000142()[n]()
-                                                                  : Factorial_Series::AtInfinity(static_cast<boost::uint32_t>(n + static_cast<boost::uint32_t>(1u)));
+  return (static_cast<std::size_t>(n) < boost::multiprecision::tables::A000142().size()) ? boost::multiprecision::tables::A000142()[n]()
+                                                                  : ::my_factorial_series_at_infinity(static_cast<boost::uint32_t>(n + static_cast<boost::uint32_t>(1u)));
 }
 
 mp_float boost::multiprecision::binomial(const boost::uint32_t n, const boost::uint32_t k)
@@ -82,9 +80,9 @@ mp_float boost::multiprecision::binomial(const boost::uint32_t n, const boost::u
   }
   else
   {
-    if(n < static_cast<boost::uint32_t>(Tables::A007318().size()))
+    if(n < static_cast<boost::uint32_t>(boost::multiprecision::tables::A007318().size()))
     {
-      return Tables::A007318()[static_cast<std::size_t>(n)]()[static_cast<std::size_t>(k)];
+      return boost::multiprecision::tables::A007318()[static_cast<std::size_t>(n)]()[static_cast<std::size_t>(k)];
     }
     else
     {

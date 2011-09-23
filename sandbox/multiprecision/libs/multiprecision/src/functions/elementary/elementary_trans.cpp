@@ -19,11 +19,6 @@
 
 using boost::multiprecision::mp_float;
 
-namespace ElementaryTrans_Series
-{
-  static mp_float rootn_inv(const mp_float& x, const boost::int32_t p);
-}
-
 mp_float boost::multiprecision::pown(const mp_float& x, const boost::int64_t p)
 {
   return boost::multiprecision::utility::x_pow_n_template<mp_float>(x, p);
@@ -314,57 +309,60 @@ mp_float boost::multiprecision::pow2(const boost::int64_t p)
   }
 }
 
-static mp_float ElementaryTrans_Series::rootn_inv(const mp_float& x, const boost::int32_t p)
-{
-  // Compute the value of [1 / (rootn of x)] with n = p.
-
-  // Generate the initial estimate using 1 / rootn.
-  // Extract the mantissa and exponent for a "manual"
-  // computation of the estimate.
-  double dd;
-  boost::int64_t  ne;
-  boost::multiprecision::to_parts(x, dd, ne);
-
-  // Adjust exponent and mantissa such that ne is an even power of p.
-  while(ne % static_cast<boost::int64_t>(p))
-  {
-    ++ne;
-    dd /= 10.0;
-  }
-  
-  // Estimate the one over the root using simple manipulations.
-  const double one_over_rtn_d = ::pow(dd, -1.0 / static_cast<double>(p));
-
-  // Set the result equal to the initial guess.
-  mp_float result(one_over_rtn_d, static_cast<boost::int64_t>(-ne / p));
-
-  static const boost::int32_t double_digits10_minus_one = static_cast<boost::int32_t>(static_cast<boost::int32_t>(std::numeric_limits<double>::digits10) - static_cast<boost::int32_t>(1));
-
-  for(boost::int32_t digits = double_digits10_minus_one; digits <= static_cast<boost::int32_t>(boost::multiprecision::tol()); digits *= static_cast<boost::int32_t>(2))
-  {
-    // Adjust precision of the terms.
-    result.precision(static_cast<boost::int32_t>(digits * static_cast<boost::int32_t>(2)));
-
-    // Next iteration
-    mp_float term = (((-boost::multiprecision::pown(result, p) * x) + boost::multiprecision::one()) / p) + boost::multiprecision::one();
-
-    term.precision(static_cast<boost::int32_t>(digits * static_cast<boost::int32_t>(2)));
-
-    result *= term;
-  
-  }
-
-  result.precision(static_cast<boost::int32_t>(boost::multiprecision::tol()));
-
-  return result;
-}
-
 mp_float boost::multiprecision::inv (const mp_float& x) { return mp_float(x).calculate_inv(); }
 mp_float boost::multiprecision::sqrt(const mp_float& x) { return mp_float(x).calculate_sqrt(); }
 
 mp_float boost::multiprecision::cbrt(const mp_float& x)
 {
   return boost::multiprecision::rootn(x, static_cast<boost::int32_t>(3));
+}
+
+namespace
+{
+  mp_float my_rootn_inv(const mp_float& x, const boost::int32_t p)
+  {
+    // Compute the value of [1 / (rootn of x)] with n = p.
+
+    // Generate the initial estimate using 1 / rootn.
+    // Extract the mantissa and exponent for a "manual"
+    // computation of the estimate.
+    double dd;
+    boost::int64_t  ne;
+    boost::multiprecision::to_parts(x, dd, ne);
+
+    // Adjust exponent and mantissa such that ne is an even power of p.
+    while(ne % static_cast<boost::int64_t>(p))
+    {
+      ++ne;
+      dd /= 10.0;
+    }
+  
+    // Estimate the one over the root using simple manipulations.
+    const double one_over_rtn_d = ::pow(dd, -1.0 / static_cast<double>(p));
+
+    // Set the result equal to the initial guess.
+    mp_float result(one_over_rtn_d, static_cast<boost::int64_t>(-ne / p));
+
+    static const boost::int32_t double_digits10_minus_one = static_cast<boost::int32_t>(static_cast<boost::int32_t>(std::numeric_limits<double>::digits10) - static_cast<boost::int32_t>(1));
+
+    for(boost::int32_t digits = double_digits10_minus_one; digits <= static_cast<boost::int32_t>(boost::multiprecision::tol()); digits *= static_cast<boost::int32_t>(2))
+    {
+      // Adjust precision of the terms.
+      result.precision(static_cast<boost::int32_t>(digits * static_cast<boost::int32_t>(2)));
+
+      // Next iteration
+      mp_float term = (((-boost::multiprecision::pown(result, p) * x) + boost::multiprecision::one()) / p) + boost::multiprecision::one();
+
+      term.precision(static_cast<boost::int32_t>(digits * static_cast<boost::int32_t>(2)));
+
+      result *= term;
+  
+    }
+
+    result.precision(static_cast<boost::int32_t>(boost::multiprecision::tol()));
+
+    return result;
+  }
 }
 
 mp_float boost::multiprecision::rootn(const mp_float& x, const boost::int32_t p)
@@ -397,7 +395,7 @@ mp_float boost::multiprecision::rootn(const mp_float& x, const boost::int32_t p)
   }
 
   const mp_float rtn =  (x.has_its_own_rootn() ? mp_float::my_rootn(x, p)
-                                              : ElementaryTrans_Series::rootn_inv(x, p).calculate_inv());
+                                               : ::my_rootn_inv(x, p).calculate_inv());
 
   return rtn;
 }
@@ -478,9 +476,9 @@ mp_float boost::multiprecision::exp(const mp_float& x)
   return ((!bo_x_is_neg) ? exp_series : (boost::multiprecision::one() / exp_series));
 }
 
-namespace Log_Series
+namespace
 {
-  static mp_float AtOne(const mp_float& x)
+  mp_float my_log_series_at_one(const mp_float& x)
   {
     // This subroutine computes the series representation of Log[1 + x]
     // for small x without losing precision.
@@ -522,7 +520,7 @@ mp_float boost::multiprecision::log(const mp_float& x)
 
   if(boost::multiprecision::near_one(xx))
   {
-    return Log_Series::AtOne(x_minus_one);
+    return ::my_log_series_at_one(x_minus_one);
   }
 
   // For large arguments, the value will be broken into two parts
@@ -599,9 +597,9 @@ mp_float boost::multiprecision::log(const mp_float& x)
   return ((!b_correction) ? log_val : log_val + correction);
 }
 
-mp_float boost::multiprecision::log10(const mp_float& x)                   { return boost::multiprecision::log(x) / boost::multiprecision::ln10(); }
+mp_float boost::multiprecision::log10(const mp_float& x)                    { return boost::multiprecision::log(x) / boost::multiprecision::ln10(); }
 mp_float boost::multiprecision::loga (const mp_float& a, const mp_float& x) { return boost::multiprecision::log(x) / boost::multiprecision::log(a); }
-mp_float boost::multiprecision::log1p(const mp_float& x)                   { return Log_Series::AtOne(x); }
+mp_float boost::multiprecision::log1p(const mp_float& x)                    { return ::my_log_series_at_one(x); }
 
 mp_float boost::multiprecision::log1p1m2(const mp_float& x)
 {

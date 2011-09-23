@@ -15,9 +15,9 @@
 
 using boost::multiprecision::mp_float;
 
-namespace A007318_Table
+namespace
 {
-  static const std::vector<mp_float>& A007318_0(void)
+  const std::vector<mp_float>& A007318_0(void)
   {
     static const boost::array<mp_float, 1u> A007318_0_data =
     {{
@@ -29,7 +29,7 @@ namespace A007318_Table
     return A007318_0_vect;
   }
 
-  static const std::vector<mp_float>& A007318_1(void)
+  const std::vector<mp_float>& A007318_1(void)
   {
     static const boost::array<mp_float, 2u> A007318_1_data =
     {{
@@ -42,7 +42,7 @@ namespace A007318_Table
     return A007318_1_vect;
   }
 
-  static const std::vector<mp_float>& A007318_2(void)
+  const std::vector<mp_float>& A007318_2(void)
   {
     static const boost::array<mp_float, 3u> A007318_2_data =
     {{
@@ -56,7 +56,7 @@ namespace A007318_Table
     return A007318_2_vect;
   }
 
-  static const std::vector<mp_float>& A007318_3(void)
+  const std::vector<mp_float>& A007318_3(void)
   {
     static const boost::array<mp_float, 4u> A007318_3_data =
     {{
@@ -71,7 +71,7 @@ namespace A007318_Table
     return A007318_3_vect;
   }
 
-  static const std::vector<mp_float>& A007318_4(void)
+  const std::vector<mp_float>& A007318_4(void)
   {
     static const boost::array<mp_float, 5u> A007318_4_data =
     {{
@@ -87,7 +87,7 @@ namespace A007318_Table
     return A007318_4_vect;
   }
 
-  static const std::vector<mp_float>& A007318_5(void)
+  const std::vector<mp_float>& A007318_5(void)
   {
     static const boost::array<mp_float, 6u> A007318_5_data =
     {{
@@ -104,7 +104,7 @@ namespace A007318_Table
     return A007318_5_vect;
   }
 
-  static const std::vector<mp_float>& A007318_6(void)
+  const std::vector<mp_float>& A007318_6(void)
   {
     static const boost::array<mp_float, 7u> A007318_6_data =
     {{
@@ -122,7 +122,7 @@ namespace A007318_Table
     return A007318_6_vect;
   }
 
-  static const std::vector<mp_float>& A007318_7(void)
+  const std::vector<mp_float>& A007318_7(void)
   {
     static const boost::array<mp_float, 8u> A007318_7_data =
     {{
@@ -141,7 +141,7 @@ namespace A007318_Table
     return A007318_7_vect;
   }
 
-  static const std::vector<mp_float>& A007318_8(void)
+  const std::vector<mp_float>& A007318_8(void)
   {
     static const boost::array<mp_float, 9u> A007318_8_data =
     {{
@@ -161,7 +161,7 @@ namespace A007318_Table
     return A007318_8_vect;
   }
 
-  static const std::vector<mp_float>& A007318_9(void)
+  const std::vector<mp_float>& A007318_9(void)
   {
     static const boost::array<mp_float, 10u> A007318_9_data =
     {{
@@ -182,7 +182,7 @@ namespace A007318_Table
     return A007318_9_vect;
   }
 
-  static const std::vector<mp_float>& A007318_10(void)
+  const std::vector<mp_float>& A007318_10(void)
   {
     static const boost::array<mp_float, 11u> A007318_10_data =
     {{
@@ -204,7 +204,7 @@ namespace A007318_Table
     return A007318_10_vect;
   }
 
-  static const std::vector<mp_float>& A007318_11(void)
+  const std::vector<mp_float>& A007318_11(void)
   {
     static const boost::array<mp_float, 12u> A007318_11_data =
     {{
@@ -227,7 +227,7 @@ namespace A007318_Table
     return A007318_11_vect;
   }
 
-  static const std::vector<mp_float>& A007318_12(void)
+  const std::vector<mp_float>& A007318_12(void)
   {
     static const boost::array<mp_float, 13u> A007318_12_data =
     {{
@@ -251,7 +251,7 @@ namespace A007318_Table
     return A007318_12_vect;
   }
 
-  static const std::vector<mp_float>& A007318_13(void)
+  const std::vector<mp_float>& A007318_13(void)
   {
     static const boost::array<mp_float, 14u> A007318_13_data =
     {{
@@ -276,7 +276,7 @@ namespace A007318_Table
     return A007318_13_vect;
   }
 
-  static const std::vector<mp_float>& A007318_14(void)
+  const std::vector<mp_float>& A007318_14(void)
   {
     static const boost::array<mp_float, 15u> A007318_14_data =
     {{
@@ -302,7 +302,7 @@ namespace A007318_Table
     return A007318_14_vect;
   }
 
-  static const std::vector<mp_float>& A007318_15(void)
+  const std::vector<mp_float>& A007318_15(void)
   {
     static const boost::array<mp_float, 16u> A007318_15_data =
     {{
@@ -329,7 +329,7 @@ namespace A007318_Table
     return A007318_15_vect;
   }
 
-  static const std::vector<mp_float>& A007318_16(void)
+  const std::vector<mp_float>& A007318_16(void)
   {
     static const boost::array<mp_float, 17u> A007318_16_data =
     {{
@@ -357,7 +357,7 @@ namespace A007318_Table
     return A007318_16_vect;
   }
 
-  static const std::vector<mp_float>& A007318_17(void)
+  const std::vector<mp_float>& A007318_17(void)
   {
     static const boost::array<mp_float, 18u> A007318_17_data =
     {{
@@ -386,7 +386,7 @@ namespace A007318_Table
     return A007318_17_vect;
   }
 
-  static const std::vector<mp_float>& A007318_18(void)
+  const std::vector<mp_float>& A007318_18(void)
   {
     static const boost::array<mp_float, 19u> A007318_18_data =
     {{
@@ -416,7 +416,7 @@ namespace A007318_Table
     return A007318_18_vect;
   }
 
-  static const std::vector<mp_float>& A007318_19(void)
+  const std::vector<mp_float>& A007318_19(void)
   {
     static const boost::array<mp_float, 20u> A007318_19_data =
     {{
@@ -447,7 +447,7 @@ namespace A007318_Table
     return A007318_19_vect;
   }
 
-  static const std::vector<mp_float>& A007318_20(void)
+  const std::vector<mp_float>& A007318_20(void)
   {
     static const boost::array<mp_float, 21u> A007318_20_data =
     {{
@@ -479,7 +479,7 @@ namespace A007318_Table
     return A007318_20_vect;
   }
 
-  static const std::vector<mp_float>& A007318_21(void)
+  const std::vector<mp_float>& A007318_21(void)
   {
     static const boost::array<mp_float, 22u> A007318_21_data =
     {{
@@ -512,7 +512,7 @@ namespace A007318_Table
     return A007318_21_vect;
   }
 
-  static const std::vector<mp_float>& A007318_22(void)
+  const std::vector<mp_float>& A007318_22(void)
   {
     static const boost::array<mp_float, 23u> A007318_22_data =
     {{
@@ -546,7 +546,7 @@ namespace A007318_Table
     return A007318_22_vect;
   }
 
-  static const std::vector<mp_float>& A007318_23(void)
+  const std::vector<mp_float>& A007318_23(void)
   {
     static const boost::array<mp_float, 24u> A007318_23_data =
     {{
@@ -581,7 +581,7 @@ namespace A007318_Table
     return A007318_23_vect;
   }
 
-  static const std::vector<mp_float>& A007318_24(void)
+  const std::vector<mp_float>& A007318_24(void)
   {
     static const boost::array<mp_float, 25u> A007318_24_data =
     {{
@@ -617,7 +617,7 @@ namespace A007318_Table
     return A007318_24_vect;
   }
 
-  static const std::vector<mp_float>& A007318_25(void)
+  const std::vector<mp_float>& A007318_25(void)
   {
     static const boost::array<mp_float, 26u> A007318_25_data =
     {{
@@ -654,7 +654,7 @@ namespace A007318_Table
     return A007318_25_vect;
   }
 
-  static const std::vector<mp_float>& A007318_26(void)
+  const std::vector<mp_float>& A007318_26(void)
   {
     static const boost::array<mp_float, 27u> A007318_26_data =
     {{
@@ -692,7 +692,7 @@ namespace A007318_Table
     return A007318_26_vect;
   }
 
-  static const std::vector<mp_float>& A007318_27(void)
+  const std::vector<mp_float>& A007318_27(void)
   {
     static const boost::array<mp_float, 28u> A007318_27_data =
     {{
@@ -731,7 +731,7 @@ namespace A007318_Table
     return A007318_27_vect;
   }
 
-  static const std::vector<mp_float>& A007318_28(void)
+  const std::vector<mp_float>& A007318_28(void)
   {
     static const boost::array<mp_float, 29u> A007318_28_data =
     {{
@@ -771,7 +771,7 @@ namespace A007318_Table
     return A007318_28_vect;
   }
 
-  static const std::vector<mp_float>& A007318_29(void)
+  const std::vector<mp_float>& A007318_29(void)
   {
     static const boost::array<mp_float, 30u> A007318_29_data =
     {{
@@ -812,7 +812,7 @@ namespace A007318_Table
     return A007318_29_vect;
   }
 
-  static const std::vector<mp_float>& A007318_30(void)
+  const std::vector<mp_float>& A007318_30(void)
   {
     static const boost::array<mp_float, 31u> A007318_30_data =
     {{
@@ -854,7 +854,7 @@ namespace A007318_Table
     return A007318_30_vect;
   }
 
-  static const std::vector<mp_float>& A007318_31(void)
+  const std::vector<mp_float>& A007318_31(void)
   {
     static const boost::array<mp_float, 32u> A007318_31_data =
     {{
@@ -897,7 +897,7 @@ namespace A007318_Table
     return A007318_31_vect;
   }
 
-  static const std::vector<mp_float>& A007318_32(void)
+  const std::vector<mp_float>& A007318_32(void)
   {
     static const boost::array<mp_float, 33u> A007318_32_data =
     {{
@@ -941,7 +941,7 @@ namespace A007318_Table
     return A007318_32_vect;
   }
 
-  static const std::vector<mp_float>& A007318_33(void)
+  const std::vector<mp_float>& A007318_33(void)
   {
     static const boost::array<mp_float, 34u> A007318_33_data =
     {{
@@ -986,7 +986,7 @@ namespace A007318_Table
     return A007318_33_vect;
   }
 
-  static const std::vector<mp_float>& A007318_34(void)
+  const std::vector<mp_float>& A007318_34(void)
   {
     static const boost::array<mp_float, 35u> A007318_34_data =
     {{
@@ -1032,7 +1032,7 @@ namespace A007318_Table
     return A007318_34_vect;
   }
 
-  static const std::vector<mp_float>& A007318_35(void)
+  const std::vector<mp_float>& A007318_35(void)
   {
     static const boost::array<mp_float, 36u> A007318_35_data =
     {{
@@ -1079,7 +1079,7 @@ namespace A007318_Table
     return A007318_35_vect;
   }
 
-  static const std::vector<mp_float>& A007318_36(void)
+  const std::vector<mp_float>& A007318_36(void)
   {
     static const boost::array<mp_float, 37u> A007318_36_data =
     {{
@@ -1127,7 +1127,7 @@ namespace A007318_Table
     return A007318_36_vect;
   }
 
-  static const std::vector<mp_float>& A007318_37(void)
+  const std::vector<mp_float>& A007318_37(void)
   {
     static const boost::array<mp_float, 38u> A007318_37_data =
     {{
@@ -1176,7 +1176,7 @@ namespace A007318_Table
     return A007318_37_vect;
   }
 
-  static const std::vector<mp_float>& A007318_38(void)
+  const std::vector<mp_float>& A007318_38(void)
   {
     static const boost::array<mp_float, 39u> A007318_38_data =
     {{
@@ -1226,7 +1226,7 @@ namespace A007318_Table
     return A007318_38_vect;
   }
 
-  static const std::vector<mp_float>& A007318_39(void)
+  const std::vector<mp_float>& A007318_39(void)
   {
     static const boost::array<mp_float, 40u> A007318_39_data =
     {{
@@ -1277,7 +1277,7 @@ namespace A007318_Table
     return A007318_39_vect;
   }
 
-  static const std::vector<mp_float>& A007318_40(void)
+  const std::vector<mp_float>& A007318_40(void)
   {
     static const boost::array<mp_float, 41u> A007318_40_data =
     {{
@@ -1329,7 +1329,7 @@ namespace A007318_Table
     return A007318_40_vect;
   }
 
-  static const std::vector<mp_float>& A007318_41(void)
+  const std::vector<mp_float>& A007318_41(void)
   {
     static const boost::array<mp_float, 42u> A007318_41_data =
     {{
@@ -1382,7 +1382,7 @@ namespace A007318_Table
     return A007318_41_vect;
   }
 
-  static const std::vector<mp_float>& A007318_42(void)
+  const std::vector<mp_float>& A007318_42(void)
   {
     static const boost::array<mp_float, 43u> A007318_42_data =
     {{
@@ -1436,7 +1436,7 @@ namespace A007318_Table
     return A007318_42_vect;
   }
 
-  static const std::vector<mp_float>& A007318_43(void)
+  const std::vector<mp_float>& A007318_43(void)
   {
     static const boost::array<mp_float, 44u> A007318_43_data =
     {{
@@ -1491,7 +1491,7 @@ namespace A007318_Table
     return A007318_43_vect;
   }
 
-  static const std::vector<mp_float>& A007318_44(void)
+  const std::vector<mp_float>& A007318_44(void)
   {
     static const boost::array<mp_float, 45u> A007318_44_data =
     {{
@@ -1547,7 +1547,7 @@ namespace A007318_Table
     return A007318_44_vect;
   }
 
-  static const std::vector<mp_float>& A007318_45(void)
+  const std::vector<mp_float>& A007318_45(void)
   {
     static const boost::array<mp_float, 46u> A007318_45_data =
     {{
@@ -1604,7 +1604,7 @@ namespace A007318_Table
     return A007318_45_vect;
   }
 
-  static const std::vector<mp_float>& A007318_46(void)
+  const std::vector<mp_float>& A007318_46(void)
   {
     static const boost::array<mp_float, 47u> A007318_46_data =
     {{
@@ -1662,7 +1662,7 @@ namespace A007318_Table
     return A007318_46_vect;
   }
 
-  static const std::vector<mp_float>& A007318_47(void)
+  const std::vector<mp_float>& A007318_47(void)
   {
     static const boost::array<mp_float, 48u> A007318_47_data =
     {{
@@ -1721,7 +1721,7 @@ namespace A007318_Table
     return A007318_47_vect;
   }
 
-  static const std::vector<mp_float>& A007318_48(void)
+  const std::vector<mp_float>& A007318_48(void)
   {
     static const boost::array<mp_float, 49u> A007318_48_data =
     {{
@@ -1781,7 +1781,7 @@ namespace A007318_Table
     return A007318_48_vect;
   }
 
-  static const std::vector<mp_float>& A007318_49(void)
+  const std::vector<mp_float>& A007318_49(void)
   {
     static const boost::array<mp_float, 50u> A007318_49_data =
     {{
@@ -1842,7 +1842,7 @@ namespace A007318_Table
     return A007318_49_vect;
   }
 
-  static const std::vector<mp_float>& A007318_50(void)
+  const std::vector<mp_float>& A007318_50(void)
   {
     static const boost::array<mp_float, 51u> A007318_50_data =
     {{
@@ -1904,7 +1904,7 @@ namespace A007318_Table
     return A007318_50_vect;
   }
 
-  static const std::vector<mp_float>& A007318_51(void)
+  const std::vector<mp_float>& A007318_51(void)
   {
     static const boost::array<mp_float, 52u> A007318_51_data =
     {{
@@ -1967,7 +1967,7 @@ namespace A007318_Table
     return A007318_51_vect;
   }
 
-  static const std::vector<mp_float>& A007318_52(void)
+  const std::vector<mp_float>& A007318_52(void)
   {
     static const boost::array<mp_float, 53u> A007318_52_data =
     {{
@@ -2031,7 +2031,7 @@ namespace A007318_Table
     return A007318_52_vect;
   }
 
-  static const std::vector<mp_float>& A007318_53(void)
+  const std::vector<mp_float>& A007318_53(void)
   {
     static const boost::array<mp_float, 54u> A007318_53_data =
     {{
@@ -2096,7 +2096,7 @@ namespace A007318_Table
     return A007318_53_vect;
   }
 
-  static const std::vector<mp_float>& A007318_54(void)
+  const std::vector<mp_float>& A007318_54(void)
   {
     static const boost::array<mp_float, 55u> A007318_54_data =
     {{
@@ -2162,7 +2162,7 @@ namespace A007318_Table
     return A007318_54_vect;
   }
 
-  static const std::vector<mp_float>& A007318_55(void)
+  const std::vector<mp_float>& A007318_55(void)
   {
     static const boost::array<mp_float, 56u> A007318_55_data =
     {{
@@ -2229,7 +2229,7 @@ namespace A007318_Table
     return A007318_55_vect;
   }
 
-  static const std::vector<mp_float>& A007318_56(void)
+  const std::vector<mp_float>& A007318_56(void)
   {
     static const boost::array<mp_float, 57u> A007318_56_data =
     {{
@@ -2297,7 +2297,7 @@ namespace A007318_Table
     return A007318_56_vect;
   }
 
-  static const std::vector<mp_float>& A007318_57(void)
+  const std::vector<mp_float>& A007318_57(void)
   {
     static const boost::array<mp_float, 58u> A007318_57_data =
     {{
@@ -2366,7 +2366,7 @@ namespace A007318_Table
     return A007318_57_vect;
   }
 
-  static const std::vector<mp_float>& A007318_58(void)
+  const std::vector<mp_float>& A007318_58(void)
   {
     static const boost::array<mp_float, 59u> A007318_58_data =
     {{
@@ -2436,7 +2436,7 @@ namespace A007318_Table
     return A007318_58_vect;
   }
 
-  static const std::vector<mp_float>& A007318_59(void)
+  const std::vector<mp_float>& A007318_59(void)
   {
     static const boost::array<mp_float, 60u> A007318_59_data =
     {{
@@ -2507,7 +2507,7 @@ namespace A007318_Table
     return A007318_59_vect;
   }
 
-  static const std::vector<mp_float>& A007318_60(void)
+  const std::vector<mp_float>& A007318_60(void)
   {
     static const boost::array<mp_float, 61u> A007318_60_data =
     {{
@@ -2579,7 +2579,7 @@ namespace A007318_Table
     return A007318_60_vect;
   }
 
-  static const std::vector<mp_float>& A007318_61(void)
+  const std::vector<mp_float>& A007318_61(void)
   {
     static const boost::array<mp_float, 62u> A007318_61_data =
     {{
@@ -2652,7 +2652,7 @@ namespace A007318_Table
     return A007318_61_vect;
   }
 
-  static const std::vector<mp_float>& A007318_62(void)
+  const std::vector<mp_float>& A007318_62(void)
   {
     static const boost::array<mp_float, 63u> A007318_62_data =
     {{
@@ -2726,7 +2726,7 @@ namespace A007318_Table
     return A007318_62_vect;
   }
 
-  static const std::vector<mp_float>& A007318_63(void)
+  const std::vector<mp_float>& A007318_63(void)
   {
     static const boost::array<mp_float, 64u> A007318_63_data =
     {{
@@ -2801,7 +2801,7 @@ namespace A007318_Table
     return A007318_63_vect;
   }
 
-  static const std::vector<mp_float>& A007318_64(void)
+  const std::vector<mp_float>& A007318_64(void)
   {
     static const boost::array<mp_float, 65u> A007318_64_data =
     {{
@@ -2877,7 +2877,7 @@ namespace A007318_Table
     return A007318_64_vect;
   }
 
-  static const std::vector<mp_float>& A007318_65(void)
+  const std::vector<mp_float>& A007318_65(void)
   {
     static const boost::array<mp_float, 66u> A007318_65_data =
     {{
@@ -2954,7 +2954,7 @@ namespace A007318_Table
     return A007318_65_vect;
   }
 
-  static const std::vector<mp_float>& A007318_66(void)
+  const std::vector<mp_float>& A007318_66(void)
   {
     static const boost::array<mp_float, 67u> A007318_66_data =
     {{
@@ -3032,7 +3032,7 @@ namespace A007318_Table
     return A007318_66_vect;
   }
 
-  static const std::vector<mp_float>& A007318_67(void)
+  const std::vector<mp_float>& A007318_67(void)
   {
     static const boost::array<mp_float, 68u> A007318_67_data =
     {{
@@ -3111,7 +3111,7 @@ namespace A007318_Table
     return A007318_67_vect;
   }
 
-  static const std::vector<mp_float>& A007318_68(void)
+  const std::vector<mp_float>& A007318_68(void)
   {
     static const boost::array<mp_float, 69u> A007318_68_data =
     {{
@@ -3191,7 +3191,7 @@ namespace A007318_Table
     return A007318_68_vect;
   }
 
-  static const std::vector<mp_float>& A007318_69(void)
+  const std::vector<mp_float>& A007318_69(void)
   {
     static const boost::array<mp_float, 70u> A007318_69_data =
     {{
@@ -3272,7 +3272,7 @@ namespace A007318_Table
     return A007318_69_vect;
   }
 
-  static const std::vector<mp_float>& A007318_70(void)
+  const std::vector<mp_float>& A007318_70(void)
   {
     static const boost::array<mp_float, 71u> A007318_70_data =
     {{
@@ -3354,7 +3354,7 @@ namespace A007318_Table
     return A007318_70_vect;
   }
 
-  static const std::vector<mp_float>& A007318_71(void)
+  const std::vector<mp_float>& A007318_71(void)
   {
     static const boost::array<mp_float, 72u> A007318_71_data =
     {{
@@ -3437,7 +3437,7 @@ namespace A007318_Table
     return A007318_71_vect;
   }
 
-  static const std::vector<mp_float>& A007318_72(void)
+  const std::vector<mp_float>& A007318_72(void)
   {
     static const boost::array<mp_float, 73u> A007318_72_data =
     {{
@@ -3521,7 +3521,7 @@ namespace A007318_Table
     return A007318_72_vect;
   }
 
-  static const std::vector<mp_float>& A007318_73(void)
+  const std::vector<mp_float>& A007318_73(void)
   {
     static const boost::array<mp_float, 74u> A007318_73_data =
     {{
@@ -3606,7 +3606,7 @@ namespace A007318_Table
     return A007318_73_vect;
   }
 
-  static const std::vector<mp_float>& A007318_74(void)
+  const std::vector<mp_float>& A007318_74(void)
   {
     static const boost::array<mp_float, 75u> A007318_74_data =
     {{
@@ -3692,7 +3692,7 @@ namespace A007318_Table
     return A007318_74_vect;
   }
 
-  static const std::vector<mp_float>& A007318_75(void)
+  const std::vector<mp_float>& A007318_75(void)
   {
     static const boost::array<mp_float, 76u> A007318_75_data =
     {{
@@ -3779,7 +3779,7 @@ namespace A007318_Table
     return A007318_75_vect;
   }
 
-  static const std::vector<mp_float>& A007318_76(void)
+  const std::vector<mp_float>& A007318_76(void)
   {
     static const boost::array<mp_float, 77u> A007318_76_data =
     {{
@@ -3867,7 +3867,7 @@ namespace A007318_Table
     return A007318_76_vect;
   }
 
-  static const std::vector<mp_float>& A007318_77(void)
+  const std::vector<mp_float>& A007318_77(void)
   {
     static const boost::array<mp_float, 78u> A007318_77_data =
     {{
@@ -3956,7 +3956,7 @@ namespace A007318_Table
     return A007318_77_vect;
   }
 
-  static const std::vector<mp_float>& A007318_78(void)
+  const std::vector<mp_float>& A007318_78(void)
   {
     static const boost::array<mp_float, 79u> A007318_78_data =
     {{
@@ -4046,7 +4046,7 @@ namespace A007318_Table
     return A007318_78_vect;
   }
 
-  static const std::vector<mp_float>& A007318_79(void)
+  const std::vector<mp_float>& A007318_79(void)
   {
     static const boost::array<mp_float, 80u> A007318_79_data =
     {{
@@ -4137,7 +4137,7 @@ namespace A007318_Table
     return A007318_79_vect;
   }
 
-  static const std::vector<mp_float>& A007318_80(void)
+  const std::vector<mp_float>& A007318_80(void)
   {
     static const boost::array<mp_float, 81u> A007318_80_data =
     {{
@@ -4229,7 +4229,7 @@ namespace A007318_Table
     return A007318_80_vect;
   }
 
-  static const std::vector<mp_float>& A007318_81(void)
+  const std::vector<mp_float>& A007318_81(void)
   {
     static const boost::array<mp_float, 82u> A007318_81_data =
     {{
@@ -4322,7 +4322,7 @@ namespace A007318_Table
     return A007318_81_vect;
   }
 
-  static const std::vector<mp_float>& A007318_82(void)
+  const std::vector<mp_float>& A007318_82(void)
   {
     static const boost::array<mp_float, 83u> A007318_82_data =
     {{
@@ -4416,7 +4416,7 @@ namespace A007318_Table
     return A007318_82_vect;
   }
 
-  static const std::vector<mp_float>& A007318_83(void)
+  const std::vector<mp_float>& A007318_83(void)
   {
     static const boost::array<mp_float, 84u> A007318_83_data =
     {{
@@ -4511,7 +4511,7 @@ namespace A007318_Table
     return A007318_83_vect;
   }
 
-  static const std::vector<mp_float>& A007318_84(void)
+  const std::vector<mp_float>& A007318_84(void)
   {
     static const boost::array<mp_float, 85u> A007318_84_data =
     {{
@@ -4607,7 +4607,7 @@ namespace A007318_Table
     return A007318_84_vect;
   }
 
-  static const std::vector<mp_float>& A007318_85(void)
+  const std::vector<mp_float>& A007318_85(void)
   {
     static const boost::array<mp_float, 86u> A007318_85_data =
     {{
@@ -4704,7 +4704,7 @@ namespace A007318_Table
     return A007318_85_vect;
   }
 
-  static const std::vector<mp_float>& A007318_86(void)
+  const std::vector<mp_float>& A007318_86(void)
   {
     static const boost::array<mp_float, 87u> A007318_86_data =
     {{
@@ -4802,7 +4802,7 @@ namespace A007318_Table
     return A007318_86_vect;
   }
 
-  static const std::vector<mp_float>& A007318_87(void)
+  const std::vector<mp_float>& A007318_87(void)
   {
     static const boost::array<mp_float, 88u> A007318_87_data =
     {{
@@ -4901,7 +4901,7 @@ namespace A007318_Table
     return A007318_87_vect;
   }
 
-  static const std::vector<mp_float>& A007318_88(void)
+  const std::vector<mp_float>& A007318_88(void)
   {
     static const boost::array<mp_float, 89u> A007318_88_data =
     {{
@@ -5001,7 +5001,7 @@ namespace A007318_Table
     return A007318_88_vect;
   }
 
-  static const std::vector<mp_float>& A007318_89(void)
+  const std::vector<mp_float>& A007318_89(void)
   {
     static const boost::array<mp_float, 90u> A007318_89_data =
     {{
@@ -5102,7 +5102,7 @@ namespace A007318_Table
     return A007318_89_vect;
   }
 
-  static const std::vector<mp_float>& A007318_90(void)
+  const std::vector<mp_float>& A007318_90(void)
   {
     static const boost::array<mp_float, 91u> A007318_90_data =
     {{
@@ -5204,7 +5204,7 @@ namespace A007318_Table
     return A007318_90_vect;
   }
 
-  static const std::vector<mp_float>& A007318_91(void)
+  const std::vector<mp_float>& A007318_91(void)
   {
     static const boost::array<mp_float, 92u> A007318_91_data =
     {{
@@ -5307,7 +5307,7 @@ namespace A007318_Table
     return A007318_91_vect;
   }
 
-  static const std::vector<mp_float>& A007318_92(void)
+  const std::vector<mp_float>& A007318_92(void)
   {
     static const boost::array<mp_float, 93u> A007318_92_data =
     {{
@@ -5411,7 +5411,7 @@ namespace A007318_Table
     return A007318_92_vect;
   }
 
-  static const std::vector<mp_float>& A007318_93(void)
+  const std::vector<mp_float>& A007318_93(void)
   {
     static const boost::array<mp_float, 94u> A007318_93_data =
     {{
@@ -5516,7 +5516,7 @@ namespace A007318_Table
     return A007318_93_vect;
   }
 
-  static const std::vector<mp_float>& A007318_94(void)
+  const std::vector<mp_float>& A007318_94(void)
   {
     static const boost::array<mp_float, 95u> A007318_94_data =
     {{
@@ -5622,7 +5622,7 @@ namespace A007318_Table
     return A007318_94_vect;
   }
 
-  static const std::vector<mp_float>& A007318_95(void)
+  const std::vector<mp_float>& A007318_95(void)
   {
     static const boost::array<mp_float, 96u> A007318_95_data =
     {{
@@ -5729,7 +5729,7 @@ namespace A007318_Table
     return A007318_95_vect;
   }
 
-  static const std::vector<mp_float>& A007318_96(void)
+  const std::vector<mp_float>& A007318_96(void)
   {
     static const boost::array<mp_float, 97u> A007318_96_data =
     {{
@@ -5837,7 +5837,7 @@ namespace A007318_Table
     return A007318_96_vect;
   }
 
-  static const std::vector<mp_float>& A007318_97(void)
+  const std::vector<mp_float>& A007318_97(void)
   {
     static const boost::array<mp_float, 98u> A007318_97_data =
     {{
@@ -5946,7 +5946,7 @@ namespace A007318_Table
     return A007318_97_vect;
   }
 
-  static const std::vector<mp_float>& A007318_98(void)
+  const std::vector<mp_float>& A007318_98(void)
   {
     static const boost::array<mp_float, 99u> A007318_98_data =
     {{
@@ -6056,7 +6056,7 @@ namespace A007318_Table
     return A007318_98_vect;
   }
 
-  static const std::vector<mp_float>& A007318_99(void)
+  const std::vector<mp_float>& A007318_99(void)
   {
     static const boost::array<mp_float, 100u> A007318_99_data =
     {{
@@ -6167,7 +6167,7 @@ namespace A007318_Table
     return A007318_99_vect;
   }
 
-  static const std::vector<mp_float>& A007318_100(void)
+  const std::vector<mp_float>& A007318_100(void)
   {
     static const boost::array<mp_float, 101u> A007318_100_data =
     {{
@@ -6279,7 +6279,7 @@ namespace A007318_Table
     return A007318_100_vect;
   }
 
-  static const std::vector<mp_float>& A007318_101(void)
+  const std::vector<mp_float>& A007318_101(void)
   {
     static const boost::array<mp_float, 102u> A007318_101_data =
     {{
@@ -6392,7 +6392,7 @@ namespace A007318_Table
     return A007318_101_vect;
   }
 
-  static const std::vector<mp_float>& A007318_102(void)
+  const std::vector<mp_float>& A007318_102(void)
   {
     static const boost::array<mp_float, 103u> A007318_102_data =
     {{
@@ -6506,7 +6506,7 @@ namespace A007318_Table
     return A007318_102_vect;
   }
 
-  static const std::vector<mp_float>& A007318_103(void)
+  const std::vector<mp_float>& A007318_103(void)
   {
     static const boost::array<mp_float, 104u> A007318_103_data =
     {{
@@ -6621,7 +6621,7 @@ namespace A007318_Table
     return A007318_103_vect;
   }
 
-  static const std::vector<mp_float>& A007318_104(void)
+  const std::vector<mp_float>& A007318_104(void)
   {
     static const boost::array<mp_float, 105u> A007318_104_data =
     {{
@@ -6737,7 +6737,7 @@ namespace A007318_Table
     return A007318_104_vect;
   }
 
-  static const std::vector<mp_float>& A007318_105(void)
+  const std::vector<mp_float>& A007318_105(void)
   {
     static const boost::array<mp_float, 106u> A007318_105_data =
     {{
@@ -6854,7 +6854,7 @@ namespace A007318_Table
     return A007318_105_vect;
   }
 
-  static const std::vector<mp_float>& A007318_106(void)
+  const std::vector<mp_float>& A007318_106(void)
   {
     static const boost::array<mp_float, 107u> A007318_106_data =
     {{
@@ -6972,7 +6972,7 @@ namespace A007318_Table
     return A007318_106_vect;
   }
 
-  static const std::vector<mp_float>& A007318_107(void)
+  const std::vector<mp_float>& A007318_107(void)
   {
     static const boost::array<mp_float, 108u> A007318_107_data =
     {{
@@ -7091,7 +7091,7 @@ namespace A007318_Table
     return A007318_107_vect;
   }
 
-  static const std::vector<mp_float>& A007318_108(void)
+  const std::vector<mp_float>& A007318_108(void)
   {
     static const boost::array<mp_float, 109u> A007318_108_data =
     {{
@@ -7211,7 +7211,7 @@ namespace A007318_Table
     return A007318_108_vect;
   }
 
-  static const std::vector<mp_float>& A007318_109(void)
+  const std::vector<mp_float>& A007318_109(void)
   {
     static const boost::array<mp_float, 110u> A007318_109_data =
     {{
@@ -7332,7 +7332,7 @@ namespace A007318_Table
     return A007318_109_vect;
   }
 
-  static const std::vector<mp_float>& A007318_110(void)
+  const std::vector<mp_float>& A007318_110(void)
   {
     static const boost::array<mp_float, 111u> A007318_110_data =
     {{
@@ -7454,7 +7454,7 @@ namespace A007318_Table
     return A007318_110_vect;
   }
 
-  static const std::vector<mp_float>& A007318_111(void)
+  const std::vector<mp_float>& A007318_111(void)
   {
     static const boost::array<mp_float, 112u> A007318_111_data =
     {{
@@ -7577,7 +7577,7 @@ namespace A007318_Table
     return A007318_111_vect;
   }
 
-  static const std::vector<mp_float>& A007318_112(void)
+  const std::vector<mp_float>& A007318_112(void)
   {
     static const boost::array<mp_float, 113u> A007318_112_data =
     {{
@@ -7701,7 +7701,7 @@ namespace A007318_Table
     return A007318_112_vect;
   }
 
-  static const std::vector<mp_float>& A007318_113(void)
+  const std::vector<mp_float>& A007318_113(void)
   {
     static const boost::array<mp_float, 114u> A007318_113_data =
     {{
@@ -7826,7 +7826,7 @@ namespace A007318_Table
     return A007318_113_vect;
   }
 
-  static const std::vector<mp_float>& A007318_114(void)
+  const std::vector<mp_float>& A007318_114(void)
   {
     static const boost::array<mp_float, 115u> A007318_114_data =
     {{
@@ -7952,7 +7952,7 @@ namespace A007318_Table
     return A007318_114_vect;
   }
 
-  static const std::vector<mp_float>& A007318_115(void)
+  const std::vector<mp_float>& A007318_115(void)
   {
     static const boost::array<mp_float, 116u> A007318_115_data =
     {{
@@ -8079,7 +8079,7 @@ namespace A007318_Table
     return A007318_115_vect;
   }
 
-  static const std::vector<mp_float>& A007318_116(void)
+  const std::vector<mp_float>& A007318_116(void)
   {
     static const boost::array<mp_float, 117u> A007318_116_data =
     {{
@@ -8207,7 +8207,7 @@ namespace A007318_Table
     return A007318_116_vect;
   }
 
-  static const std::vector<mp_float>& A007318_117(void)
+  const std::vector<mp_float>& A007318_117(void)
   {
     static const boost::array<mp_float, 118u> A007318_117_data =
     {{
@@ -8336,7 +8336,7 @@ namespace A007318_Table
     return A007318_117_vect;
   }
 
-  static const std::vector<mp_float>& A007318_118(void)
+  const std::vector<mp_float>& A007318_118(void)
   {
     static const boost::array<mp_float, 119u> A007318_118_data =
     {{
@@ -8466,7 +8466,7 @@ namespace A007318_Table
     return A007318_118_vect;
   }
 
-  static const std::vector<mp_float>& A007318_119(void)
+  const std::vector<mp_float>& A007318_119(void)
   {
     static const boost::array<mp_float, 120u> A007318_119_data =
     {{
@@ -8597,7 +8597,7 @@ namespace A007318_Table
     return A007318_119_vect;
   }
 
-  static const std::vector<mp_float>& A007318_120(void)
+  const std::vector<mp_float>& A007318_120(void)
   {
     static const boost::array<mp_float, 121u> A007318_120_data =
     {{
@@ -8729,7 +8729,7 @@ namespace A007318_Table
     return A007318_120_vect;
   }
 
-  static const std::vector<mp_float>& A007318_121(void)
+  const std::vector<mp_float>& A007318_121(void)
   {
     static const boost::array<mp_float, 122u> A007318_121_data =
     {{
@@ -8862,7 +8862,7 @@ namespace A007318_Table
     return A007318_121_vect;
   }
 
-  static const std::vector<mp_float>& A007318_122(void)
+  const std::vector<mp_float>& A007318_122(void)
   {
     static const boost::array<mp_float, 123u> A007318_122_data =
     {{
@@ -8996,7 +8996,7 @@ namespace A007318_Table
     return A007318_122_vect;
   }
 
-  static const std::vector<mp_float>& A007318_123(void)
+  const std::vector<mp_float>& A007318_123(void)
   {
     static const boost::array<mp_float, 124u> A007318_123_data =
     {{
@@ -9131,7 +9131,7 @@ namespace A007318_Table
     return A007318_123_vect;
   }
 
-  static const std::vector<mp_float>& A007318_124(void)
+  const std::vector<mp_float>& A007318_124(void)
   {
     static const boost::array<mp_float, 125u> A007318_124_data =
     {{
@@ -9267,7 +9267,7 @@ namespace A007318_Table
     return A007318_124_vect;
   }
 
-  static const std::vector<mp_float>& A007318_125(void)
+  const std::vector<mp_float>& A007318_125(void)
   {
     static const boost::array<mp_float, 126u> A007318_125_data =
     {{
@@ -9404,7 +9404,7 @@ namespace A007318_Table
     return A007318_125_vect;
   }
 
-  static const std::vector<mp_float>& A007318_126(void)
+  const std::vector<mp_float>& A007318_126(void)
   {
     static const boost::array<mp_float, 127u> A007318_126_data =
     {{
@@ -9542,7 +9542,7 @@ namespace A007318_Table
     return A007318_126_vect;
   }
 
-  static const std::vector<mp_float>& A007318_127(void)
+  const std::vector<mp_float>& A007318_127(void)
   {
     static const boost::array<mp_float, 128u> A007318_127_data =
     {{
@@ -9681,7 +9681,7 @@ namespace A007318_Table
     return A007318_127_vect;
   }
 
-  static const std::vector<mp_float>& A007318_128(void)
+  const std::vector<mp_float>& A007318_128(void)
   {
     static const boost::array<mp_float, 129u> A007318_128_data =
     {{
@@ -9821,7 +9821,7 @@ namespace A007318_Table
     return A007318_128_vect;
   }
 
-  static const std::vector<mp_float>& A007318_129(void)
+  const std::vector<mp_float>& A007318_129(void)
   {
     static const boost::array<mp_float, 130u> A007318_129_data =
     {{
@@ -9962,7 +9962,7 @@ namespace A007318_Table
     return A007318_129_vect;
   }
 
-  static const std::vector<mp_float>& A007318_130(void)
+  const std::vector<mp_float>& A007318_130(void)
   {
     static const boost::array<mp_float, 131u> A007318_130_data =
     {{
@@ -10104,7 +10104,7 @@ namespace A007318_Table
     return A007318_130_vect;
   }
 
-  static const std::vector<mp_float>& A007318_131(void)
+  const std::vector<mp_float>& A007318_131(void)
   {
     static const boost::array<mp_float, 132u> A007318_131_data =
     {{
@@ -10247,7 +10247,7 @@ namespace A007318_Table
     return A007318_131_vect;
   }
 
-  static const std::vector<mp_float>& A007318_132(void)
+  const std::vector<mp_float>& A007318_132(void)
   {
     static const boost::array<mp_float, 133u> A007318_132_data =
     {{
@@ -10391,7 +10391,7 @@ namespace A007318_Table
     return A007318_132_vect;
   }
 
-  static const std::vector<mp_float>& A007318_133(void)
+  const std::vector<mp_float>& A007318_133(void)
   {
     static const boost::array<mp_float, 134u> A007318_133_data =
     {{
@@ -10536,7 +10536,7 @@ namespace A007318_Table
     return A007318_133_vect;
   }
 
-  static const std::vector<mp_float>& A007318_134(void)
+  const std::vector<mp_float>& A007318_134(void)
   {
     static const boost::array<mp_float, 135u> A007318_134_data =
     {{
@@ -10682,7 +10682,7 @@ namespace A007318_Table
     return A007318_134_vect;
   }
 
-  static const std::vector<mp_float>& A007318_135(void)
+  const std::vector<mp_float>& A007318_135(void)
   {
     static const boost::array<mp_float, 136u> A007318_135_data =
     {{
@@ -10829,7 +10829,7 @@ namespace A007318_Table
     return A007318_135_vect;
   }
 
-  static const std::vector<mp_float>& A007318_136(void)
+  const std::vector<mp_float>& A007318_136(void)
   {
     static const boost::array<mp_float, 137u> A007318_136_data =
     {{
@@ -10977,7 +10977,7 @@ namespace A007318_Table
     return A007318_136_vect;
   }
 
-  static const std::vector<mp_float>& A007318_137(void)
+  const std::vector<mp_float>& A007318_137(void)
   {
     static const boost::array<mp_float, 138u> A007318_137_data =
     {{
@@ -11126,7 +11126,7 @@ namespace A007318_Table
     return A007318_137_vect;
   }
 
-  static const std::vector<mp_float>& A007318_138(void)
+  const std::vector<mp_float>& A007318_138(void)
   {
     static const boost::array<mp_float, 139u> A007318_138_data =
     {{
@@ -11276,7 +11276,7 @@ namespace A007318_Table
     return A007318_138_vect;
   }
 
-  static const std::vector<mp_float>& A007318_139(void)
+  const std::vector<mp_float>& A007318_139(void)
   {
     static const boost::array<mp_float, 140u> A007318_139_data =
     {{
@@ -11427,7 +11427,7 @@ namespace A007318_Table
     return A007318_139_vect;
   }
 
-  static const std::vector<mp_float>& A007318_140(void)
+  const std::vector<mp_float>& A007318_140(void)
   {
     static const boost::array<mp_float, 141u> A007318_140_data =
     {{
@@ -11579,7 +11579,7 @@ namespace A007318_Table
     return A007318_140_vect;
   }
 
-  static const std::vector<mp_float>& A007318_141(void)
+  const std::vector<mp_float>& A007318_141(void)
   {
     static const boost::array<mp_float, 142u> A007318_141_data =
     {{
@@ -11732,7 +11732,7 @@ namespace A007318_Table
     return A007318_141_vect;
   }
 
-  static const std::vector<mp_float>& A007318_142(void)
+  const std::vector<mp_float>& A007318_142(void)
   {
     static const boost::array<mp_float, 143u> A007318_142_data =
     {{
@@ -11886,7 +11886,7 @@ namespace A007318_Table
     return A007318_142_vect;
   }
 
-  static const std::vector<mp_float>& A007318_143(void)
+  const std::vector<mp_float>& A007318_143(void)
   {
     static const boost::array<mp_float, 144u> A007318_143_data =
     {{
@@ -12041,7 +12041,7 @@ namespace A007318_Table
     return A007318_143_vect;
   }
 
-  static const std::vector<mp_float>& A007318_144(void)
+  const std::vector<mp_float>& A007318_144(void)
   {
     static const boost::array<mp_float, 145u> A007318_144_data =
     {{
@@ -12197,7 +12197,7 @@ namespace A007318_Table
     return A007318_144_vect;
   }
 
-  static const std::vector<mp_float>& A007318_145(void)
+  const std::vector<mp_float>& A007318_145(void)
   {
     static const boost::array<mp_float, 146u> A007318_145_data =
     {{
@@ -12354,7 +12354,7 @@ namespace A007318_Table
     return A007318_145_vect;
   }
 
-  static const std::vector<mp_float>& A007318_146(void)
+  const std::vector<mp_float>& A007318_146(void)
   {
     static const boost::array<mp_float, 147u> A007318_146_data =
     {{
@@ -12512,7 +12512,7 @@ namespace A007318_Table
     return A007318_146_vect;
   }
 
-  static const std::vector<mp_float>& A007318_147(void)
+  const std::vector<mp_float>& A007318_147(void)
   {
     static const boost::array<mp_float, 148u> A007318_147_data =
     {{
@@ -12671,7 +12671,7 @@ namespace A007318_Table
     return A007318_147_vect;
   }
 
-  static const std::vector<mp_float>& A007318_148(void)
+  const std::vector<mp_float>& A007318_148(void)
   {
     static const boost::array<mp_float, 149u> A007318_148_data =
     {{
@@ -12831,7 +12831,7 @@ namespace A007318_Table
     return A007318_148_vect;
   }
 
-  static const std::vector<mp_float>& A007318_149(void)
+  const std::vector<mp_float>& A007318_149(void)
   {
     static const boost::array<mp_float, 150u> A007318_149_data =
     {{
@@ -12992,7 +12992,7 @@ namespace A007318_Table
     return A007318_149_vect;
   }
 
-  static const std::vector<mp_float>& A007318_150(void)
+  const std::vector<mp_float>& A007318_150(void)
   {
     static const boost::array<mp_float, 151u> A007318_150_data =
     {{
@@ -13154,7 +13154,7 @@ namespace A007318_Table
     return A007318_150_vect;
   }
 
-  static const std::vector<mp_float>& A007318_151(void)
+  const std::vector<mp_float>& A007318_151(void)
   {
     static const boost::array<mp_float, 152u> A007318_151_data =
     {{
@@ -13317,7 +13317,7 @@ namespace A007318_Table
     return A007318_151_vect;
   }
 
-  static const std::vector<mp_float>& A007318_152(void)
+  const std::vector<mp_float>& A007318_152(void)
   {
     static const boost::array<mp_float, 153u> A007318_152_data =
     {{
@@ -13481,7 +13481,7 @@ namespace A007318_Table
     return A007318_152_vect;
   }
 
-  static const std::vector<mp_float>& A007318_153(void)
+  const std::vector<mp_float>& A007318_153(void)
   {
     static const boost::array<mp_float, 154u> A007318_153_data =
     {{
@@ -13646,7 +13646,7 @@ namespace A007318_Table
     return A007318_153_vect;
   }
 
-  static const std::vector<mp_float>& A007318_154(void)
+  const std::vector<mp_float>& A007318_154(void)
   {
     static const boost::array<mp_float, 155u> A007318_154_data =
     {{
@@ -13812,7 +13812,7 @@ namespace A007318_Table
     return A007318_154_vect;
   }
 
-  static const std::vector<mp_float>& A007318_155(void)
+  const std::vector<mp_float>& A007318_155(void)
   {
     static const boost::array<mp_float, 156u> A007318_155_data =
     {{
@@ -13979,7 +13979,7 @@ namespace A007318_Table
     return A007318_155_vect;
   }
 
-  static const std::vector<mp_float>& A007318_156(void)
+  const std::vector<mp_float>& A007318_156(void)
   {
     static const boost::array<mp_float, 157u> A007318_156_data =
     {{
@@ -14147,7 +14147,7 @@ namespace A007318_Table
     return A007318_156_vect;
   }
 
-  static const std::vector<mp_float>& A007318_157(void)
+  const std::vector<mp_float>& A007318_157(void)
   {
     static const boost::array<mp_float, 158u> A007318_157_data =
     {{
@@ -14316,7 +14316,7 @@ namespace A007318_Table
     return A007318_157_vect;
   }
 
-  static const std::vector<mp_float>& A007318_158(void)
+  const std::vector<mp_float>& A007318_158(void)
   {
     static const boost::array<mp_float, 159u> A007318_158_data =
     {{
@@ -14486,7 +14486,7 @@ namespace A007318_Table
     return A007318_158_vect;
   }
 
-  static const std::vector<mp_float>& A007318_159(void)
+  const std::vector<mp_float>& A007318_159(void)
   {
     static const boost::array<mp_float, 160u> A007318_159_data =
     {{
@@ -14657,7 +14657,7 @@ namespace A007318_Table
     return A007318_159_vect;
   }
 
-  static const std::vector<mp_float>& A007318_160(void)
+  const std::vector<mp_float>& A007318_160(void)
   {
     static const boost::array<mp_float, 161u> A007318_160_data =
     {{
@@ -14830,177 +14830,183 @@ namespace A007318_Table
   }
 }
 
-namespace Tables
+namespace boost
 {
-  const std::vector<pfn_vector_efloat>& A007318(void)
+  namespace multiprecision
   {
-    static const boost::array<pfn_vector_efloat, 161u> A007318_data =
-    {{
-      A007318_Table::A007318_0,
-      A007318_Table::A007318_1,
-      A007318_Table::A007318_2,
-      A007318_Table::A007318_3,
-      A007318_Table::A007318_4,
-      A007318_Table::A007318_5,
-      A007318_Table::A007318_6,
-      A007318_Table::A007318_7,
-      A007318_Table::A007318_8,
-      A007318_Table::A007318_9,
-      A007318_Table::A007318_10,
-      A007318_Table::A007318_11,
-      A007318_Table::A007318_12,
-      A007318_Table::A007318_13,
-      A007318_Table::A007318_14,
-      A007318_Table::A007318_15,
-      A007318_Table::A007318_16,
-      A007318_Table::A007318_17,
-      A007318_Table::A007318_18,
-      A007318_Table::A007318_19,
-      A007318_Table::A007318_20,
-      A007318_Table::A007318_21,
-      A007318_Table::A007318_22,
-      A007318_Table::A007318_23,
-      A007318_Table::A007318_24,
-      A007318_Table::A007318_25,
-      A007318_Table::A007318_26,
-      A007318_Table::A007318_27,
-      A007318_Table::A007318_28,
-      A007318_Table::A007318_29,
-      A007318_Table::A007318_30,
-      A007318_Table::A007318_31,
-      A007318_Table::A007318_32,
-      A007318_Table::A007318_33,
-      A007318_Table::A007318_34,
-      A007318_Table::A007318_35,
-      A007318_Table::A007318_36,
-      A007318_Table::A007318_37,
-      A007318_Table::A007318_38,
-      A007318_Table::A007318_39,
-      A007318_Table::A007318_40,
-      A007318_Table::A007318_41,
-      A007318_Table::A007318_42,
-      A007318_Table::A007318_43,
-      A007318_Table::A007318_44,
-      A007318_Table::A007318_45,
-      A007318_Table::A007318_46,
-      A007318_Table::A007318_47,
-      A007318_Table::A007318_48,
-      A007318_Table::A007318_49,
-      A007318_Table::A007318_50,
-      A007318_Table::A007318_51,
-      A007318_Table::A007318_52,
-      A007318_Table::A007318_53,
-      A007318_Table::A007318_54,
-      A007318_Table::A007318_55,
-      A007318_Table::A007318_56,
-      A007318_Table::A007318_57,
-      A007318_Table::A007318_58,
-      A007318_Table::A007318_59,
-      A007318_Table::A007318_60,
-      A007318_Table::A007318_61,
-      A007318_Table::A007318_62,
-      A007318_Table::A007318_63,
-      A007318_Table::A007318_64,
-      A007318_Table::A007318_65,
-      A007318_Table::A007318_66,
-      A007318_Table::A007318_67,
-      A007318_Table::A007318_68,
-      A007318_Table::A007318_69,
-      A007318_Table::A007318_70,
-      A007318_Table::A007318_71,
-      A007318_Table::A007318_72,
-      A007318_Table::A007318_73,
-      A007318_Table::A007318_74,
-      A007318_Table::A007318_75,
-      A007318_Table::A007318_76,
-      A007318_Table::A007318_77,
-      A007318_Table::A007318_78,
-      A007318_Table::A007318_79,
-      A007318_Table::A007318_80,
-      A007318_Table::A007318_81,
-      A007318_Table::A007318_82,
-      A007318_Table::A007318_83,
-      A007318_Table::A007318_84,
-      A007318_Table::A007318_85,
-      A007318_Table::A007318_86,
-      A007318_Table::A007318_87,
-      A007318_Table::A007318_88,
-      A007318_Table::A007318_89,
-      A007318_Table::A007318_90,
-      A007318_Table::A007318_91,
-      A007318_Table::A007318_92,
-      A007318_Table::A007318_93,
-      A007318_Table::A007318_94,
-      A007318_Table::A007318_95,
-      A007318_Table::A007318_96,
-      A007318_Table::A007318_97,
-      A007318_Table::A007318_98,
-      A007318_Table::A007318_99,
-      A007318_Table::A007318_100,
-      A007318_Table::A007318_101,
-      A007318_Table::A007318_102,
-      A007318_Table::A007318_103,
-      A007318_Table::A007318_104,
-      A007318_Table::A007318_105,
-      A007318_Table::A007318_106,
-      A007318_Table::A007318_107,
-      A007318_Table::A007318_108,
-      A007318_Table::A007318_109,
-      A007318_Table::A007318_110,
-      A007318_Table::A007318_111,
-      A007318_Table::A007318_112,
-      A007318_Table::A007318_113,
-      A007318_Table::A007318_114,
-      A007318_Table::A007318_115,
-      A007318_Table::A007318_116,
-      A007318_Table::A007318_117,
-      A007318_Table::A007318_118,
-      A007318_Table::A007318_119,
-      A007318_Table::A007318_120,
-      A007318_Table::A007318_121,
-      A007318_Table::A007318_122,
-      A007318_Table::A007318_123,
-      A007318_Table::A007318_124,
-      A007318_Table::A007318_125,
-      A007318_Table::A007318_126,
-      A007318_Table::A007318_127,
-      A007318_Table::A007318_128,
-      A007318_Table::A007318_129,
-      A007318_Table::A007318_130,
-      A007318_Table::A007318_131,
-      A007318_Table::A007318_132,
-      A007318_Table::A007318_133,
-      A007318_Table::A007318_134,
-      A007318_Table::A007318_135,
-      A007318_Table::A007318_136,
-      A007318_Table::A007318_137,
-      A007318_Table::A007318_138,
-      A007318_Table::A007318_139,
-      A007318_Table::A007318_140,
-      A007318_Table::A007318_141,
-      A007318_Table::A007318_142,
-      A007318_Table::A007318_143,
-      A007318_Table::A007318_144,
-      A007318_Table::A007318_145,
-      A007318_Table::A007318_146,
-      A007318_Table::A007318_147,
-      A007318_Table::A007318_148,
-      A007318_Table::A007318_149,
-      A007318_Table::A007318_150,
-      A007318_Table::A007318_151,
-      A007318_Table::A007318_152,
-      A007318_Table::A007318_153,
-      A007318_Table::A007318_154,
-      A007318_Table::A007318_155,
-      A007318_Table::A007318_156,
-      A007318_Table::A007318_157,
-      A007318_Table::A007318_158,
-      A007318_Table::A007318_159,
-      A007318_Table::A007318_160,
-    }};
+    namespace tables
+    {
+      const std::vector<pfn_vector_efloat>& A007318(void)
+      {
+        static const boost::array<pfn_vector_efloat, 161u> A007318_data =
+        {{
+          ::A007318_0,
+          ::A007318_1,
+          ::A007318_2,
+          ::A007318_3,
+          ::A007318_4,
+          ::A007318_5,
+          ::A007318_6,
+          ::A007318_7,
+          ::A007318_8,
+          ::A007318_9,
+          ::A007318_10,
+          ::A007318_11,
+          ::A007318_12,
+          ::A007318_13,
+          ::A007318_14,
+          ::A007318_15,
+          ::A007318_16,
+          ::A007318_17,
+          ::A007318_18,
+          ::A007318_19,
+          ::A007318_20,
+          ::A007318_21,
+          ::A007318_22,
+          ::A007318_23,
+          ::A007318_24,
+          ::A007318_25,
+          ::A007318_26,
+          ::A007318_27,
+          ::A007318_28,
+          ::A007318_29,
+          ::A007318_30,
+          ::A007318_31,
+          ::A007318_32,
+          ::A007318_33,
+          ::A007318_34,
+          ::A007318_35,
+          ::A007318_36,
+          ::A007318_37,
+          ::A007318_38,
+          ::A007318_39,
+          ::A007318_40,
+          ::A007318_41,
+          ::A007318_42,
+          ::A007318_43,
+          ::A007318_44,
+          ::A007318_45,
+          ::A007318_46,
+          ::A007318_47,
+          ::A007318_48,
+          ::A007318_49,
+          ::A007318_50,
+          ::A007318_51,
+          ::A007318_52,
+          ::A007318_53,
+          ::A007318_54,
+          ::A007318_55,
+          ::A007318_56,
+          ::A007318_57,
+          ::A007318_58,
+          ::A007318_59,
+          ::A007318_60,
+          ::A007318_61,
+          ::A007318_62,
+          ::A007318_63,
+          ::A007318_64,
+          ::A007318_65,
+          ::A007318_66,
+          ::A007318_67,
+          ::A007318_68,
+          ::A007318_69,
+          ::A007318_70,
+          ::A007318_71,
+          ::A007318_72,
+          ::A007318_73,
+          ::A007318_74,
+          ::A007318_75,
+          ::A007318_76,
+          ::A007318_77,
+          ::A007318_78,
+          ::A007318_79,
+          ::A007318_80,
+          ::A007318_81,
+          ::A007318_82,
+          ::A007318_83,
+          ::A007318_84,
+          ::A007318_85,
+          ::A007318_86,
+          ::A007318_87,
+          ::A007318_88,
+          ::A007318_89,
+          ::A007318_90,
+          ::A007318_91,
+          ::A007318_92,
+          ::A007318_93,
+          ::A007318_94,
+          ::A007318_95,
+          ::A007318_96,
+          ::A007318_97,
+          ::A007318_98,
+          ::A007318_99,
+          ::A007318_100,
+          ::A007318_101,
+          ::A007318_102,
+          ::A007318_103,
+          ::A007318_104,
+          ::A007318_105,
+          ::A007318_106,
+          ::A007318_107,
+          ::A007318_108,
+          ::A007318_109,
+          ::A007318_110,
+          ::A007318_111,
+          ::A007318_112,
+          ::A007318_113,
+          ::A007318_114,
+          ::A007318_115,
+          ::A007318_116,
+          ::A007318_117,
+          ::A007318_118,
+          ::A007318_119,
+          ::A007318_120,
+          ::A007318_121,
+          ::A007318_122,
+          ::A007318_123,
+          ::A007318_124,
+          ::A007318_125,
+          ::A007318_126,
+          ::A007318_127,
+          ::A007318_128,
+          ::A007318_129,
+          ::A007318_130,
+          ::A007318_131,
+          ::A007318_132,
+          ::A007318_133,
+          ::A007318_134,
+          ::A007318_135,
+          ::A007318_136,
+          ::A007318_137,
+          ::A007318_138,
+          ::A007318_139,
+          ::A007318_140,
+          ::A007318_141,
+          ::A007318_142,
+          ::A007318_143,
+          ::A007318_144,
+          ::A007318_145,
+          ::A007318_146,
+          ::A007318_147,
+          ::A007318_148,
+          ::A007318_149,
+          ::A007318_150,
+          ::A007318_151,
+          ::A007318_152,
+          ::A007318_153,
+          ::A007318_154,
+          ::A007318_155,
+          ::A007318_156,
+          ::A007318_157,
+          ::A007318_158,
+          ::A007318_159,
+          ::A007318_160,
+        }};
 
-    static const std::vector<pfn_vector_efloat> A007318_vect(A007318_data.begin(), A007318_data.end());
+        static const std::vector<pfn_vector_efloat> A007318_vect(A007318_data.begin(), A007318_data.end());
 
-    return A007318_vect;
+        return A007318_vect;
+      }
+    }
   }
 }

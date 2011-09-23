@@ -18,19 +18,19 @@ using boost::multiprecision::mp_complex;
 
 namespace
 {
-  mp_float my_logn(const boost::uint32_t n)
+  mp_float my_logn(const boost::uint_fast32_t n)
   {
-    static std::map<boost::uint32_t, mp_float> ln_data;
+    static std::map<boost::uint_fast32_t, mp_float> logn_data;
 
-    const std::map<boost::uint32_t, mp_float>::const_iterator it = ln_data.find(n);
+    const std::map<boost::uint_fast32_t, mp_float>::const_iterator it = logn_data.find(n);
 
-    if(it == ln_data.end())
+    if(it == logn_data.end())
     {
-      const mp_float ln = boost::multiprecision::log(mp_float(n));
+      const mp_float logn_value = boost::multiprecision::log(mp_float(n));
 
-      ln_data[n] = ln;
+      logn_data[static_cast<std::size_t>(n)] = logn_value;
 
-      return ln;
+      return logn_value;
     }
     else
     {
@@ -38,7 +38,8 @@ namespace
     }
   }
 
-  template<typename T> inline T j_pow_x_template(const boost::uint32_t j, const T& x, std::map<boost::uint32_t, T>& n_pow_x_prime_factor_map)
+  template<typename T>
+  inline T my_j_pow_x_template(const boost::uint_fast32_t j, const T& x, std::map<boost::uint_fast32_t, T>& n_pow_x_prime_factor_map)
   {
     using boost::multiprecision::exp;
     using boost::multiprecision::exp;
@@ -47,7 +48,7 @@ namespace
     using boost::multiprecision::real;
     using boost::multiprecision::real;
 
-    std::deque<boost::multiprecision::utility::point<boost::uint32_t> > pf;
+    std::deque<boost::multiprecision::utility::point<boost::uint_fast32_t> > pf;
 
     boost::multiprecision::prime_factors(j, pf);
 
@@ -57,10 +58,10 @@ namespace
     {
       T pf_pow_x;
 
-      const boost::uint32_t n = pf[i].x;
-      const boost::uint32_t p = pf[i].y;
+      const boost::uint_fast32_t n = pf[i].x;
+      const boost::uint_fast32_t p = pf[i].y;
 
-      const typename std::map<boost::uint32_t, T>::const_iterator it = n_pow_x_prime_factor_map.find(n);
+      const typename std::map<boost::uint_fast32_t, T>::const_iterator it = n_pow_x_prime_factor_map.find(n);
 
       if(it == n_pow_x_prime_factor_map.end())
       {
@@ -93,10 +94,10 @@ namespace
       }
 
       // Do the power expansion.
-      if     (p == static_cast<boost::uint32_t>(1u)) { }
-      else if(p == static_cast<boost::uint32_t>(2u)) { pf_pow_x *=  pf_pow_x; }
-      else if(p == static_cast<boost::uint32_t>(3u)) { pf_pow_x *= (pf_pow_x * pf_pow_x); }
-      else                                  { pf_pow_x *= pown(pf_pow_x, static_cast<boost::int64_t>(p - 1u)); }
+      if     (p == static_cast<boost::uint_fast32_t>(1u)) { }
+      else if(p == static_cast<boost::uint_fast32_t>(2u)) { pf_pow_x *=  pf_pow_x; }
+      else if(p == static_cast<boost::uint_fast32_t>(3u)) { pf_pow_x *= (pf_pow_x * pf_pow_x); }
+      else                                                { pf_pow_x *= pown(pf_pow_x, static_cast<boost::int64_t>(p - 1u)); }
 
       jpx *= pf_pow_x;
     }
@@ -105,5 +106,5 @@ namespace
   }
 }
 
-mp_float   boost::multiprecision::utility::j_pow_x(const boost::uint32_t j, const mp_float&    x, std::map<boost::uint32_t, mp_float>&    n_pow_x_prime_factor_map) { return ::j_pow_x_template<mp_float>(j, x, n_pow_x_prime_factor_map); }
-mp_complex boost::multiprecision::utility::j_pow_x(const boost::uint32_t j, const mp_complex& x, std::map<boost::uint32_t, mp_complex>& n_pow_x_prime_factor_map)   { return ::j_pow_x_template<mp_complex>(j, x, n_pow_x_prime_factor_map); }
+mp_float   boost::multiprecision::utility::j_pow_x(const boost::uint_fast32_t j, const mp_float&   x, std::map<boost::uint_fast32_t, mp_float>&    n_pow_x_prime_factor_map) { return ::my_j_pow_x_template<mp_float>(j, x, n_pow_x_prime_factor_map); }
+mp_complex boost::multiprecision::utility::j_pow_x(const boost::uint_fast32_t j, const mp_complex& x, std::map<boost::uint_fast32_t, mp_complex>& n_pow_x_prime_factor_map)  { return ::my_j_pow_x_template<mp_complex>(j, x, n_pow_x_prime_factor_map); }

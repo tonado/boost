@@ -22,15 +22,15 @@ mp_float boost::multiprecision::bernoulli(const boost::uint32_t n)
   }
   else
   {
-    static const std::size_t sz_A000367 = Tables::A000367().size();
-    static const std::size_t sz_A002445 = Tables::A002445().size();
+    static const std::size_t sz_A000367 = boost::multiprecision::tables::A000367().size();
+    static const std::size_t sz_A002445 = boost::multiprecision::tables::A002445().size();
     static const std::size_t sz_max     = (std::min)(sz_A000367, sz_A002445);
 
     const std::size_t n_half = static_cast<std::size_t>(n / static_cast<boost::uint32_t>(2u));
 
     if(n_half < sz_max)
     {
-      return Tables::A000367()[n_half]() / Tables::A002445()[n_half]();
+      return boost::multiprecision::tables::A000367()[n_half]() / boost::multiprecision::tables::A002445()[n_half]();
     }
     else
     {

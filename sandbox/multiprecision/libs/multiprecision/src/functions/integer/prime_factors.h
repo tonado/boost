@@ -19,7 +19,7 @@
   {
     namespace multiprecision
     {
-      void prime_factors(const boost::uint32_t n, std::deque<boost::multiprecision::utility::point<boost::uint32_t> >& pf);
+      void prime_factors(const boost::uint_fast32_t n, std::deque<boost::multiprecision::utility::point<boost::uint_fast32_t> >& pf);
     }
   }
 

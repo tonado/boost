@@ -17,7 +17,9 @@
     {
       namespace utility
       {
-        template<typename T1, typename T2 = T1> struct point
+        template<typename T1,
+                 typename T2 = T1>
+        struct point
         {
           T1 x;
           T2 y;

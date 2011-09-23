@@ -20,7 +20,8 @@
     {
       namespace utility
       {
-        template<typename T> inline T numeric_cast(const std::string& str)
+        template<typename T>
+        inline T numeric_cast(const std::string& str)
         {
           std::stringstream ss;
           ss << str;
@@ -29,7 +30,8 @@
           return t;
         }
 
-        template<typename T> inline T numeric_cast(const char* const s)
+        template<typename T>
+        inline T numeric_cast(const char* const s)
         {
           std::stringstream ss;
           ss << s;

@@ -29,8 +29,8 @@ namespace Zeta_Series
     // of the Bernoulli numbers.
 
     // Check the range of the tabulated values of the Bernoulli numbers.
-    static const std::size_t sz_A000367 = static_cast<std::size_t>(Tables::A000367().size());
-    static const std::size_t sz_A002445 = static_cast<std::size_t>(Tables::A002445().size());
+    static const std::size_t sz_A000367 = static_cast<std::size_t>(boost::multiprecision::tables::A000367().size());
+    static const std::size_t sz_A002445 = static_cast<std::size_t>(boost::multiprecision::tables::A002445().size());
 
     static const boost::int32_t b2n_table_max = static_cast<boost::int32_t>(2u * (std::min)(sz_A000367, sz_A002445));
 
@@ -121,17 +121,17 @@ namespace Zeta_Series
     // logarithms in a static table.
 
     // Declare a map of prime factors raised to the power of the argument s.
-    std::map<boost::uint32_t, T> n_pow_s_prime_factor_map;
+    std::map<boost::uint_fast32_t, T> n_pow_s_prime_factor_map;
 
     // Generate a list of the first 300 prime numbers.
-    static std::deque<boost::uint32_t> prime_data;
+    static std::deque<boost::uint_fast32_t> prime_data;
 
     if(prime_data.empty())
     {
-      prime(static_cast<boost::uint32_t>(300u), prime_data);
+      prime(static_cast<boost::uint_fast32_t>(300u), prime_data);
     }
 
-    static const std::vector<boost::uint32_t> primes(prime_data.begin(), prime_data.end());
+    static const std::vector<boost::uint_fast32_t> primes(prime_data.begin(), prime_data.end());
 
     // Test the conditions for the expansion of the product of primes. Set up a
     // test for the product of primes. The expansion in the product of primes can
@@ -219,7 +219,7 @@ namespace Zeta_Series
         if(!j_is_zero)
         {
           // Increment the zeta function sum.
-          jps = boost::multiprecision::utility::j_pow_x(static_cast<boost::uint32_t>(j), s, n_pow_s_prime_factor_map);
+          jps = boost::multiprecision::utility::j_pow_x(static_cast<boost::uint_fast32_t>(j), s, n_pow_s_prime_factor_map);
 
           neg_term = !neg_term;
 

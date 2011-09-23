@@ -17,7 +17,8 @@
     {
       namespace utility
       {
-        template<typename T> class function_base
+        template<typename T>
+        class function_base
         {
         public:
           virtual ~function_base() { }

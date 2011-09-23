@@ -109,9 +109,6 @@
     <ClCompile Include="..\src\functions\gamma\gamma.cpp">
       <Filter>libs\multiprecision\src\functions\gamma</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\functions\gamma\gamma_util.cpp">
-      <Filter>libs\multiprecision\src\functions\gamma</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\functions\gamma\pochhammer.cpp">
       <Filter>libs\multiprecision\src\functions\gamma</Filter>
     </ClCompile>
@@ -393,9 +390,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\functions\gamma\gamma_util.h">
-      <Filter>libs\multiprecision\src\functions\gamma</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\functions\tables\tables.h">
       <Filter>libs\multiprecision\src\functions\tables</Filter>
     </ClInclude>

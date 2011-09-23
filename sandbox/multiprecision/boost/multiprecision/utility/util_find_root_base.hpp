@@ -19,17 +19,16 @@
     {
       namespace utility
       {
-        template<typename T> class find_root_base : public ranged_function_operation<T>
+        template<typename T>
+        class find_root_base : public ranged_function_operation<T>
         {
-        protected:
-    
-          find_root_base(const T& lo,
-                       const T& hi,
-                       const T& tol) : ranged_function_operation<T>(lo, hi, tol) { }
-
         public:
-
           virtual ~find_root_base() { }
+
+        protected:
+          find_root_base(const T& lo,
+                         const T& hi,
+                         const T& tol) : ranged_function_operation<T>(lo, hi, tol) { }
         };
       }
     }

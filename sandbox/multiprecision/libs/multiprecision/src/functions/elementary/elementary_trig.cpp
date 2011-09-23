@@ -364,28 +364,25 @@ mp_float boost::multiprecision::acos(const mp_float& x)
   return boost::multiprecision::iszero(x) ? boost::multiprecision::pi_half() : boost::multiprecision::pi_half() - boost::multiprecision::asin(x);
 }
 
-namespace Atan_Series
+namespace
 {
-  static mp_float AtZero    (const mp_float& x);
-  static mp_float AtInfinity(const mp_float& x);
-}
+  mp_float my_atan_series_at_zero(const mp_float& x)
+  {
+    // http://functions.wolfram.com/ElementaryFunctions/ArcTan/26/01/01/
+    return x * boost::multiprecision::hyp2F1( boost::multiprecision::one(),
+                           boost::multiprecision::half(),
+                           boost::multiprecision::three_half(),
+                          -(x * x));
+  }
 
-static mp_float Atan_Series::AtZero(const mp_float& x)
-{
-  // http://functions.wolfram.com/ElementaryFunctions/ArcTan/26/01/01/
-  return x * boost::multiprecision::hyp2F1( boost::multiprecision::one(),
-                         boost::multiprecision::half(),
-                         boost::multiprecision::three_half(),
-                        -(x * x));
-}
-
-static mp_float Atan_Series::AtInfinity(const mp_float& x)
-{
-  // http://functions.wolfram.com/ElementaryFunctions/ArcTan/26/01/01/
-  return boost::multiprecision::pi_half() - boost::multiprecision::hyp2F1( boost::multiprecision::half(),
-                                     boost::multiprecision::one(),
-                                     boost::multiprecision::three_half(),
-                                    -boost::multiprecision::one() / (x * x)) / x;
+  mp_float my_atan_series_at_infinity(const mp_float& x)
+  {
+    // http://functions.wolfram.com/ElementaryFunctions/ArcTan/26/01/01/
+    return boost::multiprecision::pi_half() - boost::multiprecision::hyp2F1( boost::multiprecision::half(),
+                                       boost::multiprecision::one(),
+                                       boost::multiprecision::three_half(),
+                                      -boost::multiprecision::one() / (x * x)) / x;
+  }
 }
 
 mp_float boost::multiprecision::atan(const mp_float& x)
@@ -413,12 +410,12 @@ mp_float boost::multiprecision::atan(const mp_float& x)
   
   if(boost::multiprecision::small_arg(x))
   {
-    return Atan_Series::AtZero(x);
+    return ::my_atan_series_at_zero(x);
   }
 
   if(boost::multiprecision::large_arg(x))
   {
-    return Atan_Series::AtInfinity(x);
+    return ::my_atan_series_at_infinity(x);
   }
 
   const bool b_neg = boost::multiprecision::isneg(x);
@@ -438,7 +435,7 @@ mp_float boost::multiprecision::atan(const mp_float& x)
                                                                    : static_cast<boost::int32_t>((std::min)(ne, p10_max)));
 
   mp_float value = order < static_cast<boost::int64_t>(2) ? mp_float(::atan(dd * ::pow(10.0, de)))
-                                                : Atan_Series::AtInfinity(xx);
+                                                          : ::my_atan_series_at_infinity(xx);
 
   // Newton-Raphson iteration
   static const boost::int32_t double_digits10_minus_one = static_cast<boost::int32_t>(static_cast<boost::int32_t>(std::numeric_limits<double>::digits10) - static_cast<boost::int32_t>(1));

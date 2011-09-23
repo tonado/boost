@@ -15,16 +15,22 @@
 
   #include <boost/multiprecision/mp_float.hpp>
 
-  namespace Tables
+  namespace boost
   {
-    typedef const boost::multiprecision::mp_float& (*pfn_efloat)(void);
-    typedef const std::vector<boost::multiprecision::mp_float>& (*pfn_vector_efloat)(void);
+    namespace multiprecision
+    {
+      namespace tables
+      {
+        typedef const boost::multiprecision::mp_float& (*pfn_efloat)(void);
+        typedef const std::vector<boost::multiprecision::mp_float>& (*pfn_vector_efloat)(void);
 
-    const std::vector<pfn_efloat>&        A000142(void);
-    const std::vector<pfn_efloat>&        A000367(void);
-    const std::vector<pfn_efloat>&        A002445(void);
-    const std::vector<pfn_efloat>&        A006882(void);
-    const std::vector<pfn_vector_efloat>& A007318(void);
+        const std::vector<pfn_efloat>&        A000142(void);
+        const std::vector<pfn_efloat>&        A000367(void);
+        const std::vector<pfn_efloat>&        A002445(void);
+        const std::vector<pfn_efloat>&        A006882(void);
+        const std::vector<pfn_vector_efloat>& A007318(void);
+      }
+    }
   }
 
 #endif // _TABLES_2008_01_10_H_

@@ -13,26 +13,24 @@
 
 using boost::multiprecision::mp_float;
 
-namespace Factorial2_Series
+namespace
 {
-  mp_float AtInfinity(const boost::int32_t n);
-}
-
-mp_float Factorial2_Series::AtInfinity(const boost::int32_t n)
-{
-  const bool n_is_even = static_cast<boost::int32_t>(n % static_cast<boost::int32_t>(2)) == static_cast<boost::int32_t>(0u);
-
-  if(n_is_even)
+  mp_float my_factorial2_series_at_infinity(const boost::int32_t n)
   {
-    const boost::uint32_t n_half = static_cast<boost::uint32_t>(static_cast<boost::uint32_t>(n) / static_cast<boost::uint32_t>(2));
+    const bool n_is_even = static_cast<boost::int32_t>(n % static_cast<boost::int32_t>(2)) == static_cast<boost::int32_t>(0u);
 
-    return boost::multiprecision::pow2(static_cast<boost::int64_t>(n_half)) * boost::multiprecision::factorial(n_half);
-  }
-  else
-  {
-    const boost::int32_t n_plus_one = static_cast<boost::int32_t>(static_cast<boost::int32_t>(n) + static_cast<boost::int32_t>(1));
+    if(n_is_even)
+    {
+      const boost::uint32_t n_half = static_cast<boost::uint32_t>(static_cast<boost::uint32_t>(n) / static_cast<boost::uint32_t>(2));
 
-    return boost::multiprecision::factorial(static_cast<boost::uint32_t>(n_plus_one)) / boost::multiprecision::factorial2(n_plus_one);
+      return boost::multiprecision::pow2(static_cast<boost::int64_t>(n_half)) * boost::multiprecision::factorial(n_half);
+    }
+    else
+    {
+      const boost::int32_t n_plus_one = static_cast<boost::int32_t>(static_cast<boost::int32_t>(n) + static_cast<boost::int32_t>(1));
+
+      return boost::multiprecision::factorial(static_cast<boost::uint32_t>(n_plus_one)) / boost::multiprecision::factorial2(n_plus_one);
+    }
   }
 }
 
@@ -42,8 +40,8 @@ mp_float boost::multiprecision::factorial2(const boost::int32_t n)
 
   if(!n_is_neg)
   {
-    return (static_cast<std::size_t>(n) < Tables::A006882().size()) ? Tables::A006882()[n]()
-                                                                    : Factorial2_Series::AtInfinity(n);
+    return (static_cast<std::size_t>(n) < boost::multiprecision::tables::A006882().size()) ? boost::multiprecision::tables::A006882()[n]()
+                                                                    : ::my_factorial2_series_at_infinity(n);
   }
   else
   {

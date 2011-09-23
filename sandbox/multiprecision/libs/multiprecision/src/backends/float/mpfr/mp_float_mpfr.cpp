@@ -48,7 +48,7 @@ mp_float_mpfr::mp_float_mpfr(const wchar_t n) { init(); const bool b_neg = (std:
 
 mp_float_mpfr::mp_float_mpfr(const signed char n)      { init(); const bool b_neg = (n < static_cast<signed char>(0));      from_unsigned_long     ((!b_neg) ? static_cast<unsigned long>     (n) : static_cast<unsigned long>     (-n)); if(b_neg) { ::mpfr_neg(rop, rop, GMP_RNDN); } }
 mp_float_mpfr::mp_float_mpfr(const signed short n)     { init(); const bool b_neg = (n < static_cast<signed short>(0));     from_unsigned_long     ((!b_neg) ? static_cast<unsigned long>     (n) : static_cast<unsigned long>     (-n)); if(b_neg) { ::mpfr_neg(rop, rop, GMP_RNDN); } }
-mp_float_mpfr::mp_float_mpfr(const signed int n)       { init(); const bool b_neg = (n < static_cast<signed int>(0));       from_unsigned_long     ((!b_neg) ? static_cast<unsigned long>     (n) : static_cast<unsigned long>     (-n)); if(b_neg) { ::mpfr_neg(rop, rop, GMP_RNDN); } }
+mp_float_mpfr::mp_float_mpfr(const int n)              { init(); const bool b_neg = (n < 0);                                from_unsigned_long     ((!b_neg) ? static_cast<unsigned long>     (n) : static_cast<unsigned long>     (-n)); if(b_neg) { ::mpfr_neg(rop, rop, GMP_RNDN); } }
 mp_float_mpfr::mp_float_mpfr(const signed long n)      { init(); const bool b_neg = (n < static_cast<signed long>(0));      from_unsigned_long     ((!b_neg) ? static_cast<unsigned long>     (n) : static_cast<unsigned long>     (-n)); if(b_neg) { ::mpfr_neg(rop, rop, GMP_RNDN); } }
 mp_float_mpfr::mp_float_mpfr(const signed long long n) { init(); const bool b_neg = (n < static_cast<signed long long>(0)); from_unsigned_long_long((!b_neg) ? static_cast<unsigned long long>(n) : static_cast<unsigned long long>(-n)); if(b_neg) { ::mpfr_neg(rop, rop, GMP_RNDN); } }
 
@@ -94,9 +94,9 @@ mp_float_mpfr::mp_float_mpfr(const float f)
   }
 }
 
-mp_float_mpfr::mp_float_mpfr(const double d)       { init(); mpfr_init_set_d(rop, d, GMP_RNDN); }
-mp_float_mpfr::mp_float_mpfr(const long double ld) { init(); mpfr_init_set_ld(rop, ld, GMP_RNDN); }
-mp_float_mpfr::mp_float_mpfr(const mp_float_mpfr& f)     { init(); mpfr_init_set(rop, f.rop, GMP_RNDN); }
+mp_float_mpfr::mp_float_mpfr(const double d)         { init(); mpfr_init_set_d(rop, d, GMP_RNDN); }
+mp_float_mpfr::mp_float_mpfr(const long double ld)   { init(); mpfr_init_set_ld(rop, ld, GMP_RNDN); }
+mp_float_mpfr::mp_float_mpfr(const mp_float_mpfr& f) { init(); mpfr_init_set(rop, f.rop, GMP_RNDN); }
 
 mp_float_mpfr::mp_float_mpfr(const char* s)          { init(); static_cast<void>(rd_string(s)); }
 mp_float_mpfr::mp_float_mpfr(const std::string& str) { init(); static_cast<void>(rd_string(str.c_str())); }

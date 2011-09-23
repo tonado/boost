@@ -70,14 +70,14 @@ const boost::int64_t& mp_float_gmp::min_exp2(void)
 
 
 mp_float_gmp::mp_float_gmp() : fpclass  (mp_finite),
-                          prec_elem(mp_float_max_digits10)
+                               prec_elem(mp_float_max_digits10)
 {
   init();
   ::mpf_init(rop);
 }
 
 mp_float_gmp::mp_float_gmp(const char n) : fpclass  (mp_finite),
-                                      prec_elem(mp_float_max_digits10)
+                                           prec_elem(mp_float_max_digits10)
 {
   init();
   const bool b_neg = (std::numeric_limits<char>::is_signed ? (n < static_cast<char>(0)) : false);
@@ -86,7 +86,7 @@ mp_float_gmp::mp_float_gmp(const char n) : fpclass  (mp_finite),
 }
 
 mp_float_gmp::mp_float_gmp(const wchar_t n) : fpclass  (mp_finite),
-                                         prec_elem(mp_float_max_digits10)
+                                              prec_elem(mp_float_max_digits10)
 {
   init();
   const bool b_neg = (std::numeric_limits<wchar_t>::is_signed ? (n < static_cast<wchar_t>(0)) : false);
@@ -95,7 +95,7 @@ mp_float_gmp::mp_float_gmp(const wchar_t n) : fpclass  (mp_finite),
 }
 
 mp_float_gmp::mp_float_gmp(const signed char n) : fpclass  (mp_finite),
-                                             prec_elem(mp_float_max_digits10)
+                                                  prec_elem(mp_float_max_digits10)
 {
   init();
   const bool b_neg = (n < static_cast<signed char>(0));
@@ -104,7 +104,7 @@ mp_float_gmp::mp_float_gmp(const signed char n) : fpclass  (mp_finite),
 }
 
 mp_float_gmp::mp_float_gmp(const signed short n) : fpclass  (mp_finite),
-                                              prec_elem(mp_float_max_digits10)
+                                                   prec_elem(mp_float_max_digits10)
 {
   init();
   const bool b_neg = (n < static_cast<signed short>(0));
@@ -112,17 +112,17 @@ mp_float_gmp::mp_float_gmp(const signed short n) : fpclass  (mp_finite),
   if(b_neg) { ::mpf_neg(rop, rop); }
 }
 
-mp_float_gmp::mp_float_gmp(const signed int n) : fpclass  (mp_finite),
-                                            prec_elem(mp_float_max_digits10)
+mp_float_gmp::mp_float_gmp(const int n) : fpclass  (mp_finite),
+                                          prec_elem(mp_float_max_digits10)
 {
   init();
-  const bool b_neg = (n < static_cast<signed int>(0));
+  const bool b_neg = (n < 0);
   from_unsigned_long((!b_neg) ? static_cast<unsigned long>(n) : static_cast<unsigned long>(-n));
   if(b_neg) { ::mpf_neg(rop, rop); }
 }
 
 mp_float_gmp::mp_float_gmp(const signed long n) : fpclass  (mp_finite),
-                                             prec_elem(mp_float_max_digits10)
+                                                  prec_elem(mp_float_max_digits10)
 {
   init();
   const bool b_neg = (n < static_cast<signed long>(0));
@@ -131,7 +131,7 @@ mp_float_gmp::mp_float_gmp(const signed long n) : fpclass  (mp_finite),
 }
 
 mp_float_gmp::mp_float_gmp(const signed long long n) : fpclass  (mp_finite),
-                                                  prec_elem(mp_float_max_digits10)
+                                                       prec_elem(mp_float_max_digits10)
 {
   init();
   const bool b_neg = (n < static_cast<signed long long>(0));
@@ -140,42 +140,42 @@ mp_float_gmp::mp_float_gmp(const signed long long n) : fpclass  (mp_finite),
 }
 
 mp_float_gmp::mp_float_gmp(const unsigned char n) : fpclass  (mp_finite),
-                                               prec_elem(mp_float_max_digits10)
+                                                    prec_elem(mp_float_max_digits10)
 {
   init();
   from_unsigned_long(static_cast<unsigned long>(n));
 }
 
 mp_float_gmp::mp_float_gmp(const unsigned short n) : fpclass  (mp_finite),
-                                                prec_elem(mp_float_max_digits10)
+                                                     prec_elem(mp_float_max_digits10)
 {
   init();
   from_unsigned_long(static_cast<unsigned long>(n));
 }
 
 mp_float_gmp::mp_float_gmp(const unsigned int n) : fpclass  (mp_finite),
-                                              prec_elem(mp_float_max_digits10)
+                                                   prec_elem(mp_float_max_digits10)
 {
   init();
   from_unsigned_long(static_cast<unsigned long>(n));
 }
 
 mp_float_gmp::mp_float_gmp(const unsigned long n) : fpclass  (mp_finite),
-                                               prec_elem(mp_float_max_digits10)
+                                                    prec_elem(mp_float_max_digits10)
 {
   init();
   from_unsigned_long(static_cast<unsigned long>(n));
 }
 
 mp_float_gmp::mp_float_gmp(const unsigned long long n) : fpclass  (mp_finite),
-                                                    prec_elem(mp_float_max_digits10)
+                                                         prec_elem(mp_float_max_digits10)
 {
   init();
   from_unsigned_long_long(static_cast<unsigned long long>(n));
 }
 
 mp_float_gmp::mp_float_gmp(const float f) : fpclass  (mp_finite),
-                                       prec_elem(mp_float_max_digits10)
+                                            prec_elem(mp_float_max_digits10)
 {
   init();
 
@@ -353,7 +353,7 @@ mp_float_gmp& mp_float_gmp::operator+=(const mp_float_gmp& v)
   {
     if(v.isinf() && (isneg() != v.isneg()))
     {
-      *this = std::numeric_limits<mp_float_gmp>::quiet_NaN();
+      *this = std::numeric_limits<mp_float>::quiet_NaN();
     }
 
     return *this;
@@ -365,14 +365,14 @@ mp_float_gmp& mp_float_gmp::operator+=(const mp_float_gmp& v)
   long u_exp2_signed;
   static_cast<void>(::mpf_get_d_2exp(&u_exp2_signed, rop));
 
-  if(   (u_exp2_signed >= std::numeric_limits<mp_float_gmp>::max_exponent)
-     && (boost::multiprecision::fabs(*this) > (std::numeric_limits<mp_float_gmp>::max)())
+  if(   (u_exp2_signed >= std::numeric_limits<mp_float>::max_exponent)
+     && (boost::multiprecision::fabs(*this) > (std::numeric_limits<mp_float>::max)())
     )
   {
     const bool b_result_is_neg = isneg();
 
-    *this = ((!b_result_is_neg) ?  std::numeric_limits<mp_float_gmp>::infinity()
-                                : -std::numeric_limits<mp_float_gmp>::infinity());
+    *this = ((!b_result_is_neg) ?  std::numeric_limits<mp_float>::infinity()
+                                : -std::numeric_limits<mp_float>::infinity());
   }
 
   return *this;
@@ -394,15 +394,15 @@ mp_float_gmp& mp_float_gmp::operator*=(const mp_float_gmp& v)
      || (b_v_is_inf &&   iszero())
     )
   {
-    return *this = std::numeric_limits<mp_float_gmp>::quiet_NaN();
+    return *this = std::numeric_limits<mp_float>::quiet_NaN();
   }
 
   if(b_u_is_inf || b_v_is_inf)
   {
     const bool b_result_is_neg = (isneg() != v.isneg());
 
-    *this = ((!b_result_is_neg) ?  std::numeric_limits<mp_float_gmp>::infinity()
-                                : -std::numeric_limits<mp_float_gmp>::infinity());
+    *this = ((!b_result_is_neg) ?  std::numeric_limits<mp_float>::infinity()
+                                : -std::numeric_limits<mp_float>::infinity());
 
     return *this;
   }
@@ -436,8 +436,8 @@ mp_float_gmp& mp_float_gmp::operator*=(const mp_float_gmp& v)
       {
         const bool b_result_is_neg = (isneg() != v.isneg());
 
-        *this = ((!b_result_is_neg) ?  std::numeric_limits<mp_float_gmp>::infinity()
-                                    : -std::numeric_limits<mp_float_gmp>::infinity());
+        *this = ((!b_result_is_neg) ?  std::numeric_limits<mp_float>::infinity()
+                                    : -std::numeric_limits<mp_float>::infinity());
       }
 
       return *this;
@@ -492,13 +492,13 @@ mp_float_gmp& mp_float_gmp::mul_unsigned_long_long(const unsigned long long n)
 
   if(isnan() || (b_u_is_inf && b_n_is_zero))
   {
-    return (*this = std::numeric_limits<mp_float_gmp>::quiet_NaN());
+    return (*this = std::numeric_limits<mp_float>::quiet_NaN());
   }
 
   if(b_u_is_inf)
   {
-    *this = ((!isneg()) ?  std::numeric_limits<mp_float_gmp>::infinity()
-                        : -std::numeric_limits<mp_float_gmp>::infinity());
+    *this = ((!isneg()) ?  std::numeric_limits<mp_float>::infinity()
+                        : -std::numeric_limits<mp_float>::infinity());
     return *this;
   }
 
@@ -515,12 +515,12 @@ mp_float_gmp& mp_float_gmp::mul_unsigned_long_long(const unsigned long long n)
   long u_exp2_signed;
   static_cast<void>(::mpf_get_d_2exp(&u_exp2_signed, rop));
 
-  if(   (u_exp2_signed >= std::numeric_limits<mp_float_gmp>::max_exponent)
-     && (boost::multiprecision::fabs(*this) > (std::numeric_limits<mp_float_gmp>::max)())
+  if(   (u_exp2_signed >= std::numeric_limits<mp_float>::max_exponent)
+     && (boost::multiprecision::fabs(*this) > (std::numeric_limits<mp_float>::max)())
     )
   {
-    *this = ((!isneg()) ?  std::numeric_limits<mp_float_gmp>::infinity()
-                        : -std::numeric_limits<mp_float_gmp>::infinity());
+    *this = ((!isneg()) ?  std::numeric_limits<mp_float>::infinity()
+                        : -std::numeric_limits<mp_float>::infinity());
   }
 
   return *this;
@@ -535,8 +535,8 @@ mp_float_gmp& mp_float_gmp::div_unsigned_long_long(const unsigned long long n)
 
   if(isinf())
   {
-    *this = ((!isneg()) ?  std::numeric_limits<mp_float_gmp>::infinity()
-                        : -std::numeric_limits<mp_float_gmp>::infinity());
+    *this = ((!isneg()) ?  std::numeric_limits<mp_float>::infinity()
+                        : -std::numeric_limits<mp_float>::infinity());
     return *this;
   }
 
@@ -545,12 +545,12 @@ mp_float_gmp& mp_float_gmp::div_unsigned_long_long(const unsigned long long n)
     // Divide by 0.
     if(iszero())
     {
-      return (*this = std::numeric_limits<mp_float_gmp>::quiet_NaN());
+      return (*this = std::numeric_limits<mp_float>::quiet_NaN());
     }
     else
     {
-      *this = ((!isneg()) ?  std::numeric_limits<mp_float_gmp>::infinity()
-                          : -std::numeric_limits<mp_float_gmp>::infinity());
+      *this = ((!isneg()) ?  std::numeric_limits<mp_float>::infinity()
+                          : -std::numeric_limits<mp_float>::infinity());
       return *this;
     }
   }
@@ -573,8 +573,8 @@ mp_float_gmp& mp_float_gmp::div_unsigned_long_long(const unsigned long long n)
   long u_exp2_signed;
   static_cast<void>(::mpf_get_d_2exp(&u_exp2_signed, rop));
 
-  if(   (u_exp2_signed <= std::numeric_limits<mp_float_gmp>::min_exponent)
-     && (boost::multiprecision::fabs(*this) < (std::numeric_limits<mp_float_gmp>::min)())
+  if(   (u_exp2_signed <= std::numeric_limits<mp_float>::min_exponent)
+     && (boost::multiprecision::fabs(*this) < (std::numeric_limits<mp_float>::min)())
     )
   {
     return (*this = boost::multiprecision::zero());
@@ -591,8 +591,8 @@ mp_float_gmp& mp_float_gmp::calculate_inv(void)
 
   if(iszero())
   {
-    *this = ((!b_result_is_neg) ?  std::numeric_limits<mp_float_gmp>::infinity()
-                                : -std::numeric_limits<mp_float_gmp>::infinity());
+    *this = ((!b_result_is_neg) ?  std::numeric_limits<mp_float>::infinity()
+                                : -std::numeric_limits<mp_float>::infinity());
 
     return *this;
   }
@@ -625,7 +625,7 @@ mp_float_gmp& mp_float_gmp::calculate_sqrt(void)
 
   if(isneg() || !isfinite())
   {
-    return *this = std::numeric_limits<mp_float_gmp>::quiet_NaN();
+    return *this = std::numeric_limits<mp_float>::quiet_NaN();
   }
 
   if(iszero() || isone())

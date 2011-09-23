@@ -806,7 +806,6 @@
     <ClCompile Include="..\src\functions\gamma\factorial.cpp" />
     <ClCompile Include="..\src\functions\gamma\factorial2.cpp" />
     <ClCompile Include="..\src\functions\gamma\gamma.cpp" />
-    <ClCompile Include="..\src\functions\gamma\gamma_util.cpp" />
     <ClCompile Include="..\src\functions\gamma\pochhammer.cpp" />
     <ClCompile Include="..\src\functions\tables\A000142.cpp">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug-efx|Win32'">/bigobj %(AdditionalOptions)</AdditionalOptions>
@@ -1248,7 +1247,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='release-gmp|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='release-gmp|x64'">true</ExcludedFromBuild>
     </CustomBuildStep>
-    <ClInclude Include="..\src\functions\gamma\gamma_util.h" />
     <ClInclude Include="..\src\functions\tables\tables.h" />
   </ItemGroup>
   <ItemGroup>

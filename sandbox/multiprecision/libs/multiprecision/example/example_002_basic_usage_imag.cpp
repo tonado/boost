@@ -16,9 +16,8 @@
 
 #include <boost/multiprecision/mp_float.hpp>
 #include <boost/multiprecision/mp_float_functions.hpp>
-
-#include "examples.h"
 #include <boost/multiprecision/utility/util_timer.hpp>
+#include "examples.h"
 
 using boost::multiprecision::mp_float;
 using boost::multiprecision::mp_complex;

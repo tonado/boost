@@ -19,7 +19,8 @@
     {
       namespace utility
       {
-        template<typename T> class function_operation : public function_base<T>
+        template<typename T>
+        class function_operation : public function_base<T>
         {
         protected:
 

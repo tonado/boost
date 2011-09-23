@@ -11,6 +11,7 @@
 #ifndef _UTIL_FIND_ROOT_NEWTON_RAPHSON_2009_10_27_HPP_
   #define _UTIL_FIND_ROOT_NEWTON_RAPHSON_2009_10_27_HPP_
 
+  #include <boost/cstdint.hpp>
   #include "util_find_root_base.hpp"
 
   namespace boost
@@ -19,24 +20,20 @@
     {
       namespace utility
       {
-        template<typename T> class find_root_newton_raphson : public find_root_base<T>
+        template<typename T>
+        class find_root_newton_raphson : public find_root_base<T>
         {
-        protected:
-    
-          find_root_newton_raphson(const T& lo,
-                                const T& hi,
-                                const T& tol) : find_root_base<T>(lo, hi, tol) { }
-
         public:
-
           virtual ~find_root_newton_raphson() { }
-
-        public:
 
           void function_derivative(const T& x, T& f, T& d) const { my_function_derivative(x, f, d); }
 
-        private:
+        protected:
+          find_root_newton_raphson(const T& lo,
+                                   const T& hi,
+                                   const T& tol) : find_root_base<T>(lo, hi, tol) { }
 
+        private:
           virtual void my_function_derivative(const T& x, T& f, T& d) const = 0;
 
           virtual T my_operation(void) const

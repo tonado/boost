@@ -21,23 +21,19 @@
       {
         template<typename T> class ranged_function_operation : public function_operation<T>
         {
-        protected:
+        public:
+          virtual ~ranged_function_operation() { }
 
+        protected:
           const T xlo;
           const T xhi;
           const T eps;
-
-        protected:
 
           ranged_function_operation(const T& lo,
                                   const T& hi,
                                   const T& tol) : xlo(lo),
                                                   xhi(hi),
                                                   eps(tol) { }
-
-        public:
-
-          virtual ~ranged_function_operation() { }
         };
       }
     }

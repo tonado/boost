@@ -13,70 +13,76 @@
 #include <boost/multiprecision/mp_float_functions.hpp>
 #include "prime_factors.h"
 
-namespace Primes
+namespace boost
 {
-  std::deque<boost::uint32_t>& Data(void);
-
-  static bool IsPrimeFactor(boost::uint32_t& np, const boost::uint32_t p)
+  namespace multiprecision
   {
-    const boost::uint32_t q = static_cast<boost::uint32_t>(np / p);
-    const boost::uint32_t r = static_cast<boost::uint32_t>(np - static_cast<boost::uint32_t>(q * p));
-
-    const bool is_prime_factor = (r == static_cast<boost::uint32_t>(0u));
-
-    if(is_prime_factor)
+    namespace primes
     {
-      np = q;
-    }
-    
-    return is_prime_factor;
-  }
+      std::deque<boost::uint_fast32_t>& prime_data(void);
 
-  static void Factors(const boost::uint32_t n, std::deque<boost::multiprecision::utility::point<boost::uint32_t> >& pf)
-  {
-    // Compute the prime factors of the unsigned integer n. Use the divide algorithm of
-    // "The Art of Computer Programming Volume 2 Semi-numerical Algorithms Third Edition",
-    // Donald Knuth (Algorithm A, Chapter 4.5.4, page 380 and pages 378-417).
-    static const std::size_t sz = Data().size();
-
-    pf.clear();
-
-    const boost::uint32_t sqrt_n = static_cast<boost::uint32_t>(static_cast<boost::uint64_t>(::sqrt(static_cast<double>(n)) + 0.5));
-
-    boost::uint32_t np = n;
-
-    for(std::size_t i = static_cast<std::size_t>(0u); i < sz; i++)
-    {
-      const boost::uint32_t p = Data()[i];
-
-      if(IsPrimeFactor(np, p))
+      static bool my_is_prime_factor(boost::uint_fast32_t& np, const boost::uint_fast32_t p)
       {
-        boost::multiprecision::utility::point<boost::uint32_t> ip(p, static_cast<boost::uint32_t>(1u));
+        const boost::uint_fast32_t q = static_cast<boost::uint_fast32_t>(np / p);
+        const boost::uint_fast32_t r = static_cast<boost::uint_fast32_t>(np - static_cast<boost::uint_fast32_t>(q * p));
 
-        while(IsPrimeFactor(np, p))
+        const bool bo_is_prime_factor = (r == static_cast<boost::uint_fast32_t>(0u));
+
+        if(bo_is_prime_factor)
         {
-          ++ip.y;
+          np = q;
         }
-
-        pf.push_back(ip);
+    
+        return bo_is_prime_factor;
       }
 
-      if(static_cast<boost::uint32_t>(np / p) <= p)
+      void my_prime_factors(const boost::uint_fast32_t n, std::deque<boost::multiprecision::utility::point<boost::uint_fast32_t> >& pf)
       {
-        pf.push_back(boost::multiprecision::utility::point<boost::uint32_t>(np, static_cast<boost::uint32_t>(1u)));
+        // Compute the prime factors of the unsigned integer n. Use the divide algorithm of
+        // "The Art of Computer Programming Volume 2 Semi-numerical Algorithms Third Edition",
+        // Donald Knuth (Algorithm A, Chapter 4.5.4, page 380 and pages 378-417).
+        static const std::size_t sz = prime_data().size();
 
-        break;
-      }
+        pf.clear();
 
-      if((np == static_cast<boost::uint32_t>(1u)) || (p >= sqrt_n))
-      {
-        break;
+        const boost::uint_fast32_t sqrt_n = static_cast<boost::uint_fast32_t>(::sqrt(static_cast<double>(n)) + 0.5);
+
+        boost::uint_fast32_t np = n;
+
+        for(std::size_t i = static_cast<std::size_t>(0u); i < sz; i++)
+        {
+          const boost::uint_fast32_t p = prime_data()[i];
+
+          if(my_is_prime_factor(np, p))
+          {
+            boost::multiprecision::utility::point<boost::uint_fast32_t> ip(p, static_cast<boost::uint_fast32_t>(1u));
+
+            while(my_is_prime_factor(np, p))
+            {
+              ++ip.y;
+            }
+
+            pf.push_back(ip);
+          }
+
+          if(static_cast<boost::uint_fast32_t>(np / p) <= p)
+          {
+            pf.push_back(boost::multiprecision::utility::point<boost::uint_fast32_t>(np, static_cast<boost::uint_fast32_t>(1u)));
+
+            break;
+          }
+
+          if((np == static_cast<boost::uint_fast32_t>(1u)) || (p >= sqrt_n))
+          {
+            break;
+          }
+        }
       }
     }
   }
 }
 
-void boost::multiprecision::prime_factors(const boost::uint32_t n, std::deque<boost::multiprecision::utility::point<boost::uint32_t> >& pf)
+void boost::multiprecision::prime_factors(const boost::uint_fast32_t n, std::deque<boost::multiprecision::utility::point<boost::uint_fast32_t> >& pf)
 {
   // Factor the input integer into a list of primes. For small inputs less than 10,000
   // use the tabulated prime factors list. Calculate the prime factors for larger inputs
@@ -95,11 +101,13 @@ void boost::multiprecision::prime_factors(const boost::uint32_t n, std::deque<bo
 
     static const boost::uint32_t n_five = static_cast<boost::uint32_t>(5u);
 
-    std::deque<boost::uint32_t>::const_iterator it_next_prime = std::find(Primes::Data().begin(), Primes::Data().end(), n_five);
+    std::deque<boost::uint32_t>::const_iterator it_next_prime = std::find(boost::multiprecision::primes::prime_data().begin(),
+                                                                          boost::multiprecision::primes::prime_data().end(),
+                                                                          n_five);
 
     for(std::size_t i = static_cast<std::size_t>(4u); i < prime_factors_list.size(); i++)
     {
-      if((it_next_prime != Primes::Data().end()) && (static_cast<boost::uint32_t>(i) == *it_next_prime))
+      if((it_next_prime != boost::multiprecision::primes::prime_data().end()) && (static_cast<boost::uint32_t>(i) == *it_next_prime))
       {
         ++it_next_prime;
 
@@ -109,7 +117,7 @@ void boost::multiprecision::prime_factors(const boost::uint32_t n, std::deque<bo
       }
       else
       {
-        Primes::Factors(static_cast<boost::uint32_t>(i), prime_factors_list[i]);
+        boost::multiprecision::primes::my_prime_factors(static_cast<boost::uint32_t>(i), prime_factors_list[i]);
       }
     }
   }
@@ -120,6 +128,6 @@ void boost::multiprecision::prime_factors(const boost::uint32_t n, std::deque<bo
   }
   else
   {
-    Primes::Factors(n, pf);
+    boost::multiprecision::primes::my_prime_factors(n, pf);
   }
 }
