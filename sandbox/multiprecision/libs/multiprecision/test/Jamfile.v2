@@ -1,17 +1,12 @@
-# e_float/libs/e_float/test/jamfile.v2
+# multiprecision/libs/multiprecision/test/jamfile.v2
 
-# e_float EFX test using Boost.test unit test framework
+# multiprecision EFX test using Boost.test unit test framework
 
 # Copyright Paul A. Bristow 2011
 # Copyright Christopher Kormanyos 2011
 
-# From Copyright 2005: Eric Niebler
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-
-#~ from Copyright Rene Rivera 2008
-#~ Distributed under the Boost Software License, Version 1.0.
-#~ (See accompanying file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 import testing ;
 
@@ -48,11 +43,12 @@ project
     ;
 
     
- test-suite "e_float EFX numerical" :
-		[ run ./e_float_numerical_test/e_float_test.cpp 
-		      ../src/e_float/e_float.cpp
-		      ../src/e_float/e_float_base.cpp
-		      ../src/e_float/efx/e_float_efx.cpp
+ test-suite "multiprecision EFX numerical" :
+		[
+		  run ./numerical_test/multiprecision_test.cpp 
+		      ../src/backends/float/mp_float.cpp
+		      ../src/backends/float/mp_float_base.cpp
+		      ../src/backends/float/efx/mp_float_efx.cpp
 		      ../src/functions/constants/constants.cpp
 		      ../src/functions/elementary/elementary_complex.cpp
 		      ../src/functions/elementary/elementary_math.cpp
@@ -120,8 +116,5 @@ project
 		      ./real/cases/test_case_00052_factorial2.cpp
 	      
 		]
-
-    #[ run  ../example/e_float_naive_eg.cpp ]
-
   ;
-
+  
