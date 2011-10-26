@@ -11,6 +11,11 @@
 #ifndef _EXAMPLES_2010_01_02_H_
   #define _EXAMPLES_2010_01_02_H_
 
+  #include <vector>
+  #include <complex>
+
+  #include <boost/cstdint.hpp>
+  #include <boost/multiprecision/mp_float.hpp>
   #include <boost/multiprecision/mp_float_functions.hpp>
 
   namespace examples
@@ -34,6 +39,29 @@
     namespace nr_008
     {
       boost::multiprecision::mp_float gauss_laguerre_airy_a(const boost::multiprecision::mp_float& x);
+    }
+
+    namespace nr_010
+    {
+      void chebyshev_t(const boost::uint32_t n, const double& x, std::vector<double>& results);
+      void chebyshev_u(const boost::uint32_t n, const double& x, std::vector<double>& results);
+      void hermite    (const boost::uint32_t n, const double& x, std::vector<double>& results);
+      void laguerre   (const boost::uint32_t n, const double& x, std::vector<double>& results);
+
+      void chebyshev_t(const boost::uint32_t n, const std::complex<double>& x, std::vector<std::complex<double> >& results);
+      void chebyshev_u(const boost::uint32_t n, const std::complex<double>& x, std::vector<std::complex<double> >& results);
+      void hermite    (const boost::uint32_t n, const std::complex<double>& x, std::vector<std::complex<double> >& results);
+      void laguerre   (const boost::uint32_t n, const std::complex<double>& x, std::vector<std::complex<double> >& results);
+
+      void chebyshev_t(const boost::uint32_t n, const boost::multiprecision::mp_float& x, std::vector<boost::multiprecision::mp_float>& results);
+      void chebyshev_u(const boost::uint32_t n, const boost::multiprecision::mp_float& x, std::vector<boost::multiprecision::mp_float>& results);
+      void hermite    (const boost::uint32_t n, const boost::multiprecision::mp_float& x, std::vector<boost::multiprecision::mp_float>& results);
+      void laguerre   (const boost::uint32_t n, const boost::multiprecision::mp_float& x, std::vector<boost::multiprecision::mp_float>& results);
+
+      void chebyshev_t(const boost::uint32_t n, const boost::multiprecision::mp_complex& x, std::vector<boost::multiprecision::mp_complex>& results);
+      void chebyshev_u(const boost::uint32_t n, const boost::multiprecision::mp_complex& x, std::vector<boost::multiprecision::mp_complex>& results);
+      void hermite    (const boost::uint32_t n, const boost::multiprecision::mp_complex& x, std::vector<boost::multiprecision::mp_complex>& results);
+      void laguerre   (const boost::uint32_t n, const boost::multiprecision::mp_complex& x, std::vector<boost::multiprecision::mp_complex>& results);
     }
   }
 
