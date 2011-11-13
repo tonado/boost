@@ -27,7 +27,7 @@ namespace examples
 
       static const mp_float& my_tol(void)
       {
-        static const mp_float val("1E-" + boost::lexical_cast<std::string>(std::numeric_limits<mp_float>::digits10 / 2));
+        static const mp_float val("1E-" + boost::lexical_cast<std::string>((std::numeric_limits<mp_float>::digits10 + 1) / 2));
         return val;
       }
 
