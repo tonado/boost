@@ -56,7 +56,7 @@ EXTENSION    = exe
 # ------------------------------------------------------------------------------
 # Tool parameters
 # ------------------------------------------------------------------------------
-CFLAGS_BASE = -std=c++0x -O3 -DBOOST_MULTIPRECISION_BACKEND_MP_FLOAT_DIGITS10=50 -I../../../
+CFLAGS_BASE = -std=c++0x -O3 -DBOOST_MULTIPRECISION_BACKEND_MP_FLOAT_DIGITS10=75 -I../../../
 CFLAGS_WARN = -Wall -Wextra -pedantic
 LFLAGS_BASE =
 
