@@ -22,20 +22,6 @@
 #define BOOST_IDENTITY_HPP_
 
 #include <boost/type_traits/function_traits.hpp>
-#include <boost/type_traits/add_reference.hpp>
-
-/** @cond */
-namespace boost { namespace aux {
-
-// Identity for values (compilers should be able to optimize call overhead).
-template<typename T>
-inline typename boost::add_reference<T>::type identity_value(
-        typename boost::add_reference<T>::type value) {
-    return value;
-}
-
-}} // namespace boost::aux
-/** @endcond */
 
 /**
  * @brief This macro wraps the specified type expression within extra
@@ -99,58 +85,6 @@ inline typename boost::add_reference<T>::type identity_value(
 #define BOOST_IDENTITY_TYPE(parenthesized_type) \
     /* must NOT prefix this with `::` to work with parenthesized syntax */ \
     boost::function_traits< void parenthesized_type >::arg1_type
-
-/**
- * @brief This macro wraps the specified value expression within extra
- *  parenthesis so the value can be passed as a single macro parameter even if
- *  it contains commas (not already wrapped within round parenthesis).
- *
- * This macro expands to an expression that can be passed as a single macro
- * parameter even if it contains commas and that evaluates to the specified
- * value at run-time (see the @RefSect2{Advanced_Topics, Advanced Topics}
- * section).
- *
- * For example <c>BOOST_IDENTITY_VALUE((key_sizeof<int, double>::value))</c>
- * can be passed as a single macro parameter when instead
- * <c>key_sizeof<int, double>::value</c> cannot (because
- * <c>key_sizeof<int, double>::value</c> contains a comma not wrapped by round
- * parenthesis so it will be interpreted as two separate macro parameters by
- * the preprocessor).
- *
- * In many cases it might be possible to use alternatives to this macro that
- * will make the code more readable.
- * For example, if the expression type is know (and contains no commas) the
- * type constructor can be used to wrap the expression command within
- * parenthesis <c>size_type(key_sizeof<int, double>::value)</c>.
- *
- * @Params
- * @Param{parenthesize_value,
- *  The value expression to be passed as macro parameter wrapped by a single
- *  set of round parenthesis <c>(...)</c>.
- *  This value expression can contain an arbitrary number of commas.
- * }
- * @EndParams
- *
- * @Note This macro works on C++03 compilers (it does not require variadic
- *  macros). This macro expands to code equivalent to
- *  <c>boost::aux::identity_value parenthesized_value</c> where:
- * @code
- *  namespace boost { namespace aux {
- *
- *  template<typename T>
- *  inline typename boost::add_reference<T>::type identity_value(
- *          typename boost::add_reference<T>::type value) {
- *      return value;
- *  }
- *
- *  }} // namespace boost::aux
- * @endcode
- *
- * @See @RefSect2{Advanced_Topics, Advanced Topics} section.
- */
-#define BOOST_IDENTITY_VALUE(parenthesized_value) \
-    /* must NOT prefix this with `::` to work with parenthesized syntax */ \
-    boost::aux::identity_value parenthesized_value
 
 #endif // #include guard
 
