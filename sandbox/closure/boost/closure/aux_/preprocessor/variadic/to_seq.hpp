@@ -4,38 +4,36 @@
 // License, Version 1.0 (see accompanying file LICENSE_1_0.txt or a
 // copy at http://www.boost.org/LICENSE_1_0.txt).
 
-#ifndef BOOST_LOCAL_AUX_PP_VARIADIC_TO_SEQ_HPP_
-#define BOOST_LOCAL_AUX_PP_VARIADIC_TO_SEQ_HPP_
+#ifndef BOOST_CLOSURE_AUX_PP_VARIADIC_TO_SEQ_HPP_
+#define BOOST_CLOSURE_AUX_PP_VARIADIC_TO_SEQ_HPP_
 
 #include <boost/config.hpp>
 
 #if !defined(BOOST_NO_VARIADIC_MACROS) // If no variadics then no macros.
 
-#include "is.hpp"
-#include "same.hpp"
-#include "eat.hpp"
-#include <boost/detail/preprocessor/variadic_macro_data/vmd.hpp>
+#include <boost/closure/aux_/preprocessor/variadic/is.hpp>
+#include <boost/preprocessor/variadic/to_seq.hpp>
 #include <boost/preprocessor/control/iif.hpp>
 #include <boost/preprocessor/control/if.hpp>
 
 // PRIVATE //
 
-#define BOOST_LOCAL_AUX_PP_VARIADIC_TO_SEQ_NOT_EMPTY_(...) \
-    BOOST_PP_IIF(BOOST_LOCAL_AUX_PP_IS_VARIADIC(__VA_ARGS__), \
-        BOOST_DETAIL_PP_VMD_DATA_TO_PP_SEQ \
+#define BOOST_CLOSURE_AUX_PP_VARIADIC_TO_SEQ_NOT_EMPTY_(...) \
+    BOOST_PP_IIF(BOOST_CLOSURE_AUX_PP_IS_VARIADIC(__VA_ARGS__), \
+        BOOST_PP_VARIADIC_TO_SEQ \
     , \
-        BOOST_LOCAL_AUX_PP_VARIADIC_SAME \
+        BOOST_PP_REM \
     )(__VA_ARGS__)
 
 // PUBLIC //
 
 // Expand to `(arg0)(arg1)...` is __VA_ARGS__ is `arg0, arg1, ...` or already
 // `(arg0)(arg1)...`, if __VA_ARGS__ is empty `` expand to `empty_seq`.
-#define BOOST_LOCAL_AUX_PP_VARIADIC_TO_SEQ(empty_seq, ...) \
-    BOOST_PP_IF(BOOST_LOCAL_AUX_PP_VARIADIC_SIZE(__VA_ARGS__), \
-        BOOST_LOCAL_AUX_PP_VARIADIC_TO_SEQ_NOT_EMPTY_ \
+#define BOOST_CLOSURE_AUX_PP_VARIADIC_TO_SEQ(empty_seq, ...) \
+    BOOST_PP_IF(BOOST_CLOSURE_AUX_PP_VARIADIC_SIZE(__VA_ARGS__), \
+        BOOST_CLOSURE_AUX_PP_VARIADIC_TO_SEQ_NOT_EMPTY_ \
     , \
-        empty_seq BOOST_LOCAL_AUX_PP_VARIADIC_EAT \
+        empty_seq BOOST_PP_EAT \
     )(__VA_ARGS__)
 
 #endif // BOOST_NO_VARIADIC_MACROS
