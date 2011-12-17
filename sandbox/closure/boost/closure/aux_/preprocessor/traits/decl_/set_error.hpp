@@ -4,25 +4,27 @@
 // License, Version 1.0 (see accompanying file LICENSE_1_0.txt or a
 // copy at http://www.boost.org/LICENSE_1_0.txt).
 
-#ifndef BOOST_LOCAL_AUX_PP_SIGN_PARSED_PARAMS_SET_ERROR_HPP_
-#define BOOST_LOCAL_AUX_PP_SIGN_PARSED_PARAMS_SET_ERROR_HPP_
+#ifndef BOOST_CLOSURE_AUX_PP_DECL_TRAITS_SET_ERROR_HPP_
+#define BOOST_CLOSURE_AUX_PP_DECL_TRAITS_SET_ERROR_HPP_
 
-#include "../params_unbind.hpp"
-#include "../params_bind.hpp"
-#include "../params_const_bind.hpp"
+#include <boost/closure/aux_/preprocessor/traits/decl_param.hpp>
+#include <boost/closure/aux_/preprocessor/traits/decl_bind.hpp>
+#include <boost/closure/aux_/preprocessor/traits/decl_const_bind.hpp>
 
-// error: `EMPTY` if no error, `ERROR_message_text EMPTY` if error.
-#define BOOST_LOCAL_AUX_PP_SIGN_PARSED_PARAMS_SET_ERROR(params, error) \
+// PUBLIC //
+
+// error: `[ERROR_message_text] EMPTY`, no ERROR_message_text if no error.
+#define BOOST_CLOSURE_AUX_PP_DECL_TRAITS_SET_ERROR(decl_traits, error) \
     ( /* unbind params and defaults */ \
-        BOOST_LOCAL_AUX_PP_SIGN_PARAMS_UNBIND(params) \
+        BOOST_CLOSURE_AUX_PP_DECL_TRAITS_PARAMS(decl_traits) \
     , /* const-bind names */ \
-        BOOST_LOCAL_AUX_PP_SIGN_PARAMS_CONST_BIND(params) \
+        BOOST_CLOSURE_AUX_PP_DECL_TRAITS_CONST_BINDS(decl_traits) \
     , /* const-bind `this` types */ \
-        BOOST_LOCAL_AUX_PP_SIGN_PARAMS_CONST_BIND_THIS_TYPE(params) \
+        BOOST_CLOSURE_AUX_PP_DECL_TRAITS_CONST_BIND_THIS_TYPES(decl_traits) \
     , /* bind names */ \
-        BOOST_LOCAL_AUX_PP_SIGN_PARAMS_BIND(params) \
+        BOOST_CLOSURE_AUX_PP_DECL_TRAITS_BINDS(decl_traits) \
     , /* bind `this` types */ \
-        BOOST_LOCAL_AUX_PP_SIGN_PARAMS_BIND_THIS_TYPE(params) \
+        BOOST_CLOSURE_AUX_PP_DECL_TRAITS_BIND_THIS_TYPES(decl_traits) \
     , /* error message (if any) */ \
         error \
     ) 

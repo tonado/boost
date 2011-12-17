@@ -4,14 +4,16 @@
 // License, Version 1.0 (see accompanying file LICENSE_1_0.txt or a
 // copy at http://www.boost.org/LICENSE_1_0.txt).
 
-#ifndef BOOST_LOCAL_AUX_PP_SIGN_PARSED_PARAMS_VALIDATE_HPP_
-#define BOOST_LOCAL_AUX_PP_SIGN_PARSED_PARAMS_VALIDATE_HPP_
+#ifndef BOOST_CLOSURE_AUX_PP_DECL_TRAITS_VALIDATE_HPP_
+#define BOOST_CLOSURE_AUX_PP_DECL_TRAITS_VALIDATE_HPP_
 
-#include "validate_/this_count.hpp"
+#include <boost/closure/aux_/preprocessor/traits/decl_/validate_/this_count.hpp>
+
+// PUBLIC //
 
 // Validate params after they have been parsed.
-#define BOOST_LOCAL_AUX_PP_SIGN_PARSED_PARAMS_VALIDATE(params) \
-    BOOST_LOCAL_AUX_PP_SIGN_PARSED_PARAMS_VALIDATE_THIS_COUNT(params)
+#define BOOST_CLOSURE_AUX_PP_DECL_TRAITS_VALIDATE(decl_traits) \
+    BOOST_CLOSURE_AUX_PP_DECL_TRAITS_VALIDATE_THIS_COUNT(decl_traits)
 
 #endif // #include guard
 

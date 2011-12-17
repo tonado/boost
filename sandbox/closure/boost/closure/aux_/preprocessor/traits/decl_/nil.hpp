@@ -4,13 +4,13 @@
 // License, Version 1.0 (see accompanying file LICENSE_1_0.txt or a
 // copy at http://www.boost.org/LICENSE_1_0.txt).
 
-#ifndef BOOST_LOCAL_AUX_PP_SIGN_PARSED_PARAMS_NIL_HPP_
-#define BOOST_LOCAL_AUX_PP_SIGN_PARSED_PARAMS_NIL_HPP_
+#ifndef BOOST_LOCAL_AUX_PP_DECL_TRAITS_NIL_HPP_
+#define BOOST_LOCAL_AUX_PP_DECL_TRAITS_NIL_HPP_
 
 #include <boost/preprocessor/facilities/empty.hpp>
 
 // See "index_.hpp".
-#define BOOST_LOCAL_AUX_PP_SIGN_PARSED_PARAMS_NIL \
+#define BOOST_LOCAL_AUX_PP_DECL_TRAITS_NIL \
     ( \
         /* unbound params: list of 2-tuples (classified_name, default) */ \
         BOOST_PP_NIL /* nil list */ \
