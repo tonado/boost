@@ -1,6 +1,6 @@
-// Boost sweepline library voronoi_visualizer.cpp file
+// Boost.Polygon library voronoi_visualizer.cpp file
 
-//          Copyright Andrii Sydorchuk 2010.
+//          Copyright Andrii Sydorchuk 2010-2011.
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
@@ -127,7 +127,8 @@ protected:
                 if (!it->is_primary() && primary_edges_only_)
                     continue;
                 std::vector<opoint_type> temp_v =
-                    voronoi_helper<coordinate_type>::get_point_interpolation(&(*it), brect_, 1E-3);
+                    voronoi_helper<coordinate_type>::get_point_interpolation(
+                        &(*it), brect_, 1E-3);
                 for (int i = 0; i < static_cast<int>(temp_v.size()) - 1; i++) {
                     glVertex2f(temp_v[i].x(), temp_v[i].y());
                     glVertex2f(temp_v[i+1].x(), temp_v[i+1].y());
@@ -150,7 +151,9 @@ private:
     void update_view_port() {
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        glOrtho(brect_.x_min(), brect_.x_max(), brect_.y_min(), brect_.y_max(), -1.0, 1.0);
+        glOrtho(brect_.x_min(), brect_.x_max(),
+                brect_.y_min(), brect_.y_max(),
+                -1.0, 1.0);
         glMatrixMode(GL_MODELVIEW);
     }
 
@@ -160,9 +163,12 @@ private:
     typedef directed_line_segment_data<int> isegment_type;
     typedef std::vector<ipoint_type> ipoint_set_type;
     typedef directed_line_segment_set_data<int> isegment_set_type;
-    typedef voronoi_diagram<coordinate_type>::voronoi_cells_type voronoi_cells_type;
-    typedef voronoi_diagram<coordinate_type>::voronoi_vertices_type voronoi_vertices_type;
-    typedef voronoi_diagram<coordinate_type>::voronoi_edges_type voronoi_edges_type;
+    typedef voronoi_diagram<coordinate_type>::voronoi_cells_type
+        voronoi_cells_type;
+    typedef voronoi_diagram<coordinate_type>::voronoi_vertices_type
+        voronoi_vertices_type;
+    typedef voronoi_diagram<coordinate_type>::voronoi_edges_type
+        voronoi_edges_type;
     typedef voronoi_diagram<coordinate_type>::voronoi_cell_const_iterator_type
         voronoi_cell_const_iterator_type;
     typedef voronoi_diagram<coordinate_type>::voronoi_vertex_const_iterator_type
@@ -189,7 +195,7 @@ public:
 
         update_file_list();
         setWindowTitle(tr("Voronoi Visualizer"));
-        layout()->setSizeConstraint( QLayout::SetFixedSize );
+        layout()->setSizeConstraint(QLayout::SetFixedSize);
     }
 
 private slots:
@@ -198,8 +204,8 @@ private slots:
     }
 
     void browse() {
-        QString new_path = QFileDialog::getExistingDirectory(0, tr("Choose Directory"),
-                                                             file_dir_.absolutePath());
+        QString new_path = QFileDialog::getExistingDirectory(
+            0, tr("Choose Directory"), file_dir_.absolutePath());
         if (new_path.isEmpty())
             return;
         file_dir_.setPath(new_path);
@@ -211,7 +217,8 @@ private slots:
         QString file_path = file_dir_.filePath(file_name_);
         message_label_->setText("Building...");
         glWidget_->build(file_path);
-        message_label_->setText("Double click the item to build voronoi diagram:");
+        message_label_->setText(
+            "Double click the item to build voronoi diagram:");
         setWindowTitle(tr("Voronoi Visualizer - ") + file_path);
     }
 
@@ -228,16 +235,22 @@ private:
     QGridLayout *create_file_layout() {
         QGridLayout *file_layout = new QGridLayout;
 
-        message_label_ = new QLabel("Double click item to build voronoi diagram:");
+        message_label_ = new QLabel(
+            "Double click item to build voronoi diagram:");
 
         file_list_ = new QListWidget();
-        file_list_->connect(file_list_, SIGNAL(itemDoubleClicked(QListWidgetItem*)),
-                            this, SLOT(build()));
+        file_list_->connect(file_list_,
+                            SIGNAL(itemDoubleClicked(QListWidgetItem*)),
+                            this,
+                            SLOT(build()));
 
-        QCheckBox *primary_checkbox = new QCheckBox("Show primary edges only.");
-        connect(primary_checkbox, SIGNAL(clicked()), this, SLOT(primary_edges_only()));
+        QCheckBox *primary_checkbox = new QCheckBox(
+            "Show primary edges only.");
+        connect(primary_checkbox, SIGNAL(clicked()),
+                this, SLOT(primary_edges_only()));
 
-        QPushButton *browse_button = new QPushButton(tr("Browse Input Directory"));
+        QPushButton *browse_button =
+            new QPushButton(tr("Browse Input Directory"));
         connect(browse_button, SIGNAL(clicked()), this, SLOT(browse()));
         browse_button->setMinimumHeight(50);
 
@@ -259,7 +272,6 @@ private:
         file_list_->clear();
         if (file_dir_.count() == 0)
             return;
-
         QFileInfoList::const_iterator it;
         for (it = list.begin(); it != list.end(); it++)
             file_list_->addItem(it->fileName());
@@ -273,8 +285,7 @@ private:
     QLabel *message_label_;
 };
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
     MainWindow window;
     window.show();
