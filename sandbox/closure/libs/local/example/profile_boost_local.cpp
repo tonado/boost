@@ -4,8 +4,8 @@
 // License, Version 1.0 (see accompanying file LICENSE_1_0.txt or a
 // copy at http://www.boost.org/LICENSE_1_0.txt).
 
+#include <boost/closure.hpp>
 #include <boost/chrono.hpp>
-#include <boost/local/function.hpp>
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -20,10 +20,9 @@ int main(int argc, char* argv[]) {
 
     boost::chrono::system_clock::time_point start =
             boost::chrono::system_clock::now();
-    void BOOST_LOCAL_FUNCTION_PARAMS( (const double& num)
-            (bind& sum) (const bind& factor) ) {
+    void BOOST_CLOSURE( (const double& num) (bind& sum) (const bind& factor) ) {
         sum += factor * num;
-    } BOOST_LOCAL_FUNCTION_NAME(add)
+    } BOOST_CLOSURE_END(add)
     boost::chrono::duration<double> decl_sec =
             boost::chrono::system_clock::now() - start;
 
