@@ -7,12 +7,12 @@
 #ifndef DOXY // Doxygen documentation only.
 
 #if !BOOST_PP_IS_ITERATING
-#   ifndef BOOST_LOCAL_FUNCTION_OVERLOAD_HPP_
-#       define BOOST_LOCAL_FUNCTION_OVERLOAD_HPP_
+#   ifndef BOOST_FUNCTIONAL_OVERLOAD_HPP_
+#       define BOOST_FUNCTIONAL_OVERLOAD_HPP_
 
-#       include "../config.hpp"
-#       include "../aux_/file.hpp"
-#       include "../aux_/overload_base.hpp"
+#       include <boost/functional/detail/overload_base.hpp>
+#       include <boost/functional/detail/function_type.hpp>
+#       include <boost/functional/config.hpp>
 #       include <boost/preprocessor/iteration/iterate.hpp>
 #       include <boost/preprocessor/repetition/enum.hpp>
 #       include <boost/preprocessor/repetition/repeat.hpp>
@@ -27,114 +27,144 @@
 #       include <boost/preprocessor/logical/not.hpp>
 #       include <boost/preprocessor/facilities/expand.hpp>
 
-#define BOOST_LOCAL_f_type(z, f, unused) \
-    BOOST_PP_CAT(F, f)
+#define BOOST_FUNCTIONAL_f_type(z, n, unused) \
+    BOOST_PP_CAT(F, n)
 
-#define BOOST_LOCAL_f_tparam(z, f, unused) \
-    typename BOOST_LOCAL_f_type(z, f, unused) \
+#define BOOST_FUNCTIONAL_f_arg(z, n, unused) \
+    BOOST_PP_CAT(f, n)
 
-#define BOOST_LOCAL_f_tparam_dflt(z, f, is_tspec) \
-    BOOST_LOCAL_f_tparam(z, f, unused) \
+#define BOOST_FUNCTIONAL_f_tparam(z, n, unused) \
+    typename BOOST_FUNCTIONAL_f_type(z, n, ~) \
+
+#define BOOST_FUNCTIONAL_f_tparam_dflt(z, n, is_tspec) \
+    BOOST_FUNCTIONAL_f_tparam(z, n, ~) \
     /* overload requires at least 2 functors so F0 and F1 not optional */ \
     BOOST_PP_EXPR_IIF(BOOST_PP_AND(BOOST_PP_NOT(is_tspec), \
-            BOOST_PP_GREATER(f, 1)), \
+            BOOST_PP_GREATER(n, 1)), \
         = void \
     )
 
-#define BOOST_LOCAL_g_arg_type(z, f, unused) \
-    BOOST_PP_CAT(G, f)
+#define BOOST_FUNCTIONAL_f_arg_decl(z, n, unused) \
+    BOOST_FUNCTIONAL_f_type(z, n, ~) /* no qualifier to deduce tparam */ \
+    BOOST_FUNCTIONAL_f_arg(z, n, ~)
 
-#define BOOST_LOCAL_g_arg_name(z, f, unused) \
-    BOOST_PP_CAT(g, f)
+#define BOOST_FUNCTIONAL_g_type(z, n, unused) \
+    BOOST_PP_CAT(G, n)
 
-#define BOOST_LOCAL_g_arg_tparam(z, f, unused) \
-    typename BOOST_LOCAL_g_arg_type(z, f, unused)
+#define BOOST_FUNCTIONAL_g_arg(z, n, unused) \
+    BOOST_PP_CAT(g, n)
 
-#define BOOST_LOCAL_g_arg(z, f, unused) \
-    /* unfortunately, cannot add const and/or & (not even using */ \
-    /* Boost.TypeTraits or Boost.CallTraits) to this function argument */ \
-    /* type which needs to remain generic as in its template declaration */ \
-    /* (otherwise MSVC cannot deduce the types */ \
-    BOOST_LOCAL_g_arg_type(z, f, unused) \
-    BOOST_LOCAL_g_arg_name(z, f, unsed)
+#define BOOST_FUNCTIONAL_g_tparam(z, n, unused) \
+    typename BOOST_FUNCTIONAL_g_type(z, n, ~)
 
-#define BOOST_LOCAL_overload_base(z, f, unused) \
-    ::boost::local::aux::overload_base<BOOST_LOCAL_f_type(z, f, unused)>
+#define BOOST_FUNCTIONAL_g_arg_decl(z, n, unused) \
+    BOOST_FUNCTIONAL_g_type(z, n, ~) /* no qualifier to deduce tparam */ \
+    BOOST_FUNCTIONAL_g_arg(z, n, ~)
 
-#define BOOST_LOCAL_overload_inherit(z, f, unused) \
-    public BOOST_LOCAL_overload_base(z, f, unused)
+#define BOOST_FUNCTIONAL_overload_base(z, n, unused) \
+    ::boost::functional::detail::overload_base< \
+        BOOST_FUNCTIONAL_f_type(z, n, ~) \
+    >
 
-#define BOOST_LOCAL_overload_base_init(z, f, unused) \
-    BOOST_LOCAL_overload_base(z, f, unused)( /* base init paren `()` */ \
-            BOOST_LOCAL_g_arg_name(z, f, unused))
+#define BOOST_FUNCTIONAL_overload_inherit(z, n, unused) \
+    public BOOST_FUNCTIONAL_overload_base(z, n, ~)
 
-#define BOOST_LOCAL_using_operator_call(z, f, unused) \
-    using BOOST_LOCAL_overload_base(z, f, unused)::operator();
+#define BOOST_FUNCTIONAL_overload_base_init(z, n, unused) \
+    BOOST_FUNCTIONAL_overload_base(z, n, ~)( /* base init paren `()` */ \
+            BOOST_FUNCTIONAL_g_arg(z, n, ~))
 
-namespace boost { namespace local { namespace function {
+#define BOOST_FUNCTIONAL_using_operator_call(z, n, unused) \
+    using BOOST_FUNCTIONAL_overload_base(z, n, ~)::operator();
+
+#define BOOST_FUNCTIONAL_function_type(z, n, unused) \
+    typename detail::function_type< BOOST_FUNCTIONAL_f_type(z, n, ~) >::type
+
+namespace boost { namespace functional {
 
 // Iterate within namespace.
 #       define BOOST_PP_ITERATION_PARAMS_1 \
                 /* need at least 2 functors to overload so iter 2, 3, ... */ \
-                (3, (0, BOOST_PP_SUB(BOOST_LOCAL_CONFIG_OVERLOAD_MAX, 2), \
-                BOOST_LOCAL_AUX_FILE_FUNCTION_OVERLOAD_HPP))
+                (3, (0, BOOST_PP_SUB(BOOST_FUNCTIONAL_CONFIG_OVERLOAD_MAX, 2), \
+                "boost/functional/overload.hpp"))
 #       include BOOST_PP_ITERATE() // Iterate over function arity.
 
-}}} // namespace boost::local::function
+} }
 
-#undef BOOST_LOCAL_f_type
-#undef BOOST_LOCAL_f_tparam
-#undef BOOST_LOCAL_f_tparam_dflt
-#undef BOOST_LOCAL_g_arg_type
-#undef BOOST_LOCAL_g_arg_name
-#undef BOOST_LOCAL_g_arg_tparam
-#undef BOOST_LOCAL_g_arg
-#undef BOOST_LOCAL_overload_base
-#undef BOOST_LOCAL_overload_inherit
-#undef BOOST_LOCAL_overload_base_init
-#undef BOOST_LOCAL_using_operator_call
+#undef BOOST_FUNCTIONAL_f_type
+#undef BOOST_FUNCTIONAL_f_arg
+#undef BOOST_FUNCTIONAL_f_tparam
+#undef BOOST_FUNCTIONAL_f_arg_decl
+#undef BOOST_FUNCTIONAL_f_tparam_dflt
+#undef BOOST_FUNCTIONAL_g_type
+#undef BOOST_FUNCTIONAL_g_arg
+#undef BOOST_FUNCTIONAL_g_tparam
+#undef BOOST_FUNCTIONAL_g_arg_decl
+#undef BOOST_FUNCTIONAL_overload_base
+#undef BOOST_FUNCTIONAL_overload_inherit
+#undef BOOST_FUNCTIONAL_overload_base_init
+#undef BOOST_FUNCTIONAL_using_operator_call
+#undef BOOST_FUNCTIONAL_function_type
 
 #   endif // #include guard
 
 #elif BOOST_PP_ITERATION_DEPTH() == 1
-#   define BOOST_LOCAL_overloads \
+#   define BOOST_FUNCTIONAL_overloads \
         /* iterate as OVERLOADS, OVERLOADS-1, OVERLOADS-2, ... */ \
-        BOOST_PP_SUB(BOOST_LOCAL_CONFIG_OVERLOAD_MAX, \
+        BOOST_PP_SUB(BOOST_FUNCTIONAL_CONFIG_OVERLOAD_MAX, \
                 BOOST_PP_FRAME_ITERATION(1))
-#   define BOOST_LOCAL_is_tspec \
+#   define BOOST_FUNCTIONAL_is_tspec \
         /* if template specialization */ \
-        BOOST_PP_LESS(BOOST_LOCAL_overloads, BOOST_LOCAL_CONFIG_OVERLOAD_MAX)
+        BOOST_PP_LESS(BOOST_FUNCTIONAL_overloads, \
+                BOOST_FUNCTIONAL_CONFIG_OVERLOAD_MAX)
 
-// Iterating within namespace boost::local::function.
-template<BOOST_PP_ENUM(BOOST_LOCAL_overloads, BOOST_LOCAL_f_tparam_dflt,
-        BOOST_LOCAL_is_tspec)>
+template<
+    BOOST_PP_ENUM(BOOST_FUNCTIONAL_overloads, BOOST_FUNCTIONAL_f_tparam_dflt,
+            BOOST_FUNCTIONAL_is_tspec)
+>
 class overload
     // Template specialization.
-    BOOST_PP_EXPR_IIF(BOOST_PP_EXPAND(BOOST_LOCAL_is_tspec), <)
-    BOOST_PP_IIF(BOOST_LOCAL_is_tspec,
+    BOOST_PP_EXPR_IIF(BOOST_PP_EXPAND(BOOST_FUNCTIONAL_is_tspec), <)
+    BOOST_PP_IIF(BOOST_FUNCTIONAL_is_tspec,
         BOOST_PP_ENUM
     ,
         BOOST_PP_TUPLE_EAT(3)
-    )(BOOST_LOCAL_overloads, BOOST_LOCAL_f_type, ~)
-    BOOST_PP_EXPR_IIF(BOOST_PP_EXPAND(BOOST_LOCAL_is_tspec), >)
-    // Bases.
-    : // Overloads >= 2 so always at least 2 bases.
-    BOOST_PP_ENUM(BOOST_LOCAL_overloads, BOOST_LOCAL_overload_inherit, ~)
+    )(BOOST_FUNCTIONAL_overloads, BOOST_FUNCTIONAL_f_type, ~)
+    BOOST_PP_EXPR_IIF(BOOST_PP_EXPAND(BOOST_FUNCTIONAL_is_tspec), >)
+    // Bases (overloads >= 2 so always at least 2 bases).
+    : BOOST_PP_ENUM(BOOST_FUNCTIONAL_overloads,
+            BOOST_FUNCTIONAL_overload_inherit, ~)
 {
 public:
-    template<BOOST_PP_ENUM(BOOST_LOCAL_overloads, BOOST_LOCAL_g_arg_tparam, ~)>
-    /* implicit */ inline overload(
-            BOOST_PP_ENUM(BOOST_LOCAL_overloads, BOOST_LOCAL_g_arg, ~))
-            : // Overloads >= 2 so always at least 2 bases to initialize.
-            BOOST_PP_ENUM(BOOST_LOCAL_overloads,
-                    BOOST_LOCAL_overload_base_init, ~)
+    template<
+        BOOST_PP_ENUM(BOOST_FUNCTIONAL_overloads, BOOST_FUNCTIONAL_g_tparam, ~)
+    > /* implicit */ inline overload(
+            BOOST_PP_ENUM(BOOST_FUNCTIONAL_overloads,
+                    BOOST_FUNCTIONAL_g_arg_decl, ~))
+            // Overloads >= 2 so always at least 2 bases to initialize.
+            : BOOST_PP_ENUM(BOOST_FUNCTIONAL_overloads,
+                    BOOST_FUNCTIONAL_overload_base_init, ~)
     {}
 
-    BOOST_PP_REPEAT(BOOST_LOCAL_overloads, BOOST_LOCAL_using_operator_call, ~)
+    BOOST_PP_REPEAT(BOOST_FUNCTIONAL_overloads, 
+            BOOST_FUNCTIONAL_using_operator_call, ~)
 };
 
-#   undef BOOST_LOCAL_AUX_overloads
-#   undef BOOST_LOCAL_is_tspec
+template<
+    BOOST_PP_ENUM(BOOST_FUNCTIONAL_overloads, BOOST_FUNCTIONAL_f_tparam, ~)
+>
+overload<
+    BOOST_PP_ENUM(BOOST_FUNCTIONAL_overloads, BOOST_FUNCTIONAL_function_type, ~)
+> make_overload(
+    BOOST_PP_ENUM(BOOST_FUNCTIONAL_overloads, BOOST_FUNCTIONAL_f_arg_decl, ~)
+) {
+    return overload<
+        BOOST_PP_ENUM(BOOST_FUNCTIONAL_overloads,
+                BOOST_FUNCTIONAL_function_type, ~)
+    >(BOOST_PP_ENUM(BOOST_FUNCTIONAL_overloads, BOOST_FUNCTIONAL_f_arg, ~));
+}
+
+#   undef BOOST_FUNCTIONAL_overloads
+#   undef BOOST_FUNCTIONAL_is_tspec
 #endif // iteration
 
 #else // DOXY: Doxygen documentation only.
@@ -144,7 +174,7 @@ public:
  *  a set of specified functors.
  */
 
-namespace boost { namespace local { namespace function {
+namespace boost { namespace funcational {
 
 /**
  * @brief Functor to overload local functions and other functors.
@@ -158,14 +188,14 @@ namespace boost { namespace local { namespace function {
  * @endcode
  *
  * The maximum number of overloaded function types is specified by the
- * @RefMacro{BOOST_LOCAL_CONFIG_OVERLOAD_MAX} configuration macro.
+ * @RefMacro{BOOST_FUNCTIONAL_CONFIG_OVERLOAD_MAX} configuration macro.
  * The maximum number of function parameters for each of the specified function
- * type is specified by the @RefMacro{BOOST_LOCAL_CONFIG_OVERLOAD_MAX}
+ * type is specified by the @RefMacro{BOOST_FUNCTIONAL_CONFIG_OVERLOAD_MAX}
  * configuration macro.
  *
  * @See @RefSect2{Advanced_Topics, Advanced Topics} section,
- *  @RefMacro{BOOST_LOCAL_CONFIG_OVERLOAD_MAX},
- *  @RefMacro{BOOST_LOCAL_CONFIG_OVERLOAD_MAX}, Boost.Function.
+ *  @RefMacro{BOOST_FUNCTIONAL_CONFIG_OVERLOAD_MAX},
+ *  @RefMacro{BOOST_FUNCTIONAL_CONFIG_OVERLOAD_MAX}, Boost.Function.
  */
 template<typename F1, typename F2, ...>
 class overload {
@@ -204,7 +234,7 @@ public:
             ...) const;
 };
 
-}}} // namespace boost::local::function
+} }
 
 #endif // DOXY
 
