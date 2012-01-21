@@ -14,7 +14,7 @@ project : requirements
 ###gcc c++0x
 
 run add.cpp ;
-###run add_classifiers.cpp ;
+run add_classifiers.cpp ;
 run add_default.cpp ;
 run add_except.cpp ;
 run add_inline.cpp ;
