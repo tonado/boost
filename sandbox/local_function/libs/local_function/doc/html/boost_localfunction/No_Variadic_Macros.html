@@ -30,7 +30,8 @@
 <div class="toc"><dl>
 <dt><span class="section"><a href="No_Variadic_Macros.html#boost_localfunction.No_Variadic_Macros.sequence_syntax">Sequence
       Syntax</a></span></dt>
-<dt><span class="section"><a href="No_Variadic_Macros.html#boost_localfunction.No_Variadic_Macros.examples">Examples</a></span></dt>
+<dt><span class="section"><a href="No_Variadic_Macros.html#boost_localfunction.No_Variadic_Macros.an_example">An
+      Example</a></span></dt>
 </dl></div>
 <p>
       This section illustrates an alternative syntax for compilers without variadic
@@ -107,112 +108,167 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="boost_localfunction.No_Variadic_Macros.examples"></a><a class="link" href="No_Variadic_Macros.html#boost_localfunction.No_Variadic_Macros.examples" title="Examples">Examples</a>
+<a name="boost_localfunction.No_Variadic_Macros.an_example"></a><a class="link" href="No_Variadic_Macros.html#boost_localfunction.No_Variadic_Macros.an_example" title="An Example">An
+      Example</a>
 </h3></div></div></div>
 <p>
-        The following is a list of most of the examples presented in this documentation
-        reprogrammed using the sequence syntax instead of the comma-separated list:
+        The following is an example that shows a bit of all the different macro parameter
+        combinations using the sequence syntax (see also <a href="../../../test/seq.cpp" target="_top"><code class="computeroutput"><span class="string">"seq.cpp"</span></code></a>):
       </p>
-<div class="informaltable"><table class="table">
-<colgroup><col></colgroup>
-<thead><tr><th>
-                <p>
-                  Files
-                </p>
-              </th></tr></thead>
-<tbody>
-<tr><td>
-                <p>
-                  <a href="../../../test/add_seq.cpp" target="_top"><code class="computeroutput"><span class="string">"add_seq.cpp"</span></code></a>
-                </p>
-              </td></tr>
-<tr><td>
-                <p>
-                  <a href="../../../test/add_classifiers_seq.cpp" target="_top"><code class="computeroutput"><span class="string">"add_classifiers_seq.cpp"</span></code></a>
-                </p>
-              </td></tr>
-<tr><td>
-                <p>
-                  <a href="../../../test/add_default_seq.cpp" target="_top"><code class="computeroutput"><span class="string">"add_default_seq.cpp"</span></code></a>
-                </p>
-              </td></tr>
-<tr><td>
-                <p>
-                  <a href="../../../test/add_except_seq.cpp" target="_top"><code class="computeroutput"><span class="string">"add_except_seq.cpp"</span></code></a>
-                </p>
-              </td></tr>
-<tr><td>
-                <p>
-                  <a href="../../../test/add_inline_seq.cpp" target="_top"><code class="computeroutput"><span class="string">"add_inline_seq.cpp"</span></code></a>
-                </p>
-              </td></tr>
-<tr><td>
-                <p>
-                  <a href="../../../test/add_lambda_seq.cpp" target="_top"><code class="computeroutput"><span class="string">"add_lambda_seq.cpp"</span></code></a>
-                </p>
-              </td></tr>
-<tr><td>
-                <p>
-                  <a href="../../../test/add_nobind_seq.cpp" target="_top"><code class="computeroutput"><span class="string">"add_nobind_seq.cpp"</span></code></a>
-                </p>
-              </td></tr>
-<tr><td>
-                <p>
-                  <a href="../../../test/add_template_seq.cpp" target="_top"><code class="computeroutput"><span class="string">"add_template_seq.cpp"</span></code></a>
-                </p>
-              </td></tr>
-<tr><td>
-                <p>
-                  <a href="../../../test/add_this_seq.cpp" target="_top"><code class="computeroutput"><span class="string">"add_this_seq.cpp"</span></code></a>
-                </p>
-              </td></tr>
-<tr><td>
-                <p>
-                  <a href="../../../test/add_typed_seq.cpp" target="_top"><code class="computeroutput"><span class="string">"add_typed_seq.cpp"</span></code></a>
-                </p>
-              </td></tr>
-<tr><td>
-                <p>
-                  <a href="../../../test/add_with_default_seq.cpp" target="_top"><code class="computeroutput"><span class="string">"add_with_default_seq.cpp"</span></code></a>
-                </p>
-              </td></tr>
-<tr><td>
-                <p>
-                  <a href="../../../test/nesting_seq.cpp" target="_top"><code class="computeroutput"><span class="string">"nesting_seq.cpp"</span></code></a>
-                </p>
-              </td></tr>
-<tr><td>
-                <p>
-                  <a href="../../../test/overload_seq.cpp" target="_top"><code class="computeroutput"><span class="string">"overload_seq.cpp"</span></code></a>
-                </p>
-              </td></tr>
-<tr><td>
-                <p>
-                  <a href="../../../test/return_assign_seq.cpp" target="_top"><code class="computeroutput"><span class="string">"return_assign_seq.cpp"</span></code></a>
-                </p>
-              </td></tr>
-<tr><td>
-                <p>
-                  <a href="../../../test/ten_seq.cpp" target="_top"><code class="computeroutput"><span class="string">"ten_seq.cpp"</span></code></a>
-                </p>
-              </td></tr>
-<tr><td>
-                <p>
-                  <a href="../../../test/transform_seq.cpp" target="_top"><code class="computeroutput"><span class="string">"transform_seq.cpp"</span></code></a>
-                </p>
-              </td></tr>
-<tr><td>
-                <p>
-                  <a href="../../../test/typeof_seq.cpp" target="_top"><code class="computeroutput"><span class="string">"typeof_seq.cpp"</span></code></a>
-                </p>
-              </td></tr>
-<tr><td>
-                <p>
-                  <a href="../../../test/typeof_template_seq.cpp" target="_top"><code class="computeroutput"><span class="string">"typeof_template_seq.cpp"</span></code></a>
-                </p>
-              </td></tr>
-</tbody>
-</table></div>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">s</span> <span class="special">{</span>
+    <span class="keyword">void</span> <span class="identifier">f</span><span class="special">(</span><span class="keyword">double</span> <span class="identifier">p</span> <span class="special">=</span> <span class="number">1.23</span><span class="special">,</span> <span class="keyword">double</span> <span class="identifier">q</span> <span class="special">=</span> <span class="special">-</span><span class="number">1.23</span><span class="special">)</span> <span class="special">{</span>
+        <span class="special">{</span> <span class="comment">// Only params.</span>
+            <span class="keyword">void</span> <span class="identifier">BOOST_LOCAL_FUNCTION</span><span class="special">(</span> <span class="special">(</span><span class="keyword">int</span> <span class="identifier">x</span><span class="special">)</span> <span class="special">(</span><span class="keyword">int</span> <span class="identifier">y</span><span class="special">)(</span><span class="keyword">default</span> <span class="number">0</span><span class="special">)</span> <span class="special">)</span> <span class="special">{</span>
+            <span class="special">}</span> <span class="identifier">BOOST_LOCAL_FUNCTION_NAME</span><span class="special">(</span><span class="identifier">l</span><span class="special">)</span>
+            <span class="identifier">l</span><span class="special">(</span><span class="number">1</span><span class="special">);</span>
+        <span class="special">}</span>
+        <span class="special">{</span> <span class="comment">// Only const binds.</span>
+            <span class="keyword">int</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">b</span><span class="special">;</span>
+
+            <span class="keyword">const</span> <span class="keyword">int</span><span class="special">&amp;</span> <span class="identifier">BOOST_LOCAL_FUNCTION</span><span class="special">(</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span> <span class="identifier">a</span><span class="special">)</span>
+                    <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">b</span><span class="special">)</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">p</span><span class="special">)</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span> <span class="identifier">q</span><span class="special">)</span> <span class="special">)</span> <span class="special">{</span>
+                <span class="keyword">return</span> <span class="identifier">b</span><span class="special">;</span>
+            <span class="special">}</span> <span class="identifier">BOOST_LOCAL_FUNCTION_NAME</span><span class="special">(</span><span class="identifier">l</span><span class="special">)</span>
+            <span class="identifier">l</span><span class="special">();</span>
+
+            <span class="keyword">const</span> <span class="identifier">s</span><span class="special">&amp;</span> <span class="identifier">BOOST_LOCAL_FUNCTION</span><span class="special">(</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span> <span class="identifier">this_</span><span class="special">)</span> <span class="special">)</span> <span class="special">{</span>
+                <span class="keyword">return</span> <span class="special">*</span><span class="identifier">this_</span><span class="special">;</span>
+            <span class="special">}</span> <span class="identifier">BOOST_LOCAL_FUNCTION_NAME</span><span class="special">(</span><span class="identifier">t</span><span class="special">)</span>
+            <span class="identifier">t</span><span class="special">();</span>
+
+            <span class="keyword">const</span> <span class="keyword">int</span> <span class="identifier">BOOST_LOCAL_FUNCTION</span><span class="special">(</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span> <span class="identifier">a</span><span class="special">)</span>
+                    <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">b</span><span class="special">)</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">p</span><span class="special">)</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span> <span class="identifier">q</span><span class="special">)</span>
+                    <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span> <span class="identifier">this_</span><span class="special">)</span> <span class="special">)</span> <span class="special">{</span>
+                <span class="keyword">return</span> <span class="identifier">a</span><span class="special">;</span>
+            <span class="special">}</span> <span class="identifier">BOOST_LOCAL_FUNCTION_NAME</span><span class="special">(</span><span class="identifier">lt</span><span class="special">)</span>
+            <span class="identifier">lt</span><span class="special">();</span>
+        <span class="special">}</span>
+        <span class="special">{</span> <span class="comment">// Only plain binds.</span>
+            <span class="keyword">int</span> <span class="identifier">c</span><span class="special">,</span> <span class="identifier">d</span><span class="special">;</span>
+
+            <span class="keyword">int</span><span class="special">&amp;</span> <span class="identifier">BOOST_LOCAL_FUNCTION</span><span class="special">(</span> <span class="special">(</span><span class="identifier">bind</span> <span class="identifier">c</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">d</span><span class="special">)</span>
+                    <span class="special">(</span><span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">p</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">q</span><span class="special">)</span> <span class="special">)</span> <span class="special">{</span>
+                <span class="keyword">return</span> <span class="identifier">d</span><span class="special">;</span>
+            <span class="special">}</span> <span class="identifier">BOOST_LOCAL_FUNCTION_NAME</span><span class="special">(</span><span class="identifier">l</span><span class="special">)</span>
+            <span class="identifier">l</span><span class="special">();</span>
+
+            <span class="identifier">s</span><span class="special">&amp;</span> <span class="identifier">BOOST_LOCAL_FUNCTION</span><span class="special">(</span> <span class="special">(</span><span class="identifier">bind</span> <span class="identifier">this_</span><span class="special">)</span> <span class="special">)</span> <span class="special">{</span>
+                <span class="keyword">return</span> <span class="special">*</span><span class="identifier">this_</span><span class="special">;</span>
+            <span class="special">}</span> <span class="identifier">BOOST_LOCAL_FUNCTION_NAME</span><span class="special">(</span><span class="identifier">t</span><span class="special">)</span>
+            <span class="identifier">t</span><span class="special">();</span>
+
+            <span class="keyword">int</span> <span class="identifier">BOOST_LOCAL_FUNCTION</span><span class="special">(</span> <span class="special">(</span><span class="identifier">bind</span> <span class="identifier">c</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">d</span><span class="special">)</span>
+                    <span class="special">(</span><span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">p</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">q</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span> <span class="identifier">this_</span><span class="special">)</span> <span class="special">)</span> <span class="special">{</span>
+                <span class="keyword">return</span> <span class="identifier">c</span><span class="special">;</span>
+            <span class="special">}</span> <span class="identifier">BOOST_LOCAL_FUNCTION_NAME</span><span class="special">(</span><span class="identifier">lt</span><span class="special">)</span>
+            <span class="identifier">lt</span><span class="special">();</span>
+        <span class="special">}</span>
+
+        <span class="special">{</span> <span class="comment">// Both params and const binds.</span>
+            <span class="keyword">int</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">b</span><span class="special">;</span>
+
+            <span class="keyword">void</span> <span class="identifier">BOOST_LOCAL_FUNCTION</span><span class="special">(</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span> <span class="identifier">a</span><span class="special">)</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">b</span><span class="special">)</span>
+                    <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">p</span><span class="special">)</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span> <span class="identifier">q</span><span class="special">)</span>
+                    <span class="special">(</span><span class="keyword">int</span> <span class="identifier">x</span><span class="special">)</span> <span class="special">(</span><span class="keyword">int</span> <span class="identifier">y</span><span class="special">)(</span><span class="keyword">default</span> <span class="number">0</span><span class="special">)</span> <span class="special">)</span> <span class="special">{</span>
+            <span class="special">}</span> <span class="identifier">BOOST_LOCAL_FUNCTION_NAME</span><span class="special">(</span><span class="identifier">l</span><span class="special">)</span>
+            <span class="identifier">l</span><span class="special">(</span><span class="number">1</span><span class="special">);</span>
+
+            <span class="keyword">void</span> <span class="identifier">BOOST_LOCAL_FUNCTION</span><span class="special">(</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span> <span class="identifier">this_</span><span class="special">)</span>
+                    <span class="special">(</span><span class="keyword">int</span> <span class="identifier">x</span><span class="special">)</span> <span class="special">(</span><span class="keyword">int</span> <span class="identifier">y</span><span class="special">)(</span><span class="keyword">default</span> <span class="number">0</span><span class="special">)</span> <span class="special">)</span> <span class="special">{</span>
+            <span class="special">}</span> <span class="identifier">BOOST_LOCAL_FUNCTION_NAME</span><span class="special">(</span><span class="identifier">t</span><span class="special">)</span>
+            <span class="identifier">t</span><span class="special">(</span><span class="number">1</span><span class="special">);</span>
+
+            <span class="keyword">void</span> <span class="identifier">BOOST_LOCAL_FUNCTION</span><span class="special">(</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span> <span class="identifier">a</span><span class="special">)</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span> <span class="identifier">this_</span><span class="special">)</span>
+                    <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">b</span><span class="special">)</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">p</span><span class="special">)</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span> <span class="identifier">q</span><span class="special">)</span>
+                    <span class="special">(</span><span class="keyword">int</span> <span class="identifier">x</span><span class="special">)</span> <span class="special">(</span><span class="keyword">int</span> <span class="identifier">y</span><span class="special">)(</span><span class="keyword">default</span> <span class="number">0</span><span class="special">)</span> <span class="special">)</span> <span class="special">{</span>
+            <span class="special">}</span> <span class="identifier">BOOST_LOCAL_FUNCTION_NAME</span><span class="special">(</span><span class="identifier">lt</span><span class="special">)</span>
+            <span class="identifier">lt</span><span class="special">(</span><span class="number">1</span><span class="special">);</span>
+        <span class="special">}</span>
+        <span class="special">{</span> <span class="comment">// Both params and plain binds.</span>
+            <span class="keyword">int</span> <span class="identifier">c</span><span class="special">,</span> <span class="identifier">d</span><span class="special">;</span>
+
+            <span class="keyword">void</span> <span class="identifier">BOOST_LOCAL_FUNCTION</span><span class="special">(</span> <span class="special">(</span><span class="identifier">bind</span> <span class="identifier">c</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">d</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">p</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span> <span class="identifier">q</span><span class="special">)</span>
+                    <span class="special">(</span><span class="keyword">int</span> <span class="identifier">x</span><span class="special">)</span> <span class="special">(</span><span class="keyword">int</span> <span class="identifier">y</span><span class="special">)(</span><span class="keyword">default</span> <span class="number">0</span><span class="special">)</span> <span class="special">)</span> <span class="special">{</span>
+            <span class="special">}</span> <span class="identifier">BOOST_LOCAL_FUNCTION_NAME</span><span class="special">(</span><span class="identifier">l</span><span class="special">)</span>
+            <span class="identifier">l</span><span class="special">(</span><span class="number">1</span><span class="special">);</span>
+
+            <span class="keyword">void</span> <span class="identifier">BOOST_LOCAL_FUNCTION</span><span class="special">(</span> <span class="special">(</span><span class="identifier">bind</span> <span class="identifier">this_</span><span class="special">)</span>
+                    <span class="special">(</span><span class="keyword">int</span> <span class="identifier">x</span><span class="special">)</span> <span class="special">(</span><span class="keyword">int</span> <span class="identifier">y</span><span class="special">)(</span><span class="keyword">default</span> <span class="number">0</span><span class="special">)</span> <span class="special">)</span> <span class="special">{</span>
+            <span class="special">}</span> <span class="identifier">BOOST_LOCAL_FUNCTION_NAME</span><span class="special">(</span><span class="identifier">t</span><span class="special">)</span>
+            <span class="identifier">t</span><span class="special">(</span><span class="number">1</span><span class="special">);</span>
+
+            <span class="keyword">void</span> <span class="identifier">BOOST_LOCAL_FUNCTION</span><span class="special">(</span> <span class="special">(</span><span class="identifier">bind</span> <span class="identifier">c</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">d</span><span class="special">)</span>
+                    <span class="special">(</span><span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">p</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span> <span class="identifier">this_</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span> <span class="identifier">q</span><span class="special">)</span>
+                    <span class="special">(</span><span class="keyword">int</span> <span class="identifier">x</span><span class="special">)</span> <span class="special">(</span><span class="keyword">int</span> <span class="identifier">y</span><span class="special">)(</span><span class="keyword">default</span> <span class="number">0</span><span class="special">)</span> <span class="special">)</span> <span class="special">{</span>
+            <span class="special">}</span> <span class="identifier">BOOST_LOCAL_FUNCTION_NAME</span><span class="special">(</span><span class="identifier">lt</span><span class="special">)</span>
+            <span class="identifier">lt</span><span class="special">(</span><span class="number">1</span><span class="special">);</span>
+        <span class="special">}</span>
+        <span class="special">{</span> <span class="comment">// Both const and plain binds.</span>
+            <span class="keyword">int</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">b</span><span class="special">,</span> <span class="identifier">c</span><span class="special">,</span> <span class="identifier">d</span><span class="special">;</span>
+
+            <span class="keyword">void</span> <span class="identifier">BOOST_LOCAL_FUNCTION</span><span class="special">(</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span> <span class="identifier">a</span><span class="special">)</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">b</span><span class="special">)</span>
+                    <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span> <span class="identifier">p</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span> <span class="identifier">c</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">d</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span> <span class="identifier">q</span><span class="special">)</span> <span class="special">)</span> <span class="special">{</span>
+            <span class="special">}</span> <span class="identifier">BOOST_LOCAL_FUNCTION_NAME</span><span class="special">(</span><span class="identifier">l</span><span class="special">)</span>
+            <span class="identifier">l</span><span class="special">();</span>
+
+            <span class="keyword">void</span> <span class="identifier">BOOST_LOCAL_FUNCTION</span><span class="special">(</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span> <span class="identifier">this_</span><span class="special">)</span>
+                    <span class="special">(</span><span class="identifier">bind</span> <span class="identifier">c</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">d</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span> <span class="identifier">q</span><span class="special">)</span> <span class="special">)</span> <span class="special">{</span>
+            <span class="special">}</span> <span class="identifier">BOOST_LOCAL_FUNCTION_NAME</span><span class="special">(</span><span class="identifier">ct</span><span class="special">)</span>
+            <span class="identifier">ct</span><span class="special">();</span>
+            <span class="keyword">void</span> <span class="identifier">BOOST_LOCAL_FUNCTION</span><span class="special">(</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span> <span class="identifier">this_</span><span class="special">)</span>
+                    <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span> <span class="identifier">a</span><span class="special">)</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">b</span><span class="special">)</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span> <span class="identifier">p</span><span class="special">)</span>
+                    <span class="special">(</span><span class="identifier">bind</span> <span class="identifier">c</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">d</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span> <span class="identifier">q</span><span class="special">)</span> <span class="special">)</span> <span class="special">{</span>
+            <span class="special">}</span> <span class="identifier">BOOST_LOCAL_FUNCTION_NAME</span><span class="special">(</span><span class="identifier">lct</span><span class="special">)</span>
+            <span class="identifier">lct</span><span class="special">();</span>
+
+            <span class="keyword">void</span> <span class="identifier">BOOST_LOCAL_FUNCTION</span><span class="special">(</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span> <span class="identifier">a</span><span class="special">)</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">b</span><span class="special">)</span>
+                    <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span> <span class="identifier">p</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span> <span class="identifier">this_</span><span class="special">)</span> <span class="special">)</span> <span class="special">{</span>
+            <span class="special">}</span> <span class="identifier">BOOST_LOCAL_FUNCTION_NAME</span><span class="special">(</span><span class="identifier">pt</span><span class="special">)</span>
+            <span class="identifier">pt</span><span class="special">();</span>
+            <span class="keyword">void</span> <span class="identifier">BOOST_LOCAL_FUNCTION</span><span class="special">(</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span> <span class="identifier">a</span><span class="special">)</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">b</span><span class="special">)</span>
+                    <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span> <span class="identifier">p</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span> <span class="identifier">c</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span> <span class="identifier">this_</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">d</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span> <span class="identifier">q</span><span class="special">)</span> <span class="special">)</span> <span class="special">{</span>
+            <span class="special">}</span> <span class="identifier">BOOST_LOCAL_FUNCTION_NAME</span><span class="special">(</span><span class="identifier">lpt</span><span class="special">)</span>
+            <span class="identifier">lpt</span><span class="special">();</span>
+        <span class="special">}</span>
+
+        <span class="special">{</span> <span class="comment">// All params, const binds, and plain binds.</span>
+            <span class="keyword">int</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">b</span><span class="special">,</span> <span class="identifier">c</span><span class="special">,</span> <span class="identifier">d</span><span class="special">;</span>
+
+            <span class="keyword">void</span> <span class="identifier">BOOST_LOCAL_FUNCTION</span><span class="special">(</span>
+                    <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span> <span class="identifier">a</span><span class="special">)</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">b</span><span class="special">)</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">p</span><span class="special">)</span>
+                    <span class="special">(</span><span class="identifier">bind</span> <span class="identifier">c</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">d</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">q</span><span class="special">)</span> <span class="special">(</span><span class="keyword">int</span> <span class="identifier">x</span><span class="special">)</span> <span class="special">(</span><span class="keyword">int</span> <span class="identifier">y</span><span class="special">)(</span><span class="keyword">default</span> <span class="number">0</span><span class="special">)</span> <span class="special">)</span> <span class="special">{</span>
+            <span class="special">}</span> <span class="identifier">BOOST_LOCAL_FUNCTION_NAME</span><span class="special">(</span><span class="identifier">l</span><span class="special">)</span>
+            <span class="identifier">l</span><span class="special">(</span><span class="number">1</span><span class="special">);</span>
+
+            <span class="keyword">void</span> <span class="identifier">BOOST_LOCAL_FUNCTION</span><span class="special">(</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span> <span class="identifier">this_</span><span class="special">)</span>
+                    <span class="special">(</span><span class="identifier">bind</span> <span class="identifier">c</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">d</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">q</span><span class="special">)</span>
+                    <span class="special">(</span><span class="keyword">int</span> <span class="identifier">x</span><span class="special">)</span> <span class="special">(</span><span class="keyword">int</span> <span class="identifier">y</span><span class="special">)(</span><span class="keyword">default</span> <span class="number">0</span><span class="special">)</span> <span class="special">)</span> <span class="special">{</span>
+            <span class="special">}</span> <span class="identifier">BOOST_LOCAL_FUNCTION_NAME</span><span class="special">(</span><span class="identifier">ct</span><span class="special">)</span>
+            <span class="identifier">ct</span><span class="special">(</span><span class="number">1</span><span class="special">);</span>
+            <span class="keyword">void</span> <span class="identifier">BOOST_LOCAL_FUNCTION</span><span class="special">(</span>
+                    <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span> <span class="identifier">a</span><span class="special">)</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">b</span><span class="special">)</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">p</span><span class="special">)</span>
+                    <span class="special">(</span><span class="identifier">bind</span> <span class="identifier">this_</span><span class="special">)</span> <span class="special">(</span><span class="keyword">int</span> <span class="identifier">x</span><span class="special">)</span> <span class="special">(</span><span class="keyword">int</span> <span class="identifier">y</span><span class="special">)(</span><span class="keyword">default</span> <span class="number">0</span><span class="special">)</span> <span class="special">)</span> <span class="special">{</span>
+            <span class="special">}</span> <span class="identifier">BOOST_LOCAL_FUNCTION_NAME</span><span class="special">(</span><span class="identifier">pt</span><span class="special">)</span>
+            <span class="identifier">pt</span><span class="special">(</span><span class="number">1</span><span class="special">);</span>
+
+            <span class="keyword">void</span> <span class="identifier">BOOST_LOCAL_FUNCTION</span><span class="special">(</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span> <span class="identifier">a</span><span class="special">)</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span> <span class="identifier">this_</span><span class="special">)</span>
+                    <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">b</span><span class="special">)</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">p</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span> <span class="identifier">c</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">d</span><span class="special">)</span>
+                    <span class="special">(</span><span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">q</span><span class="special">)</span> <span class="special">(</span><span class="keyword">int</span> <span class="identifier">x</span><span class="special">)</span> <span class="special">(</span><span class="keyword">int</span> <span class="identifier">y</span><span class="special">)(</span><span class="keyword">default</span> <span class="number">0</span><span class="special">)</span> <span class="special">)</span> <span class="special">{</span>
+            <span class="special">}</span> <span class="identifier">BOOST_LOCAL_FUNCTION_NAME</span><span class="special">(</span><span class="identifier">lct</span><span class="special">)</span>
+            <span class="identifier">lct</span><span class="special">(</span><span class="number">1</span><span class="special">);</span>
+            <span class="keyword">void</span> <span class="identifier">BOOST_LOCAL_FUNCTION</span><span class="special">(</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span> <span class="identifier">a</span><span class="special">)</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">b</span><span class="special">)</span>
+                    <span class="special">(</span><span class="keyword">const</span> <span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">p</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span> <span class="identifier">c</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">d</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span> <span class="identifier">this_</span><span class="special">)</span> <span class="special">(</span><span class="identifier">bind</span><span class="special">&amp;</span> <span class="identifier">q</span><span class="special">)</span>
+                    <span class="special">(</span><span class="keyword">int</span> <span class="identifier">x</span><span class="special">)</span> <span class="special">(</span><span class="keyword">int</span> <span class="identifier">y</span><span class="special">)(</span><span class="keyword">default</span> <span class="number">0</span><span class="special">)</span> <span class="special">)</span> <span class="special">{</span>
+            <span class="special">}</span> <span class="identifier">BOOST_LOCAL_FUNCTION_NAME</span><span class="special">(</span><span class="identifier">lpt</span><span class="special">)</span>
+            <span class="identifier">lpt</span><span class="special">(</span><span class="number">1</span><span class="special">);</span>
+        <span class="special">}</span>
+    <span class="special">}</span>
+<span class="special">};</span>
+</pre>
+<p>
+      </p>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

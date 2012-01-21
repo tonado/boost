@@ -18,13 +18,10 @@ T calculate(const T& factor) {
     T sum = 0;
 
     void BOOST_LOCAL_FUNCTION_TPL(const bind factor, bind& sum, T num) {
-        // Typeof for concept checking.
+        // Local function `TYPEOF` does not need `typename`.
         BOOST_CONCEPT_ASSERT((Addable<typename boost::remove_reference<
                 BOOST_LOCAL_FUNCTION_TYPEOF(sum)>::type>));
-        // Typeof for declarations.
-        boost::remove_reference<BOOST_LOCAL_FUNCTION_TYPEOF(
-                factor)>::type mult = factor * num;
-        sum += mult;
+        sum += factor * num;
     } BOOST_LOCAL_FUNCTION_NAME(add)
 
     add(6);

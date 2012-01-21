@@ -27,7 +27,7 @@ BOOST_AUTO_TEST_CASE( test_transform ) {
     std::transform(v.begin(), v.end(), w.begin(), inc);
     BOOST_CHECK( w[0] == 16 ); BOOST_CHECK( w[1] == 26 );
 
-    int BOOST_LOCAL_FUNCTION(const bind& inc, int i, int j) {
+    int BOOST_LOCAL_FUNCTION(bind& inc, int i, int j) {
         return inc(i + j); // Call the other bound local function.
     } BOOST_LOCAL_FUNCTION_NAME(inc_sum)
     

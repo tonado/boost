@@ -13,7 +13,7 @@ BOOST_AUTO_TEST_CASE( test_nesting ) {
     int x = 0;
 
     void BOOST_LOCAL_FUNCTION(bind& x) {
-        void BOOST_LOCAL_FUNCTION_PARAMS(bind& x) { // Nested.
+        void BOOST_LOCAL_FUNCTION(bind& x) { // Nested.
             x++;
         } BOOST_LOCAL_FUNCTION_NAME(g)
 

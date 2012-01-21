@@ -134,7 +134,7 @@
     inline R operator()( \
         BOOST_PP_ENUM_ ## z(BOOST_PP_SUB(arity, defaults_n), \
                 BOOST_LOCAL_FUNCTION_AUX_arg_param_decl, ~) \
-    ) /* cannot be const (because of binds) */ { \
+    ) /* cannot be const because of binds (same as for local ftor) */ { \
         /* run-time: do not assert preconditions here for efficiency */ \
         /* run-time: this function call is done via a function pointer */ \
         /* so unfortunately does not allow for compiler inlining */ \

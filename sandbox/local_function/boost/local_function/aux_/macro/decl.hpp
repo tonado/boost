@@ -41,7 +41,7 @@
     )(id) \
     ; /* close eventual previous statements, otherwise it has no effect */ \
     BOOST_MPL_ASSERT_MSG(false, /* always fails (there's an error) */ \
-            BOOST_LOCAL_FUNCTION_AUX_PP_DECL_TRAITS_ERROR_MSG(decl_traits), ()) \
+            BOOST_LOCAL_FUNCTION_AUX_PP_DECL_TRAITS_ERROR_MSG(decl_traits), ())\
     ; /* must close ASSERT macro for eventual use within class scope */
 
 // PUBLIC //

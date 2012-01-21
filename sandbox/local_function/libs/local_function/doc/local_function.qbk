@@ -82,6 +82,7 @@
 [import ../test/overload.cpp]
 [import ../test/add_except.cpp]
 [import ../test/add_classifiers.cpp]
+[import ../test/seq.cpp]
 
 [import ../example/const_block.cpp]
 [import ../example/gcc_lambda.cpp]

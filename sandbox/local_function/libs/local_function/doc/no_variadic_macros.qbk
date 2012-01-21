@@ -27,31 +27,11 @@ Finally, an empty list is always specified using `void` on compilers with and wi
 
 [endsect]
 
-[section Examples]
+[section An Example]
 
-The following is a list of most of the examples presented in this documentation reprogrammed using the sequence syntax instead of the comma-separated list:
+The following is an example that shows a bit of all the different macro parameter combinations using the sequence syntax (see also [@../../test/seq.cpp `"seq.cpp"`]):
 
-[table
-    [ [Files] ]
-    [ [[@../../test/add_seq.cpp `"add_seq.cpp"`]] ]
-    [ [[@../../test/add_classifiers_seq.cpp `"add_classifiers_seq.cpp"`]] ]
-    [ [[@../../test/add_default_seq.cpp `"add_default_seq.cpp"`]] ]
-    [ [[@../../test/add_except_seq.cpp `"add_except_seq.cpp"`]] ]
-    [ [[@../../test/add_inline_seq.cpp `"add_inline_seq.cpp"`]] ]
-    [ [[@../../test/add_lambda_seq.cpp `"add_lambda_seq.cpp"`]] ]
-    [ [[@../../test/add_nobind_seq.cpp `"add_nobind_seq.cpp"`]] ]
-    [ [[@../../test/add_template_seq.cpp `"add_template_seq.cpp"`]] ]
-    [ [[@../../test/add_this_seq.cpp `"add_this_seq.cpp"`]] ]
-    [ [[@../../test/add_typed_seq.cpp `"add_typed_seq.cpp"`]] ]
-    [ [[@../../test/add_with_default_seq.cpp `"add_with_default_seq.cpp"`]] ]
-    [ [[@../../test/nesting_seq.cpp `"nesting_seq.cpp"`]] ]
-    [ [[@../../test/overload_seq.cpp `"overload_seq.cpp"`]] ]
-    [ [[@../../test/return_assign_seq.cpp `"return_assign_seq.cpp"`]] ]
-    [ [[@../../test/ten_seq.cpp `"ten_seq.cpp"`]] ]
-    [ [[@../../test/transform_seq.cpp `"transform_seq.cpp"`]] ]
-    [ [[@../../test/typeof_seq.cpp `"typeof_seq.cpp"`]] ]
-    [ [[@../../test/typeof_template_seq.cpp `"typeof_template_seq.cpp"`]] ]
-]
+[test_seq]
 
 [endsect]
 

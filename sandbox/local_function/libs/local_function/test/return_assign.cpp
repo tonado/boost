@@ -8,16 +8,15 @@
 #include <boost/function.hpp>
 #define BOOST_TEST_MODULE TestReturnAssign
 #include <boost/test/unit_test.hpp>
+#include <iostream>
 
 //[test_return_assign
-void call1(boost::function<int (int)> f) { BOOST_CHECK( f(1) == 5 ); }
-
+void call1(boost::function<int (int) > f) { BOOST_CHECK( f(1) == 5 ); }
 void call0(boost::function<int (void)> f) { BOOST_CHECK( f() == 5 ); }
 
-boost::function<int (int, int)> linear(int slope) {
-    boost::function< int (int, int) > l2;
-
-    int BOOST_LOCAL_FUNCTION(bind slope, int x, default 1, int y, default 2) {
+boost::function<int (int, int)> linear(const int& slope) {
+    int BOOST_LOCAL_FUNCTION(const bind& slope,
+            int x, default 1, int y, default 2) {
         return x + slope * y;
     } BOOST_LOCAL_FUNCTION_NAME(lin)
 

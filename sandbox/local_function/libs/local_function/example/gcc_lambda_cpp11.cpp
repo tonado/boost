@@ -1,4 +1,8 @@
 
+#include <boost/config.hpp>
+
+#ifndef BOOST_NO_LAMBDAS
+
 #define BOOST_TEST_MODULE ExampleGccLambdaCpp11
 #include <boost/test/unit_test.hpp>
 #include <algorithm>
@@ -19,4 +23,10 @@ BOOST_AUTO_TEST_CASE( example_gcc_lambda_cpp11 ) {
     BOOST_CHECK( iter != end );
     BOOST_CHECK( *iter == val );
 }
+
+#else
+
+int main(void) { return 0; } // Trivial test.
+
+#endif
 

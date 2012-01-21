@@ -171,9 +171,6 @@
     /* IMPORTANT: here can't use `PP_KEYWORD_IS_THISUNDERSCORE_FRONT()` */ \
     /* because some `param_name` might start with non-alphanumeric symbol */ \
     /* `&` (but that is never the case for `this`) */ \
-    BOOST_PP_EXPR_IIF(BOOST_PP_TUPLE_ELEM(4, 1, id_typename_offset_const), \
-        typename \
-    ) \
     BOOST_PP_IIF(BOOST_PP_COMPL(BOOST_PP_TUPLE_ELEM(4, 3, \
             id_typename_offset_const)), \
         BOOST_PP_EMPTY \
@@ -181,8 +178,14 @@
             BOOST_LOCAL_FUNCTION_DETAIL_PP_KEYWORD_IS_THISUNDERSCORE_BACK( \
                     bind_var_without_type), \
         /* pointed obj const */ \
+        BOOST_PP_EXPR_IIF(BOOST_PP_TUPLE_ELEM(4, 1, id_typename_offset_const), \
+            typename \
+        ) \
         BOOST_PP_IDENTITY( ::boost::local_function::aux::add_pointed_const< ) \
     , \
+        BOOST_PP_EXPR_IIF(BOOST_PP_TUPLE_ELEM(4, 1, id_typename_offset_const), \
+            typename \
+        ) \
         BOOST_PP_IDENTITY( ::boost::add_const< ) /* outer type const */ \
     ))() \
     BOOST_LOCAL_FUNCTION_AUX_CODE_FUNCTOR_BIND_TYPE_( \
@@ -383,7 +386,7 @@ BOOST_LOCAL_FUNCTION_AUX_CODE_FUNCTOR_MAYBECONST_BIND_MEMBER_INIT_ENUM_( \
         BOOST_PP_LIST_FOR_EACH_I( \
                 BOOST_LOCAL_FUNCTION_AUX_CODE_FUNCTOR_PARAM_ARG_DECL_ENUM_, \
                 typename01, params) \
-    ) const { \
+    ) /* cannot be const because of binds (same as for global fctor) */ { \
         /* just forward call to member function with local func name */ \
         return BOOST_LOCAL_FUNCTION_AUX_CODE_FUNCTOR_CALL_BODY_(id, typename01,\
   BOOST_LOCAL_FUNCTION_AUX_CODE_FUNCTOR_MAYBECONST_MEMBER_BIND_ENUM_, \
@@ -846,10 +849,8 @@ BOOST_LOCAL_FUNCTION_AUX_CODE_FUNCTOR_STATIC_CALL_COMMA_BIND_PARAM_DECLS_( \
   BOOST_LOCAL_FUNCTION_AUX_CODE_FUNCTOR_PARAM_DECL_ENUM_, \
                         1 /* with defaults */, params) \
             ) /* end body function params */ \
-            /* const member func so it cannot change obj (reassign member */ \
-            /* var with local function name, etc) */ \
-            const \
-            /* user local function definition `{ ... }` will follow here */ \
+            /* cannot be const because recursive functor is non const member */\
+    /* user local function definition `{ ... }` will follow here */ \
     /* `END` macro will close function class decl `};` here */ 
 
 // PUBLIC //

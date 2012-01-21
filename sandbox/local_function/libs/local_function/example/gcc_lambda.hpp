@@ -84,6 +84,11 @@
         )(results)
 #endif
 
+#define GCC_LAMBDA_TUPLE_(binds_params_results) \
+    GCC_LAMBDA_(BOOST_PP_TUPLE_ELEM(3, 0, binds_params_results), \
+            BOOST_PP_TUPLE_ELEM(3, 1, binds_params_results), \
+            BOOST_PP_TUPLE_ELEM(3, 2, binds_params_results))
+
 #define GCC_LAMBDA_END_(id) \
     BOOST_LOCAL_FUNCTION_NAME(BOOST_PP_CAT(gcc_lambda_, id)) \
     BOOST_PP_CAT(gcc_lambda_, id); \
@@ -95,11 +100,11 @@
 // const bind v is =v, bind& v is &v, void if no return specified, no = or &.
 #ifdef BOOST_NO_VARIADIC_MACROS
 #   define GCC_LAMBDA(void_or_seq) \
-        BOOST_PP_EXPAND(GCC_LAMBDA_ GCC_LAMBDA_SPLIT_( \
+        GCC_LAMBDA_TUPLE_(GCC_LAMBDA_SPLIT_( \
                 BOOST_LOCAL_FUNCTION_DETAIL_PP_VOID_LIST(void_or_seq)))
 #else
 #   define GCC_LAMBDA(...) \
-        BOOST_PP_EXPAND(GCC_LAMBDA_ GCC_LAMBDA_SPLIT_( \
+        GCC_LAMBDA_TUPLE_(GCC_LAMBDA_SPLIT_( \
                 BOOST_LOCAL_FUNCTION_DETAIL_PP_VOID_LIST(__VA_ARGS__)))
 #endif
 

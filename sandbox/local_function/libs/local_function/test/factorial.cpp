@@ -19,8 +19,8 @@ struct calculator {
                 bool recursion, default false) {
             int result = 0;
             
-            if (n < 2 ) result = 1;
-            else result = n * factorial(n - 1, true); // Recursive call.
+            if (num < 2 ) result = 1;
+            else result = num * factorial(num - 1, true); // Recursive call.
 
             if (!recursion) this_->results.push_back(result);
             return result;
@@ -33,12 +33,12 @@ struct calculator {
 
 BOOST_AUTO_TEST_CASE( test_factorial ) {
     std::vector<int> v(3);
-    v[0] = 1; v[1] = 4; v[2] = 7;
+    v[0] = 1; v[1] = 3; v[2] = 4;
 
     calculator calc;
     calc.factorials(v);
-    BOOST_CHECK( calc.results[0] == 1 );
-    BOOST_CHECK( calc.results[1] == 24 );
-    BOOST_CHECK( calc.results[2] == 64 );
+    BOOST_CHECK( calc.results[0] ==  1 );
+    BOOST_CHECK( calc.results[1] ==  6 );
+    BOOST_CHECK( calc.results[2] == 24 );
 }
 
