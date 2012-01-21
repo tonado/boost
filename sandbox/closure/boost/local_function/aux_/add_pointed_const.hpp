@@ -4,15 +4,14 @@
 // License, Version 1.0 (see accompanying file LICENSE_1_0.txt or a
 // copy at http://www.boost.org/LICENSE_1_0.txt).
 
-#ifndef BOOST_LOCAL_AUX_TYPE_TRAITS_ADD_POINTED_CONST_HPP_
-#define BOOST_LOCAL_AUX_TYPE_TRAITS_ADD_POINTED_CONST_HPP_
+#ifndef BOOST_LOCAL_FUNCTION_AUX_ADD_POINTED_CONST_HPP_
+#define BOOST_LOCAL_FUNCTION_AUX_ADD_POINTED_CONST_HPP_
 
-namespace boost { namespace local { namespace aux {
+namespace boost { namespace local_function { namespace aux {
 
 // Metafunction to add const to pointed type `T` (i.e. converts
-// `T* [const]` to `T const* [const]`).
-// NOTE: `boost::add_const<>` cannot be used instead because only adds outer
-// const.
+// `T* [const]` to `T const* [const]`). `boost::add_const<>` cannot be used 
+// instead because only adds outer const.
 
 template<typename T> struct add_pointed_const { typedef T type; };
 
@@ -27,7 +26,7 @@ template<typename T> struct add_pointed_const<T* const>
 template<typename T> struct add_pointed_const<T const* const>
     { typedef T const* const type; };
 
-}}} // namespace
+} } } // namespace
 
 #endif //#include guard
 

@@ -4,12 +4,12 @@
 // License, Version 1.0 (see accompanying file LICENSE_1_0.txt or a
 // copy at http://www.boost.org/LICENSE_1_0.txt).
 
-#ifndef BOOST_CLOSURE_AUX_PP_DECL_TRAITS_NIL_HPP_
-#define BOOST_CLOSURE_AUX_PP_DECL_TRAITS_NIL_HPP_
+#ifndef BOOST_LOCAL_FUNCTION_AUX_PP_DECL_TRAITS_NIL_HPP_
+#define BOOST_LOCAL_FUNCTION_AUX_PP_DECL_TRAITS_NIL_HPP_
 
 #include <boost/preprocessor/facilities/empty.hpp>
 
-#define BOOST_CLOSURE_AUX_PP_DECL_TRAITS_NIL \
+#define BOOST_LOCAL_FUNCTION_AUX_PP_DECL_TRAITS_NIL \
     ( \
         /* returns: list of `return result_type` */ \
         BOOST_PP_NIL /* nil list */ \

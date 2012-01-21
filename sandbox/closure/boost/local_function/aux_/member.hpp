@@ -1,8 +1,10 @@
 
-#ifndef BOOST_CLOSURE_AUX_MEMBER_HPP_
-#define BOOST_CLOSURE_AUX_MEMBER_HPP_
+#ifndef BOOST_LOCAL_FUNCTION_AUX_MEMBER_HPP_
+#define BOOST_LOCAL_FUNCTION_AUX_MEMBER_HPP_
 
-namespace boost { namespace closure { namespace aux {
+namespace boost { namespace local_function { namespace aux {
+
+// Metafunctions to manipulate data members.
 
 template<typename T> struct member_type {
     typedef T& reference;
@@ -29,7 +31,7 @@ template<typename T> T const& member_deref(T const& data) { return data; }
 template<typename T> T& member_deref(T* data) { return *data; }
 template<typename T> T const& member_deref(T const* data) { return *data; }
 
-}}} // namespace
+} } } // namespace
 
 #endif // #include guard
 

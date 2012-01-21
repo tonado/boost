@@ -4,8 +4,8 @@
 // License, Version 1.0 (see accompanying file LICENSE_1_0.txt or a
 // copy at http://www.boost.org/LICENSE_1_0.txt).
 
-#ifndef BOOST_CLOSURE_DETAIL_PP_KEYWORD_FACILITY_ADD_HPP_
-#define BOOST_CLOSURE_DETAIL_PP_KEYWORD_FACILITY_ADD_HPP_
+#ifndef BOOST_LOCAL_FUNCTION_DETAIL_PP_KEYWORD_FACILITY_ADD_HPP_
+#define BOOST_LOCAL_FUNCTION_DETAIL_PP_KEYWORD_FACILITY_ADD_HPP_
 
 #include <boost/preprocessor/control/expr_iif.hpp>
 #include <boost/preprocessor/logical/compl.hpp>

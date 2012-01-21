@@ -4,8 +4,8 @@
 // License, Version 1.0 (see accompanying file LICENSE_1_0.txt or a
 // copy at http://www.boost.org/LICENSE_1_0.txt).
 
-#ifndef BOOST_CLOSURE_AUX_SYMBOL_HPP_
-#define BOOST_CLOSURE_AUX_SYMBOL_HPP_
+#ifndef BOOST_LOCAL_FUNCTION_AUX_SYMBOL_HPP_
+#define BOOST_LOCAL_FUNCTION_AUX_SYMBOL_HPP_
 
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/seq/cat.hpp>
@@ -24,22 +24,26 @@
 // uppercase letter is reserved to the implementation" and (2) "each name that
 // begins with an underscore is reserved to the implementation for use as a
 // name in the global namespace".
-#define BOOST_CLOSURE_AUX_SYMBOL_INFIX_ X // `X` used as separator.
+#define BOOST_LOCAL_FUNCTION_AUX_SYMBOL_INFIX_ X // `X` used as separator.
+            
+#define BOOST_LOCAL_FUNCTION_AUX_SYMBOL_PREFIX_ boost_local_function_aux
 
-#define BOOST_CLOSURE_AUX_SYMBOL_POSTFIX_(s, unused, tokens) \
-    BOOST_PP_CAT(tokens, BOOST_CLOSURE_AUX_SYMBOL_INFIX_)
+#define BOOST_LOCAL_FUNCTION_AUX_SYMBOL_POSTFIX_(s, unused, tokens) \
+    BOOST_PP_CAT(tokens, BOOST_LOCAL_FUNCTION_AUX_SYMBOL_INFIX_)
 
 // PUBLIC //
 
 // Prefixes this library reserved symbol.
-#define BOOST_CLOSURE_AUX_SYMBOL(seq) \
-    BOOST_PP_SEQ_CAT(BOOST_PP_SEQ_TRANSFORM(BOOST_CLOSURE_AUX_SYMBOL_POSTFIX_, \
-            ~, (boost_closure_aux) seq ))
+#define BOOST_LOCAL_FUNCTION_AUX_SYMBOL(seq) \
+    BOOST_PP_SEQ_CAT(BOOST_PP_SEQ_TRANSFORM( \
+            BOOST_LOCAL_FUNCTION_AUX_SYMBOL_POSTFIX_, \
+            ~, (BOOST_LOCAL_FUNCTION_AUX_SYMBOL_PREFIX_) seq ))
 
 // Postfixes this library reserved symbol.
-#define BOOST_CLOSURE_AUX_SYMBOL_POSTFIX(seq) \
-    BOOST_PP_SEQ_CAT(BOOST_PP_SEQ_TRANSFORM(BOOST_CLOSURE_AUX_SYMBOL_POSTFIX_, \
-            ~, seq (boost_closure_aux) ))
+#define BOOST_LOCAL_FUNCTION_AUX_SYMBOL_POSTFIX(seq) \
+    BOOST_PP_SEQ_CAT(BOOST_PP_SEQ_TRANSFORM( \
+            BOOST_LOCAL_FUNCTION_AUX_SYMBOL_POSTFIX_, \
+            ~, seq (BOOST_LOCAL_FUNCTION_AUX_SYMBOL_PREFIX_) ))
 
 #endif // #include guard
 

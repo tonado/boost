@@ -1,22 +1,22 @@
 
-#ifndef BOOST_CLOSURE_AUX_NOBIND_HPP_
-#define BOOST_CLOSURE_AUX_NOBIND_HPP_
+#ifndef BOOST_LOCAL_FUNCTION_AUX_NOBIND_HPP_
+#define BOOST_LOCAL_FUNCTION_AUX_NOBIND_HPP_
 
-#include <boost/closure/aux_/config.hpp>
+#include <boost/local_function/aux_/config.hpp>
 
 // NOTE: The current implementation needs no-bind placeholders only when
 // local types cannot be passed as template parameters.
-#if !BOOST_CLOSURE_AUX_CONFIG_LOCAL_TYPES_AS_TEMPLATE_PARAMS_01
+#if !BOOST_LOCAL_FUNCTION_AUX_CONFIG_LOCALS_AS_TPARAMS_01
 
-namespace boost { namespace closure { namespace aux {
+namespace boost { namespace local_function { namespace aux {
 
-typedef int nobind_t;
+typedef int nobind_t; // Tag no-bind type.
 
-nobind_t nobind;
+nobind_t nobind; // Global variable so all no-binds can reference it.
 
-}}} // namespace
+} } } // namespace
 
-#endif
+#endif // locals as tparams
 
 #endif // #include guard
 
