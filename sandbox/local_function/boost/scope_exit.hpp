@@ -674,6 +674,11 @@ Finally\, on C++11 compilers <c>this</c> can be used instead of <c>this_</c>:
     capture:
             [&]variable | this_ | this
 @endcode
+
+(Where the following lexical conventions are adopted: <c>token1 | token2</c>
+means either <c>token1</c> or <c>token2</c>; <c>[token]</c> means either
+<c>token</c> or nothing; <c>{expression}</c> means the token resulting from the
+expression.)
 }
 @EndParams
 
@@ -778,6 +783,11 @@ capture_sequence:
 capture:
         [&]variable | this_ | this
 @endcode
+
+(Where the following lexical conventions are adopted: <c>token1 | token2</c>
+means either <c>token1</c> or <c>token2</c>; <c>[token]</c> means either
+<c>token</c> or nothing; <c>{expression}</c> means the token resulting from the
+expression.)
 }
 @EndParams
 

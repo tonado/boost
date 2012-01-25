@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-<title>Appendix: Implementation</title>
+<title>Annex: Implementation</title>
 <link rel="stylesheet" href="../../../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.LocalFunction 1.0.0">
@@ -24,16 +24,8 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="boost_localfunction.Implementation"></a><a class="link" href="Implementation.html" title="Appendix: Implementation">Appendix: Implementation</a>
+<a name="boost_localfunction.Implementation"></a><a class="link" href="Implementation.html" title="Annex: Implementation">Annex: Implementation</a>
 </h2></div></div></div>
-<div class="toc"><dl>
-<dt><span class="section"><a href="Implementation.html#boost_localfunction.Implementation.local_classes_as_template_parameters">Local
-      Classes as Template Parameters</a></span></dt>
-<dt><span class="section"><a href="Implementation.html#boost_localfunction.Implementation.parsing_macros">Parsing
-      Macros</a></span></dt>
-<dt><span class="section"><a href="Implementation.html#boost_localfunction.Implementation.local_functions">Local
-      Functions</a></span></dt>
-</dl></div>
 <p>
       This section gives an overview of the key programming techniques used to implement
       this library.
@@ -45,41 +37,45 @@
 </tr>
 <tr><td align="left" valign="top"><p>
         The code listed here can be used by curious readers and library maintainers
-        as a reference in trying to understand this library source files. There is
+        as a reference in trying to understand the library source code. There is
         absolutely no guarantee that the library implementation uses the exact code
         listed here.
       </p></td></tr>
 </table></div>
-<div class="section">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="boost_localfunction.Implementation.local_classes_as_template_parameters"></a><a class="link" href="Implementation.html#boost_localfunction.Implementation.local_classes_as_template_parameters" title="Local Classes as Template Parameters">Local
+<h6>
+<a name="boost_localfunction.Implementation.h0"></a>
+      <span><a name="boost_localfunction.Implementation.local_classes_as_template_parameters"></a></span><a class="link" href="Implementation.html#boost_localfunction.Implementation.local_classes_as_template_parameters">Local
       Classes as Template Parameters</a>
-</h3></div></div></div>
+    </h6>
 <p>
-        This library uses a local class to implement the local function object. However,
-        in <a href="http://www.open-std.org/JTC1/SC22/WG21/docs/standards" target="_top">C++03</a>
-        local classes (and therefore the local function objects they implement) cannot
-        be passed as template parameters (e.g., to the <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">for_each</span></code>
-        algorithm), this is instead possible on <a href="http://www.open-std.org/JTC1/SC22/WG21/" target="_top">C++11</a>,
-        MSVC, and some other compilers (see <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2657.htm" target="_top">[N2657]</a>).
-        To work around this limitation, this library investigated the following two
-        "tricks" (both tricks can be extended to support eventual function
-        default parameters):
-      </p>
+      This library uses a local class to implement the local function object. However,
+      in <a href="http://www.open-std.org/JTC1/SC22/WG21/docs/standards" target="_top">C++03</a>
+      local classes (and therefore the local function objects they implement) cannot
+      be passed as template parameters (e.g., to the <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">for_each</span></code>
+      algorithm), this is instead possible on <a href="http://www.open-std.org/JTC1/SC22/WG21/" target="_top">C++11</a>,
+      MSVC, and some other compilers (see <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2657.htm" target="_top">[N2657]</a>).
+      To work around this limitation, this library investigated the following two
+      "tricks" (both tricks can be extended to support eventual function
+      default parameters):
+    </p>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
-            The <span class="emphasis"><em>casting functor trick</em></span> uses a non-local functor
-            that calls a static member function of the local class via a function
-            pointer. The static member function then calls the correct local function
-            body after type casting the object from a <code class="computeroutput"><span class="keyword">void</span><span class="special">*</span></code> pointer (local classes can always be
-            used for type casting).
-          </li>
+          The <span class="emphasis"><em>casting functor trick</em></span> uses a non-local functor
+          that calls a static member function of the local class via a function pointer.
+          The static member function then calls the correct local function body after
+          type casting the object from a <code class="computeroutput"><span class="keyword">void</span><span class="special">*</span></code> pointer (local classes can always be used
+          for type casting).
+        </li>
 <li class="listitem">
-            The <span class="emphasis"><em>virtual functor trick</em></span> derives the local functor
-            class from a non-local base class. The correct overridden implementation
-            of the virtual <code class="computeroutput"><span class="keyword">operator</span><span class="special">()</span></code> is then called via polymorphism.
-          </li>
+          The <span class="emphasis"><em>virtual functor trick</em></span> derives the local functor
+          class from a non-local base class. The correct overridden implementation
+          of the virtual <code class="computeroutput"><span class="keyword">operator</span><span class="special">()</span></code>
+          is then called via polymorphism.
+        </li>
 </ol></div>
+<p>
+      For example (see also <a href="../../../example/impl_tparam_tricks.cpp" target="_top"><code class="literal">impl_tparam_tricks.cpp</code></a>):
+    </p>
 <p>
 </p>
 <pre class="programlisting"><span class="preprocessor">#define</span> <span class="identifier">BOOST_TEST_MODULE</span> <span class="identifier">ExampleTparamTricks</span>
@@ -146,43 +142,42 @@
 <span class="special">}</span>
 </pre>
 <p>
-      </p>
+    </p>
 <p>
-        The casting functor trick measured slightly better run-time performances
-        than the virtual functor trick so the current implementation of this library
-        uses the casting functor trick (probably because in addition to the indirect
-        function call, the virtual functor trick also requires accessing the <a href="http://en.wikipedia.org/wiki/Virtual_method_table" target="_top">virtual function
-        table</a>). However, neither one of tricks has been observed to allow
-        for compiler optimizations that inline the local function calls because they
-        rely on one indirect function call (via either a function pointer or a virtual
-        function respectively). Therefore, on compilers that accept local types as
-        template parameters (MSVC, <a href="http://www.open-std.org/JTC1/SC22/WG21/" target="_top">C++11</a>,
-        etc, see <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2657.htm" target="_top">[N2657]</a>),
-        this library automatically generates code that passes the local class type
-        directly as template parameter without using neither one of these two tricks
-        in order to take full advantage of compiler optimizations that inline the
-        local function calls.
-      </p>
-</div>
-<div class="section">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="boost_localfunction.Implementation.parsing_macros"></a><a class="link" href="Implementation.html#boost_localfunction.Implementation.parsing_macros" title="Parsing Macros">Parsing
+      The casting functor trick measured slightly better run-time performances than
+      the virtual functor trick so the current implementation of this library uses
+      the casting functor trick (probably because in addition to the indirect function
+      call, the virtual functor trick also requires accessing the <a href="http://en.wikipedia.org/wiki/Virtual_method_table" target="_top">virtual
+      function table</a>). However, neither one of tricks has been observed to
+      allow for compiler optimizations that inline the local function calls (because
+      they rely on one indirect function call via either a function pointer or a
+      virtual function respectively). Therefore, on compilers that accept local types
+      as template parameters (MSVC, <a href="http://www.open-std.org/JTC1/SC22/WG21/" target="_top">C++11</a>,
+      etc, see <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2657.htm" target="_top">[N2657]</a>),
+      this library automatically generates code that passes the local class type
+      directly as template parameter without using neither one of these two tricks
+      in order to take full advantage of compiler optimizations that inline the local
+      function calls.
+    </p>
+<h6>
+<a name="boost_localfunction.Implementation.h1"></a>
+      <span><a name="boost_localfunction.Implementation.parsing_macros"></a></span><a class="link" href="Implementation.html#boost_localfunction.Implementation.parsing_macros">Parsing
       Macros</a>
-</h3></div></div></div>
+    </h6>
 <p>
-        This library macros can parse the list of specified parameters and detect
-        if any of the bound parameter name matches the token <code class="computeroutput"><span class="identifier">this_</span></code>
-        (to generate special code to bind the object in scope), or if the parameter
-        is bound by <code class="computeroutput"><span class="keyword">const</span></code> (to generate
-        special code to bind by constant), etc. The parameter tokens are inspected
-        using preprocessor metaprogramming, specifically using the macros from <code class="computeroutput"><span class="string">"boost/local_function/detail/preprocessor/keyword/"</span></code>.
-        <sup>[<a name="boost_localfunction.Implementation.parsing_macros.f0" href="#ftn.boost_localfunction.Implementation.parsing_macros.f0" class="footnote">24</a>]</sup>
-      </p>
+      This library macros can parse the list of specified parameters and detect if
+      any of the bound variable names matches the token <code class="computeroutput"><span class="identifier">this_</span></code>
+      (to generate special code to bind the object in scope), or if the variable
+      is bound by <code class="computeroutput"><span class="keyword">const</span></code> (to generate
+      special code to bind by constant), etc. The parameter tokens are inspected
+      using preprocessor metaprogramming, specifically using the macros from <code class="computeroutput"><span class="string">"boost/local_function/detail/preprocessor/keyword/"</span></code>.
+      <sup>[<a name="boost_localfunction.Implementation.f0" href="#ftn.boost_localfunction.Implementation.f0" class="footnote">29</a>]</sup>
+    </p>
 <p>
-        For example, the following code defines a macro that allows the preprocessor
-        to detect if a set of space-separated tokens end with <code class="computeroutput"><span class="identifier">this_</span></code>
-        or not:
-      </p>
+      For example, the following code defines a macro that allows the preprocessor
+      to detect if a set of space-separated tokens ends with <code class="computeroutput"><span class="identifier">this_</span></code>
+      or not:
+    </p>
 <p>
 </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">local_function</span><span class="special">/</span><span class="identifier">detail</span><span class="special">/</span><span class="identifier">preprocessor</span><span class="special">/</span><span class="identifier">keyword</span><span class="special">/</span><span class="identifier">thisunderscore</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
@@ -205,16 +200,15 @@
 <span class="special">}</span>
 </pre>
 <p>
-      </p>
-</div>
-<div class="section">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="boost_localfunction.Implementation.local_functions"></a><a class="link" href="Implementation.html#boost_localfunction.Implementation.local_functions" title="Local Functions">Local
+    </p>
+<h6>
+<a name="boost_localfunction.Implementation.h2"></a>
+      <span><a name="boost_localfunction.Implementation.local_functions"></a></span><a class="link" href="Implementation.html#boost_localfunction.Implementation.local_functions">Local
       Functions</a>
-</h3></div></div></div>
+    </h6>
 <p>
-        The local function macros expand to code equivalent to the following:
-      </p>
+      The local function macros expand to code equivalent to the following:
+    </p>
 <p>
 </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">local</span><span class="special">/</span><span class="identifier">function</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
@@ -394,15 +388,14 @@
 <span class="special">}</span>
 </pre>
 <p>
-      </p>
-</div>
+    </p>
 <div class="footnotes">
 <br><hr width="100" align="left">
-<div class="footnote"><p><sup>[<a id="ftn.boost_localfunction.Implementation.parsing_macros.f0" href="#boost_localfunction.Implementation.parsing_macros.f0" class="para">24</a>] </sup>
-          This technique is at the core of even more complex preprocessor parsing
-          macros like the ones that parse the <a href="http://sourceforge.net/projects/contractpp" target="_top">Contract++</a>
-          syntax.
-        </p></div>
+<div class="footnote"><p><sup>[<a id="ftn.boost_localfunction.Implementation.f0" href="#boost_localfunction.Implementation.f0" class="para">29</a>] </sup>
+        This technique is at the core of even more complex preprocessor parsing macros
+        like the ones that parse the <a href="http://sourceforge.net/projects/contractpp" target="_top">Contract++</a>
+        syntax.
+      </p></div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
@@ -410,7 +403,7 @@
 <td align="right"><div class="copyright-footer">Copyright &#169; 2009-2012 Lorenzo
       Caminiti<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
-        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+        file LICENSE_1_0.txt or a copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
 </div></td>
 </tr></table>

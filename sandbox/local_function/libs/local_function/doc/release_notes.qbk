@@ -8,6 +8,10 @@
 
 This section lists the major changes between different library releases (in chronological order).
 
+[h5 Version 1.0.0 (2012-01-31)]
+
+@todo do this
+
 [h5 Version 0.2.0 (2011-05-14)]
 
 # Replaced parenthesized syntax with variadic and sequencing macro syntaxes.

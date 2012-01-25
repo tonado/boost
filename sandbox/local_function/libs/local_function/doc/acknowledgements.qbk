@@ -6,7 +6,9 @@
 
 [section:Acknowledgments Acknowledgments]
 
-This section attempts to recognize the contributions of /all/ the different people that participated directly or indirectly to the design and development of this library.
+@todo add thanks from the review
+
+This section aims to recognize the contributions of /all/ the different people that participated directly or indirectly to the design and development of this library.
 
 Many thanks to Steven Watanabe and Vicente Botet for suggesting to me to use __Boost_ScopeExit__ binding to [@http://boost.2283326.n4.nabble.com/contract-diff-n1962-tt2671482.html#none emulate local functions].
 Many thanks to Alexander Nasonov for clarifying how __Boost_ScopeExit__ binding could be used to implement local functions and for some [@http://thread.gmane.org/gmane.comp.lib.boost.devel/168612 early work] in this direction.
@@ -15,8 +17,7 @@ Many thanks to Gregory Crosswhite for using an early version of this library in 
 
 Thanks to David Abrahams, Vicente Botet, et al. for suggesting to provide the [@http://lists.boost.org/Archives/boost/2011/02/176712.php variadic macro syntax] on compilers that support variadic macros.
 
-Thanks to Pierre Morcello for suggesting to use `return;` to exit local blocks (in the context of a discussion about a possible [@http://lists.boost.org/Archives/boost/2009/09/156012.php Boost.Breakable] library).
-Thanks to Pierre also for sharing some code that experimented with implementing local functions using __Boost_ScopeExit__ binding (even if this library was not developed using such a code).
+Thanks to Pierre Morcello for sharing some code that experimented with implementing local functions using __Boost_ScopeExit__ binding (even if this library is not based on such a code).
 
 Thanks to John Bytheway for checking the authors' virtual functor technique that originally allowed this library to pass local functions as template parameters.
 

@@ -4,11 +4,11 @@
 [/ License, Version 1.0 (see accompanying file LICENSE_1_0.txt or a ]
 [/ copy at http://www.boost.org/LICENSE_1_0.txt). ]
 
-[section:Alternatives Appendix: Alternatives]
+[section:Alternatives Annex: Alternatives]
 
 This section compares the features offered by this library with similar features offered by other libraries and by the new __CPP11__ standard.
 
-[section Features]
+[h5 Features]
 
 The following table compares local function features.
 
@@ -144,9 +144,7 @@ Or using __Boost_Phoenix__:
 
 [add_using_boost_phoenix_cpp]
 
-[endsect]
-
-[section Performances]
+[h5 Performances]
 
 The following tables compare run-times, compile-times, and binary sizes for the different alternatives presented so far for local functions.
 
@@ -233,8 +231,6 @@ GCC 4.3.4 With __CPP03__ Only (Without __CPP11__ Lambdas and Without "Local Type
 [$../../example/profile_gcc-4.3.4_debug.png [width 13in] [height 10in]]
 ] ]
 ]
-
-[endsect]
 
 [endsect]
 

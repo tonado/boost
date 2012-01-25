@@ -5,11 +5,11 @@
 // copy at http://www.boost.org/LICENSE_1_0.txt).
 
 #include <boost/local_function.hpp>
-#define BOOST_TEST_MODULE TestAddNobind
+#define BOOST_TEST_MODULE TestAddParams
 #include <boost/test/unit_test.hpp>
 
-BOOST_AUTO_TEST_CASE( test_add_nobind ) {
-    //[test_add_nobind
+BOOST_AUTO_TEST_CASE( test_add_params ) {
+    //[test_add_params
     int BOOST_LOCAL_FUNCTION(int x, int y) { // Local function.
         return x + y;
     } BOOST_LOCAL_FUNCTION_NAME(add)
