@@ -4,8 +4,7 @@
 // License, Version 1.0 (see accompanying file LICENSE_1_0.txt or a
 // copy at http://www.boost.org/LICENSE_1_0.txt).
 
-//[example_profile_boost_closure_inline_cpp
-#include <boost/closure.hpp>
+#include <boost/local_function.hpp>
 #include <boost/chrono.hpp>
 #include <vector>
 #include <algorithm>
@@ -21,9 +20,10 @@ int main(int argc, char* argv[]) {
 
     boost::chrono::system_clock::time_point start =
             boost::chrono::system_clock::now();
-    void BOOST_CLOSURE(const double& num, bind& sum, const bind& factor) {
+    void BOOST_LOCAL_FUNCTION(
+            const double& num, bind& sum, const bind& factor) {
         sum += factor * num;
-    } BOOST_CLOSURE_END(inline add) // inlined
+    } BOOST_LOCAL_FUNCTION_NAME(inline add) // inlined
     boost::chrono::duration<double> decl_sec =
             boost::chrono::system_clock::now() - start;
 
@@ -34,12 +34,11 @@ int main(int argc, char* argv[]) {
     for(unsigned long i = 0; i < trials; ++i) {
         boost::chrono::system_clock::time_point start =
                 boost::chrono::system_clock::now();
-        for (unsigned long j = 0; j < v.size(); ++j) add(v[j]); // No for_each.
+        for(unsigned long j = 0; j < v.size(); ++j) add(v[j]); // No for_each.
         trials_sec += boost::chrono::system_clock::now() - start;
     }
 
-    profile::print(size, trials, sum, trials_sec.count(), decl_sec.count());
+    profile::display(size, trials, sum, trials_sec.count(), decl_sec.count());
     return 0;
 }
-//]
 

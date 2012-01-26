@@ -32,7 +32,7 @@ void args(int argc, char* argv[], unsigned long& size, unsigned long& trials) {
             std::endl;
 }
 
-void print(const unsigned long& size, const unsigned long& trials,
+void display(const unsigned long& size, const unsigned long& trials,
         const double& sum, const double& trials_sec,
         const double& decl_sec = 0.0) {
     std::clog << "sum = " << sum << std::endl;

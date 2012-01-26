@@ -4,19 +4,17 @@
 // License, Version 1.0 (see accompanying file LICENSE_1_0.txt or a
 // copy at http://www.boost.org/LICENSE_1_0.txt).
 
-//[example_profile_boost_phoenix_cpp
-#include <boost/spirit/home/phoenix/statement/sequence.hpp>
-#include <boost/spirit/home/phoenix/core/reference.hpp>
-#include <boost/spirit/home/phoenix/core/argument.hpp>
-#include <boost/spirit/home/phoenix/operator/arithmetic.hpp>
+#include <boost/config.hpp>
+#ifndef BOOST_NO_LAMBDAS
+
 #include <boost/chrono.hpp>
-#include <iostream>
 #include <vector>
 #include <algorithm>
+#include <iostream>
 #include "profile_helpers.hpp"
 
 int main(int argc, char* argv[]) {
-    unsigned long size = 0, trials = 0;
+	unsigned long size = 0, trials = 0;
     profile::args(argc, argv, size, trials);
 
     double sum = 0.0;
@@ -29,18 +27,19 @@ int main(int argc, char* argv[]) {
     for(unsigned long i = 0; i < trials; ++i) {
         boost::chrono::system_clock::time_point start =
                 boost::chrono::system_clock::now();
-
-        using boost::phoenix::ref;
-        using boost::phoenix::arg_names::_1;
-        std::for_each(v.begin(), v.end(), (
-            ref(sum) += factor * _1
-        ));
-
+        std::for_each(v.begin(), v.end(), [&sum, factor](const double& num) {
+            sum += factor * num;
+        });
         trials_sec += boost::chrono::system_clock::now() - start;
     }
 
-    profile::print(size, trials, sum, trials_sec.count());
+    profile::display(size, trials, sum, trials_sec.count());
     return 0;
 }
-//]
+
+#else // NO_LAMBDAS
+
+int main(void) { return 0; } // Trivial program.
+
+#endif // NO_LAMBDAS
 
