@@ -1,4 +1,9 @@
 
+// Copyright (C) 2009-2012 Lorenzo Caminiti
+// Distributed under the Boost Software License, Version 1.0
+// (see accompanying file LICENSE_1_0.txt or a copy at
+// http://www.boost.org/LICENSE_1_0.txt)
+
 #ifndef BOOST_FUNCTIONAL_OVERLOADED_FUNCTION_DETAIL_FUNCTION_TYPE_HPP_
 #define BOOST_FUNCTIONAL_OVERLOADED_FUNCTION_DETAIL_FUNCTION_TYPE_HPP_
 

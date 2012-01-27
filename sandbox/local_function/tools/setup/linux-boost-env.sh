@@ -1,10 +1,8 @@
 
-# Copyright (C) 2009-2011 Lorenzo Caminiti
-# Use, modification, and distribution is subject to the Boost Software
-# License, Version 1.0 (see accompanying file LICENSE_1_0.txt or a
-# copy at http://www.boost.org/LICENSE_1_0.txt).
-
-# Source this files `. <FILE>`.
+# Copyright (C) 2009-2012 Lorenzo Caminiti
+# Distributed under the Boost Software License, Version 1.0
+# (see accompanying file LICENSE_1_0.txt or a copy at
+# http://www.boost.org/LICENSE_1_0.txt)
 
 export BOOST_ROOT="$HOME/sandbox/boost-trunk.linux"
 export BOOST_BUILD_PATH="$BOOST_ROOT/tools/build/v2"
