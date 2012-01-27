@@ -9,7 +9,7 @@
 #include <boost/test/unit_test.hpp>
 
 BOOST_AUTO_TEST_CASE( test_except ) {
-    //[test_add_except
+    //[add_except
     double sum = 0.0;
     int factor = 10;
 

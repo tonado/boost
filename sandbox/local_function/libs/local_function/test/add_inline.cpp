@@ -12,7 +12,7 @@
 #include <algorithm>
 
 BOOST_AUTO_TEST_CASE( test_add_inline ) {
-    //[test_add_inline
+    //[add_inline
     int sum = 0, factor = 10;
 
     void BOOST_LOCAL_FUNCTION(const bind factor, bind& sum, int num) {

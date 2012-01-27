@@ -11,7 +11,7 @@ struct person; BOOST_TYPEOF_REGISTER_TYPE(person)
 struct person {};
 
 struct world_t; BOOST_TYPEOF_REGISTER_TYPE(world_t)
-//[test_world_void
+//[world_void
 struct world_t {
     std::vector<person> persons;
     bool commit;

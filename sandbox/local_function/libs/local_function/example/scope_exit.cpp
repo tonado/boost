@@ -57,7 +57,7 @@ void world::add_person(person const& a_person) {
     persons_.push_back(a_person);
 
     // This block must be no-throw.
-    //[example_scope_exit
+    //[scope_exit
     person& p = persons_.back();
     person::evolution_t checkpoint = p.evolution_;
 
@@ -86,7 +86,7 @@ void world::add_person(person const& a_person) {
     checkpoint = ++p.evolution_;
 }
 
-BOOST_AUTO_TEST_CASE( test_world_checkpoint ) {
+BOOST_AUTO_TEST_CASE( test_scope_exit ) {
     person adam, eva;
     std::ostringstream oss;
     oss << adam;

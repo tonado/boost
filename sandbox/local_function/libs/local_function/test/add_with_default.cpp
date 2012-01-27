@@ -8,12 +8,12 @@
 #define BOOST_TEST_MODULE TestAddWithDefault
 #include <boost/test/unit_test.hpp>
 
-//[test_add_with_default_macro
+//[add_with_default_macro
 #define WITH_DEFAULT , default
 //]
 
 BOOST_AUTO_TEST_CASE( test_add_with_default ) {
-    //[test_add_with_default
+    //[add_with_default
     int BOOST_LOCAL_FUNCTION(int x, int y WITH_DEFAULT 2) { // Default.
         return x + y;
     } BOOST_LOCAL_FUNCTION_NAME(add)

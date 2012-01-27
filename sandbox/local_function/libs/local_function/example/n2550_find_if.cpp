@@ -5,7 +5,7 @@
 // copy at http://www.boost.org/LICENSE_1_0.txt).
 
 #include <boost/local_function.hpp>
-#define BOOST_TEST_MODULE ExampleN2550FindIf
+#define BOOST_TEST_MODULE TestN2550FindIf
 #include <boost/test/unit_test.hpp>
 #include <vector>
 #include <algorithm>
@@ -15,7 +15,7 @@ struct employee {
     explicit employee(const int& a_salary): salary(a_salary) {}
 };
 
-BOOST_AUTO_TEST_CASE( example_n2550_find_if ) {
+BOOST_AUTO_TEST_CASE( test_n2550_find_if ) {
     std::vector<employee> employees;
     employees.push_back(employee( 85000));
     employees.push_back(employee(100000));

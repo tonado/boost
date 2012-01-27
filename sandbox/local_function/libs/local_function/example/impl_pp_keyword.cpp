@@ -4,11 +4,11 @@
 // License, Version 1.0 (see accompanying file LICENSE_1_0.txt or a
 // copy at http://www.boost.org/LICENSE_1_0.txt).
 
-//[example_impl_pp_keyword
+//[impl_pp_keyword
 #include <boost/local_function/detail/preprocessor/keyword/thisunderscore.hpp>
 #include <boost/local_function/detail/preprocessor/keyword/const.hpp>
 #include <boost/local_function/detail/preprocessor/keyword/bind.hpp>
-#define BOOST_TEST_MODULE ExampleImplPpKeyword
+#define BOOST_TEST_MODULE TestImplPpKeyword
 #include <boost/test/unit_test.hpp>
 
 // Expand to 1 if space-separated tokens end with `this_`, 0 otherwise.
@@ -19,7 +19,7 @@
         tokens \
     )))
 
-BOOST_AUTO_TEST_CASE( example_impl_pp_keyword ) {
+BOOST_AUTO_TEST_CASE( test_impl_pp_keyword ) {
     BOOST_CHECK( HAS_THIS_(const bind this_) == 1 );
     BOOST_CHECK( HAS_THIS_(const bind& x) == 0 );
 }

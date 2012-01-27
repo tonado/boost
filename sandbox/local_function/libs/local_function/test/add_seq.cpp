@@ -5,7 +5,7 @@
 #include <algorithm>
 
 BOOST_AUTO_TEST_CASE( test_add_seq ) {
-    //[test_add_seq
+    //[add_seq
     int sum = 0, factor = 10; // Variables in scope to bind.
     
     void BOOST_LOCAL_FUNCTION( (const bind factor) (bind& sum) (int num) ) {

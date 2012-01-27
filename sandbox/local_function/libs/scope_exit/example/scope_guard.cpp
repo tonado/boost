@@ -5,7 +5,7 @@
 #include <utility>
 
 int main(void) {
-    //[example_scope_guard_decl
+    //[scope_guard_decl
     bool commit = false;
     std::string currency("EUR");
     double rate = 1.3326;
@@ -15,7 +15,7 @@ int main(void) {
     // Transaction...
     //]
 
-    //[example_scope_guard_exit
+    //[scope_guard_exit
     BOOST_SCOPE_EXIT(currency_rate_inserted, &commit, &rates, &currency) {
         if(currency_rate_inserted && !commit) rates.erase(currency);
     } BOOST_SCOPE_EXIT_END

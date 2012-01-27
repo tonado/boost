@@ -14,7 +14,7 @@ struct world {
     std::vector<person> persons_;
 };
 
-//[test_world_lambda
+//[world_lambda
 #include <functional>
 
 struct scope_exit {

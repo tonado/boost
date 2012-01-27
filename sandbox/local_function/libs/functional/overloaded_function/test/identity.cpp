@@ -1,11 +1,11 @@
 
 #include <boost/functional/overloaded_function.hpp>
 #include <boost/function.hpp>
-#define BOOST_TEST_MODULE TestOverloadedFunction
+#define BOOST_TEST_MODULE TestIdentity
 #include <boost/test/unit_test.hpp>
 #include <string>
 
-//[test_make_overloaded_function_check
+//[identity_checks
 template<typename F>
 void check(F identity) {
     BOOST_CHECK( identity("abc") == "abc" );
@@ -14,7 +14,7 @@ void check(F identity) {
 }
 //]
 
-//[test_overloaded_function_declarations
+//[identity_decls
 const std::string& identity_s(const std::string& x) { return x; } // As pointer.
 
 int identity_i_impl(int x) { return x; }
@@ -24,15 +24,15 @@ double identity_d_impl(double x) { return x; }
 boost::function<double (double)> identity_d = identity_d_impl; // Functor.
 //]
 
-BOOST_AUTO_TEST_CASE( test_overloaded_function ) {
-    //[test_overloaded_function_calls
+BOOST_AUTO_TEST_CASE( test_identity ) {
+    //[identity_calls
     BOOST_CHECK( identity_s("abc") == "abc" );
     BOOST_CHECK( identity_i(123) == 123 );
     BOOST_CHECK( identity_d(1.23) == 1.23 );
     //]
 
     {
-        //[test_overloaded_function
+        //[identity
         boost::overloaded_function<
               const std::string& (const std::string&)
             , int (int)
@@ -46,7 +46,7 @@ BOOST_AUTO_TEST_CASE( test_overloaded_function ) {
     }
     
     {
-        //[test_make_overloaded_function
+        //[identity_make
         BOOST_AUTO(identity, boost::make_overloaded_function(
                 identity_s, identity_i, identity_d));
 
@@ -56,7 +56,7 @@ BOOST_AUTO_TEST_CASE( test_overloaded_function ) {
         //]
     }
 
-    //[test_make_overloaded_function_call
+    //[identity_make_call
     check(boost::make_overloaded_function(identity_s, identity_i, identity_d));
     //]
 }

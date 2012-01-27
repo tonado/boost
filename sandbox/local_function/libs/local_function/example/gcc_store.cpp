@@ -6,7 +6,7 @@
 
 #include <boost/local_function.hpp>
 #include <boost/function.hpp>
-#define BOOST_TEST_MODULE ExampleGccStore
+#define BOOST_TEST_MODULE TestGccStore
 #include <boost/test/unit_test.hpp>
 
 void intermediate(boost::function<void (int, int)> store_func, int size) {
@@ -21,7 +21,7 @@ void hack(int* array, int size) {
     intermediate(store, size);
 }
 
-BOOST_AUTO_TEST_CASE( example_gcc_store ) {
+BOOST_AUTO_TEST_CASE( test_gcc_store ) {
     int nums[] = {1, 2, 3};
     hack(nums, 3);
 

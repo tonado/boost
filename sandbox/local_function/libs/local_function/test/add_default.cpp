@@ -9,7 +9,7 @@
 #include <boost/test/unit_test.hpp>
 
 BOOST_AUTO_TEST_CASE( test_add_default ) {
-    //[test_add_default
+    //[add_default
     int BOOST_LOCAL_FUNCTION(int x, int y, default 2) { // Default.
         return x + y;
     } BOOST_LOCAL_FUNCTION_NAME(add)

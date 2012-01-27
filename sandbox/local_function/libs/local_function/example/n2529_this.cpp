@@ -5,7 +5,7 @@
 // copy at http://www.boost.org/LICENSE_1_0.txt).
 
 #include <boost/local_function.hpp>
-#define BOOST_TEST_MODULE ExampleN2529This
+#define BOOST_TEST_MODULE TestN2529This
 #include <boost/test/unit_test.hpp>
 #include <vector>
 #include <algorithm>
@@ -24,7 +24,7 @@ struct v {
     }
 };
 
-BOOST_AUTO_TEST_CASE( example_n2529_this ) {
+BOOST_AUTO_TEST_CASE( test_n2529_this ) {
     std::vector<int> n(3);
     n[0] = 1; n[1] = 2; n[2] = 3;
 

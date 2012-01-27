@@ -15,7 +15,7 @@ private:
 };
 
 void bad(void) {
-    //[example_try_catch_bad
+    //[try_catch_bad
     file passwd;
     try {
         passwd.open("/etc/passwd");
@@ -30,7 +30,7 @@ void bad(void) {
 }
 
 void good(void) {
-    //[example_try_catch_good
+    //[try_catch_good
     try {
         file passwd("/etc/passwd");
         BOOST_SCOPE_EXIT(&passwd) {

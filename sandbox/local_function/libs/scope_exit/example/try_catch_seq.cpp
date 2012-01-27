@@ -15,7 +15,7 @@ private:
 };
 
 void bad(void) {
-    //[example_try_catch_bad_seq
+    //[try_catch_bad_seq
     file passwd;
     try {
         passwd.open("/etc/passwd");
@@ -30,7 +30,7 @@ void bad(void) {
 }
 
 void good(void) {
-    //[example_try_catch_good_seq
+    //[try_catch_good_seq
     try {
         file passwd("/etc/passwd");
         BOOST_SCOPE_EXIT( (&passwd) ) {

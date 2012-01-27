@@ -17,7 +17,7 @@ struct world {
     std::vector<Person> persons_;
 };
 
-//[test_world_tpl
+//[world_tpl
 template<typename Person>
 void world<Person>::add_person(Person const& a_person) {
     bool commit = false;

@@ -9,7 +9,7 @@
 #include <boost/test/unit_test.hpp>
 #include <algorithm>
 
-//[test_add_template
+//[add_template
 template<typename T>
 T total(const T& x, const T& y, const T& z) {
     T sum = T(), factor = 10;

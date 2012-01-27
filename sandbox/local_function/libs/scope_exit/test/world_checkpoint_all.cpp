@@ -52,7 +52,7 @@ private:
     std::vector<person> persons_;
 };
 
-//[test_world_checkpoint_all
+//[world_checkpoint_all
 void world::add_person(person const& a_person) {
     persons_.push_back(a_person);
 

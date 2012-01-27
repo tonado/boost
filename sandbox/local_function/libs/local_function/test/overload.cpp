@@ -4,7 +4,6 @@
 // License, Version 1.0 (see accompanying file LICENSE_1_0.txt or a
 // copy at http://www.boost.org/LICENSE_1_0.txt).
 
-//[overload_cpp
 #include <boost/local_function.hpp>
 #include <boost/functional/overloaded_function.hpp> // For overloading.
 #define BOOST_TEST_MODULE TestOverload
@@ -12,7 +11,7 @@
 #include <string>
 #include <cmath>
 
-//[test_overload
+//[overload
 int add_i(int x, int y) { return x + y; }
 
 BOOST_AUTO_TEST_CASE( test_overload ) {

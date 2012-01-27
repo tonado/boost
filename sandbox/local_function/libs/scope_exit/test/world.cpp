@@ -16,7 +16,7 @@ struct world {
     std::vector<person> persons_;
 };
 
-//[test_world
+//[world
 void world::add_person(person const& a_person) {
     bool commit = false;
 

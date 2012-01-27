@@ -48,7 +48,7 @@ private:
     std::vector<person> persons_;
 };
 
-//[test_world_checkpoint_seq
+//[world_checkpoint_seq
 void world::add_person(person const& a_person) {
     persons_.push_back(a_person);
 

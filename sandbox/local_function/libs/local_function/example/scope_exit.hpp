@@ -8,7 +8,7 @@
 #include <boost/preprocessor/cat.hpp>
 #include <boost/config.hpp>
 
-//[example_scope_exit_object
+//[scope_exit_class
 struct scope_exit {
     scope_exit(boost::function<void (void)> f): f_(f) {}
     ~scope_exit(void) { f_(); }
