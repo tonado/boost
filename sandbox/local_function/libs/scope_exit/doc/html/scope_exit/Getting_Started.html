@@ -49,8 +49,8 @@
             is included by multiple translation units. Furthermore, on MSVC 7.1 and
             8.0 it is possible to capture the object <code class="computeroutput"><span class="identifier">this_</span></code>
             only with native <a href="../../../../../libs/typeof/index.html" target="_top">Boost.Typeof</a>
-            (and not in <a href="../../../../../libs/typeof/index.html" target="_top">Boost.Typeof</a>
-            emulation mode).
+            (and not in <a href="../../../../../libs/typeof/index.html" target="_top">typeof emulation</a>
+            mode).
           </li>
 <li class="listitem">
             GCC 3.3 cannot compile <a class="link" href="../index.html" title="Chapter&#160;1.&#160;Boost.ScopeExit 1.1.0">ScopeExit</a> inside
@@ -84,27 +84,13 @@
         macros, or appropriate <a href="../../../../../libs/typeof/index.html" target="_top">Boost.Typeof</a>
         headers should be included.
       </p>
-<p>
-        When using comma-separated lists to specify captures (see the <a class="link" href="No_Variadic_Macros.html" title="Annex: No Variadic Macros">No
-        Variadic Macros</a> section), make sure that the <code class="computeroutput"><span class="identifier">BOOST_PP_VARIADICS</span></code>
-        macro is defined (either automatically by <a href="../../../../../libs/preprocessor/index.html" target="_top">Boost.Preprocessor</a>
-        or manually using compiler options <code class="computeroutput"><span class="special">-</span><span class="identifier">D</span></code>, <code class="computeroutput"><span class="special">/</span><span class="identifier">D</span></code>, etc). <sup>[<a name="scope_exit.Getting_Started.installation.f0" href="#ftn.scope_exit.Getting_Started.installation.f0" class="footnote">2</a>]</sup>
-      </p>
-</div>
-<div class="footnotes">
-<br><hr width="100" align="left">
-<div class="footnote"><p><sup>[<a id="ftn.scope_exit.Getting_Started.installation.f0" href="#scope_exit.Getting_Started.installation.f0" class="para">2</a>] </sup>
-          It is not sufficient for the <code class="computeroutput"><span class="identifier">BOOST_NO_VARIADIC_MACROS</span></code>
-          macro to be undefined, the <code class="computeroutput"><span class="identifier">BOOST_PP_VARIADICS</span></code>
-          macro must be defined.
-        </p></div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
 <td align="right"><div class="copyright-footer">Copyright &#169; 2006-2012 Alexander Nasonov, Lorenzo Caminiti<p>
-        Distributed under the Boost Software License, Version 1.0. (See accompanying
-        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+        Distributed under the Boost Software License, Version 1.0 (see accompanying
+        file LICENSE_1_0.txt or a copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
 </div></td>
 </tr></table>

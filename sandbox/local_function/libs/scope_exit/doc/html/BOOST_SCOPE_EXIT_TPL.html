@@ -33,7 +33,7 @@
 
 </span>BOOST_SCOPE_EXIT_TPL(capture_list)</pre></div>
 <div class="refsect1">
-<a name="id824131"></a><h2>Description</h2>
+<a name="id822968"></a><h2>Description</h2>
 <p>Various versions of the GCC compiler do not compile  <code class="computeroutput"><a class="link" href="BOOST_SCOPE_EXIT.html" title="Macro BOOST_SCOPE_EXIT">BOOST_SCOPE_EXIT</a></code> inside function templates. As a workaround,  <code class="computeroutput"><a class="link" href="BOOST_SCOPE_EXIT_TPL.html" title="Macro BOOST_SCOPE_EXIT_TPL">BOOST_SCOPE_EXIT_TPL</a></code> should be used instead of  <code class="computeroutput"><a class="link" href="BOOST_SCOPE_EXIT.html" title="Macro BOOST_SCOPE_EXIT">BOOST_SCOPE_EXIT</a></code> in these cases:</p>
 <pre class="programlisting">    <span class="special">{</span> <span class="comment">// Some local scope.</span>
         <span class="special">...</span>
@@ -44,7 +44,7 @@
     <span class="special">}</span>
 </pre>
 <p>The syntax of  <code class="computeroutput"><a class="link" href="BOOST_SCOPE_EXIT_TPL.html" title="Macro BOOST_SCOPE_EXIT_TPL">BOOST_SCOPE_EXIT_TPL</a></code> is the exact same as the one of  <code class="computeroutput"><a class="link" href="BOOST_SCOPE_EXIT.html" title="Macro BOOST_SCOPE_EXIT">BOOST_SCOPE_EXIT</a></code> (see  <code class="computeroutput"><a class="link" href="BOOST_SCOPE_EXIT.html" title="Macro BOOST_SCOPE_EXIT">BOOST_SCOPE_EXIT</a></code> for more information).</p>
-<p>On C++11,  <code class="computeroutput"><a class="link" href="BOOST_SCOPE_EXIT_TPL.html" title="Macro BOOST_SCOPE_EXIT_TPL">BOOST_SCOPE_EXIT_TPL</a></code> is not needed because  <code class="computeroutput"><a class="link" href="BOOST_SCOPE_EXIT.html" title="Macro BOOST_SCOPE_EXIT">BOOST_SCOPE_EXIT</a></code> always compiles on GCC versions that support C++11. However,  <code class="computeroutput"><a class="link" href="BOOST_SCOPE_EXIT_TPL.html" title="Macro BOOST_SCOPE_EXIT_TPL">BOOST_SCOPE_EXIT_TPL</a></code> is still provided on C++11 so to write code that is portable between C++03 and C++11 compilers.</p>
+<p>On C++11,  <code class="computeroutput"><a class="link" href="BOOST_SCOPE_EXIT_TPL.html" title="Macro BOOST_SCOPE_EXIT_TPL">BOOST_SCOPE_EXIT_TPL</a></code> is not needed because  <code class="computeroutput"><a class="link" href="BOOST_SCOPE_EXIT.html" title="Macro BOOST_SCOPE_EXIT">BOOST_SCOPE_EXIT</a></code> always compiles on GCC versions that support C++11 (that is also why there is no need for a <code class="computeroutput">BOOST_SCOPE_EXIT_ALL_TPL</code> macro given that  <code class="computeroutput"><a class="link" href="BOOST_SCOPE_EXIT_ALL.html" title="Macro BOOST_SCOPE_EXIT_ALL">BOOST_SCOPE_EXIT_ALL</a></code> is only available for C++11 compilers on which it always compiles correctly). However,  <code class="computeroutput"><a class="link" href="BOOST_SCOPE_EXIT_TPL.html" title="Macro BOOST_SCOPE_EXIT_TPL">BOOST_SCOPE_EXIT_TPL</a></code> is still provided on C++11 so to write code that is portable between C++03 and C++11 compilers.</p>
 <p><span class="bold"><strong>Note:</strong></span> The problem boils down to the following code (see also <a href="http://gcc.gnu.org/bugzilla/show_bug.cgi?id=37920" target="_top">GCC bug 37920</a>): </p>
 <pre class="programlisting">    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span>
     <span class="keyword">void</span> <span class="identifier">f</span><span class="special">(</span><span class="identifier">T</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span><span class="special">)</span> <span class="special">{</span>
@@ -67,8 +67,8 @@
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
 <td align="right"><div class="copyright-footer">Copyright &#169; 2006-2012 Alexander Nasonov, Lorenzo Caminiti<p>
-        Distributed under the Boost Software License, Version 1.0. (See accompanying
-        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+        Distributed under the Boost Software License, Version 1.0 (see accompanying
+        file LICENSE_1_0.txt or a copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
 </div></td>
 </tr></table>
