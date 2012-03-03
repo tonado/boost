@@ -1,27 +1,59 @@
-/*=============================================================================
-  Copyright (c) 2001-2008 Joel de Guzman
-  Copyright (c) 2001-2008 Hartmut Kaiser
-  http://spirit.sourceforge.net/
+//  iterator.hpp workarounds for non-conforming standard libraries  ---------//
 
-  Distributed under the Boost Software License, Version 1.0. (See accompanying
-  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-=============================================================================*/
-#ifndef BOOST_SPIRIT_DEPRECATED_INCLUDE_ITERATOR
-#define BOOST_SPIRIT_DEPRECATED_INCLUDE_ITERATOR
+//  (C) Copyright Beman Dawes 2000. Distributed under the Boost
+//  Software License, Version 1.0. (See accompanying file
+//  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
-#include <boost/version.hpp>
+//  See http://www.boost.org/libs/utility for documentation.
 
-#if BOOST_VERSION >= 103800
-#if defined(_MSC_VER) || defined(__BORLANDC__) || defined(__DMC__)
-#  pragma message ("Warning: This header is deprecated. Please use: boost/spirit/include/classic_iterator.hpp")
-#elif defined(__GNUC__) || defined(__HP_aCC) || defined(__SUNPRO_CC) || defined(__IBMCPP__)
-#  warning "This header is deprecated. Please use: boost/spirit/include/classic_iterator.hpp"
-#endif
-#endif
+//  Revision History
+//  12 Jan 01 added <cstddef> for std::ptrdiff_t (Jens Maurer)
+//  28 Jun 00 Workarounds to deal with known MSVC bugs (David Abrahams)
+//  26 Jun 00 Initial version (Jeremy Siek)
 
-#if !defined(BOOST_SPIRIT_USE_OLD_NAMESPACE)
-#define BOOST_SPIRIT_USE_OLD_NAMESPACE
-#endif
-#include <boost/spirit/include/classic_iterator.hpp>
+#ifndef BOOST_ITERATOR_HPP
+#define BOOST_ITERATOR_HPP
 
-#endif
+#include <iterator>
+#include <cstddef>           // std::ptrdiff_t
+#include <boost/config.hpp>
+
+namespace boost
+{
+# if defined(BOOST_NO_STD_ITERATOR) && !defined(BOOST_MSVC_STD_ITERATOR)
+  template <class Category, class T,
+    class Distance = std::ptrdiff_t,
+    class Pointer = T*, class Reference = T&>
+  struct iterator
+  {
+    typedef T         value_type;
+    typedef Distance  difference_type;
+    typedef Pointer   pointer;
+    typedef Reference reference;
+    typedef Category  iterator_category;
+  };
+# else
+
+  // declare iterator_base in namespace detail to work around MSVC bugs which
+  // prevent derivation from an identically-named class in a different namespace.
+  namespace detail {
+   template <class Category, class T, class Distance, class Pointer, class Reference>
+#  if !defined(BOOST_MSVC_STD_ITERATOR)
+   struct iterator_base : std::iterator<Category, T, Distance, Pointer, Reference> {};
+#  else
+   struct iterator_base : std::iterator<Category, T, Distance>
+   {
+     typedef Reference reference;
+     typedef Pointer pointer;
+     typedef Distance difference_type;
+   };
+#  endif
+  }
+
+  template <class Category, class T, class Distance = std::ptrdiff_t,
+            class Pointer = T*, class Reference = T&>
+  struct iterator : boost::detail::iterator_base<Category, T, Distance, Pointer, Reference> {};
+# endif
+} // namespace boost
+
+#endif // BOOST_ITERATOR_HPP
