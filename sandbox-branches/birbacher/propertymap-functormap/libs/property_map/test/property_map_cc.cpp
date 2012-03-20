@@ -5,6 +5,7 @@
 
 #include <boost/property_map/property_map.hpp>
 #include <boost/property_map/shared_array_property_map.hpp>
+#include <boost/property_map/functor_property_map.hpp>
 #include <map>
 
 // This file checks the property map concepts against the property map
@@ -111,6 +112,13 @@ main()
     typedef readable_property_map_archetype<Key, std::ptrdiff_t> IndexMap;
     typedef shared_array_property_map<Value, IndexMap> PMap;
     function_requires<Mutable_LvaluePropertyMapConcept<PMap, Key> >();
+  }
+  {
+    typedef sgi_assignable_archetype<> Key; // ?
+    typedef sgi_assignable_archetype<> Value;
+    typedef unary_function_archetype<Key, Value> FunctionObject;
+    typedef functor_property_map<FunctionObject, Key> PMap;
+    function_requires<ReadablePropertyMapConcept<PMap, Key> >();
   }
   return 0;
 }
