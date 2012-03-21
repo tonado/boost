@@ -113,6 +113,8 @@ main()
     typedef shared_array_property_map<Value, IndexMap> PMap;
     function_requires<Mutable_LvaluePropertyMapConcept<PMap, Key> >();
   }
+  /*
+   * postpone implementation
   {
     typedef sgi_assignable_archetype<> Key; // ?
     typedef sgi_assignable_archetype<> Value;
@@ -120,5 +122,6 @@ main()
     typedef functor_property_map<FunctionObject, Key> PMap;
     function_requires<ReadablePropertyMapConcept<PMap, Key> >();
   }
+  */
   return 0;
 }
