@@ -115,6 +115,7 @@ main()
     function_requires<Mutable_LvaluePropertyMapConcept<PMap, Key> >();
   }
 #if !defined(BOOST_FUNCTION_NO_FUNCTION_TYPE_SYNTAX)
+  // Preferred syntax
   {
     typedef sgi_assignable_archetype<> Key; // ?
     typedef sgi_assignable_archetype<> Value;
@@ -129,6 +130,20 @@ main()
     function_requires<ReadablePropertyMapConcept<PMap, Key> >();
   }
 #endif // have partial specialization
+  // Portable syntax
+  {
+    typedef sgi_assignable_archetype<> Key; // ?
+    typedef sgi_assignable_archetype<> Value;
+    typedef boost::function1<Value, Key> PMap;
+    function_requires<ReadablePropertyMapConcept<PMap, Key> >();
+  }
+  {
+    typedef sgi_assignable_archetype<> Key; // ?
+    typedef sgi_assignable_archetype<> Value;
+	//added reference:
+    typedef boost::function1<Value&, Key> PMap;
+    function_requires<ReadablePropertyMapConcept<PMap, Key> >();
+  }
   /*
    * postpone implementation
   {
