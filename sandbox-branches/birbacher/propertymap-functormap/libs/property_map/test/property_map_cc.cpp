@@ -6,6 +6,7 @@
 #include <boost/property_map/property_map.hpp>
 #include <boost/property_map/shared_array_property_map.hpp>
 #include <boost/property_map/functor_property_map.hpp>
+#include <boost/function.hpp>
 #include <map>
 
 // This file checks the property map concepts against the property map
@@ -113,6 +114,14 @@ main()
     typedef shared_array_property_map<Value, IndexMap> PMap;
     function_requires<Mutable_LvaluePropertyMapConcept<PMap, Key> >();
   }
+#if !defined(BOOST_FUNCTION_NO_FUNCTION_TYPE_SYNTAX)
+  {
+    typedef sgi_assignable_archetype<> Key; // ?
+    typedef sgi_assignable_archetype<> Value;
+    typedef boost::function<Value(Key)> PMap;
+    function_requires<ReadablePropertyMapConcept<PMap, Key> >();
+  }
+#endif // have partial specialization
   /*
    * postpone implementation
   {
