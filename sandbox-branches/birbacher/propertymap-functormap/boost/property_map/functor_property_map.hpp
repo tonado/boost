@@ -53,6 +53,21 @@ namespace boost {
   }  
 #endif // have partial specialization
 
+  // Portable syntax
+  template <typename Key, typename Value>
+  struct property_traits<function1<Value, Key> > {
+    typedef Key key_type;
+    typedef Value value_type; 
+    typedef typename add_lvalue_reference<Value>::type reference;
+    typedef readable_property_map_tag category;
+  };
+  
+  template<typename Key, typename Value>
+  inline Value get(function1<Value, Key> const& f, Key const key)
+  {
+	return f(key);
+  }  
+
 } // namespace boost
 
 #endif /* BOOST_FUNCTOR_PROPERTY_MAP_HPP */
