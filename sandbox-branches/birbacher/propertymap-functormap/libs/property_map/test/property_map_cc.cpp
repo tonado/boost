@@ -121,6 +121,13 @@ main()
     typedef boost::function<Value(Key)> PMap;
     function_requires<ReadablePropertyMapConcept<PMap, Key> >();
   }
+  {
+    typedef sgi_assignable_archetype<> Key; // ?
+    typedef sgi_assignable_archetype<> Value;
+	//added reference:
+    typedef boost::function<Value& (Key)> PMap;
+    function_requires<ReadablePropertyMapConcept<PMap, Key> >();
+  }
 #endif // have partial specialization
   /*
    * postpone implementation
