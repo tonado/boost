@@ -11,6 +11,8 @@
 #define BOOST_FUNCTOR_PROPERTY_MAP_HPP
 
 #include <boost/property_map/property_map.hpp>
+#include <boost/function/function_fwd.hpp>
+#include <boost/type_traits/add_lvalue_reference.hpp>
 
 namespace boost {
 
@@ -33,6 +35,23 @@ namespace boost {
     typedef iterator_property_map<Functor, Arg> PA;
     return PA(f);
   }
+
+#if !defined(BOOST_FUNCTION_NO_FUNCTION_TYPE_SYNTAX)
+  // Preferred syntax
+  template <typename Key, typename Value>
+  struct property_traits<function<Value(Key)> > {
+    typedef Key key_type;
+    typedef Value value_type; 
+    typedef typename add_lvalue_reference<Value>::type reference;
+    typedef readable_property_map_tag category;
+  };
+  
+  template<typename Key, typename Value>
+  inline Value get(function<Value(Key)> const& f, Key const key)
+  {
+	return f(key);
+  }  
+#endif // have partial specialization
 
 } // namespace boost
 
