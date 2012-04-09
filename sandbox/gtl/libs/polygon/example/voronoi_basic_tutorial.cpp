@@ -24,7 +24,7 @@ public:
   int y() const { return y_; }
 
 private:
-  // Don't forget should be castable to the signed int32 type!
+  // Should be castable to the signed int32 type!
   int x_;
   int y_;
 };
