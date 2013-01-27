@@ -7,17 +7,17 @@
 # Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 # http://www.boost.org/LICENSE_1_0.txt)
 
-project container_static_vector/doc ;
+project container_varray/doc ;
 
 import boostbook ;
 import quickbook ;
 
-boostbook container_static_vector
+boostbook container_varray
    :
-      static_vector.qbk
+      varray.qbk
    :
         <dependency>Jamfile.v2
-        <dependency>generated/static_vector.qbk
+        <dependency>generated/varray.qbk
 	
         <format>html
 	<format>pdf:<xsl:param>boost.url.prefix=http://www.boost.org/doc/libs/release/doc/html

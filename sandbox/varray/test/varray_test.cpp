@@ -1,15 +1,15 @@
-// Boost.Container StaticVector
+// Boost.Container varray
 // Unit Test
 
-// Copyright (c) 2012 Adam Wulkiewicz, Lodz, Poland.
-// Copyright (c) 2012 Andrew Hundt.
+// Copyright (c) 2012-2013 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2012-2013 Andrew Hundt.
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 #ifdef BOOST_SINGLE_HEADER_UTF
-#define BOOST_TEST_MODULE static_vector_tests
+#define BOOST_TEST_MODULE varray_tests
 #include <boost/test/unit_test.hpp>
 #else // BOOST_SINGLE_HEADER_UTF
 #include <boost/test/included/test_exec_monitor.hpp>
@@ -32,11 +32,11 @@ namespace boost {
 #include <boost/container/stable_vector.hpp>
 #endif
 
-#include "static_vector_test.hpp"
+#include "varray_test.hpp"
 
 template <typename V>
 struct bad_alloc_strategy
-    : public strategy::def<V>
+    : public container_detail::strategy::def<V>
 {
     static void allocate_failed()
     {
@@ -47,7 +47,7 @@ struct bad_alloc_strategy
 template <typename T, size_t N>
 void test_ctor_ndc()
 {
-    static_vector<T, N> s;
+    varray<T, N> s;
     BOOST_CHECK_EQUAL(s.size() , 0);
     BOOST_CHECK(s.capacity() == N);
 #ifndef BOOST_NO_EXCEPTIONS
@@ -58,7 +58,7 @@ void test_ctor_ndc()
 template <typename T, size_t N>
 void test_ctor_nc(size_t n)
 {
-    static_vector<T, N> s(n);
+    varray<T, N> s(n);
     BOOST_CHECK(s.size() == n);
     BOOST_CHECK(s.capacity() == N);
 #ifndef BOOST_NO_EXCEPTIONS
@@ -80,7 +80,7 @@ void test_ctor_nc(size_t n)
 template <typename T, size_t N>
 void test_ctor_nd(size_t n, T const& v)
 {
-    static_vector<T, N> s(n, v);
+    varray<T, N> s(n, v);
     BOOST_CHECK(s.size() == n);
     BOOST_CHECK(s.capacity() == N);
 #ifndef BOOST_NO_EXCEPTIONS
@@ -104,7 +104,7 @@ void test_ctor_nd(size_t n, T const& v)
 template <typename T, size_t N>
 void test_resize_nc(size_t n)
 {
-    static_vector<T, N> s;
+    varray<T, N> s;
 
     s.resize(n);
     BOOST_CHECK(s.size() == n);
@@ -128,7 +128,7 @@ void test_resize_nc(size_t n)
 template <typename T, size_t N>
 void test_resize_nd(size_t n, T const& v)
 {
-    static_vector<T, N> s;
+    varray<T, N> s;
 
     s.resize(n, v);
     BOOST_CHECK(s.size() == n);
@@ -154,7 +154,7 @@ void test_resize_nd(size_t n, T const& v)
 template <typename T, size_t N>
 void test_push_back_nd()
 {
-    static_vector<T, N> s;
+    varray<T, N> s;
 
     BOOST_CHECK(s.size() == 0);
 #ifndef BOOST_NO_EXCEPTIONS
@@ -180,7 +180,7 @@ void test_push_back_nd()
 template <typename T, size_t N>
 void test_pop_back_nd()
 {
-    static_vector<T, N> s;
+    varray<T, N> s;
 
     for ( size_t i = 0 ; i < N ; ++i )
     {
@@ -214,12 +214,12 @@ template <typename T, size_t N, typename C>
 void test_copy_and_assign(C const& c)
 {
     {
-        static_vector<T, N> s(c.begin(), c.end());
+        varray<T, N> s(c.begin(), c.end());
         BOOST_CHECK(s.size() == c.size());
         test_compare_ranges(s.begin(), s.end(), c.begin(), c.end());
     }
     {
-        static_vector<T, N> s;
+        varray<T, N> s;
         BOOST_CHECK(0 == s.size());
         s.assign(c.begin(), c.end());
         BOOST_CHECK(s.size() == c.size());
@@ -230,7 +230,7 @@ void test_copy_and_assign(C const& c)
 template <typename T, size_t N>
 void test_copy_and_assign_nd(T const& val)
 {
-    static_vector<T, N> s;
+    varray<T, N> s;
     std::vector<T> v;
     std::list<T> l;
 
@@ -243,13 +243,13 @@ void test_copy_and_assign_nd(T const& val)
     }
     // copy ctor
     {
-        static_vector<T, N> s1(s);
+        varray<T, N> s1(s);
         BOOST_CHECK(s.size() == s1.size());
         test_compare_ranges(s.begin(), s.end(), s1.begin(), s1.end());
     }
     // copy assignment
     {
-        static_vector<T, N> s1;
+        varray<T, N> s1;
         BOOST_CHECK(0 == s1.size());
         s1 = s;
         BOOST_CHECK(s.size() == s1.size());
@@ -263,7 +263,7 @@ void test_copy_and_assign_nd(T const& val)
 
     // assign(N, V)
     {
-        static_vector<T, N> s1(s);
+        varray<T, N> s1(s);
         test_compare_ranges(s.begin(), s.end(), s1.begin(), s1.end());
         std::vector<T> a(N, val);
         s1.assign(N, val);
@@ -281,7 +281,7 @@ void test_copy_and_assign_nd(T const& val)
 template <typename T, size_t N>
 void test_iterators_nd()
 {
-    static_vector<T, N> s;
+    varray<T, N> s;
     std::vector<T> v;
 
     for ( size_t i = 0 ; i < N ; ++i )
@@ -302,8 +302,8 @@ void test_iterators_nd()
 template <typename T, size_t N>
 void test_erase_nd()
 {
-    static_vector<T, N> s;
-    typedef typename static_vector<T, N>::iterator It;
+    varray<T, N> s;
+    typedef typename varray<T, N>::iterator It;
 
     for ( size_t i = 0 ; i < N ; ++i )
         s.push_back(T(i));
@@ -312,7 +312,7 @@ void test_erase_nd()
     {
         for ( size_t i = 0 ; i < N ; ++i )
         {
-            static_vector<T, N> s1(s);
+            varray<T, N> s1(s);
             It it = s1.erase(s1.begin() + i);
             BOOST_CHECK(s1.begin() + i == it);
             BOOST_CHECK(s1.size() == N - 1);
@@ -327,7 +327,7 @@ void test_erase_nd()
         size_t n = N/3;
         for ( size_t i = 0 ; i <= N ; ++i )
         {
-            static_vector<T, N> s1(s);
+            varray<T, N> s1(s);
             size_t removed = i + n < N ? n : N - i;
             It it = s1.erase(s1.begin() + i, s1.begin() + i + removed);
             BOOST_CHECK(s1.begin() + i == it);
@@ -348,11 +348,11 @@ void test_insert(SV const& s, C const& c)
 
     for ( size_t i = 0 ; i <= h ; ++i )
     {
-        static_vector<T, N> s1(s);
+        varray<T, N> s1(s);
 
         typename C::const_iterator it = c.begin();
         std::advance(it, n);
-        typename static_vector<T, N>::iterator
+        typename varray<T, N>::iterator
             it1 = s1.insert(s1.begin() + i, c.begin(), it);
 
         BOOST_CHECK(s1.begin() + i == it1);
@@ -371,11 +371,11 @@ void test_insert_nd(T const& val)
 {
     size_t h = N/2;
 
-    static_vector<T, N> s, ss;
+    varray<T, N> s, ss;
     std::vector<T> v;
     std::list<T> l;
 
-    typedef typename static_vector<T, N>::iterator It;
+    typedef typename varray<T, N>::iterator It;
 
     for ( size_t i = 0 ; i < h ; ++i )
     {
@@ -389,7 +389,7 @@ void test_insert_nd(T const& val)
     {
         for ( size_t i = 0 ; i <= h ; ++i )
         {
-            static_vector<T, N> s1(s);
+            varray<T, N> s1(s);
             It it = s1.insert(s1.begin() + i, val);
             BOOST_CHECK(s1.begin() + i == it);
             BOOST_CHECK(s1.size() == h+1);
@@ -405,7 +405,7 @@ void test_insert_nd(T const& val)
         size_t n = size_t(h/1.5f);
         for ( size_t i = 0 ; i <= h ; ++i )
         {
-            static_vector<T, N> s1(s);
+            varray<T, N> s1(s);
             It it = s1.insert(s1.begin() + i, n, val);
             BOOST_CHECK(s1.begin() + i == it);
             BOOST_CHECK(s1.size() == h+n);
@@ -433,9 +433,9 @@ void test_insert_nd(T const& val)
 template <typename T>
 void test_capacity_0_nd()
 {
-    static_vector<T, 10> v(5u, T(0));
+    varray<T, 10> v(5u, T(0));
 
-    static_vector<T, 0, bad_alloc_strategy<T> > s;
+    container_detail::varray<T, 0, bad_alloc_strategy<T> > s;
     BOOST_CHECK(s.size() == 0);
     BOOST_CHECK(s.capacity() == 0);
 #ifndef BOOST_NO_EXCEPTIONS
@@ -448,11 +448,11 @@ void test_capacity_0_nd()
     BOOST_CHECK_THROW(s.assign(v.begin(), v.end()), std::bad_alloc);
     BOOST_CHECK_THROW(s.assign(5u, T(0)), std::bad_alloc);
     try{
-        static_vector<T, 0, bad_alloc_strategy<T> > s2(v.begin(), v.end());
+        container_detail::varray<T, 0, bad_alloc_strategy<T> > s2(v.begin(), v.end());
         BOOST_CHECK(false);
     }catch(std::bad_alloc &){}
     try{
-        static_vector<T, 0, bad_alloc_strategy<T> > s1(5u, T(0));
+        container_detail::varray<T, 0, bad_alloc_strategy<T> > s1(5u, T(0));
         BOOST_CHECK(false);
     }catch(std::bad_alloc &){}
 #endif // BOOST_NO_EXCEPTIONS
@@ -461,8 +461,8 @@ void test_capacity_0_nd()
 template <typename T, size_t N>
 void test_exceptions_nd()
 {
-    static_vector<T, N> v(N, T(0));
-    static_vector<T, N/2, bad_alloc_strategy<T> > s(N/2, T(0));
+    varray<T, N> v(N, T(0));
+    container_detail::varray<T, N/2, bad_alloc_strategy<T> > s(N/2, T(0));
 
 #ifndef BOOST_NO_EXCEPTIONS
     BOOST_CHECK_THROW(s.resize(N, T(0)), std::bad_alloc);
@@ -473,11 +473,11 @@ void test_exceptions_nd()
     BOOST_CHECK_THROW(s.assign(v.begin(), v.end()), std::bad_alloc);
     BOOST_CHECK_THROW(s.assign(N, T(0)), std::bad_alloc);
     try{
-        static_vector<T, N/2, bad_alloc_strategy<T> > s2(v.begin(), v.end());
+        container_detail::varray<T, N/2, bad_alloc_strategy<T> > s2(v.begin(), v.end());
         BOOST_CHECK(false);
     }catch(std::bad_alloc &){}
     try{
-        static_vector<T, N/2, bad_alloc_strategy<T> > s1(N, T(0));
+        container_detail::varray<T, N/2, bad_alloc_strategy<T> > s1(N, T(0));
         BOOST_CHECK(false);
     }catch(std::bad_alloc &){}
 #endif // BOOST_NO_EXCEPTIONS
@@ -487,9 +487,9 @@ template <typename T, size_t N>
 void test_swap_and_move_nd()
 {
     {
-        static_vector<T, N> v1, v2, v3, v4;
-        static_vector<T, N> s1, s2;
-        static_vector<T, N, bad_alloc_strategy<T> > s4;
+        varray<T, N> v1, v2, v3, v4;
+        varray<T, N> s1, s2;
+        container_detail::varray<T, N, bad_alloc_strategy<T> > s4;
 
         for (size_t i = 0 ; i < N ; ++i )
         {
@@ -507,7 +507,7 @@ void test_swap_and_move_nd()
 
         s1.swap(v1);
         s2 = boost::move(v2);
-        static_vector<T, N> s3(boost::move(v3));
+        varray<T, N> s3(boost::move(v3));
         s4.swap(v4);
 
         BOOST_CHECK(v1.size() == N/2);
@@ -532,8 +532,8 @@ void test_swap_and_move_nd()
         }
     }
     {
-        static_vector<T, N> v1, v2, v3;
-        static_vector<T, N/2> s1, s2;
+        varray<T, N> v1, v2, v3;
+        varray<T, N/2> s1, s2;
 
         for (size_t i = 0 ; i < N/2 ; ++i )
         {
@@ -549,7 +549,7 @@ void test_swap_and_move_nd()
 
         s1.swap(v1);
         s2 = boost::move(v2);
-        static_vector<T, N/2> s3(boost::move(v3));
+        varray<T, N/2> s3(boost::move(v3));
 
         BOOST_CHECK(v1.size() == N/3);
         BOOST_CHECK(s1.size() == N/2);
@@ -567,15 +567,15 @@ void test_swap_and_move_nd()
         }
     }
     {
-        static_vector<T, N> v(N, T(0));
-        static_vector<T, N/2, bad_alloc_strategy<T> > s(N/2, T(1));
+        varray<T, N> v(N, T(0));
+        container_detail::varray<T, N/2, bad_alloc_strategy<T> > s(N/2, T(1));
 #ifndef BOOST_NO_EXCEPTIONS
         BOOST_CHECK_THROW(s.swap(v), std::bad_alloc);
         v.resize(N, T(0));
         BOOST_CHECK_THROW(s = boost::move(v), std::bad_alloc);
         v.resize(N, T(0));
         try {
-            static_vector<T, N/2, bad_alloc_strategy<T> > s2(boost::move(v));
+            container_detail::varray<T, N/2, bad_alloc_strategy<T> > s2(boost::move(v));
             BOOST_CHECK(false);
         } catch (std::bad_alloc &) {}
 #endif // BOOST_NO_EXCEPTIONS
@@ -587,7 +587,7 @@ void test_emplace_2p()
 {
     //emplace_back(pos, int, int)
     {
-        static_vector<T, N, bad_alloc_strategy<T> > v;
+        container_detail::varray<T, N, bad_alloc_strategy<T> > v;
 
         for (int i = 0 ; i < int(N) ; ++i )
             v.emplace_back(i, 100 + i);
@@ -602,17 +602,17 @@ void test_emplace_2p()
 
     // emplace(pos, int, int)
     {
-        typedef typename static_vector<T, N, bad_alloc_strategy<T> >::iterator It;
+        typedef typename container_detail::varray<T, N, bad_alloc_strategy<T> >::iterator It;
 
         int h = N / 2;
 
-        static_vector<T, N, bad_alloc_strategy<T> > v;
+        container_detail::varray<T, N, bad_alloc_strategy<T> > v;
         for ( int i = 0 ; i < h ; ++i )
             v.emplace_back(i, 100 + i);
 
         for ( int i = 0 ; i <= h ; ++i )
         {
-            static_vector<T, N> vv(v);
+            container_detail::varray<T, N, bad_alloc_strategy<T> > vv(v);
             It it = vv.emplace(vv.begin() + i, i+100, i+200);
             BOOST_CHECK(vv.begin() + i == it);
             BOOST_CHECK(vv.size() == size_t(h+1));
@@ -628,9 +628,9 @@ void test_emplace_2p()
 template <typename T, size_t N>
 void test_sv_elem(T const& t)
 {
-    typedef static_vector<T, N, bad_alloc_strategy<T> > V;
+    typedef container_detail::varray<T, N, bad_alloc_strategy<T> > V;
 
-    static_vector<V, N, bad_alloc_strategy<V> > v;
+    container_detail::varray<V, N, bad_alloc_strategy<V> > v;
 
     v.push_back(V(N/2, t));
     V vvv(N/2, t);
@@ -641,7 +641,7 @@ void test_sv_elem(T const& t)
 }
 
 #ifdef BOOST_SINGLE_HEADER_UTF
-BOOST_AUTO_TEST_CASE(static_vector_test)
+BOOST_AUTO_TEST_CASE(varray_test)
 #else // BOOST_SINGLE_HEADER_UTF
 int test_main(int, char* [])
 #endif // BOOST_SINGLE_HEADER_UTF

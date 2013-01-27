@@ -6,7 +6,7 @@
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-#include <boost/container/static_vector.hpp>
+#include <boost/container/varray.hpp>
 
 #include <boost/interprocess/managed_shared_memory.hpp>
 #include <boost/interprocess/allocators/allocator.hpp>
@@ -20,16 +20,16 @@ struct interprocess_strategy /*interprocess_fake_allocator*/
 {
     static void allocate_failed()
     {
-        boost::container::static_vector_detail::default_strategy<V>::allocate_failed();
+        boost::container::container_detail::strategy::def<V>::allocate_failed();
     }
 };
 
 using namespace boost::interprocess;
-using namespace boost::container;
+using namespace boost::container::container_detail;
 
 typedef interprocess_strategy<int, managed_shared_memory::segment_manager>  ShmemStrategy;
 
-typedef static_vector<int, 100, ShmemStrategy> MyVector;
+typedef varray<int, 100, ShmemStrategy> MyVector;
 
 //For parent process argc == 1, for child process argc > 1
 int main(int argc, char *argv[])

@@ -1,8 +1,8 @@
-// Boost.Container StaticVector
+// Boost.Container varray
 // Unit Test
 
-// Copyright (c) 2012 Adam Wulkiewicz, Lodz, Poland.
-// Copyright (c) 2012 Andrew Hundt.
+// Copyright (c) 2012-2013 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2012-2013 Andrew Hundt.
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -16,7 +16,7 @@
 #include <boost/test/impl/execution_monitor.ipp>
 #endif // BOOST_SINGLE_HEADER_UTF
 
-#include "static_vector_test.hpp"
+#include "varray_test.hpp"
 
 #include <boost/interprocess/managed_shared_memory.hpp>
 #include <boost/interprocess/allocators/allocator.hpp>
@@ -24,7 +24,7 @@
 
 template <typename V, typename SegmentManager>
 struct interprocess_strategy
-    : public strategy::allocator_adaptor<
+    : public container_detail::strategy::allocator_adaptor<
         boost::interprocess::allocator<V, SegmentManager>
     >
 {};
@@ -41,7 +41,7 @@ void test_interprocess(T const& t)
 
     bi::managed_shared_memory shmem(bi::create_only, "shared_memory", 10000 + sizeof(T) * N);
 
-    typedef static_vector<
+    typedef container_detail::varray<
         T, N,
         interprocess_strategy<T, bi::managed_shared_memory::segment_manager>
     > SV;

@@ -1,17 +1,17 @@
-// Boost.Container StaticVector
+// Boost.Container varray
 // Unit Test
 
-// Copyright (c) 2012 Adam Wulkiewicz, Lodz, Poland.
-// Copyright (c) 2012 Andrew Hundt.
+// Copyright (c) 2012-2013 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2012-2013 Andrew Hundt.
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef BOOST_CONTAINER_TEST_STATIC_VECTOR_TEST_HPP
-#define BOOST_CONTAINER_TEST_STATIC_VECTOR_TEST_HPP
+#ifndef BOOST_CONTAINER_TEST_VARRAY_TEST_HPP
+#define BOOST_CONTAINER_TEST_VARRAY_TEST_HPP
 
-#include <boost/container/static_vector.hpp>
+#include <boost/container/varray.hpp>
 
 #include <boost/shared_ptr.hpp>
 #include "movable.hpp"
@@ -96,4 +96,4 @@ private:
     boost::shared_ptr<int> m_ptr;
 };
 
-#endif // BOOST_CONTAINER_TEST_STATIC_VECTOR_TEST_HPP
+#endif // BOOST_CONTAINER_TEST_VARRAY_TEST_HPP

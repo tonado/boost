@@ -1,5 +1,5 @@
 /**
- *  @file   static_vector_example.cpp
+ *  @file   varray_example.cpp
  *  @date   Aug 14, 2011
  *  @author Andrew Hundt <ATHundt@gmail.com>
  *
@@ -9,20 +9,20 @@
  *  accompanying file LICENSE_1_0.txt or copy at
  *  http://www.boost.org/LICENSE_1_0.txt)
  *
- *  @brief  static_vector_example.cpp demonstrates the use of boost::container::static_vector
+ *  @brief  varray_example.cpp demonstrates the use of boost::container::varray
  *
  */
  
-//[static_vector_example_cpp
+//[varray_example_cpp
 
-// static_vector_example.cpp
+// varray_example.cpp
 
-#include <boost/container/static_vector.hpp>
+#include <boost/container/varray.hpp>
 
 int main(int argc, char** argv){
   
-  // static_vector of ints, fixed capacity: 3
-  boost::container::static_vector<int, 3> three; // size: 0
+  // varray of ints, fixed capacity: 3
+  boost::container::varray<int, 3> three; // size: 0
 
   three.push_back(1);    // size: 1
   three.push_back(2);    // size: 2

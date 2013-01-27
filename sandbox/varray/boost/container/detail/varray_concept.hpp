@@ -1,27 +1,27 @@
-// Boost.Container StaticVector
+// Boost.Container varray
 //
-// Copyright (c) 2012 Andrew Hundt.
-// Copyright (c) 2012 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2012-2013 Andrew Hundt.
+// Copyright (c) 2012-2013 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef BOOST_CONTAINER_STATIC_VECTOR_CONCEPT_HPP
-#define BOOST_CONTAINER_STATIC_VECTOR_CONCEPT_HPP
+#ifndef BOOST_CONTAINER_VARRAY_CONCEPT_HPP
+#define BOOST_CONTAINER_VARRAY_CONCEPT_HPP
 
 #include <boost/concept_check.hpp>
 
-namespace boost { namespace container { namespace concept {
+namespace boost { namespace container { namespace container_detail { namespace concept {
   
 /**
- * StaticVectorStrategyConcept
+ * VArrayStrategyConcept
  *
- *  \brief Checks strategy for static_vector<Value,Capacity,Strategy>, which has similarities to std::Allocator 
- *  \ingroup static_vector
+ *  \brief Checks strategy for varray<Value,Capacity,Strategy>, which has similarities to std::Allocator
+ *  \ingroup varray
  */
 template<typename Strategy>
-struct StaticVectorStrategy {
+struct VArrayStrategy {
 #ifndef DOXYGEN_NO_CONCEPT_MEMBERS
 
     // typedefs are the same as in std::Allocator
@@ -47,7 +47,7 @@ struct StaticVectorStrategy {
     };
 
 public :
-    BOOST_CONCEPT_USAGE(StaticVectorStrategy)
+    BOOST_CONCEPT_USAGE(VArrayStrategy)
     {
         check_methods::apply();
     }
@@ -55,6 +55,6 @@ public :
 #endif
 };
 
-} /*namespace boost*/ } /*namespace container*/ } /*namespace concept*/
+}}}} // namespace boost::container::container_detail::concept
 
-#endif //BOOST_CONTAINER_STATIC_VECTOR_CONCEPT_HPP
+#endif //BOOST_CONTAINER_VARRAY_CONCEPT_HPP

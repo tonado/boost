@@ -1,16 +1,16 @@
 // Boost.Container
 //
-// StaticVector details
+// varray details
 //
-// Copyright (c) 2012 Adam Wulkiewicz, Lodz, Poland.
-// Copyright (c) 2011-2012 Andrew Hundt.
+// Copyright (c) 2012-2013 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2013 Andrew Hundt.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef BOOST_CONTAINER_DETAIL_STATIC_VECTOR_UTIL_HPP
-#define BOOST_CONTAINER_DETAIL_STATIC_VECTOR_UTIL_HPP
+#ifndef BOOST_CONTAINER_DETAIL_VARRAY_UTIL_HPP
+#define BOOST_CONTAINER_DETAIL_VARRAY_UTIL_HPP
 
 #include <cstddef>
 #include <cstring>
@@ -44,18 +44,18 @@
 
 #if !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
-#if defined(BOOST_CONTAINER_STATIC_VECTOR_ENABLE_VECTORS_OPTIMIZATION) && !defined(BOOST_NO_EXCEPTIONS)
+#if defined(BOOST_CONTAINER_VARRAY_ENABLE_VECTORS_OPTIMIZATION) && !defined(BOOST_NO_EXCEPTIONS)
 #include <vector>
 #include <boost/container/vector.hpp>
-#endif // BOOST_CONTAINER_STATIC_VECTOR_ENABLE_ITERATORS_OPTIMIZATION && !BOOST_NO_EXCEPTIONS
+#endif // BOOST_CONTAINER_VARRAY_ENABLE_ITERATORS_OPTIMIZATION && !BOOST_NO_EXCEPTIONS
 
-namespace boost { namespace container { namespace static_vector_detail {
+namespace boost { namespace container { namespace varray_detail {
 
 template <typename I>
 struct are_elements_contiguous : boost::is_pointer<I>
 {};
     
-#if defined(BOOST_CONTAINER_STATIC_VECTOR_ENABLE_VECTORS_OPTIMIZATION) && !defined(BOOST_NO_EXCEPTIONS)
+#if defined(BOOST_CONTAINER_VARRAY_ENABLE_VECTORS_OPTIMIZATION) && !defined(BOOST_NO_EXCEPTIONS)
     
 template <typename Pointer>
 struct are_elements_contiguous<
@@ -106,13 +106,13 @@ struct are_elements_contiguous<
     
 #endif // STDLIB
 
-#endif // BOOST_CONTAINER_STATIC_VECTOR_ENABLE_VECTORS_OPTIMIZATION && !BOOST_NO_EXCEPTIONS
+#endif // BOOST_CONTAINER_VARRAY_ENABLE_VECTORS_OPTIMIZATION && !BOOST_NO_EXCEPTIONS
 
-}}} // namespace boost::container::static_vector_detail
+}}} // namespace boost::container::varray_detail
 
 #endif // !BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 
-namespace boost { namespace container { namespace static_vector_detail {
+namespace boost { namespace container { namespace varray_detail {
 
 // TODO
 // Does BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION checks have any sense?
@@ -549,7 +549,7 @@ void construct(I pos, BOOST_RV_REF(P) p)
 
 // Needed by emplace_back() and emplace()
 
-#if !defined(BOOST_CONTAINER_STATIC_VECTOR_DISABLE_EMPLACE)
+#if !defined(BOOST_CONTAINER_VARRAY_DISABLE_EMPLACE)
 #if !defined(BOOST_NO_VARIADIC_TEMPLATES)
 
 template <typename I, class ...Args>
@@ -583,7 +583,7 @@ void construct(I pos,                                                           
 #include BOOST_PP_LOCAL_ITERATE()
 
 #endif // !BOOST_NO_VARIADIC_TEMPLATES
-#endif // !BOOST_CONTAINER_STATIC_VECTOR_DISABLE_EMPLACE
+#endif // !BOOST_CONTAINER_VARRAY_DISABLE_EMPLACE
 
 // assign(I, V)
 
@@ -781,6 +781,6 @@ private:
     T * m_ptr;
 };
 
-}}} // namespace boost::container::static_vector_detail
+}}} // namespace boost::container::varray_detail
 
-#endif // BOOST_CONTAINER_DETAIL_STATIC_VECTOR_UTIL_HPP
+#endif // BOOST_CONTAINER_DETAIL_VARRAY_UTIL_HPP

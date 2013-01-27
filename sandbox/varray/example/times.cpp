@@ -7,7 +7,7 @@
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-#include<boost/container/static_vector.hpp>
+#include<boost/container/varray.hpp>
 
 #include <boost/timer.hpp>
 #include <fstream>
@@ -43,14 +43,14 @@ private:
 template <typename V, size_t N>
 size_t test(size_t count)
 {
-    static_vector<V, N> sv;
+    varray<V, N> sv;
     for ( size_t i = 0 ; i < sv.capacity() ; ++i)
         sv.push_back(V(i));
 
     size_t dummy = 0;
     for ( size_t i = 0 ; i < count ; ++i )
     {
-        static_vector<V, N> sv2(sv);
+        varray<V, N> sv2(sv);
         sv2.assign(sv.begin(), sv.end());
         dummy += sv2[0];
     }

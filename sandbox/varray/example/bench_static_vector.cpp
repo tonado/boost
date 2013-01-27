@@ -1,7 +1,7 @@
 
 // benchmark based on: http://cpp-next.com/archive/2010/10/howards-stl-move-semantics-benchmark/
 /**
- *  @file   static_vector_set_example.cpp
+ *  @file   varray_set_example.cpp
  *  @date   Aug 14, 2011
  *  @author Andrew Hundt <ATHundt@gmail.com>
  *
@@ -11,11 +11,11 @@
  *  accompanying file LICENSE_1_0.txt or copy at
  *  http://www.boost.org/LICENSE_1_0.txt)
  *
- *  @brief  static_vector_benchmark.cpp compares the performance of boost::container::static_vector to boost::container::vector
+ *  @brief  varray_benchmark.cpp compares the performance of boost::container::varray to boost::container::vector
  *
  */
  
-#include "boost/container/static_vector.hpp"
+#include "boost/container/varray.hpp"
 #include "boost/container/vector.hpp"
 #include <vector>
 #include <iostream>
@@ -90,13 +90,13 @@ int main()
     try {
         std::cout << "N = " << N << "\n\n";
         
-        std::cout << "static_vector benchmark:\n";
-        cpu_times tsv = time_it<boost::container::static_vector<boost::container::static_vector<std::size_t,N>,N > >();
+        std::cout << "varray benchmark:\n";
+        cpu_times tsv = time_it<boost::container::varray<boost::container::varray<std::size_t,N>,N > >();
         
         std::cout << "vector benchmark\n";
         cpu_times tv = time_it<boost::container::vector<boost::container::vector<std::size_t> > >();
         
-        std::cout << "static_vector/vector total time comparison:"
+        std::cout << "varray/vector total time comparison:"
         << "\n  wall          = " << ((double)tsv.wall/(double)tv.wall)
         << "\n  user          = " << ((double)tsv.user/(double)tv.user)
         << "\n  system        = " << ((double)tsv.system/(double)tv.system)

@@ -1,5 +1,5 @@
 /**
- *  @file   static_vector_set_example.cpp
+ *  @file   varray_set_example.cpp
  *  @date   Aug 14, 2011
  *  @author Andrew Hundt <ATHundt@gmail.com>
  *
@@ -9,14 +9,14 @@
  *  accompanying file LICENSE_1_0.txt or copy at
  *  http://www.boost.org/LICENSE_1_0.txt)
  *
- *  @brief  static_vector_set_example.cpp demonstrates the use of boost::container::static_vector
+ *  @brief  varray_set_example.cpp demonstrates the use of boost::container::varray
  *
  */
  
 #include <iostream>
 #include <string>
 #include <set>
-#include "boost/container/static_vector.hpp"
+#include "boost/container/varray.hpp"
 
 namespace boost
 {
@@ -28,7 +28,7 @@ void throw_exception(std::exception const & e){}; // user defined
 using namespace std;
 using namespace boost;
 
-typedef boost::container::static_vector<std::set<std::size_t>,3> ThreeSetType;
+typedef boost::container::varray<std::set<std::size_t>,3> ThreeSetType;
   
 void print(std::size_t value){
   cout << " " << value;
@@ -54,7 +54,7 @@ ThreeSetType makeThreeSet(){
 }
 
 int main(int argc, char** argv){
-  cout << "Creating threeSet, a boost::container::static_vector of 3 std::set objects containing (3), (3 2), and (3 2 1), respectively" << std::endl;
+  cout << "Creating threeSet, a boost::container::varray of 3 std::set objects containing (3), (3 2), and (3 2 1), respectively" << std::endl;
   ThreeSetType threeSet = makeThreeSet();
   cout << "threeSet Values:" << std::endl;
   std::for_each(threeSet.begin(),threeSet.end(),printSet);
