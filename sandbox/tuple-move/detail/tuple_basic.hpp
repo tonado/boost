@@ -38,6 +38,7 @@
 #include "boost/type_traits/cv_traits.hpp"
 #include "boost/type_traits/function_traits.hpp"
 #include "boost/utility/swap.hpp"
+#include "boost/move/move.hpp"
 
 #include "boost/detail/workaround.hpp" // needed for BOOST_WORKAROUND
 
@@ -64,7 +65,7 @@ template <class Then, class Else> struct IF<false, Then, Else> {
 } // end detail
 
 // - cons forward declaration -----------------------------------------------
-template <class HT, class TT> struct cons;
+template <class HT, class TT> class cons;
 
 
 // - tuple forward declaration -----------------------------------------------
@@ -254,7 +255,21 @@ template <> struct wrap_non_storeable_type<void> {
 } // detail
 
 template <class HT, class TT>
-struct cons {
+class cons {
+
+  BOOST_COPYABLE_AND_MOVABLE(cons)
+
+#ifdef BOOST_NO_CXX11_RVALUE_REFERENCES
+public:
+  template <class HT2, class TT2>
+  cons& operator=(cons<HT2, TT2> & t)
+  {  this->operator=(static_cast<const ::boost::rv<cons<HT2, TT2> > &>(const_cast<const cons<HT2, TT2> &>(t))); return *this;}
+  template <class T1, class T2>
+  cons& operator=(std::pair<T1, T2> & t)
+  {  this->operator=(static_cast<const ::boost::rv<std::pair<T1, T2> > &>(const_cast<const std::pair<T1, T2> &>(t))); return *this;}
+#endif
+
+public:
 
   typedef HT head_type;
   typedef TT tail_type;
@@ -308,22 +323,36 @@ struct cons {
 
   template <class HT2, class TT2>
   cons( const cons<HT2, TT2>& u ) : head(u.head), tail(u.tail) {}
+  template <class HT2, class TT2>
+  cons( BOOST_RV_REF_2_TEMPL_ARGS(cons, HT2, TT2) u ) : head(::boost::move(u.head)), tail(::boost::move(u.tail)) {}
 
   template <class HT2, class TT2>
-  cons& operator=( const cons<HT2, TT2>& u ) {
+  cons& operator=( BOOST_COPY_ASSIGN_REF_2_TEMPL_ARGS(cons, HT2, TT2) u ) {
     head=u.head; tail=u.tail; return *this;
+  }
+  template <class HT2, class TT2>
+  cons& operator=( BOOST_RV_REF_2_TEMPL_ARGS(cons, HT2, TT2) u ) {
+      head=::boost::move(u.head); tail=::boost::move(u.tail); return *this;
   }
 
   // must define assignment operator explicitly, implicit version is
   // illformed if HT is a reference (12.8. (12))
-  cons& operator=(const cons& u) {
+  cons& operator=(BOOST_COPY_ASSIGN_REF(cons) u) {
     head = u.head; tail = u.tail;  return *this;
+  }
+  cons& operator=(BOOST_RV_REF(cons) u) {
+      head=::boost::move(u.head); tail=::boost::move(u.tail);  return *this;
   }
 
   template <class T1, class T2>
-  cons& operator=( const std::pair<T1, T2>& u ) {
+  cons& operator=( BOOST_COPY_ASSIGN_REF_2_TEMPL_ARGS(std::pair, T1, T2) u ) {
     BOOST_STATIC_ASSERT(length<cons>::value == 2); // check length = 2
     head = u.first; tail.head = u.second; return *this;
+  }
+  template <class T1, class T2>
+  cons& operator=( BOOST_RV_REF_2_TEMPL_ARGS(std::pair, T1, T2) u ) {
+      BOOST_STATIC_ASSERT(length<cons>::value == 2); // check length = 2
+      head = ::boost::move(u.first); tail.head = ::boost::move(u.second); return *this;
   }
 
   // get member functions (non-const and const)
@@ -345,7 +374,18 @@ struct cons {
 };
 
 template <class HT>
-struct cons<HT, null_type> {
+class cons<HT, null_type> {
+
+  BOOST_COPYABLE_AND_MOVABLE(cons)
+
+#ifdef BOOST_NO_CXX11_RVALUE_REFERENCES
+public:
+  template <class HT2>
+  cons& operator=(cons<HT2, null_type> & t)
+  {  this->operator=(static_cast<const ::boost::rv<cons<HT2, null_type> > &>(const_cast<const cons<HT2, null_type> &>(t))); return *this;}
+#endif
+
+public:
 
   typedef HT head_type;
   typedef null_type tail_type;
@@ -386,14 +426,20 @@ struct cons<HT, null_type> {
 
   template <class HT2>
   cons( const cons<HT2, null_type>& u ) : head(u.head) {}
+  template <class HT2>
+  cons( BOOST_RV_REF_2_TEMPL_ARGS(cons, HT2, null_type) u ) : head(::boost::move(u.head)) {}
 
   template <class HT2>
-  cons& operator=(const cons<HT2, null_type>& u )
+  cons& operator=(BOOST_COPY_ASSIGN_REF_2_TEMPL_ARGS(cons, HT2, null_type) u )
   { head = u.head; return *this; }
+  template <class HT2>
+  cons& operator=(BOOST_RV_REF_2_TEMPL_ARGS(cons, HT2, null_type) u )
+  { head = ::boost::move(u.head); return *this; }
 
   // must define assignment operator explicitely, implicit version
   // is illformed if HT is a reference
-  cons& operator=(const cons& u) { head = u.head; return *this; }
+  cons& operator=(BOOST_COPY_ASSIGN_REF(cons) u) { head = u.head; return *this; }
+  cons& operator=(BOOST_RV_REF(cons) u) { head = ::boost::move(u.head); return *this; }
 
   template <int N>
   typename access_traits<
