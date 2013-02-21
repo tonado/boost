@@ -686,7 +686,7 @@ public:
   template<class U1, class U2>
   tuple(const cons<U1, U2>& p) : inherited(p) {}
   template<class U1, class U2>
-  tuple(BOOST_RV_REF_2_TEMPL_ARGS(cons, U1, U2) p) : inherited(p) {}
+  tuple(BOOST_RV_REF_2_TEMPL_ARGS(cons, U1, U2) p) : inherited(boost::move(p)) {}
 
   template <class U1, class U2>
   tuple& operator=(BOOST_COPY_ASSIGN_REF_2_TEMPL_ARGS(cons, U1, U2) k) {
