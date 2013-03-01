@@ -5,16 +5,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#ifndef CONTRACT_BLOCK_INVARIANT_HPP_
-#define CONTRACT_BLOCK_INVARIANT_HPP_
+#ifndef BOOST_CONTRACT_BLOCK_INVARIANT_HPP_
+#define BOOST_CONTRACT_BLOCK_INVARIANT_HPP_
 
 /** @file
 @brief Macros used to specify block invariants (this header is automatically
 included by <c>contract.hpp</c>).
 */
 
-#include <contract/aux_/macro/block_invariant.hpp>
-#include <contract/detail/preprocessor/variadic/to_seq.hpp>
+#include <boost/contract/aux_/macro/block_invariant.hpp>
+#include <boost/contract/detail/preprocessor/variadic/to_seq.hpp>
 #include <boost/local_function/detail/preprocessor/line_counter.hpp>
 #include <boost/config.hpp>
 
@@ -22,30 +22,30 @@ included by <c>contract.hpp</c>).
 
 #ifndef BOOST_NO_VARIADIC_MACROS
 
-#define CONTRACT_BLOCK_INVARIANT(...) \
-    CONTRACT_AUX_BLOCK_INVARIANT( \
+#define BOOST_CONTRACT_BLOCK_INVARIANT(...) \
+    BOOST_CONTRACT_AUX_BLOCK_INVARIANT( \
             BOOST_LOCAL_FUNCTION_DETAIL_PP_LINE_COUNTER, \
             0, /* outside template */ \
-            CONTRACT_DETAIL_PP_VARIADIC_TO_SEQ( \
+            BOOST_CONTRACT_DETAIL_PP_VARIADIC_TO_SEQ( \
                     (ERROR_block_invariants_cannot_be_empty), __VA_ARGS__))
 
-#define CONTRACT_BLOCK_INVARIANT_TPL(...) \
-    CONTRACT_AUX_BLOCK_INVARIANT( \
+#define BOOST_CONTRACT_BLOCK_INVARIANT_TPL(...) \
+    BOOST_CONTRACT_AUX_BLOCK_INVARIANT( \
             BOOST_LOCAL_FUNCTION_DETAIL_PP_LINE_COUNTER, \
             1, /* inside template */ \
-            CONTRACT_DETAIL_PP_VARIADIC_TO_SEQ( \
+            BOOST_CONTRACT_DETAIL_PP_VARIADIC_TO_SEQ( \
                     (ERROR_block_invariants_cannot_be_empty), __VA_ARGS__))
 
 #else
 
-#define CONTRACT_BLOCK_INVARIANT(seq) \
-    CONTRACT_AUX_BLOCK_INVARIANT( \
+#define BOOST_CONTRACT_BLOCK_INVARIANT(seq) \
+    BOOST_CONTRACT_AUX_BLOCK_INVARIANT( \
             BOOST_LOCAL_FUNCTION_DETAIL_PP_LINE_COUNTER, \
             0, /* outside template */ \
             seq)
 
-#define CONTRACT_BLOCK_INVARIANT_TPL(seq) \
-    CONTRACT_AUX_BLOCK_INVARIANT( \
+#define BOOST_CONTRACT_BLOCK_INVARIANT_TPL(seq) \
+    BOOST_CONTRACT_AUX_BLOCK_INVARIANT( \
             BOOST_LOCAL_FUNCTION_DETAIL_PP_LINE_COUNTER, \
             1, /* inside template */ \
             seq)
@@ -70,22 +70,23 @@ Static assertions\, constant assertions\, and select assertions can be used.
 @EndParams
 
 Within a type-dependent scope (e.g., within templates),
-@RefMacro{CONTRACT_BLOCK_INVARIANT_TPL} must be used instead of this macro.
+@RefMacro{BOOST_CONTRACT_BLOCK_INVARIANT_TPL} must be used instead of this
+macro.
 
 @SeeAlso @RefSect{advanced_topics, Advanced Topics} section.
 */
-#define CONTRACT_BLOCK_INVARIANT(assertions)
+#define BOOST_CONTRACT_BLOCK_INVARIANT(assertions)
 
 /**
 @brief Macro used to specify block invariants within a type-dependent scope
 (e.g., within templates).
 
-This macro is the exact same as @RefMacro{CONTRACT_BLOCK_INVARIANT} but is must
-be used when specifying block invariants within a type-dependent scope.
+This macro is the exact same as @RefMacro{BOOST_CONTRACT_BLOCK_INVARIANT} but
+it must be used when specifying block invariants within a type-dependent scope.
 
 @SeeAlso @RefSect{advanced_topics, Advanced Topics} section.
 */
-#define CONTRACT_BLOCK_INVARIANT_TPL(assertions)
+#define BOOST_CONTRACT_BLOCK_INVARIANT_TPL(assertions)
 
 #endif
 

@@ -5,26 +5,26 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#ifndef CONTRACT_BODY_HPP_
-#define CONTRACT_BODY_HPP_
+#ifndef BOOST_CONTRACT_BODY_HPP_
+#define BOOST_CONTRACT_BODY_HPP_
 
 /** @file
 @brief Macros used to program body definitions separately from the contract
 declarations (this header is automatically include by <c>contract.hpp</c>).
 */
 
-#include <contract/aux_/config.hpp>
-#include <contract/aux_/symbol.hpp>
-#include <contract/aux_/macro/body.hpp>
+#include <boost/contract/aux_/config.hpp>
+#include <boost/contract/aux_/symbol.hpp>
+#include <boost/contract/aux_/macro/body.hpp>
 
 // PRIVATE //
 
 #ifndef DOXYGEN
 
-#define CONTRACT_BODY_CTOR_DTOR_( \
+#define BOOST_CONTRACT_BODY_CTOR_DTOR_( \
         contracted_body_macro, class_type, constructor_name, contracted01) \
     BOOST_PP_EXPR_IF(contracted01, void) \
-    CONTRACT_AUX_BODY_CLASS_TYPE(class_type) :: \
+    BOOST_CONTRACT_AUX_BODY_CLASS_TYPE(class_type) :: \
     BOOST_PP_IIF(contracted01, \
         contracted_body_macro \
     , \
@@ -42,7 +42,7 @@ operators.
 This macro is used to name the body of free functions and free function
 operators when the body is defined separately from the contract declaration.
 Free functions and free function operators with contracts are declared
-using the @RefMacro{CONTRACT_FUNCTION} macro.
+using the @RefMacro{BOOST_CONTRACT_FUNCTION} macro.
 
 @Params
 @Param{function_name,
@@ -53,15 +53,15 @@ the @RefSect{grammar\, Grammar} section.
 
 @SeeAlso @RefSect{tutorial, Tutorial} section.
 */
-#define CONTRACT_FREE_BODY(function_name) \
+#define BOOST_CONTRACT_FREE_BODY(function_name) \
     BOOST_PP_IIF( \
             BOOST_PP_BITOR( \
-                  CONTRACT_AUX_CONFIG_PRECONDITIONS_01 \
-                , CONTRACT_AUX_CONFIG_POSTCONDITIONS_01 \
+                  BOOST_CONTRACT_AUX_CONFIG_PRECONDITIONS_01 \
+                , BOOST_CONTRACT_AUX_CONFIG_POSTCONDITIONS_01 \
             ), \
-        CONTRACT_AUX_BODY_FUNCTION_CONTRACTED \
+        BOOST_CONTRACT_AUX_BODY_FUNCTION_BOOST_CONTRACTED \
     , \
-        CONTRACT_AUX_BODY_FUNCTION \
+        BOOST_CONTRACT_AUX_BODY_FUNCTION \
     )(function_name)
 
 /**
@@ -71,7 +71,7 @@ operators.
 This macro is used to name the body of member functions and member function
 operators when the body is defined separately from the contract declaration.
 Member functions and member function operators with contracts are declared
-using the @RefMacro{CONTRACT_FUNCTION} macro.
+using the @RefMacro{BOOST_CONTRACT_FUNCTION} macro.
 
 @Params
 @Param{function_name,
@@ -86,21 +86,21 @@ overridden function from one of its base classes (see the
 
 @SeeAlso @RefSect{tutorial, Tutorial} section.
 */
-#define CONTRACT_MEMBER_BODY(function_name) \
+#define BOOST_CONTRACT_MEMBER_BODY(function_name) \
     /* NOTE: this must be a different macro from FREE_BODY because it */ \
     /* expands also if invariants (not just pre and post) */ \
     /* class type is specified so this macro API is same as ctor and dtor */ \
     BOOST_PP_IIF( \
             BOOST_PP_BITOR( \
-                  CONTRACT_AUX_CONFIG_PRECONDITIONS_01 \
+                  BOOST_CONTRACT_AUX_CONFIG_PRECONDITIONS_01 \
                 , BOOST_PP_BITOR( \
-                      CONTRACT_AUX_CONFIG_POSTCONDITIONS_01 \
-                    , CONTRACT_AUX_CONFIG_CLASS_INVARIANTS_01 \
+                      BOOST_CONTRACT_AUX_CONFIG_POSTCONDITIONS_01 \
+                    , BOOST_CONTRACT_AUX_CONFIG_CLASS_INVARIANTS_01 \
                   ) \
             ), \
-        CONTRACT_AUX_BODY_FUNCTION_CONTRACTED \
+        BOOST_CONTRACT_AUX_BODY_FUNCTION_BOOST_CONTRACTED \
     , \
-        CONTRACT_AUX_BODY_FUNCTION \
+        BOOST_CONTRACT_AUX_BODY_FUNCTION \
     )(function_name)
 
 /**
@@ -109,12 +109,13 @@ overridden function from one of its base classes (see the
 This macro is used to name the body of constructors when the body is defined
 separately from the contract declaration.
 Constructors with contracts are declared using the
-@RefMacro{CONTRACT_CONSTRUCTOR} macro.
+@RefMacro{BOOST_CONTRACT_CONSTRUCTOR} macro.
 
 @Params
 @Param{class_type,
 The syntax for the class type is explained in the @RefSect{grammar\, Grammar}
-section (for class templates\, this type is qualified with the template parameters).
+section (for class templates\, this type is qualified with the template
+parameters).
 }
 @Param{constructor_name,
 This is the class name and its syntax is explained in the
@@ -129,14 +130,15 @@ defined together with the constructor declaration and its contract.
 @SeeAlso @RefSect{tutorial, Tutorial} section.
 */
 // class_type: `vect<T>`, `(vect<T, A>)`, or `comma(1)(vect<T, A>)`.
-#define CONTRACT_CONSTRUCTOR_BODY(class_type, constructor_name) \
-    CONTRACT_BODY_CTOR_DTOR_(CONTRACT_AUX_BODY_CONSTRUCTOR_CONTRACTED \
+#define BOOST_CONTRACT_CONSTRUCTOR_BODY(class_type, constructor_name) \
+    BOOST_CONTRACT_BODY_CTOR_DTOR_( \
+          BOOST_CONTRACT_AUX_BODY_CONSTRUCTOR_BOOST_CONTRACTED \
         , class_type, constructor_name \
         , BOOST_PP_BITOR( \
-              CONTRACT_AUX_CONFIG_PRECONDITIONS_01 \
+              BOOST_CONTRACT_AUX_CONFIG_PRECONDITIONS_01 \
             , BOOST_PP_BITOR( \
-                  CONTRACT_AUX_CONFIG_POSTCONDITIONS_01 \
-                , CONTRACT_AUX_CONFIG_CLASS_INVARIANTS_01 \
+                  BOOST_CONTRACT_AUX_CONFIG_POSTCONDITIONS_01 \
+                , BOOST_CONTRACT_AUX_CONFIG_CLASS_INVARIANTS_01 \
               ) \
           ) \
     )
@@ -147,7 +149,7 @@ defined together with the constructor declaration and its contract.
 This macro is used to name the body of destructors when the body is defined
 separately from the contract declaration.
 Destructors with contracts are declared using the
-@RefMacro{CONTRACT_DESTRUCTOR} macro.
+@RefMacro{BOOST_CONTRACT_DESTRUCTOR} macro.
 
 @Params
 @Param{class_type,
@@ -165,10 +167,11 @@ this name is <em>not</em> qualified with the template parameters).
 @SeeAlso @RefSect{tutorial, Tutorial} section.
 */
 // class_type: `vect<T>`, `(vect<T, A>)`, or `comma(1)(vect<T, A>)`.
-#define CONTRACT_DESTRUCTOR_BODY(class_type, destructor_name) \
-    CONTRACT_BODY_CTOR_DTOR_(CONTRACT_AUX_BODY_DESTRUCTOR_CONTRACTED \
+#define BOOST_CONTRACT_DESTRUCTOR_BODY(class_type, destructor_name) \
+    BOOST_CONTRACT_BODY_CTOR_DTOR_( \
+          BOOST_CONTRACT_AUX_BODY_DESTRUCTOR_BOOST_CONTRACTED \
         , class_type, destructor_name \
-        , CONTRACT_AUX_CONFIG_CLASS_INVARIANTS_01 \
+        , BOOST_CONTRACT_AUX_CONFIG_CLASS_INVARIANTS_01 \
     )
 
 #endif // #include guard

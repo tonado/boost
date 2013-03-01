@@ -5,8 +5,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#ifndef CONTRACT_CONFIG_HPP_
-#define CONTRACT_CONFIG_HPP_
+#ifndef BOOST_CONTRACT_CONFIG_HPP_
+#define BOOST_CONTRACT_CONFIG_HPP_
 
 /** @file
 @brief Macros used to configure the library behaviour at compile-time (this
@@ -17,10 +17,10 @@ Programmers can define these macros before including any of the library headers
 (using compiler options like <c>-D</c> for GCC, <c>/D</c> for MSVC, etc) in
 order to change the library behaviour.
 
-The macros @RefMacro{CONTRACT_CONFIG_NO_PRECONDITIONS},
-@RefMacro{CONTRACT_CONFIG_NO_POSTCONDITIONS}, etc can be defined to selectively
-disable compilation and run-time checking of all preconditions, postconditions,
-etc.
+The macros @RefMacro{BOOST_CONTRACT_CONFIG_NO_PRECONDITIONS},
+@RefMacro{BOOST_CONTRACT_CONFIG_NO_POSTCONDITIONS}, etc can be defined to
+selectively disable compilation and run-time checking of all preconditions,
+postconditions, etc.
 This is a common practice in Contract Programming to generate debug and release
 builds with less correctness checks but faster run-times.
 Note that all contracts are compiled and checked at run-time by default unless
@@ -30,7 +30,7 @@ specified otherwise using these configuration macros.
 @RefSect{contract_programming_overview, Contract Programming Overview} section.
 */
 
-#include <contract/limits.hpp>
+#include <boost/contract/limits.hpp>
 
 // All these macros are undefined by default (unless generating Doxygen docs).
 // Virtual specifiers (final, override, and new) are enabled iff contracts
@@ -51,7 +51,7 @@ assertions (see the @RefSect{advanced_topics, Advanced Topics} section).
 
 @SeeAlso @RefSect{getting_started, Getting Started} section.
 */
-#define CONTRACT_CONFIG_NO_PRECONDITIONS
+#define BOOST_CONTRACT_CONFIG_NO_PRECONDITIONS
 
 /**
 @brief Disable compilation and run-time checking of all postconditions.
@@ -67,7 +67,7 @@ assertions (see the @RefSect{advanced_topics, Advanced Topics} section).
 
 @SeeAlso @RefSect{getting_started, Getting Started} section.
 */
-#define CONTRACT_CONFIG_NO_POSTCONDITIONS
+#define BOOST_CONTRACT_CONFIG_NO_POSTCONDITIONS
 
 /**
 @brief Disable compilation and run-time checking of all class invariants.
@@ -83,7 +83,7 @@ assertions (see the @RefSect{advanced_topics, Advanced Topics} section).
 
 @SeeAlso @RefSect{getting_started, Getting Started} section.
 */
-#define CONTRACT_CONFIG_NO_CLASS_INVARIANTS
+#define BOOST_CONTRACT_CONFIG_NO_CLASS_INVARIANTS
 
 /**
 @brief Disable compilation and run-time checking of all block invariants.
@@ -99,7 +99,7 @@ assertions (see the @RefSect{advanced_topics, Advanced Topics} section).
 
 @SeeAlso @RefSect{getting_started, Getting Started} section.
 */
-#define CONTRACT_CONFIG_NO_BLOCK_INVARIANTS
+#define BOOST_CONTRACT_CONFIG_NO_BLOCK_INVARIANTS
 
 /**
 @brief Disable compilation and run-time checking of all loop variants.
@@ -115,7 +115,7 @@ assertions (see the @RefSect{advanced_topics, Advanced Topics} section).
 
 @SeeAlso @RefSect{getting_started, Getting Started} section.
 */
-#define CONTRACT_CONFIG_NO_LOOP_VARIANTS
+#define BOOST_CONTRACT_CONFIG_NO_LOOP_VARIANTS
 
 #endif // DOXYGEN
 
@@ -128,8 +128,8 @@ Increasing the value specified by this macro might increase compilation time.
 
 @SeeAlso @RefSect{tutorial, Tutorial} section.
 */
-#ifndef CONTRACT_CONFIG_FUNCTION_ARITY_MAX
-#   define CONTRACT_CONFIG_FUNCTION_ARITY_MAX 5
+#ifndef BOOST_CONTRACT_CONFIG_FUNCTION_ARITY_MAX
+#   define BOOST_CONTRACT_CONFIG_FUNCTION_ARITY_MAX 5
 #endif
 
 /**
@@ -142,8 +142,8 @@ Increasing the value specified by this macro might increase compilation time.
 
 @SeeAlso @RefSect{tutorial, Tutorial} section.
 */
-#ifndef CONTRACT_CONFIG_INHERITANCE_MAX
-#   define CONTRACT_CONFIG_INHERITANCE_MAX 4
+#ifndef BOOST_CONTRACT_CONFIG_INHERITANCE_MAX
+#   define BOOST_CONTRACT_CONFIG_INHERITANCE_MAX 4
 #endif
 
 /**
@@ -152,16 +152,16 @@ postconditions.
 
 This macro automatically defaults to <c>5</c> if left undefined by programmers.
 This macro must be a non-negative integral number smaller or equal to
-@RefMacro{CONTRACT_LIMIT_OLDOFS}.
+@RefMacro{BOOST_CONTRACT_LIMIT_OLDOFS}.
 Increasing the value specified by this macro might increase compilation time.
 
 @SeeAlso @RefSect{tutorial, Tutorial} section.
 */
-#ifndef CONTRACT_CONFIG_OLDOF_MAX
-#   define CONTRACT_CONFIG_OLDOF_MAX 5
+#ifndef BOOST_CONTRACT_CONFIG_OLDOF_MAX
+#   define BOOST_CONTRACT_CONFIG_OLDOF_MAX 5
 #endif
-#if CONTRACT_CONFIG_OLDOF_MAX > CONTRACT_LIMIT_OLDOFS
-#   error "CONTRACT_CONFIG_OLDOF_MAX cannot exceed CONTRACT_LIMIT_OLDOFS"
+#if BOOST_CONTRACT_CONFIG_OLDOF_MAX > BOOST_CONTRACT_LIMIT_OLDOFS
+#   error "BOOST_CONTRACT_CONFIG_OLDOF_MAX cannot exceed BOOST_CONTRACT_LIMIT_OLDOFS"
 #endif
 
 /**
@@ -178,8 +178,8 @@ Increasing the value specified by this macro might increase compilation time.
 
 @SeeAlso @RefSect{tutorial, Tutorial} section.
 */
-#ifndef CONTRACT_CONFIG_ARRAY_DIMENSION_MAX
-#   define CONTRACT_CONFIG_ARRAY_DIMENSION_MAX 3
+#ifndef BOOST_CONTRACT_CONFIG_ARRAY_DIMENSION_MAX
+#   define BOOST_CONTRACT_CONFIG_ARRAY_DIMENSION_MAX 3
 #endif
 
 #ifdef DOXYGEN
@@ -200,7 +200,7 @@ By default, this library allows to subcontract preconditions.
 
 @SeeAlso @RefSect{advanced_topics, Advanced Topics} section.
 */
-#define CONTRACT_CONFIG_DO_NOT_SUBCONTRACT_PRECONDITIONS
+#define BOOST_CONTRACT_CONFIG_DO_NOT_SUBBOOST_CONTRACT_PRECONDITIONS
 
 /**
 @brief Specify that no assertion should be disabled while checking
@@ -220,7 +220,7 @@ contracts, including preconditions.
 @SeeAlso @RefSect{contract_programming_overview, Contract Programming Overview}
 section.
 */
-#define CONTRACT_CONFIG_PRECONDITIONS_DISABLE_NO_ASSERTION
+#define BOOST_CONTRACT_CONFIG_PRECONDITIONS_DISABLE_NO_ASSERTION
 
 /**
 @brief Report precondition that failed in the overridden function (instead of
@@ -236,7 +236,7 @@ classes.
 
 @SeeAlso @RefSect{advanced_topics, Advanced Topics} section.
 */
-#define CONTRACT_CONFIG_REPORT_BASE_PRECONDITION_FAILURE
+#define BOOST_CONTRACT_CONFIG_REPORT_BASE_PRECONDITION_FAILURE
 
 /**
 @brief Make the implementation of this library thread-safe.
@@ -250,7 +250,7 @@ program).
 @SeeAlso @RefSect{contract_programming_overview, Contract Programming Overview}
 section.
 */
-#define CONTRACT_CONFIG_THREAD_SAFE
+#define BOOST_CONTRACT_CONFIG_THREAD_SAFE
 
 #endif // DOXYGEN
 

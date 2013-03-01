@@ -5,8 +5,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#ifndef CONTRACT_OLDOF_HPP_
-#define CONTRACT_OLDOF_HPP_
+#ifndef BOOST_CONTRACT_OLDOF_HPP_
+#define BOOST_CONTRACT_OLDOF_HPP_
 
 /** @file
 @brief Constructs to declare postcondition old values (this header is
@@ -25,7 +25,7 @@ This macro must be used to initialize old value declarations within
 postconditions (see also the @RefSect{grammar, Grammar} section):
 
 @code
-auto old_variable = CONTRACT_OLDOF odlof_expression
+auto old_variable = BOOST_CONTRACT_OLDOF odlof_expression
 @endcode
 
 The specified expression that follows the macro might or not be wrapped within parenthesis.
@@ -43,9 +43,10 @@ type-of).
 */
 // Used to mark start of oldof expression within an oldof assignment
 // (unbalanced parenthesis `) ... (` will balance within user code).
-#define CONTRACT_OLDOF ) postcondition(CONTRACT_DETAIL_PP_TRAITS_OLDOF
+#define BOOST_CONTRACT_OLDOF \
+   ) postcondition(BOOST_CONTRACT_DETAIL_PP_TRAITS_OLDOF
 
-namespace contract {
+namespace boost { namespace contract {
 
 /**
 @brief Trait used to determine if a type can be copied for an old value or not.
@@ -66,7 +67,7 @@ generating a compile-time error when the old values they use cannot be copied.
 
 @Params
 @Param{OldofExpressionType,
-The type of the expression specified to the @RefMacro{CONTRACT_OLDOF} macro for
+The type of the expression specified to the @RefMacro{BOOST_CONTRACT_OLDOF} macro for
 a given postcondition old value declaration.
 }
 @EndParams
@@ -85,7 +86,7 @@ from <c>boost::mpl::false_</c> for such types.
 template< typename OldofExpressionType >
 struct has_oldof : boost::mpl::true_ {};
 
-} // namespace contract
+} } // namespace
 
 #endif // #include guard
 

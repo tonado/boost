@@ -5,8 +5,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#ifndef CONTRACT_COPY_HPP_
-#define CONTRACT_COPY_HPP_
+#ifndef BOOST_CONTRACT_COPY_HPP_
+#define BOOST_CONTRACT_COPY_HPP_
 
 /** @file
 @brief Copy result value and old values for postconditions (this header is
@@ -17,7 +17,7 @@ automatically included by <c>contract.hpp</c>).
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/noncopyable.hpp>
 
-namespace contract {
+namespace boost { namespace contract {
 
 /**
 @brief Copy result value and old values for postconditions.
@@ -71,7 +71,7 @@ private:
     typename boost::add_const<T>::type value_;
 };
 
-} // namespace contract
+} } // namespace
 
 #endif // #include guard
 

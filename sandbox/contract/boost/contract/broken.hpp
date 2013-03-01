@@ -5,15 +5,15 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#ifndef CONTRACT_BROKEN_HPP_
-#define CONTRACT_BROKEN_HPP_
+#ifndef BOOST_CONTRACT_BROKEN_HPP_
+#define BOOST_CONTRACT_BROKEN_HPP_
 
 /** @file
 @brief Contract broken handlers (this header is automatically included by
 <c>contract.hpp</c>).
 */
 
-#include <contract/aux_/thread_variable.hpp>
+#include <boost/contract/aux_/thread_variable.hpp>
 #include <stdexcept>
 #include <sstream>
 #include <string>
@@ -25,7 +25,7 @@
 // NOTE: The contract broken handlers are similar to std::temrinate (inlining
 // functions also to avoid multiple definitions error).
 
-namespace contract {
+namespace boost { namespace contract {
 
 /**
 @brief Exception automatically thrown by the library to signal a contract
@@ -589,7 +589,7 @@ inline void loop_variant_broken ( from const& context )
     // In general this could throw for user defined handlers.
     { aux::broken_handlers<>::loop_variant(context); }
 
-} // namespace
+} } // namespace
 
 #endif // #include guard
 
