@@ -8,23 +8,23 @@
 #include <boost/detail/lightweight_test.hpp>
 
 //[push_back
-#include <contract.hpp> // This library.
+#include <boost/contract.hpp> // This library.
 #include <boost/concept_check.hpp>
 #include <vector>
 #include "pushable.hpp" // Some base class.
 
-CONTRACT_CLASS(
+BOOST_CONTRACT_CLASS(
     template( typename T ) requires( boost::CopyConstructible<T> ) // Concepts.
     class (vector) extends( public pushable<T> ) // Subcontracting.
 ) {
-    CONTRACT_CLASS_INVARIANT_TPL(
+    BOOST_CONTRACT_CLASS_INVARIANT_TPL(
         empty() == (size() == 0) // More class invariants here...
     )
 
     public: typedef typename std::vector<T>::size_type size_type;
     public: typedef typename std::vector<T>::const_reference const_reference;
 
-    CONTRACT_FUNCTION_TPL(
+    BOOST_CONTRACT_FUNCTION_TPL(
         public void (push_back) ( (T const&) value ) override
             precondition(
                 size() < max_size() // More preconditions here...
