@@ -5,18 +5,18 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#ifndef CONTRACT_DETAIL_PP_TEMPLATE_PARAM_TRAITS_NAME_HPP_
-#define CONTRACT_DETAIL_PP_TEMPLATE_PARAM_TRAITS_NAME_HPP_
+#ifndef BOOST_CONTRACT_DETAIL_PP_TEMPLATE_PARAM_TRAITS_NAME_HPP_
+#define BOOST_CONTRACT_DETAIL_PP_TEMPLATE_PARAM_TRAITS_NAME_HPP_
 
-#include <contract/detail/preprocessor/traits/aux_/apply_1.hpp>
+#include <boost/contract/detail/preprocessor/traits/aux_/apply_1.hpp>
 #include <boost/preprocessor/tuple/rem.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
 #include <boost/preprocessor/array/elem.hpp>
 
 // PROTECTED //
 
-#define CONTRACT_DETAIL_PP_TEMPLATE_PARAM_TRAITS_AUX_NAME(traits_sign) \
-    CONTRACT_DETAIL_PP_TRAITS_AUX_APPLY_1(traits_sign, \
+#define BOOST_CONTRACT_DETAIL_PP_TEMPLATE_PARAM_TRAITS_AUX_NAME(traits_sign) \
+    BOOST_CONTRACT_DETAIL_PP_TRAITS_AUX_APPLY_1(traits_sign, \
             /* there's nothing else left in sign (no trailing nil) */ \
             BOOST_PP_TUPLE_REM(1), \
             BOOST_PP_TUPLE_REM(1))
@@ -24,7 +24,7 @@
 // PUBLIC //
 
 // Expand to parameter name.
-#define CONTRACT_DETAIL_PP_TEMPLATE_PARAM_TRAITS_NAME(tparam_traits) \
+#define BOOST_CONTRACT_DETAIL_PP_TEMPLATE_PARAM_TRAITS_NAME(tparam_traits) \
     BOOST_PP_ARRAY_ELEM(2, BOOST_PP_TUPLE_ELEM(2, 0, tparam_traits))
 
 #endif // #include guard

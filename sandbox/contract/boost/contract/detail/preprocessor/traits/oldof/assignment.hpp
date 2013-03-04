@@ -5,15 +5,15 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#ifndef CONTRACT_DETAIL_PP_OLDOF_TRAITS_ASSIGNMENT_HPP_
-#define CONTRACT_DETAIL_PP_OLDOF_TRAITS_ASSIGNMENT_HPP_
+#ifndef BOOST_CONTRACT_DETAIL_PP_OLDOF_TRAITS_ASSIGNMENT_HPP_
+#define BOOST_CONTRACT_DETAIL_PP_OLDOF_TRAITS_ASSIGNMENT_HPP_
 
 #include <boost/preprocessor/array/elem.hpp>
 
 // PUBLIC //
 
 // Expand to `variable =`.
-#define CONTRACT_DETAIL_PP_OLDOF_TRAITS_ASSIGNMENT(oldof_traits) \
+#define BOOST_CONTRACT_DETAIL_PP_OLDOF_TRAITS_ASSIGNMENT(oldof_traits) \
     BOOST_PP_ARRAY_ELEM(1, oldof_traits)
 
 #endif // #include guard

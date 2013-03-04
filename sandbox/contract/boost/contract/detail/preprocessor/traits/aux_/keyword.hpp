@@ -5,8 +5,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#ifndef CONTRACT_DETAIL_PP_TRAITS_AUX_KEYWORD_HPP_
-#define CONTRACT_DETAIL_PP_TRAITS_AUX_KEYWORD_HPP_
+#ifndef BOOST_CONTRACT_DETAIL_PP_TRAITS_AUX_KEYWORD_HPP_
+#define BOOST_CONTRACT_DETAIL_PP_TRAITS_AUX_KEYWORD_HPP_
 
 #include <boost/preprocessor/control/expr_iif.hpp>
 #include <boost/preprocessor/control/iif.hpp>
@@ -18,16 +18,16 @@
 
 // A keyword.
 
-#define CONTRACT_DETAIL_PP_TRAITS_AUX_KEYWORD(tokens, is_macro, keyword) \
+#define BOOST_CONTRACT_DETAIL_PP_TRAITS_AUX_KEYWORD(tokens, is_macro, keyword) \
     BOOST_PP_EXPR_IIF(BOOST_PP_EXPAND(is_macro(tokens)), /* expand for MSVC */ \
             keyword)
 
-#define CONTRACT_DETAIL_PP_TRAITS_AUX_AFTER_KEYWORD(tokens, after_macro) \
+#define BOOST_CONTRACT_DETAIL_PP_TRAITS_AUX_AFTER_KEYWORD(tokens, after_macro) \
     after_macro(tokens)
 
 // A keyword among 2 possible ones.
 
-#define CONTRACT_DETAIL_PP_TRAITS_AUX_KEYWORD2(tokens, \
+#define BOOST_CONTRACT_DETAIL_PP_TRAITS_AUX_KEYWORD2(tokens, \
         is_macro1, keyword1, is_macro2, keyword2) \
     BOOST_PP_IIF(is_macro1(tokens), \
         keyword1 BOOST_PP_EMPTY \
@@ -37,7 +37,7 @@
         BOOST_PP_EMPTY /* expand to nothing */ \
     ))(/* expand empty */)
 
-#define CONTRACT_DETAIL_PP_TRAITS_AUX_AFTER_KEYWORD2(tokens, \
+#define BOOST_CONTRACT_DETAIL_PP_TRAITS_AUX_AFTER_KEYWORD2(tokens, \
         is_macro1, after_macro1, is_macro2, after_macro2) \
     BOOST_PP_IIF(is_macro1(tokens), \
         after_macro1 \
@@ -49,7 +49,7 @@
 
 // A keyword among 3 possible ones.
 
-#define CONTRACT_DETAIL_PP_TRAITS_AUX_KEYWORD3(tokens, \
+#define BOOST_CONTRACT_DETAIL_PP_TRAITS_AUX_KEYWORD3(tokens, \
         is_macro1, keyword1, is_macro2, keyword2, is_macro3, keyword3) \
     BOOST_PP_IIF(is_macro1(tokens), \
         keyword1 BOOST_PP_EMPTY \
@@ -61,7 +61,7 @@
         BOOST_PP_EMPTY /* expand to nothing */ \
     )))(/* expand empty */)
 
-#define CONTRACT_DETAIL_PP_TRAITS_AUX_AFTER_KEYWORD3(tokens, \
+#define BOOST_CONTRACT_DETAIL_PP_TRAITS_AUX_AFTER_KEYWORD3(tokens, \
         is_macro1, after_macro1, is_macro2, after_macro2, \
         is_macro3, after_macro3) \
     BOOST_PP_IIF(is_macro1(tokens), \
