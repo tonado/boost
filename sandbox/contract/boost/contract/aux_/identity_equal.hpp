@@ -5,20 +5,21 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#ifndef CONTRACT_AUX_IDENTITY_EQUAL_HPP_
-#define CONTRACT_AUX_IDENTITY_EQUAL_HPP_
+#ifndef BOOST_CONTRACT_AUX_IDENTITY_EQUAL_HPP_
+#define BOOST_CONTRACT_AUX_IDENTITY_EQUAL_HPP_
 
-namespace contract { namespace aux {
+namespace boost { namespace contract { namespace aux {
 
 // Used to internally deal with old-of value assignment symbol `var =`.
 struct identity_equal {};
 
 template< typename Left >
-Left const& operator== ( Left const& left, identity_equal const& ) {
+Left const& operator== ( Left const& left, identity_equal const& )
+{
     return left;
 }
 
-} } // namespace
+} } } // namespace
 
 #endif // #include guard
 

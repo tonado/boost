@@ -5,16 +5,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#undef CONTRACT_comma_arg_param
-#undef CONTRACT_arg
-#undef CONTRACT_comma_arg
-#undef CONTRACT_from
-#undef CONTRACT_func
-#undef CONTRACT_entry_class_inv_func
-#undef CONTRACT_exit_class_inv_func
-#undef CONTRACT_throw_class_inv_func
-#undef CONTRACT_pre_func
-#undef CONTRACT_oldof_assignment_func
-#undef CONTRACT_post_func
-#undef CONTRACT_body_func
+#undef BOOST_CONTRACT_comma_arg_param
+#undef BOOST_CONTRACT_arg
+#undef BOOST_CONTRACT_comma_arg
+#undef BOOST_CONTRACT_from
+#undef BOOST_CONTRACT_func
+#undef BOOST_CONTRACT_entry_class_inv_func
+#undef BOOST_CONTRACT_exit_class_inv_func
+#undef BOOST_CONTRACT_throw_class_inv_func
+#undef BOOST_CONTRACT_pre_func
+#undef BOOST_CONTRACT_oldof_assignment_func
+#undef BOOST_CONTRACT_post_func
+#undef BOOST_CONTRACT_body_func
 

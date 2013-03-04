@@ -5,8 +5,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#ifndef CONTRACT_AUX_SYMBOL_HPP_
-#define CONTRACT_AUX_SYMBOL_HPP_
+#ifndef BOOST_CONTRACT_AUX_SYMBOL_HPP_
+#define BOOST_CONTRACT_AUX_SYMBOL_HPP_
 
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/seq/cat.hpp>
@@ -14,18 +14,18 @@
 
 // PRIVATE //
 
-#define CONTRACT_AUX_SYMBOL_POSTFIX_(s, unused, tokens) \
-    BOOST_PP_CAT(tokens, CONTRACT_AUX_SYMBOL_INFIX)
+#define BOOST_CONTRACT_AUX_SYMBOL_POSTFIX_(s, unused, tokens) \
+    BOOST_PP_CAT(tokens, BOOST_CONTRACT_AUX_SYMBOL_INFIX)
 
 // PUBLIC //
 
 // All these macros cannot use `_` because if (user) symbols have leading or
 // trailing `_`, cat symbol might have double `__` which is reserved by C++.
-#define CONTRACT_AUX_SYMBOL_INFIX X
+#define BOOST_CONTRACT_AUX_SYMBOL_INFIX X
 
-#define CONTRACT_AUX_SYMBOL(seq) \
-    BOOST_PP_SEQ_CAT(BOOST_PP_SEQ_TRANSFORM(CONTRACT_AUX_SYMBOL_POSTFIX_, ~, \
-            (contract_aux) seq))
+#define BOOST_CONTRACT_AUX_SYMBOL(seq) \
+    BOOST_PP_SEQ_CAT(BOOST_PP_SEQ_TRANSFORM( \
+            BOOST_CONTRACT_AUX_SYMBOL_POSTFIX_, ~, (contract_aux) seq))
 
 #endif // #include guard
 

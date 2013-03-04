@@ -5,12 +5,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#ifndef CONTRACT_AUX_LOOP_VARIANT_HPP_
-#define CONTRACT_AUX_LOOP_VARIANT_HPP_
+#ifndef BOOST_CONTRACT_AUX_LOOP_VARIANT_HPP_
+#define BOOST_CONTRACT_AUX_LOOP_VARIANT_HPP_
 
-#include <contract/aux_/macro/code_/loop_variant.hpp>
+#include <boost/contract/aux_/macro/code_/loop_variant.hpp>
 
-namespace contract { namespace aux { namespace loop_variant {
+namespace boost { namespace contract { namespace aux { namespace loop_variant {
 
 // NOTE: Loop variant must be >= 0 however that property is asserted instead of
 // using unsigned type here because C++ will still allow to assign signed
@@ -24,7 +24,9 @@ static const value_type uninitialized = -1;
 // NOTE: This declared/undeclared mechanism cannot be made generic with respect
 // to value_type because otherwise sizeof used for tpl spec below will depend
 // of the tparam used instead of value_type.
-template< int DUMMY = 0 > struct declared {
+template< int DUMMY = 0 >
+struct declared
+{
     value_type value;
     static int const cmp2 = 0;
     friend void operator> ( int, declared const& ) {}
@@ -38,7 +40,7 @@ template<> struct resolve<sizeof(declared<>)>
 template<> struct resolve<sizeof(undeclared)>
     { template< int > struct cmp1 { static int const cmp2 = 0; }; };
 
-}}} // namespace contract::aux::loop_variant
+} } } } // namespace
 
 // This must be decl extern and in global namepsace (so visible to any later
 // decl of OLD_VAR in any namespace or local context). Later decl should be of
@@ -51,7 +53,7 @@ template<> struct resolve<sizeof(undeclared)>
 // there is one less macro plus the library doesn't use _END macros for CLASS,
 // FUNCTION, etc (so the macro API is more symmetric without LOOP_END).
 extern contract::aux::loop_variant::undeclared
-        CONTRACT_AUX_CODE_LOOP_VARIANT_OLD_VAR;
+        BOOST_CONTRACT_AUX_CODE_LOOP_VARIANT_OLD_VAR;
 
 #endif // #include guard
 

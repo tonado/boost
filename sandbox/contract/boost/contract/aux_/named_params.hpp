@@ -5,8 +5,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#ifndef CONTRACT_AUX_NAMED_PARAMS_HPP_
-#define CONTRACT_AUX_NAMED_PARAMS_HPP_
+#ifndef BOOST_CONTRACT_AUX_NAMED_PARAMS_HPP_
+#define BOOST_CONTRACT_AUX_NAMED_PARAMS_HPP_
 
 #include <boost/parameter.hpp>
 #include <boost/shared_ptr.hpp>
@@ -14,7 +14,7 @@
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_same.hpp>
 
-namespace contract { namespace aux { namespace named_params {
+namespace boost { namespace contract { namespace aux { namespace named_params {
 
 // To declare default value for required parameters (which have no default).
 struct no_default
@@ -39,7 +39,8 @@ private:
 };
 
 template< typename ArgList, typename Tag >
-class find_tag {
+class find_tag
+{
     typedef typename ArgList::key_type current_tag;
     typedef typename ArgList::tail_type next_elem;
     typedef typename boost::mpl::if_<boost::is_same<current_tag, Tag>,
@@ -52,14 +53,17 @@ public:
 };
 
 template< typename Tag >
-struct find_tag<boost::parameter::aux::empty_arg_list, Tag> {
+struct find_tag<boost::parameter::aux::empty_arg_list, Tag>
+{
     typedef boost::parameter::aux::empty_arg_list type;
 };
 
 template< typename ArgList, typename Tag, typename Default = no_default >
-class arg_type {
+class arg_type
+{
     template< typename ArgElem >
-    struct arg_reference {
+    struct arg_reference
+    {
         // NOTE: Using reference here prevent to assign in parameters within
         // the body (this makes in parameters equivalent to const&). If
         // value_type is used instead of reference here, in-parameters can be
@@ -82,7 +86,7 @@ public:
     >::type::type type;
 };
 
-}}} // namespace contract::aux::named_params
+} } } } // namespace
 
 #endif // #include guard
 

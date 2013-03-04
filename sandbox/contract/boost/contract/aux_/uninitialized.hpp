@@ -5,19 +5,19 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#ifndef CONTRACT_AUX_UNINITIALIZED_HPP_
-#define CONTRACT_AUX_UNINITIALIZED_HPP_
+#ifndef BOOST_CONTRACT_AUX_UNINITIALIZED_HPP_
+#define BOOST_CONTRACT_AUX_UNINITIALIZED_HPP_
 
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/add_pointer.hpp>
 #include <cassert>
 #include <stdexcept>
 
-namespace contract { namespace aux {
+namespace boost { namespace contract { namespace aux {
 
 // This function is used as a default parameter value for parameter names
 // that are specified together with an `=` which cannot be separated using
-// pp-metaprogramming (e.g., old-of and return values in postconditions).
+// pp meta-programming (e.g., old-of and return values in postconditions).
 // However, this is used just to compile the code an this default value should
 // never actually be used and this function should never be called (because the
 // default value access an invalid pointer) so this function aborts.
@@ -25,19 +25,21 @@ namespace contract { namespace aux {
 // default parameter value because in some cases (e.g., if T is a & to a
 // complex type like void_result) the cast will generate a compiler-error.
 template< typename T >
-struct uninitialized {
+struct uninitialized
+{
     // NOTE: This needs to be a template class with a static member function
     // instead of just a template function because otherwise some compilers
     // (MSVC) will not be able to deduce the template type (even if it is
     // always explicitly specified when invoking the function).
-    static typename boost::add_reference<T>::type value() {
-        assert(false); // Internal Error: Should never execute this.
+    static typename boost::add_reference<T>::type value ( void )
+    {
+        assert(false); // Internal error, should never execute this.
         typename boost::add_pointer<T>::type ptr = 0;
         return *ptr;
     }
 };
 
-}} // namespace contract::aux
+} } } // namespace
 
 #endif // #include guard
 

@@ -5,13 +5,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#include <contract/broken.hpp>
-#include <contract/aux_/config.hpp>
-#include <contract/aux_/copy_result.hpp>
-#include <contract/aux_/debug.hpp>
-#include <contract/aux_/constructor_try_block_guard.hpp>
-#include <contract/aux_/call/globals.hpp>
-#include <contract/aux_/subcontract/postcondition.hpp>
+#include <boost/contract/broken.hpp>
+#include <boost/contract/aux_/config.hpp>
+#include <boost/contract/aux_/copy_result.hpp>
+#include <boost/contract/aux_/debug.hpp>
+#include <boost/contract/aux_/constructor_try_block_guard.hpp>
+#include <boost/contract/aux_/call/globals.hpp>
+#include <boost/contract/aux_/subboost/contract/postcondition.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/stringize.hpp>
 #include <boost/preprocessor/punctuation/comma_if.hpp>

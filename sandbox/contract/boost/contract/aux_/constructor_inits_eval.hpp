@@ -5,10 +5,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#ifndef CONTRACT_AUX_CONSTRUCTOR_INITS_EVAL_HPP_
-#define CONTRACT_AUX_CONSTRUCTOR_INITS_EVAL_HPP_
+#ifndef BOOST_CONTRACT_AUX_CONSTRUCTOR_INITS_EVAL_HPP_
+#define BOOST_CONTRACT_AUX_CONSTRUCTOR_INITS_EVAL_HPP_
 
-namespace contract { namespace aux {
+namespace boost { namespace contract { namespace aux {
 
 // Predefined Ids for constructor inits evaluation expressions (defined in one
 // place here so to make sure they are different).
@@ -30,7 +30,7 @@ struct constructor_inits_eval {
     // user-defined derived class.
 };
 
-}} // namespace contract::aux
+} } } // namespace
 
 #endif // #include guard
 

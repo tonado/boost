@@ -5,8 +5,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#ifndef CONTRACT_AUX_CODE_BASE_HPP_
-#define CONTRACT_AUX_CODE_BASE_HPP_
+#ifndef BOOST_CONTRACT_AUX_CODE_BASE_HPP_
+#define BOOST_CONTRACT_AUX_CODE_BASE_HPP_
 
 #include <boost/mpl/identity.hpp>
 
@@ -14,31 +14,32 @@
 
 // Expand to void_base if should not subcontract from base n-th.
 // Precondition: n < size(bases).
-#define CONTRACT_AUX_CODE_BASE_SUBCONTRACT_(z, n, c) \
+#define BOOST_CONTRACT_AUX_CODE_BASE_SUBBOOST_CONTRACT_(z, n, c) \
     /* subcontract from all specified bases (valid n) as per [N1962] policy */ \
     /* (A++ policy would instead be to not subcontract from private bases */ \
     /* and subcontract pre and post but not inv from protected bases) */ \
-    BOOST_PP_ARRAY_ENUM(CONTRACT_DETAIL_PP_BASE_TRAITS_TYPE(BOOST_PP_LIST_AT( \
-            CONTRACT_DETAIL_PP_CLASS_TRAITS_BASES(c), n)))
+    BOOST_PP_ARRAY_ENUM(BOOST_CONTRACT_DETAIL_PP_BASE_TRAITS_TYPE( \
+            BOOST_PP_LIST_AT(BOOST_CONTRACT_DETAIL_PP_CLASS_TRAITS_BASES(c), n)\
+            ))
 
-#define CONTRACT_AUX_CODE_BASE_SELECT_(z, n, c) \
+#define BOOST_CONTRACT_AUX_CODE_BASE_SELECT_(z, n, c) \
     BOOST_PP_IIF(BOOST_PP_LESS(n, BOOST_PP_LIST_SIZE( \
-            CONTRACT_DETAIL_PP_CLASS_TRAITS_BASES(c))), \
-        CONTRACT_AUX_CODE_BASE_SUBCONTRACT_ \
+            BOOST_CONTRACT_DETAIL_PP_CLASS_TRAITS_BASES(c))), \
+        BOOST_CONTRACT_AUX_CODE_BASE_SUBBOOST_CONTRACT_ \
     , \
-        CONTRACT_AUX_CODE_CLASS_TYPE \
+        BOOST_CONTRACT_AUX_CODE_CLASS_TYPE \
         BOOST_PP_TUPLE_EAT(3) \
     )(z, n, c)
 
 // PUBLIC //
 
-#define CONTRACT_AUX_CODE_BASE_TYPE(n) \
-    CONTRACT_AUX_SYMBOL( (base)(n) )
+#define BOOST_CONTRACT_AUX_CODE_BASE_TYPE(n) \
+    BOOST_CONTRACT_AUX_SYMBOL( (base)(n) )
 
-#define CONTRACT_AUX_CODE_BASE_SEQ_R(r, typename_keyword, b) \
+#define BOOST_CONTRACT_AUX_CODE_BASE_SEQ_R(r, typename_keyword, b) \
     ( /* seq elem */ \
-        CONTRACT_DETAIL_PP_BASE_TRAITS_ACCESS(b) \
-        CONTRACT_DETAIL_PP_BASE_TRAITS_VIRTUAL(b) \
+        BOOST_CONTRACT_DETAIL_PP_BASE_TRAITS_ACCESS(b) \
+        BOOST_CONTRACT_DETAIL_PP_BASE_TRAITS_VIRTUAL(b) \
         /* no outer typename here because base list requires no typename */ \
         /* (bases known to be types), IDENTITY with add/remove reference */ \
         /* to handle unwrapped commas */ \
@@ -48,16 +49,16 @@
                 typename_keyword \
                 ::boost::add_reference< \
                     BOOST_PP_ARRAY_ENUM( \
-                            CONTRACT_DETAIL_PP_BASE_TRAITS_TYPE(b)) \
+                            BOOST_CONTRACT_DETAIL_PP_BASE_TRAITS_TYPE(b)) \
                 >::type \
             )) \
         >::type \
     )
 
-#define CONTRACT_AUX_CODE_BASE_TYPEDEF_Z(z, n, c) \
+#define BOOST_CONTRACT_AUX_CODE_BASE_TYPEDEF_Z(z, n, c) \
     typedef \
-        CONTRACT_AUX_CODE_BASE_SELECT_(z, n, c) \
-        CONTRACT_AUX_CODE_BASE_TYPE(n) \
+        BOOST_CONTRACT_AUX_CODE_BASE_SELECT_(z, n, c) \
+        BOOST_CONTRACT_AUX_CODE_BASE_TYPE(n) \
     ;
 
 #endif // #include 

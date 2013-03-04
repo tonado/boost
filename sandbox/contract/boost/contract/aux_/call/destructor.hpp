@@ -5,23 +5,23 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#ifndef CONTRACT_AUX_CALL_DESTRUCTOR_HPP_
-#   define CONTRACT_AUX_CALL_DESTRUCTOR_HPP_
-#   include <contract/aux_/call/impl_/include.hpp>
-#   include <contract/aux_/call/impl_/define.hpp>
+#ifndef BOOST_CONTRACT_AUX_CALL_DESTRUCTOR_HPP_
+#   define BOOST_CONTRACT_AUX_CALL_DESTRUCTOR_HPP_
+#   include <boost/contract/aux_/call/impl_/include.hpp>
+#   include <boost/contract/aux_/call/impl_/define.hpp>
 
-namespace contract { namespace aux {
+namespace boost { namespace contract { namespace aux {
 
-#   define CONTRACT_AUX_CALL_ARITY 0 // Destructors have no argument.
-#   define CONTRACT_AUX_CALL_IS_MEMBER 1
-#   define CONTRACT_AUX_CALL_IS_STATIC 0
-#   define CONTRACT_AUX_CALL_IS_DESTRUCTOR 1
-#   define CONTRACT_AUX_CALL_IS_CONSTRUCTOR_ENTRY 0
-#   define CONTRACT_AUX_CALL_IS_CONSTRUCTOR_EXIT 0
-#   include <contract/aux_/call/impl_/function.hpp> // Generate func code.
+#   define BOOST_CONTRACT_AUX_CALL_ARITY 0 // Destructors have no argument.
+#   define BOOST_CONTRACT_AUX_CALL_IS_MEMBER 1
+#   define BOOST_CONTRACT_AUX_CALL_IS_STATIC 0
+#   define BOOST_CONTRACT_AUX_CALL_IS_DESTRUCTOR 1
+#   define BOOST_CONTRACT_AUX_CALL_IS_CONSTRUCTOR_ENTRY 0
+#   define BOOST_CONTRACT_AUX_CALL_IS_CONSTRUCTOR_EXIT 0
+#   include <boost/contract/aux_/call/impl_/function.hpp> // Generate func code.
 
-}} // namespace contract::aux
+} } } // namespace
 
-#   include <contract/aux_/call/impl_/undef.hpp>
+#   include <boost/contract/aux_/call/impl_/undef.hpp>
 #endif // #include guard
 

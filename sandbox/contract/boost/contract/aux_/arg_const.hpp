@@ -5,10 +5,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#ifndef CONTRACT_AUX_ARG_CONST_HPP_
-#define CONTRACT_AUX_ARG_CONST_HPP_
+#ifndef BOOST_CONTRACT_AUX_ARG_CONST_HPP_
+#define BOOST_CONTRACT_AUX_ARG_CONST_HPP_
 
-#include <contract/config.hpp>
+#include <boost/contract/config.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/add_pointer.hpp>
@@ -21,7 +21,7 @@
 #include <boost/preprocessor/facilities/empty.hpp>
 #include <boost/preprocessor/control/expr_iif.hpp>
 
-namespace contract { namespace aux {
+namespace boost { namespace contract { namespace aux {
 
 // To ensure CONSTANT-CORRECTNESS:
 // 1) Arguments are usually passed by const& -- this makes sure that
@@ -75,7 +75,7 @@ struct arg_const< T& > {
 
 // Specializations for Functions //
 
-#define CONTRACT_AUX_ARG_CONST_func_A(z, n, typename01) \
+#define BOOST_CONTRACT_AUX_ARG_CONST_func_A(z, n, typename01) \
     BOOST_PP_EXPR_IIF(typename01, typename) BOOST_PP_CAT(A, n)
 
 // Const qualifier cannot be applied to function types.
@@ -83,74 +83,84 @@ struct arg_const< T& > {
 //  struct arg_const< R [(*|&)](A0, ...) > {
 //      typedef R ([*|&] type)(A0, ...); // Just relay type without const.
 //  };
-#define CONTRACT_AUX_ARG_CONST_func(z, arity, spec_type) \
+#define BOOST_CONTRACT_AUX_ARG_CONST_func(z, arity, spec_type) \
     template< \
         typename R BOOST_PP_COMMA_IF(arity) \
-        BOOST_PP_ENUM_ ## z(arity, CONTRACT_AUX_ARG_CONST_func_A, 1) \
+        BOOST_PP_ENUM_ ## z(arity, BOOST_CONTRACT_AUX_ARG_CONST_func_A, 1) \
     > \
     struct arg_const< \
         R BOOST_PP_TUPLE_ELEM(2, 0, spec_type)(/* expand EMPTY */) \
-        ( BOOST_PP_ENUM_ ## z(arity, CONTRACT_AUX_ARG_CONST_func_A, 0) ) \
+        ( BOOST_PP_ENUM_ ## z(arity, BOOST_CONTRACT_AUX_ARG_CONST_func_A, 0) ) \
     > { \
         typedef \
             R BOOST_PP_TUPLE_ELEM(2, 1, spec_type) \
-            ( BOOST_PP_ENUM_ ## z(arity, CONTRACT_AUX_ARG_CONST_func_A, 0) ) \
+            ( BOOST_PP_ENUM_ ## \
+                    z(arity, BOOST_CONTRACT_AUX_ARG_CONST_func_A, 0) ) \
         ; \
     };
         
 // Function types.
-BOOST_PP_REPEAT(CONTRACT_CONFIG_FUNCTION_ARITY_MAX,
-        CONTRACT_AUX_ARG_CONST_func, (BOOST_PP_EMPTY, (type)) )
+BOOST_PP_REPEAT(BOOST_CONTRACT_CONFIG_FUNCTION_ARITY_MAX,
+        BOOST_CONTRACT_AUX_ARG_CONST_func, (BOOST_PP_EMPTY, (type)) )
 
 // Function pointers.
-BOOST_PP_REPEAT(CONTRACT_CONFIG_FUNCTION_ARITY_MAX,
-        CONTRACT_AUX_ARG_CONST_func, ((*) BOOST_PP_EMPTY, (* type)) )
+BOOST_PP_REPEAT(BOOST_CONTRACT_CONFIG_FUNCTION_ARITY_MAX,
+        BOOST_CONTRACT_AUX_ARG_CONST_func, ((*) BOOST_PP_EMPTY, (* type)) )
 
 // Function references.
-BOOST_PP_REPEAT(CONTRACT_CONFIG_FUNCTION_ARITY_MAX,
-        CONTRACT_AUX_ARG_CONST_func, ((&) BOOST_PP_EMPTY, (& type)) )
+BOOST_PP_REPEAT(BOOST_CONTRACT_CONFIG_FUNCTION_ARITY_MAX,
+        BOOST_CONTRACT_AUX_ARG_CONST_func, ((&) BOOST_PP_EMPTY, (& type)) )
 
 // #Undefine all local macros (mixed capital names).
-#undef CONTRACT_AUX_ARG_CONST_func_A
-#undef CONTRACT_AUX_ARG_CONST_func
+#undef BOOST_CONTRACT_AUX_ARG_CONST_func_A
+#undef BOOST_CONTRACT_AUX_ARG_CONST_func
 
 // Specializations for Arrays //
 
-#define CONTRACT_AUX_ARG_CONST_array_I(z, n, unsigned01) \
+#define BOOST_CONTRACT_AUX_ARG_CONST_array_I(z, n, unsigned01) \
     BOOST_PP_EXPR_IIF(unsigned01, unsigned) BOOST_PP_CAT(I, n)
 
-#define CONTRACT_AUX_ARG_CONST_array_dim(z, n, unused) \
-    [ CONTRACT_AUX_ARG_CONST_array_I(z, n, 0) ]
+#define BOOST_CONTRACT_AUX_ARG_CONST_array_dim(z, n, unused) \
+    [ BOOST_CONTRACT_AUX_ARG_CONST_array_I(z, n, 0) ]
 
-#define CONTRACT_AUX_ARG_CONST_array(z, dim, const01) \
+#define BOOST_CONTRACT_AUX_ARG_CONST_array(z, dim, const01) \
     template< \
         typename T, \
-        BOOST_PP_ENUM_ ## z(dim, CONTRACT_AUX_ARG_CONST_array_I, 1) \
+        BOOST_PP_ENUM_ ## z(dim, BOOST_CONTRACT_AUX_ARG_CONST_array_I, 1) \
     > \
     struct arg_const< \
         T BOOST_PP_EXPR_IIF(const01, const) \
-        BOOST_PP_REPEAT_ ## z(dim, CONTRACT_AUX_ARG_CONST_array_dim, ~) \
+        BOOST_PP_REPEAT_ ## z(dim, BOOST_CONTRACT_AUX_ARG_CONST_array_dim, ~) \
     > { \
         typedef \
             typename boost::add_const<T>::type \
             type \
-            BOOST_PP_REPEAT_ ## z(dim, CONTRACT_AUX_ARG_CONST_array_dim, ~) \
+            BOOST_PP_REPEAT_ ## \
+                    z(dim, BOOST_CONTRACT_AUX_ARG_CONST_array_dim, ~) \
         ; \
     };
 
 // For non-const array types `T[]...[]`.
-BOOST_PP_REPEAT_FROM_TO(1, BOOST_PP_INC(CONTRACT_CONFIG_ARRAY_DIMENSION_MAX),
-        CONTRACT_AUX_ARG_CONST_array, 0 /* no const */)
+BOOST_PP_REPEAT_FROM_TO(
+      1
+    , BOOST_PP_INC(BOOST_CONTRACT_CONFIG_ARRAY_DIMENSION_MAX)
+    , BOOST_CONTRACT_AUX_ARG_CONST_array
+    , 0 /* no const */
+)
 
 // For const array types `T const[]...[]`.
-BOOST_PP_REPEAT_FROM_TO(1, BOOST_PP_INC(CONTRACT_CONFIG_ARRAY_DIMENSION_MAX),
-        CONTRACT_AUX_ARG_CONST_array, 1 /* const */)
+BOOST_PP_REPEAT_FROM_TO(
+      1
+    , BOOST_PP_INC(BOOST_CONTRACT_CONFIG_ARRAY_DIMENSION_MAX)
+    , BOOST_CONTRACT_AUX_ARG_CONST_array
+    , 1 /* const */
+)
 
-#undef CONTRACT_AUX_ARG_CONST_array_I
-#undef CONTRACT_AUX_ARG_CONST_array_dim
-#undef CONTRACT_AUX_ARG_CONST_array
+#undef BOOST_CONTRACT_AUX_ARG_CONST_array_I
+#undef BOOST_CONTRACT_AUX_ARG_CONST_array_dim
+#undef BOOST_CONTRACT_AUX_ARG_CONST_array
 
-}} // namespace contract::aux
+} } } // namespace
 
 #endif // #include guard
 

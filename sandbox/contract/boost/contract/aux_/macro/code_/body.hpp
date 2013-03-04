@@ -5,28 +5,28 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#ifndef CONTRACT_AUX_CODE_BODY_HPP_
-#define CONTRACT_AUX_CODE_BODY_HPP_
+#ifndef BOOST_CONTRACT_AUX_CODE_BODY_HPP_
+#define BOOST_CONTRACT_AUX_CODE_BODY_HPP_
 
-#include <contract/aux_/symbol.hpp>
-#include <contract/aux_/macro/code_/func.hpp>
-#include <contract/detail/preprocessor/traits/func.hpp> // f
+#include <boost/contract/aux_/symbol.hpp>
+#include <boost/contract/aux_/macro/code_/func.hpp>
+#include <boost/contract/detail/preprocessor/traits/func.hpp> // f
 
 // PUBLIC //
 
-#define CONTRACT_AUX_CODE_BODY_DECL(id, tpl, k, f, body_func) \
-    BOOST_PP_IIF(CONTRACT_AUX_PP_FUNC_KIND_IS_MEMBER(k, f), \
+#define BOOST_CONTRACT_AUX_CODE_BODY_DECL(id, tpl, k, f, body_func) \
+    BOOST_PP_IIF(BOOST_CONTRACT_AUX_PP_FUNC_KIND_IS_MEMBER(k, f), \
         /* NOTE: virtual func might need (and will need if pure virtual) */ \
         /* override the body so the body must keep func orig access level */ \
         /* furthermore body needs to be called directly when derived class */ \
         /* calls its base class function */ \
-        CONTRACT_DETAIL_PP_FUNC_TRAITS_ACCESS(f) : BOOST_PP_EMPTY \
+        BOOST_CONTRACT_DETAIL_PP_FUNC_TRAITS_ACCESS(f) : BOOST_PP_EMPTY \
     , /* else, free function */ \
         /* NOTE: it is not possible to decl free func body static here */ \
         /* otherwise body def cannot be separated from its decl */ \
         BOOST_PP_EMPTY /* do nothing */ \
     )() \
-    CONTRACT_AUX_CODE_FUNC_NAMED_DECL( \
+    BOOST_CONTRACT_AUX_CODE_FUNC_NAMED_DECL( \
           id, tpl, k, f, body_func \
           /* body must have same access level as contracted function to */ \
           /* properly allow to define pure virtual functions */ \

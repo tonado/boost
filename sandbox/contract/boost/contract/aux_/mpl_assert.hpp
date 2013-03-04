@@ -5,15 +5,15 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#ifndef CONTRACT_AUX_MPL_ASSERT_HPP_
-#define CONTRACT_AUX_MPL_ASSERT_HPP_
+#ifndef BOOST_CONTRACT_AUX_MPL_ASSERT_HPP_
+#define BOOST_CONTRACT_AUX_MPL_ASSERT_HPP_
 
 #include <boost/mpl/assert.hpp>
 #include <boost/preprocessor/cat.hpp>
 
 // PRIVATE //
 
-#define CONTRACT_AUX_MPL_ASSERT_MSG_(counter, condition, message, types) \
+#define BOOST_CONTRACT_AUX_MPL_ASSERT_MSG_(counter, condition, message, types) \
     /* unfortunately, need to use Boost.MPL implementation detail */ \
     /* to pass unique ID (not just __LINE__) so this macro can be expanded */ \
     /* multiple times on the same line if with different IDs */ \
@@ -24,8 +24,8 @@
 // PUBLIC //
 
 // Allow to expand multiple assert macros on same line (without name clashes).
-#define CONTRACT_AUX_MPL_ASSERT_MSG(condition, message, types) \
-    CONTRACT_AUX_MPL_ASSERT_MSG_( \
+#define BOOST_CONTRACT_AUX_MPL_ASSERT_MSG(condition, message, types) \
+    BOOST_CONTRACT_AUX_MPL_ASSERT_MSG_( \
             BOOST_MPL_AUX_PP_COUNTER(), /* uses Boost.MPL impl detail */ \
             condition, message, types)
 

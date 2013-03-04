@@ -5,14 +5,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#ifndef CONTRACT_AUX_RESULT_CONST_HPP_
-#define CONTRACT_AUX_RESULT_CONST_HPP_
+#ifndef BOOST_CONTRACT_AUX_RESULT_CONST_HPP_
+#define BOOST_CONTRACT_AUX_RESULT_CONST_HPP_
 
-#include <contract/aux_/arg_const.hpp>
+#include <boost/contract/aux_/arg_const.hpp>
 #include <boost/type_traits/is_void.hpp>
 #include <boost/mpl/if.hpp>
 
-namespace contract { namespace aux {
+namespace boost { namespace contract { namespace aux {
 
 class void_result {}; // Must be copyable so to be returned.
 
@@ -26,7 +26,7 @@ struct result_const {
     >::type type;
 };
 
-}} // namespace contract::aux
+} } } // namespace
 
 #endif // #include guard
 

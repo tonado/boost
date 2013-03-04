@@ -5,18 +5,19 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#ifndef CONTRACT_AUX_OLDOF_HPP_
-#define CONTRACT_AUX_OLDOF_HPP_
+#ifndef BOOST_CONTRACT_AUX_OLDOF_HPP_
+#define BOOST_CONTRACT_AUX_OLDOF_HPP_
 
-#include <contract/oldof.hpp>
+#include <boost/contract/oldof.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/if.hpp>
 
-namespace contract { namespace aux {
+namespace boost { namespace contract { namespace aux {
 
 // Must be empty struct so any attempt to use it will generate a compiler-error,
 // plus struct name is used to report error message.
-struct ERROR_missing_const_copy_constructor_for_oldof_type {
+struct ERROR_missing_const_copy_constructor_for_oldof_type
+{
     // Has dummy const-correct copy constructor from any type so it will
     // never fail an old-of copy<>.
     template< typename T >
@@ -24,11 +25,12 @@ struct ERROR_missing_const_copy_constructor_for_oldof_type {
 };
 
 // Select type above iff a type T has no old-of (not has_oldof<T>) so the
-// CONTRACT_OLDOF declaration will compile but any attempt to use the old-of
-// value for the empty struct type above in an assertion will generate a
+// BOOST_CONTRACT_OLDOF declaration will compile but any attempt to use the
+// old-of value for the empty struct type above in an assertion will generate a
 // compiler-error unless the assertion adds has_oldof to its requirements.
 template< typename T >
-struct oldof {
+struct oldof_ // Don't use oldof to leave that symbol for eventual user #define.
+{
     typedef typename boost::mpl::if_< has_oldof<T>,
         T
     ,
@@ -36,7 +38,7 @@ struct oldof {
     >::type type;
 };
 
-}} // namespace contract::aux
+} } } // namespace
 
 #endif // #include guard
 
