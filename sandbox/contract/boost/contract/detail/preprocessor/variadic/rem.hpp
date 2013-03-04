@@ -5,8 +5,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#ifndef CONTRACT_DETAIL_PP_VARIADIC_REM_HPP_
-#define CONTRACT_DETAIL_PP_VARIADIC_REM_HPP_
+#ifndef BOOST_CONTRACT_DETAIL_PP_VARIADIC_REM_HPP_
+#define BOOST_CONTRACT_DETAIL_PP_VARIADIC_REM_HPP_
 
 // Do not use Boost.PP variadic because they use a different config macro.
 #include <boost/config.hpp>
@@ -14,7 +14,7 @@
 
 // PUBLIC //
 
-#define CONTRACT_DETAIL_PP_VARIADIC_REM(...) __VA_ARGS__
+#define BOOST_CONTRACT_DETAIL_PP_VARIADIC_REM(...) __VA_ARGS__
 
 #endif
 

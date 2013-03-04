@@ -5,13 +5,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#ifndef CONTRACT_DETAIL_PP_OLDOF_TRAITS_HPP_
-#define CONTRACT_DETAIL_PP_OLDOF_TRAITS_HPP_
+#ifndef BOOST_CONTRACT_DETAIL_PP_OLDOF_TRAITS_HPP_
+#define BOOST_CONTRACT_DETAIL_PP_OLDOF_TRAITS_HPP_
 
 // Old-of already parsed but headers included for user to access these traits.
-#include <contract/detail/preprocessor/traits/oldof/type.hpp>
-#include <contract/detail/preprocessor/traits/oldof/assignment.hpp>
-#include <contract/detail/preprocessor/traits/oldof/expr.hpp>
+#include <boost/contract/detail/preprocessor/traits/oldof/type.hpp>
+#include <boost/contract/detail/preprocessor/traits/oldof/assignment.hpp>
+#include <boost/contract/detail/preprocessor/traits/oldof/expr.hpp>
 
 #endif // #include guard
 

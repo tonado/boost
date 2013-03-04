@@ -5,8 +5,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#ifndef CONTRACT_DETAIL_PP_LIST_TO_ARRAY_HPP_
-#define CONTRACT_DETAIL_PP_LIST_TO_ARRAY_HPP_
+#ifndef BOOST_CONTRACT_DETAIL_PP_LIST_TO_ARRAY_HPP_
+#define BOOST_CONTRACT_DETAIL_PP_LIST_TO_ARRAY_HPP_
 
 #include <boost/preprocessor/list/fold_left.hpp>
 #include <boost/preprocessor/control/if.hpp>
@@ -17,7 +17,7 @@
 
 // PRIVATE //
 
-#define CONTRACT_DETAIL_PP_LIST_TO_ARRAY_ELEM_(d, array, elem) \
+#define BOOST_CONTRACT_DETAIL_PP_LIST_TO_ARRAY_ELEM_(d, array, elem) \
     /* don't use ARRAY_SIZE instead of TUPLE_ELEM(2, 0, ...) because when */ \
     /* size is 0 ARRAY_SIZE is undefined */ \
     BOOST_PP_IF(BOOST_PP_TUPLE_ELEM(2, 0, array), \
@@ -29,13 +29,14 @@
 // PUBLIC //
 
 // Precondition: list != NIL
-#define CONTRACT_DETAIL_PP_LIST_TO_ARRAY_D(d, list) \
-    BOOST_PP_LIST_FOLD_LEFT_ ## d(CONTRACT_DETAIL_PP_LIST_TO_ARRAY_ELEM_, \
+#define BOOST_CONTRACT_DETAIL_PP_LIST_TO_ARRAY_D(d, list) \
+    BOOST_PP_LIST_FOLD_LEFT_ ## d( \
+            BOOST_CONTRACT_DETAIL_PP_LIST_TO_ARRAY_ELEM_, \
             (0, ()), list)
 
 // Precondition: list != NIL
-#define CONTRACT_DETAIL_PP_LIST_TO_ARRAY(list) \
-    CONTRACT_DETAIL_PP_LIST_TO_ARRAY_D(1, list)
+#define BOOST_CONTRACT_DETAIL_PP_LIST_TO_ARRAY(list) \
+    BOOST_CONTRACT_DETAIL_PP_LIST_TO_ARRAY_D(1, list)
 
 #endif // #include guard
 

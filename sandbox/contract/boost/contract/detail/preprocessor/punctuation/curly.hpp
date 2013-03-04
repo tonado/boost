@@ -5,33 +5,35 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#ifndef CONTRACT_DETAIL_PP_CURLY_HPP_
-#define CONTRACT_DETAIL_PP_CURLY_HPP_
+#ifndef BOOST_CONTRACT_DETAIL_PP_CURLY_HPP_
+#define BOOST_CONTRACT_DETAIL_PP_CURLY_HPP_
 
-#include <contract/detail/preprocessor/keyword/facilities/is.hpp>
+#include <boost/contract/detail/preprocessor/keyword/facilities/is.hpp>
 
 // PRIVATE //
 
-#define CONTRACT_DETAIL_PP_IS_CURLY_CONTRACT_DETAIL_PP_LCURLY (1) /* unary */
-#define CONTRACT_DETAIL_PP_IS_CURLY_CONTRACT_DETAIL_PP_RCURLY (1) /* unary */
+#define BOOST_CONTRACT_DETAIL_PP_IS_CURLY_BOOST_CONTRACT_DETAIL_PP_LCURLY \
+    (1) /* unary */
+#define BOOST_CONTRACT_DETAIL_PP_IS_CURLY_BOOST_CONTRACT_DETAIL_PP_RCURLY \
+    (1) /* unary */
 
 // PUBLIC //
 
 // Curly parenthesis macros.
 
-#define CONTRACT_DETAIL_PP_LCURLY() {
+#define BOOST_CONTRACT_DETAIL_PP_LCURLY() {
 
-#define CONTRACT_DETAIL_PP_RCURLY() }
+#define BOOST_CONTRACT_DETAIL_PP_RCURLY() }
 
 // Detect curly parenthesis macros (not curly paren but actual macro names).
 
-#define CONTRACT_DETAIL_PP_IS_LCURLY_MACRO(tokens) \
-    CONTRACT_DETAIL_PP_KEYWORD_FACILITY_IS_FRONT(tokens, \
-            CONTRACT_DETAIL_PP_IS_CURLY_)
+#define BOOST_CONTRACT_DETAIL_PP_IS_LCURLY_MACRO(tokens) \
+    BOOST_CONTRACT_DETAIL_PP_KEYWORD_FACILITY_IS_FRONT(tokens, \
+            BOOST_CONTRACT_DETAIL_PP_IS_CURLY_)
 
-#define CONTRACT_DETAIL_PP_IS_RCURLY_MACRO(tokens) \
-    CONTRACT_DETAIL_PP_KEYWORD_FACILITY_IS_FRONT(tokens, \
-            CONTRACT_DETAIL_PP_IS_CURLY_)
+#define BOOST_CONTRACT_DETAIL_PP_IS_RCURLY_MACRO(tokens) \
+    BOOST_CONTRACT_DETAIL_PP_KEYWORD_FACILITY_IS_FRONT(tokens, \
+            BOOST_CONTRACT_DETAIL_PP_IS_CURLY_)
 
 #endif // #include guard
 
