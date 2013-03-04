@@ -5,8 +5,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 // Home at http://sourceforge.net/projects/contractpp
 
-#ifndef CONTRACT_DETAIL_PP_ARRAY_REM_HPP_
-#define CONTRACT_DETAIL_PP_ARRAY_REM_HPP_
+#ifndef BOOST_CONTRACT_DETAIL_PP_ARRAY_REM_HPP_
+#define BOOST_CONTRACT_DETAIL_PP_ARRAY_REM_HPP_
 
 #include <boost/preprocessor/tuple/rem.hpp>
 #include <boost/preprocessor/array/size.hpp>
@@ -14,7 +14,7 @@
 
 // PUBLIC //
 
-#define CONTRACT_DETAIL_PP_ARRAY_REM(array) \
+#define BOOST_CONTRACT_DETAIL_PP_ARRAY_REM(array) \
     BOOST_PP_TUPLE_REM_CTOR(BOOST_PP_ARRAY_SIZE(array), \
             BOOST_PP_ARRAY_DATA(array))
 

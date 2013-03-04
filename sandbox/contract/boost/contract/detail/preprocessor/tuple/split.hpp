@@ -1,21 +1,16 @@
 
-// Copyright (C) 2008-2012 Lorenzo Caminiti
-// Distributed under the Boost Software License, Version 1.0
-// (see accompanying file LICENSE_1_0.txt or a copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-// Home at http://sourceforge.net/projects/contractpp
+/*************************************************************/
+/* WARNING:  FILE AUTOMATICALLY GENERATED, DO NOT MODIFY IT! */
+/* Instead modify the generation script "<FILE>-generate.py" */
+/*************************************************************/
+// Used: #define BOOST_PP_LIMIT_TUPLE 64
 
 #ifndef CONTRACT_DETAIL_PP_TUPLE_SPLIT_HPP_
 #define CONTRACT_DETAIL_PP_TUPLE_SPLIT_HPP_
 
-// WARNING: FILE AUTOMATICALLY GENERATED, DO NOT MODIFY IT!
-// Instead modify the generation script "<FILE>-generate.py" and run
-// `$ python <FILE_NAME>-generate.py > FILE_NAME.hpp`.
-// Used: #define BOOST_PP_LIMIT_TUPLE 64
-
 #include <boost/preprocessor/limits.hpp>
 #if BOOST_PP_LIMIT_TUPLE != 64
-#error "Code generation used incorrect BOOST_PP_LIMIT_TUPLE"
+#   error "Code generation used incorrect BOOST_PP_LIMIT_TUPLE"
 #endif
 
 // PRIVATE //
