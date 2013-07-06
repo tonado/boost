@@ -176,6 +176,6 @@ namespace boost {
 }  // namespace boost
 
 #endif  // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
-#endif  // BOOST_MSVC
+#endif  // !defined BOOST_MSVC
 #endif  // BOOST_CONTAINER_GEN_HAS_STABLE_ITERS_SELECTOR_HPP_INCLUDED
 

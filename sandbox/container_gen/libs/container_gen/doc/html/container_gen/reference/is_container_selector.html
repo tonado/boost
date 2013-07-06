@@ -4,7 +4,7 @@
 <title>is_container_selector</title>
 <link rel="stylesheet" href="http://www.boost.org/doc/libs/release/doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
-<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;container_gen 0.8">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;container_gen 0.9">
 <link rel="up" href="../reference.html" title="Reference">
 <link rel="prev" href="is_allocator_selector.html" title="is_allocator_selector">
 <link rel="next" href="is_reversible_selector.html" title="is_reversible_selector">
@@ -222,6 +222,9 @@
         <span class="identifier">boost</span><span class="special">::</span><span class="identifier">is_container_selector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">skew_heapS</span><span class="special">&gt;</span>
     <span class="special">));</span>
     <span class="identifier">BOOST_MPL_ASSERT_NOT</span><span class="special">((</span>
+        <span class="identifier">boost</span><span class="special">::</span><span class="identifier">is_container_selector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">tr1_binary_predicate_selector</span><span class="special">&gt;</span>
+    <span class="special">));</span>
+    <span class="identifier">BOOST_MPL_ASSERT_NOT</span><span class="special">((</span>
         <span class="identifier">boost</span><span class="special">::</span><span class="identifier">is_container_selector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">equal_to_selector</span><span class="special">&gt;</span>
     <span class="special">));</span>
     <span class="identifier">BOOST_MPL_ASSERT_NOT</span><span class="special">((</span>
@@ -229,6 +232,12 @@
     <span class="special">));</span>
     <span class="identifier">BOOST_MPL_ASSERT_NOT</span><span class="special">((</span>
         <span class="identifier">boost</span><span class="special">::</span><span class="identifier">is_container_selector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">greater_than_selector</span><span class="special">&gt;</span>
+    <span class="special">));</span>
+    <span class="identifier">BOOST_MPL_ASSERT_NOT</span><span class="special">((</span>
+        <span class="identifier">boost</span><span class="special">::</span><span class="identifier">is_container_selector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">binary_predicate_selector</span><span class="special">&gt;</span>
+    <span class="special">));</span>
+    <span class="identifier">BOOST_MPL_ASSERT_NOT</span><span class="special">((</span>
+        <span class="identifier">boost</span><span class="special">::</span><span class="identifier">is_container_selector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">equivalenceS</span><span class="special">&gt;</span>
     <span class="special">));</span>
     <span class="identifier">BOOST_MPL_ASSERT_NOT</span><span class="special">((</span>
         <span class="identifier">boost</span><span class="special">::</span><span class="identifier">is_container_selector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">c_str_less_than_selector</span><span class="special">&gt;</span>

@@ -1,0 +1,140 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>equivalence_function_gen and make_equivalence_function</title>
+<link rel="stylesheet" href="http://www.boost.org/doc/libs/release/doc/src/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<link rel="home" href="equivalence_function.html" title="equivalence_function_gen and make_equivalence_function">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr><td valign="top"><img alt="C++ Boost" width="277" height="86" src="../../../../boost.png"></td></tr></table>
+<hr>
+<div class="spirit-nav"></div>
+<div class="article">
+<div class="titlepage">
+<div>
+<div><h2 class="title">
+<a name="equivalence_function_gen_and_make_equivalence_function"></a>equivalence_function_gen and make_equivalence_function</h2></div>
+<div><p class="copyright">Copyright &#169; 2013 Cromwell Enage</p></div>
+<div><div class="legalnotice">
+<a name="equivalence_function_gen_and_make_equivalence_function.legal"></a><p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></div>
+</div>
+<hr>
+</div>
+<div class="toc">
+<p><b>Table of Contents</b></p>
+<dl>
+<dt><span class="section"><a href="equivalence_function.html#equivalence_function_gen_and_make_equivalence_function.mf_synopsis"><code class="computeroutput"><span class="identifier">equivalence_function_gen</span></code> Synopsis</a></span></dt>
+<dt><span class="section"><a href="equivalence_function.html#equivalence_function_gen_and_make_equivalence_function.mf_desc"><code class="computeroutput"><span class="identifier">equivalence_function_gen</span></code> Description</a></span></dt>
+<dt><span class="section"><a href="equivalence_function.html#equivalence_function_gen_and_make_equivalence_function.func_synopsis"><code class="computeroutput"><span class="identifier">make_equivalence_function</span></code> Synopsis</a></span></dt>
+<dt><span class="section"><a href="equivalence_function.html#equivalence_function_gen_and_make_equivalence_function.func_desc"><code class="computeroutput"><span class="identifier">make_equivalence_function</span></code> Description</a></span></dt>
+<dt><span class="section"><a href="equivalence_function.html#equivalence_function_gen_and_make_equivalence_function.definition">Where
+    defined</a></span></dt>
+</dl>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="equivalence_function_gen_and_make_equivalence_function.mf_synopsis"></a><a class="link" href="equivalence_function.html#equivalence_function_gen_and_make_equivalence_function.mf_synopsis" title="equivalence_function_gen Synopsis"><code class="computeroutput"><span class="identifier">equivalence_function_gen</span></code> Synopsis</a>
+</h2></div></div></div>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">StrictWeakOrdering</span><span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">equivalence_function_gen</span><span class="special">;</span>
+<span class="special">}</span>  <span class="comment">// namespace boost</span>
+</pre>
+<p>
+    </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="equivalence_function_gen_and_make_equivalence_function.mf_desc"></a><a class="link" href="equivalence_function.html#equivalence_function_gen_and_make_equivalence_function.mf_desc" title="equivalence_function_gen Description"><code class="computeroutput"><span class="identifier">equivalence_function_gen</span></code> Description</a>
+</h2></div></div></div>
+<p>
+      Takes in a model of <a href="http://www.sgi.com/tech/stl/StrictWeakOrdering.html" target="_top"><span class="bold"><strong>Strict Weak Ordering</strong></span></a> and returns a model of
+      <a href="http://www.sgi.com/tech/stl/BinaryPredicate.html" target="_top"><span class="bold"><strong>Binary
+      Predicate</strong></span></a> that checks for the equivalence of its two arguments;
+      that is, given the following:
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">StrictWeakOrdering</span> <span class="identifier">f</span><span class="special">;</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">equivalence_function_gen</span><span class="special">&lt;</span><span class="identifier">StrictWeakOrdering</span><span class="special">&gt;::</span><span class="identifier">type</span> <span class="identifier">g</span><span class="special">(</span><span class="identifier">f</span><span class="special">);</span>
+</pre>
+<p>
+    </p>
+<p>
+      If two objects <code class="computeroutput"><span class="identifier">x</span></code> and <code class="computeroutput"><span class="identifier">y</span></code> are comparable by <code class="computeroutput"><span class="identifier">f</span></code>,
+      then <code class="computeroutput"><span class="identifier">g</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">y</span><span class="special">)</span></code> will return <code class="computeroutput"><span class="keyword">true</span></code>
+      if and only if both <code class="computeroutput"><span class="identifier">f</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">y</span><span class="special">)</span></code> and <code class="computeroutput"><span class="identifier">f</span><span class="special">(</span><span class="identifier">y</span><span class="special">,</span>
+      <span class="identifier">x</span><span class="special">)</span></code>
+      return <code class="computeroutput"><span class="keyword">false</span></code>.
+    </p>
+<p>
+      The return type defines a conversion constructor for storing anything that
+      is convertible to <code class="computeroutput"><span class="identifier">StrictWeakOrdering</span></code>,
+      e.g. <code class="computeroutput"><span class="identifier">f</span></code>. If <code class="computeroutput"><span class="identifier">StrictWeakOrdering</span></code>
+      models the <a href="http://www.sgi.com/tech/stl/DefaultConstructible.html" target="_top"><span class="bold"><strong>Default Constructible</strong></span></a> concept, then the return
+      type will also model the <a href="http://www.sgi.com/tech/stl/DefaultConstructible.html" target="_top"><span class="bold"><strong>Default Constructible</strong></span></a> concept. If <code class="computeroutput"><span class="identifier">StrictWeakOrdering</span></code> models the <a href="http://www.sgi.com/tech/stl/AdaptableBinaryPredicate.html" target="_top"><span class="bold"><strong>Adaptable Binary Predicate</strong></span></a> concept, then the
+      return type will also model the <a href="http://www.sgi.com/tech/stl/AdaptableBinaryPredicate.html" target="_top"><span class="bold"><strong>Adaptable Binary Predicate</strong></span></a> concept.
+    </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="equivalence_function_gen_and_make_equivalence_function.func_synopsis"></a><a class="link" href="equivalence_function.html#equivalence_function_gen_and_make_equivalence_function.func_synopsis" title="make_equivalence_function Synopsis"><code class="computeroutput"><span class="identifier">make_equivalence_function</span></code> Synopsis</a>
+</h2></div></div></div>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">StrictWeakOrdering</span><span class="special">&gt;</span>
+    <span class="keyword">typename</span> <span class="identifier">equivalence_function_gen</span><span class="special">&lt;</span><span class="identifier">StrictWeakOrdering</span><span class="special">&gt;::</span><span class="identifier">type</span>
+        <span class="identifier">make_equivalence_function</span><span class="special">(</span><span class="identifier">StrictWeakOrdering</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">predicate</span><span class="special">);</span>
+<span class="special">}</span>  <span class="comment">// namespace boost</span>
+</pre>
+<p>
+    </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="equivalence_function_gen_and_make_equivalence_function.func_desc"></a><a class="link" href="equivalence_function.html#equivalence_function_gen_and_make_equivalence_function.func_desc" title="make_equivalence_function Description"><code class="computeroutput"><span class="identifier">make_equivalence_function</span></code> Description</a>
+</h2></div></div></div>
+<p>
+      Takes in an object whose type models the <a href="http://www.sgi.com/tech/stl/StrictWeakOrdering.html" target="_top"><span class="bold"><strong>Strict Weak Ordering</strong></span></a> concept; returns an object
+      whose type models the <a href="http://www.sgi.com/tech/stl/BinaryPredicate.html" target="_top"><span class="bold"><strong>Binary Predicate</strong></span></a> concept and that checks for
+      the equivalence of its two arguments. That is, if two objects <code class="computeroutput"><span class="identifier">x</span></code> and <code class="computeroutput"><span class="identifier">y</span></code>
+      are comparable by an object <code class="computeroutput"><span class="identifier">f</span></code>
+      of type <code class="computeroutput"><span class="identifier">StrictWeakOrdering</span></code>,
+      then <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">make_equivalence_function</span><span class="special">(</span><span class="identifier">f</span><span class="special">)(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">y</span><span class="special">)</span></code>
+      will return <code class="computeroutput"><span class="keyword">true</span></code> if and only if
+      both <code class="computeroutput"><span class="identifier">f</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">y</span><span class="special">)</span></code> and <code class="computeroutput"><span class="identifier">f</span><span class="special">(</span><span class="identifier">y</span><span class="special">,</span>
+      <span class="identifier">x</span><span class="special">)</span></code>
+      return <code class="computeroutput"><span class="keyword">false</span></code>.
+    </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="equivalence_function_gen_and_make_equivalence_function.definition"></a><a class="link" href="equivalence_function.html#equivalence_function_gen_and_make_equivalence_function.definition" title="Where defined">Where
+    defined</a>
+</h2></div></div></div>
+<p>
+</p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../boost/utility/equivalence_function.hpp" target="_top">boost/utility/equivalence_function.hpp</a><span class="special">&gt;</span>
+</pre>
+<p>
+    </p>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"><p><small>Last revised: June 29, 2013 at 17:18:48 GMT</small></p></td>
+<td align="right"><div class="copyright-footer"></div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav"></div>
+</body>
+</html>

@@ -27,15 +27,18 @@ namespace boost {
         BOOST_MPL_AUX_LAMBDA_SUPPORT(1, is_tr1_selector, (Selector))
         //->
     };
+}  // namespace boost
+//]
+
+#include <boost/config.hpp>
+
+namespace boost {
 
     template <>
     struct is_tr1_selector<tr1_hash_selector> : ::boost::mpl::true_
     {
     };
 }  // namespace boost
-//]
-
-#include <boost/config.hpp>
 
 #if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 
@@ -45,6 +48,11 @@ namespace boost {
 #include <boost/container_gen/detail/selector_signatures.hpp>
 
 namespace boost {
+
+    template <>
+    struct is_tr1_selector<tr1_binary_predicate_selector> : ::boost::mpl::true_
+    {
+    };
 
 #if !defined BOOST_MSVC
     template <typename T0, typename T1>

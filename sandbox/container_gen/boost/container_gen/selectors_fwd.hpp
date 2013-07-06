@@ -27,6 +27,15 @@ namespace boost {
     struct equal_to_selector;
     struct less_than_selector;
     struct greater_than_selector;
+    struct binary_predicate_selector;
+#if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+    struct tr1_binary_predicate_selector;
+#endif
+
+    template <typename CompareSelector = less_than_selector>
+    struct equivalence_selector;
+
+    typedef equivalence_selector<> equivalenceS;
 
     struct boost_hash_selector;
     struct tr1_hash_selector;
@@ -78,7 +87,10 @@ namespace boost {
 #if defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 #if !defined BOOST_MSVC
 //->
-    template <typename ConstantSize, typename IsTR1 = ::boost::mpl::false_>
+    template <
+        typename ConstantSize
+      , typename IsTR1NotBoost = ::boost::mpl::false_
+    >
     struct array_selector;
 //<-
 #endif
@@ -239,7 +251,7 @@ namespace boost {
     >
     struct hash_multimap_selector;
 //<-
-#endif  // BOOST_HAS_HASH
+#endif  // defined BOOST_HAS_HASH
 //->
 
 //<-

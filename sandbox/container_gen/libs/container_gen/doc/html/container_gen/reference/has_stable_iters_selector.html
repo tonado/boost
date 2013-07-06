@@ -4,7 +4,7 @@
 <title>has_stable_iterators_selector</title>
 <link rel="stylesheet" href="http://www.boost.org/doc/libs/release/doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
-<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;container_gen 0.8">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;container_gen 0.9">
 <link rel="up" href="../reference.html" title="Reference">
 <link rel="prev" href="is_recursive_selector.html" title="is_recursive_selector">
 <link rel="next" href="has_emplace_mfunc_selector.html" title="has_emplace_member_function_selector">
@@ -50,7 +50,11 @@
         </p>
 <p>
           The current implementation returns <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span></code></a> when passed in selectors
-          for which <a class="link" href="container_gen.html" title="container_gen"><code class="computeroutput"><span class="identifier">container_gen</span></code></a> will return a <a href="http://www.sgi.com/tech/stl/HashAssociativeContainer.html" target="_top"><span class="bold"><strong>Hashed Associative Container</strong></span></a>, a <a href="http://www.boost.org/doc/html/container/non_standard_containers.html#container.non_standard_containers.flat_xxx" target="_top"><span class="bold"><strong>Flat Associative Container</strong></span></a>, or a <a href="http://www.sgi.com/tech/stl/RandomAccessContainer.html" target="_top"><span class="bold"><strong>Random Access Container</strong></span></a> other than <a href="http://www.boost.org/doc/html/array.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">array</span></code></a>
+          for which <a class="link" href="container_gen.html" title="container_gen"><code class="computeroutput"><span class="identifier">container_gen</span></code></a> will return a <a href="http://www.boost.org/doc/html/heap.html" target="_top"><span class="bold"><strong>Boost.Heap</strong></span></a>
+          model type, a <a href="http://www.sgi.com/tech/stl/HashAssociativeContainer.html" target="_top"><span class="bold"><strong>Hashed Associative Container</strong></span></a> model type,
+          a <a href="http://www.boost.org/doc/html/container/non_standard_containers.html#container.non_standard_containers.flat_xxx" target="_top"><span class="bold"><strong>Flat Associative Container</strong></span></a> model type, or
+          a <a href="http://www.sgi.com/tech/stl/RandomAccessContainer.html" target="_top"><span class="bold"><strong>Random Access Container</strong></span></a> model type other
+          than <a href="http://www.boost.org/doc/html/array.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">array</span></code></a>
           or <a href="http://www.boost.org/doc/html/boost/container/stable_vector.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">container</span><span class="special">::</span><span class="identifier">stable_vector</span></code></a>; it will return
           <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a>
           for all other types of selectors. Specialize this metafunction to return
@@ -271,6 +275,11 @@
         <span class="identifier">boost</span><span class="special">::</span><span class="identifier">has_stable_iterators_selector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">skew_heapS</span><span class="special">&gt;</span>
     <span class="special">));</span>
     <span class="identifier">BOOST_MPL_ASSERT_NOT</span><span class="special">((</span>
+        <span class="identifier">boost</span><span class="special">::</span><span class="identifier">has_stable_iterators_selector</span><span class="special">&lt;</span>
+            <span class="identifier">boost</span><span class="special">::</span><span class="identifier">tr1_binary_predicate_selector</span>
+        <span class="special">&gt;</span>
+    <span class="special">));</span>
+    <span class="identifier">BOOST_MPL_ASSERT_NOT</span><span class="special">((</span>
         <span class="identifier">boost</span><span class="special">::</span><span class="identifier">has_stable_iterators_selector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">equal_to_selector</span><span class="special">&gt;</span>
     <span class="special">));</span>
     <span class="identifier">BOOST_MPL_ASSERT_NOT</span><span class="special">((</span>
@@ -278,6 +287,12 @@
     <span class="special">));</span>
     <span class="identifier">BOOST_MPL_ASSERT_NOT</span><span class="special">((</span>
         <span class="identifier">boost</span><span class="special">::</span><span class="identifier">has_stable_iterators_selector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">greater_than_selector</span><span class="special">&gt;</span>
+    <span class="special">));</span>
+    <span class="identifier">BOOST_MPL_ASSERT_NOT</span><span class="special">((</span>
+        <span class="identifier">boost</span><span class="special">::</span><span class="identifier">has_stable_iterators_selector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">binary_predicate_selector</span><span class="special">&gt;</span>
+    <span class="special">));</span>
+    <span class="identifier">BOOST_MPL_ASSERT_NOT</span><span class="special">((</span>
+        <span class="identifier">boost</span><span class="special">::</span><span class="identifier">has_stable_iterators_selector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">equivalenceS</span><span class="special">&gt;</span>
     <span class="special">));</span>
     <span class="identifier">BOOST_MPL_ASSERT_NOT</span><span class="special">((</span>
         <span class="identifier">boost</span><span class="special">::</span><span class="identifier">has_stable_iterators_selector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">c_str_less_than_selector</span><span class="special">&gt;</span>

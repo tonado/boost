@@ -1,5 +1,5 @@
 [/=============================================================================
-    Copyright (C) 2012 Cromwell D. Enage
+    Copyright (C) 2012-2013 Cromwell D. Enage
 
     Distributed under the Boost Software License, Version 1.0.
     (See accompanying file LICENSE_1_0.txt or copy at
@@ -17,11 +17,12 @@ Returns __mpl_true__ if the type to be returned by __container_gen__ supports
 emplacement construction of its elements, __mpl_false__ otherwise.
 
 The current implementation returns __mpl_true__ when passed in selectors
-for which __container_gen__ will return a __Boost_Container__ type or a
-__Boost_Unordered__ container; it will return __mpl_false__ for all other types
-of selectors.  Specialize this metafunction to return __mpl_true__ for your
-custom selector if and only if the type to be returned by __container_gen__
-supports emplacement construction of its elements.
+for which __container_gen__ will return a __Boost_Container__ model type, a
+__Boost_Unordered__ container type, or a __Boost_Heap__ model type; it will
+return __mpl_false__ for all other types of selectors.  Specialize this
+metafunction to return __mpl_true__ for your custom selector if and only if
+the type to be returned by __container_gen__ supports emplacement construction
+of its elements.
 [endsect]
 
 [section:definition Where defined]

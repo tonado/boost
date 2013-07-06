@@ -16,7 +16,6 @@
 #include <boost/detail/metafunction/has_mfunc_update.hpp>
 #include <boost/detail/metafunction/has_mfunc_increase.hpp>
 #include <boost/detail/metafunction/has_mfunc_decrease.hpp>
-#include <boost/detail/metafunction/has_mfunc_merge.hpp>
 #include <boost/detail/metafunction/has_mfunc_push.hpp>
 #include <boost/detail/metafunction/has_handle_type.hpp>
 #include <boost/detail/metafunction/is_heap.hpp>
@@ -70,31 +69,13 @@ namespace boost { namespace detail { namespace metafunction {
     };
 
     template <typename T>
-    struct is_mutable_heap_with_push_and_merge
-#if 1
+    struct is_mutable_heap_with_push
       : has_member_function_push<
             T
           , typename T::handle_type
           , ::boost::mpl::vector1<typename T::const_reference>
           , ::boost::function_types::non_const
         >
-#else
-      : ::boost::mpl::eval_if<
-            typename has_member_function_push<
-                T
-              , typename T::handle_type
-              , ::boost::mpl::vector1<typename T::const_reference>
-              , ::boost::function_types::non_const
-            >::type
-          , has_member_function_merge<
-                T
-              , void
-              , ::boost::mpl::vector1<T const&>
-              , ::boost::function_types::non_const
-            >
-          , ::boost::mpl::false_
-        >
-#endif
     {
     };
 
@@ -125,7 +106,7 @@ namespace boost { namespace detail { namespace metafunction {
             >::type
           , ::boost::mpl::eval_if<
                 is_mutable_heap_with_decrease<T> 
-              , is_mutable_heap_with_push_and_merge<T>
+              , is_mutable_heap_with_push<T>
               , ::boost::mpl::false_
             >
           , ::boost::mpl::false_

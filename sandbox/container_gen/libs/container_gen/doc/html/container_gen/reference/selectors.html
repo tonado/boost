@@ -4,7 +4,7 @@
 <title>Selectors</title>
 <link rel="stylesheet" href="http://www.boost.org/doc/libs/release/doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
-<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;container_gen 0.8">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;container_gen 0.9">
 <link rel="up" href="../reference.html" title="Reference">
 <link rel="prev" href="../reference.html" title="Reference">
 <link rel="next" href="container_gen.html" title="container_gen">
@@ -24,13 +24,18 @@
 <a name="container_gen.reference.selectors.synopsis"></a><a class="link" href="selectors.html#container_gen.reference.selectors.synopsis" title="Synopsis">Synopsis</a>
 </h4></div></div></div>
 <p>
-          This library provides several selector templates, one for each <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>STL Container</strong></span></a> model, <a href="http://www.boost.org/doc/html/container.html" target="_top"><span class="bold"><strong>Boost.Container</strong></span></a>, <a href="http://www.boost.org/doc/html/unordered.html" target="_top"><span class="bold"><strong>Boost.Unordered</strong></span></a> container, and <a href="http://www.boost.org/libs/ptr_container/doc/index.html" target="_top"><span class="bold"><strong>Boost.PointerContainer</strong></span></a> to which it corresponds.
+          This library provides several selector templates, one for each <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>STL Container</strong></span></a> model, <a href="http://www.boost.org/doc/html/container.html" target="_top"><span class="bold"><strong>Boost.Container</strong></span></a>, <a href="http://www.boost.org/doc/html/unordered.html" target="_top"><span class="bold"><strong>Boost.Unordered</strong></span></a> container, <a href="http://www.boost.org/libs/ptr_container/doc/index.html" target="_top"><span class="bold"><strong>Boost.PointerContainer</strong></span></a>, STL container adaptor,
+          and <a href="http://www.boost.org/doc/html/heap.html" target="_top"><span class="bold"><strong>Boost.Heap</strong></span></a>
+          data structure to which it corresponds.
         </p>
 <p>
 </p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
 
-    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ConstantSize</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">IsTR1</span> <span class="special">=</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span><span class="special">&gt;</span>
+    <span class="keyword">template</span> <span class="special">&lt;</span>
+        <span class="keyword">typename</span> <span class="identifier">ConstantSize</span>
+      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">IsTR1NotBoost</span> <span class="special">=</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span>
+    <span class="special">&gt;</span>
     <span class="keyword">struct</span> <span class="identifier">array_selector</span><span class="special">;</span>
 
     <span class="keyword">template</span> <span class="special">&lt;</span>
@@ -310,77 +315,6 @@
 <p>
         </p>
 <p>
-          A selector template also exists for each STL container adaptor and <a href="http://www.boost.org/doc/html/heap.html" target="_top"><span class="bold"><strong>Boost.Heap</strong></span></a>
-          data structure to which it corresponds.
-        </p>
-<p>
-</p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
-
-    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">SequenceSelector</span><span class="special">&gt;</span>
-    <span class="keyword">struct</span> <span class="identifier">stack_selector</span>
-    <span class="special">{</span>
-    <span class="special">};</span>
-
-    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">SequenceSelector</span><span class="special">&gt;</span>
-    <span class="keyword">struct</span> <span class="identifier">queue_selector</span>
-    <span class="special">{</span>
-    <span class="special">};</span>
-
-    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T0</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T1</span><span class="special">&gt;</span>
-    <span class="keyword">struct</span> <span class="identifier">std_heap_selector</span>
-    <span class="special">{</span>
-    <span class="special">};</span>
-
-    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T0</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T1</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T2</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T3</span><span class="special">&gt;</span>
-    <span class="keyword">struct</span> <span class="identifier">priority_queue_selector</span>
-    <span class="special">{</span>
-    <span class="special">};</span>
-
-    <span class="keyword">template</span> <span class="special">&lt;</span>
-        <span class="keyword">typename</span> <span class="identifier">T0</span>
-      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T1</span>
-      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T2</span>
-      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T3</span>
-      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T4</span>
-      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T5</span>
-    <span class="special">&gt;</span>
-    <span class="keyword">struct</span> <span class="identifier">d_ary_heap_selector</span>
-    <span class="special">{</span>
-    <span class="special">};</span>
-
-    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T0</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T1</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T2</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T3</span><span class="special">&gt;</span>
-    <span class="keyword">struct</span> <span class="identifier">binomial_heap_selector</span>
-    <span class="special">{</span>
-    <span class="special">};</span>
-
-    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T0</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T1</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T2</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T3</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T4</span><span class="special">&gt;</span>
-    <span class="keyword">struct</span> <span class="identifier">fibonacci_heap_selector</span>
-    <span class="special">{</span>
-    <span class="special">};</span>
-
-    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T0</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T1</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T2</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T3</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T4</span><span class="special">&gt;</span>
-    <span class="keyword">struct</span> <span class="identifier">pairing_heap_selector</span>
-    <span class="special">{</span>
-    <span class="special">};</span>
-
-    <span class="keyword">template</span> <span class="special">&lt;</span>
-        <span class="keyword">typename</span> <span class="identifier">T0</span>
-      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T1</span>
-      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T2</span>
-      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T3</span>
-      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T4</span>
-      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T5</span>
-      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">T6</span>
-    <span class="special">&gt;</span>
-    <span class="keyword">struct</span> <span class="identifier">skew_heap_selector</span>
-    <span class="special">{</span>
-    <span class="special">};</span>
-<span class="special">}</span>  <span class="comment">// namespace boost</span>
-</pre>
-<p>
-        </p>
-<p>
           In turn, some of the default arguments of these selector templates are
           themselves selector types.
         </p>
@@ -413,12 +347,38 @@
         <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
         <span class="keyword">struct</span> <span class="identifier">apply</span>
         <span class="special">{</span>
-            <span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">if_</span><span class="special">&lt;</span>
-                        <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">detail</span><span class="special">::</span><span class="identifier">metafunction</span><span class="special">::</span><span class="identifier">is_container</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span>
-                      <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">detail</span><span class="special">::</span><span class="identifier">range_greater</span>
-                      <span class="special">,</span> <span class="special">::</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">greater</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span>
-                    <span class="special">&gt;::</span><span class="identifier">type</span>
+            <span class="keyword">typedef</span> <span class="comment">// implementation_defined</span>
                     <span class="identifier">type</span><span class="special">;</span>
+        <span class="special">};</span>
+    <span class="special">};</span>
+
+    <span class="keyword">struct</span> <span class="identifier">binary_predicate_selector</span>
+    <span class="special">{</span>
+        <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+        <span class="keyword">struct</span> <span class="identifier">apply</span>
+        <span class="special">{</span>
+            <span class="keyword">typedef</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">function2</span><span class="special">&lt;</span><span class="keyword">bool</span><span class="special">,</span><span class="identifier">T</span> <span class="keyword">const</span><span class="special">&amp;,</span><span class="identifier">T</span> <span class="keyword">const</span><span class="special">&amp;&gt;</span> <span class="identifier">type</span><span class="special">;</span>
+        <span class="special">};</span>
+    <span class="special">};</span>
+
+    <span class="keyword">struct</span> <span class="identifier">tr1_binary_predicate_selector</span>
+    <span class="special">{</span>
+        <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+        <span class="keyword">struct</span> <span class="identifier">apply</span>
+        <span class="special">{</span>
+            <span class="keyword">typedef</span> <span class="special">::</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">tr1</span><span class="special">::</span><span class="identifier">function</span><span class="special">&lt;</span><span class="keyword">bool</span><span class="special">(</span><span class="identifier">T</span> <span class="keyword">const</span><span class="special">&amp;,</span><span class="identifier">T</span> <span class="keyword">const</span><span class="special">&amp;)&gt;</span> <span class="identifier">type</span><span class="special">;</span>
+        <span class="special">};</span>
+    <span class="special">};</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">CompareSelector</span><span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">equivalence_selector</span>
+    <span class="special">{</span>
+        <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+        <span class="keyword">struct</span> <span class="identifier">apply</span>
+          <span class="special">:</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">equivalence_function_gen</span><span class="special">&lt;</span>
+                <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">apply_wrap1</span><span class="special">&lt;</span><span class="identifier">CompareSelector</span><span class="special">,</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">type</span>
+            <span class="special">&gt;</span>
+        <span class="special">{</span>
         <span class="special">};</span>
     <span class="special">};</span>
 
@@ -474,9 +434,7 @@
 <p>
           To instantiate a model of <a href="http://www.sgi.com/tech/stl/AssociativeContainer.html" target="_top"><span class="bold"><strong>Associative Container</strong></span></a> that stores C-style
           strings as keys, pass the appropriate one of these types as the <code class="computeroutput"><span class="identifier">CompareSelector</span></code> argument to the corresponding
-          container selector template. The following <a class="link" href="selectors.html#container_gen.reference.selectors.description" title="Description">table</a>
-          will describe the <code class="computeroutput"><span class="identifier">CompareSelector</span></code>
-          template argument among others in further detail.
+          container selector template.
         </p>
 <p>
 </p>
@@ -887,8 +845,16 @@
                     a <a href="http://www.sgi.com/tech/stl/HashAssociativeContainer.html" target="_top"><span class="bold"><strong>Hashed Associative Container</strong></span></a> model,
                     then a <a href="http://www.boost.org/libs/mpl/doc/refmanual/metafunction-class.html" target="_top"><span class="bold"><strong>Unary Metafunction Class</strong></span></a> that
                     takes in the value type and returns a <a href="http://www.sgi.com/tech/stl/BinaryPredicate.html" target="_top"><span class="bold"><strong>Binary Predicate</strong></span></a> model. The return
-                    type will become the container template's <code class="computeroutput"><span class="identifier">Compare</span></code>,
-                    <code class="computeroutput"><span class="identifier">Pred</span></code>, or <a href="http://www.boost.org/doc/html/heap/data_structures.html#heap.data_structures.data_structure_configuration" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">heap</span><span class="special">::</span><span class="identifier">compare</span></code></a> argument.
+                    type of the selector template will become the container template's
+                    <code class="computeroutput"><span class="identifier">Compare</span></code>, <code class="computeroutput"><span class="identifier">Pred</span></code>, or <a href="http://www.boost.org/doc/html/heap/data_structures.html#heap.data_structures.data_structure_configuration" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">heap</span><span class="special">::</span><span class="identifier">compare</span></code></a> argument.
+                  </p>
+                  <p>
+                    If the selector template is <code class="computeroutput"><span class="identifier">equivalence_selector</span></code>,
+                    then a <a href="http://www.boost.org/libs/mpl/doc/refmanual/metafunction-class.html" target="_top"><span class="bold"><strong>Unary Metafunction Class</strong></span></a> that
+                    takes in the argument type and returns a <a href="http://www.sgi.com/tech/stl/StrictWeakOrdering.html" target="_top"><span class="bold"><strong>Strict Weak Ordering</strong></span></a> model. The
+                    return type of <code class="computeroutput"><span class="identifier">equivalence_selector</span></code>
+                    will be the same as that of <a href="../../../../../../libs/utility/doc/html/equivalence_function.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">equivalence_function_gen</span></code></a>
+                    passed in the <a href="http://www.sgi.com/tech/stl/StrictWeakOrdering.html" target="_top"><span class="bold"><strong>Strict Weak Ordering</strong></span></a> model.
                   </p>
                   <p>
                     By way of example, as discussed in the <a class="link" href="selectors.html#container_gen.reference.selectors.synopsis" title="Synopsis">synopsis</a>,

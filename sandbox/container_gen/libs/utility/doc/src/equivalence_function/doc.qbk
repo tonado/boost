@@ -1,0 +1,88 @@
+[article equivalence_function_gen and make_equivalence_function
+    [quickbook 1.5]
+    [copyright 2013 Cromwell Enage]
+    [license
+        Distributed under the Boost Software License, Version 1.0.
+        (See accompanying file LICENSE_1_0.txt or copy at
+        [@http://www.boost.org/LICENSE_1_0.txt])
+    ]
+]
+
+
+[def __Default_Constructible__ [@http://www.sgi.com/tech/stl/DefaultConstructible.html [*Default Constructible]]]
+[def __Strict_Weak_Ordering__ [@http://www.sgi.com/tech/stl/StrictWeakOrdering.html [*Strict Weak Ordering]]]
+[def __Binary_Predicate__ [@http://www.sgi.com/tech/stl/BinaryPredicate.html [*Binary Predicate]]]
+[def __Adaptable_Binary_Predicate__ [@http://www.sgi.com/tech/stl/AdaptableBinaryPredicate.html [*Adaptable Binary Predicate]]]
+[def __boost_utility_equivalence_function_hpp__ [@../../../../boost/utility/equivalence_function.hpp boost/utility/equivalence_function.hpp]]
+
+[import ../../../../../boost/utility/equivalence_function.hpp]
+
+
+[/======================================================]
+[section:mf_synopsis `equivalence_function_gen` Synopsis]
+[/======================================================]
+
+[reference__equivalence_function_gen]
+
+[endsect]
+
+
+[/=====================================================]
+[section:mf_desc `equivalence_function_gen` Description]
+[/=====================================================]
+
+Takes in a model of __Strict_Weak_Ordering__ and returns a model of
+__Binary_Predicate__ that checks for the equivalence of its two arguments;
+that is, given the following:
+
+``
+    StrictWeakOrdering f;
+    boost::equivalence_function_gen<StrictWeakOrdering>::type g(f);
+``
+
+If two objects `x` and `y` are comparable by `f`, then `g(x, y)` will return
+`true` if and only if both `f(x, y)` and `f(y, x)` return `false`.
+
+The return type defines a conversion constructor for storing anything that is
+convertible to `StrictWeakOrdering`, e.g. `f`.  If `StrictWeakOrdering` models
+the __Default_Constructible__ concept, then the return type will also model
+the __Default_Constructible__ concept.  If `StrictWeakOrdering` models the
+__Adaptable_Binary_Predicate__ concept, then the return type will also model
+the __Adaptable_Binary_Predicate__ concept.
+
+[endsect]
+
+
+[/=========================================================]
+[section:func_synopsis `make_equivalence_function` Synopsis]
+[/=========================================================]
+
+[reference__make_equivalence_function]
+
+[endsect]
+
+
+[/========================================================]
+[section:func_desc `make_equivalence_function` Description]
+[/========================================================]
+
+Takes in an object whose type models the __Strict_Weak_Ordering__ concept;
+returns an object whose type models the __Binary_Predicate__ concept and that
+checks for the equivalence of its two arguments.  That is, if two objects `x`
+and `y` are comparable by an object `f` of type `StrictWeakOrdering`, then
+`boost::make_equivalence_function(f)(x, y)` will return `true` if and only if
+both `f(x, y)` and `f(y, x)` return `false`.
+
+[endsect]
+
+
+[/===============================]
+[section:definition Where defined]
+[/===============================]
+
+``
+#include <__boost_utility_equivalence_function_hpp__>
+``
+
+[endsect]
+

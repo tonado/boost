@@ -29,6 +29,7 @@
 #include <boost/container_gen/is_iteratable_heap_selector.hpp>
 #include <boost/container_gen/is_order_iter_heap_selector.hpp>
 #include <boost/container_gen/is_mutable_heap_selector.hpp>
+#include <boost/container_gen/is_mergeable_heap_selector.hpp>
 #include <boost/container_gen/has_stable_iters_selector.hpp>
 #include <boost/container_gen/is_tr1_selector.hpp>
 #include <boost/container_gen/is_recursive_selector.hpp>
@@ -339,6 +340,9 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT_NOT((
         boost::is_compare_selector<boost::skew_heapS>
     ));
+    BOOST_MPL_ASSERT((
+        boost::is_compare_selector<boost::tr1_binary_predicate_selector>
+    ));
 //<-
 #endif  // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 //->
@@ -350,6 +354,12 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT((
         boost::is_compare_selector<boost::greater_than_selector>
+    ));
+    BOOST_MPL_ASSERT((
+        boost::is_compare_selector<boost::binary_predicate_selector>
+    ));
+    BOOST_MPL_ASSERT((
+        boost::is_compare_selector<boost::equivalenceS>
     ));
     BOOST_MPL_ASSERT((
         boost::is_compare_selector<boost::c_str_less_than_selector>
@@ -625,6 +635,9 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT_NOT((
         boost::is_hasher_selector<boost::skew_heapS>
     ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_hasher_selector<boost::tr1_binary_predicate_selector>
+    ));
 //<-
 #endif  // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 //->
@@ -636,6 +649,12 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_hasher_selector<boost::greater_than_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_hasher_selector<boost::binary_predicate_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_hasher_selector<boost::equivalenceS>
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_hasher_selector<boost::c_str_less_than_selector>
@@ -919,6 +938,9 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT_NOT((
         boost::is_allocator_selector<boost::skew_heapS>
     ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_allocator_selector<boost::tr1_binary_predicate_selector>
+    ));
 //<-
 #endif  // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 //->
@@ -930,6 +952,12 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_allocator_selector<boost::greater_than_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_allocator_selector<boost::binary_predicate_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_allocator_selector<boost::equivalenceS>
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_allocator_selector<boost::c_str_less_than_selector>
@@ -1205,6 +1233,9 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT((
         boost::is_container_selector<boost::skew_heapS>
     ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_container_selector<boost::tr1_binary_predicate_selector>
+    ));
 //<-
 #endif  // !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 //->
@@ -1216,6 +1247,12 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_container_selector<boost::greater_than_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_container_selector<boost::binary_predicate_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_container_selector<boost::equivalenceS>
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_container_selector<boost::c_str_less_than_selector>
@@ -1499,6 +1536,9 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT_NOT((
         boost::is_reversible_selector<boost::skew_heapS>
     ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_reversible_selector<boost::tr1_binary_predicate_selector>
+    ));
 //<-
 #endif  // !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 //->
@@ -1510,6 +1550,12 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_reversible_selector<boost::greater_than_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_reversible_selector<boost::binary_predicate_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_reversible_selector<boost::equivalenceS>
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_reversible_selector<boost::c_str_less_than_selector>
@@ -1813,6 +1859,9 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT_NOT((
         boost::is_random_access_selector<boost::skew_heapS>
     ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_random_access_selector<boost::tr1_binary_predicate_selector>
+    ));
 //<-
 #endif  // !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 //->
@@ -1824,6 +1873,12 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_random_access_selector<boost::less_than_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_random_access_selector<boost::binary_predicate_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_random_access_selector<boost::equivalenceS>
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_random_access_selector<boost::c_str_less_than_selector>
@@ -2099,6 +2154,9 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT_NOT((
         boost::is_associative_selector<boost::skew_heapS>
     ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_associative_selector<boost::tr1_binary_predicate_selector>
+    ));
 //<-
 #endif  // !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 //->
@@ -2110,6 +2168,12 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_associative_selector<boost::greater_than_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_associative_selector<boost::binary_predicate_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_associative_selector<boost::equivalenceS>
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_associative_selector<boost::c_str_less_than_selector>
@@ -2429,6 +2493,11 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT_NOT((
         boost::is_unique_associative_selector<boost::skew_heapS>
     ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_unique_associative_selector<
+            boost::tr1_binary_predicate_selector
+        >
+    ));
 //<-
 #endif  // !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 //->
@@ -2440,6 +2509,12 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_unique_associative_selector<boost::greater_than_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_unique_associative_selector<boost::binary_predicate_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_unique_associative_selector<boost::equivalenceS>
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_unique_associative_selector<boost::c_str_less_than_selector>
@@ -2763,6 +2838,11 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT_NOT((
         boost::is_multiple_associative_selector<boost::skew_heapS>
     ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_multiple_associative_selector<
+            boost::tr1_binary_predicate_selector
+        >
+    ));
 //<-
 #endif  // !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 //->
@@ -2774,6 +2854,14 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_multiple_associative_selector<boost::greater_than_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_multiple_associative_selector<
+            boost::binary_predicate_selector
+        >
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_multiple_associative_selector<boost::equivalenceS>
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_multiple_associative_selector<
@@ -3099,6 +3187,11 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT_NOT((
         boost::is_hashed_associative_selector<boost::skew_heapS>
     ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_hashed_associative_selector<
+            boost::tr1_binary_predicate_selector
+        >
+    ));
 //<-
 #endif  // !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 //->
@@ -3110,6 +3203,12 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_hashed_associative_selector<boost::greater_than_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_hashed_associative_selector<boost::binary_predicate_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_hashed_associative_selector<boost::equivalenceS>
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_hashed_associative_selector<boost::c_str_less_than_selector>
@@ -3433,6 +3532,11 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT_NOT((
         boost::is_flat_associative_selector<boost::skew_heapS>
     ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_flat_associative_selector<
+            boost::tr1_binary_predicate_selector
+        >
+    ));
 //<-
 #endif  // !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 //->
@@ -3444,6 +3548,12 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_flat_associative_selector<boost::greater_than_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_flat_associative_selector<boost::binary_predicate_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_flat_associative_selector<boost::equivalenceS>
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_flat_associative_selector<boost::c_str_less_than_selector>
@@ -3719,6 +3829,9 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT_NOT((
         boost::is_ptr_selector<boost::skew_heapS>
     ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_ptr_selector<boost::tr1_binary_predicate_selector>
+    ));
 //<-
 #endif  // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 //->
@@ -3730,6 +3843,12 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_ptr_selector<boost::greater_than_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_ptr_selector<boost::binary_predicate_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_ptr_selector<boost::equivalenceS>
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_ptr_selector<boost::c_str_less_than_selector>
@@ -4005,6 +4124,9 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT_NOT((
         boost::is_queue_selector<boost::skew_heapS>
     ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_queue_selector<boost::tr1_binary_predicate_selector>
+    ));
 //<-
 #endif  // !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 //->
@@ -4016,6 +4138,12 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_queue_selector<boost::greater_than_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_queue_selector<boost::binary_predicate_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_queue_selector<boost::equivalenceS>
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_queue_selector<boost::c_str_less_than_selector>
@@ -4291,6 +4419,9 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT_NOT((
         boost::is_stack_selector<boost::skew_heapS>
     ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_stack_selector<boost::tr1_binary_predicate_selector>
+    ));
 //<-
 #endif  // !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 //->
@@ -4302,6 +4433,12 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_stack_selector<boost::greater_than_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_stack_selector<boost::binary_predicate_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_stack_selector<boost::equivalenceS>
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_stack_selector<boost::c_str_less_than_selector>
@@ -4577,6 +4714,9 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT_NOT((
         boost::is_std_heap_selector<boost::skew_heapS>
     ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_std_heap_selector<boost::tr1_binary_predicate_selector>
+    ));
 //<-
 #endif  // !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 //->
@@ -4588,6 +4728,12 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_std_heap_selector<boost::greater_than_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_std_heap_selector<boost::binary_predicate_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_std_heap_selector<boost::equivalenceS>
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_std_heap_selector<boost::c_str_less_than_selector>
@@ -4863,6 +5009,9 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT((
         boost::is_heap_selector<boost::skew_heapS>
     ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_heap_selector<boost::tr1_binary_predicate_selector>
+    ));
 //<-
 #endif  // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 //->
@@ -4874,6 +5023,12 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_heap_selector<boost::greater_than_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_heap_selector<boost::binary_predicate_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_heap_selector<boost::equivalenceS>
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_heap_selector<boost::c_str_less_than_selector>
@@ -5193,6 +5348,11 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT((
         boost::is_iteratable_heap_selector<boost::skew_heapS>
     ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_iteratable_heap_selector<
+            boost::tr1_binary_predicate_selector
+        >
+    ));
 //<-
 #endif  // !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 //->
@@ -5204,6 +5364,12 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_iteratable_heap_selector<boost::greater_than_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_iteratable_heap_selector<boost::binary_predicate_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_iteratable_heap_selector<boost::equivalenceS>
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_iteratable_heap_selector<boost::c_str_less_than_selector>
@@ -5523,6 +5689,11 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT((
         boost::is_order_iteratable_heap_selector<boost::skew_heapS>
     ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_order_iteratable_heap_selector<
+            boost::tr1_binary_predicate_selector
+        >
+    ));
 //<-
 #endif  // !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 //->
@@ -5534,6 +5705,14 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_order_iteratable_heap_selector<boost::greater_than_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_order_iteratable_heap_selector<
+            boost::binary_predicate_selector
+        >
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_order_iteratable_heap_selector<boost::equivalenceS>
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_order_iteratable_heap_selector<
@@ -5875,6 +6054,9 @@ MPL_TEST_CASE()
             boost::skew_heap_selector<boost::heap::mutable_<true> >
         >
     ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mutable_heap_selector<boost::tr1_binary_predicate_selector>
+    ));
 //<-
 #endif  // !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 //->
@@ -5886,6 +6068,12 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_mutable_heap_selector<boost::greater_than_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mutable_heap_selector<boost::binary_predicate_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mutable_heap_selector<boost::equivalenceS>
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_mutable_heap_selector<boost::c_str_less_than_selector>
@@ -5904,6 +6092,361 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_mutable_heap_selector<boost::std_flat_allocator_selector>
+    ));
+}
+//]
+
+//[test__is_mergeable_heap_selector
+MPL_TEST_CASE()
+{
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::vecS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::dequeS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::listS>
+    ));
+//<-
+#if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION || \
+    !defined BOOST_NO_SLIST
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::slistS>
+    ));
+//<-
+#endif
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::setS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::mapS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::multisetS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::multimapS>
+    ));
+//<-
+#if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION || defined BOOST_HAS_HASH
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::hash_setS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::hash_mapS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::hash_multisetS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::hash_multimapS>
+    ));
+//<-
+#endif
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::ptr_vecS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::ptr_dequeS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::ptr_listS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::ptr_setS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::ptr_mapS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::ptr_multisetS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::ptr_multimapS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::stackS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::queueS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::std_heapS>
+    ));
+//<-
+#if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::ptr_hash_setS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::ptr_hash_mapS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::ptr_hash_multisetS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::ptr_hash_multimapS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<
+            boost::vector_selector<
+//<-
+#if defined BOOST_MPL_CFG_NO_HAS_XXX
+                boost::is_boost_not_std_arg<true_>
+#else
+//->
+                true_
+//<-
+#endif
+//->
+            >
+        >
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::stable_vecS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mutable_heap_selector<
+            boost::deque_selector<
+//<-
+#if defined BOOST_MPL_CFG_NO_HAS_XXX
+                boost::is_boost_not_std_arg<true_>
+#else
+//->
+                true_
+//<-
+#endif
+//->
+            >
+        >
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<
+            boost::list_selector<
+//<-
+#if defined BOOST_MPL_CFG_NO_HAS_XXX
+                boost::is_boost_not_std_arg<true_>
+#else
+//->
+                true_
+//<-
+#endif
+//->
+            >
+        >
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<
+            boost::set_selector<
+//<-
+#if defined BOOST_MPL_CFG_NO_HAS_XXX
+                boost::is_boost_not_std_arg<true_>
+#else
+//->
+                true_
+//<-
+#endif
+//->
+            >
+        >
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<
+            boost::map_selector<
+//<-
+#if defined BOOST_MPL_CFG_NO_HAS_XXX
+                boost::is_boost_not_std_arg<true_>
+#else
+//->
+                true_
+//<-
+#endif
+//->
+            >
+        >
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<
+            boost::multiset_selector<
+//<-
+#if defined BOOST_MPL_CFG_NO_HAS_XXX
+                boost::is_boost_not_std_arg<true_>
+#else
+//->
+                true_
+//<-
+#endif
+//->
+            >
+        >
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<
+            boost::multimap_selector<
+//<-
+#if defined BOOST_MPL_CFG_NO_HAS_XXX
+                boost::is_boost_not_std_arg<true_>
+#else
+//->
+                true_
+//<-
+#endif
+//->
+            >
+        >
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<
+            boost::hash_set_selector<
+//<-
+#if defined BOOST_MPL_CFG_NO_HAS_XXX
+                boost::is_tr1_not_boost_arg<true_>
+#else
+//->
+                true_
+//<-
+#endif
+//->
+            >
+        >
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<
+            boost::hash_map_selector<
+//<-
+#if defined BOOST_MPL_CFG_NO_HAS_XXX
+                boost::is_tr1_not_boost_arg<true_>
+#else
+//->
+                true_
+//<-
+#endif
+//->
+            >
+        >
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<
+            boost::hash_multiset_selector<
+//<-
+#if defined BOOST_MPL_CFG_NO_HAS_XXX
+                boost::is_tr1_not_boost_arg<true_>
+#else
+//->
+                true_
+//<-
+#endif
+//->
+            >
+        >
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<
+            boost::hash_multimap_selector<
+//<-
+#if defined BOOST_MPL_CFG_NO_HAS_XXX
+                boost::is_tr1_not_boost_arg<true_>
+#else
+//->
+                true_
+//<-
+#endif
+//->
+            >
+        >
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::flat_setS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::flat_mapS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::flat_multisetS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::flat_multimapS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::priority_queueS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<
+            boost::d_ary_heap_selector<boost::heap::arity<4> >
+        >
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<
+//<-
+//            boost::d_ary_heap_selector<boost::heap::mutable_<true>,int_<4> >
+//->
+            boost::d_ary_heap_selector<
+                boost::heap::mutable_<true>
+              , boost::heap::arity<4>
+            >
+        >
+    ));
+    BOOST_MPL_ASSERT((
+        boost::is_mergeable_heap_selector<boost::binomial_heapS>
+    ));
+    BOOST_MPL_ASSERT((
+        boost::is_mergeable_heap_selector<boost::fibonacci_heapS>
+    ));
+    BOOST_MPL_ASSERT((
+        boost::is_mergeable_heap_selector<boost::pairing_heapS>
+    ));
+    BOOST_MPL_ASSERT((
+        boost::is_mergeable_heap_selector<boost::skew_heapS>
+    ));
+    BOOST_MPL_ASSERT((
+        boost::is_mergeable_heap_selector<
+            boost::skew_heap_selector<boost::heap::mutable_<true> >
+        >
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::tr1_binary_predicate_selector>
+    ));
+//<-
+#endif  // !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::equal_to_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::less_than_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::greater_than_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::binary_predicate_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::equivalenceS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::c_str_less_than_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::c_str_greater_than_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::boost_hash_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::tr1_hash_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::std_allocator_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::std_flat_allocator_selector>
     ));
 }
 //]
@@ -6205,6 +6748,11 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT_NOT((
         boost::has_stable_iterators_selector<boost::skew_heapS>
     ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::has_stable_iterators_selector<
+            boost::tr1_binary_predicate_selector
+        >
+    ));
 //<-
 #endif  // !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 //->
@@ -6216,6 +6764,12 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::has_stable_iterators_selector<boost::greater_than_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::has_stable_iterators_selector<boost::binary_predicate_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::has_stable_iterators_selector<boost::equivalenceS>
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::has_stable_iterators_selector<boost::c_str_less_than_selector>
@@ -6534,6 +7088,15 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT_NOT((
         boost::is_tr1_selector<boost::greater_than_selector>
     ));
+    BOOST_MPL_ASSERT((
+        boost::is_tr1_selector<boost::tr1_binary_predicate_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_tr1_selector<boost::binary_predicate_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_tr1_selector<boost::equivalenceS>
+    ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_tr1_selector<boost::c_str_less_than_selector>
     ));
@@ -6778,6 +7341,9 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT_NOT((
         boost::is_recursive_selector<boost::skew_heapS>
     ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_recursive_selector<boost::tr1_binary_predicate_selector>
+    ));
 #endif  // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
     BOOST_MPL_ASSERT_NOT((
         boost::is_recursive_selector<boost::equal_to_selector>
@@ -6787,6 +7353,12 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_recursive_selector<boost::greater_than_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_recursive_selector<boost::binary_predicate_selector>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_recursive_selector<boost::equivalenceS>
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_recursive_selector<boost::c_str_less_than_selector>
@@ -6931,5 +7503,5 @@ MPL_TEST_CASE()
     ));
 }
 
-#endif  // BOOST_MSVC
+#endif  // !defined BOOST_MSVC
 

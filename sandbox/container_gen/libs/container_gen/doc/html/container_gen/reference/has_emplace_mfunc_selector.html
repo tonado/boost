@@ -4,7 +4,7 @@
 <title>has_emplace_member_function_selector</title>
 <link rel="stylesheet" href="http://www.boost.org/doc/libs/release/doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
-<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;container_gen 0.8">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;container_gen 0.9">
 <link rel="up" href="../reference.html" title="Reference">
 <link rel="prev" href="has_stable_iters_selector.html" title="has_stable_iterators_selector">
 <link rel="next" href="../changelog.html" title="Changelog">
@@ -49,8 +49,9 @@
 <p>
           The current implementation returns <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a> when passed in selectors
           for which <a class="link" href="container_gen.html" title="container_gen"><code class="computeroutput"><span class="identifier">container_gen</span></code></a> will return a <a href="http://www.boost.org/doc/html/container.html" target="_top"><span class="bold"><strong>Boost.Container</strong></span></a>
-          type or a <a href="http://www.boost.org/doc/html/unordered.html" target="_top"><span class="bold"><strong>Boost.Unordered</strong></span></a>
-          container; it will return <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span></code></a> for all other types of
+          model type, a <a href="http://www.boost.org/doc/html/unordered.html" target="_top"><span class="bold"><strong>Boost.Unordered</strong></span></a>
+          container type, or a <a href="http://www.boost.org/doc/html/heap.html" target="_top"><span class="bold"><strong>Boost.Heap</strong></span></a>
+          model type; it will return <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span></code></a> for all other types of
           selectors. Specialize this metafunction to return <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a> for your custom selector
           if and only if the type to be returned by <a class="link" href="container_gen.html" title="container_gen"><code class="computeroutput"><span class="identifier">container_gen</span></code></a> supports emplacement
           construction of its elements.

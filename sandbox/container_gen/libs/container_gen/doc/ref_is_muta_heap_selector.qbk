@@ -6,15 +6,33 @@
     [@http://www.boost.org/LICENSE_1_0.txt])
 =============================================================================/]
 
-[section:is_muta_heap_selector `is_mutable_heap_selector`]
+[section:is_mutable_heap_selector `is_mutable_heap_selector`]
 
 [section Synopsis]
 [reference__is_mutable_heap_selector]
 [endsect]
 
 [section Description]
-Returns __mpl_true__ if the specified selector will cause __container_gen__ to
-return a mutable __Boost_Heap__ model type, __mpl_false__ otherwise.
+A __Boost_Heap__ model type is *mutable* if and only if:
+
+  * It defines a nested `handle_type` type.
+  * Its `push()` member function returns an object of type `handle_type`.
+  * It defines two `update()` member function overloads--one taking in
+    only a reference-to-`const` `handle_type`, the other also taking in
+    a reference-to-`const` `value_type`--both of which update the invoking
+    heap to reflect the change in priority.
+  * It defines two `increase()` member function overloads--one taking in
+    only a reference-to-`const` `handle_type`, the other also taking in
+    a reference-to-`const` `value_type`--both of which update the invoking
+    heap to reflect the change in priority.
+  * It defines two `decrease()` member function overloads--one taking in
+    only a reference-to-`const` `handle_type`, the other also taking in
+    a reference-to-`const` `value_type`--both of which update the invoking
+    heap to reflect the change in priority.
+
+This metafunction returns __mpl_true__ if the specified selector will cause
+__container_gen__ to return a mutable __Boost_Heap__ model type, __mpl_false__
+otherwise.
 
 If __MPL_CFG_NO_HAS_XXX__ is defined, then you must specialize this
 metafunction to return __mpl_true__ for your custom selector if and only if
@@ -26,6 +44,22 @@ type.
 ``
 #include <__boost_container_gen_is_mutable_heap_selector_hpp__>
 ``
+[endsect]
+
+[section Example]
+__Boost_Heap__ model types that are mutable can be used by sorting algorithms
+that need to handle changing priority values, e.g. weighted pathfinding.
+
+[example__is_mutable_heap_selector__true]
+
+On the other hand, __Boost_Heap__ model types that are not mutable are more
+lightweight for simpler sorting algorithms.
+
+[example__is_mutable_heap_selector__false]
+
+This metafunction differentiates between the two categories.
+
+[example__is_mutable_heap_selector]
 [endsect]
 
 [section Test]

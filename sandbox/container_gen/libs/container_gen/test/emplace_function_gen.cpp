@@ -15,11 +15,14 @@
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/range/algorithm/equal.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/heap/heap_merge.hpp>
 #include <boost/container_gen/selectors.hpp>
 #include <boost/container_gen/container_gen.hpp>
 #include <boost/container_gen/emplace_function_gen.hpp>
 #include <boost/container_gen/is_unique_assoc_selector.hpp>
 #include <boost/container_gen/is_mutable_heap_selector.hpp>
+#include <boost/container_gen/is_mergeable_heap_selector.hpp>
 #include "type_definitions.hpp"
 #include <boost/test/minimal.hpp>
 
@@ -402,45 +405,41 @@ void test_emplace_queue()
     BOOST_CHECK(int_queue.empty());
 }
 
-template <typename Selector>
-void test_emplace_heap(boost::mpl::true_)
+//[example__is_mergeable_heap_selector__true
+template <typename Heap>
+void test_heap_merge(Heap& heap1, Heap& heap2, boost::mpl::true_)
 {
-    typedef typename boost::container_gen<Selector,int>::type Heap;
+    heap1.merge(heap2);
+}
+//]
 
-    Heap heap_1, heap_2;
+//[example__is_mergeable_heap_selector__false
+template <typename Heap>
+void test_heap_merge(Heap& heap1, Heap& heap2, boost::mpl::false_)
+{
+    boost::heap::heap_merge(heap1, heap2);
+}
+//]
+
+//[example__is_mergeable_heap_selector
+template <typename Selector>
+void test_heap_merge()
+{
+    typename boost::container_gen<Selector,int>::type heap_1, heap_2;
     typename boost::emplace_function_gen<Selector>::type pusher;
-    typename Heap::handle_type handle_1 = pusher(heap_1, 3);
-    typename Heap::handle_type handle_2 = pusher(heap_1, 5);
-    typename Heap::handle_type handle_3 = pusher(heap_1, 1);
 
-    heap_1.update(handle_1, 4);
-    heap_1.increase(handle_2, 7);
-    heap_1.decrease(handle_3, 0);
-    BOOST_CHECK(7 == heap_1.top());
-    heap_1.pop();
-    BOOST_CHECK(4 == heap_1.top());
-    heap_1.pop();
-    BOOST_CHECK(0 == heap_1.top());
-    heap_1.pop();
-    BOOST_CHECK(heap_1.empty());
     pusher[heap_1](3)(5)(1);
     pusher[heap_2](2)(4)(0);
-    heap_1.merge(heap_2);
-    std::cout << " heap_2";
+    test_heap_merge(
+        heap_1
+      , heap_2
+      , boost::is_mergeable_heap_selector<Selector>()
+    );
 
-    if (!heap_2.empty())
+    for (BOOST_CHECK(heap_2.empty()); !heap_2.empty(); heap_2.pop())
     {
-        BOOST_CHECK(4 == heap_2.top());
-        heap_2.pop();
-        BOOST_CHECK(2 == heap_2.top());
-        heap_2.pop();
-        BOOST_CHECK(0 == heap_2.top());
-        heap_2.pop();
-        std::cout << " not";
     }
 
-    std::cout << " emptied." << std::endl;
-    BOOST_CHECK(heap_2.empty());
     BOOST_CHECK(5 == heap_1.top());
     heap_1.pop();
     BOOST_CHECK(4 == heap_1.top());
@@ -455,7 +454,34 @@ void test_emplace_heap(boost::mpl::true_)
     heap_1.pop();
     BOOST_CHECK(heap_1.empty());
 }
+//]
 
+//[example__is_mutable_heap_selector__true
+template <typename Selector>
+void test_emplace_heap(boost::mpl::true_)
+{
+    typedef typename boost::container_gen<Selector,int>::type Heap;
+
+    Heap heap;
+    typename boost::emplace_function_gen<Selector>::type pusher;
+    typename Heap::handle_type handle_1 = pusher(heap, 3);
+    typename Heap::handle_type handle_2 = pusher(heap, 5);
+    typename Heap::handle_type handle_3 = pusher(heap, 1);
+
+    heap.update(handle_1, 4);
+    heap.increase(handle_2, 7);
+    heap.decrease(handle_3, 0);
+    BOOST_CHECK(7 == heap.top());
+    heap.pop();
+    BOOST_CHECK(4 == heap.top());
+    heap.pop();
+    BOOST_CHECK(0 == heap.top());
+    heap.pop();
+    BOOST_CHECK(heap.empty());
+}
+//]
+
+//[example__is_mutable_heap_selector__false
 template <typename Selector>
 void test_emplace_heap(boost::mpl::false_)
 {
@@ -471,14 +497,21 @@ void test_emplace_heap(boost::mpl::false_)
     heap.pop();
     BOOST_CHECK(heap.empty());
 }
+//]
 
+//[example__is_mutable_heap_selector
 template <typename Selector>
 void test_emplace_heap()
 {
     test_emplace_heap<Selector>(
         boost::is_mutable_heap_selector<Selector>()
     );
+    // ...
+    //<-
+    test_heap_merge<Selector>();
+    //->
 }
+//]
 
 #if defined BOOST_MSVC
    #pragma warning (pop)
@@ -717,25 +750,20 @@ int test_main(int argc, char** argv)
 
     test_emplace_stack<boost::stackS>();
     test_emplace_queue<boost::queueS>();
-    test_emplace_heap<boost::std_heapS>();
+    test_emplace_heap<boost::std_heapS>(boost::mpl::false_());
 #if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
     test_emplace_heap<boost::priority_queueS>();
     test_emplace_heap<boost::d_ary_heap_selector<boost::heap::arity<4> > >();
-    std::cout << "d_hary_heap:";
     test_emplace_heap<
         boost::d_ary_heap_selector<
             boost::heap::mutable_<true>
           , boost::heap::arity<4>
         >
     >();
-    std::cout << "binomial_heap:";
     test_emplace_heap<boost::binomial_heapS>();
-    std::cout << "fibonacci_heap:";
     test_emplace_heap<boost::fibonacci_heapS>();
-    std::cout << "pairing_heap:";
     test_emplace_heap<boost::pairing_heapS>();
     test_emplace_heap<boost::skew_heapS>();
-    std::cout << "skew_heap:";
     test_emplace_heap<
         boost::skew_heap_selector<boost::heap::mutable_<true> >
     >();

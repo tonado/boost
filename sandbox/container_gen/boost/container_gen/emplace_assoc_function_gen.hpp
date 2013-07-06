@@ -11,9 +11,16 @@
 
 #include <utility>
 #include <boost/config.hpp>
-#include <boost/container/detail/workaround.hpp>
+#include <boost/container_gen/detail/preprocessor.hpp>
 
-#if !defined BOOST_CONTAINER_PERFECT_FORWARDING
+#if defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#include <boost/preprocessor/seq/size.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/enum_trailing_params.hpp>
+#include <boost/preprocessor/repetition/for.hpp>
+#include <boost/preprocessor/control/expr_if.hpp>
+#include <boost/detail/preprocessor/binary_seq_to_params.hpp>
+#elif !defined BOOST_CONTAINER_PERFECT_FORWARDING
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/arithmetic/inc.hpp>
 #include <boost/preprocessor/arithmetic/dec.hpp>
@@ -23,8 +30,7 @@
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/control/expr_if.hpp>
-#include <boost/container/detail/preprocessor.hpp>
-#endif
+#endif  // compiler defect handling
 
 namespace boost { namespace detail {
 
@@ -37,7 +43,39 @@ namespace boost { namespace detail {
      public:
         explicit emplace_assoc_function_proxy(C& c);
 
-#if defined BOOST_CONTAINER_PERFECT_FORWARDING
+#if defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#define BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_FOR_OP(r, seq)       \
+        BOOST_PP_EXPR_IF(BOOST_PP_SEQ_SIZE(seq), template <)                 \
+            BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(seq), typename P)         \
+        BOOST_PP_EXPR_IF(BOOST_PP_SEQ_SIZE(seq), >)                          \
+        inline emplace_assoc_function_proxy&                                 \
+            operator()(                                                      \
+                typename C::key_type const& key                              \
+              , BOOST_DETAIL_PP_BINARY_SEQ_TO_PARAMS(                        \
+                    seq                                                      \
+                  , P                                                        \
+                  , &                                                        \
+                  , const&                                                   \
+                  , p                                                        \
+                )                                                            \
+            )                                                                \
+        {                                                                    \
+            this->_function(                                                 \
+                this->_container                                             \
+              , key                                                          \
+                BOOST_PP_ENUM_TRAILING_PARAMS(BOOST_PP_SEQ_SIZE(seq), p)     \
+            );                                                               \
+            return *this;                                                    \
+        }                                                                    \
+//!
+        BOOST_PP_FOR(
+            (0)
+          , BOOST_CONTAINER_GEN_PP_PARAM_PRED
+          , BOOST_CONTAINER_GEN_PP_PARAM_INC
+          , BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_FOR_OP
+        )
+#undef BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_FOR_OP
+#elif defined BOOST_CONTAINER_PERFECT_FORWARDING
         template <typename ...Args>
         inline emplace_assoc_function_proxy&
             operator()(typename C::key_type const& key, Args&& ...args)
@@ -49,8 +87,8 @@ namespace boost { namespace detail {
             );
             return *this;
         }
-#else  // !defined BOOST_CONTAINER_PERFECT_FORWARDING
-#define BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO(z, n, poop)    \
+#else  // partial template specialization support, imperfect forwarding
+#define BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP(z, n, poop)   \
         BOOST_PP_EXPR_IF(n, template <)                                      \
             BOOST_PP_ENUM_PARAMS_Z(z, n, typename P)                         \
         BOOST_PP_EXPR_IF(n, >)                                               \
@@ -78,11 +116,11 @@ namespace boost { namespace detail {
 //!
         BOOST_PP_REPEAT(
             BOOST_CONTAINER_MAX_CONSTRUCTOR_PARAMETERS
-          , BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO
+          , BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP
           , _
         )
-#undef BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO
-#endif  // BOOST_CONTAINER_PERFECT_FORWARDING
+#undef BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP
+#endif  // compiler defect handling
     };
 
     template <typename F, typename C>
@@ -91,85 +129,52 @@ namespace boost { namespace detail {
     {
     }
 
-    struct uac_emplace_associative_function
-    {
-        template <typename C>
-        emplace_assoc_function_proxy<uac_emplace_associative_function,C>
-            operator[](C& _container) const;
-
-#if defined BOOST_CONTAINER_PERFECT_FORWARDING
-        template <typename C, typename ...Args>
-        inline ::std::pair<typename C::iterator,bool>
-            operator()(
-                C& _container
-              , typename C::key_type const& key
-              , Args&& ...args
-            ) const
-        {
-            return _container.emplace(
-                key
-              , ::boost::move(
-                    typename C::mapped_type(::boost::forward<Args>(args)...)
-                )
-            );
-        }
-#else  // !defined BOOST_CONTAINER_PERFECT_FORWARDING
-#define BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO(z, n, poop)    \
-        template <                                                           \
-            typename C                                                       \
-            BOOST_PP_ENUM_TRAILING_PARAMS_Z(z, n, typename P)                \
-        >                                                                    \
-        inline ::std::pair<typename C::iterator,bool>                        \
-            operator()(                                                      \
-                C& _container                                                \
-              , typename C::key_type const& key                              \
-                BOOST_PP_CAT(BOOST_PP_ENUM_TRAILING_, z)(                    \
-                    n                                                        \
-                  , BOOST_CONTAINER_PP_PARAM_LIST                            \
-                  , poop                                                     \
-                )                                                            \
-            ) const                                                          \
-        {                                                                    \
-            return _container.emplace(                                       \
-                key                                                          \
-              , ::boost::move(                                               \
-                    typename C::mapped_type(                                 \
-                        BOOST_PP_CAT(BOOST_PP_ENUM_, z)(                     \
-                            n                                                \
-                          , BOOST_CONTAINER_PP_PARAM_FORWARD                 \
-                          , poop                                             \
-                        )                                                    \
-                    )                                                        \
-                )                                                            \
-            );                                                               \
-        }                                                                    \
-//!
-        BOOST_PP_REPEAT(
-            BOOST_PP_DEC(BOOST_CONTAINER_MAX_CONSTRUCTOR_PARAMETERS)
-          , BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO
-          , _
-        )
-#undef BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO
-#endif  // BOOST_CONTAINER_PERFECT_FORWARDING
-    };
-
-    template <typename C>
-    emplace_assoc_function_proxy<uac_emplace_associative_function,C>
-        uac_emplace_associative_function::operator[](C& _container) const
-    {
-        return emplace_assoc_function_proxy<
-            uac_emplace_associative_function
-          , C
-        >(_container);
-    }
-
     struct uac_emplace_emu_associative_function
     {
         template <typename C>
         emplace_assoc_function_proxy<uac_emplace_emu_associative_function,C>
             operator[](C& _container) const;
 
-#if defined BOOST_CONTAINER_PERFECT_FORWARDING
+#if defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#define BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_FOR_OP(r, seq)       \
+        template <                                                           \
+            typename C                                                       \
+            BOOST_PP_ENUM_TRAILING_PARAMS(                                   \
+                BOOST_PP_SEQ_SIZE(seq)                                       \
+              , typename P                                                   \
+            )                                                                \
+        >                                                                    \
+        inline ::std::pair<typename C::iterator,bool>                        \
+            operator()(                                                      \
+                C& _container                                                \
+              , typename C::key_type const& key                              \
+              , BOOST_DETAIL_PP_BINARY_SEQ_TO_PARAMS(                        \
+                    seq                                                      \
+                  , P                                                        \
+                  , &                                                        \
+                  , const&                                                   \
+                  , p                                                        \
+                )                                                            \
+            ) const                                                          \
+        {                                                                    \
+            return _container.insert(                                        \
+                typename C::value_type(                                      \
+                    key                                                      \
+                  , typename C::mapped_type(                                 \
+                        BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(seq), p)      \
+                    )                                                        \
+                )                                                            \
+            );                                                               \
+        }                                                                    \
+//!
+        BOOST_PP_FOR(
+            (0)
+          , BOOST_CONTAINER_GEN_PP_PARAM_PRED
+          , BOOST_CONTAINER_GEN_PP_PARAM_INC
+          , BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_FOR_OP
+        )
+#undef BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_FOR_OP
+#elif defined BOOST_CONTAINER_PERFECT_FORWARDING
         template <typename C, typename ...Args>
         inline ::std::pair<typename C::iterator,bool>
             operator()(
@@ -185,8 +190,8 @@ namespace boost { namespace detail {
                 )
             );
         }
-#else  // !defined BOOST_CONTAINER_PERFECT_FORWARDING
-#define BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO(z, n, poop)    \
+#else  // partial template specialization support, imperfect forwarding
+#define BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP(z, n, poop)   \
         template <                                                           \
             typename C                                                       \
             BOOST_PP_ENUM_TRAILING_PARAMS_Z(z, n, typename P)                \
@@ -218,11 +223,11 @@ namespace boost { namespace detail {
 //!
         BOOST_PP_REPEAT(
             BOOST_CONTAINER_MAX_CONSTRUCTOR_PARAMETERS
-          , BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO
+          , BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP
           , _
         )
-#undef BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO
-#endif  // BOOST_CONTAINER_PERFECT_FORWARDING
+#undef BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP
+#endif  // compiler defect handling
     };
 
     template <typename C>
@@ -235,60 +240,40 @@ namespace boost { namespace detail {
         >(_container);
     }
 
-    struct mac_emplace_associative_function
+    struct mac_emplace_emu_associative_function
     {
         template <typename C>
-        emplace_assoc_function_proxy<mac_emplace_associative_function,C>
+        emplace_assoc_function_proxy<mac_emplace_emu_associative_function,C>
             operator[](C& _container) const;
 
-#if defined BOOST_CONTAINER_PERFECT_FORWARDING
-        template <typename C, typename ...Args>
-        inline ::std::pair<typename C::iterator,bool>
-            operator()(
-                C& _container
-              , typename C::key_type const& key
-              , Args&& ...args
-            ) const
-        {
-            return ::std::make_pair(
-                _container.emplace(
-                    key
-                  , ::boost::move(
-                        typename C::mapped_type(
-                            ::boost::forward<Args>(args)...
-                        )
-                    )
-                )
-              , true
-            );
-        }
-#else  // !defined BOOST_CONTAINER_PERFECT_FORWARDING
-#define BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO(z, n, poop)    \
+#if defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#define BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_FOR_OP(r, seq)       \
         template <                                                           \
             typename C                                                       \
-            BOOST_PP_ENUM_TRAILING_PARAMS_Z(z, n, typename P)                \
+            BOOST_PP_ENUM_TRAILING_PARAMS(                                   \
+                BOOST_PP_SEQ_SIZE(seq)                                       \
+              , typename P                                                   \
+            )                                                                \
         >                                                                    \
         inline ::std::pair<typename C::iterator,bool>                        \
             operator()(                                                      \
                 C& _container                                                \
               , typename C::key_type const& key                              \
-                BOOST_PP_CAT(BOOST_PP_ENUM_TRAILING_, z)(                    \
-                    n                                                        \
-                  , BOOST_CONTAINER_PP_PARAM_LIST                            \
-                  , poop                                                     \
+              , BOOST_DETAIL_PP_BINARY_SEQ_TO_PARAMS(                        \
+                    seq                                                      \
+                  , P                                                        \
+                  , &                                                        \
+                  , const&                                                   \
+                  , p                                                        \
                 )                                                            \
             ) const                                                          \
         {                                                                    \
             return ::std::make_pair(                                         \
-                _container.emplace(                                          \
-                    key                                                      \
-                  , ::boost::move(                                           \
-                        typename C::mapped_type(                             \
-                            BOOST_PP_CAT(BOOST_PP_ENUM_, z)(                 \
-                                n                                            \
-                              , BOOST_CONTAINER_PP_PARAM_FORWARD             \
-                              , poop                                         \
-                            )                                                \
+                _container.insert(                                           \
+                    typename C::value_type(                                  \
+                        key                                                  \
+                      , typename C::mapped_type(                             \
+                            BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(seq), p)  \
                         )                                                    \
                     )                                                        \
                 )                                                            \
@@ -296,32 +281,14 @@ namespace boost { namespace detail {
             );                                                               \
         }                                                                    \
 //!
-        BOOST_PP_REPEAT(
-            BOOST_PP_DEC(BOOST_CONTAINER_MAX_CONSTRUCTOR_PARAMETERS)
-          , BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO
-          , _
+        BOOST_PP_FOR(
+            (0)
+          , BOOST_CONTAINER_GEN_PP_PARAM_PRED
+          , BOOST_CONTAINER_GEN_PP_PARAM_INC
+          , BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_FOR_OP
         )
-#undef BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO
-#endif  // BOOST_CONTAINER_PERFECT_FORWARDING
-    };
-
-    template <typename C>
-    emplace_assoc_function_proxy<mac_emplace_associative_function,C>
-        mac_emplace_associative_function::operator[](C& _container) const
-    {
-        return emplace_assoc_function_proxy<
-            mac_emplace_associative_function
-          , C
-        >(_container);
-    }
-
-    struct mac_emplace_emu_associative_function
-    {
-        template <typename C>
-        emplace_assoc_function_proxy<mac_emplace_emu_associative_function,C>
-            operator[](C& _container) const;
-
-#if defined BOOST_CONTAINER_PERFECT_FORWARDING
+#undef BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_FOR_OP
+#elif defined BOOST_CONTAINER_PERFECT_FORWARDING
         template <typename C, typename ...Args>
         inline ::std::pair<typename C::iterator,bool>
             operator()(
@@ -342,8 +309,8 @@ namespace boost { namespace detail {
               , true
             );
         }
-#else  // !defined BOOST_CONTAINER_PERFECT_FORWARDING
-#define BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO(z, n, poop)    \
+#else  // partial template specialization support, imperfect forwarding
+#define BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP(z, n, poop)   \
         template <                                                           \
             typename C                                                       \
             BOOST_PP_ENUM_TRAILING_PARAMS_Z(z, n, typename P)                \
@@ -378,11 +345,11 @@ namespace boost { namespace detail {
 //!
         BOOST_PP_REPEAT(
             BOOST_CONTAINER_MAX_CONSTRUCTOR_PARAMETERS
-          , BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO
+          , BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP
           , _
         )
-#undef BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO
-#endif  // BOOST_CONTAINER_PERFECT_FORWARDING
+#undef BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP
+#endif  // compiler defect handling
     };
 
     template <typename C>
@@ -395,6 +362,160 @@ namespace boost { namespace detail {
         >(_container);
     }
 
+#if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+
+    struct uac_emplace_associative_function
+    {
+        template <typename C>
+        emplace_assoc_function_proxy<uac_emplace_associative_function,C>
+            operator[](C& _container) const;
+
+#if defined BOOST_CONTAINER_PERFECT_FORWARDING
+        template <typename C, typename ...Args>
+        inline ::std::pair<typename C::iterator,bool>
+            operator()(
+                C& _container
+              , typename C::key_type const& key
+              , Args&& ...args
+            ) const
+        {
+            return _container.emplace(
+                key
+              , ::boost::move(
+                    typename C::mapped_type(::boost::forward<Args>(args)...)
+                )
+            );
+        }
+#else  // !defined BOOST_CONTAINER_PERFECT_FORWARDING
+#define BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP(z, n, poop)   \
+        template <                                                           \
+            typename C                                                       \
+            BOOST_PP_ENUM_TRAILING_PARAMS_Z(z, n, typename P)                \
+        >                                                                    \
+        inline ::std::pair<typename C::iterator,bool>                        \
+            operator()(                                                      \
+                C& _container                                                \
+              , typename C::key_type const& key                              \
+                BOOST_PP_CAT(BOOST_PP_ENUM_TRAILING_, z)(                    \
+                    n                                                        \
+                  , BOOST_CONTAINER_PP_PARAM_LIST                            \
+                  , poop                                                     \
+                )                                                            \
+            ) const                                                          \
+        {                                                                    \
+            return _container.emplace(                                       \
+                key                                                          \
+              , ::boost::move(                                               \
+                    typename C::mapped_type(                                 \
+                        BOOST_PP_CAT(BOOST_PP_ENUM_, z)(                     \
+                            n                                                \
+                          , BOOST_CONTAINER_PP_PARAM_FORWARD                 \
+                          , poop                                             \
+                        )                                                    \
+                    )                                                        \
+                )                                                            \
+            );                                                               \
+        }                                                                    \
+//!
+        BOOST_PP_REPEAT(
+            BOOST_PP_DEC(BOOST_CONTAINER_MAX_CONSTRUCTOR_PARAMETERS)
+          , BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP
+          , _
+        )
+#undef BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP
+#endif  // BOOST_CONTAINER_PERFECT_FORWARDING
+    };
+
+    template <typename C>
+    emplace_assoc_function_proxy<uac_emplace_associative_function,C>
+        uac_emplace_associative_function::operator[](C& _container) const
+    {
+        return emplace_assoc_function_proxy<
+            uac_emplace_associative_function
+          , C
+        >(_container);
+    }
+
+    struct mac_emplace_associative_function
+    {
+        template <typename C>
+        emplace_assoc_function_proxy<mac_emplace_associative_function,C>
+            operator[](C& _container) const;
+
+#if defined BOOST_CONTAINER_PERFECT_FORWARDING
+        template <typename C, typename ...Args>
+        inline ::std::pair<typename C::iterator,bool>
+            operator()(
+                C& _container
+              , typename C::key_type const& key
+              , Args&& ...args
+            ) const
+        {
+            return ::std::make_pair(
+                _container.emplace(
+                    key
+                  , ::boost::move(
+                        typename C::mapped_type(
+                            ::boost::forward<Args>(args)...
+                        )
+                    )
+                )
+              , true
+            );
+        }
+#else  // !defined BOOST_CONTAINER_PERFECT_FORWARDING
+#define BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP(z, n, poop)   \
+        template <                                                           \
+            typename C                                                       \
+            BOOST_PP_ENUM_TRAILING_PARAMS_Z(z, n, typename P)                \
+        >                                                                    \
+        inline ::std::pair<typename C::iterator,bool>                        \
+            operator()(                                                      \
+                C& _container                                                \
+              , typename C::key_type const& key                              \
+                BOOST_PP_CAT(BOOST_PP_ENUM_TRAILING_, z)(                    \
+                    n                                                        \
+                  , BOOST_CONTAINER_PP_PARAM_LIST                            \
+                  , poop                                                     \
+                )                                                            \
+            ) const                                                          \
+        {                                                                    \
+            return ::std::make_pair(                                         \
+                _container.emplace(                                          \
+                    key                                                      \
+                  , ::boost::move(                                           \
+                        typename C::mapped_type(                             \
+                            BOOST_PP_CAT(BOOST_PP_ENUM_, z)(                 \
+                                n                                            \
+                              , BOOST_CONTAINER_PP_PARAM_FORWARD             \
+                              , poop                                         \
+                            )                                                \
+                        )                                                    \
+                    )                                                        \
+                )                                                            \
+              , true                                                         \
+            );                                                               \
+        }                                                                    \
+//!
+        BOOST_PP_REPEAT(
+            BOOST_PP_DEC(BOOST_CONTAINER_MAX_CONSTRUCTOR_PARAMETERS)
+          , BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP
+          , _
+        )
+#undef BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP
+#endif  // BOOST_CONTAINER_PERFECT_FORWARDING
+    };
+
+    template <typename C>
+    emplace_assoc_function_proxy<mac_emplace_associative_function,C>
+        mac_emplace_associative_function::operator[](C& _container) const
+    {
+        return emplace_assoc_function_proxy<
+            mac_emplace_associative_function
+          , C
+        >(_container);
+    }
+
 #if !defined BOOST_CONTAINER_PERFECT_FORWARDING
 
     struct huac_emplace_associative_function
@@ -403,7 +524,7 @@ namespace boost { namespace detail {
         emplace_assoc_function_proxy<huac_emplace_associative_function,C>
             operator[](C& _container) const;
 
-#define BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO(z, n, poop)    \
+#define BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP(z, n, poop)   \
         template <                                                           \
             typename C                                                       \
             BOOST_PP_ENUM_TRAILING_PARAMS_Z(z, n, typename P)                \
@@ -434,10 +555,10 @@ namespace boost { namespace detail {
 //!
         BOOST_PP_REPEAT(
             BOOST_CONTAINER_MAX_CONSTRUCTOR_PARAMETERS
-          , BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO
+          , BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP
           , _
         )
-#undef BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO
+#undef BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP
     };
 
     template <typename C>
@@ -456,7 +577,7 @@ namespace boost { namespace detail {
         emplace_assoc_function_proxy<hmac_emplace_associative_function,C>
             operator[](C& _container) const;
 
-#define BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO(z, n, poop)    \
+#define BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP(z, n, poop)   \
         template <                                                           \
             typename C                                                       \
             BOOST_PP_ENUM_TRAILING_PARAMS_Z(z, n, typename P)                \
@@ -490,10 +611,10 @@ namespace boost { namespace detail {
 //!
         BOOST_PP_REPEAT(
             BOOST_CONTAINER_MAX_CONSTRUCTOR_PARAMETERS
-          , BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO
+          , BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP
           , _
         )
-#undef BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO
+#undef BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP
     };
 
     template <typename C>
@@ -517,7 +638,7 @@ namespace boost { namespace detail {
         emplace_assoc_function_proxy<tr1_huac_emplace_associative_function,C>
             operator[](C& _container) const;
 
-#define BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO(z, n, poop)    \
+#define BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP(z, n, poop)   \
         template <                                                           \
             typename C                                                       \
             BOOST_PP_ENUM_TRAILING_PARAMS_Z(z, n, typename P)                \
@@ -551,10 +672,10 @@ namespace boost { namespace detail {
 //!
         BOOST_PP_REPEAT(
             BOOST_CONTAINER_MAX_CONSTRUCTOR_PARAMETERS
-          , BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO
+          , BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP
           , _
         )
-#undef BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO
+#undef BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP
     };
 
     template <typename C>
@@ -584,7 +705,8 @@ namespace boost { namespace detail {
             tr1_hmac_emplace_associative_function;
 #undef BOOST_CONTAINER_GEN_EMPLACE_ASSOC_FUNCTION_GEN_USE_NO_NATIVE_TR1
 #endif  // BOOST_CONTAINER_GEN_EMPLACE_ASSOC_FUNCTION_GEN_USE_NO_NATIVE_TR1
-#endif  // BOOST_CONTAINER_PERFECT_FORWARDING
+#endif  // !defined BOOST_CONTAINER_PERFECT_FORWARDING
+#endif  // !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 
     struct ua_ptr_emplace_assoc_function
     {
@@ -592,7 +714,49 @@ namespace boost { namespace detail {
         emplace_assoc_function_proxy<ua_ptr_emplace_assoc_function,C>
             operator[](C& _container) const;
 
-#if defined BOOST_CONTAINER_PERFECT_FORWARDING
+#if defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#define BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_FOR_OP(r, seq)       \
+        template <                                                           \
+            typename C                                                       \
+            BOOST_PP_ENUM_TRAILING_PARAMS(                                   \
+                BOOST_PP_SEQ_SIZE(seq)                                       \
+              , typename P                                                   \
+            )                                                                \
+        >                                                                    \
+        inline ::std::pair<typename C::iterator,bool>                        \
+            operator()(                                                      \
+                C& _container                                                \
+              , typename C::key_type const& key                              \
+              , BOOST_DETAIL_PP_BINARY_SEQ_TO_PARAMS(                        \
+                    seq                                                      \
+                  , P                                                        \
+                  , &                                                        \
+                  , const&                                                   \
+                  , p                                                        \
+                )                                                            \
+            ) const                                                          \
+        {                                                                    \
+            typedef typename ::std::tr1::remove_pointer<                     \
+                        typename C::mapped_type                              \
+                    >::type                                                  \
+                    _data_type;                                              \
+            typename C::key_type k(key);                                     \
+            return _container.insert(                                        \
+                k                                                            \
+              , new _data_type(                                              \
+                    BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(seq), p)          \
+                )                                                            \
+            );                                                               \
+        }                                                                    \
+//!
+        BOOST_PP_FOR(
+            (0)
+          , BOOST_CONTAINER_GEN_PP_PARAM_PRED
+          , BOOST_CONTAINER_GEN_PP_PARAM_INC
+          , BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_FOR_OP
+        )
+#undef BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_FOR_OP
+#elif defined BOOST_CONTAINER_PERFECT_FORWARDING
         template <typename C, typename ...Args>
         inline ::std::pair<typename C::iterator,bool>
             operator()(
@@ -612,8 +776,8 @@ namespace boost { namespace detail {
               , new _data_type(::boost::forward<Args>(args)...)
             );
         }
-#else  // !defined BOOST_CONTAINER_PERFECT_FORWARDING
-#define BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO(z, n, poop)    \
+#else  // partial template specialization support, imperfect forwarding
+#define BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP(z, n, poop)   \
         template <                                                           \
             typename C                                                       \
             BOOST_PP_ENUM_TRAILING_PARAMS_Z(z, n, typename P)                \
@@ -648,11 +812,11 @@ namespace boost { namespace detail {
 //!
         BOOST_PP_REPEAT(
             BOOST_CONTAINER_MAX_CONSTRUCTOR_PARAMETERS
-          , BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO
+          , BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP
           , _
         )
-#undef BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO
-#endif  // BOOST_CONTAINER_PERFECT_FORWARDING
+#undef BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP
+#endif  // compiler defect handling
     };
 
     template <typename C>
@@ -670,7 +834,52 @@ namespace boost { namespace detail {
         emplace_assoc_function_proxy<ma_ptr_emplace_assoc_function,C>
             operator[](C& _container) const;
 
-#if defined BOOST_CONTAINER_PERFECT_FORWARDING
+#if defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#define BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_FOR_OP(r, seq)       \
+        template <                                                           \
+            typename C                                                       \
+            BOOST_PP_ENUM_TRAILING_PARAMS(                                   \
+                BOOST_PP_SEQ_SIZE(seq)                                       \
+              , typename P                                                   \
+            )                                                                \
+        >                                                                    \
+        inline ::std::pair<typename C::iterator,bool>                        \
+            operator()(                                                      \
+                C& _container                                                \
+              , typename C::key_type const& key                              \
+              , BOOST_DETAIL_PP_BINARY_SEQ_TO_PARAMS(                        \
+                    seq                                                      \
+                  , P                                                        \
+                  , &                                                        \
+                  , const&                                                   \
+                  , p                                                        \
+                )                                                            \
+            ) const                                                          \
+        {                                                                    \
+            typedef typename ::std::tr1::remove_pointer<                     \
+                        typename C::mapped_type                              \
+                    >::type                                                  \
+                    _data_type;                                              \
+            typename C::key_type k(key);                                     \
+            return ::std::make_pair(                                         \
+                _container.insert(                                           \
+                    k                                                        \
+                  , new _data_type(                                          \
+                        BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(seq), p)      \
+                    )                                                        \
+                )                                                            \
+              , true                                                         \
+            );                                                               \
+        }                                                                    \
+//!
+        BOOST_PP_FOR(
+            (0)
+          , BOOST_CONTAINER_GEN_PP_PARAM_PRED
+          , BOOST_CONTAINER_GEN_PP_PARAM_INC
+          , BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_FOR_OP
+        )
+#undef BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_FOR_OP
+#elif defined BOOST_CONTAINER_PERFECT_FORWARDING
         template <typename C, typename ...Args>
         inline ::std::pair<typename C::iterator,bool>
             operator()(
@@ -693,8 +902,8 @@ namespace boost { namespace detail {
               , true
             );
         }
-#else  // !defined BOOST_CONTAINER_PERFECT_FORWARDING
-#define BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO(z, n, poop)    \
+#else  // partial template specialization support, imperfect forwarding
+#define BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP(z, n, poop)   \
         template <                                                           \
             typename C                                                       \
             BOOST_PP_ENUM_TRAILING_PARAMS_Z(z, n, typename P)                \
@@ -732,11 +941,11 @@ namespace boost { namespace detail {
 //!
         BOOST_PP_REPEAT(
             BOOST_CONTAINER_MAX_CONSTRUCTOR_PARAMETERS
-          , BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO
+          , BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP
           , _
         )
-#undef BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_MACRO
-#endif  // BOOST_CONTAINER_PERFECT_FORWARDING
+#undef BOOST_CONTAINER_GEN_EMPL_ASSOC_FUNC_GEN_CALL_OP_RPT_OP
+#endif  // compiler defect handling
     };
 
     template <typename C>
@@ -752,15 +961,17 @@ namespace boost { namespace detail {
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/aux_/lambda_support.hpp>
-#include <boost/container_gen/has_emplace_mfunc_selector.hpp>
 #include <boost/container_gen/is_associative_selector.hpp>
 #include <boost/container_gen/is_unique_assoc_selector.hpp>
 #include <boost/container_gen/is_multiple_assoc_selector.hpp>
 #include <boost/container_gen/is_ptr_selector.hpp>
 
+#if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#include <boost/container_gen/has_emplace_mfunc_selector.hpp>
 #if !defined BOOST_CONTAINER_PERFECT_FORWARDING
 #include <boost/container_gen/is_hashed_assoc_selector.hpp>
 #include <boost/container_gen/is_tr1_selector.hpp>
+#endif
 #endif
 
 //[reference__emplace_associative_function_gen
@@ -776,6 +987,7 @@ namespace boost {
               , detail::ma_ptr_emplace_assoc_function
               , detail::ua_ptr_emplace_assoc_function
             >
+#if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
           , ::boost::mpl::eval_if<
                 has_emplace_member_function_selector<Selector>
 #if !defined BOOST_CONTAINER_PERFECT_FORWARDING
@@ -803,12 +1015,15 @@ namespace boost {
 #if !defined BOOST_CONTAINER_PERFECT_FORWARDING
                 >
 #endif
+#endif  // !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
               , ::boost::mpl::if_<
                     is_multiple_associative_selector<Selector>
                   , detail::mac_emplace_emu_associative_function
                   , detail::uac_emplace_emu_associative_function
                 >
+#if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
             >
+#endif
         >
         //->
     {

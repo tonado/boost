@@ -16,10 +16,15 @@
 #include <functional>
 #include <memory>
 #include <utility>
+#include <boost/config.hpp>
+#include <boost/mpl/apply_wrap.hpp>
 #include <boost/mpl/if.hpp>
+#include <boost/mpl/aux_/config/forwarding.hpp>
 #include <boost/tr1/type_traits.hpp>
 #include <boost/tr1/functional.hpp>
+#include <boost/function.hpp>
 #include <boost/functional/hash.hpp>
+#include <boost/utility/equivalence_function.hpp>
 #include <boost/container_gen/selectors_fwd.hpp>
 #include <boost/detail/metafunction/is_container.hpp>
 #include <boost/detail/function/range_equal.hpp>
@@ -68,12 +73,77 @@ namespace boost {
         template <typename T>
         struct apply
         {
-            typedef typename ::boost::mpl::if_<
+            typedef // implementation_defined
+                    //<-
+                    typename ::boost::mpl::if_<
                         ::boost::detail::metafunction::is_container<T>
                       , ::boost::detail::range_greater
                       , ::std::greater<T>
                     >::type
+                    //->
                     type;
+        };
+    };
+
+    struct binary_predicate_selector
+    {
+        template <typename T>
+        struct apply
+        {
+            typedef ::boost::function2<bool,T const&,T const&> type;
+        };
+    };
+
+//<-
+#if defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+    struct equivalence_selector_base
+    {
+    };
+#else
+//->
+    struct tr1_binary_predicate_selector
+    {
+        template <typename T>
+        struct apply
+        {
+            typedef ::std::tr1::function<bool(T const&,T const&)> type;
+        };
+    };
+//<-
+#endif  // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+//->
+
+    template <typename CompareSelector>
+    struct equivalence_selector
+//<-
+#if defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+      : equivalence_selector_base
+#endif
+//->
+    {
+        template <typename T>
+        struct apply
+//<-
+#if !defined BOOST_MPL_CFG_NO_NESTED_FORWARDING
+//->
+          : ::boost::equivalence_function_gen<
+                typename ::boost::mpl::apply_wrap1<CompareSelector,T>::type
+            >
+//<-
+#endif
+//->
+        {
+//<-
+#if defined BOOST_MPL_CFG_NO_NESTED_FORWARDING
+            typedef typename ::boost::equivalence_function_gen<
+                        typename ::boost::mpl::apply_wrap1<
+                            CompareSelector
+                          , T
+                        >::type
+                    >::type
+                    type;
+#endif
+//->
         };
     };
 
@@ -125,7 +195,6 @@ namespace boost {
 }  // namespace boost
 //]
 
-#include <boost/config.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/ptr_container/clone_allocator.hpp>
 
@@ -179,8 +248,6 @@ namespace boost {
 #include <boost/ptr_container/ptr_unordered_set.hpp>
 #include <boost/ptr_container/ptr_unordered_map.hpp>
 
-#include <boost/mpl/apply_wrap.hpp>
-
 namespace boost {
 
 #if !defined BOOST_MSVC
@@ -188,14 +255,14 @@ namespace boost {
     {
     };
 
-    template <typename ConstantSize, typename IsTR1 = ::boost::mpl::false_>
+    template <typename ConstantSize, typename IsTR1NotBoost>
     struct array_selector : array_selector_base
     {
         template <typename T, typename Unused>
         struct apply
         {
             typedef typename ::boost::mpl::if_<
-                        IsTR1
+                        IsTR1NotBoost
                       , ::std::tr1::array<T,ConstantSize::value>
                       , ::boost::array<T,ConstantSize::value>
                     >::type
@@ -1126,7 +1193,6 @@ namespace boost {
 
 #else  // !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 
-//[reference__adaptor_and_heap_selector_templates
 namespace boost {
 
     template <typename SequenceSelector>
@@ -1189,7 +1255,6 @@ namespace boost {
     {
     };
 }  // namespace boost
-//]
 
 #endif  // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 

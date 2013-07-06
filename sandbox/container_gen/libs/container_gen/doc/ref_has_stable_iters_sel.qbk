@@ -19,13 +19,14 @@ modifies an instance of the container type, other than any iterator argument
 that the member function takes in, __mpl_false__ otherwise.
 
 The current implementation returns __mpl_false__ when passed in selectors for
-which __container_gen__ will return a __Hashed_Associative_Container__, a
-__Flat_Associative_Container__, or a __Random_Access_Container__ other than
-__array__ or __container_stable_vector__; it will return __mpl_true__ for all
-other types of selectors.  Specialize this metafunction to return __mpl_false__
-for your custom selector if and only if the type to be returned by
-__container_gen__ invalidates iterators other than the argument during a
-structurally modifying member function call.
+which __container_gen__ will return a __Boost_Heap__ model type, a
+__Hashed_Associative_Container__ model type, a __Flat_Associative_Container__
+model type, or a __Random_Access_Container__ model type other than __array__ or
+__container_stable_vector__; it will return __mpl_true__ for all other types of
+selectors.  Specialize this metafunction to return __mpl_false__ for your
+custom selector if and only if the type to be returned by __container_gen__
+invalidates iterators other than the argument during a structurally modifying
+member function call.
 [endsect]
 
 [section:definition Where defined]

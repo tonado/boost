@@ -8,6 +8,13 @@
 
 [section Changelog]
 
+[heading From 0.8 to 0.9]
+
+  * Added __is_mergeable_heap_selector__ introspection metafunction.
+  * Added `equivalence_selector` template.
+  * Added `binary_predicate_selector`, `tr1_binary_predicate_selector`, and
+    `equivalenceS` types.
+
 [heading From 0.7 to 0.8]
 
   * Added __is_compare_selector__, __is_hasher_selector__,

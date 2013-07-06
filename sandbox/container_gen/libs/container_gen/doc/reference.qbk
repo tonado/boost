@@ -36,6 +36,7 @@
 [include ref_is_iter_heap_selector.qbk]
 [include ref_is_o_iter_heap_selector.qbk]
 [include ref_is_muta_heap_selector.qbk]
+[include ref_is_merge_heap_selector.qbk]
 [include ref_is_recursive_selector.qbk]
 [include ref_has_stable_iters_sel.qbk]
 [include ref_has_emplace_mfunc_sel.qbk]
@@ -74,6 +75,7 @@
   * __is_iteratable_heap_selector__
   * __is_order_iteratable_heap_selector__
   * __is_mutable_heap_selector__
+  * __is_mergeable_heap_selector__
   * __is_recursive_selector__
   * __has_stable_iterators_selector__
   * __has_emplace_member_function_selector__

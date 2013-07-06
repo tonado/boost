@@ -4,7 +4,7 @@
 <title>is_tr1_selector</title>
 <link rel="stylesheet" href="http://www.boost.org/doc/libs/release/doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
-<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;container_gen 0.8">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;container_gen 0.9">
 <link rel="up" href="../reference.html" title="Reference">
 <link rel="prev" href="is_hashed_assoc_selector.html" title="is_hashed_associative_selector">
 <link rel="next" href="is_ptr_selector.html" title="is_ptr_selector">
@@ -32,11 +32,6 @@
     <span class="special">{</span>
         <span class="comment">// typedef ... type;</span>
     <span class="special">};</span>
-
-    <span class="keyword">template</span> <span class="special">&lt;&gt;</span>
-    <span class="keyword">struct</span> <span class="identifier">is_tr1_selector</span><span class="special">&lt;</span><span class="identifier">tr1_hash_selector</span><span class="special">&gt;</span> <span class="special">:</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span>
-    <span class="special">{</span>
-    <span class="special">};</span>
 <span class="special">}</span>  <span class="comment">// namespace boost</span>
 </pre>
 <p>
@@ -48,7 +43,8 @@
 </h4></div></div></div>
 <p>
           Returns <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a> if the specified selector
-          type is <code class="computeroutput"><span class="identifier">tr1_hash_selector</span></code>,
+          type is <code class="computeroutput"><span class="identifier">tr1_hash_selector</span></code>
+          or <code class="computeroutput"><span class="identifier">tr1_binary_predicate_selector</span></code>,
           or if the type to be returned by <a class="link" href="container_gen.html" title="container_gen"><code class="computeroutput"><span class="identifier">container_gen</span></code></a> is a <a href="http://www.boost.org/doc/html/boost_tr1/subject_list.html#boost_tr1.subject_list.array" target="_top"><code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tr1</span><span class="special">::</span><span class="identifier">array</span></code></a>, a <a href="http://www.boost.org/doc/html/boost_tr1/subject_list.html#boost_tr1.subject_list.unordered_set" target="_top"><code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tr1</span><span class="special">::</span><span class="identifier">unordered_set</span></code></a>, a <a href="http://www.boost.org/doc/html/boost_tr1/subject_list.html#boost_tr1.subject_list.unordered_set" target="_top"><code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tr1</span><span class="special">::</span><span class="identifier">unordered_multiset</span></code></a>, a <a href="http://www.boost.org/doc/html/boost_tr1/subject_list.html#boost_tr1.subject_list.unordered_map" target="_top"><code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tr1</span><span class="special">::</span><span class="identifier">unordered_map</span></code></a>, or a <a href="http://www.boost.org/doc/html/boost_tr1/subject_list.html#boost_tr1.subject_list.unordered_map" target="_top"><code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tr1</span><span class="special">::</span><span class="identifier">unordered_multimap</span></code></a>; <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span></code></a> otherwise.
         </p>
 </div>
@@ -270,6 +266,15 @@
     <span class="special">));</span>
     <span class="identifier">BOOST_MPL_ASSERT_NOT</span><span class="special">((</span>
         <span class="identifier">boost</span><span class="special">::</span><span class="identifier">is_tr1_selector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">greater_than_selector</span><span class="special">&gt;</span>
+    <span class="special">));</span>
+    <span class="identifier">BOOST_MPL_ASSERT</span><span class="special">((</span>
+        <span class="identifier">boost</span><span class="special">::</span><span class="identifier">is_tr1_selector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">tr1_binary_predicate_selector</span><span class="special">&gt;</span>
+    <span class="special">));</span>
+    <span class="identifier">BOOST_MPL_ASSERT_NOT</span><span class="special">((</span>
+        <span class="identifier">boost</span><span class="special">::</span><span class="identifier">is_tr1_selector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">binary_predicate_selector</span><span class="special">&gt;</span>
+    <span class="special">));</span>
+    <span class="identifier">BOOST_MPL_ASSERT_NOT</span><span class="special">((</span>
+        <span class="identifier">boost</span><span class="special">::</span><span class="identifier">is_tr1_selector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">equivalenceS</span><span class="special">&gt;</span>
     <span class="special">));</span>
     <span class="identifier">BOOST_MPL_ASSERT_NOT</span><span class="special">((</span>
         <span class="identifier">boost</span><span class="special">::</span><span class="identifier">is_tr1_selector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">c_str_less_than_selector</span><span class="special">&gt;</span>

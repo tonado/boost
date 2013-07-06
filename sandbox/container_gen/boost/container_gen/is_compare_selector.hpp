@@ -9,6 +9,7 @@
 #ifndef BOOST_CONTAINER_GEN_IS_COMPARE_SELECTOR_HPP
 #define BOOST_CONTAINER_GEN_IS_COMPARE_SELECTOR_HPP
 
+#include <boost/config.hpp>
 #include <boost/mpl/aux_/config/has_xxx.hpp>
 #include <boost/mpl/aux_/lambda_support.hpp>
 #include <boost/mpl/bool.hpp>
@@ -52,12 +53,24 @@ namespace boost {
       : ::boost::mpl::true_
     {
     };
+
+#if defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+    template <>
+    struct is_compare_selector<equivalence_selector_base> : ::boost::mpl::true_
+    {
+    };
+#else
+    template <typename CompareSelector>
+    struct is_compare_selector<equivalence_selector<CompareSelector> >
+      : ::boost::mpl::true_
+    {
+    };
+#endif
 }  // namespace boost
 
 #else  // !defined BOOST_MPL_CFG_NO_HAS_XXX && \
 //    !defined BOOST_MPL_CFG_NO_HAS_XXX_TEMPLATE
 
-#include <boost/config.hpp>
 #include <cstddef>
 #include <boost/mpl/aux_/has_type.hpp>
 #include <boost/mpl/bool.hpp>
