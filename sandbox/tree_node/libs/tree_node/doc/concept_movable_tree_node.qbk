@@ -1,0 +1,111 @@
+[/=============================================================================
+    Copyright (C) 2013 Cromwell D. Enage
+
+    Distributed under the Boost Software License, Version 1.0.
+    (See accompanying file LICENSE_1_0.txt or copy at
+    [@http://www.boost.org/LICENSE_1_0.txt])
+=============================================================================/]
+
+[section:movable_tree_node Movable Tree Node]
+
+[section Description]
+Models of this concept are meant for external usage by applications or by other
+data structures.
+
+In practice, each [*Movable Tree Node] model must do the following:
+
+  * Inherit from the corresponding __Base_Tree_Node__ model.
+  * Take in the data type as template parameters.
+  * Also take in the key type if (possibly) modeling the
+    __Associative_Tree_Node__ concept.
+  * Use the __TREE_NODE_COPYABLE_AND_MOVABLE__,
+    __TREE_NODE_EMPLACEMENT_CTOR_INLINE_DEF__, and
+    __TREE_NODE_EMPLACEMENT_CTOR_W_ALLOC_INLINE_DEF__ macros to support
+    C++03 compilers.
+
+[endsect]
+
+[section Refinement of]
+
+  * __Tree_Node__
+  * __Movable__
+
+[endsect]
+
+[variablelist Notation
+    [[`Node`][A type that models the [*Movable Tree Node] concept.]]
+    [[`node`][An object of type `Node&`.]]
+    [[`rvalue_node`][An object of type `Node&&`.]]
+    [[`alloc`][An object of type `Node::traits::allocator_reference`.]]
+]
+
+[section:types Associated Types]
+No additional types beyond those defined in the __Tree_Node__ and __Movable__
+concepts.
+[endsect]
+
+[section:expressions Valid Expressions and Semantics]
+In addition to the expressions defined in the __Tree_Node__ and __Movable__
+concepts, the following expressions must be valid.
+
+[table
+    [
+        [Name]
+        [Expression]
+        [Return Type]
+        [Semantics]
+        [Type requirements]
+        [__Runtime_Complexity__]
+    ]
+    [
+        [Move constructor]
+        [`Node(rvalue_node)`]
+        []
+        [Transfers the contents of the specified node to this one.]
+        [
+            The data type must be __Movable__, the
+            __container_allocator_traits__ static method
+            `select_on_container_copy_construction` must be callable when
+            passed in the allocator of the specified node, and the allocator
+            reference type must be `Node::traits::allocator const&`.
+        ]
+        []
+    ]
+    [
+        [Move constructor with allocator]
+        [`Node(boost::container::allocator_arg, alloc, rvalue_node)`]
+        []
+        [
+            Transfers the contents of the specified node to this one.  The
+            new node will use the specified allocator (if the allocator
+            reference type is mutable) or a copy of it (if the allocator
+            reference type is to `const`) to construct its own parent node or
+            its own child nodes if and when invoking its respective creation
+            methods.
+        ]
+        [The data type must be __Movable__.]
+        []
+    ]
+]
+[endsect] [/ Valid Expressions and Semantics]
+
+[section Models]
+
+  * __binary_node__ if `T` is __Movable__
+  * __nary_node__ if `T` is __Movable__
+  * __associative_node__ if `Data` is __Movable__
+  * __tree_node_with_accumulation__ if `BaseGenerator` returns a [*Movable Tree
+    Node] model
+  * __tree_node_with_count__ if `BaseGenerator` returns a [*Movable Tree Node]
+    model
+  * __tree_node_with_height__ if `BaseGenerator` returns a [*Movable Tree Node]
+    model
+  * __tree_node_with_position__ if `BaseGenerator` returns a [*Movable Tree
+    Node] model
+  * __tree_node_with_red_black_flag__ if `BaseGenerator` returns a [*Movable
+    Tree Node] model
+
+[endsect]
+
+[endsect] [/ Movable Tree Node]
+

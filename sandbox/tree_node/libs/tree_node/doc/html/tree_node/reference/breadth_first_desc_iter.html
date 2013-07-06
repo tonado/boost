@@ -1,0 +1,938 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>breadth_first_descendant_iterator&lt;Node,Selector&gt;</title>
+<link rel="stylesheet" href="http://www.boost.org/doc/libs/release/doc/src/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;tree_node 0.5">
+<link rel="up" href="../reference.html" title="Reference">
+<link rel="prev" href="breadth_first_iterator.html" title="breadth_first_iterator&lt;Node,Selector&gt;">
+<link rel="next" href="pre_order_iterator.html" title="pre_order_iterator&lt;Node,IsReverse&gt;">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr><td valign="top"><img alt="C++ Boost" width="277" height="86" src="../../../../../../boost.png"></td></tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="breadth_first_iterator.html"><img src="http://www.boost.org/doc/libs/release/doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="http://www.boost.org/doc/libs/release/doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="http://www.boost.org/doc/libs/release/doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="pre_order_iterator.html"><img src="http://www.boost.org/doc/libs/release/doc/src/images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="tree_node.reference.breadth_first_desc_iter"></a><a class="link" href="breadth_first_desc_iter.html" title="breadth_first_descendant_iterator&lt;Node,Selector&gt;"><code class="computeroutput"><span class="identifier">breadth_first_descendant_iterator</span><span class="special">&lt;</span><span class="identifier">Node</span><span class="special">,</span><span class="identifier">Selector</span><span class="special">&gt;</span></code> </a>
+</h3></div></div></div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="tree_node.reference.breadth_first_desc_iter.synopsis"></a><a class="link" href="breadth_first_desc_iter.html#tree_node.reference.breadth_first_desc_iter.synopsis" title="Synopsis">Synopsis</a>
+</h4></div></div></div>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">tree_node</span> <span class="special">{</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Node</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Selector</span> <span class="special">=</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">dequeS</span><span class="special">&gt;</span>
+    <span class="keyword">class</span> <span class="identifier">breadth_first_descendant_iterator</span>
+      <span class="special">:</span> <span class="keyword">public</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">iterator_adaptor</span><span class="special">&lt;</span>
+            <span class="identifier">breadth_first_descendant_iterator</span><span class="special">&lt;</span><span class="identifier">Node</span><span class="special">,</span><span class="identifier">Selector</span><span class="special">&gt;</span>
+          <span class="special">,</span> <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">if_</span><span class="special">&lt;</span>
+                <span class="special">::</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">tr1</span><span class="special">::</span><span class="identifier">is_const</span><span class="special">&lt;</span><span class="identifier">Node</span><span class="special">&gt;</span>
+              <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Node</span><span class="special">::</span><span class="identifier">const_iterator</span>
+              <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Node</span><span class="special">::</span><span class="identifier">iterator</span>
+            <span class="special">&gt;::</span><span class="identifier">type</span>
+          <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">use_default</span>
+          <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">forward_traversal_tag</span>
+        <span class="special">&gt;</span>
+    <span class="special">{</span>
+        <span class="keyword">struct</span> <span class="identifier">enabler</span>
+        <span class="special">{</span>
+        <span class="special">};</span>
+
+     <span class="keyword">public</span><span class="special">:</span>
+        <span class="identifier">breadth_first_descendant_iterator</span><span class="special">();</span>
+
+        <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Compare</span><span class="special">&gt;</span>
+        <span class="keyword">explicit</span> <span class="identifier">breadth_first_descendant_iterator</span><span class="special">(</span><span class="identifier">Compare</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">compare</span><span class="special">);</span>
+
+        <span class="keyword">explicit</span> <span class="identifier">breadth_first_descendant_iterator</span><span class="special">(</span><span class="identifier">Node</span><span class="special">&amp;</span> <span class="identifier">node</span><span class="special">);</span>
+
+        <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Compare</span><span class="special">&gt;</span>
+        <span class="identifier">breadth_first_descendant_iterator</span><span class="special">(</span><span class="identifier">Node</span><span class="special">&amp;</span> <span class="identifier">node</span><span class="special">,</span> <span class="identifier">Compare</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">compare</span><span class="special">);</span>
+
+        <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">N</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">S</span><span class="special">&gt;</span>
+        <span class="identifier">breadth_first_descendant_iterator</span><span class="special">(</span>
+            <span class="identifier">breadth_first_descendant_iterator</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">,</span><span class="identifier">S</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">other</span>
+          <span class="special">,</span> <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">enable_if</span><span class="special">&lt;</span>
+                <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">eval_if</span><span class="special">&lt;</span>
+                    <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">if_</span><span class="special">&lt;</span>
+                        <span class="special">::</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">tr1</span><span class="special">::</span><span class="identifier">is_same</span><span class="special">&lt;</span><span class="identifier">S</span><span class="special">,</span><span class="identifier">Selector</span><span class="special">&gt;</span>
+                      <span class="special">,</span> <span class="special">::</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">tr1</span><span class="special">::</span><span class="identifier">is_convertible</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">,</span><span class="identifier">Node</span><span class="special">&gt;</span>
+                      <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span>
+                    <span class="special">&gt;::</span><span class="identifier">type</span>
+                  <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">eval_if</span><span class="special">&lt;</span>
+                        <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">is_heap_selector</span><span class="special">&lt;</span><span class="identifier">Selector</span><span class="special">&gt;</span>
+                      <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span>
+                      <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">if_</span><span class="special">&lt;</span>
+                            <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">is_std_heap_selector</span><span class="special">&lt;</span><span class="identifier">Selector</span><span class="special">&gt;</span>
+                          <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span>
+                          <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span>
+                        <span class="special">&gt;</span>
+                    <span class="special">&gt;</span>
+                  <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span>
+                <span class="special">&gt;::</span><span class="identifier">type</span>
+              <span class="special">,</span> <span class="identifier">enabler</span>
+            <span class="special">&gt;::</span><span class="identifier">type</span> <span class="special">=</span> <span class="identifier">enabler</span><span class="special">()</span>
+        <span class="special">);</span>
+
+        <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">N</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">S</span><span class="special">&gt;</span>
+        <span class="identifier">breadth_first_descendant_iterator</span><span class="special">(</span>
+            <span class="identifier">breadth_first_descendant_iterator</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">,</span><span class="identifier">S</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">other</span>
+          <span class="special">,</span> <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">enable_if</span><span class="special">&lt;</span>
+                <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">eval_if</span><span class="special">&lt;</span>
+                    <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">if_</span><span class="special">&lt;</span>
+                        <span class="special">::</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">tr1</span><span class="special">::</span><span class="identifier">is_same</span><span class="special">&lt;</span><span class="identifier">S</span><span class="special">,</span><span class="identifier">Selector</span><span class="special">&gt;</span>
+                      <span class="special">,</span> <span class="special">::</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">tr1</span><span class="special">::</span><span class="identifier">is_convertible</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">,</span><span class="identifier">Node</span><span class="special">&gt;</span>
+                      <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span>
+                    <span class="special">&gt;::</span><span class="identifier">type</span>
+                  <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">if_</span><span class="special">&lt;</span>
+                        <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">is_heap_selector</span><span class="special">&lt;</span><span class="identifier">Selector</span><span class="special">&gt;</span>
+                      <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span>
+                      <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">is_std_heap_selector</span><span class="special">&lt;</span><span class="identifier">Selector</span><span class="special">&gt;</span>
+                    <span class="special">&gt;</span>
+                  <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span>
+                <span class="special">&gt;::</span><span class="identifier">type</span>
+              <span class="special">,</span> <span class="identifier">enabler</span>
+            <span class="special">&gt;::</span><span class="identifier">type</span> <span class="special">=</span> <span class="identifier">enabler</span><span class="special">()</span>
+        <span class="special">);</span>
+
+        <span class="keyword">operator</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">traversal_state</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
+
+    <span class="special">};</span>
+<span class="special">}}</span>  <span class="comment">// namespace boost::tree_node</span>
+</pre>
+<p>
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="tree_node.reference.breadth_first_desc_iter.description"></a><a class="link" href="breadth_first_desc_iter.html#tree_node.reference.breadth_first_desc_iter.description" title="Description">Description</a>
+</h4></div></div></div>
+<p>
+          This iterator traverses the descendants of the root node passed to its
+          constructor in breadth-first fashion: e.g. given the following tree representation:
+        </p>
+<p>
+</p>
+<pre class="programlisting">      <span class="identifier">D</span>
+      <span class="special">|</span>
+  <span class="identifier">E</span><span class="special">---+---</span><span class="identifier">B</span>
+  <span class="special">|</span>       <span class="special">|</span>
+<span class="special">+-+-+</span>   <span class="special">+-+-+</span>
+<span class="special">|</span>   <span class="special">|</span>   <span class="special">|</span>   <span class="special">|</span>
+<span class="identifier">A</span>   <span class="identifier">F</span>   <span class="identifier">C</span>   <span class="identifier">G</span>
+</pre>
+<p>
+        </p>
+<p>
+          By default, this iterator will traverse the tree nodes in the following
+          order:
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">E</span> <span class="identifier">B</span> <span class="identifier">A</span> <span class="identifier">F</span> <span class="identifier">C</span> <span class="identifier">G</span>
+</pre>
+<p>
+        </p>
+<p>
+          However, if the <code class="computeroutput"><span class="identifier">Selector</span></code>
+          template argument causes the buffer to sort its elements according to a
+          particular ordering, then the iterator traversal will take this ordering
+          into account as well as the ply of the nodes. In this example, if the buffer
+          prioritizes lower ASCII values over higher ones, then this iterator will
+          traverse the tree nodes in the following order:
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">B</span> <span class="identifier">C</span> <span class="identifier">E</span> <span class="identifier">A</span> <span class="identifier">F</span> <span class="identifier">G</span>
+</pre>
+<p>
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="tree_node.reference.breadth_first_desc_iter.definition"></a><a class="link" href="breadth_first_desc_iter.html#tree_node.reference.breadth_first_desc_iter.definition" title="Where defined">Where
+        defined</a>
+</h4></div></div></div>
+<p>
+</p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/tree_node/iterator/breadth_first_descendant.hpp" target="_top">boost/tree_node/iterator/breadth_first_descendant.hpp</a><span class="special">&gt;</span>
+</pre>
+<p>
+        </p>
+<p>
+          To register under <a href="http://www.boost.org/doc/html/typeof.html" target="_top"><span class="bold"><strong>Boost.Typeof</strong></span></a>:
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/typeof/boost/tree_node/iterator/breadth_first_descendant.hpp" target="_top">boost/typeof/boost/tree_node/iterator/breadth_first_descendant.hpp</a><span class="special">&gt;</span>
+</pre>
+<p>
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="tree_node.reference.breadth_first_desc_iter.tpl_param"></a><a class="link" href="breadth_first_desc_iter.html#tree_node.reference.breadth_first_desc_iter.tpl_param" title="Template Parameters">Template
+        Parameters</a>
+</h4></div></div></div>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+                  <p>
+                    Parameter
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Description
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Requirements
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Default
+                  </p>
+                </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">Node</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    The type of a tree node.
+                  </p>
+                </td>
+<td>
+                  <p>
+                    It must model the <a class="link" href="../concepts/tree_node.html" title="Tree Node"><span class="bold"><strong>Tree Node</strong></span></a> concept, but it can be
+                    <code class="computeroutput"><span class="keyword">const</span></code>-qualified.
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">Selector</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    The type that determines the buffer used to enforce breadth-first
+                    order.
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Either <code class="literal"><a href="http://svn.boost.org/svn/boost/sandbox/container_gen/libs/container_gen/doc/html/container_gen/reference/container_gen.html" target="_top">boost::container_gen</a>&lt;Selector&gt;::type</code>
+                    must evaluate to a double-ended <a href="http://www.sgi.com/tech/stl/Sequence.html" target="_top"><span class="bold"><strong>Sequence</strong></span></a>, or <code class="literal"><a href="http://svn.boost.org/svn/boost/sandbox/container_gen/libs/container_gen/doc/html/container_gen/reference/is_std_heap_selector.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">is_std_heap_selector</span></code></a>&lt;Selector&gt;</code>
+                    or <code class="literal"><a href="http://svn.boost.org/svn/boost/sandbox/container_gen/libs/container_gen/doc/html/container_gen/reference/is_heap_selector.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">is_heap_selector</span></code></a>&lt;Selector&gt;</code>
+                    must evaluate to <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a>.
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <a href="http://svn.boost.org/svn/boost/sandbox/container_gen/libs/container_gen/doc/html/container_gen/reference/selectors.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">dequeS</span></code></a>
+                  </p>
+                </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="tree_node.reference.breadth_first_desc_iter.model_of"></a><a class="link" href="breadth_first_desc_iter.html#tree_node.reference.breadth_first_desc_iter.model_of" title="Model of">Model
+        of</a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="special">*</span> <a class="link" href="../concepts/tree_node_desc_iterator.html" title="Tree Node Descendant Iterator"><span class="bold"><strong>Tree Node Descendant Iterator</strong></span></a>
+<span class="special">*</span> <a href="http://www.sgi.com/tech/stl/DefaultConstructible.html" target="_top"><span class="bold"><strong>Default Constructible</strong></span></a>
+<span class="special">*</span> <a href="http://www.boost.org/libs/utility/CopyConstructible.html" target="_top"><span class="bold"><strong>Copy Constructible</strong></span></a>
+<span class="special">*</span> <a href="http://www.boost.org/libs/utility/Assignable.html" target="_top"><span class="bold"><strong>Assignable</strong></span></a>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="tree_node.reference.breadth_first_desc_iter.members"></a><a class="link" href="breadth_first_desc_iter.html#tree_node.reference.breadth_first_desc_iter.members" title="Members">Members</a>
+</h4></div></div></div>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+                  <p>
+                    Name
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Expression
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Description
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Type requirements
+                  </p>
+                </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+                  <p>
+                    Value type
+                  </p>
+                </td>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="special">...</span> <span class="identifier">value_type</span><span class="special">;</span>
+</pre>
+<p>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Defined by the <a class="link" href="../concepts/tree_node_desc_iterator.html" title="Tree Node Descendant Iterator"><span class="bold"><strong>Tree Node Descendant Iterator</strong></span></a> concept.
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Reference type
+                  </p>
+                </td>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="special">...</span> <span class="identifier">reference</span><span class="special">;</span>
+</pre>
+<p>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/ForwardIterator.html" target="_top"><span class="bold"><strong>Forward Iterator</strong></span></a> concept.
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Pointer type
+                  </p>
+                </td>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="special">...</span> <span class="identifier">pointer</span><span class="special">;</span>
+</pre>
+<p>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/ForwardIterator.html" target="_top"><span class="bold"><strong>Forward Iterator</strong></span></a> concept.
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Distance type
+                  </p>
+                </td>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="special">...</span> <span class="identifier">difference_type</span><span class="special">;</span>
+</pre>
+<p>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/ForwardIterator.html" target="_top"><span class="bold"><strong>Forward Iterator</strong></span></a> concept.
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Iterator category
+                  </p>
+                </td>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="special">...</span> <span class="identifier">iterator_category</span><span class="special">;</span>
+</pre>
+<p>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/ForwardIterator.html" target="_top"><span class="bold"><strong>Forward Iterator</strong></span></a> concept.
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Default constructor
+                  </p>
+                </td>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">breadth_first_descendant_iterator</span><span class="special">();</span>
+</pre>
+<p>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Sets this iterator past-the-end. Required by the <a href="http://www.sgi.com/tech/stl/DefaultConstructible.html" target="_top"><span class="bold"><strong>Default Constructible</strong></span></a> concept.
+                  </p>
+                </td>
+<td>
+                  <p>
+                    The buffer type as determined by <code class="computeroutput"><span class="identifier">Selector</span></code>
+                    must also model the <a href="http://www.sgi.com/tech/stl/DefaultConstructible.html" target="_top"><span class="bold"><strong>Default Constructible</strong></span></a> concept.
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Constructor with comparator
+                  </p>
+                </td>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Compare</span><span class="special">&gt;</span>
+<span class="keyword">explicit</span> <span class="identifier">breadth_first_descendant_iterator</span><span class="special">(</span><span class="identifier">Compare</span> <span class="keyword">const</span><span class="special">&amp;);</span>
+</pre>
+<p>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Sets this iterator past-the-end, and constructs the underlying
+                    buffer with the specified comparator.
+                  </p>
+                </td>
+<td>
+                  <p>
+                    The underlying buffer must be constructible using the specified
+                    comparator.
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Constructor from node
+                  </p>
+                </td>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">explicit</span> <span class="identifier">breadth_first_descendant_iterator</span><span class="special">(</span><span class="identifier">Node</span><span class="special">&amp;);</span>
+</pre>
+<p>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Defined by the <a class="link" href="../concepts/tree_node_desc_iterator.html" title="Tree Node Descendant Iterator"><span class="bold"><strong>Tree Node Descendant Iterator</strong></span></a> concept.
+                  </p>
+                </td>
+<td>
+                  <p>
+                    The buffer type as determined by <code class="computeroutput"><span class="identifier">Selector</span></code>
+                    must model the <a href="http://www.sgi.com/tech/stl/DefaultConstructible.html" target="_top"><span class="bold"><strong>Default Constructible</strong></span></a> concept.
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Constructor from node with comparator
+                  </p>
+                </td>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Compare</span><span class="special">&gt;</span>
+<span class="identifier">breadth_first_descendant_iterator</span><span class="special">(</span><span class="identifier">Node</span><span class="special">&amp;,</span> <span class="identifier">Compare</span> <span class="keyword">const</span><span class="special">&amp;);</span>
+</pre>
+<p>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Sets this iterator to traverse the descendants of the specified
+                    node, and constructs the underlying buffer with the specified
+                    comparator.
+                  </p>
+                </td>
+<td>
+                  <p>
+                    The underlying buffer must be constructible using the specified
+                    comparator.
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Conversion constructor
+                  </p>
+                </td>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">N</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">S</span><span class="special">&gt;</span>
+<span class="identifier">breadth_first_descendant_iterator</span><span class="special">(</span>
+    <span class="identifier">breadth_first_descendant_iterator</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">,</span><span class="identifier">S</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span>
+<span class="special">);</span>
+</pre>
+<p>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Constructs this iterator as a copy of the specified one so that
+                    the current node is of type <code class="computeroutput"><span class="identifier">Node</span></code>.
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Both <code class="literal"><a href="http://www.boost.org/doc/html/boost_tr1/subject_list.html#boost_tr1.subject_list.type_traits" target="_top">std::tr1::is_convertible</a>&lt;N,Node&gt;</code>
+                    and <code class="literal"><a href="http://www.boost.org/doc/html/boost_tr1/subject_list.html#boost_tr1.subject_list.type_traits" target="_top">std::tr1::is_same</a>&lt;S,Selector&gt;</code>
+                    must evaluate to <a href="http://www.boost.org/doc/html/boost_tr1/subject_list.html#boost_tr1.subject_list.type_traits" target="_top"><code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tr1</span><span class="special">::</span><span class="identifier">true_type</span></code></a>.
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Copy constructor
+                  </p>
+                </td>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">breadth_first_descendant_iterator</span><span class="special">(</span>
+    <span class="identifier">breadth_first_descendant_iterator</span> <span class="keyword">const</span><span class="special">&amp;</span>
+<span class="special">);</span>
+</pre>
+<p>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Defined by the <a href="http://www.boost.org/libs/utility/CopyConstructible.html" target="_top"><span class="bold"><strong>Copy Constructible</strong></span></a> concept.
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Assignment operator
+                  </p>
+                </td>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">breadth_first_descendant_iterator</span><span class="special">&amp;</span>
+    <span class="keyword">operator</span><span class="special">=(</span><span class="identifier">breadth_first_descendant_iterator</span> <span class="keyword">const</span><span class="special">&amp;);</span>
+</pre>
+<p>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Defined by the <a href="http://www.boost.org/libs/utility/Assignable.html" target="_top"><span class="bold"><strong>Assignable</strong></span></a> concept.
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Dereference operator
+                  </p>
+                </td>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">reference</span> <span class="keyword">operator</span><span class="special">*()</span> <span class="keyword">const</span><span class="special">;</span>
+</pre>
+<p>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    If the <code class="computeroutput"><span class="identifier">Node</span></code> type
+                    models the <a class="link" href="../concepts/associative_tree_node.html" title="Associative Tree Node"><span class="bold"><strong>Associative Tree Node</strong></span></a> concept,
+                    returns an object whose <code class="computeroutput"><span class="identifier">first</span></code>
+                    member refers to the key that is associated with the current
+                    node. If the <code class="computeroutput"><span class="identifier">Node</span></code>
+                    type models the <a class="link" href="../concepts/non_assoc_tree_node.html" title="Non-Associative Tree Node"><span class="bold"><strong>Non-Associative Tree Node</strong></span></a> concept,
+                    returns the current node. Required by the <a href="http://www.sgi.com/tech/stl/ForwardIterator.html" target="_top"><span class="bold"><strong>Forward Iterator</strong></span></a> concept.
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Indirection operator
+                  </p>
+                </td>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">pointer</span> <span class="keyword">operator</span><span class="special">-&gt;()</span> <span class="keyword">const</span><span class="special">;</span>
+</pre>
+<p>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    If the <code class="computeroutput"><span class="identifier">Node</span></code> type
+                    models the <a class="link" href="../concepts/associative_tree_node.html" title="Associative Tree Node"><span class="bold"><strong>Associative Tree Node</strong></span></a> concept,
+                    returns a pointer to the object whose <code class="computeroutput"><span class="identifier">first</span></code>
+                    member refers to the key associated with the current node. If
+                    the <code class="computeroutput"><span class="identifier">Node</span></code> type
+                    models the <a class="link" href="../concepts/non_assoc_tree_node.html" title="Non-Associative Tree Node"><span class="bold"><strong>Non-Associative Tree Node</strong></span></a> concept,
+                    returns a pointer to the current node. Required by the <a href="http://www.sgi.com/tech/stl/ForwardIterator.html" target="_top"><span class="bold"><strong>Forward Iterator</strong></span></a> concept.
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Pre-increment operator
+                  </p>
+                </td>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">breadth_first_descendant_iterator</span><span class="special">&amp;</span> <span class="keyword">operator</span><span class="special">++();</span>
+</pre>
+<p>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Enqueues the children of the current node, then dequeues the
+                    next node and sets the invoking iterator to point to it. Returns
+                    the invoking iterator. Required by the <a href="http://www.sgi.com/tech/stl/ForwardIterator.html" target="_top"><span class="bold"><strong>Forward Iterator</strong></span></a> concept.
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Post-increment operator
+                  </p>
+                </td>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">breadth_first_descendant_iterator</span> <span class="keyword">operator</span><span class="special">++(</span><span class="keyword">int</span><span class="special">);</span>
+</pre>
+<p>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Enqueues the children of the current node, then dequeues the
+                    next node and sets the invoking iterator to point to it. Returns
+                    a new iterator pointing to the (previous) current node. Required
+                    by the <a href="http://www.sgi.com/tech/stl/ForwardIterator.html" target="_top"><span class="bold"><strong>Forward Iterator</strong></span></a> concept.
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Traversal state conversion operator
+                  </p>
+                </td>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">operator</span> <a class="link" href="traversal_state.html" title="traversal_state">tree_node::traversal_state</a><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
+</pre>
+<p>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Defined by the <a class="link" href="../concepts/tree_node_iterator.html" title="Tree Node Iterator"><span class="bold"><strong>Tree Node Iterator</strong></span></a> concept.
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="tree_node.reference.breadth_first_desc_iter.non_members"></a><a class="link" href="breadth_first_desc_iter.html#tree_node.reference.breadth_first_desc_iter.non_members" title="Non-members">Non-members</a>
+</h4></div></div></div>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+                  <p>
+                    Name
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Definition
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Description
+                  </p>
+                </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+                  <p>
+                    Iterator creation
+                  </p>
+                </td>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">tree_node</span> <span class="special">{</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Node</span><span class="special">&gt;</span>
+    <span class="identifier">breadth_first_descendant_iterator</span><span class="special">&lt;</span><span class="identifier">Node</span><span class="special">,::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">dequeS</span><span class="special">&gt;</span>
+        <span class="identifier">make_breadth_first_descendant_iterator</span><span class="special">(</span><span class="identifier">Node</span><span class="special">&amp;</span> <span class="identifier">node</span><span class="special">);</span>
+<span class="special">}}</span>  <span class="comment">// namespace boost::tree_node</span>
+</pre>
+<p>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Constructs and returns a <code class="computeroutput"><span class="identifier">breadth_first_descendant_iterator</span></code>
+                    that will iterate through the descendants of the specified node.
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Iterator creation with selector
+                  </p>
+                </td>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">tree_node</span> <span class="special">{</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Selector</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Node</span><span class="special">&gt;</span>
+    <span class="identifier">breadth_first_descendant_iterator</span><span class="special">&lt;</span><span class="identifier">Node</span><span class="special">,</span><span class="identifier">Selector</span><span class="special">&gt;</span>
+        <span class="identifier">make_breadth_first_descendant_iterator</span><span class="special">(</span><span class="identifier">Node</span><span class="special">&amp;</span> <span class="identifier">node</span><span class="special">);</span>
+<span class="special">}}</span>  <span class="comment">// namespace boost::tree_node</span>
+</pre>
+<p>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Constructs and returns a <code class="computeroutput"><span class="identifier">breadth_first_descendant_iterator</span></code>
+                    that will iterate through the descendants of the specified node.
+                    The <code class="computeroutput"><span class="identifier">Selector</span></code>
+                    type will determine the buffer used to enforce breadth-first
+                    order.
+                  </p>
+                </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="tree_node.reference.breadth_first_desc_iter.example"></a><a class="link" href="breadth_first_desc_iter.html#tree_node.reference.breadth_first_desc_iter.example" title="Example">Example</a>
+</h4></div></div></div>
+<p>
+          If a tree possess the property that the value associated with each non-root
+          node is greater than that associated with its parent, then a breadth-first
+          traversal that prioritizes lower-value nodes over higher-value ones will
+          output a sorted range. The <a class="link" href="cartesian_sort.html" title="cartesian_sort()"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">cartesian_sort</span><span class="special">()</span></code></a>
+          algorithm's implementation generates a tree that possesses this property.
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Iterator</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Compare</span><span class="special">&gt;</span>
+<span class="keyword">void</span>
+    <span class="identifier">cartesian_sort</span><span class="special">(</span>
+        <span class="identifier">Iterator</span> <span class="identifier">itr_begin</span>
+      <span class="special">,</span> <span class="identifier">Iterator</span> <span class="identifier">itr_end</span>
+      <span class="special">,</span> <span class="identifier">Compare</span> <span class="identifier">compare</span>
+    <span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">if</span> <span class="special">(</span><span class="identifier">itr_begin</span> <span class="special">==</span> <span class="identifier">itr_end</span><span class="special">)</span> <span class="keyword">return</span><span class="special">;</span>
+
+    <span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">iterator_value</span><span class="special">&lt;</span><span class="identifier">Iterator</span><span class="special">&gt;::</span><span class="identifier">type</span> <span class="identifier">Value</span><span class="special">;</span>
+    <span class="keyword">typedef</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">binary_node</span><span class="special">&lt;</span><span class="identifier">Value</span><span class="special">&gt;</span> <span class="identifier">Node</span><span class="special">;</span>
+    <span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">Node</span><span class="special">::</span><span class="identifier">traits</span><span class="special">::</span><span class="identifier">allocator</span> <span class="identifier">Alloc</span><span class="special">;</span>
+
+    <span class="identifier">Alloc</span> <span class="identifier">allocator</span><span class="special">;</span>
+    <span class="keyword">typename</span> <span class="identifier">Node</span><span class="special">::</span><span class="identifier">pointer</span> <span class="identifier">root_ptr</span> <span class="special">=</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">container</span><span class="special">::</span><span class="identifier">allocator_traits</span><span class="special">&lt;</span>
+        <span class="identifier">Alloc</span>
+    <span class="special">&gt;::</span><span class="identifier">allocate</span><span class="special">(</span><span class="identifier">allocator</span><span class="special">,</span> <span class="number">1</span><span class="special">);</span>
+
+    <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">container</span><span class="special">::</span><span class="identifier">allocator_traits</span><span class="special">&lt;</span>
+        <span class="identifier">Alloc</span>
+    <span class="special">&gt;::</span><span class="identifier">construct</span><span class="special">(</span><span class="identifier">allocator</span><span class="special">,</span> <span class="identifier">root_ptr</span><span class="special">,</span> <span class="special">*</span><span class="identifier">itr_begin</span><span class="special">);</span>
+
+    <span class="keyword">typename</span> <span class="identifier">Node</span><span class="special">::</span><span class="identifier">pointer</span> <span class="identifier">right_ptr</span> <span class="special">=</span> <span class="identifier">root_ptr</span><span class="special">;</span>
+    <span class="keyword">typename</span> <span class="identifier">Node</span><span class="special">::</span><span class="identifier">pointer</span> <span class="identifier">ancestor_ptr</span><span class="special">;</span>
+
+    <span class="keyword">for</span> <span class="special">(</span><span class="identifier">Iterator</span> <span class="identifier">itr</span> <span class="special">=</span> <span class="identifier">itr_begin</span><span class="special">;</span> <span class="special">++</span><span class="identifier">itr</span> <span class="special">!=</span> <span class="identifier">itr_end</span><span class="special">;)</span>
+    <span class="special">{</span>
+        <span class="keyword">if</span> <span class="special">(</span><span class="identifier">compare</span><span class="special">(*</span><span class="identifier">itr</span><span class="special">,</span> <span class="identifier">get</span><span class="special">(*</span><span class="identifier">root_ptr</span><span class="special">,</span> <span class="identifier">data_key</span><span class="special">())))</span>
+        <span class="special">{</span>
+            <span class="identifier">right_ptr</span> <span class="special">=</span> <span class="identifier">root_ptr</span> <span class="special">=</span> <span class="identifier">root_ptr</span><span class="special">-&gt;</span><span class="identifier">emplace_parent_of_left</span><span class="special">(*</span><span class="identifier">itr</span><span class="special">);</span>
+        <span class="special">}</span>
+        <span class="keyword">else</span> <span class="keyword">if</span> <span class="special">(!</span><span class="identifier">compare</span><span class="special">(*</span><span class="identifier">itr</span><span class="special">,</span> <span class="identifier">get</span><span class="special">(*</span><span class="identifier">right_ptr</span><span class="special">,</span> <span class="identifier">data_key</span><span class="special">())))</span>
+        <span class="special">{</span>
+            <span class="identifier">right_ptr</span> <span class="special">=</span> <span class="special">&amp;*</span><span class="identifier">right_ptr</span><span class="special">-&gt;</span><span class="identifier">emplace_right</span><span class="special">(*</span><span class="identifier">itr</span><span class="special">);</span>
+        <span class="special">}</span>
+        <span class="keyword">else</span>
+        <span class="special">{</span>
+            <span class="keyword">for</span> <span class="special">(</span>
+                <span class="identifier">ancestor_ptr</span> <span class="special">=</span> <span class="identifier">right_ptr</span><span class="special">;</span>
+                <span class="identifier">ancestor_ptr</span><span class="special">-&gt;</span><span class="identifier">get_parent_ptr</span><span class="special">()</span> <span class="special">&amp;&amp;</span> <span class="identifier">compare</span><span class="special">(</span>
+                    <span class="special">*</span><span class="identifier">itr</span>
+                  <span class="special">,</span> <span class="identifier">get</span><span class="special">(*</span><span class="identifier">ancestor_ptr</span><span class="special">-&gt;</span><span class="identifier">get_parent_ptr</span><span class="special">(),</span> <span class="identifier">data_key</span><span class="special">())</span>
+                <span class="special">);</span>
+                <span class="identifier">ancestor_ptr</span> <span class="special">=</span> <span class="identifier">ancestor_ptr</span><span class="special">-&gt;</span><span class="identifier">get_parent_ptr</span><span class="special">()</span>
+            <span class="special">)</span>
+            <span class="special">{</span>
+            <span class="special">}</span>
+
+            <span class="identifier">BOOST_ASSERT</span><span class="special">(!!</span><span class="identifier">ancestor_ptr</span><span class="special">-&gt;</span><span class="identifier">get_parent_ptr</span><span class="special">());</span>
+            <span class="identifier">right_ptr</span> <span class="special">=</span> <span class="identifier">ancestor_ptr</span><span class="special">-&gt;</span><span class="identifier">emplace_parent_of_left</span><span class="special">(*</span><span class="identifier">itr</span><span class="special">);</span>
+        <span class="special">}</span>
+    <span class="special">}</span>
+</pre>
+<p>
+        </p>
+<p>
+          The <a href="http://svn.boost.org/svn/boost/sandbox/container_gen/libs/container_gen/doc/html/container_gen/reference/selectors.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">std_heap_selector</span></code></a> type induces
+          the <code class="computeroutput"><span class="identifier">breadth_first_descendant_iterator</span></code>
+          to replace the usual FIFO queue with a priority queue, while the <a class="link" href="compare_selector.html" title="compare_selector&lt;Key&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">compareS</span></code></a>
+          type enables the priority queue to store pointers or iterators to tree
+          nodes while prioritizing according to their data. However, by default,
+          the comparator will prioritize nodes with higher-value data over nodes
+          with lower-value data, so it is necessary to use <a href="http://www.boost.org/libs/bind/bind.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">bind</span><span class="special">()</span></code></a>
+          to generate the appropriate comparator by switching the arguments to <code class="computeroutput"><span class="identifier">compare</span></code>.
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="special">*</span><span class="identifier">itr_begin</span> <span class="special">=</span> <span class="identifier">get</span><span class="special">(*</span><span class="identifier">root_ptr</span><span class="special">,</span> <span class="identifier">data_key</span><span class="special">());</span>
+<span class="special">++</span><span class="identifier">itr_begin</span><span class="special">;</span>
+
+<span class="keyword">for</span> <span class="special">(</span>
+    <span class="identifier">breadth_first_descendant_iterator</span><span class="special">&lt;</span>
+        <span class="identifier">Node</span> <span class="keyword">const</span>
+      <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">std_heap_selector</span><span class="special">&lt;</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">compareS</span><span class="special">&gt;</span>
+    <span class="special">&gt;</span> <span class="identifier">itr</span><span class="special">(</span>
+        <span class="special">*</span><span class="identifier">root_ptr</span>
+      <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">bind</span><span class="special">(</span><span class="identifier">compare</span><span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">arg</span><span class="special">&lt;</span><span class="number">2</span><span class="special">&gt;(),</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">arg</span><span class="special">&lt;</span><span class="number">1</span><span class="special">&gt;())</span>
+    <span class="special">);</span>
+    <span class="identifier">itr</span><span class="special">;</span>
+    <span class="special">++</span><span class="identifier">itr</span>
+<span class="special">)</span>
+<span class="special">{</span>
+    <span class="identifier">BOOST_ASSERT</span><span class="special">(</span><span class="identifier">itr_begin</span> <span class="special">!=</span> <span class="identifier">itr_end</span><span class="special">);</span>
+    <span class="special">*</span><span class="identifier">itr_begin</span> <span class="special">=</span> <span class="identifier">get</span><span class="special">(*</span><span class="identifier">itr</span><span class="special">,</span> <span class="identifier">data_key</span><span class="special">());</span>
+    <span class="special">++</span><span class="identifier">itr_begin</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
+<p>
+        </p>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2011-2013 Cromwell D. Enage<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="breadth_first_iterator.html"><img src="http://www.boost.org/doc/libs/release/doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="http://www.boost.org/doc/libs/release/doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="http://www.boost.org/doc/libs/release/doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="pre_order_iterator.html"><img src="http://www.boost.org/doc/libs/release/doc/src/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

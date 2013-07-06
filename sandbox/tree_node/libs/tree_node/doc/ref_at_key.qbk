@@ -1,0 +1,51 @@
+[/=============================================================================
+    Copyright (C) 2013 Cromwell D. Enage
+
+    Distributed under the Boost Software License, Version 1.0.
+    (See accompanying file LICENSE_1_0.txt or copy at
+    [@http://www.boost.org/LICENSE_1_0.txt])
+=============================================================================/]
+
+[section:at_key `at_key<Key>`]
+
+[section:func_synopsis Function Object Synopsis]
+[reference__tree_node__at_key]
+[endsect]
+
+[section:func_description Function Object Description]
+The call operators of this __Unary_Function__ return the result of using `get`
+to access the value that the `node` argument associates with key type `Key`.
+
+A __Container__ model that stores instances of a __Tree_Node__ model (e.g.
+__binode_container__) can define its iterator types by using this type in
+conjunction with the __transform_iterator__ adaptor and the appropriate
+__Tree_Node_Iterator__ model (e.g. __in_order_iterator__), so that the
+container's iterator type is convertible to its `const` iterator type.
+[endsect]
+
+[section:result_of Return Type Metafunction Synopsis]
+[reference__tree_node__result_of__at_key]
+[endsect]
+
+[section:result_of_description Return Type Metafunction Description]
+Let `Node` be a (possibly `const`-qualified) __Tree_Node__ model.
+
+Let `Key` be a type for which [^_result_of__has_key_<Node,Key>] evaluates to
+__mpl_true__.
+
+``
+    typedef result_of::at_key<Node,Key>::type r;
+``
+
+[*Return type:] The type of the result of using `get` to access the value
+associated with key type `Key` in `Node`.
+[endsect]
+
+[section:definition Where defined]
+``
+#include <__at_key__header__>
+``
+[endsect]
+
+[endsect] [/ at_key]
+

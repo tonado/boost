@@ -1,0 +1,96 @@
+[/=============================================================================
+    Copyright (C) 2012-2013 Cromwell D. Enage
+
+    Distributed under the Boost Software License, Version 1.0.
+    (See accompanying file LICENSE_1_0.txt or copy at
+    [@http://www.boost.org/LICENSE_1_0.txt])
+=============================================================================/]
+
+[section:with_count_base_gen `with_count_base_gen<BaseGenerator>`]
+
+[section Synopsis]
+[reference__with_count_base_gen]
+[endsect]
+
+[section Description]
+Selector that can be passed on to generic functions and/or data structures that
+use __Base_Tree_Node__ models with constant-time access to node counts.  The
+`BaseGenerator` template argument allows the same models to incorporate other
+data that the same or other functions and/or data structures might need.
+[endsect]
+
+[section:definition Where defined]
+``
+#include <__with_count__header__>
+``
+
+To register under __Boost_Typeof__:
+
+``
+#include <__with_count__typeof_header__>
+``
+[endsect]
+
+[section:model_of Model of]
+__Base_Type_Generator__
+[endsect]
+
+[section:tpl_param Template Parameters]
+[table
+    [[Parameter][Description][Default]]
+    [
+        [`BaseGenerator`]
+        [
+            The __Base_Type_Generator__ from whose return type
+            __tree_node_with_count_base__ will inherit.
+        ]
+        []
+    ]
+    [
+        [`Count`]
+        [The count type.]
+        [`std::size_t`]
+    ]
+]
+[endsect]
+
+[section:expressions Expression Semantics]
+Let `Derived` be the type that will inherit from
+__tree_node_with_count_base__.
+Let `Key` be the key type.
+Let `Data` be the user data type.
+Let `BaseGenerator` be a valid first template argument for
+`with_count_base_gen`.
+Let `Count` be the count type.
+
+``
+    typedef _mpl_apply_wrap3_<
+        with_count_base_gen<BaseGenerator,Count>
+      , Derived
+      , Key
+      , Data
+    >::type r;
+``
+
+[*Return type:]
+[^_tree_node_with_count_base_<Derived,BaseGenerator,Key,Data,Count>]
+
+``
+    typedef _mpl_apply_wrap2_<
+        with_count_base_gen<BaseGenerator,Count>
+      , Derived
+      , Data
+    >::type r;
+``
+
+[*Return type:]
+[^_tree_node_with_count_base_<Derived,BaseGenerator,Data,void,Count>]
+
+[endsect]
+
+[section Complexity]
+Compile time.
+[endsect]
+
+[endsect] [/ with_count_base_gen]
+

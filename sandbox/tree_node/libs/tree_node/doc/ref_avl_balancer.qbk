@@ -1,0 +1,32 @@
+[/=============================================================================
+    Copyright (C) 2013 Cromwell D. Enage
+
+    Distributed under the Boost Software License, Version 1.0.
+    (See accompanying file LICENSE_1_0.txt or copy at
+    [@http://www.boost.org/LICENSE_1_0.txt])
+=============================================================================/]
+
+[section:avl_balancer `adelson_velskii_landis_balancer`]
+
+[section Synopsis]
+[reference__adelson_velskii_landis_balancer]
+[endsect]
+
+[section Description]
+TODO.
+[endsect]
+
+[section:definition Where defined]
+``
+#include <__avl_balancer__header__>
+``
+
+To register under __Boost_Typeof__:
+
+``
+#include <__avl_balancer__typeof_header__>
+``
+[endsect]
+
+[endsect] [/ avl_balancer]
+

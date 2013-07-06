@@ -1,0 +1,174 @@
+[/=============================================================================
+    Copyright (C) 2011-2013 Cromwell D. Enage
+
+    Distributed under the Boost Software License, Version 1.0.
+    (See accompanying file LICENSE_1_0.txt or copy at
+    [@http://www.boost.org/LICENSE_1_0.txt])
+=============================================================================/]
+
+[section:nary_tree_node N-ary Tree Node]
+
+[section Description]
+Models of this concept store arbitrary numbers of children and provide simple
+child insertion expressions.
+[endsect]
+
+[section Refinement of]
+__Non_Associative_Tree_Node__
+[endsect]
+
+[variablelist Notation
+    [[`Node`][A type that models the [*N-ary Tree Node] concept.]]
+    [[`dest_node`, `src_node`][Objects of type `Node&`.]]
+    [[`const_node`][An object of type `Node const&`.]]
+    [[`rvalue_node`][An object of type `Node&&`.]]
+    [[`pos`, `itr`, `itr_end`][Objects of type `Node::iterator`.]]
+    [[`Args`][The type of `args`.]]
+    [
+        [`args`]
+        [
+            Arguments to be forwarded to the appropriate
+            `Node::traits::data_type` constructor.
+        ]
+    ]
+]
+
+[section:types Associated Types]
+No additional types beyond those defined in the __Non_Associative_Tree_Node__
+concept.
+[endsect]
+
+[section:expressions Valid Expressions and Semantics]
+In addition to the expressions defined in the __Non_Associative_Tree_Node__
+concept, the following expressions must be valid.
+
+[table
+    [
+        [Name]
+        [Expression]
+        [Return Type]
+        [Semantics]
+        [Requirements]
+        [__Runtime_Complexity__]
+    ]
+    [
+        [Child creation]
+        [``
+            dest_node.emplace(
+                _boost_forward_<Args>(args)...
+            )
+        ``]
+        [``
+            Node::iterator
+        ``]
+        [
+            Creates and returns a tree node to be stored in the range of
+            children of `dest_node`.  The node returned will initialize
+            its data with the specified arguments.
+        ]
+        []
+        [Logarithmic]
+    ]
+    [
+        [Child copy creation]
+        [``
+            dest_node.insert(const_node)
+        ``]
+        [``
+            Node::iterator
+        ``]
+        [
+            Creates and returns a deep copy of `const_node` to be stored in the
+            range of children of `dest_node`.
+        ]
+        [
+            The data type must model the __Copy_Constructible__ and __Movable__
+            concepts.
+        ]
+        [Linear with respect to the number of descendants of `const_node`]
+    ]
+    [
+        [Child move insertion]
+        [``
+            dest_node.insert(rvalue_node)
+        ``]
+        [``
+            Node::iterator
+        ``]
+        [Stores `rvalue_node` in the range of children of `dest_node`.]
+        [The data type must model the __Movable__ concept.]
+        [Logarithmic]
+    ]
+    [
+        [Splice node]
+        [``
+            dest_node.splice(pos, src_node)
+        ``]
+        [A __Boost_Range__ whose element type is `Node`]
+        [
+            Transfers all child nodes and their descendants from `src_node` to
+            `dest_node`, with `pos` as the insertion point.  Returns the range
+            of child nodes inserted.
+        ]
+        [
+            `pos` must be dereferenceable or past-the-end of the range of
+            children of `dest_node`.
+        ]
+        [Linear with respect to the number of children of `src_node`]
+    ]
+    [
+        [Splice single child]
+        [``
+            dest_node.splice(pos, src_node, itr)
+        ``]
+        [A __Boost_Range__ whose element type is `Node`]
+        [
+            Transfers the child node to which `itr` points, along with its
+            descendants, from `src_node` to `dest_node`, with `pos` as the
+            insertion point.  Returns a range containing the node inserted.
+        ]
+        [
+          * `pos` must be dereferenceable or past-the-end of the range of
+            children of `dest_node`.
+          * `itr` must point to a valid child node of `src_node`.
+        ]
+        []
+    ]
+    [
+        [Splice range]
+        [``
+            dest_node.splice(
+                pos
+              , src_node
+              , itr
+              , itr_end
+            )
+        ``]
+        [A __Boost_Range__ whose element type is `Node`]
+        [
+            Transfers all child nodes in the specified sub-range, along with
+            their descendants, from `src_node` to `dest_node`, with `pos` as
+            the insertion point.  Returns the range of child nodes inserted.
+        ]
+        [
+          * `pos` must be dereferenceable or past-the-end of the range of
+            children of `dest_node`.
+          * `itr` and `itr_end` must refer to a valid sub-range of the range
+            of children of `src_node`.
+          * `pos` must point outside the sub-range referred to by `itr` and
+            `itr_end`.
+        ]
+        [Linear with respect to the size of the specified sub-range]
+    ]
+]
+[endsect]
+
+[section Models]
+
+  * __nary_node__
+  * __nary_node_base__
+
+[endsect]
+
+[endsect] [/ N-ary Tree Node]
+

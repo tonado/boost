@@ -1,0 +1,328 @@
+[/=============================================================================
+    Copyright (C) 2011-2013 Cromwell D. Enage
+
+    Distributed under the Boost Software License, Version 1.0.
+    (See accompanying file LICENSE_1_0.txt or copy at
+    [@http://www.boost.org/LICENSE_1_0.txt])
+=============================================================================/]
+
+[section:breadth_first_iterator `breadth_first_iterator<Node,Selector>`]
+
+[section Synopsis]
+[reference__breadth_first_iterator]
+[endsect]
+
+[section Description]
+This iterator traverses the root node passed to its constructor--and all its
+descendants--in breadth-first fashion: e.g. given the following tree
+representation:
+
+``
+      D
+      |
+  E---+---B
+  |       |
++-+-+   +-+-+
+|   |   |   |
+A   F   C   G
+``
+
+By default, this iterator will traverse the tree nodes in the following order:
+
+``
+D E B A F C G
+``
+
+However, if the `Selector` template argument causes the buffer to sort its
+elements according to a particular ordering, then the iterator traversal will
+take this ordering into account as well as the ply of the nodes.  In this
+example, if the buffer prioritizes lower ASCII values over higher ones, then
+this iterator will traverse the tree nodes in the following order:
+
+``
+D B C E A F G
+``
+[endsect]
+
+[section:definition Where defined]
+``
+#include <__breadth_first_iterator__header__>
+``
+
+To register under __Boost_Typeof__:
+
+``
+#include <__breadth_first_iterator__typeof_header__>
+``
+[endsect]
+
+[section:tpl_param Template Parameters]
+[table
+    [[Parameter][Description][Requirements][Default]]
+    [
+        [`Node`]
+        [The type of a tree node.]
+        [
+            It must model the __Tree_Node__ concept, but it can be
+            `const`-qualified.
+        ]
+        []
+    ]
+    [
+        [`Selector`]
+        [
+            The type that determines the buffer used to enforce breadth-first
+            order.
+        ]
+        [
+            Either [^_container_gen_<Selector>::type] must evaluate to a
+            double-ended __Sequence__, or [^_is_std_heap_selector_<Selector>]
+            or [^_is_heap_selector_<Selector>] must evaluate to __mpl_true__.
+        ]
+        [__dequeS__]
+    ]
+]
+[endsect]
+
+[section:model_of Model of]
+
+  * __Full_Tree_Node_Iterator__
+  * __Default_Constructible__
+  * __Copy_Constructible__
+  * __Assignable__
+
+[endsect]
+
+[section Members]
+[table
+    [[Name][Expression][Description][Type requirements]]
+    [
+        [Value type]
+        [``
+            typedef ... value_type;
+        ``]
+        [Defined by the __Full_Tree_Node_Iterator__ concept.]
+        []
+    ]
+    [
+        [Reference type]
+        [``
+            typedef ... reference;
+        ``]
+        [Defined by the __Forward_Iterator__ concept.]
+        []
+    ]
+    [
+        [Pointer type]
+        [``
+            typedef ... pointer;
+        ``]
+        [Defined by the __Forward_Iterator__ concept.]
+        []
+    ]
+    [
+        [Distance type]
+        [``
+            typedef ... difference_type;
+        ``]
+        [Defined by the __Forward_Iterator__ concept.]
+        []
+    ]
+    [
+        [Iterator category]
+        [``
+            typedef ... iterator_category;
+        ``]
+        [Defined by the __Forward_Iterator__ concept.]
+        []
+    ]
+    [
+        [Default constructor]
+        [``
+            breadth_first_iterator();
+        ``]
+        [
+            Sets this iterator past-the-end.  Required by the
+            __Default_Constructible__ concept.
+        ]
+        [
+            The buffer type as determined by `Selector` must also model the
+            __Default_Constructible__ concept.
+        ]
+    ]
+    [
+        [Constructor with comparator]
+        [``
+            template <typename Compare>
+            explicit breadth_first_iterator(Compare const&);
+        ``]
+        [
+            Sets this iterator past-the-end, and constructs the underlying
+            buffer with the specified comparator.
+        ]
+        [
+            The underlying buffer must be constructible using the specified
+            comparator.
+        ]
+    ]
+    [
+        [Constructor from node]
+        [``
+            explicit breadth_first_iterator(Node&);
+        ``]
+        [Defined by the __Full_Tree_Node_Iterator__ concept.]
+        [
+            The buffer type as determined by `Selector` must model the
+            __Default_Constructible__ concept.
+        ]
+    ]
+    [
+        [Constructor from node with comparator]
+        [``
+            template <typename Compare>
+            breadth_first_iterator(Node&, Compare const&);
+        ``]
+        [
+            Sets this iterator to traverse the specified node and its
+            descendants, and constructs the underlying buffer with the
+            specified comparator.
+        ]
+        [
+            The underlying buffer must be constructible using the specified
+            comparator.
+        ]
+    ]
+    [
+        [Conversion constructor]
+        [``
+            template <typename N, typemame S>
+            breadth_first_iterator(breadth_first_iterator<N,S> const&);
+        ``]
+        [
+            Constructs this iterator as a copy of the specified one so that the
+            current node is of type `Node`.
+        ]
+        [
+            Both [^_tr1_is_convertible_<N,Node>] and
+            [^_tr1_is_same_<S,Selector>] must evaluate to __tr1_true_type__.
+        ]
+    ]
+    [
+        [Copy constructor]
+        [``
+            breadth_first_iterator(breadth_first_iterator const&);
+        ``]
+        [Defined by the __Copy_Constructible__ concept.]
+        []
+    ]
+    [
+        [Assignment operator]
+        [``
+            breadth_first_iterator& operator=(breadth_first_iterator const&);
+        ``]
+        [Defined by the __Assignable__ concept.]
+        []
+    ]
+    [
+        [Dereference operator]
+        [``
+            reference operator*() const;
+        ``]
+        [
+            Returns the current node.  Required by the __Forward_Iterator__
+            concept.
+        ]
+        []
+    ]
+    [
+        [Indirection operator]
+        [``
+            pointer operator->() const;
+        ``]
+        [
+            Returns a pointer to the current node.  Required by the
+            __Forward_Iterator__ concept.
+        ]
+        []
+    ]
+    [
+        [Pre-increment operator]
+        [``
+            breadth_first_iterator& operator++();
+        ``]
+        [
+            Enqueues the children of the current node, then dequeues the next
+            node and sets the invoking iterator to point to it.  Returns the
+            invoking iterator.  Required by the __Forward_Iterator__ concept.
+        ]
+        []
+    ]
+    [
+        [Post-increment operator]
+        [``
+            breadth_first_iterator operator++(int);
+        ``]
+        [
+            Enqueues the children of the current node, then dequeues the next
+            node and sets the invoking iterator to point to it.  Returns a new
+            iterator pointing to the (previous) current node.  Required by the
+            __Forward_Iterator__ concept.
+        ]
+        []
+    ]
+    [
+        [Traversal state conversion operator]
+        [``
+            operator _traversal_state_() const;
+        ``]
+        [Defined by the __Tree_Node_Iterator__ concept.]
+        []
+    ]
+]
+[endsect] [/ Members]
+
+[section:non_members Non-members]
+[table
+    [[Name][Definition][Description]]
+    [
+        [Iterator creation]
+        [[reference__make_breadth_first_iterator]]
+        [
+            Constructs and returns a `breadth_first_iterator` that will iterate
+            through the specified node and its descendants.
+        ]
+    ]
+    [
+        [Iterator creation with selector]
+        [[reference__make_breadth_first_iterator__with_selector]]
+        [
+            Constructs and returns a `breadth_first_iterator` that will iterate
+            through the specified node and its descendants.  The `Selector`
+            type will determine the buffer used to enforce breadth-first order.
+        ]
+    ]
+]
+[endsect]
+
+[section Example]
+If a tree possess the property that the value associated with each non-root
+node is greater than that associated with its parent, then a breadth-first
+traversal that prioritizes lower-value nodes over higher-value ones will output
+a sorted range.  The __cartesian_sort__ algorithm's implementation generates a
+tree that possesses this property.
+
+[impl__cartesian_sort__build_tree]
+
+The __std_heap_selector__ type induces the `breadth_first_iterator` to replace
+the usual FIFO queue with a priority queue, while the __tree_node_compareS__
+type enables the priority queue to store pointers or iterators to tree nodes
+while prioritizing according to their data.  However, by default, the
+comparator will prioritize nodes with higher-value data over nodes with
+lower-value data, so it is necessary to use __boost_bind__ to generate the
+appropriate comparator by switching the arguments to `compare`.
+
+[impl__cartesian_sort__breadth_first_iterate_with_priority]
+[endsect]
+
+[endsect] [/ breadth_first_iterator]
+

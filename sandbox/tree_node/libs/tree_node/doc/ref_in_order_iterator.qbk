@@ -1,0 +1,354 @@
+[/=============================================================================
+    Copyright (C) 2011-2013 Cromwell D. Enage
+
+    Distributed under the Boost Software License, Version 1.0.
+    (See accompanying file LICENSE_1_0.txt or copy at
+    [@http://www.boost.org/LICENSE_1_0.txt])
+=============================================================================/]
+
+[section:in_order_iterator `in_order_iterator<Node,IsReverse>`]
+
+[section Synopsis]
+[reference__in_order_iterator]
+[endsect]
+
+[section Description]
+This iterator traverses the root node passed to its constructor--and all its
+descendants--in in-order fashion, e.g. given the following tree representation:
+
+``
+      A
+      |
+  C---+---B
+  |       |
++-+-+   +-+-+
+|   |   |   |
+D   E   F   G
+``
+
+The tree nodes will be traversed forward in the following order:
+
+``
+D C E A F B G
+``
+
+This iterator can also be used to traverse the tree nodes in reverse:
+
+``
+G B F A E C D
+``
+
+[important
+    This iterator works only on __Binary_Tree_Node__ models.
+]
+[endsect]
+
+[section:definition Where defined]
+``
+#include <__in_order_iterator__header__>
+``
+
+To register under __Boost_Typeof__:
+
+``
+#include <__in_order_iterator__typeof_header__>
+``
+[endsect]
+
+[section:tpl_param Template Parameters]
+[table
+    [[Parameter][Description][Requirements][Default]]
+    [
+        [`Node`]
+        [The type of a tree node.]
+        [
+            It must model the __Tree_Node__ concept, but it can be
+            `const`-qualified.
+        ]
+        []
+    ]
+    [
+        [`IsReverse`]
+        [
+            Configures the `in_order_iterator` to traverse tree nodes in
+            reverse in-order fashion if equivalent to __mpl_true__; otherwise,
+            the nodes will be traversed in in-order fashion.
+        ]
+        [It must model the __Boolean_Integral_Constant__ concept.]
+        [__mpl_false__]
+    ]
+]
+[endsect]
+
+[section:model_of Model of]
+
+  * __Full_Tree_Node_Iterator__
+  * __Indexable_Iterator__ if the value associated with __count_key__ exists
+    for `Node`; __Bidirectional_Iterator__ otherwise
+  * __Default_Constructible__
+  * __Copy_Constructible__
+  * __Assignable__
+
+[endsect]
+
+[section Members]
+[table
+    [[Name][Expression][Description][Type requirements]]
+    [
+        [Value type]
+        [``
+            typedef ... value_type;
+        ``]
+        [Defined by the __Full_Tree_Node_Iterator__ concept.]
+        []
+    ]
+    [
+        [Reference type]
+        [``
+            typedef ... reference;
+        ``]
+        [Defined by the __Forward_Iterator__ concept.]
+        []
+    ]
+    [
+        [Pointer type]
+        [``
+            typedef ... pointer;
+        ``]
+        [Defined by the __Forward_Iterator__ concept.]
+        []
+    ]
+    [
+        [Distance type]
+        [``
+            typedef ... difference_type;
+        ``]
+        [Defined by the __Forward_Iterator__ concept.]
+        []
+    ]
+    [
+        [Iterator category]
+        [``
+            typedef ... iterator_category;
+        ``]
+        [Defined by the __Forward_Iterator__ concept.]
+        []
+    ]
+    [
+        [Default constructor]
+        [``
+            in_order_iterator();
+        ``]
+        [
+            Constructs this iterator but does not initialize it.  Useful
+            when delayed initialization is necessary.  Required by the
+            __Default_Constructible__ concept.
+        ]
+        []
+    ]
+    [
+        [Constructor from node]
+        [``
+            in_order_iterator(Node&, bool = true);
+        ``]
+        [
+            If the flag is set to `true` (the default), sets this iterator to
+            traverse the specified node and its descendants, as required by the
+            __Full_Tree_Node_Iterator__ concept; otherwise, sets this iterator
+            to point to the specified node in a traversal through the node's
+            root ancestor and its descendants.
+        ]
+        []
+    ]
+    [
+        [Conversion constructor]
+        [``
+            template <typename N, typename I>
+            in_order_iterator(in_order_iterator<N,I> const&);
+        ``]
+        [
+            Constructs this iterator as a copy of the specified one so that the
+            current node is of type `Node`.
+        ]
+        [
+            [^_tr1_is_convertible_<N,Node>] must evaluate to __tr1_true_type__,
+            and [^_mpl_equal_to_<I,IsReverse>] must evaluate to __mpl_true__.
+        ]
+    ]
+    [
+        [Copy constructor]
+        [``
+            in_order_iterator(in_order_iterator const&);
+        ``]
+        [Defined by the __Copy_Constructible__ concept.]
+        []
+    ]
+    [
+        [Assignment operator]
+        [``
+            in_order_iterator& operator=(in_order_iterator const&);
+        ``]
+        [Defined by the __Assignable__ concept.]
+        []
+    ]
+    [
+        [Dereference operator]
+        [``
+            reference operator*() const;
+        ``]
+        [
+            Returns the current node.  Required by the __Forward_Iterator__
+            concept.
+        ]
+    ]
+    [
+        [Indirection operator]
+        [``
+            pointer operator->() const;
+        ``]
+        [
+            Returns a pointer to the current node.  Required by the
+            __Forward_Iterator__ concept.
+        ]
+        []
+    ]
+    [
+        [Pre-increment operator]
+        [``
+            in_order_iterator& operator++();
+        ``]
+        [
+            If `IsReverse` evaluates to __mpl_true__, points this iterator to
+            the next node in the reverse in-order traversal of the tree whose
+            root node was passed into the constructor; otherwise, points this
+            iterator to the next node in the in-order traversal of the tree
+            whose root node was passed into the constructor.  Returns this
+            iterator.  Required by the __Forward_Iterator__ concept.
+        ]
+        []
+    ]
+    [
+        [Post-increment operator]
+        [``
+            in_order_iterator operator++(int);
+        ``]
+        [
+            If `IsReverse` evaluates to __mpl_true__, points this iterator to
+            the next node in the reverse in-order traversal of the tree whose
+            root node was passed into the constructor; otherwise, points this
+            iterator to the next node in the in-order traversal of the tree
+            whose root node was passed into the constructor.  Returns a new
+            iterator pointing to the (previous) current node.  Required by the
+            __Forward_Iterator__ concept.
+        ]
+        []
+    ]
+    [
+        [Pre-decrement operator]
+        [``
+            in_order_iterator& operator--();
+        ``]
+        [
+            If `IsReverse` evaluates to __mpl_true__, points this iterator to
+            the previous node in the reverse in-order traversal of the tree
+            whose root node was passed into the constructor; otherwise, points
+            this iterator to the previous node in the in-order traversal of the
+            tree whose root node was passed into the constructor.  Returns this
+            iterator.  Required by the __Bidirectional_Iterator__ concept.
+        ]
+        []
+    ]
+    [
+        [Post-decrement operator]
+        [``
+            in_order_iterator operator--(int);
+        ``]
+        [
+            If `IsReverse` evaluates to __mpl_true__, points this iterator to
+            the previous node in the reverse in-order traversal of the tree
+            whose root node was passed into the constructor; otherwise, points
+            this iterator to the previous node in the in-order traversal of the
+            tree whose root node was passed into the constructor.  Returns a
+            new iterator pointing to the (next) current node.  Required by the
+            __Bidirectional_Iterator__ concept.
+        ]
+        []
+    ]
+    [
+        [Addition assignment operator]
+        [``
+            in_order_iterator& operator+=(difference_type n);
+        ``]
+        [Defined by the __Indexable_Iterator__ concept.]
+        [The value associated with __count_key__ must exist for `Node`.]
+    ]
+    [
+        [Subtraction assignment operator]
+        [``
+            in_order_iterator& operator-=(difference_type n);
+        ``]
+        [Defined by the __Indexable_Iterator__ concept.]
+        [The value associated with __count_key__ must exist for `Node`.]
+    ]
+    [
+        [Traversal state conversion operator]
+        [``
+            operator _traversal_state_() const;
+        ``]
+        [Defined by the __Tree_Node_Iterator__ concept.]
+        []
+    ]
+]
+[endsect] [/ Members]
+
+[section:non_members Non-members]
+[table
+    [[Name][Expression][Description]]
+    [
+        [Forward iterator creation]
+        [[reference__make_in_order_iterator]]
+        [
+            Constructs and returns an `in_order_iterator` that will iterate
+            forward through the specified node and its descendants.
+        ]
+    ]
+    [
+        [Forward iterator end creation]
+        [[reference__make_in_order_iterator_end]]
+        [
+            Constructs and returns an `in_order_iterator` that points
+            past-the-end of a forward iteration through the specified node and
+            its descendants.
+        ]
+    ]
+    [
+        [Reverse iterator creation]
+        [[reference__make_in_order_reverse_iterator]]
+        [
+            Constructs and returns an `in_order_iterator` that will iterate
+            in reverse through the specified node and its descendants.
+        ]
+    ]
+    [
+        [Reverse iterator end creation]
+        [[reference__make_in_order_reverse_iterator_end]]
+        [
+            Constructs and returns an `in_order_iterator` that points
+            past-the-end of a reverse iteration through the specified node and
+            its descendants.
+        ]
+    ]
+    [
+        [Position iterator creation]
+        [[reference__make_in_order_iterator_position]]
+        [
+            Constructs and returns an `in_order_iterator` that points to the
+            specified node in a forward traversal through the node's root
+            ancestor and its descendants.
+        ]
+    ]
+]
+[endsect] [/ Non-members]
+
+[endsect] [/ in_order_iterator]
+

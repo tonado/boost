@@ -1,0 +1,388 @@
+[/=============================================================================
+    Copyright (C) 2011-2013 Cromwell D. Enage
+
+    Distributed under the Boost Software License, Version 1.0.
+    (See accompanying file LICENSE_1_0.txt or copy at
+    [@http://www.boost.org/LICENSE_1_0.txt])
+=============================================================================/]
+
+[section:binary_node `binary_node<T,Size,AllocatorSelector>`]
+
+[section Description]
+This class template is suitable for classes or algorithms that require a
+binary tree node data structure.  Objects of this type can be stored by value.
+
+If the user data type models the __Fusion_Associative_Sequence__ concept, then
+each of the elements within can be also be obtained through key-value access
+and set through key-value modification as defined by the __Tree_Node__ concept;
+more specifically, for some object `node` of type `Node` such that `Node` is a
+template instantiation of `binary_node`, then for any type `Key` such that
+[^_fusion_has_key_<Key>(get<_data_key_>(node))] returns `true`, so does
+[^_has_key_<Key>(node)].
+[endsect]
+
+[section:definition Where defined]
+``
+#include <__binary_node__header__>
+``
+
+Forward-declared:
+
+``
+#include <__binary_node__forward_header__>
+``
+
+To register under __Boost_Typeof__:
+
+``
+#include <__binary_node__typeof_header__>
+``
+[endsect]
+
+[section:tpl_param Template Parameters]
+[table
+    [[Parameter][Description][Default]]
+    [
+        [`T`]
+        [The type of the user data to be stored in a `binary_node`.]
+        []
+    ]
+    [
+        [`Size`]
+        [The size type.]
+        [`uint32_t`]
+    ]
+    [
+        [`AllocatorSelector`]
+        [
+            A __Unary_Metafunction_Class__ that takes in `binary_node` and
+            returns either an allocator model or a mutable reference to one.
+        ]
+        [__std_allocator_selector__]
+    ]
+]
+[endsect]
+
+[section:model_of Model of]
+
+  * __Binary_Tree_Node__
+  * __Default_Constructible__ if `T` is __Default_Constructible__
+  * __Copyable_Tree_Node__ if `T` is __Copy_Constructible__
+  * __Assignable__ if `T` is __Copy_Constructible__ and __Movable__
+  * __Movable_Tree_Node__ if `T` is __Movable__
+
+[endsect]
+
+[section:public_bases Public Base Classes]
+[reference__binary_node__bases]
+[endsect]
+
+[section:members Public Members]
+[table
+    [[Name][Definition][Where defined]]
+    [
+        [Super type]
+        [[reference__binary_node__super_t]]
+        [__Tree_Node__]
+    ]
+    [
+        [Data type, allocator type, allocator reference type]
+        [[reference__binary_node__traits]]
+        [__Tree_Node__]
+    ]
+    [
+        [Pointer type]
+        [[reference__binary_node__pointer]]
+        [__Tree_Node__]
+    ]
+    [
+        [Pointer-to-const type]
+        [[reference__binary_node__const_pointer]]
+        [__Tree_Node__]
+    ]
+    [
+        [Iterator type]
+        [``
+            typedef implementation_defined iterator;
+        ``]
+        [__Non_Associative_Tree_Node__]
+    ]
+    [
+        [Immutable iterator type]
+        [``
+            typedef implementation_defined const_iterator;
+        ``]
+        [__Non_Associative_Tree_Node__]
+    ]
+    [
+        [Reverse iterator type]
+        [``
+            typedef implementation_defined reverse_iterator;
+        ``]
+        [__Reversible_Tree_Node__]
+    ]
+    [
+        [Immutable reverse iterator type]
+        [``
+            typedef implementation_defined const_reverse_iterator;
+        ``]
+        [__Reversible_Tree_Node__]
+    ]
+    [
+        [Size type]
+        [[reference__binary_node__size_type]]
+        [__Tree_Node__]
+    ]
+    [
+        [Emplacement constructor]
+        [[reference__binary_node__emplacement_ctor]]
+        [__Tree_Node__]
+    ]
+    [
+        [Emplacement constructor with allocator]
+        [[reference__binary_node__emplacement_ctor_w_allocator]]
+        [__Tree_Node__]
+    ]
+    [
+        [Copy constructor]
+        [``
+            binary_node(binary_node const& copy);
+        ``]
+        [__Copyable_Tree_Node__]
+    ]
+    [
+        [Copy constructor with allocator]
+        [``
+            binary_node(
+                binary_node const& copy
+              , typename traits::allocator_reference allocator
+            );
+        ``]
+        [__Copyable_Tree_Node__]
+    ]
+    [
+        [Move constructor]
+        [``
+            binary_node(binary_node&& source);
+        ``]
+        [__Movable_Tree_Node__]
+    ]
+    [
+        [Move constructor with allocator]
+        [``
+            binary_node(
+                binary_node&& source
+              , typename traits::allocator_reference allocator
+            );
+        ``]
+        [__Movable_Tree_Node__]
+    ]
+    [
+        [Copy assignment operator]
+        [``
+            binary_node& operator=(binary_node const&);
+        ``]
+        [__Assignable__]
+    ]
+    [
+        [Move assignment operator]
+        [``
+            binary_node& operator=(binary_node&&);
+        ``]
+        [__Movable__]
+    ]
+    [
+        [Parent read-only access]
+        [[reference__binary_node_base__get_parent_ptr__const]]
+        [__Tree_Node__]
+    ]
+    [
+        [Parent access]
+        [[reference__binary_node_base__get_parent_ptr]]
+        [__Tree_Node__]
+    ]
+    [
+        [Parent-of-left creation]
+        [[reference__binary_node_base__emplace_parent_of_left]]
+        [__Binary_Tree_Node__]
+    ]
+    [
+        [Parent-of-right creation]
+        [[reference__binary_node_base__emplace_parent_of_right]]
+        [__Binary_Tree_Node__]
+    ]
+    [
+        [Left child creation]
+        [[reference__binary_node_base__emplace_left]]
+        [__Binary_Tree_Node__]
+    ]
+    [
+        [Left child copy creation]
+        [``
+            iterator insert_left(binary_node const& child);
+        ``]
+        [__Binary_Tree_Node__]
+    ]
+    [
+        [Right child creation]
+        [[reference__binary_node_base__emplace_right]]
+        [__Binary_Tree_Node__]
+    ]
+    [
+        [Right child copy creation]
+        [``
+            iterator insert_right(binary_node const& child);
+        ``]
+        [__Binary_Tree_Node__]
+    ]
+    [
+        [Left child read-only access]
+        [[reference__binary_node_base__get_left_child_ptr__const]]
+        [__Binary_Tree_Node__]
+    ]
+    [
+        [Left child access]
+        [[reference__binary_node_base__get_left_child_ptr]]
+        [__Binary_Tree_Node__]
+    ]
+    [
+        [Right child read-only access]
+        [[reference__binary_node_base__get_right_child_ptr__const]]
+        [__Binary_Tree_Node__]
+    ]
+    [
+        [Right child access]
+        [[reference__binary_node_base__get_right_child_ptr]]
+        [__Binary_Tree_Node__]
+    ]
+    [
+        [Children range begin read-only access]
+        [[reference__binary_node_base__cbegin]]
+        [__Tree_Node__]
+    ]
+    [
+        [Children range begin access]
+        [[reference__binary_node_base__begin]]
+        [__Tree_Node__]
+    ]
+    [
+        [Children range past-the-end read-only access]
+        [[reference__binary_node_base__cend]]
+        [__Tree_Node__]
+    ]
+    [
+        [Children range past-the-end access]
+        [[reference__binary_node_base__end]]
+        [__Tree_Node__]
+    ]
+    [
+        [Children reverse range begin read-only access]
+        [[reference__binary_node_base__crbegin]]
+        [__Reversible_Tree_Node__]
+    ]
+    [
+        [Children reverse range begin access]
+        [[reference__binary_node_base__rbegin]]
+        [__Reversible_Tree_Node__]
+    ]
+    [
+        [Children reverse range past-the-end read-only access]
+        [[reference__binary_node_base__crend]]
+        [__Reversible_Tree_Node__]
+    ]
+    [
+        [Children reverse range past-the-end access]
+        [[reference__binary_node_base__rend]]
+        [__Reversible_Tree_Node__]
+    ]
+    [
+        [Children range size query]
+        [[reference__binary_node_base__size]]
+        [__Tree_Node__]
+    ]
+    [
+        [Rotate left]
+        [[reference__binary_node_base__rotate_left]]
+        [__Binary_Tree_Node__]
+    ]
+    [
+        [Rotate right]
+        [[reference__binary_node_base__rotate_right]]
+        [__Binary_Tree_Node__]
+    ]
+    [
+        [Remove left child]
+        [[reference__binary_node_base__erase_left]]
+        [__Binary_Tree_Node__]
+    ]
+    [
+        [Remove right child]
+        [[reference__binary_node_base__erase_right]]
+        [__Binary_Tree_Node__]
+    ]
+    [
+        [Leaf node query]
+        [[reference__binary_node_base__empty]]
+        [__Tree_Node__]
+    ]
+    [
+        [Remove all children]
+        [[reference__binary_node_base__clear]]
+        [__Tree_Node__]
+    ]
+]
+[endsect] [/ Members]
+
+[section:non_members Non-Members]
+Same as those defined in __binary_node_base__.
+[endsect]
+
+[section Example]
+A __Cartesian_tree__ is a binary tree derived from an input range such that
+each node corresponds to a value in the range and that the value associated
+with each non-root node is greater than that associated with its parent.  The
+construction procedure changes the root node as necessary to maintain the heap
+order invariant, so to keep things simple, the first node must be created the
+same way the succeeding placement insertion methods do: by using the node
+allocator type and __container_allocator_traits__.
+
+[impl__cartesian_sort__build_tree]
+
+A symmetric (in-order) traversal of the tree results in the original range:
+use the __make_transform_iterator__ function with the __at_key__ functor to
+transform the __in_order_iterator__ so that the __std_equal__ algorithm can
+compare the Cartesian tree with the input range.  Since the `Compare` type
+models the __Strict_Weak_Ordering__ concept, __make_equivalence_function__
+can use the `compare` functor to create a suitable comparator that
+__std_equal__ can use in turn.
+
+[impl__cartesian_sort__check_in_order_symmetry_with_input_range]
+
+The __std_heap_selector__ type induces the breadth-first iterator to replace
+the usual FIFO queue with a priority queue, resulting in a sorted range.  The
+__tree_node_compareS__ type enables the priority queue to store pointers or
+iterators to tree nodes while prioritizing according to their data.
+
+[impl__cartesian_sort__breadth_first_descendant_iterate_with_priority]
+
+Using the node allocator type and __container_allocator_traits__ to destroy the
+root node and reclaim its memory will recursively destroy the descendant nodes
+and reclaim their memory as well.
+
+[impl__cartesian_sort__cleanup]
+
+Our sorting function has the advantage of not requiring the iterator type of
+the input range to model the __Random_Access_Iterator__ concept or even the
+__Bidirectional_Iterator__ concept, allowing it to work for a larger variety
+of range types.
+
+The complete program source can be found here: <__cartesian_sort__header__>
+and <__test_cartesian_sort_cpp__>
+[endsect]
+
+[section Test]
+<__test_binary_node_cpp__>
+[endsect]
+
+[endsect] [/ binary_node]
+

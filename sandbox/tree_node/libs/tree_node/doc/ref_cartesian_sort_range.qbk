@@ -1,0 +1,42 @@
+[/=============================================================================
+    Copyright (C) 2013 Cromwell D. Enage
+
+    Distributed under the Boost Software License, Version 1.0.
+    (See accompanying file LICENSE_1_0.txt or copy at
+    [@http://www.boost.org/LICENSE_1_0.txt])
+=============================================================================/]
+
+[section:cartesian_sort_range `cartesian_sort_range()`]
+
+[section Synopsis]
+[reference__cartesian_sort_range]
+[endsect]
+
+[section Description]
+The `cartesian_sort_range()` function sorts the elements in the specified range
+into ascending order, meaning that if `i` and `j` are any two valid iterators
+in the specified range such that `i` precedes `j`, then `*j` is not less than
+`*i`.  The range type must fulfill the __Forward_Range__ concept, and it must
+be mutable.
+
+The `cartesian_sort_range()` function is not guaranteed to be stable.  That is,
+if `*i` and `*j` are equivalent, meaning neither one is less than the other,
+then it is not guaranteed that `cartesian_sort_range()` will preserve the
+relative order of these two elements.
+
+The first version compares objects using the __Strict_Weak_Ordering__ object
+`compare`.  The second version compares objects using the less-than operator.
+[endsect]
+
+[section:definition Where defined]
+``
+#include <__cartesian_sort__header__>
+``
+[endsect]
+
+[section Test]
+<__test_cartesian_sort_cpp__>
+[endsect]
+
+[endsect] [/ cartesian_sort_range]
+

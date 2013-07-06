@@ -1,0 +1,284 @@
+[/=============================================================================
+    Copyright (C) 2011-2013 Cromwell D. Enage
+
+    Distributed under the Boost Software License, Version 1.0.
+    (See accompanying file LICENSE_1_0.txt or copy at
+    [@http://www.boost.org/LICENSE_1_0.txt])
+=============================================================================/]
+
+[section:pre_order_desc_iter `pre_order_descendant_iterator<Node,IsReverse>`]
+
+[section Synopsis]
+[reference__pre_order_descendant_iterator]
+[endsect]
+
+[section Description]
+This iterator traverses the descendants of the root node passed to its
+constructor in either pre-order or reverse post-order fashion, e.g. given
+the following tree representation:
+
+``
+      A
+      |
+  C---+---B
+  |       |
++-+-+   +-+-+
+|   |   |   |
+D   E   F   G
+``
+
+By default, this iterator will traverse the tree nodes in the following order:
+
+``
+C D E B F G
+``
+
+However, if `IsReverse` evaluates to __mpl_true__, then this iterator will
+traverse the tree nodes in the following order:
+
+``
+G F B E D C
+``
+[endsect]
+
+[section:definition Where defined]
+``
+#include <__pre_order_descendant_iterator__header__>
+``
+
+To register under __Boost_Typeof__:
+
+``
+#include <__pre_order_descendant_iterator__typeof_header__>
+``
+[endsect]
+
+[section:tpl_param Template Parameters]
+[table
+    [[Parameter][Description][Requirements][Default]]
+    [
+        [`Node`]
+        [The type of a tree node.]
+        [
+            It must model the __Tree_Node__ concept, but it can be
+            `const`-qualified.
+        ]
+        []
+    ]
+    [
+        [`IsReverse`]
+        [
+            Configures the `pre_order_descendant_iterator` to traverse tree
+            nodes in reverse post-order fashion if equivalent to __mpl_true__;
+            otherwise, the nodes will be traversed in pre-order fashion.
+        ]
+        [It must model the __Boolean_Integral_Constant__ concept.]
+        [__mpl_false__]
+    ]
+]
+[endsect]
+
+[section:model_of Model of]
+
+  * __Tree_Node_Descendant_Iterator__
+  * __Default_Constructible__
+  * __Copy_Constructible__
+  * __Assignable__
+
+[endsect]
+
+[section Members]
+[table
+    [[Name][Expression][Description][Type requirements]]
+    [
+        [Value type]
+        [``
+            typedef ... value_type;
+        ``]
+        [Defined by the __Tree_Node_Descendant_Iterator__ concept.]
+        []
+    ]
+    [
+        [Reference type]
+        [``
+            typedef ... reference;
+        ``]
+        [Defined by the __Forward_Iterator__ concept.]
+        []
+    ]
+    [
+        [Pointer type]
+        [``
+            typedef ... pointer;
+        ``]
+        [Defined by the __Forward_Iterator__ concept.]
+        []
+    ]
+    [
+        [Distance type]
+        [``
+            typedef ... difference_type;
+        ``]
+        [Defined by the __Forward_Iterator__ concept.]
+        []
+    ]
+    [
+        [Iterator category]
+        [``
+            typedef ... iterator_category;
+        ``]
+        [Defined by the __Forward_Iterator__ concept.]
+        []
+    ]
+    [
+        [Default constructor]
+        [``
+            pre_order_descendant_iterator();
+        ``]
+        [
+            Sets this iterator past-the-end.  Required by the
+            __Default_Constructible__ concept.
+        ]
+        []
+    ]
+    [
+        [Constructor from node]
+        [``
+            explicit pre_order_descendant_iterator(Node&);
+        ``]
+        [Defined by the __Tree_Node_Descendant_Iterator__ concept.]
+        []
+    ]
+    [
+        [Conversion constructor]
+        [``
+            template <typename N, typename I>
+            pre_order_descendant_iterator(
+                pre_order_descendant_iterator<N,I> const&
+            );
+        ``]
+        [
+            Constructs this iterator as a copy of the specified one so that the
+            current node is of type `Node`.
+        ]
+        [
+            [^_tr1_is_convertible_<N,Node>] must evaluate to __tr1_true_type__,
+            and [^_mpl_equal_to_<I,IsReverse>] must evaluate to __mpl_true__.
+        ]
+    ]
+    [
+        [Copy constructor]
+        [``
+            pre_order_descendant_iterator(
+                pre_order_descendant_iterator const&
+            );
+        ``]
+        [Defined by the __Copy_Constructible__ concept.]
+        []
+    ]
+    [
+        [Assignment operator]
+        [``
+            pre_order_descendant_iterator&
+                operator=(pre_order_descendant_iterator const&);
+        ``]
+        [Defined by the __Assignable__ concept.]
+        []
+    ]
+    [
+        [Dereference operator]
+        [``
+            reference operator*() const;
+        ``]
+        [
+            If the `Node` type models the __Associative_Tree_Node__ concept,
+            returns an object whose `first` member refers to the key that is
+            associated with the current node.  If the `Node` type models
+            the __Non_Associative_Tree_Node__ concept, returns the current
+            node.  Required by the __Forward_Iterator__ concept.
+        ]
+        []
+    ]
+    [
+        [Indirection operator]
+        [``
+            pointer operator->() const;
+        ``]
+        [
+            If the `Node` type models the __Associative_Tree_Node__ concept,
+            returns a pointer to the object whose `first` member refers to the
+            key associated with the current node.  If the `Node` type models
+            the __Non_Associative_Tree_Node__ concept, returns a pointer to
+            the current node.  Required by the __Forward_Iterator__ concept.
+        ]
+        []
+    ]
+    [
+        [Pre-increment operator]
+        [``
+            pre_order_descendant_iterator& operator++();
+        ``]
+        [
+            If `IsReverse` evaluates to __mpl_true__, points this iterator
+            to the next node in the reverse post-order traversal of the
+            descendants of the root node that was passed into the constructor;
+            otherwise, points this iterator to the next node in the pre-order
+            traversal of the descendants of the root node that was passed into
+            the constructor.  Returns this iterator.  Required by the
+            __Forward_Iterator__ concept.
+        ]
+        []
+    ]
+    [
+        [Post-increment operator]
+        [``
+            pre_order_descendant_iterator operator++(int);
+        ``]
+        [
+            If `IsReverse` evaluates to __mpl_true__, points this iterator
+            to the next node in the reverse post-order traversal of the
+            descendants of the root node that was passed into the constructor;
+            otherwise, points this iterator to the next node in the pre-order
+            traversal of the descendants of the root node that was passed into
+            the constructor.  Returns a new iterator pointing to the (previous)
+            current node.  Required by the __Forward_Iterator__ concept.
+        ]
+        []
+    ]
+    [
+        [Traversal state conversion operator]
+        [``
+            operator _traversal_state_() const;
+        ``]
+        [Defined by the __Tree_Node_Iterator__ concept.]
+        []
+    ]
+]
+[endsect] [/ Members]
+
+[section:non_members Non-members]
+[table
+    [[Name][Definition][Description]]
+    [
+        [Iterator creation]
+        [[reference__make_pre_order_descendant_iterator]]
+        [
+            Constructs and returns a `pre_order_descendant_iterator` that will
+            iterate through the descendants of the specified node in pre-order
+            fashion.
+        ]
+    ]
+    [
+        [Iteration]
+        [[reference__make_post_order_descendant_reverse_iterator]]
+        [
+            Constructs and returns a `pre_order_descendant_iterator` that will
+            iterate through the descendants of the specified node in reverse
+            post-order fashion.
+        ]
+    ]
+]
+[endsect]
+
+[endsect] [/ pre_order_descendant_iterator]
+

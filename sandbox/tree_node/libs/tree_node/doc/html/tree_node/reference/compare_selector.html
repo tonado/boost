@@ -1,0 +1,461 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>compare_selector&lt;Key&gt;</title>
+<link rel="stylesheet" href="http://www.boost.org/doc/libs/release/doc/src/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;tree_node 0.5">
+<link rel="up" href="../reference.html" title="Reference">
+<link rel="prev" href="depth_first_desc_iter.html" title="depth_first_descendant_iterator&lt;Node,IsReverse&gt;">
+<link rel="next" href="traversal_state.html" title="traversal_state">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr><td valign="top"><img alt="C++ Boost" width="277" height="86" src="../../../../../../boost.png"></td></tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="depth_first_desc_iter.html"><img src="http://www.boost.org/doc/libs/release/doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="http://www.boost.org/doc/libs/release/doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="http://www.boost.org/doc/libs/release/doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="traversal_state.html"><img src="http://www.boost.org/doc/libs/release/doc/src/images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="tree_node.reference.compare_selector"></a><a class="link" href="compare_selector.html" title="compare_selector&lt;Key&gt;"><code class="computeroutput"><span class="identifier">compare_selector</span><span class="special">&lt;</span><span class="identifier">Key</span><span class="special">&gt;</span></code></a>
+</h3></div></div></div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="tree_node.reference.compare_selector.synopsis"></a><a class="link" href="compare_selector.html#tree_node.reference.compare_selector.synopsis" title="Synopsis">Synopsis</a>
+</h4></div></div></div>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">tree_node</span> <span class="special">{</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Key</span><span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">compare_selector</span>
+    <span class="special">{</span>
+        <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">NodeIterator</span><span class="special">&gt;</span>
+        <span class="keyword">struct</span> <span class="identifier">apply</span>
+        <span class="special">{</span>
+            <span class="keyword">class</span> <span class="identifier">type</span>
+            <span class="special">{</span>
+
+             <span class="keyword">public</span><span class="special">:</span>
+                <span class="keyword">typedef</span> <span class="identifier">NodeIterator</span> <span class="identifier">first_argument_type</span><span class="special">;</span>
+                <span class="keyword">typedef</span> <span class="identifier">NodeIterator</span> <span class="identifier">second_argument_type</span><span class="special">;</span>
+                <span class="keyword">typedef</span> <span class="keyword">bool</span> <span class="identifier">result_type</span><span class="special">;</span>
+
+                <span class="identifier">type</span><span class="special">();</span>
+
+                <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Function</span><span class="special">&gt;</span>
+                <span class="identifier">type</span><span class="special">(</span><span class="identifier">Function</span> <span class="identifier">compare</span><span class="special">);</span>
+
+                <span class="identifier">result_type</span>
+                    <span class="keyword">operator</span><span class="special">()(</span>
+                        <span class="identifier">first_argument_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">lhs_node_itr</span>
+                      <span class="special">,</span> <span class="identifier">second_argument_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">rhs_node_itr</span>
+                    <span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+            <span class="special">};</span>
+        <span class="special">};</span>
+    <span class="special">};</span>
+<span class="special">}}</span>  <span class="comment">// namespace boost::tree_node</span>
+</pre>
+<p>
+        </p>
+<p>
+          Forward declarations:
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">tree_node</span> <span class="special">{</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Key</span> <span class="special">=</span> <span class="identifier">data_key</span><span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">compare_selector</span><span class="special">;</span>
+
+    <span class="keyword">typedef</span> <span class="identifier">compare_selector</span><span class="special">&lt;&gt;</span> <span class="identifier">compareS</span><span class="special">;</span>
+<span class="special">}}</span>  <span class="comment">// namespace boost::tree_node</span>
+</pre>
+<p>
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="tree_node.reference.compare_selector.description"></a><a class="link" href="compare_selector.html#tree_node.reference.compare_selector.description" title="Description">Description</a>
+</h4></div></div></div>
+<p>
+          Let <code class="computeroutput"><span class="identifier">Node</span></code> be a (possibly
+          <code class="computeroutput"><span class="keyword">const</span></code>-qualified) <a class="link" href="../concepts/tree_node.html" title="Tree Node"><span class="bold"><strong>Tree Node</strong></span></a> model.
+        </p>
+<p>
+          Let <code class="computeroutput"><span class="identifier">NItr</span></code> be the pointer
+          or iterator type of <code class="computeroutput"><span class="identifier">Node</span></code>.
+        </p>
+<p>
+          Let <code class="computeroutput"><span class="identifier">F</span></code> be a model of <a href="http://www.sgi.com/tech/stl/BinaryPredicate.html" target="_top"><span class="bold"><strong>Binary
+          Predicate</strong></span></a> that accepts <code class="literal"><a class="link" href="at_key.html#tree_node.reference.at_key.result_of" title="Return Type Metafunction Synopsis">tree_node::result_of::at_key</a>&lt;Node,Key&gt;::type</code>
+          for both its arguments.
+        </p>
+<p>
+          Given the following:
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">typedef</span> <a href="http://www.boost.org/libs/mpl/doc/refmanual/apply-wrap.html" target="_top">boost::mpl::apply_wrap1</a><span class="special">&lt;</span><span class="identifier">compare_selector</span><span class="special">&lt;</span><span class="identifier">Key</span><span class="special">&gt;,</span><span class="identifier">NItr</span><span class="special">&gt;::</span><span class="identifier">type</span> <span class="identifier">G</span><span class="special">;</span>
+
+<span class="identifier">F</span> <span class="identifier">f</span><span class="special">;</span>
+<span class="identifier">NItr</span> <span class="identifier">x</span><span class="special">,</span> <span class="identifier">y</span><span class="special">;</span>
+<span class="identifier">G</span> <span class="identifier">g</span><span class="special">(</span><span class="identifier">f</span><span class="special">);</span>
+</pre>
+<p>
+        </p>
+<p>
+          The type <code class="computeroutput"><span class="identifier">G</span></code> is a model of
+          <a href="http://www.sgi.com/tech/stl/AdaptableBinaryPredicate.html" target="_top"><span class="bold"><strong>Adaptable Binary Predicate</strong></span></a> whose first and
+          second arguments are both of type <code class="computeroutput"><span class="identifier">NItr</span></code>.
+          The expression <code class="computeroutput"><span class="identifier">g</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">y</span><span class="special">)</span></code> is equivalent to <code class="computeroutput"><span class="identifier">f</span><span class="special">(</span><span class="identifier">get</span><span class="special">(*</span><span class="identifier">x</span><span class="special">,</span>
+          <span class="identifier">Key</span><span class="special">()),</span>
+          <span class="identifier">get</span><span class="special">(*</span><span class="identifier">y</span><span class="special">,</span> <span class="identifier">Key</span><span class="special">()))</span></code> because the type <code class="computeroutput"><span class="identifier">G</span></code>
+          defines a conversion constructor that allows <code class="computeroutput"><span class="identifier">g</span></code>
+          to store the function <code class="computeroutput"><span class="identifier">f</span></code>.
+        </p>
+<p>
+          This metafunction class is itself most useful as a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">compare_selector</span></code>
+          template argument to <a href="http://svn.boost.org/svn/boost/sandbox/container_gen/libs/container_gen/doc/html/container_gen/reference/selectors.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">std_heap_selector</span></code></a> or to one of
+          the <a href="http://www.boost.org/doc/html/heap.html" target="_top"><span class="bold"><strong>Boost.Heap</strong></span></a>
+          selector types that are offered by <a href="http://svn.boost.org/svn/boost/sandbox/container_gen/libs/container_gen/doc/html/index.html" target="_top"><span class="bold"><strong>Boost.ContainerGen</strong></span></a> and are to be used in
+          turn by <a class="link" href="breadth_first_iterator.html" title="breadth_first_iterator&lt;Node,Selector&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">breadth_first_iterator</span></code></a> or <a class="link" href="breadth_first_desc_iter.html" title="breadth_first_descendant_iterator&lt;Node,Selector&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">breadth_first_descendant_iterator</span></code></a>
+          when order by data matters.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="tree_node.reference.compare_selector.definition"></a><a class="link" href="compare_selector.html#tree_node.reference.compare_selector.definition" title="Where defined">Where
+        defined</a>
+</h4></div></div></div>
+<p>
+</p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/tree_node/selector/compare.hpp" target="_top">boost/tree_node/selector/compare.hpp</a><span class="special">&gt;</span>
+</pre>
+<p>
+        </p>
+<p>
+          Forward-declared:
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/tree_node/selector/compare_fwd.hpp" target="_top">boost/tree_node/selector/compare_fwd.hpp</a><span class="special">&gt;</span>
+</pre>
+<p>
+        </p>
+<p>
+          To register under <a href="http://www.boost.org/doc/html/typeof.html" target="_top"><span class="bold"><strong>Boost.Typeof</strong></span></a>:
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/typeof/boost/tree_node/selector/compare.hpp" target="_top">boost/typeof/boost/tree_node/selector/compare.hpp</a><span class="special">&gt;</span>
+</pre>
+<p>
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="tree_node.reference.compare_selector.tpl_param"></a><a class="link" href="compare_selector.html#tree_node.reference.compare_selector.tpl_param" title="Template Parameters">Template
+        Parameters</a>
+</h4></div></div></div>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+                  <p>
+                    Parameter
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Description
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Default
+                  </p>
+                </th>
+</tr></thead>
+<tbody><tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">Key</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    The template argument type used to access the data by which the
+                    return type of this metafunction class will compare <a class="link" href="../concepts/tree_node.html" title="Tree Node"><span class="bold"><strong>Tree Node</strong></span></a> objects.
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <a class="link" href="data_key.html" title="data_key"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">data_key</span></code></a>
+                  </p>
+                </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="tree_node.reference.compare_selector.model_of"></a><a class="link" href="compare_selector.html#tree_node.reference.compare_selector.model_of" title="Model of">Model
+        of</a>
+</h4></div></div></div>
+<p>
+          <a href="http://www.boost.org/libs/mpl/doc/refmanual/metafunction-class.html" target="_top"><span class="bold"><strong>Unary Metafunction Class</strong></span></a>
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="tree_node.reference.compare_selector.rt_members"></a><a class="link" href="compare_selector.html#tree_node.reference.compare_selector.rt_members" title="Return Type Members">Return
+        Type Members</a>
+</h4></div></div></div>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+                  <p>
+                    Name
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Expression
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Description
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Type requirements
+                  </p>
+                </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+                  <p>
+                    Result type
+                  </p>
+                </td>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="keyword">bool</span> <span class="identifier">result_type</span><span class="special">;</span>
+</pre>
+<p>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/AdaptableBinaryPredicate.html" target="_top"><span class="bold"><strong>Adaptable Binary Predicate</strong></span></a> concept.
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    First argument type
+                  </p>
+                </td>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="identifier">NItr</span> <span class="identifier">first_argument_type</span><span class="special">;</span>
+</pre>
+<p>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/AdaptableBinaryPredicate.html" target="_top"><span class="bold"><strong>Adaptable Binary Predicate</strong></span></a> concept.
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Second argument type
+                  </p>
+                </td>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="identifier">NItr</span> <span class="identifier">second_argument_type</span><span class="special">;</span>
+</pre>
+<p>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/AdaptableBinaryPredicate.html" target="_top"><span class="bold"><strong>Adaptable Binary Predicate</strong></span></a> concept.
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Default constructor
+                  </p>
+                </td>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">type</span><span class="special">();</span>
+</pre>
+<p>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Stores an instance of type <code class="literal"><a href="http://www.sgi.com/tech/stl/less.html" target="_top">std::less</a>&lt;<a class="link" href="at_key.html#tree_node.reference.at_key.result_of" title="Return Type Metafunction Synopsis">tree_node::result_of::at_key</a>&lt;Node,Key&gt;::type&gt;</code>
+                    that the function call operator will use to compare <code class="computeroutput"><span class="identifier">Node</span></code> data.
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="literal"><a class="link" href="at_key.html#tree_node.reference.at_key.result_of" title="Return Type Metafunction Synopsis">tree_node::result_of::at_key</a>&lt;Node,Key&gt;::type</code>
+                    must model the <a href="http://www.sgi.com/tech/stl/LessThanComparable.html" target="_top"><span class="bold"><strong>Less-Than Comparable</strong></span></a> concept.
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Constructor from comparator
+                  </p>
+                </td>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Function</span><span class="special">&gt;</span>
+<span class="identifier">type</span><span class="special">(</span><span class="identifier">Function</span> <span class="keyword">const</span><span class="special">&amp;);</span>
+</pre>
+<p>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Stores the specified comparator that the function call operator
+                    will use to compare <code class="computeroutput"><span class="identifier">Node</span></code>
+                    data.
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">Function</span></code> must
+                    be a model of <a href="http://www.sgi.com/tech/stl/BinaryPredicate.html" target="_top"><span class="bold"><strong>Binary Predicate</strong></span></a> that accepts
+                    <code class="literal"><a class="link" href="at_key.html#tree_node.reference.at_key.result_of" title="Return Type Metafunction Synopsis">tree_node::result_of::at_key</a>&lt;Node,Key&gt;::type</code>
+                    for both its arguments.
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Copy constructor
+                  </p>
+                </td>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">type</span><span class="special">(</span><span class="identifier">type</span> <span class="keyword">const</span><span class="special">&amp;);</span>
+</pre>
+<p>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Defined by the <a href="http://www.boost.org/libs/utility/CopyConstructible.html" target="_top"><span class="bold"><strong>Copy Constructible</strong></span></a> concept.
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Assignment operator
+                  </p>
+                </td>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">type</span><span class="special">&amp;</span> <span class="keyword">operator</span><span class="special">=(</span><span class="identifier">type</span> <span class="keyword">const</span><span class="special">&amp;);</span>
+</pre>
+<p>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Defined by the <a href="http://www.boost.org/libs/utility/Assignable.html" target="_top"><span class="bold"><strong>Assignable</strong></span></a> concept.
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Function call operator
+                  </p>
+                </td>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">result_type</span>
+    <span class="keyword">operator</span><span class="special">()(</span>
+        <span class="identifier">first_argument_type</span> <span class="identifier">x</span>
+      <span class="special">,</span> <span class="identifier">second_argument_type</span> <span class="identifier">y</span>
+    <span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+</pre>
+<p>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Equivalent to <code class="computeroutput"><span class="identifier">f</span><span class="special">(</span><span class="identifier">get</span><span class="special">(*</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">Key</span><span class="special">()),</span> <span class="identifier">get</span><span class="special">(*</span><span class="identifier">y</span><span class="special">,</span> <span class="identifier">Key</span><span class="special">()))</span></code>, where <code class="computeroutput"><span class="identifier">f</span></code>
+                    is the function that was passed in to the constructor, or an
+                    instance of type <code class="literal"><a href="http://www.sgi.com/tech/stl/less.html" target="_top">std::less</a>&lt;<a class="link" href="at_key.html#tree_node.reference.at_key.result_of" title="Return Type Metafunction Synopsis">tree_node::result_of::at_key</a>&lt;Node,Key&gt;::type&gt;</code>
+                    if this function object was default-constructed. Required by
+                    the <a href="http://www.sgi.com/tech/stl/AdaptableBinaryPredicate.html" target="_top"><span class="bold"><strong>Adaptable Binary Predicate</strong></span></a> concept.
+                  </p>
+                </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2011-2013 Cromwell D. Enage<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="depth_first_desc_iter.html"><img src="http://www.boost.org/doc/libs/release/doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="http://www.boost.org/doc/libs/release/doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="http://www.boost.org/doc/libs/release/doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="traversal_state.html"><img src="http://www.boost.org/doc/libs/release/doc/src/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

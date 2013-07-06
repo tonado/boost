@@ -1,0 +1,213 @@
+[/=============================================================================
+    Copyright (C) 2013 Cromwell D. Enage
+
+    Distributed under the Boost Software License, Version 1.0.
+    (See accompanying file LICENSE_1_0.txt or copy at
+    [@http://www.boost.org/LICENSE_1_0.txt])
+=============================================================================/]
+
+[section:with_accumulation
+    `with_accumulation<BaseGenerator,T1,T2,AccumulationKey>`
+]
+
+[section Description]
+In addition to the other operations it inherits from the return type of
+`BaseGenerator`, this __Tree_Node__ adaptor performs statistical computations
+on user data when the node's structure and/or contents are modified, then
+stores the result.
+
+[important
+    Optional __Boost_Accumulators__ parameters are currently unsupported.  This
+    may change once this data structure can detect the availability of
+    __Boost_Parameter__ keywords used by __Boost_Accumulators__ features.
+]
+
+[important
+    Weighted samples are currently unsupported.
+]
+[endsect]
+
+[section:definition Where defined]
+``
+#include <__with_accumulation__header__>
+``
+
+Forward-declared:
+
+``
+#include <__with_accumulation__forward_header__>
+``
+
+To register under __Boost_Typeof__:
+
+``
+#include <__with_accumulation__typeof_header__>
+``
+[endsect]
+
+[section:tpl_param Template Parameters]
+[table
+    [[Parameter][Description][Default]]
+    [
+        [`BaseGenerator`]
+        [
+            The __Base_Type_Generator__ model from whose return type
+            `with_accumulation` will ultimately inherit.
+        []
+    ]
+    [
+        [`T1`]
+        [The key type if `T2` is specified; the user data type otherwise.]
+        []
+    ]
+    [
+        [`T2`]
+        [The user data type if specified; ignored otherwise.]
+        [`void`]
+    ]
+    [
+        [`AccumulationKey`]
+        [A template instantiation of __accumulation_key__.]
+        [`tree_node::default_accumulation_key`]
+    ]
+]
+[endsect]
+
+[section:model_of Model of]
+
+  * __Associative_Tree_Node__ if `T2` is specified;
+    __Non_Associative_Tree_Node__ otherwise
+  * any other concept that the return type of `BaseGenerator` models
+
+[endsect]
+
+[section:public_bases Public Base Classes]
+[reference__with_accumulation__bases]
+[endsect]
+
+[section:members Public Members]
+In addition to those inherited from the return type of `BaseGenerator`, the
+following members are defined:
+
+[table
+    [[Name][Definition][Where defined]]
+    [
+        [Super type]
+        [[reference__with_accumulator__super_t]]
+        [__Tree_Node__]
+    ]
+    [
+        [Emplacement constructor]
+        [[reference__with_accumulation__emplacement_ctor]]
+        [__Tree_Node__]
+    ]
+    [
+        [Emplacement constructor with allocator]
+        [[reference__with_accumulation__emplacement_ctor_w_allocator]]
+        [__Tree_Node__]
+    ]
+    [
+        [Copy constructor]
+        [``
+            with_accumulation(with_accumulation const& copy);
+        ``]
+        [__Copyable_Tree_Node__]
+    ]
+    [
+        [Copy constructor with allocator]
+        [``
+            with_accumulation(
+                with_accumulation const& copy
+              , typename traits::allocator_reference allocator
+            );
+        ``]
+        [__Copyable_Tree_Node__]
+    ]
+    [
+        [Move constructor]
+        [``
+            with_accumulation(with_accumulation&& source);
+        ``]
+        [__Movable_Tree_Node__]
+    ]
+    [
+        [Move constructor with allocator]
+        [``
+            with_accumulation(
+                with_accumulation&& source
+              , typename traits::allocator_reference allocator
+            );
+        ``]
+        [__Movable_Tree_Node__]
+    ]
+    [
+        [Copy assignment operator]
+        [``
+            with_accumulation& operator=(with_accumulation const& copy);
+        ``]
+        [__Assignable__]
+    ]
+    [
+        [Move assignment operator]
+        [``
+            with_accumulation& operator=(with_accumulation&& source);
+        ``]
+        [__Movable__]
+    ]
+]
+[endsect]
+
+[section:non_members Non-members]
+Same as those defined in __tree_node_with_accumulation_base__.
+[endsect]
+
+[section Example]
+A GUI application that renders row numbers needs to know, in sublinear time,
+which variable-height row numbers should be rendered on-screen.  Independently,
+the application must also compute the minimum priority of each row number in
+terms of its own priority and that of its sub-rows.
+
+`GUITable` associates the example key types with the user data that our program
+will need.  `HeightSumKey` is a template instantiation of __accumulation_key__
+that will instruct the corresponding __tree_node_with_accumulation_base__
+template instantiation to store the sum of the `example_keys::row_height`
+values of a node and its children, while `MinPriorityKey` is a template
+instantiation of __accumulation_key__ that will instruct the corresponding
+`with_accumulation` template instantiation to store the minimum of the
+`example_keys::row_priority` values of a node and its children.
+
+`GUIBinaryCompare` is a __Binary_Predicate__ model that implements two function
+call operators.  The first one determines whether or not __binary_descendant__
+should traverse the left branch; the second one determines whether or not the
+algorithm should traverse the right branch.
+
+[example__gui__types]
+
+With the boilerplate code out of the way, we can define the `GUINode` data
+structure.  The __binary_node_base_gen__ type induces `GUINode` to model the
+__Binary_Tree_Node__ concept, while the __tree_node_with_accumulation_base__
+and `with_accumulation` template instantiations augment `GUINode` with the
+values associated with `HeightSumKey` and `MinPriorityKey`, respectively.
+
+[example__gui__binary_node__type]
+
+The syntax for creating the root node and its descendants is no different for
+the `GUINode` type than it is for [^_binary_node_<GUITable>].  The accumulation
+values are calculated behind the scenes.
+
+[example__gui__binary_node__build]
+
+Using the __binary_descendant__ algorithm with `GUIBinaryCompare` enables the
+application to find the row number that occupies the space a given number of
+pixels from the top in logarithmic time.  A traversal through the nodes will
+also reveal that the tree exhibits the heap-order property with respect to
+`MinPriorityKey` values.
+
+[example__gui__binary_node__test]
+
+The complete program source can be found here:
+<__example_type_definitions_hpp__> and <__test_binary_node_cpp__>
+[endsect]
+
+[endsect] [/ with_accumulation]
+

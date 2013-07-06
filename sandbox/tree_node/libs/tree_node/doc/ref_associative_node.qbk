@@ -1,0 +1,396 @@
+[/=============================================================================
+    Copyright (C) 2011-2013 Cromwell D. Enage
+
+    Distributed under the Boost Software License, Version 1.0.
+    (See accompanying file LICENSE_1_0.txt or copy at
+    [@http://www.boost.org/LICENSE_1_0.txt])
+=============================================================================/]
+
+[section:associative_node `associative_node<Key,Data,Selector>`]
+
+[section Description]
+This class template is suitable for classes or algorithms that need to map keys
+to child nodes in a tree node data structure.  Objects of this type can be
+stored by value, and their children can be accessed by their associated keys
+for fast lookup.
+
+If the user data type models the __Fusion_Associative_Sequence__ concept, then
+each of the elements within can be also be obtained through key-value access
+and set through key-value modification as defined by the __Tree_Node__ concept;
+more specifically, for some object `node` of type `Node` such that `Node` is a
+template instantiation of `associative_node`, then for any type `Key` such that
+[^_fusion_has_key_<Key>(get<_data_key_>(node))] returns `true`, so does
+[^_has_key_<Key>(node)].
+[endsect]
+
+[section:definition Where defined]
+``
+#include <__associative_node__header__>
+``
+
+Forward-declared:
+
+``
+#include <__associative_node__forward_header__>
+``
+
+To register under __Boost_Typeof__:
+
+``
+#include <__associative_node__typeof_header__>
+``
+[endsect]
+
+[section:tpl_param Template Parameters]
+[table
+    [[Parameter][Description][Requirements][Default]]
+    [
+        [`Key`]
+        [
+            The type of a key object to be associated with a child of a
+            `associative_node`.
+        ]
+        []
+        []
+    ]
+    [
+        [`Data`]
+        [The type of the user data to be stored in an `associative_node`.]
+        []
+        []
+    ]
+    [
+        [`Selector`]
+        [The type that determines the child container type.]
+        [
+            [^_is_recursive_selector_<Selector>] must return __mpl_true__, and
+            [^_is_associative_selector_<Selector>] must return __mpl_true__.
+        ]
+        [__ptr_mapS__]
+    ]
+]
+[endsect]
+
+[section:model_of Model of]
+
+  * __Associative_Tree_Node__
+  * __Reversible_Tree_Node__ if
+    [^_container_gen_<Selector,Key,associative_node>::type]
+    returns a __Reversible_Container__ model
+  * __Default_Constructible__ if `Data` is __Default_Constructible__
+  * __Copyable_Tree_Node__ if `Data` is __Copy_Constructible__
+  * __Assignable__ if `Data` is __Copy_Constructible__ and __Movable__
+  * __Movable_Tree_Node__ if `Data` is __Movable__
+
+[endsect]
+
+[section:public_bases Public Base Classes]
+[reference__associative_node__bases]
+[endsect]
+
+[section:members Public Members]
+[table
+    [[Name][Definition][Where defined]]
+    [
+        [Super type]
+        [[reference__associative_node__super_t]]
+        [__Tree_Node__]
+    ]
+    [
+        [
+            Key type, data type, iterator range type, immutable iterator
+            range type, allocator type, allocator reference type
+        ]
+        [[reference__associative_node__traits]]
+        [__Associative_Tree_Node__]
+    ]
+    [
+        [Pointer type]
+        [[reference__associative_node__pointer]]
+        [__Tree_Node__]
+    ]
+    [
+        [Pointer-to-const type]
+        [[reference__associative_node__const_pointer]]
+        [__Tree_Node__]
+    ]
+    [
+        [Iterator type]
+        [[reference__associative_node__iterator]]
+        [__Associative_Tree_Node__]
+    ]
+    [
+        [Immutable iterator type]
+        [[reference__associative_node__const_iterator]]
+        [__Associative_Tree_Node__]
+    ]
+    [
+        [Reverse iterator type]
+        [``
+            typedef typename children::reverse_iterator reverse_iterator;
+        ``]
+        [__Reversible_Tree_Node__]
+    ]
+    [
+        [Immutable reverse iterator type]
+        [``
+            typedef typename children::const_reverse_iterator
+                    const_reverse_iterator;
+        ``]
+        [__Reversible_Tree_Node__]
+    ]
+    [
+        [Emplacement constructor]
+        [[reference__associative_node__emplacement_ctor]]
+        [__Tree_Node__]
+    ]
+    [
+        [Emplacement constructor with allocator]
+        [[reference__associative_node__emplacement_ctor_w_allocator]]
+        [__Tree_Node__]
+    ]
+    [
+        [Copy constructor]
+        [``
+            associative_node(associative_node const& copy);
+        ``]
+        [__Copyable_Tree_Node__]
+    ]
+    [
+        [Copy constructor with allocator]
+        [``
+            associative_node(
+                associative_node const& copy
+              , typename traits::allocator_reference allocator
+            );
+        ``]
+        [__Copyable_Tree_Node__]
+    ]
+    [
+        [Move constructor]
+        [``
+            associative_node(associative_node&& source);
+        ``]
+        [__Movable_Tree_Node__]
+    ]
+    [
+        [Move constructor with allocator]
+        [``
+            associative_node(
+                associative_node&& source
+              , typename traits::allocator_reference allocator
+            );
+        ``]
+        [__Movable_Tree_Node__]
+    ]
+    [
+        [Copy assignment operator]
+        [``
+            associative_node& operator=(associative_node const&);
+        ``]
+        [__Assignable__]
+    ]
+    [
+        [Move assignment operator]
+        [``
+            associative_node& operator=(associative_node&&);
+        ``]
+        [__Movable__]
+    ]
+    [
+        [Parent read-only access]
+        [[reference__associative_node_base__get_parent_ptr__const]]
+        [__Tree_Node__]
+    ]
+    [
+        [Parent access]
+        [[reference__associative_node_base__get_parent_ptr]]
+        [__Tree_Node__]
+    ]
+    [
+        [Child creation]
+        [[reference__associative_node_base__emplace]]
+        [__Associative_Tree_Node__]
+    ]
+    [
+        [Child copy creation]
+        [``
+            iterator
+                insert(
+                    typename traits::key_type const& key
+                  , associative_node const& child
+                );
+        ``]
+        [__Associative_Tree_Node__]
+    ]
+    [
+        [Child move insertion]
+        [``
+            iterator
+                insert(
+                    typename traits::key_type const& key
+                  , associative_node&& child
+                );
+        ``]
+        [__Associative_Tree_Node__]
+    ]
+    [
+        [Children range begin read-only access]
+        [[reference__associative_node_base__cbegin]]
+        [__Tree_Node__]
+    ]
+    [
+        [Children range begin access]
+        [[reference__associative_node_base__begin]]
+        [__Tree_Node__]
+    ]
+    [
+        [Children range past-the-end read-only access]
+        [[reference__associative_node_base__cend]]
+        [__Tree_Node__]
+    ]
+    [
+        [Children range past-the-end access]
+        [[reference__associative_node_base__end]]
+        [__Tree_Node__]
+    ]
+    [
+        [Children reverse range begin read-only access]
+        [[reference__associative_node_base__crbegin]]
+        [__Reversible_Tree_Node__]
+    ]
+    [
+        [Children reverse range begin access]
+        [[reference__associative_node_base__rbegin]]
+        [__Reversible_Tree_Node__]
+    ]
+    [
+        [Children reverse range past-the-end read-only access]
+        [[reference__associative_node_base__crend]]
+        [__Reversible_Tree_Node__]
+    ]
+    [
+        [Children reverse range past-the-end access]
+        [[reference__associative_node_base__rend]]
+        [__Reversible_Tree_Node__]
+    ]
+    [
+        [Children range size query]
+        [[reference__associative_node_base__size]]
+        [__Tree_Node__]
+    ]
+    [
+        [Child read-only search]
+        [[reference__associative_node_base__find__const]]
+        [__Associative_Tree_Node__]
+    ]
+    [
+        [Child search]
+        [[reference__associative_node_base__find]]
+        [__Associative_Tree_Node__]
+    ]
+    [
+        [Child read-only search lower bound]
+        [[reference__associative_node_base__lower_bound__const]]
+        [__Associative_Tree_Node__]
+    ]
+    [
+        [Child search lower bound]
+        [[reference__associative_node_base__lower_bound]]
+        [__Associative_Tree_Node__]
+    ]
+    [
+        [Child read-only search upper bound]
+        [[reference__associative_node_base__upper_bound__const]]
+        [__Associative_Tree_Node__]
+    ]
+    [
+        [Child search upper bound]
+        [[reference__associative_node_base__upper_bound]]
+        [__Associative_Tree_Node__]
+    ]
+    [
+        [Child read-only search range]
+        [[reference__associative_node_base__equal_range__const]]
+        [__Associative_Tree_Node__]
+    ]
+    [
+        [Child search range]
+        [[reference__associative_node_base__equal_range]]
+        [__Associative_Tree_Node__]
+    ]
+    [
+        [Remove children]
+        [[reference__associative_node_base__erase]]
+        [__Associative_Tree_Node__]
+    ]
+    [
+        [Leaf node query]
+        [[reference__associative_node_base__empty]]
+        [__Tree_Node__]
+    ]
+    [
+        [Remove all children]
+        [[reference__associative_node_base__clear]]
+        [__Tree_Node__]
+    ]
+]
+[endsect] [/ Members]
+
+[section:non_members Non-Members]
+Same as those defined in __associative_node_base__.
+[endsect]
+
+[section Example]
+An __inverted_index__ maps words and numbers to the documents that contain
+them, making it a vital component for implementing search engines.  In turn,
+a __radix_tree__, designed to store strings as keys, is a good underlying data
+structure for an inverted index.
+
+For the sake of simplicity, the program will store its documents in a
+random-access container, so our inverted index implementation will refer
+to them by index.
+
+[test__inverted_index__type_definitions]
+
+Since a __radix_tree__ is a space-optimized __trie__ data structure, we can
+simplify things further by keeping the insertion and space-optimization
+routines as separate functions.  (An industrial-strength implementation will,
+of course, optimize for space during insertion.)  Thus, our inverted index will
+treat each word it encounters as a sequence of letters, initially storing them
+as keys to the next successive node or to the set of indices to the documents
+containing the word.  The documents are simply strings of space-delimited
+words, which can be extracted via __Boost_Tokenizer__.
+
+[test__inverted_index__insert]
+
+To optimize for space, in this case, means merging each single-child node with
+its offspring while concatenating the associated keys.  A breadth-first
+traversal will encounter the minimum number of nodes that need to be checked.
+
+[test__inverted_index__flatten]
+
+When searching for a particular word, our inverted index will, at each step,
+determine what portion of the specified word needs to be processed, then choose
+the branch whose key matches either that portion or a prefix substring.  If the
+key matches the remaining portion, then the function returns the indices to the
+containing documents.  If the key matches a prefix, then the suffix will be
+processed at the next step.  If no branch exists, then the word is not found.
+
+[test__inverted_index__find]
+
+In our program, the search space is a small array of documents, each of which
+the program will feed to the inverted index.
+
+[test__inverted_index__initialize]
+
+Then, for each unique word, the program will send the associated indices to
+standard output.
+
+[test__inverted_index__use]
+
+The complete program source can be found here: <__test_inverted_index_cpp__>
+[endsect]
+
+[endsect] [/ associative_node]
+

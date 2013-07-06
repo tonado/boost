@@ -1,0 +1,180 @@
+[/=============================================================================
+    Copyright (C) 2013 Cromwell D. Enage
+
+    Distributed under the Boost Software License, Version 1.0.
+    (See accompanying file LICENSE_1_0.txt or copy at
+    [@http://www.boost.org/LICENSE_1_0.txt])
+=============================================================================/]
+
+[section:compare_selector `compare_selector<Key>`]
+
+[section Synopsis]
+[reference__compare_selector]
+
+Forward declarations:
+
+[reference__compare_selector_fwd]
+[endsect]
+
+[section Description]
+Let `Node` be a (possibly `const`-qualified) __Tree_Node__ model.
+
+Let `NItr` be the pointer or iterator type of `Node`.
+
+Let `F` be a model of __Binary_Predicate__ that accepts
+[^_result_of__at_key_<Node,Key>::type] for both its arguments.
+
+Given the following:
+
+``
+    typedef _mpl_apply_wrap1_<compare_selector<Key>,NItr>::type G;
+
+    F f;
+    NItr x, y;
+    G g(f);
+``
+
+The type `G` is a model of __Adaptable_Binary_Predicate__ whose first and
+second arguments are both of type `NItr`.  The expression `g(x, y)` is
+equivalent to `f(get(*x, Key()), get(*y, Key()))` because the type `G` defines
+a conversion constructor that allows `g` to store the function `f`.
+
+This metafunction class is itself most useful as a `boost::compare_selector`
+template argument to __std_heap_selector__ or to one of the __Boost_Heap__
+selector types that are offered by __Boost_ContainerGen__ and are to be used
+in turn by __breadth_first_iterator__ or __breadth_first_descendant_iterator__
+when order by data matters.
+[endsect]
+
+[section:definition Where defined]
+``
+#include <__compare_selector__header__>
+``
+
+Forward-declared:
+
+``
+#include <__compare_selector__forward_header__>
+``
+
+To register under __Boost_Typeof__:
+
+``
+#include <__compare_selector__typeof_header__>
+``
+[endsect]
+
+[section:tpl_param Template Parameters]
+[table
+    [[Parameter][Description][Default]]
+    [
+        [`Key`]
+        [
+            The template argument type used to access the data by which the
+            return type of this metafunction class will compare __Tree_Node__
+            objects.
+        ]
+        [__data_key__]
+    ]
+]
+[endsect]
+
+[section:model_of Model of]
+__Unary_Metafunction_Class__
+[endsect]
+
+[section:rt_members Return Type Members]
+[table
+    [[Name][Expression][Description][Type requirements]]
+    [
+        [Result type]
+        [``
+            typedef bool result_type;
+        ``]
+        [Defined by the __Adaptable_Binary_Predicate__ concept.]
+        []
+    ]
+    [
+        [First argument type]
+        [``
+            typedef NItr first_argument_type;
+        ``]
+        [Defined by the __Adaptable_Binary_Predicate__ concept.]
+        []
+    ]
+    [
+        [Second argument type]
+        [``
+            typedef NItr second_argument_type;
+        ``]
+        [Defined by the __Adaptable_Binary_Predicate__ concept.]
+        []
+    ]
+    [
+        [Default constructor]
+        [``
+            type();
+        ``]
+        [
+            Stores an instance of type
+            [^_std_less_<_result_of__at_key_<Node,Key>::type>] that the
+            function call operator will use to compare `Node` data.
+        ]
+        [
+            [^_result_of__at_key_<Node,Key>::type] must model the
+            __Less_Than_Comparable__ concept.
+        ]
+    ]
+    [
+        [Constructor from comparator]
+        [``
+            template <typename Function>
+            type(Function const&);
+        ``]
+        [
+            Stores the specified comparator that the function call operator
+            will use to compare `Node` data. 
+        ]
+        [
+            `Function` must be a model of __Binary_Predicate__ that accepts
+            [^_result_of__at_key_<Node,Key>::type] for both its arguments.
+        ]
+    ]
+    [
+        [Copy constructor]
+        [``
+            type(type const&);
+        ``]
+        [Defined by the __Copy_Constructible__ concept.]
+        []
+    ]
+    [
+        [Assignment operator]
+        [``
+            type& operator=(type const&);
+        ``]
+        [Defined by the __Assignable__ concept.]
+        []
+    ]
+    [
+        [Function call operator]
+        [``
+            result_type
+                operator()(
+                    first_argument_type x
+                  , second_argument_type y
+                ) const;
+        ``]
+        [
+            Equivalent to `f(get(*x, Key()), get(*y, Key()))`, where `f` is the
+            function that was passed in to the constructor, or an instance of
+            type [^_std_less_<_result_of__at_key_<Node,Key>::type>] if this
+            function object was default-constructed.  Required by the
+            __Adaptable_Binary_Predicate__ concept.
+        ]
+    ]
+]
+[endsect] [/ Return Type Members]
+
+[endsect] [/ compare_selector]
+
