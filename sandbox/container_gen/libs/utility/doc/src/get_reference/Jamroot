@@ -46,8 +46,11 @@ boostbook standalone
     :
         get_reference
     :
+        <xsl:param>admon.graphics.path=http://www.boost.org/doc/libs/release/doc/src/images/
+        <xsl:param>navig.graphics.path=http://www.boost.org/doc/libs/release/doc/src/images/
         <xsl:param>base.dir=../../../html
         <xsl:param>root.filename=get_reference
+        <xsl:param>boost.root=http://www.boost.org
         <xsl:param>boost.libraries=http://www.boost.org/libs/libraries.htm
         <xsl:param>boost.image.src=../../../../boost.png
         <xsl:param>boost.image.alt="C++ Boost"

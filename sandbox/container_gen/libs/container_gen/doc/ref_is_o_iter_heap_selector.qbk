@@ -13,13 +13,13 @@
 [endsect]
 
 [section Description]
-Returns __mpl_true__ if the type to be returned by __container_gen__ is a
-__Boost_Heap__ model type that supports ordered iterators, __mpl_false__
-otherwise.
+This metafunction evaluates to __mpl_true__ if the type to be returned by
+__container_gen__ is a __Boost_Heap__ model type that supports ordered
+iterators; it evaluates to __mpl_false__ otherwise.
 
 If __MPL_CFG_NO_HAS_XXX__ is defined, then you must specialize this
-metafunction to return __mpl_true__ for your custom selector if and only if
-the type to be returned by __container_gen__ is a __Boost_Heap__ model type
+metafunction to inherit from __mpl_true__ for your custom selector if and only
+if the type to be returned by __container_gen__ is a __Boost_Heap__ model type
 that supports ordered iterators.
 [endsect]
 

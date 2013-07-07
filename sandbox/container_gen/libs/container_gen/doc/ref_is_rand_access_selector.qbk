@@ -15,13 +15,13 @@
 [section Description]
 The __graph_adjacency_list__ class template uses this metafunction to determine
 whether or not it will provide an internal property map that associates its
-vertex descriptors with unique indices.  Returns __mpl_true__ if the type to be
-returned by __container_gen__ will model the __Random_Access_Container__
-concept, __mpl_false__ otherwise.
+vertex descriptors with unique indices.  This metafunction evaluates to
+__mpl_true__ if the type to be returned by __container_gen__ will model the
+__Random_Access_Container__ concept; it evaluates to __mpl_false__ otherwise.
 
 If __MPL_CFG_NO_HAS_XXX__ is defined, then you must specialize this
-metafunction to return __mpl_true__ for your custom selector if and only if
-the __container_gen__ return type models the __Random_Access_Container__
+metafunction to inherit from __mpl_true__ for your custom selector if and only
+if the __container_gen__ return type models the __Random_Access_Container__
 concept.
 [endsect]
 

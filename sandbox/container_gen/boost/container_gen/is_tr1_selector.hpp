@@ -17,28 +17,23 @@
 namespace boost {
 
     template <typename Selector>
-    struct is_tr1_selector
-        //<-
-      : ::boost::mpl::false_
-        //->
+    struct is_tr1_selector : ::boost::mpl::false_
     {
-        // typedef ... type;
         //<-
         BOOST_MPL_AUX_LAMBDA_SUPPORT(1, is_tr1_selector, (Selector))
         //->
     };
-}  // namespace boost
-//]
-
-#include <boost/config.hpp>
-
-namespace boost {
 
     template <>
     struct is_tr1_selector<tr1_hash_selector> : ::boost::mpl::true_
     {
     };
+
+    // More metafunction specializations...
 }  // namespace boost
+//]
+
+#include <boost/config.hpp>
 
 #if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 

@@ -72,8 +72,10 @@ Test this metafunction across a wide variety of selector types.
 
 The complete test program spans the following source files:
 
-  * __libs_container_gen_test_result_range_hpp__
-  * __libs_container_gen_test_push_range_function_gen_cpp__
+[itemized_list
+    [__libs_container_gen_test_result_range_hpp__]
+    [__libs_container_gen_test_push_range_function_gen_cpp__]
+]
 
 [endsect]
 

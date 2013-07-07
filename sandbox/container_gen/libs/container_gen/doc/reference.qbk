@@ -41,44 +41,50 @@
 [include ref_has_stable_iters_sel.qbk]
 [include ref_has_emplace_mfunc_sel.qbk]
 
-  * __Selectors__
+[itemized_list
+    [__Selectors__]
+]
 
 [heading Type Generation Metafunctions]
 
-  * __container_gen__
-  * __emplace_function_gen__
-  * __emplace_associative_function_gen__
-  * __push_range_function_gen__
-  * __insert_range_function_gen__
-  * __splice_function_gen__
-  * __insert_range_result_gen__
+[itemized_list
+    [__container_gen__]
+    [__emplace_function_gen__]
+    [__emplace_associative_function_gen__]
+    [__push_range_function_gen__]
+    [__insert_range_function_gen__]
+    [__splice_function_gen__]
+    [__insert_range_result_gen__]
+]
 
 [heading Selector Introspection Metafunctions]
 
-  * __is_container_selector__
-  * __is_compare_selector__
-  * __is_hasher_selector__
-  * __is_allocator_selector__
-  * __is_reversible_selector__
-  * __is_random_access_selector__
-  * __is_associative_selector__
-  * __is_unique_associative_selector__
-  * __is_multiple_associative_selector__
-  * __is_flat_associative_selector__
-  * __is_hashed_associative_selector__
-  * __is_tr1_selector__
-  * __is_ptr_selector__
-  * __is_queue_selector__
-  * __is_stack_selector__
-  * __is_std_heap_selector__
-  * __is_heap_selector__
-  * __is_iteratable_heap_selector__
-  * __is_order_iteratable_heap_selector__
-  * __is_mutable_heap_selector__
-  * __is_mergeable_heap_selector__
-  * __is_recursive_selector__
-  * __has_stable_iterators_selector__
-  * __has_emplace_member_function_selector__
+[itemized_list
+    [__is_container_selector__]
+    [__is_compare_selector__]
+    [__is_hasher_selector__]
+    [__is_allocator_selector__]
+    [__is_reversible_selector__]
+    [__is_random_access_selector__]
+    [__is_associative_selector__]
+    [__is_unique_associative_selector__]
+    [__is_multiple_associative_selector__]
+    [__is_flat_associative_selector__]
+    [__is_hashed_associative_selector__]
+    [__is_tr1_selector__]
+    [__is_ptr_selector__]
+    [__is_queue_selector__]
+    [__is_stack_selector__]
+    [__is_std_heap_selector__]
+    [__is_heap_selector__]
+    [__is_iteratable_heap_selector__]
+    [__is_order_iteratable_heap_selector__]
+    [__is_mutable_heap_selector__]
+    [__is_mergeable_heap_selector__]
+    [__is_recursive_selector__]
+    [__has_stable_iterators_selector__]
+    [__has_emplace_member_function_selector__]
+]
 
 [endsect] [/ Reference]
 

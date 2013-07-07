@@ -15,22 +15,16 @@
 
 #if defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 
-//[reference__is_recursive_selector
 namespace boost {
 
     template <typename Selector>
     struct is_recursive_selector
-        //<-
       : is_ptr_selector<Selector>
-        //->
     {
-        // typedef ... type;
-        //<-
         BOOST_MPL_AUX_LAMBDA_SUPPORT(1, is_recursive_selector, (Selector))
-        //->
     };
+
 }  // namespace boost
-//]
 
 #else  // !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 
@@ -42,6 +36,7 @@ namespace boost {
 #include <boost/container_gen/selector_keywords.hpp>
 #include <boost/container_gen/detail/selector_signatures.hpp>
 
+//[reference__is_recursive_selector
 namespace boost {
 
     template <typename Selector>
@@ -52,9 +47,25 @@ namespace boost {
           , is_hashed_associative_selector<Selector>
         >::type
     {
+        //<-
         BOOST_MPL_AUX_LAMBDA_SUPPORT(1, is_recursive_selector, (Selector))
+        //->
     };
 
+    template <typename AllocatorSelector>
+    struct is_recursive_selector<stable_vector_selector<AllocatorSelector> >
+      : ::boost::mpl::true_
+    {
+    };
+
+    template <typename AllocatorSelector>
+    struct is_recursive_selector<slist_selector<AllocatorSelector> >
+      : ::boost::mpl::true_
+    {
+    };
+
+    // More metafunction specializations...
+    //<-
     template <typename T0, typename T1>
     struct is_recursive_selector<vector_selector<T0,T1> >
       : ::boost::mpl::if_<
@@ -94,18 +105,6 @@ namespace boost {
           , ::boost::mpl::true_
           , ::boost::mpl::false_
         >::type
-    {
-    };
-
-    template <typename AllocatorSelector>
-    struct is_recursive_selector<stable_vector_selector<AllocatorSelector> >
-      : ::boost::mpl::true_
-    {
-    };
-
-    template <typename AllocatorSelector>
-    struct is_recursive_selector<slist_selector<AllocatorSelector> >
-      : ::boost::mpl::true_
     {
     };
 
@@ -204,7 +203,9 @@ namespace boost {
       : ::boost::mpl::true_
     {
     };
+    //->
 }  // namespace boost
+//]
 
 #endif  // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 

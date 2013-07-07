@@ -23,19 +23,15 @@
 <div class="titlepage"><div><div><h4 class="title">
 <a name="container_gen.reference.is_mutable_heap_selector.synopsis"></a><a class="link" href="is_mutable_heap_selector.html#container_gen.reference.is_mutable_heap_selector.synopsis" title="Synopsis">Synopsis</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
 
     <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Selector</span><span class="special">&gt;</span>
     <span class="keyword">struct</span> <span class="identifier">is_mutable_heap_selector</span>
+      <span class="special">:</span> <span class="identifier">implementation_defined</span> <a href="http://www.boost.org/libs/mpl/doc/refmanual/integral-constant.html" target="_top"><span class="bold"><strong>Boolean Integral Constant</strong></span></a>
     <span class="special">{</span>
-        <span class="comment">// typedef ... type;</span>
     <span class="special">};</span>
 <span class="special">}</span>  <span class="comment">// namespace boost</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -45,30 +41,49 @@
           A <a href="http://www.boost.org/doc/html/heap.html" target="_top"><span class="bold"><strong>Boost.Heap</strong></span></a>
           model type is <span class="bold"><strong>mutable</strong></span> if and only if:
         </p>
-<pre class="programlisting"><span class="special">*</span> <span class="identifier">It</span> <span class="identifier">defines</span> <span class="identifier">a</span> <span class="identifier">nested</span> <span class="error">`</span><span class="identifier">handle_type</span><span class="error">`</span> <span class="identifier">type</span><span class="special">.</span>
-<span class="special">*</span> <span class="identifier">Its</span> <span class="error">`</span><span class="identifier">push</span><span class="special">()</span><span class="error">`</span> <span class="identifier">member</span> <span class="identifier">function</span> <span class="identifier">returns</span> <span class="identifier">an</span> <span class="identifier">object</span> <span class="identifier">of</span> <span class="identifier">type</span> <span class="error">`</span><span class="identifier">handle_type</span><span class="error">`</span><span class="special">.</span>
-<span class="special">*</span> <span class="identifier">It</span> <span class="identifier">defines</span> <span class="identifier">two</span> <span class="error">`</span><span class="identifier">update</span><span class="special">()</span><span class="error">`</span> <span class="identifier">member</span> <span class="identifier">function</span> <span class="identifier">overloads</span><span class="special">--</span><span class="identifier">one</span> <span class="identifier">taking</span> <span class="identifier">in</span>
-  <span class="identifier">only</span> <span class="identifier">a</span> <span class="identifier">reference</span><span class="special">-</span><span class="identifier">to</span><span class="special">-</span><span class="error">`</span><span class="keyword">const</span><span class="error">`</span> <span class="error">`</span><span class="identifier">handle_type</span><span class="error">`</span><span class="special">,</span> <span class="identifier">the</span> <span class="identifier">other</span> <span class="identifier">also</span> <span class="identifier">taking</span> <span class="identifier">in</span>
-  <span class="identifier">a</span> <span class="identifier">reference</span><span class="special">-</span><span class="identifier">to</span><span class="special">-</span><span class="error">`</span><span class="keyword">const</span><span class="error">`</span> <span class="error">`</span><span class="identifier">value_type</span><span class="error">`</span><span class="special">--</span><span class="identifier">both</span> <span class="identifier">of</span> <span class="identifier">which</span> <span class="identifier">update</span> <span class="identifier">the</span> <span class="identifier">invoking</span>
-  <span class="identifier">heap</span> <span class="identifier">to</span> <span class="identifier">reflect</span> <span class="identifier">the</span> <span class="identifier">change</span> <span class="identifier">in</span> <span class="identifier">priority</span><span class="special">.</span>
-<span class="special">*</span> <span class="identifier">It</span> <span class="identifier">defines</span> <span class="identifier">two</span> <span class="error">`</span><span class="identifier">increase</span><span class="special">()</span><span class="error">`</span> <span class="identifier">member</span> <span class="identifier">function</span> <span class="identifier">overloads</span><span class="special">--</span><span class="identifier">one</span> <span class="identifier">taking</span> <span class="identifier">in</span>
-  <span class="identifier">only</span> <span class="identifier">a</span> <span class="identifier">reference</span><span class="special">-</span><span class="identifier">to</span><span class="special">-</span><span class="error">`</span><span class="keyword">const</span><span class="error">`</span> <span class="error">`</span><span class="identifier">handle_type</span><span class="error">`</span><span class="special">,</span> <span class="identifier">the</span> <span class="identifier">other</span> <span class="identifier">also</span> <span class="identifier">taking</span> <span class="identifier">in</span>
-  <span class="identifier">a</span> <span class="identifier">reference</span><span class="special">-</span><span class="identifier">to</span><span class="special">-</span><span class="error">`</span><span class="keyword">const</span><span class="error">`</span> <span class="error">`</span><span class="identifier">value_type</span><span class="error">`</span><span class="special">--</span><span class="identifier">both</span> <span class="identifier">of</span> <span class="identifier">which</span> <span class="identifier">update</span> <span class="identifier">the</span> <span class="identifier">invoking</span>
-  <span class="identifier">heap</span> <span class="identifier">to</span> <span class="identifier">reflect</span> <span class="identifier">the</span> <span class="identifier">change</span> <span class="identifier">in</span> <span class="identifier">priority</span><span class="special">.</span>
-<span class="special">*</span> <span class="identifier">It</span> <span class="identifier">defines</span> <span class="identifier">two</span> <span class="error">`</span><span class="identifier">decrease</span><span class="special">()</span><span class="error">`</span> <span class="identifier">member</span> <span class="identifier">function</span> <span class="identifier">overloads</span><span class="special">--</span><span class="identifier">one</span> <span class="identifier">taking</span> <span class="identifier">in</span>
-  <span class="identifier">only</span> <span class="identifier">a</span> <span class="identifier">reference</span><span class="special">-</span><span class="identifier">to</span><span class="special">-</span><span class="error">`</span><span class="keyword">const</span><span class="error">`</span> <span class="error">`</span><span class="identifier">handle_type</span><span class="error">`</span><span class="special">,</span> <span class="identifier">the</span> <span class="identifier">other</span> <span class="identifier">also</span> <span class="identifier">taking</span> <span class="identifier">in</span>
-  <span class="identifier">a</span> <span class="identifier">reference</span><span class="special">-</span><span class="identifier">to</span><span class="special">-</span><span class="error">`</span><span class="keyword">const</span><span class="error">`</span> <span class="error">`</span><span class="identifier">value_type</span><span class="error">`</span><span class="special">--</span><span class="identifier">both</span> <span class="identifier">of</span> <span class="identifier">which</span> <span class="identifier">update</span> <span class="identifier">the</span> <span class="identifier">invoking</span>
-  <span class="identifier">heap</span> <span class="identifier">to</span> <span class="identifier">reflect</span> <span class="identifier">the</span> <span class="identifier">change</span> <span class="identifier">in</span> <span class="identifier">priority</span><span class="special">.</span>
-</pre>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem"><p>
+              It defines a nested <code class="computeroutput"><span class="identifier">handle_type</span></code>
+              type.
+            </p></li>
+<li class="listitem"><p>
+              Its <code class="computeroutput"><span class="identifier">push</span><span class="special">()</span></code>
+              member function returns an object of type <code class="computeroutput"><span class="identifier">handle_type</span></code>.
+            </p></li>
+<li class="listitem"><p>
+              It defines two <code class="computeroutput"><span class="identifier">update</span><span class="special">()</span></code> member function overloads--one taking
+              in only a reference-to-<code class="computeroutput"><span class="keyword">const</span></code>
+              <code class="computeroutput"><span class="identifier">handle_type</span></code>, the other
+              also taking in a reference-to-<code class="computeroutput"><span class="keyword">const</span></code>
+              <code class="computeroutput"><span class="identifier">value_type</span></code>--both of
+              which update the invoking heap to reflect the change in priority.
+            </p></li>
+<li class="listitem"><p>
+              It defines two <code class="computeroutput"><span class="identifier">increase</span><span class="special">()</span></code> member function overloads--one taking
+              in only a reference-to-<code class="computeroutput"><span class="keyword">const</span></code>
+              <code class="computeroutput"><span class="identifier">handle_type</span></code>, the other
+              also taking in a reference-to-<code class="computeroutput"><span class="keyword">const</span></code>
+              <code class="computeroutput"><span class="identifier">value_type</span></code>--both of
+              which update the invoking heap to reflect the change in priority.
+            </p></li>
+<li class="listitem"><p>
+              It defines two <code class="computeroutput"><span class="identifier">decrease</span><span class="special">()</span></code> member function overloads--one taking
+              in only a reference-to-<code class="computeroutput"><span class="keyword">const</span></code>
+              <code class="computeroutput"><span class="identifier">handle_type</span></code>, the other
+              also taking in a reference-to-<code class="computeroutput"><span class="keyword">const</span></code>
+              <code class="computeroutput"><span class="identifier">value_type</span></code>--both of
+              which update the invoking heap to reflect the change in priority.
+            </p></li>
+</ul></div>
 <p>
-          This metafunction returns <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a> if the specified selector
+          This metafunction evaluates to <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a> if the specified selector
           will cause <a class="link" href="container_gen.html" title="container_gen"><code class="computeroutput"><span class="identifier">container_gen</span></code></a> to return a mutable
           <a href="http://www.boost.org/doc/html/heap.html" target="_top"><span class="bold"><strong>Boost.Heap</strong></span></a>
-          model type, <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span></code></a> otherwise.
+          model type; it evaluates to <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span></code></a> otherwise.
         </p>
 <p>
           If <a href="http://www.boost.org/libs/mpl/doc/refmanual/cfg-no-has-xxx.html" target="_top"><code class="computeroutput"><span class="identifier">BOOST_MPL_CFG_NO_HAS_XXX</span></code></a> is defined,
-          then you must specialize this metafunction to return <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a> for your custom selector
+          then you must specialize this metafunction to inherit from <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a> for your custom selector
           if and only if the type to be returned by <a class="link" href="container_gen.html" title="container_gen"><code class="computeroutput"><span class="identifier">container_gen</span></code></a> is a mutable <a href="http://www.boost.org/doc/html/heap.html" target="_top"><span class="bold"><strong>Boost.Heap</strong></span></a>
           model type.
         </p>
@@ -78,12 +93,8 @@
 <a name="container_gen.reference.is_mutable_heap_selector.definition"></a><a class="link" href="is_mutable_heap_selector.html#container_gen.reference.is_mutable_heap_selector.definition" title="Where defined">Where
         defined</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/container_gen/is_mutable_heap_selector.hpp" target="_top">boost/container_gen/is_mutable_heap_selector.hpp</a><span class="special">&gt;</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -94,8 +105,6 @@
           model types that are mutable can be used by sorting algorithms that need
           to handle changing priority values, e.g. weighted pathfinding.
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Selector</span><span class="special">&gt;</span>
 <span class="keyword">void</span> <span class="identifier">test_emplace_heap</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span><span class="special">)</span>
 <span class="special">{</span>
@@ -120,14 +129,10 @@
 <span class="special">}</span>
 </pre>
 <p>
-        </p>
-<p>
           On the other hand, <a href="http://www.boost.org/doc/html/heap.html" target="_top"><span class="bold"><strong>Boost.Heap</strong></span></a>
           model types that are not mutable are more lightweight for simpler sorting
           algorithms.
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Selector</span><span class="special">&gt;</span>
 <span class="keyword">void</span> <span class="identifier">test_emplace_heap</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span><span class="special">)</span>
 <span class="special">{</span>
@@ -145,12 +150,8 @@
 <span class="special">}</span>
 </pre>
 <p>
-        </p>
-<p>
           This metafunction differentiates between the two categories.
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Selector</span><span class="special">&gt;</span>
 <span class="keyword">void</span> <span class="identifier">test_emplace_heap</span><span class="special">()</span>
 <span class="special">{</span>
@@ -160,15 +161,11 @@
     <span class="comment">// ...</span>
 <span class="special">}</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="container_gen.reference.is_mutable_heap_selector.test"></a><a class="link" href="is_mutable_heap_selector.html#container_gen.reference.is_mutable_heap_selector.test" title="Test">Test</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="identifier">MPL_TEST_CASE</span><span class="special">()</span>
 <span class="special">{</span>
     <span class="identifier">BOOST_MPL_ASSERT_NOT</span><span class="special">((</span>
@@ -412,8 +409,6 @@
     <span class="special">));</span>
 <span class="special">}</span>
 </pre>
-<p>
-        </p>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

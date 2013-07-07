@@ -13,8 +13,9 @@
 [endsect]
 
 [section Description]
-Returns __mpl_true__ if the specified selector will cause __container_gen__ to
-return a __std_priority_queue__ type, __mpl_false__ otherwise.
+This metafunction evaluates to __mpl_true__ if the specified selector will
+cause __container_gen__ to return a __std_priority_queue__ type; it evalutes to
+__mpl_false__ otherwise.
 [endsect]
 
 [section:definition Where defined]

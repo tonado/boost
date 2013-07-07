@@ -13,12 +13,13 @@
 [endsect]
 
 [section Description]
-Returns __mpl_true__ if the specified selector will cause __container_gen__ to
-return an iteratable __Boost_Heap__ model type, __mpl_false__ otherwise.
+This metafunction evaluates to __mpl_true__ if the specified selector will
+cause __container_gen__ to return an iteratable __Boost_Heap__ model type;
+it evaluates to __mpl_false__ otherwise.
 
 If __MPL_CFG_NO_HAS_XXX__ is defined, then you must specialize this
-metafunction to return __mpl_true__ for your custom selector if and only if
-the type to be returned by __container_gen__ is an iteratable __Boost_Heap__
+metafunction to inherit from __mpl_true__ for your custom selector if and only
+if the type to be returned by __container_gen__ is an iteratable __Boost_Heap__
 model type.
 [endsect]
 

@@ -15,29 +15,37 @@
 [section Description]
 A __Boost_Heap__ model type is *mutable* if and only if:
 
-  * It defines a nested `handle_type` type.
-  * Its `push()` member function returns an object of type `handle_type`.
-  * It defines two `update()` member function overloads--one taking in
-    only a reference-to-`const` `handle_type`, the other also taking in
-    a reference-to-`const` `value_type`--both of which update the invoking
-    heap to reflect the change in priority.
-  * It defines two `increase()` member function overloads--one taking in
-    only a reference-to-`const` `handle_type`, the other also taking in
-    a reference-to-`const` `value_type`--both of which update the invoking
-    heap to reflect the change in priority.
-  * It defines two `decrease()` member function overloads--one taking in
-    only a reference-to-`const` `handle_type`, the other also taking in
-    a reference-to-`const` `value_type`--both of which update the invoking
-    heap to reflect the change in priority.
+[itemized_list
+    [It defines a nested `handle_type` type.]
+    [Its `push()` member function returns an object of type `handle_type`.]
+    [
+        It defines two `update()` member function overloads--one taking in
+        only a reference-to-`const` `handle_type`, the other also taking in
+        a reference-to-`const` `value_type`--both of which update the invoking
+        heap to reflect the change in priority.
+    ]
+    [
+        It defines two `increase()` member function overloads--one taking in
+        only a reference-to-`const` `handle_type`, the other also taking in
+        a reference-to-`const` `value_type`--both of which update the invoking
+        heap to reflect the change in priority.
+    ]
+    [
+        It defines two `decrease()` member function overloads--one taking in
+        only a reference-to-`const` `handle_type`, the other also taking in
+        a reference-to-`const` `value_type`--both of which update the invoking
+        heap to reflect the change in priority.
+    ]
+]
 
-This metafunction returns __mpl_true__ if the specified selector will cause
-__container_gen__ to return a mutable __Boost_Heap__ model type, __mpl_false__
-otherwise.
+This metafunction evaluates to __mpl_true__ if the specified selector will
+cause __container_gen__ to return a mutable __Boost_Heap__ model type; it
+evaluates to __mpl_false__ otherwise.
 
 If __MPL_CFG_NO_HAS_XXX__ is defined, then you must specialize this
-metafunction to return __mpl_true__ for your custom selector if and only if
-the type to be returned by __container_gen__ is a mutable __Boost_Heap__ model
-type.
+metafunction to inherit from __mpl_true__ for your custom selector if and only
+if the type to be returned by __container_gen__ is a mutable __Boost_Heap__
+model type.
 [endsect]
 
 [section:definition Where defined]

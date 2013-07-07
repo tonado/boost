@@ -1,5 +1,5 @@
 [library container_gen
-    [quickbook 1.5]
+    [quickbook 1.6]
     [version 0.9]
     [authors [Lumsdaine, Andrew][Lee, Lie-Quan][Claveirole, Thomas][Siek, Jeremy G.][Enage, Cromwell D.]]
     [copyright 1997-2013 Andrew Lumsdaine, Lie-Quan Lee, Thomas Claveirole, Jeremy G. Siek, Cromwell D. Enage]

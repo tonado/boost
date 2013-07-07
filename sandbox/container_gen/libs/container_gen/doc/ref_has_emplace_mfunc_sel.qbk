@@ -13,16 +13,17 @@
 [endsect]
 
 [section Description]
-Returns __mpl_true__ if the type to be returned by __container_gen__ supports
-emplacement construction of its elements, __mpl_false__ otherwise.
+This metafunction evaluates to __mpl_true__ if the type to be returned by
+__container_gen__ supports emplacement construction of its elements; it
+evaluates to __mpl_false__ otherwise.
 
-The current implementation returns __mpl_true__ when passed in selectors
+The current implementation inherits from __mpl_true__ when passed in selectors
 for which __container_gen__ will return a __Boost_Container__ model type, a
 __Boost_Unordered__ container type, or a __Boost_Heap__ model type; it will
-return __mpl_false__ for all other types of selectors.  Specialize this
-metafunction to return __mpl_true__ for your custom selector if and only if
-the type to be returned by __container_gen__ supports emplacement construction
-of its elements.
+inherit from __mpl_false__ for all other types of selectors.  Specialize this
+metafunction to inherit from __mpl_true__ for your custom selector if and only
+if the type to be returned by __container_gen__ supports emplacement
+construction of its elements.
 [endsect]
 
 [section:definition Where defined]

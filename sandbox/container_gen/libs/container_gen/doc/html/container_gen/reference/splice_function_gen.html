@@ -23,20 +23,16 @@
 <div class="titlepage"><div><div><h4 class="title">
 <a name="container_gen.reference.splice_function_gen.synopsis"></a><a class="link" href="splice_function_gen.html#container_gen.reference.splice_function_gen.synopsis" title="Synopsis">Synopsis</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
 
     <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Selector</span><span class="special">&gt;</span>
     <span class="keyword">struct</span> <span class="identifier">splice_function_gen</span>
     <span class="special">{</span>
-        <span class="comment">// typedef ... type;</span>
+        <span class="keyword">typedef</span> <span class="special">...</span> <span class="identifier">type</span><span class="special">;</span>
     <span class="special">};</span>
 
 <span class="special">}</span>  <span class="comment">// namespace boost</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -48,11 +44,16 @@
           a valid iterator representing the point of insertion, a reference to the
           source container, and one of the following:
         </p>
-<pre class="programlisting"><span class="special">*</span> <span class="identifier">A</span> <span class="identifier">valid</span> <span class="identifier">iterator</span> <span class="identifier">representing</span> <span class="identifier">the</span> <span class="identifier">point</span> <span class="identifier">of</span> <span class="identifier">erasure</span> <span class="identifier">from</span> <span class="identifier">the</span> <span class="identifier">source</span>
-  <span class="identifier">container</span><span class="special">.</span>
-<span class="special">*</span> <span class="identifier">Two</span> <a href="http://www.sgi.com/tech/stl/InputIterator.html" target="_top"><span class="bold"><strong>Input Iterator</strong></span></a> <span class="identifier">arguments</span> <span class="identifier">representing</span> <span class="identifier">the</span> <span class="identifier">source</span> <span class="identifier">container</span> <span class="keyword">or</span> <span class="identifier">a</span>
-  <span class="identifier">subrange</span><span class="special">.</span>
-</pre>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem"><p>
+              A valid iterator representing the point of erasure from the source
+              container.
+            </p></li>
+<li class="listitem"><p>
+              Two <a href="http://www.sgi.com/tech/stl/InputIterator.html" target="_top"><span class="bold"><strong>Input Iterator</strong></span></a> arguments representing
+              the source container or a subrange.
+            </p></li>
+</ul></div>
 <p>
           The container type must model the <a href="http://www.sgi.com/tech/stl/Sequence.html" target="_top"><span class="bold"><strong>Sequence</strong></span></a> concept. In practice, the container
           type must be produced by <a class="link" href="container_gen.html" title="container_gen"><code class="computeroutput"><span class="identifier">container_gen</span></code></a> when given the same
@@ -85,12 +86,8 @@
 <a name="container_gen.reference.splice_function_gen.definition"></a><a class="link" href="splice_function_gen.html#container_gen.reference.splice_function_gen.definition" title="Where defined">Where
         defined</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/container_gen/splice_function_gen.hpp" target="_top">boost/container_gen/splice_function_gen.hpp</a><span class="special">&gt;</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -100,8 +97,6 @@
           Use the <a href="http://www.boost.org/libs/range/doc/html/range/reference/algorithms/non_mutating/equal.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range</span><span class="special">::</span><span class="identifier">equal</span><span class="special">()</span></code></a>
           algorithm to test two ranges for equality.
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ResultRange</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">AddedContainer</span><span class="special">&gt;</span>
 <span class="keyword">bool</span>
     <span class="identifier">test_result_range</span><span class="special">(</span>
@@ -125,16 +120,12 @@
 <span class="special">}</span>
 </pre>
 <p>
-        </p>
-<p>
           Use the <a class="link" href="emplace_function_gen.html" title="emplace_function_gen"><code class="computeroutput"><span class="identifier">emplace_function_gen</span></code></a> metafunction
           to construct containers using individual elements, then use this metafunction
           to append the elements of one container to another in a single step. Use
           the <a class="link" href="insert_range_result_gen.html" title="insert_range_result_gen"><code class="computeroutput"><span class="identifier">insert_range_result_gen</span></code></a> metafunction
           to store the result of the operation.
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Selector</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">AddedContainer</span><span class="special">&gt;</span>
 <span class="keyword">void</span> <span class="identifier">test_splice_function_gen</span><span class="special">(</span><span class="identifier">AddedContainer</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">added_container</span><span class="special">)</span>
 <span class="special">{</span>
@@ -192,14 +183,10 @@
 <span class="special">}</span>
 </pre>
 <p>
-        </p>
-<p>
           Remember that the splice operation can be performed in place--with the
           source and destination containers being the same--as long as the destination
           iterator points to a position outside the source range of input iterators.
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">C</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Selector</span><span class="special">&gt;</span>
 <span class="keyword">void</span>
     <span class="identifier">test_splice_function_gen_init</span><span class="special">(</span>
@@ -271,12 +258,8 @@
 <span class="special">}</span>
 </pre>
 <p>
-        </p>
-<p>
           Test this metafunction across a wide variety of selector types.
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">int</span> <span class="identifier">test_main</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">argc</span><span class="special">,</span> <span class="keyword">char</span><span class="special">**</span> <span class="identifier">argv</span><span class="special">)</span>
 <span class="special">{</span>
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">container_gen</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">dequeS</span><span class="special">,</span><span class="identifier">test_string</span><span class="special">&gt;::</span><span class="identifier">type</span> <span class="identifier">c</span><span class="special">;</span>
@@ -301,13 +284,16 @@
 <span class="special">}</span>
 </pre>
 <p>
-        </p>
-<p>
           The complete test program spans the following source files:
         </p>
-<pre class="programlisting"><span class="special">*</span> <a href="../../../../../../libs/container_gen/test/result_range.hpp" target="_top"><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">test</span><span class="special">/</span><span class="identifier">result_range</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
-<span class="special">*</span> <a href="../../../../../../libs/container_gen/test/splice_function_gen.cpp" target="_top"><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">test</span><span class="special">/</span><span class="identifier">splice_function_gen</span><span class="special">.</span><span class="identifier">cpp</span><span class="special">&gt;</span></code></a>
-</pre>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem"><p>
+              <a href="../../../../../../libs/container_gen/test/result_range.hpp" target="_top"><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">test</span><span class="special">/</span><span class="identifier">result_range</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+            </p></li>
+<li class="listitem"><p>
+              <a href="../../../../../../libs/container_gen/test/splice_function_gen.cpp" target="_top"><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">test</span><span class="special">/</span><span class="identifier">splice_function_gen</span><span class="special">.</span><span class="identifier">cpp</span><span class="special">&gt;</span></code></a>
+            </p></li>
+</ul></div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

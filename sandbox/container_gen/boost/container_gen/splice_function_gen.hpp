@@ -1134,8 +1134,12 @@ namespace boost {
         >
         //->
     {
-        // typedef ... type;
+//<-
+#if 0
+//->
+        typedef ... type;
         //<-
+#endif
         BOOST_MPL_AUX_LAMBDA_SUPPORT(1, splice_function_gen, (Selector))
         //->
     };

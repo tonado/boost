@@ -423,14 +423,18 @@ namespace boost {
 
     template <typename Selector>
     struct is_container_selector
-        //<-
+//<-
+#if 0
+//->
+      : implementation_defined __Boolean_Integral_Constant__
+//<-
+#endif
       : ::boost::mpl::aux::has_type<
             container_gen<Selector,int>
           , ::boost::mpl::false_
         >::type
         //->
     {
-        // typedef ... type;
         //<-
         BOOST_MPL_AUX_LAMBDA_SUPPORT(1,is_container_selector,(Selector))
         //->

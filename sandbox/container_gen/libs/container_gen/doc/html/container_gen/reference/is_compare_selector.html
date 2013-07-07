@@ -23,39 +23,30 @@
 <div class="titlepage"><div><div><h4 class="title">
 <a name="container_gen.reference.is_compare_selector.synopsis"></a><a class="link" href="is_compare_selector.html#container_gen.reference.is_compare_selector.synopsis" title="Synopsis">Synopsis</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
 
     <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
     <span class="keyword">struct</span> <span class="identifier">is_compare_selector</span>
-      <span class="special">:</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">eval_if</span><span class="special">&lt;</span>
-            <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">detail</span><span class="special">::</span><span class="identifier">metafunction</span><span class="special">::</span><span class="identifier">has_apply_template</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">type</span>
-          <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">detail</span><span class="special">::</span><span class="identifier">metafunction</span>
-            <span class="special">::</span><span class="identifier">is_compare_selector_metafunction_class</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span>
-          <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span>
-        <span class="special">&gt;::</span><span class="identifier">type</span>
+      <span class="special">:</span> <span class="identifier">implementation_defined</span> <a href="http://www.boost.org/libs/mpl/doc/refmanual/integral-constant.html" target="_top"><span class="bold"><strong>Boolean Integral Constant</strong></span></a>
     <span class="special">{</span>
-        <span class="identifier">BOOST_MPL_AUX_LAMBDA_SUPPORT</span><span class="special">(</span><span class="number">1</span><span class="special">,</span> <span class="identifier">is_compare_selector</span><span class="special">,</span> <span class="special">(</span><span class="identifier">T</span><span class="special">))</span>
     <span class="special">};</span>
 <span class="special">}</span>  <span class="comment">// namespace boost</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="container_gen.reference.is_compare_selector.description"></a><a class="link" href="is_compare_selector.html#container_gen.reference.is_compare_selector.description" title="Description">Description</a>
 </h4></div></div></div>
 <p>
-          Returns <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a> if the specified selector
+          This metafunction evaluates to <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a> if the specified selector
           is a metafunction class that takes in a value type and returns a <a href="http://www.sgi.com/tech/stl/BinaryPredicate.html" target="_top"><span class="bold"><strong>Binary
-          Predicate</strong></span></a> model, <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span></code></a> otherwise.
+          Predicate</strong></span></a> model; it evaluates to <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span></code></a> otherwise.
         </p>
 <p>
           If either <a href="http://www.boost.org/libs/mpl/doc/refmanual/cfg-no-has-xxx.html" target="_top"><code class="computeroutput"><span class="identifier">BOOST_MPL_CFG_NO_HAS_XXX</span></code></a> or
           <a href="http://www.boost.org/libs/mpl/doc/refmanual/cfg-no-has-xxx-template.html" target="_top"><code class="computeroutput"><span class="identifier">BOOST_MPL_CFG_NO_HAS_XXX_TEMPLATE</span></code></a>
-          are defined, then you must specialize this metafunction to return <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a>
+          are defined, then you must specialize this metafunction to inherit from
+          <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a>
           for your custom selector.
         </p>
 </div>
@@ -64,19 +55,13 @@
 <a name="container_gen.reference.is_compare_selector.definition"></a><a class="link" href="is_compare_selector.html#container_gen.reference.is_compare_selector.definition" title="Where defined">Where
         defined</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/container_gen/is_compare_selector.hpp" target="_top">boost/container_gen/is_compare_selector.hpp</a><span class="special">&gt;</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="container_gen.reference.is_compare_selector.test"></a><a class="link" href="is_compare_selector.html#container_gen.reference.is_compare_selector.test" title="Test">Test</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="identifier">MPL_TEST_CASE</span><span class="special">()</span>
 <span class="special">{</span>
     <span class="identifier">BOOST_MPL_ASSERT_NOT</span><span class="special">((</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">is_compare_selector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">vecS</span><span class="special">&gt;));</span>
@@ -263,8 +248,6 @@
     <span class="special">));</span>
 <span class="special">}</span>
 </pre>
-<p>
-        </p>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

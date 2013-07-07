@@ -13,13 +13,13 @@
 [endsect]
 
 [section Description]
-Returns __mpl_true__ if the specified selector is a
+This metafunction evaluates to __mpl_true__ if the specified selector is a
 __Unary_Metafunction_Class__ that takes in a value type and returns a
-__Hash_Function__ model, __mpl_false__ otherwise.
+__Hash_Function__ model; it evaluates to __mpl_false__ otherwise.
 
 If either __MPL_CFG_NO_HAS_XXX__ or __MPL_CFG_NO_HAS_XXX_TEMPLATE__ are
-defined, then you must specialize this metafunction to return __mpl_true__ for
-your custom selector.
+defined, then you must specialize this metafunction to inherit from
+__mpl_true__ for your custom selector.
 [endsect]
 
 [section:definition Where defined]

@@ -170,7 +170,12 @@ namespace boost {
 
     template <typename Selector>
     struct is_multiple_associative_selector
-        //<-
+//<-
+#if 0
+//->
+      : implementation_defined __Boolean_Integral_Constant__
+//<-
+#endif
       : ::boost::mpl::if_<
             typename ::boost::mpl::aux::has_type<
                 container_gen<Selector,int>
@@ -182,7 +187,6 @@ namespace boost {
         >::type
         //->
     {
-        // typedef ... type;
         //<-
         BOOST_MPL_AUX_LAMBDA_SUPPORT(
             1

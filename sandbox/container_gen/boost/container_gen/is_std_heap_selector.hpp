@@ -14,26 +14,15 @@
 #include <boost/mpl/aux_/lambda_support.hpp>
 #include <boost/container_gen/selectors.hpp>
 
-//[reference__is_std_heap_selector
-namespace boost {
-
-    template <typename Selector>
-    struct is_std_heap_selector
-        //<-
-      : ::boost::mpl::false_
-        //->
-    {
-        // typedef ... type;
-        //<-
-        BOOST_MPL_AUX_LAMBDA_SUPPORT(1, is_std_heap_selector, (Selector))
-        //->
-    };
-}  // namespace boost
-//]
-
 #if defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 
 namespace boost {
+
+    template <typename Selector>
+    struct is_std_heap_selector : ::boost::mpl::false_
+    {
+        BOOST_MPL_AUX_LAMBDA_SUPPORT(1, is_std_heap_selector, (Selector))
+    };
 
     template <>
     struct is_std_heap_selector<std_heap_selector_base> : ::boost::mpl::true_
@@ -43,7 +32,16 @@ namespace boost {
 
 #else  // !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 
+//[reference__is_std_heap_selector
 namespace boost {
+
+    template <typename Selector>
+    struct is_std_heap_selector : ::boost::mpl::false_
+    {
+        //<-
+        BOOST_MPL_AUX_LAMBDA_SUPPORT(1, is_std_heap_selector, (Selector))
+        //->
+    };
 
     template <typename CompareSelector, typename SequenceSelector>
     struct is_std_heap_selector<
@@ -52,6 +50,7 @@ namespace boost {
     {
     };
 }  // namespace boost
+//]
 
 #endif  // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 

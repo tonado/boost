@@ -23,28 +23,24 @@
 <div class="titlepage"><div><div><h4 class="title">
 <a name="container_gen.reference.is_queue_selector.synopsis"></a><a class="link" href="is_queue_selector.html#container_gen.reference.is_queue_selector.synopsis" title="Synopsis">Synopsis</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
 
     <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Selector</span><span class="special">&gt;</span>
     <span class="keyword">struct</span> <span class="identifier">is_queue_selector</span>
+      <span class="special">:</span> <span class="identifier">implementation_defined</span> <a href="http://www.boost.org/libs/mpl/doc/refmanual/integral-constant.html" target="_top"><span class="bold"><strong>Boolean Integral Constant</strong></span></a>
     <span class="special">{</span>
-        <span class="comment">// typedef ... type;</span>
     <span class="special">};</span>
 <span class="special">}</span>  <span class="comment">// namespace boost</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="container_gen.reference.is_queue_selector.description"></a><a class="link" href="is_queue_selector.html#container_gen.reference.is_queue_selector.description" title="Description">Description</a>
 </h4></div></div></div>
 <p>
-          Returns <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a> if the specified selector
+          This metafunction evaluates to <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a> if the specified selector
           will cause <a class="link" href="container_gen.html" title="container_gen"><code class="computeroutput"><span class="identifier">container_gen</span></code></a> to return a <a href="http://www.sgi.com/tech/stl/queue.html" target="_top"><code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">queue</span></code></a>
-          template instantiation, <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span></code></a> otherwise.
+          template instantiation; it evaluates to <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span></code></a> otherwise.
         </p>
 </div>
 <div class="section">
@@ -52,19 +48,13 @@
 <a name="container_gen.reference.is_queue_selector.definition"></a><a class="link" href="is_queue_selector.html#container_gen.reference.is_queue_selector.definition" title="Where defined">Where
         defined</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/container_gen/is_queue_selector.hpp" target="_top">boost/container_gen/is_queue_selector.hpp</a><span class="special">&gt;</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="container_gen.reference.is_queue_selector.test"></a><a class="link" href="is_queue_selector.html#container_gen.reference.is_queue_selector.test" title="Test">Test</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="identifier">MPL_TEST_CASE</span><span class="special">()</span>
 <span class="special">{</span>
     <span class="identifier">BOOST_MPL_ASSERT_NOT</span><span class="special">((</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">is_queue_selector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">vecS</span><span class="special">&gt;));</span>
@@ -251,8 +241,6 @@
     <span class="special">));</span>
 <span class="special">}</span>
 </pre>
-<p>
-        </p>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

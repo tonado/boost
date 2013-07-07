@@ -23,19 +23,15 @@
 <div class="titlepage"><div><div><h4 class="title">
 <a name="container_gen.reference.is_mergeable_heap_selector.synopsis"></a><a class="link" href="is_mergeable_heap_selector.html#container_gen.reference.is_mergeable_heap_selector.synopsis" title="Synopsis">Synopsis</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
 
     <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Selector</span><span class="special">&gt;</span>
     <span class="keyword">struct</span> <span class="identifier">is_mergeable_heap_selector</span>
+      <span class="special">:</span> <span class="identifier">implementation_defined</span> <a href="http://www.boost.org/libs/mpl/doc/refmanual/integral-constant.html" target="_top"><span class="bold"><strong>Boolean Integral Constant</strong></span></a>
     <span class="special">{</span>
-        <span class="comment">// typedef ... type;</span>
     <span class="special">};</span>
 <span class="special">}</span>  <span class="comment">// namespace boost</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -45,15 +41,15 @@
           A <a href="http://www.boost.org/doc/html/heap.html" target="_top"><span class="bold"><strong>Boost.Heap</strong></span></a>
           model type is <span class="bold"><strong>mergeable</strong></span> if and only if
           it defines a member function <code class="computeroutput"><span class="identifier">merge</span><span class="special">()</span></code> that takes in a reference-to-non-<code class="computeroutput"><span class="keyword">const</span></code> object of its own type and returns
-          <code class="computeroutput"><span class="keyword">void</span></code>. This metafunction returns
-          <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a>
+          <code class="computeroutput"><span class="keyword">void</span></code>. This metafunction evaluates
+          to <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a>
           if the specified selector will cause <a class="link" href="container_gen.html" title="container_gen"><code class="computeroutput"><span class="identifier">container_gen</span></code></a> to return a mergeable
           <a href="http://www.boost.org/doc/html/heap.html" target="_top"><span class="bold"><strong>Boost.Heap</strong></span></a>
-          model type, <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span></code></a> otherwise.
+          model type; it evaluates to <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span></code></a> otherwise.
         </p>
 <p>
           If <a href="http://www.boost.org/libs/mpl/doc/refmanual/cfg-no-has-xxx.html" target="_top"><code class="computeroutput"><span class="identifier">BOOST_MPL_CFG_NO_HAS_XXX</span></code></a> is defined,
-          then you must specialize this metafunction to return <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a> for your custom selector
+          then you must specialize this metafunction to inherit from <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a> for your custom selector
           if and only if the type to be returned by <a class="link" href="container_gen.html" title="container_gen"><code class="computeroutput"><span class="identifier">container_gen</span></code></a> is a mergeable
           <a href="http://www.boost.org/doc/html/heap.html" target="_top"><span class="bold"><strong>Boost.Heap</strong></span></a>
           model type.
@@ -64,12 +60,8 @@
 <a name="container_gen.reference.is_mergeable_heap_selector.definition"></a><a class="link" href="is_mergeable_heap_selector.html#container_gen.reference.is_mergeable_heap_selector.definition" title="Where defined">Where
         defined</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/container_gen/is_mergeable_heap_selector.hpp" target="_top">boost/container_gen/is_mergeable_heap_selector.hpp</a><span class="special">&gt;</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -80,8 +72,6 @@
           function is the only way to merge two objects of different <a href="http://www.boost.org/doc/html/heap.html" target="_top"><span class="bold"><strong>Boost.Heap</strong></span></a> model types or of the same <a href="http://www.boost.org/doc/html/heap.html" target="_top"><span class="bold"><strong>Boost.Heap</strong></span></a>
           model type that is otherwise not mergeable.
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Heap</span><span class="special">&gt;</span>
 <span class="keyword">void</span> <span class="identifier">test_heap_merge</span><span class="special">(</span><span class="identifier">Heap</span><span class="special">&amp;</span> <span class="identifier">heap1</span><span class="special">,</span> <span class="identifier">Heap</span><span class="special">&amp;</span> <span class="identifier">heap2</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span><span class="special">)</span>
 <span class="special">{</span>
@@ -89,13 +79,9 @@
 <span class="special">}</span>
 </pre>
 <p>
-        </p>
-<p>
           However, the <a href="http://www.boost.org/doc/html/boost/heap/heap_merge.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">heap</span><span class="special">::</span><span class="identifier">heap_merge</span><span class="special">()</span></code></a>
           function may be less efficient than the <code class="computeroutput"><span class="identifier">merge</span><span class="special">()</span></code> member function of mergeable <a href="http://www.boost.org/doc/html/heap.html" target="_top"><span class="bold"><strong>Boost.Heap</strong></span></a> model types.
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Heap</span><span class="special">&gt;</span>
 <span class="keyword">void</span> <span class="identifier">test_heap_merge</span><span class="special">(</span><span class="identifier">Heap</span><span class="special">&amp;</span> <span class="identifier">heap1</span><span class="special">,</span> <span class="identifier">Heap</span><span class="special">&amp;</span> <span class="identifier">heap2</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span><span class="special">)</span>
 <span class="special">{</span>
@@ -103,12 +89,8 @@
 <span class="special">}</span>
 </pre>
 <p>
-        </p>
-<p>
           Use this metafunction to choose the correct and most efficient merge implementation.
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Selector</span><span class="special">&gt;</span>
 <span class="keyword">void</span> <span class="identifier">test_heap_merge</span><span class="special">()</span>
 <span class="special">{</span>
@@ -142,15 +124,11 @@
     <span class="identifier">BOOST_CHECK</span><span class="special">(</span><span class="identifier">heap_1</span><span class="special">.</span><span class="identifier">empty</span><span class="special">());</span>
 <span class="special">}</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="container_gen.reference.is_mergeable_heap_selector.test"></a><a class="link" href="is_mergeable_heap_selector.html#container_gen.reference.is_mergeable_heap_selector.test" title="Test">Test</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="identifier">MPL_TEST_CASE</span><span class="special">()</span>
 <span class="special">{</span>
     <span class="identifier">BOOST_MPL_ASSERT_NOT</span><span class="special">((</span>
@@ -394,8 +372,6 @@
     <span class="special">));</span>
 <span class="special">}</span>
 </pre>
-<p>
-        </p>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

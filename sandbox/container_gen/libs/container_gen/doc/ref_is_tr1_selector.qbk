@@ -13,11 +13,11 @@
 [endsect]
 
 [section Description]
-Returns __mpl_true__ if the specified selector type is `tr1_hash_selector` or
-`tr1_binary_predicate_selector`, or if the type to be returned by
-__container_gen__ is a __tr1_array__, a __tr1_unordered_set__, a
+This metafunction evaluates to __mpl_true__ if the specified selector type is
+`tr1_hash_selector` or `tr1_binary_predicate_selector`, or if the type to be
+returned by __container_gen__ is a __tr1_array__, a __tr1_unordered_set__, a
 __tr1_unordered_multiset__, a __tr1_unordered_map__, or a
-__tr1_unordered_multimap__; __mpl_false__ otherwise.
+__tr1_unordered_multimap__; it evaluates to __mpl_false__ otherwise.
 [endsect]
 
 [section:definition Where defined]

@@ -15,26 +15,19 @@
 
 #if defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 
-//[reference__has_emplace_member_function_selector
 namespace boost {
 
     template <typename Selector>
     struct has_emplace_member_function_selector
-        //<-
       : ::boost::mpl::false_
-        //->
     {
-        // typedef ... type;
-        //<-
         BOOST_MPL_AUX_LAMBDA_SUPPORT(
             1
           , has_emplace_member_function_selector
           , (Selector)
         )
-        //->
     };
 }  // namespace boost
-//]
 
 #else  // !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 
@@ -48,10 +41,12 @@ namespace boost {
 #include <boost/container_gen/is_heap_selector.hpp>
 #include <boost/container_gen/selectors.hpp>
 
+//[reference__has_emplace_member_function_selector
 namespace boost {
 
     template <typename Selector>
     struct has_emplace_member_function_selector
+//<-
 #if defined BOOST_NO_CXX11_RVALUE_REFERENCES
       : ::boost::mpl::if_<
             is_flat_associative_selector<Selector>
@@ -59,6 +54,7 @@ namespace boost {
           , is_hashed_associative_selector<Selector>
         >::type
 #else
+//->
       : ::boost::mpl::eval_if<
             is_flat_associative_selector<Selector>
           , ::boost::mpl::true_
@@ -68,15 +64,35 @@ namespace boost {
               , is_heap_selector<Selector>
             >
         >::type
+//<-
 #endif  // BOOST_NO_CXX11_RVALUE_REFERENCES
+//->
     {
+        //<-
         BOOST_MPL_AUX_LAMBDA_SUPPORT(
             1
           , has_emplace_member_function_selector
           , (Selector)
         )
+        //->
     };
 
+    template <typename AllocatorSelector>
+    struct has_emplace_member_function_selector<
+        stable_vector_selector<AllocatorSelector>
+    > : ::boost::mpl::true_
+    {
+    };
+
+    template <typename AllocatorSelector>
+    struct has_emplace_member_function_selector<
+        slist_selector<AllocatorSelector>
+    > : ::boost::mpl::true_
+    {
+    };
+
+    // More metafunction specializations...
+    //<-
     template <typename T0, typename T1>
     struct has_emplace_member_function_selector<vector_selector<T0,T1> >
 #if defined BOOST_MOVE_USE_STANDARD_LIBRARY_MOVE
@@ -128,20 +144,6 @@ namespace boost {
           , ::boost::mpl::false_
         >::type
 #endif  // BOOST_MOVE_USE_STANDARD_LIBRARY_MOVE
-    {
-    };
-
-    template <typename AllocatorSelector>
-    struct has_emplace_member_function_selector<
-        stable_vector_selector<AllocatorSelector>
-    > : ::boost::mpl::true_
-    {
-    };
-
-    template <typename AllocatorSelector>
-    struct has_emplace_member_function_selector<
-        slist_selector<AllocatorSelector>
-    > : ::boost::mpl::true_
     {
     };
 
@@ -232,7 +234,9 @@ namespace boost {
 #endif  // BOOST_MOVE_USE_STANDARD_LIBRARY_MOVE
     {
     };
+    //->
 }  // namespace boost
+//]
 
 #endif  // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 

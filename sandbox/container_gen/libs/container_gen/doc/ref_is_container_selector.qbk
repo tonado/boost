@@ -13,11 +13,12 @@
 [endsect]
 
 [section Description]
-Returns __mpl_true__ if the __container_gen__ metafunction has been specialized
-to return a type given the specified selector type, __mpl_false__ otherwise.
+This metafunction evaluates to __mpl_true__ if the __container_gen__
+metafunction has been specialized to return a type given the specified
+selector type; it evaluates to __mpl_false__ otherwise.
 
 If __MPL_CFG_NO_HAS_XXX__ is defined, then you must also specialize this
-metafunction to return __mpl_true__ for your custom selector.
+metafunction to inherit from __mpl_true__ for your custom selector.
 
 This metafunction is useful for facilitating __Boost_Parameter__-enabled
 template argument deduction for types that take in __Selectors__.

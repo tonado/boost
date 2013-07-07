@@ -15,13 +15,13 @@
 [section Description]
 A __Boost_Heap__ model type is *mergeable* if and only if it defines a member
 function `merge()` that takes in a reference-to-non-`const` object of its own
-type and returns `void`.  This metafunction returns __mpl_true__ if the
+type and returns `void`.  This metafunction evaluates to __mpl_true__ if the
 specified selector will cause __container_gen__ to return a mergeable
-__Boost_Heap__ model type, __mpl_false__ otherwise.
+__Boost_Heap__ model type; it evaluates to __mpl_false__ otherwise.
 
 If __MPL_CFG_NO_HAS_XXX__ is defined, then you must specialize this
-metafunction to return __mpl_true__ for your custom selector if and only if
-the type to be returned by __container_gen__ is a mergeable __Boost_Heap__
+metafunction to inherit from __mpl_true__ for your custom selector if and only
+if the type to be returned by __container_gen__ is a mergeable __Boost_Heap__
 model type.
 [endsect]
 

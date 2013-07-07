@@ -23,34 +23,30 @@
 <div class="titlepage"><div><div><h4 class="title">
 <a name="container_gen.reference.is_multiple_assoc_selector.synopsis"></a><a class="link" href="is_multiple_assoc_selector.html#container_gen.reference.is_multiple_assoc_selector.synopsis" title="Synopsis">Synopsis</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
 
     <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Selector</span><span class="special">&gt;</span>
     <span class="keyword">struct</span> <span class="identifier">is_multiple_associative_selector</span>
+      <span class="special">:</span> <span class="identifier">implementation_defined</span> <a href="http://www.boost.org/libs/mpl/doc/refmanual/integral-constant.html" target="_top"><span class="bold"><strong>Boolean Integral Constant</strong></span></a>
     <span class="special">{</span>
-        <span class="comment">// typedef ... type;</span>
     <span class="special">};</span>
 <span class="special">}</span>  <span class="comment">// namespace boost</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="container_gen.reference.is_multiple_assoc_selector.description"></a><a class="link" href="is_multiple_assoc_selector.html#container_gen.reference.is_multiple_assoc_selector.description" title="Description">Description</a>
 </h4></div></div></div>
 <p>
-          Returns <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a> if the type to be returned
+          This metafunction evaluates to <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a> if the type to be returned
           by <a class="link" href="container_gen.html" title="container_gen"><code class="computeroutput"><span class="identifier">container_gen</span></code></a> will model the
-          <a href="http://www.sgi.com/tech/stl/MultipleAssociativeContainer.html" target="_top"><span class="bold"><strong>Multiple Associative Container</strong></span></a> concept,
-          <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span></code></a>
-          otherwise.
+          <a href="http://www.sgi.com/tech/stl/MultipleAssociativeContainer.html" target="_top"><span class="bold"><strong>Multiple Associative Container</strong></span></a> concept;
+          it evaluates to <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span></code></a> otherwise.
         </p>
 <p>
           If both <a href="http://www.boost.org/doc/html/typeof/refe.html#typeof.compl" target="_top"><code class="computeroutput"><span class="identifier">BOOST_TYPEOF_EMULATION</span></code></a> and <a href="http://www.boost.org/libs/mpl/doc/refmanual/cfg-no-has-xxx.html" target="_top"><code class="computeroutput"><span class="identifier">BOOST_MPL_CFG_NO_HAS_XXX</span></code></a>
-          are defined, then you must specialize this metafunction to return <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a>
+          are defined, then you must specialize this metafunction to inherit from
+          <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a>
           for your custom selector if and only if the type to be returned by <a class="link" href="container_gen.html" title="container_gen"><code class="computeroutput"><span class="identifier">container_gen</span></code></a>
           models the <a href="http://www.sgi.com/tech/stl/MultipleAssociativeContainer.html" target="_top"><span class="bold"><strong>Multiple Associative Container</strong></span></a> concept.
         </p>
@@ -60,19 +56,13 @@
 <a name="container_gen.reference.is_multiple_assoc_selector.definition"></a><a class="link" href="is_multiple_assoc_selector.html#container_gen.reference.is_multiple_assoc_selector.definition" title="Where defined">Where
         defined</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/container_gen/is_multiple_assoc_selector.hpp" target="_top">boost/container_gen/is_multiple_assoc_selector.hpp</a><span class="special">&gt;</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="container_gen.reference.is_multiple_assoc_selector.test"></a><a class="link" href="is_multiple_assoc_selector.html#container_gen.reference.is_multiple_assoc_selector.test" title="Test">Test</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="identifier">MPL_TEST_CASE</span><span class="special">()</span>
 <span class="special">{</span>
     <span class="identifier">BOOST_MPL_ASSERT_NOT</span><span class="special">((</span>
@@ -313,8 +303,6 @@
     <span class="special">));</span>
 <span class="special">}</span>
 </pre>
-<p>
-        </p>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

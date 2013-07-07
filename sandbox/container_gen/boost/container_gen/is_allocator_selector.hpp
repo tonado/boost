@@ -88,14 +88,23 @@ namespace boost {
 
     template <typename T>
     struct is_allocator_selector
+//<-
+#if 0
+//->
+      : implementation_defined __Boolean_Integral_Constant__
+//<-
+#endif
       : ::boost::mpl::eval_if<
             typename ::boost::detail::metafunction::has_apply_template<T>::type
           , ::boost::detail::metafunction
             ::is_allocator_selector_metafunction_class<T>
           , ::boost::mpl::false_
         >::type
+        //->
     {
+        //<-
         BOOST_MPL_AUX_LAMBDA_SUPPORT(1, is_allocator_selector, (T))
+        //->
     };
 }  // namespace boost
 //]

@@ -28,8 +28,6 @@
           and <a href="http://www.boost.org/doc/html/heap.html" target="_top"><span class="bold"><strong>Boost.Heap</strong></span></a>
           data structure to which it corresponds.
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
 
     <span class="keyword">template</span> <span class="special">&lt;</span>
@@ -313,13 +311,9 @@
 <span class="special">}</span>  <span class="comment">// namespace boost</span>
 </pre>
 <p>
-        </p>
-<p>
           In turn, some of the default arguments of these selector templates are
           themselves selector types.
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
 
     <span class="keyword">struct</span> <span class="identifier">equal_to_selector</span>
@@ -430,14 +424,10 @@
 <span class="special">}</span>  <span class="comment">// namespace boost</span>
 </pre>
 <p>
-        </p>
-<p>
           To instantiate a model of <a href="http://www.sgi.com/tech/stl/AssociativeContainer.html" target="_top"><span class="bold"><strong>Associative Container</strong></span></a> that stores C-style
           strings as keys, pass the appropriate one of these types as the <code class="computeroutput"><span class="identifier">CompareSelector</span></code> argument to the corresponding
           container selector template.
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
 
     <span class="keyword">struct</span> <span class="identifier">c_str_equal_to_selector</span>
@@ -595,13 +585,9 @@
 <span class="special">}</span>  <span class="comment">// namespace boost</span>
 </pre>
 <p>
-        </p>
-<p>
           This library also retains the old selector types and, for completeness,
           provides type definitions of the selector templates with default arguments.
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
 
     <span class="keyword">typedef</span> <span class="identifier">vector_selector</span><span class="special">&lt;&gt;</span> <span class="identifier">vecS</span><span class="special">;</span>
@@ -642,8 +628,6 @@
     <span class="keyword">typedef</span> <span class="identifier">skew_heap_selector</span><span class="special">&lt;&gt;</span> <span class="identifier">skew_heapS</span><span class="special">;</span>
 <span class="special">}</span>  <span class="comment">// namespace boost</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -657,8 +641,6 @@
           type can become the <code class="computeroutput"><span class="identifier">OutEdgeList</span></code>
           of a <a href="http://www.boost.org/libs/graph/doc/adjacency_list.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">adjacency_list</span></code></a>.
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">int_allocator_selector</span>
 <span class="special">{</span>
     <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
@@ -684,8 +666,6 @@
     <span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>
 <span class="special">}</span>
 </pre>
-<p>
-        </p>
 <p>
           Selector templates evaluate each parameter the same way, so the following
           table will suffice in documenting the parameters. Note that fully qualified
@@ -1133,57 +1113,33 @@
 <p>
           C-style string comparator selectors:
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/container_gen/c_str_cmp_selectors.hpp" target="_top">boost/container_gen/c_str_cmp_selectors.hpp</a><span class="special">&gt;</span>
 </pre>
 <p>
-        </p>
-<p>
           Forward declarations:
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/container_gen/c_str_cmp_selectors_fwd.hpp" target="_top">boost/container_gen/c_str_cmp_selectors_fwd.hpp</a><span class="special">&gt;</span>
 </pre>
 <p>
-        </p>
-<p>
           To register them under <a href="http://www.boost.org/doc/html/typeof.html" target="_top"><span class="bold"><strong>Boost.Typeof</strong></span></a>:
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/typeof/boost/container_gen/c_str_cmp_selectors.hpp" target="_top">boost/typeof/boost/container_gen/c_str_cmp_selectors.hpp</a><span class="special">&gt;</span>
 </pre>
 <p>
-        </p>
-<p>
           All other selectors and selector templates:
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/container_gen/selectors.hpp" target="_top">boost/container_gen/selectors.hpp</a><span class="special">&gt;</span>
 </pre>
 <p>
-        </p>
-<p>
           Forward declarations:
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/container_gen/selectors_fwd.hpp" target="_top">boost/container_gen/selectors_fwd.hpp</a><span class="special">&gt;</span>
 </pre>
 <p>
-        </p>
-<p>
           To register them under <a href="http://www.boost.org/doc/html/typeof.html" target="_top"><span class="bold"><strong>Boost.Typeof</strong></span></a>:
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/typeof/boost/container_gen/selectors.hpp" target="_top">boost/typeof/boost/container_gen/selectors.hpp</a><span class="special">&gt;</span>
 </pre>
-<p>
-        </p>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

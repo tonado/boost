@@ -18,10 +18,16 @@ will take in a reference to the destination container, a valid iterator
 representing the point of insertion, a reference to the source container, and
 one of the following:
 
-  * A valid iterator representing the point of erasure from the source
-    container.
-  * Two __Input_Iterator__ arguments representing the source container or a
-    subrange.
+[itemized_list
+    [
+        A valid iterator representing the point of erasure from the source
+        container.
+    ]
+    [
+        Two __Input_Iterator__ arguments representing the source container or a
+        subrange.
+    ]
+]
 
 The container type must model the __Sequence__ concept.  In practice, the
 container type must be produced by __container_gen__ when given the same
@@ -76,8 +82,10 @@ Test this metafunction across a wide variety of selector types.
 
 The complete test program spans the following source files:
 
-  * __libs_container_gen_test_result_range_hpp__
-  * __libs_container_gen_test_splice_function_gen_cpp__
+[itemized_list
+    [__libs_container_gen_test_result_range_hpp__]
+    [__libs_container_gen_test_splice_function_gen_cpp__]
+]
 
 [endsect]
 

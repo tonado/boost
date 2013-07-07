@@ -1,5 +1,5 @@
 [article is_mpl_boolean_constant
-    [quickbook 1.5]
+    [quickbook 1.6]
     [copyright 2013 Cromwell Enage]
     [license
         Distributed under the Boost Software License, Version 1.0.
@@ -20,8 +20,8 @@
 [endsect]
 
 [section Description]
-Returns __mpl_true__ if the bound argument type models the
-__MPL_Boolean_Constant__ concept, __mpl_false__ otherwise.
+This metafunction evaluates to __mpl_true__ if the bound argument type models
+the __MPL_Boolean_Constant__ concept; it evaluates to __mpl_false__ otherwise.
 [endsect]
 
 [section:definition Where defined]

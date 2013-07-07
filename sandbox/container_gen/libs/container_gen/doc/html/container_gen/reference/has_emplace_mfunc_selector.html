@@ -23,36 +23,56 @@
 <div class="titlepage"><div><div><h4 class="title">
 <a name="container_gen.reference.has_emplace_mfunc_selector.synopsis"></a><a class="link" href="has_emplace_mfunc_selector.html#container_gen.reference.has_emplace_mfunc_selector.synopsis" title="Synopsis">Synopsis</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
 
     <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Selector</span><span class="special">&gt;</span>
     <span class="keyword">struct</span> <span class="identifier">has_emplace_member_function_selector</span>
+      <span class="special">:</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">eval_if</span><span class="special">&lt;</span>
+            <span class="identifier">is_flat_associative_selector</span><span class="special">&lt;</span><span class="identifier">Selector</span><span class="special">&gt;</span>
+          <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span>
+          <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">if_</span><span class="special">&lt;</span>
+                <span class="identifier">is_hashed_associative_selector</span><span class="special">&lt;</span><span class="identifier">Selector</span><span class="special">&gt;</span>
+              <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span>
+              <span class="special">,</span> <span class="identifier">is_heap_selector</span><span class="special">&lt;</span><span class="identifier">Selector</span><span class="special">&gt;</span>
+            <span class="special">&gt;</span>
+        <span class="special">&gt;::</span><span class="identifier">type</span>
     <span class="special">{</span>
-        <span class="comment">// typedef ... type;</span>
     <span class="special">};</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">AllocatorSelector</span><span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">has_emplace_member_function_selector</span><span class="special">&lt;</span>
+        <span class="identifier">stable_vector_selector</span><span class="special">&lt;</span><span class="identifier">AllocatorSelector</span><span class="special">&gt;</span>
+    <span class="special">&gt;</span> <span class="special">:</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span>
+    <span class="special">{</span>
+    <span class="special">};</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">AllocatorSelector</span><span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">has_emplace_member_function_selector</span><span class="special">&lt;</span>
+        <span class="identifier">slist_selector</span><span class="special">&lt;</span><span class="identifier">AllocatorSelector</span><span class="special">&gt;</span>
+    <span class="special">&gt;</span> <span class="special">:</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span>
+    <span class="special">{</span>
+    <span class="special">};</span>
+
+    <span class="comment">// More metafunction specializations...</span>
 <span class="special">}</span>  <span class="comment">// namespace boost</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="container_gen.reference.has_emplace_mfunc_selector.description"></a><a class="link" href="has_emplace_mfunc_selector.html#container_gen.reference.has_emplace_mfunc_selector.description" title="Description">Description</a>
 </h4></div></div></div>
 <p>
-          Returns <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a> if the type to be returned
+          This metafunction evaluates to <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a> if the type to be returned
           by <a class="link" href="container_gen.html" title="container_gen"><code class="computeroutput"><span class="identifier">container_gen</span></code></a> supports emplacement
-          construction of its elements, <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span></code></a> otherwise.
+          construction of its elements; it evaluates to <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span></code></a> otherwise.
         </p>
 <p>
-          The current implementation returns <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a> when passed in selectors
+          The current implementation inherits from <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a> when passed in selectors
           for which <a class="link" href="container_gen.html" title="container_gen"><code class="computeroutput"><span class="identifier">container_gen</span></code></a> will return a <a href="http://www.boost.org/doc/html/container.html" target="_top"><span class="bold"><strong>Boost.Container</strong></span></a>
           model type, a <a href="http://www.boost.org/doc/html/unordered.html" target="_top"><span class="bold"><strong>Boost.Unordered</strong></span></a>
           container type, or a <a href="http://www.boost.org/doc/html/heap.html" target="_top"><span class="bold"><strong>Boost.Heap</strong></span></a>
-          model type; it will return <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span></code></a> for all other types of
-          selectors. Specialize this metafunction to return <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a> for your custom selector
+          model type; it will inherit from <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span></code></a> for all other types of
+          selectors. Specialize this metafunction to inherit from <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a> for your custom selector
           if and only if the type to be returned by <a class="link" href="container_gen.html" title="container_gen"><code class="computeroutput"><span class="identifier">container_gen</span></code></a> supports emplacement
           construction of its elements.
         </p>
@@ -62,12 +82,8 @@
 <a name="container_gen.reference.has_emplace_mfunc_selector.definition"></a><a class="link" href="has_emplace_mfunc_selector.html#container_gen.reference.has_emplace_mfunc_selector.definition" title="Where defined">Where
         defined</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/container_gen/has_emplace_mfunc_selector.hpp" target="_top">boost/container_gen/has_emplace_mfunc_selector.hpp</a><span class="special">&gt;</span>
 </pre>
-<p>
-        </p>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

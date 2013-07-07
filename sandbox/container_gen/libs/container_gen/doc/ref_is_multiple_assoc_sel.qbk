@@ -13,11 +13,12 @@
 [endsect]
 
 [section Description]
-Returns __mpl_true__ if the type to be returned by __container_gen__ will model
-the __Multiple_Associative_Container__ concept, __mpl_false__ otherwise.
+This metafunction evaluates to __mpl_true__ if the type to be returned by
+__container_gen__ will model the __Multiple_Associative_Container__ concept;
+it evaluates to __mpl_false__ otherwise.
 
 If both __TYPEOF_EMULATION__ and __MPL_CFG_NO_HAS_XXX__ are defined, then you
-must specialize this metafunction to return __mpl_true__ for your custom
+must specialize this metafunction to inherit from __mpl_true__ for your custom
 selector if and only if the type to be returned by __container_gen__ models the
 __Multiple_Associative_Container__ concept.
 [endsect]

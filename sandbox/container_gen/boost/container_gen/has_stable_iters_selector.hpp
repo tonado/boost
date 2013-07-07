@@ -116,7 +116,12 @@ namespace boost {
 
     template <typename Selector>
     struct has_stable_iterators_selector
-        //<-
+//<-
+#if 0
+//->
+      : BooleanIntegralConstant
+//<-
+#endif
       : ::boost::mpl::if_<
             typename ::boost::mpl::aux::has_type<
                 container_gen<Selector,int>
@@ -126,7 +131,6 @@ namespace boost {
         >::type
         //->
     {
-        // typedef ... type;
         //<-
         BOOST_MPL_AUX_LAMBDA_SUPPORT(
             1
