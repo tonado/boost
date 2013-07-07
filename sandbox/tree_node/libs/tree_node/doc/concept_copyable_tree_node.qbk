@@ -14,22 +14,28 @@ data structures.
 
 In practice, each [*Copyable Tree Node] model must do the following:
 
-  * Inherit from the corresponding __Base_Tree_Node__ model.
-  * Take in the data type as template parameters.
-  * Also take in the key type if (possibly) modeling the
-    __Associative_Tree_Node__ concept.
-  * Use the __TREE_NODE_COPYABLE_AND_MOVABLE__,
-    __TREE_NODE_EMPLACEMENT_CTOR_INLINE_DEF__, and
-    __TREE_NODE_EMPLACEMENT_CTOR_W_ALLOC_INLINE_DEF__ macros to support
-    C++03 compilers.
+[itemized_list
+    [Inherit from the corresponding __Base_Tree_Node__ model.]
+    [Take in the data type as template parameters.]
+    [
+        Also take in the key type if (possibly) modeling the
+        __Associative_Tree_Node__ concept.
+    ]
+    [
+        Use the __TREE_NODE_COPYABLE_AND_MOVABLE__,
+        __TREE_NODE_EMPLACEMENT_CTOR_INLINE_DEF__, and
+        __TREE_NODE_EMPLACEMENT_CTOR_W_ALLOC_INLINE_DEF__ macros to support
+        C++03 compilers.
+    ]
+]
 
 [endsect]
 
 [section Refinement of]
-
-  * __Tree_Node__
-  * __Copy_Constructible__
-
+[itemized_list
+    [__Tree_Node__]
+    [__Copy_Constructible__]
+]
 [endsect]
 
 [variablelist Notation
@@ -59,7 +65,9 @@ __Copy_Constructible__ concepts, the following expressions must be valid.
     ]
     [
         [Copy constructor]
-        [`Node(const_node)`]
+        [``
+            Node(const_node)
+        ``]
         []
         [Constructs a deep copy of the specified node.]
         [
@@ -73,7 +81,13 @@ __Copy_Constructible__ concepts, the following expressions must be valid.
     ]
     [
         [Copy constructor with allocator]
-        [`Node(boost::container::allocator_arg, alloc, const_node)`]
+        [``
+            Node(
+                boost::container::allocator_arg
+              , alloc
+              , const_node
+            )
+        ``]
         []
         [
             Constructs a deep copy of the specified node.  The new node will
@@ -89,21 +103,31 @@ __Copy_Constructible__ concepts, the following expressions must be valid.
 [endsect] [/ Valid Expressions and Semantics]
 
 [section Models]
-
-  * __binary_node__ if `T` is __Copy_Constructible__
-  * __nary_node__ if `T` is __Copy_Constructible__
-  * __associative_node__ if `Data` is __Copy_Constructible__
-  * __tree_node_with_accumulation__ if `BaseGenerator` returns a [*Copyable
-    Tree Node] model
-  * __tree_node_with_count__ if `BaseGenerator` returns a [*Copyable Tree Node]
-    model
-  * __tree_node_with_height__ if `BaseGenerator` returns a [*Copyable Tree
-    Node] model
-  * __tree_node_with_position__ if `BaseGenerator` returns a [*Copyable Tree
-    Node] model
-  * __tree_node_with_red_black_flag__ if `BaseGenerator` returns a [*Copyable
-    Tree Node] model
-
+[itemized_list
+    [__binary_node__ if `T` is __Copy_Constructible__]
+    [__nary_node__ if `T` is __Copy_Constructible__]
+    [__associative_node__ if `Data` is __Copy_Constructible__]
+    [
+        __tree_node_with_accumulation__ if `BaseGenerator` returns a [*Copyable
+        Tree Node] model
+    ]
+    [
+        __tree_node_with_count__ if `BaseGenerator` returns a [*Copyable Tree
+        Node] model
+    ]
+    [
+        __tree_node_with_height__ if `BaseGenerator` returns a [*Copyable Tree
+        Node] model
+    ]
+    [
+        __tree_node_with_position__ if `BaseGenerator` returns a [*Copyable
+        Tree Node] model
+    ]
+    [
+        __tree_node_with_red_black_flag__ if `BaseGenerator` returns a
+        [*Copyable Tree Node] model
+    ]
+]
 [endsect]
 
 [endsect] [/ Copyable Tree Node]

@@ -31,8 +31,10 @@ BOOST_TREE_NODE_ASSOCIATIVE_CONTAINER_DERIVED_BODY(Derived, Base)
 [endsect]
 
 [section Arguments]
-  * /Derived/ -- The name of the enclosing type.
-  * /Base/ -- The name of the type from which `Derived` inherits.
+[variablelist Notation
+    [[`Derived`][The name of the enclosing type.]]
+    [[`Base`][The name of the type from which `Derived` inherits.]]
+]
 [endsect]
 
 [section:definition Where defined]

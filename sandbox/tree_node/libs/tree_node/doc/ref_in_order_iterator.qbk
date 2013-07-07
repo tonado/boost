@@ -81,14 +81,16 @@ To register under __Boost_Typeof__:
 [endsect]
 
 [section:model_of Model of]
-
-  * __Full_Tree_Node_Iterator__
-  * __Indexable_Iterator__ if the value associated with __count_key__ exists
-    for `Node`; __Bidirectional_Iterator__ otherwise
-  * __Default_Constructible__
-  * __Copy_Constructible__
-  * __Assignable__
-
+[itemized_list
+    [__Full_Tree_Node_Iterator__]
+    [
+        __Indexable_Iterator__ if the value associated with __count_key__
+        exists for `Node`; __Bidirectional_Iterator__ otherwise
+    ]
+    [__Default_Constructible__]
+    [__Copy_Constructible__]
+    [__Assignable__]
+]
 [endsect]
 
 [section Members]

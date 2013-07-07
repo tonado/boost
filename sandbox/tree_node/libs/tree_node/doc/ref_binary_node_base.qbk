@@ -73,10 +73,11 @@ To register under __Boost_Typeof__:
 [endsect]
 
 [section:model_of Model of]
-
-  * __Base_Tree_Node__
-  * __Default_Constructible__ if `T` is __Default_Constructible__
-
+[itemized_list
+    [__Binary_Tree_Node__]
+    [__Base_Tree_Node__]
+    [__Default_Constructible__ if `T` is __Default_Constructible__]
+]
 [endsect]
 
 [section:public_bases Public Base Classes]
@@ -432,12 +433,12 @@ To register under __Boost_Typeof__:
     ]
     [
         [Key-value read-only access]
-        [[reference__binary_node_base__key_value_operator__const]]
+        [[reference__binary_node_base__at_key__const]]
         [__Tree_Node__]
     ]
     [
         [Key-value access]
-        [[reference__binary_node_base__key_value_operator]]
+        [[reference__binary_node_base__at_key]]
         [__Tree_Node__]
     ]
     [

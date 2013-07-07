@@ -31,15 +31,25 @@
           In practice, each <span class="bold"><strong>Base Tree Node</strong></span> model
           must do the following:
         </p>
-<pre class="programlisting"><span class="special">*</span> <span class="identifier">Inherit</span> <span class="identifier">from</span> <span class="identifier">either</span> <a class="link" href="../reference/tree_node_base.html" title="tree_node_base&lt;Derived&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">tree_node_base</span></code></a> <span class="keyword">or</span> <span class="identifier">the</span> <span class="keyword">return</span> <span class="identifier">type</span> <span class="identifier">of</span> <span class="identifier">a</span>
-  <a class="link" href="base_type_generator.html" title="Base Type Generator"><span class="bold"><strong>Base Type Generator</strong></span></a><span class="special">.</span>
-<span class="special">*</span> <span class="identifier">Take</span> <span class="identifier">in</span> <span class="identifier">the</span> <span class="identifier">derived</span> <span class="identifier">type</span> <span class="keyword">and</span> <span class="identifier">the</span> <span class="identifier">data</span> <span class="identifier">type</span> <span class="identifier">as</span> <span class="keyword">template</span> <span class="identifier">parameters</span><span class="special">.</span>
-<span class="special">*</span> <span class="identifier">Also</span> <span class="identifier">take</span> <span class="identifier">in</span> <span class="identifier">the</span> <span class="identifier">key</span> <span class="identifier">type</span> <span class="keyword">if</span> <span class="identifier">the</span> <span class="identifier">derived</span> <span class="identifier">type</span> <span class="identifier">is</span> <span class="special">(</span><span class="identifier">possibly</span><span class="special">)</span> <span class="identifier">an</span>
-  <a class="link" href="associative_tree_node.html" title="Associative Tree Node"><span class="bold"><strong>Associative Tree Node</strong></span></a> <span class="identifier">model</span><span class="special">.</span>
-<span class="special">*</span> <span class="identifier">Declare</span> <span class="identifier">a</span> <span class="keyword">template</span> <span class="identifier">instantiation</span> <span class="identifier">of</span> <a class="link" href="../reference/tree_node_base.html" title="tree_node_base&lt;Derived&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">tree_node_base</span></code></a> <span class="identifier">with</span> <span class="identifier">the</span> <span class="identifier">derived</span>
-  <span class="identifier">type</span> <span class="identifier">as</span> <span class="identifier">a</span> <span class="error">`</span><span class="keyword">friend</span> <span class="keyword">struct</span><span class="error">`</span> <span class="keyword">if</span> <span class="identifier">it</span> <span class="identifier">overrides</span> <span class="identifier">any</span> <span class="identifier">of</span> <a class="link" href="../reference/tree_node_base.html" title="tree_node_base&lt;Derived&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">tree_node_base</span></code></a>
-  <span class="identifier">implementation</span> <span class="identifier">methods</span><span class="special">.</span>
-</pre>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem"><p>
+              Inherit from either <a class="link" href="../reference/tree_node_base.html" title="tree_node_base&lt;Derived&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">tree_node_base</span></code></a> or the return
+              type of a <a class="link" href="base_type_generator.html" title="Base Type Generator"><span class="bold"><strong>Base Type Generator</strong></span></a>.
+            </p></li>
+<li class="listitem"><p>
+              Take in the derived type and the data type as template parameters.
+            </p></li>
+<li class="listitem"><p>
+              Also take in the key type if the derived type is (possibly) an <a class="link" href="associative_tree_node.html" title="Associative Tree Node"><span class="bold"><strong>Associative
+              Tree Node</strong></span></a> model.
+            </p></li>
+<li class="listitem"><p>
+              Declare a template instantiation of <a class="link" href="../reference/tree_node_base.html" title="tree_node_base&lt;Derived&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">tree_node_base</span></code></a> with the derived
+              type as a <code class="computeroutput"><span class="keyword">friend</span> <span class="keyword">struct</span></code>
+              if it overrides any of <a class="link" href="../reference/tree_node_base.html" title="tree_node_base&lt;Derived&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">tree_node_base</span></code></a> implementation
+              methods.
+            </p></li>
+</ul></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -899,15 +909,32 @@
 <div class="titlepage"><div><div><h4 class="title">
 <a name="tree_node.concepts.base_tree_node.models"></a><a class="link" href="base_tree_node.html#tree_node.concepts.base_tree_node.models" title="Models">Models</a>
 </h4></div></div></div>
-<pre class="programlisting"><span class="special">*</span> <a class="link" href="../reference/binary_node_base.html" title="binary_node_base&lt;Derived,T,Selector&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">binary_node_base</span></code></a>
-<span class="special">*</span> <a class="link" href="../reference/nary_node_base.html" title="nary_node_base&lt;Derived,T,Selector&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">nary_node_base</span></code></a>
-<span class="special">*</span> <a class="link" href="../reference/associative_node_base.html" title="associative_node_base&lt;Derived,Key,Data,Selector&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">associative_node_base</span></code></a>
-<span class="special">*</span> <a class="link" href="../reference/with_accumulation_base.html" title="with_accumulation_base&lt; Derived , BaseGenerator , T1 , T2 , Key , Tag , IncludesAllDescendants , IncludesRoot , Value &gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">with_accumulation_base</span></code></a>
-<span class="special">*</span> <a class="link" href="../reference/with_count_base.html" title="with_count_base&lt;Derived,BaseGenerator,T1,T2,Count&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">with_count_base</span></code></a>
-<span class="special">*</span> <a class="link" href="../reference/with_height_base.html" title="with_height_base&lt;Derived,BaseGenerator,T1,T2,Height&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">with_height_base</span></code></a>
-<span class="special">*</span> <a class="link" href="../reference/with_position_base.html" title="with_position_base&lt;Derived,BaseGenerator,T1,T2&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">with_position_base</span></code></a>
-<span class="special">*</span> <a class="link" href="../reference/with_rb_flag_base.html" title="with_red_black_flag_base&lt;Derived,BaseGenerator,T1,T2&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">with_red_black_flag_base</span></code></a>
-</pre>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem"><p>
+              <a class="link" href="../reference/binary_node_base.html" title="binary_node_base&lt;Derived,T,Selector&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">binary_node_base</span></code></a>
+            </p></li>
+<li class="listitem"><p>
+              <a class="link" href="../reference/nary_node_base.html" title="nary_node_base&lt;Derived,T,Selector&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">nary_node_base</span></code></a>
+            </p></li>
+<li class="listitem"><p>
+              <a class="link" href="../reference/associative_node_base.html" title="associative_node_base&lt;Derived,Key,Data,Selector&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">associative_node_base</span></code></a>
+            </p></li>
+<li class="listitem"><p>
+              <a class="link" href="../reference/with_accumulation_base.html" title="with_accumulation_base&lt; Derived , BaseGenerator , T1 , T2 , Key , Tag , IncludesAllDescendants , IncludesRoot , Value &gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">with_accumulation_base</span></code></a>
+            </p></li>
+<li class="listitem"><p>
+              <a class="link" href="../reference/with_count_base.html" title="with_count_base&lt;Derived,BaseGenerator,T1,T2,Count&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">with_count_base</span></code></a>
+            </p></li>
+<li class="listitem"><p>
+              <a class="link" href="../reference/with_height_base.html" title="with_height_base&lt;Derived,BaseGenerator,T1,T2,Height&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">with_height_base</span></code></a>
+            </p></li>
+<li class="listitem"><p>
+              <a class="link" href="../reference/with_position_base.html" title="with_position_base&lt;Derived,BaseGenerator,T1,T2&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">with_position_base</span></code></a>
+            </p></li>
+<li class="listitem"><p>
+              <a class="link" href="../reference/with_rb_flag_base.html" title="with_red_black_flag_base&lt;Derived,BaseGenerator,T1,T2&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">with_red_black_flag_base</span></code></a>
+            </p></li>
+</ul></div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

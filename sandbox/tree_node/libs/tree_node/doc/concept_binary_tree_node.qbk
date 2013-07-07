@@ -15,10 +15,10 @@ rotations that use the appropriate child as a pivot node.
 [endsect]
 
 [section Refinement of]
-
-  * __Non_Associative_Tree_Node__
-  * __Reversible_Tree_Node__
-
+[itemized_list
+    [__Non_Associative_Tree_Node__]
+    [__Reversible_Tree_Node__]
+]
 [endsect]
 
 [variablelist Notation
@@ -305,9 +305,10 @@ and __Reversible_Tree_Node__ concepts, the following expressions must be valid.
 [endsect]
 
 [section Models]
-
-  * __binary_node__
-
+[itemized_list
+    [__binary_node__]
+    [__binary_node_base__]
+]
 [endsect]
 
 [endsect] [/ Binary Tree Node]

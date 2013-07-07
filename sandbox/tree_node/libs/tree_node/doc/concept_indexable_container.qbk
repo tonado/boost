@@ -58,15 +58,17 @@ the following expressions must be valid.
 [endsect] [/ Valid Expressions and Semantics]
 
 [section Models]
-
-  * __binode_container__ if the value associated with __count_key__ exists for
-    the return type of `NodeGenerator`
-  * __binode_associative_container__
-  * __binode_set__
-  * __binode_map__
-  * __binode_multiset__
-  * __binode_multimap__
-
+[itemized_list
+    [
+        __binode_container__ if the value associated with __count_key__ exists
+        for the return type of `NodeGenerator`
+    ]
+    [__binode_associative_container__]
+    [__binode_set__]
+    [__binode_map__]
+    [__binode_multiset__]
+    [__binode_multimap__]
+]
 [endsect]
 
 [endsect] [/ Tree Node]

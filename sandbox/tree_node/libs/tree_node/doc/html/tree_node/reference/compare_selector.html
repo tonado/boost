@@ -23,8 +23,6 @@
 <div class="titlepage"><div><div><h4 class="title">
 <a name="tree_node.reference.compare_selector.synopsis"></a><a class="link" href="compare_selector.html#tree_node.reference.compare_selector.synopsis" title="Synopsis">Synopsis</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">tree_node</span> <span class="special">{</span>
 
     <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Key</span><span class="special">&gt;</span>
@@ -58,12 +56,8 @@
 <span class="special">}}</span>  <span class="comment">// namespace boost::tree_node</span>
 </pre>
 <p>
-        </p>
-<p>
           Forward declarations:
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">tree_node</span> <span class="special">{</span>
 
     <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Key</span> <span class="special">=</span> <span class="identifier">data_key</span><span class="special">&gt;</span>
@@ -72,8 +66,6 @@
     <span class="keyword">typedef</span> <span class="identifier">compare_selector</span><span class="special">&lt;&gt;</span> <span class="identifier">compareS</span><span class="special">;</span>
 <span class="special">}}</span>  <span class="comment">// namespace boost::tree_node</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -95,16 +87,12 @@
 <p>
           Given the following:
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">typedef</span> <a href="http://www.boost.org/libs/mpl/doc/refmanual/apply-wrap.html" target="_top">boost::mpl::apply_wrap1</a><span class="special">&lt;</span><span class="identifier">compare_selector</span><span class="special">&lt;</span><span class="identifier">Key</span><span class="special">&gt;,</span><span class="identifier">NItr</span><span class="special">&gt;::</span><span class="identifier">type</span> <span class="identifier">G</span><span class="special">;</span>
 
 <span class="identifier">F</span> <span class="identifier">f</span><span class="special">;</span>
 <span class="identifier">NItr</span> <span class="identifier">x</span><span class="special">,</span> <span class="identifier">y</span><span class="special">;</span>
 <span class="identifier">G</span> <span class="identifier">g</span><span class="special">(</span><span class="identifier">f</span><span class="special">);</span>
 </pre>
-<p>
-        </p>
 <p>
           The type <code class="computeroutput"><span class="identifier">G</span></code> is a model of
           <a href="http://www.sgi.com/tech/stl/AdaptableBinaryPredicate.html" target="_top"><span class="bold"><strong>Adaptable Binary Predicate</strong></span></a> whose first and
@@ -129,30 +117,18 @@
 <a name="tree_node.reference.compare_selector.definition"></a><a class="link" href="compare_selector.html#tree_node.reference.compare_selector.definition" title="Where defined">Where
         defined</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/tree_node/selector/compare.hpp" target="_top">boost/tree_node/selector/compare.hpp</a><span class="special">&gt;</span>
 </pre>
 <p>
-        </p>
-<p>
           Forward-declared:
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/tree_node/selector/compare_fwd.hpp" target="_top">boost/tree_node/selector/compare_fwd.hpp</a><span class="special">&gt;</span>
 </pre>
 <p>
-        </p>
-<p>
           To register under <a href="http://www.boost.org/doc/html/typeof.html" target="_top"><span class="bold"><strong>Boost.Typeof</strong></span></a>:
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/typeof/boost/tree_node/selector/compare.hpp" target="_top">boost/typeof/boost/tree_node/selector/compare.hpp</a><span class="special">&gt;</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -252,12 +228,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="keyword">bool</span> <span class="identifier">result_type</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -274,12 +246,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="identifier">NItr</span> <span class="identifier">first_argument_type</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -296,12 +264,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="identifier">NItr</span> <span class="identifier">second_argument_type</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -318,12 +282,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">type</span><span class="special">();</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -345,13 +305,9 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Function</span><span class="special">&gt;</span>
 <span class="identifier">type</span><span class="special">(</span><span class="identifier">Function</span> <span class="keyword">const</span><span class="special">&amp;);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -376,12 +332,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">type</span><span class="special">(</span><span class="identifier">type</span> <span class="keyword">const</span><span class="special">&amp;);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -398,12 +350,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">type</span><span class="special">&amp;</span> <span class="keyword">operator</span><span class="special">=(</span><span class="identifier">type</span> <span class="keyword">const</span><span class="special">&amp;);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -420,16 +368,12 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">result_type</span>
     <span class="keyword">operator</span><span class="special">()(</span>
         <span class="identifier">first_argument_type</span> <span class="identifier">x</span>
       <span class="special">,</span> <span class="identifier">second_argument_type</span> <span class="identifier">y</span>
     <span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>

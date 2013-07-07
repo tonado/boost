@@ -24,8 +24,6 @@
 <div class="titlepage"><div><div><h4 class="title">
 <a name="tree_node.reference.emplace_ctor_w_alloc_i_def.synopsis"></a><a class="link" href="emplace_ctor_w_alloc_i_def.html#tree_node.reference.emplace_ctor_w_alloc_i_def.synopsis" title="Synopsis">Synopsis</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#define</span> <span class="identifier">BOOST_TREE_NODE_EMPLACEMENT_CTOR_W_ALLOC_INLINE_DEF</span><span class="special">(</span><span class="identifier">z</span><span class="special">,</span> <span class="identifier">n</span><span class="special">,</span> <span class="identifier">tuple</span><span class="special">)</span>     <span class="special">\</span>
         <span class="identifier">BOOST_TREE_NODE_EMPLACEMENT_CTOR_W_ALLOC_INLINE_HEADER</span><span class="special">(</span><span class="identifier">z</span><span class="special">,</span> <span class="identifier">n</span><span class="special">,</span> <span class="identifier">tuple</span><span class="special">)</span>  <span class="special">\</span>
         <span class="special">{</span>                                                                    <span class="special">\</span>
@@ -36,8 +34,6 @@
             <span class="special">)::</span><span class="identifier">on_post_emplacement_construct</span><span class="special">();</span>                              <span class="special">\</span>
         <span class="special">}</span>                                                                    <span class="special">\</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -56,8 +52,6 @@
 <div class="titlepage"><div><div><h4 class="title">
 <a name="tree_node.reference.emplace_ctor_w_alloc_i_def.usage"></a><a class="link" href="emplace_ctor_w_alloc_i_def.html#tree_node.reference.emplace_ctor_w_alloc_i_def.usage" title="Usage">Usage</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">class</span> <span class="identifier">Derived</span> <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">Base</span>
 <span class="special">{</span>
  <span class="keyword">public</span><span class="special">:</span>
@@ -86,28 +80,33 @@
 <span class="preprocessor">#endif</span>
 <span class="special">};</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="tree_node.reference.emplace_ctor_w_alloc_i_def.arguments"></a><a class="link" href="emplace_ctor_w_alloc_i_def.html#tree_node.reference.emplace_ctor_w_alloc_i_def.arguments" title="Arguments">Arguments</a>
 </h4></div></div></div>
-<pre class="programlisting"><span class="special">*</span> <span class="special">/</span><span class="identifier">Derived</span><span class="special">/</span> <span class="special">--</span> <span class="identifier">The</span> <span class="identifier">name</span> <span class="identifier">of</span> <span class="identifier">the</span> <span class="identifier">enclosing</span> <span class="identifier">type</span><span class="special">.</span>
-<span class="special">*</span> <span class="special">/</span><span class="identifier">Base</span><span class="special">/</span> <span class="special">--</span> <span class="identifier">The</span> <span class="identifier">name</span> <span class="identifier">of</span> <span class="identifier">the</span> <span class="identifier">type</span> <span class="identifier">from</span> <span class="identifier">which</span> <span class="error">`</span><span class="identifier">Derived</span><span class="error">`</span> <span class="identifier">inherits</span><span class="special">.</span>
-</pre>
+<div class="variablelist">
+<p class="title"><b>Notation</b></p>
+<dl class="variablelist">
+<dt><span class="term"><code class="computeroutput"><span class="identifier">Derived</span></code></span></dt>
+<dd><p>
+                The name of the enclosing type.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">Base</span></code></span></dt>
+<dd><p>
+                The name of the type from which <code class="computeroutput"><span class="identifier">Derived</span></code>
+                inherits.
+              </p></dd>
+</dl>
+</div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="tree_node.reference.emplace_ctor_w_alloc_i_def.definition"></a><a class="link" href="emplace_ctor_w_alloc_i_def.html#tree_node.reference.emplace_ctor_w_alloc_i_def.definition" title="Where defined">Where
         defined</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/tree_node/preprocessor.hpp" target="_top">boost/tree_node/preprocessor.hpp</a><span class="special">&gt;</span>
 </pre>
-<p>
-        </p>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

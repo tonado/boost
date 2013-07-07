@@ -23,8 +23,6 @@
 <div class="titlepage"><div><div><h4 class="title">
 <a name="tree_node.reference.emplace_ctor_inline_def.synopsis"></a><a class="link" href="emplace_ctor_inline_def.html#tree_node.reference.emplace_ctor_inline_def.synopsis" title="Synopsis">Synopsis</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#define</span> <span class="identifier">BOOST_TREE_NODE_EMPLACEMENT_CTOR_INLINE_DEF</span><span class="special">(</span><span class="identifier">z</span><span class="special">,</span> <span class="identifier">n</span><span class="special">,</span> <span class="identifier">tuple</span><span class="special">)</span>             <span class="special">\</span>
         <span class="identifier">BOOST_TREE_NODE_EMPLACEMENT_CTOR_INLINE_HEADER</span><span class="special">(</span><span class="identifier">z</span><span class="special">,</span> <span class="identifier">n</span><span class="special">,</span> <span class="identifier">tuple</span><span class="special">)</span>          <span class="special">\</span>
         <span class="special">{</span>                                                                    <span class="special">\</span>
@@ -35,8 +33,6 @@
             <span class="special">)::</span><span class="identifier">on_post_emplacement_construct</span><span class="special">();</span>                              <span class="special">\</span>
         <span class="special">}</span>                                                                    <span class="special">\</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -55,8 +51,6 @@
 <div class="titlepage"><div><div><h4 class="title">
 <a name="tree_node.reference.emplace_ctor_inline_def.usage"></a><a class="link" href="emplace_ctor_inline_def.html#tree_node.reference.emplace_ctor_inline_def.usage" title="Usage">Usage</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">class</span> <span class="identifier">Derived</span> <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">Base</span>
 <span class="special">{</span>
  <span class="keyword">public</span><span class="special">:</span>
@@ -76,31 +70,42 @@
 <span class="preprocessor">#endif</span>
 <span class="special">};</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="tree_node.reference.emplace_ctor_inline_def.arguments"></a><a class="link" href="emplace_ctor_inline_def.html#tree_node.reference.emplace_ctor_inline_def.arguments" title="Arguments">Arguments</a>
 </h4></div></div></div>
-<pre class="programlisting"><span class="special">*</span> <span class="special">/</span><span class="identifier">z</span><span class="special">/</span> <span class="special">--</span> <span class="identifier">The</span> <span class="identifier">next</span> <span class="identifier">available</span> <a href="http://www.boost.org/libs/preprocessor/doc/ref/repeat.html" target="_top"><code class="computeroutput"><span class="identifier">BOOST_PP_REPEAT</span></code></a> <span class="identifier">dimension</span><span class="special">.</span>
-<span class="special">*</span> <span class="special">/</span><span class="identifier">n</span><span class="special">/</span> <span class="special">--</span> <span class="identifier">The</span> <span class="identifier">number</span> <span class="identifier">of</span> <span class="identifier">arguments</span> <span class="identifier">that</span> <span class="identifier">the</span> <span class="identifier">current</span> <span class="identifier">iteration</span><span class="error">'</span><span class="identifier">s</span> <span class="identifier">constructor</span>
-  <span class="identifier">will</span> <span class="identifier">accept</span><span class="special">.</span>
-<span class="special">*</span> <span class="special">/</span><span class="identifier">Derived</span><span class="special">/</span> <span class="special">--</span> <span class="identifier">The</span> <span class="identifier">name</span> <span class="identifier">of</span> <span class="identifier">the</span> <span class="identifier">enclosing</span> <span class="identifier">type</span><span class="special">.</span>
-<span class="special">*</span> <span class="special">/</span><span class="identifier">Base</span><span class="special">/</span> <span class="special">--</span> <span class="identifier">The</span> <span class="identifier">name</span> <span class="identifier">of</span> <span class="identifier">the</span> <span class="identifier">type</span> <span class="identifier">from</span> <span class="identifier">which</span> <span class="error">`</span><span class="identifier">Derived</span><span class="error">`</span> <span class="identifier">inherits</span><span class="special">.</span>
-</pre>
+<div class="variablelist">
+<p class="title"><b>Notation</b></p>
+<dl class="variablelist">
+<dt><span class="term"><code class="computeroutput"><span class="identifier">z</span></code></span></dt>
+<dd><p>
+                The next available <a href="http://www.boost.org/libs/preprocessor/doc/ref/repeat.html" target="_top"><code class="computeroutput"><span class="identifier">BOOST_PP_REPEAT</span></code></a> dimension.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">n</span></code></span></dt>
+<dd><p>
+                The number of arguments that the current iteration's constructor
+                will accept.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">Derived</span></code></span></dt>
+<dd><p>
+                The name of the enclosing type.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">Base</span></code></span></dt>
+<dd><p>
+                The name of the type from which <code class="computeroutput"><span class="identifier">Derived</span></code>
+                inherits.
+              </p></dd>
+</dl>
+</div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="tree_node.reference.emplace_ctor_inline_def.definition"></a><a class="link" href="emplace_ctor_inline_def.html#tree_node.reference.emplace_ctor_inline_def.definition" title="Where defined">Where
         defined</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/tree_node/preprocessor.hpp" target="_top">boost/tree_node/preprocessor.hpp</a><span class="special">&gt;</span>
 </pre>
-<p>
-        </p>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

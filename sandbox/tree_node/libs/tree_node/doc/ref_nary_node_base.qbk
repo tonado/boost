@@ -65,13 +65,15 @@ To register under __Boost_Typeof__:
 [endsect]
 
 [section:model_of Model of]
-
-  * __N_ary_Tree_Node__
-  * __Reversible_Tree_Node__ if [^_container_gen_<Selector,Derived>::type]
-    returns a __Reversible_Container__ model
-  * __Base_Tree_Node__
-  * __Default_Constructible__ if `T` is __Default_Constructible__
-
+[itemized_list
+    [__N_ary_Tree_Node__]
+    [
+        __Reversible_Tree_Node__ if [^_container_gen_<Selector,Derived>::type]
+        returns a __Reversible_Container__ model
+    ]
+    [__Base_Tree_Node__]
+    [__Default_Constructible__ if `T` is __Default_Constructible__]
+]
 [endsect]
 
 [section:public_bases Public Base Classes]
@@ -374,12 +376,12 @@ Given:
     ]
     [
         [Key-value read-only access]
-        [[reference__nary_node_base__key_value_operator__const]]
+        [[reference__nary_node_base__at_key__const]]
         [__Tree_Node__]
     ]
     [
         [Key-value access]
-        [[reference__nary_node_base__key_value_operator]]
+        [[reference__nary_node_base__at_key]]
         [__Tree_Node__]
     ]
     [

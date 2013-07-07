@@ -23,8 +23,6 @@
 <div class="titlepage"><div><div><h4 class="title">
 <a name="tree_node.reference.depth_first_iterator.synopsis"></a><a class="link" href="depth_first_iterator.html#tree_node.reference.depth_first_iterator.synopsis" title="Synopsis">Synopsis</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">tree_node</span> <span class="special">{</span>
 
     <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Node</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">IsReverse</span> <span class="special">=</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span><span class="special">&gt;</span>
@@ -42,7 +40,7 @@
     <span class="special">{</span>
 
      <span class="keyword">public</span><span class="special">:</span>
-        <span class="keyword">explicit</span> <span class="identifier">depth_first_iterator</span><span class="special">(</span><span class="identifier">Node</span><span class="special">*</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">node_ptr</span> <span class="special">=</span> <span class="identifier">nullptr</span><span class="special">);</span>
+        <span class="keyword">explicit</span> <span class="identifier">depth_first_iterator</span><span class="special">(</span><span class="identifier">Node</span><span class="special">*</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">node_ptr</span> <span class="special">=</span> <span class="keyword">nullptr</span><span class="special">);</span>
 
         <span class="keyword">explicit</span> <span class="identifier">depth_first_iterator</span><span class="special">(</span><span class="identifier">Node</span><span class="special">&amp;</span> <span class="identifier">node</span><span class="special">);</span>
 
@@ -64,8 +62,6 @@
     <span class="special">};</span>
 <span class="special">}}</span>  <span class="comment">// namespace boost::tree_node</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -76,8 +72,6 @@
           its descendants--in depth-first fashion, e.g. given the following tree
           representation:
         </p>
-<p>
-</p>
 <pre class="programlisting">      <span class="identifier">A</span>
       <span class="special">|</span>
   <span class="identifier">C</span><span class="special">---+---</span><span class="identifier">B</span>
@@ -87,13 +81,9 @@
 <span class="identifier">D</span>   <span class="identifier">E</span>   <span class="identifier">F</span>   <span class="identifier">G</span>
 </pre>
 <p>
-        </p>
-<p>
           By default, this iterator will traverse the tree nodes in the following
           order:
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="identifier">A</span>  <span class="identifier">pre_order_traversal</span>
 <span class="identifier">C</span>  <span class="identifier">pre_order_traversal</span>
 <span class="identifier">D</span>  <span class="identifier">pre_order_traversal</span>
@@ -110,16 +100,12 @@
 <span class="identifier">A</span>  <span class="identifier">post_order_traversal</span>
 </pre>
 <p>
-        </p>
-<p>
           The traversal state conversion operator of this iterator will yield each
           value in the column on the right at the appropriate iteration.
         </p>
 <p>
           This iterator can also be used to traverse the tree nodes in reverse:
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="identifier">A</span>  <span class="identifier">post_order_traversal</span>
 <span class="identifier">B</span>  <span class="identifier">post_order_traversal</span>
 <span class="identifier">G</span>  <span class="identifier">post_order_traversal</span>
@@ -136,8 +122,6 @@
 <span class="identifier">A</span>  <span class="identifier">pre_order_traversal</span>
 </pre>
 <p>
-        </p>
-<p>
           This iterator is ideal for algorithms that need to perform both preprocessing
           and postprocessing of a tree node.
         </p>
@@ -147,21 +131,13 @@
 <a name="tree_node.reference.depth_first_iterator.definition"></a><a class="link" href="depth_first_iterator.html#tree_node.reference.depth_first_iterator.definition" title="Where defined">Where
         defined</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/tree_node/iterator/depth_first.hpp" target="_top">boost/tree_node/iterator/depth_first.hpp</a><span class="special">&gt;</span>
 </pre>
 <p>
-        </p>
-<p>
           To register under <a href="http://www.boost.org/doc/html/typeof.html" target="_top"><span class="bold"><strong>Boost.Typeof</strong></span></a>:
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/typeof/boost/tree_node/iterator/depth_first.hpp" target="_top">boost/typeof/boost/tree_node/iterator/depth_first.hpp</a><span class="special">&gt;</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -251,12 +227,24 @@
 <a name="tree_node.reference.depth_first_iterator.model_of"></a><a class="link" href="depth_first_iterator.html#tree_node.reference.depth_first_iterator.model_of" title="Model of">Model
         of</a>
 </h4></div></div></div>
-<pre class="programlisting"><span class="special">*</span> <a class="link" href="../concepts/full_tree_node_iterator.html" title="Full Tree Node Iterator"><span class="bold"><strong>Full Tree Node Iterator</strong></span></a>
-<span class="special">*</span> <a href="http://www.sgi.com/tech/stl/BidirectionalIterator.html" target="_top"><span class="bold"><strong>Bidirectional Iterator</strong></span></a>
-<span class="special">*</span> <a href="http://www.sgi.com/tech/stl/DefaultConstructible.html" target="_top"><span class="bold"><strong>Default Constructible</strong></span></a>
-<span class="special">*</span> <a href="http://www.boost.org/libs/utility/CopyConstructible.html" target="_top"><span class="bold"><strong>Copy Constructible</strong></span></a>
-<span class="special">*</span> <a href="http://www.boost.org/libs/utility/Assignable.html" target="_top"><span class="bold"><strong>Assignable</strong></span></a>
-</pre>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem"><p>
+              <a class="link" href="../concepts/full_tree_node_iterator.html" title="Full Tree Node Iterator"><span class="bold"><strong>Full Tree Node Iterator</strong></span></a>
+            </p></li>
+<li class="listitem"><p>
+              <a href="http://www.sgi.com/tech/stl/BidirectionalIterator.html" target="_top"><span class="bold"><strong>Bidirectional Iterator</strong></span></a>
+            </p></li>
+<li class="listitem"><p>
+              <a href="http://www.sgi.com/tech/stl/DefaultConstructible.html" target="_top"><span class="bold"><strong>Default Constructible</strong></span></a>
+            </p></li>
+<li class="listitem"><p>
+              <a href="http://www.boost.org/libs/utility/CopyConstructible.html" target="_top"><span class="bold"><strong>Copy
+              Constructible</strong></span></a>
+            </p></li>
+<li class="listitem"><p>
+              <a href="http://www.boost.org/libs/utility/Assignable.html" target="_top"><span class="bold"><strong>Assignable</strong></span></a>
+            </p></li>
+</ul></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -299,12 +287,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="special">...</span> <span class="identifier">value_type</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -321,12 +305,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="special">...</span> <span class="identifier">reference</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -343,12 +323,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="special">...</span> <span class="identifier">pointer</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -365,12 +341,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="special">...</span> <span class="identifier">difference_type</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -387,12 +359,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="special">...</span> <span class="identifier">iterator_category</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -409,12 +377,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">depth_first_iterator</span><span class="special">();</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -431,12 +395,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">depth_first_iterator</span><span class="special">(</span><span class="identifier">Node</span><span class="special">&amp;);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -453,13 +413,9 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">N</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">I</span><span class="special">&gt;</span>
 <span class="identifier">depth_first_iterator</span><span class="special">(</span><span class="identifier">depth_first_iterator</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">,</span><span class="identifier">I</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -482,12 +438,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">depth_first_iterator</span><span class="special">(</span><span class="identifier">depth_first_iterator</span> <span class="keyword">const</span><span class="special">&amp;);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -504,12 +456,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">depth_first_iterator</span><span class="special">&amp;</span> <span class="keyword">operator</span><span class="special">=(</span><span class="identifier">depth_first_iterator</span> <span class="keyword">const</span><span class="special">&amp;);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -526,12 +474,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">reference</span> <span class="keyword">operator</span><span class="special">*()</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -547,12 +491,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">pointer</span> <span class="keyword">operator</span><span class="special">-&gt;()</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -569,12 +509,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">depth_first_iterator</span><span class="special">&amp;</span> <span class="keyword">operator</span><span class="special">++();</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -597,12 +533,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">depth_first_iterator</span> <span class="keyword">operator</span><span class="special">++(</span><span class="keyword">int</span><span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -626,12 +558,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">depth_first_iterator</span><span class="special">&amp;</span> <span class="keyword">operator</span><span class="special">--();</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -654,12 +582,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">depth_first_iterator</span> <span class="keyword">operator</span><span class="special">--(</span><span class="keyword">int</span><span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -683,12 +607,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">operator</span> <a class="link" href="traversal_state.html" title="traversal_state">tree_node::traversal_state</a><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -736,16 +656,12 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">tree_node</span> <span class="special">{</span>
 
     <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Node</span><span class="special">&gt;</span>
     <span class="identifier">depth_first_iterator</span><span class="special">&lt;</span><span class="identifier">Node</span><span class="special">&gt;</span> <span class="identifier">make_depth_first_iterator</span><span class="special">(</span><span class="identifier">Node</span><span class="special">&amp;</span> <span class="identifier">node</span><span class="special">);</span>
 <span class="special">}}</span>  <span class="comment">// namespace boost::tree_node</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -761,8 +677,6 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">tree_node</span> <span class="special">{</span>
 
     <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Node</span><span class="special">&gt;</span>
@@ -770,8 +684,6 @@
         <span class="identifier">make_depth_first_reverse_iterator</span><span class="special">(</span><span class="identifier">Node</span><span class="special">&amp;</span> <span class="identifier">node</span><span class="special">);</span>
 <span class="special">}}</span>  <span class="comment">// namespace boost::tree_node</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>

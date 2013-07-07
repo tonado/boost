@@ -64,13 +64,13 @@ To register under __Boost_Typeof__:
 [endsect]
 
 [section:model_of Model of]
-
-  * __Binary_Tree_Node__
-  * __Default_Constructible__ if `T` is __Default_Constructible__
-  * __Copyable_Tree_Node__ if `T` is __Copy_Constructible__
-  * __Assignable__ if `T` is __Copy_Constructible__ and __Movable__
-  * __Movable_Tree_Node__ if `T` is __Movable__
-
+[itemized_list
+    [__Binary_Tree_Node__]
+    [__Default_Constructible__ if `T` is __Default_Constructible__]
+    [__Copyable_Tree_Node__ if `T` is __Copy_Constructible__]
+    [__Assignable__ if `T` is __Copy_Constructible__ and __Movable__]
+    [__Movable_Tree_Node__ if `T` is __Movable__]
+]
 [endsect]
 
 [section:public_bases Public Base Classes]

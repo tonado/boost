@@ -59,15 +59,16 @@ necessary functionality.
 [endsect]
 
 [section Models]
-
-  * __binary_node_base_gen__
-  * __nary_node_base_gen__
-  * __associative_node_base_gen__
-  * __tree_node_with_count_base_gen__
-  * __tree_node_with_height_base_gen__
-  * __tree_node_with_position_base_gen__
-  * __tree_node_with_red_black_flag_base_gen__
-
+[itemized_list
+    [__binary_node_base_gen__]
+    [__nary_node_base_gen__]
+    [__associative_node_base_gen__]
+    [__tree_node_with_accumulation_base_gen__]
+    [__tree_node_with_count_base_gen__]
+    [__tree_node_with_height_base_gen__]
+    [__tree_node_with_position_base_gen__]
+    [__tree_node_with_red_black_flag_base_gen__]
+]
 [endsect]
 
 [endsect] [/ Base Type Generator]

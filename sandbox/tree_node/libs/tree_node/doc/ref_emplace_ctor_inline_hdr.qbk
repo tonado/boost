@@ -57,11 +57,18 @@ class Derived : public Base
 [endsect]
 
 [section Arguments]
-  * /z/ -- The next available __PP_REPEAT__ dimension.
-  * /n/ -- The number of arguments that the current iteration's constructor
-    will accept.
-  * /Derived/ -- The name of the enclosing type.
-  * /Base/ -- The name of the type from which `Derived` inherits.
+[variablelist Notation
+    [[`z`][The next available __PP_REPEAT__ dimension.]]
+    [
+        [`n`]
+        [
+            The number of arguments that the current iteration's constructor
+            will accept.
+        ]
+    ]
+    [[`Derived`][The name of the enclosing type.]]
+    [[`Base`][The name of the type from which `Derived` inherits.]]
+]
 [endsect]
 
 [section:definition Where defined]

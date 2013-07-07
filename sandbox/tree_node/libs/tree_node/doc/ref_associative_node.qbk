@@ -62,26 +62,34 @@ To register under __Boost_Typeof__:
     [
         [`Selector`]
         [The type that determines the child container type.]
-        [
-            [^_is_recursive_selector_<Selector>] must return __mpl_true__, and
-            [^_is_associative_selector_<Selector>] must return __mpl_true__.
-        ]
+        [[itemized_list
+            [
+                [^_is_recursive_selector_<Selector>] must evaluate to
+                __mpl_true__.
+            ]
+            [
+                [^_is_associative_selector_<Selector>] must evaluate to
+                __mpl_true__.
+            ]
+        ]]
         [__ptr_mapS__]
     ]
 ]
 [endsect]
 
 [section:model_of Model of]
-
-  * __Associative_Tree_Node__
-  * __Reversible_Tree_Node__ if
-    [^_container_gen_<Selector,Key,associative_node>::type]
-    returns a __Reversible_Container__ model
-  * __Default_Constructible__ if `Data` is __Default_Constructible__
-  * __Copyable_Tree_Node__ if `Data` is __Copy_Constructible__
-  * __Assignable__ if `Data` is __Copy_Constructible__ and __Movable__
-  * __Movable_Tree_Node__ if `Data` is __Movable__
-
+[itemized_list
+    [__Associative_Tree_Node__]
+    [
+        __Reversible_Tree_Node__ if
+        [^_container_gen_<Selector,Key,associative_node>::type]
+        returns a __Reversible_Container__ model
+    ]
+    [__Default_Constructible__ if `Data` is __Default_Constructible__]
+    [__Copyable_Tree_Node__ if `Data` is __Copy_Constructible__]
+    [__Assignable__ if `Data` is __Copy_Constructible__ and __Movable__]
+    [__Movable_Tree_Node__ if `Data` is __Movable__]
+]
 [endsect]
 
 [section:public_bases Public Base Classes]

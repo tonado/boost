@@ -48,30 +48,18 @@
 <a name="tree_node.reference.associative_node_base.definition"></a><a class="link" href="associative_node_base.html#tree_node.reference.associative_node_base.definition" title="Where defined">Where
         defined</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/tree_node/associative_node.hpp" target="_top">boost/tree_node/associative_node.hpp</a><span class="special">&gt;</span>
 </pre>
 <p>
-        </p>
-<p>
           Forward-declared:
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/tree_node/associative_node_fwd.hpp" target="_top">boost/tree_node/associative_node_fwd.hpp</a><span class="special">&gt;</span>
 </pre>
 <p>
-        </p>
-<p>
           To register under <a href="http://www.boost.org/doc/html/typeof.html" target="_top"><span class="bold"><strong>Boost.Typeof</strong></span></a>:
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/typeof/boost/tree_node/associative_node.hpp" target="_top">boost/typeof/boost/tree_node/associative_node.hpp</a><span class="special">&gt;</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -156,11 +144,16 @@
                   </p>
                 </td>
 <td>
-                  <p>
-                    <code class="literal"><a href="http://svn.boost.org/svn/boost/sandbox/container_gen/libs/container_gen/doc/html/container_gen/reference/is_recursive_selector.html" target="_top">boost::is_recursive_selector</a>&lt;Selector&gt;</code>
-                    must return <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a>, and <code class="literal"><a href="http://svn.boost.org/svn/boost/sandbox/container_gen/libs/container_gen/doc/html/container_gen/reference/is_associative_selector.html" target="_top">boost::is_associative_selector</a>&lt;Selector&gt;</code>
-                    must return <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a>.
-                  </p>
+                  <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem"><p>
+                        <code class="literal"><a href="http://svn.boost.org/svn/boost/sandbox/container_gen/libs/container_gen/doc/html/container_gen/reference/is_recursive_selector.html" target="_top">boost::is_recursive_selector</a>&lt;Selector&gt;</code>
+                        must evaluate to <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a>.
+                      </p></li>
+<li class="listitem"><p>
+                        <code class="literal"><a href="http://svn.boost.org/svn/boost/sandbox/container_gen/libs/container_gen/doc/html/container_gen/reference/is_associative_selector.html" target="_top">boost::is_associative_selector</a>&lt;Selector&gt;</code>
+                        must evaluate to <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a>.
+                      </p></li>
+</ul></div>
                 </td>
 </tr>
 </tbody>
@@ -171,24 +164,31 @@
 <a name="tree_node.reference.associative_node_base.model_of"></a><a class="link" href="associative_node_base.html#tree_node.reference.associative_node_base.model_of" title="Model of">Model
         of</a>
 </h4></div></div></div>
-<pre class="programlisting"><span class="special">*</span> <a class="link" href="../concepts/associative_tree_node.html" title="Associative Tree Node"><span class="bold"><strong>Associative Tree Node</strong></span></a>
-<span class="special">*</span> <a class="link" href="../concepts/reversible_tree_node.html" title="Reversible Tree Node"><span class="bold"><strong>Reversible Tree Node</strong></span></a> <span class="keyword">if</span> <span class="special">[^</span><a href="http://svn.boost.org/svn/boost/sandbox/container_gen/libs/container_gen/doc/html/container_gen/reference/container_gen.html" target="_top">boost::container_gen</a><span class="special">&lt;</span><span class="identifier">Selector</span><span class="special">,</span><span class="identifier">Key</span><span class="special">,</span><span class="identifier">Derived</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">]</span>
-  <span class="identifier">returns</span> <span class="identifier">a</span> <a href="http://www.sgi.com/tech/stl/ReversibleContainer.html" target="_top"><span class="bold"><strong>Reversible Container</strong></span></a> <span class="identifier">model</span>
-<span class="special">*</span> <a class="link" href="../concepts/base_tree_node.html" title="Base Tree Node"><span class="bold"><strong>Base Tree Node</strong></span></a>
-<span class="special">*</span> <a href="http://www.sgi.com/tech/stl/DefaultConstructible.html" target="_top"><span class="bold"><strong>Default Constructible</strong></span></a> <span class="keyword">if</span> <span class="error">`</span><span class="identifier">Data</span><span class="error">`</span> <span class="identifier">is</span> <a href="http://www.sgi.com/tech/stl/DefaultConstructible.html" target="_top"><span class="bold"><strong>Default Constructible</strong></span></a>
-</pre>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem"><p>
+              <a class="link" href="../concepts/associative_tree_node.html" title="Associative Tree Node"><span class="bold"><strong>Associative Tree Node</strong></span></a>
+            </p></li>
+<li class="listitem"><p>
+              <a class="link" href="../concepts/reversible_tree_node.html" title="Reversible Tree Node"><span class="bold"><strong>Reversible
+              Tree Node</strong></span></a> if <code class="literal"><a href="http://svn.boost.org/svn/boost/sandbox/container_gen/libs/container_gen/doc/html/container_gen/reference/container_gen.html" target="_top">boost::container_gen</a>&lt;Selector,Key,Derived&gt;::type</code>
+              returns a <a href="http://www.sgi.com/tech/stl/ReversibleContainer.html" target="_top"><span class="bold"><strong>Reversible Container</strong></span></a> model
+            </p></li>
+<li class="listitem"><p>
+              <a class="link" href="../concepts/base_tree_node.html" title="Base Tree Node"><span class="bold"><strong>Base
+              Tree Node</strong></span></a>
+            </p></li>
+<li class="listitem"><p>
+              <a href="http://www.sgi.com/tech/stl/DefaultConstructible.html" target="_top"><span class="bold"><strong>Default Constructible</strong></span></a> if <code class="computeroutput"><span class="identifier">Data</span></code> is <a href="http://www.sgi.com/tech/stl/DefaultConstructible.html" target="_top"><span class="bold"><strong>Default Constructible</strong></span></a>
+            </p></li>
+</ul></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="tree_node.reference.associative_node_base.public_bases"></a><a class="link" href="associative_node_base.html#tree_node.reference.associative_node_base.public_bases" title="Public Base Classes">Public
         Base Classes</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="identifier">tree_node_base</span><span class="special">&lt;</span><span class="identifier">Derived</span><span class="special">&gt;</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -197,13 +197,9 @@
 <p>
           Given:
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">container_gen</span><span class="special">&lt;</span><span class="identifier">Selector</span><span class="special">,</span><span class="identifier">Key</span><span class="special">,</span><span class="identifier">Derived</span><span class="special">&gt;::</span><span class="identifier">type</span>
         <span class="identifier">children</span><span class="special">;</span>
 </pre>
-<p>
-        </p>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -241,12 +237,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="identifier">tree_node_base</span><span class="special">&lt;</span><span class="identifier">Derived</span><span class="special">&gt;</span> <span class="identifier">super_t</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -268,8 +260,6 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">struct</span> <span class="identifier">traits</span>
 <span class="special">{</span>
     <span class="keyword">typedef</span> <span class="identifier">Key</span>
@@ -294,8 +284,6 @@
             <span class="identifier">allocator_reference</span><span class="special">;</span>
 <span class="special">};</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -315,12 +303,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">super_t</span><span class="special">::</span><span class="identifier">pointer</span> <span class="identifier">pointer</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -341,12 +325,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">super_t</span><span class="special">::</span><span class="identifier">const_pointer</span> <span class="identifier">const_pointer</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -367,12 +347,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">children</span><span class="special">::</span><span class="identifier">iterator</span> <span class="identifier">iterator</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -392,12 +368,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">children</span><span class="special">::</span><span class="identifier">const_iterator</span> <span class="identifier">const_iterator</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -417,12 +389,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">children</span><span class="special">::</span><span class="identifier">reverse_iterator</span> <span class="identifier">reverse_iterator</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -442,13 +410,9 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">children</span><span class="special">::</span><span class="identifier">const_reverse_iterator</span>
         <span class="identifier">const_reverse_iterator</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -468,13 +432,9 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="special">...</span><span class="identifier">Args</span><span class="special">&gt;</span>
 <span class="keyword">explicit</span> <span class="identifier">associative_node_base</span><span class="special">(</span><span class="identifier">Args</span><span class="special">&amp;&amp;</span> <span class="special">...</span><span class="identifier">args</span><span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -495,8 +455,6 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="special">...</span><span class="identifier">Args</span><span class="special">&gt;</span>
 <span class="keyword">explicit</span> <span class="identifier">associative_node_base</span><span class="special">(</span>
     <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">container</span><span class="special">::</span><span class="identifier">allocator_arg_t</span>
@@ -504,8 +462,6 @@
   <span class="special">,</span> <span class="identifier">Args</span><span class="special">&amp;&amp;</span> <span class="special">...</span><span class="identifier">args</span>
 <span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -526,12 +482,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">associative_node_base</span><span class="special">(</span><span class="identifier">Derived</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">copy</span><span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -552,15 +504,11 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">associative_node_base</span><span class="special">(</span>
     <span class="identifier">Derived</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">copy</span>
   <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">allocator_reference</span> <span class="identifier">allocator</span>
 <span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -581,12 +529,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">associative_node_base</span><span class="special">(</span><span class="identifier">Derived</span><span class="special">&amp;&amp;</span> <span class="identifier">source</span><span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -607,15 +551,11 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">associative_node_base</span><span class="special">(</span>
     <span class="identifier">Derived</span><span class="special">&amp;&amp;</span> <span class="identifier">source</span>
   <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">allocator_reference</span> <span class="identifier">allocator</span>
 <span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -636,12 +576,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">void</span> <span class="identifier">clone_descendants</span><span class="special">(</span><span class="identifier">Derived</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">copy</span><span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -662,12 +598,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">void</span> <span class="identifier">move_descendants</span><span class="special">(</span><span class="identifier">Derived</span><span class="special">&amp;&amp;</span> <span class="identifier">source</span><span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -688,12 +620,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">void</span> <span class="identifier">copy_assign</span><span class="special">(</span><span class="identifier">Derived</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">copy</span><span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -714,12 +642,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">Derived</span><span class="special">&amp;</span> <span class="keyword">operator</span><span class="special">=(</span><span class="identifier">Derived</span><span class="special">&amp;&amp;);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -740,8 +664,6 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">FusionKey</span><span class="special">&gt;</span>
 <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lazy_enable_if</span><span class="special">&lt;</span>
     <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">if_</span><span class="special">&lt;</span>
@@ -760,8 +682,6 @@
 <span class="special">&gt;::</span><span class="identifier">type</span>
     <span class="keyword">operator</span><span class="special">[](</span><span class="identifier">FusionKey</span> <span class="keyword">const</span><span class="special">&amp;)</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -781,8 +701,6 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">FusionKey</span><span class="special">&gt;</span>
 <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lazy_enable_if</span><span class="special">&lt;</span>
     <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">if_</span><span class="special">&lt;</span>
@@ -801,8 +719,6 @@
 <span class="special">&gt;::</span><span class="identifier">type</span>
     <span class="keyword">operator</span><span class="special">[](</span><span class="identifier">FusionKey</span> <span class="keyword">const</span><span class="special">&amp;);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -822,12 +738,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">const_pointer</span> <span class="identifier">get_parent_ptr</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -848,12 +760,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">pointer</span> <span class="identifier">get_parent_ptr</span><span class="special">();</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -874,13 +782,9 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="special">...</span><span class="identifier">Args</span><span class="special">&gt;</span>
 <span class="identifier">iterator</span> <span class="identifier">emplace</span><span class="special">(</span><span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">key_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">key</span><span class="special">,</span> <span class="identifier">Args</span><span class="special">&amp;&amp;</span> <span class="special">...</span><span class="identifier">args</span><span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -900,16 +804,12 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">iterator</span>
     <span class="identifier">insert</span><span class="special">(</span>
         <span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">key_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">key</span>
       <span class="special">,</span> <span class="identifier">Derived</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">child</span>
     <span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -929,13 +829,9 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">iterator</span>
     <span class="identifier">insert</span><span class="special">(</span><span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">key_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">key</span><span class="special">,</span> <span class="identifier">Derived</span><span class="special">&amp;&amp;</span> <span class="identifier">child</span><span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -955,13 +851,9 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">const_iterator</span> <span class="identifier">cbegin</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="identifier">const_iterator</span> <span class="identifier">begin</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -982,12 +874,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">iterator</span> <span class="identifier">begin</span><span class="special">();</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1008,13 +896,9 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">const_iterator</span> <span class="identifier">cend</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="identifier">const_iterator</span> <span class="identifier">end</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1035,12 +919,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">iterator</span> <span class="identifier">end</span><span class="special">();</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1061,13 +941,9 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">const_reverse_iterator</span> <span class="identifier">crbegin</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="identifier">const_reverse_iterator</span> <span class="identifier">rbegin</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1087,12 +963,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">reverse_iterator</span> <span class="identifier">rbegin</span><span class="special">();</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1112,13 +984,9 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">const_reverse_iterator</span> <span class="identifier">crend</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="identifier">const_reverse_iterator</span> <span class="identifier">rend</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1138,12 +1006,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">reverse_iterator</span> <span class="identifier">rend</span><span class="special">();</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1163,12 +1027,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">size_type</span> <span class="identifier">size</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1189,12 +1049,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">const_iterator</span> <span class="identifier">find</span><span class="special">(</span><span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">key_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">key</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1214,12 +1070,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">iterator</span> <span class="identifier">find</span><span class="special">(</span><span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">key_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">key</span><span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1239,12 +1091,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">const_iterator</span> <span class="identifier">lower_bound</span><span class="special">(</span><span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">key_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">key</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1264,12 +1112,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">iterator</span> <span class="identifier">lower_bound</span><span class="special">(</span><span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">key_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">key</span><span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1289,12 +1133,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">const_iterator</span> <span class="identifier">upper_bound</span><span class="special">(</span><span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">key_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">key</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1314,12 +1154,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">iterator</span> <span class="identifier">upper_bound</span><span class="special">(</span><span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">key_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">key</span><span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1339,13 +1175,9 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">const_iterator_range</span>
     <span class="identifier">equal_range</span><span class="special">(</span><span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">key_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">key</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1365,13 +1197,9 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">iterator_range</span>
     <span class="identifier">equal_range</span><span class="special">(</span><span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">key_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">key</span><span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1391,12 +1219,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">size_type</span> <span class="identifier">erase</span><span class="special">(</span><span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">key_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">key</span><span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1416,12 +1240,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">bool</span> <span class="identifier">empty</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1442,12 +1262,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">void</span> <span class="identifier">clear</span><span class="special">();</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1468,12 +1284,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">const_pointer</span> <span class="identifier">get_derived</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1494,12 +1306,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">pointer</span> <span class="identifier">get_derived</span><span class="special">();</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1551,8 +1359,6 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">tree_node</span> <span class="special">{</span>
 
     <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Derived</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Key</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Data</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Selector</span><span class="special">&gt;</span>
@@ -1586,8 +1392,6 @@
         <span class="identifier">get</span><span class="special">(</span><span class="identifier">associative_node_base</span><span class="special">&lt;</span><span class="identifier">Derived</span><span class="special">,</span><span class="identifier">Key</span><span class="special">,</span><span class="identifier">Data</span><span class="special">,</span><span class="identifier">Selector</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">node</span><span class="special">);</span>
 <span class="special">}}</span>  <span class="comment">// namespace boost::tree_node</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1603,8 +1407,6 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">tree_node</span> <span class="special">{</span>
 
     <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Derived</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Key</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Data</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Selector</span><span class="special">&gt;</span>
@@ -1638,8 +1440,6 @@
         <span class="identifier">get</span><span class="special">(</span><span class="identifier">associative_node_base</span><span class="special">&lt;</span><span class="identifier">Derived</span><span class="special">,</span><span class="identifier">Key</span><span class="special">,</span><span class="identifier">Data</span><span class="special">,</span><span class="identifier">Selector</span><span class="special">&gt;&amp;</span> <span class="identifier">node</span><span class="special">);</span>
 <span class="special">}}</span>  <span class="comment">// namespace boost::tree_node</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1655,8 +1455,6 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">tree_node</span> <span class="special">{</span>
 
     <span class="keyword">template</span> <span class="special">&lt;</span>
@@ -1674,8 +1472,6 @@
         <span class="special">);</span>
 <span class="special">}}</span>  <span class="comment">// namespace boost::tree_node</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1691,28 +1487,60 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
-<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">FusionKey</span><span class="special">&gt;</span>
-<span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lazy_enable_if</span><span class="special">&lt;</span>
-    <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">if_</span><span class="special">&lt;</span>
-        <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">eval_if</span><span class="special">&lt;</span>
-            <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">fusion</span><span class="special">::</span><span class="identifier">traits</span><span class="special">::</span><span class="identifier">is_sequence</span><span class="special">&lt;</span><span class="identifier">Data</span><span class="special">&gt;::</span><span class="identifier">type</span>
-          <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">fusion</span><span class="special">::</span><span class="identifier">traits</span><span class="special">::</span><span class="identifier">is_associative</span><span class="special">&lt;</span><span class="identifier">Data</span><span class="special">&gt;</span>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">tree_node</span> <span class="special">{</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span>
+        <span class="keyword">typename</span> <span class="identifier">Derived</span>
+      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Key</span>
+      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Data</span>
+      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Selector</span>
+      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">FusionKey</span>
+    <span class="special">&gt;</span>
+    <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lazy_enable_if</span><span class="special">&lt;</span>
+        <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">if_</span><span class="special">&lt;</span>
+            <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">eval_if</span><span class="special">&lt;</span>
+                <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">fusion</span><span class="special">::</span><span class="identifier">traits</span><span class="special">::</span><span class="identifier">is_sequence</span><span class="special">&lt;</span><span class="identifier">Data</span><span class="special">&gt;::</span><span class="identifier">type</span>
+              <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">fusion</span><span class="special">::</span><span class="identifier">traits</span><span class="special">::</span><span class="identifier">is_associative</span><span class="special">&lt;</span><span class="identifier">Data</span><span class="special">&gt;</span>
+              <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span>
+            <span class="special">&gt;::</span><span class="identifier">type</span>
+          <span class="special">,</span> <span class="identifier">result_of</span><span class="special">::</span><span class="identifier">has_key</span><span class="special">&lt;</span>
+                <span class="identifier">associative_node_base</span><span class="special">&lt;</span><span class="identifier">Derived</span><span class="special">,</span><span class="identifier">Key</span><span class="special">,</span><span class="identifier">Data</span><span class="special">,</span><span class="identifier">Selector</span><span class="special">&gt;</span>
+              <span class="special">,</span> <span class="identifier">FusionKey</span>
+            <span class="special">&gt;</span>
           <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span>
         <span class="special">&gt;::</span><span class="identifier">type</span>
-      <span class="special">,</span> <span class="identifier">result_of</span><span class="special">::</span><span class="identifier">has_key</span><span class="special">&lt;</span>
-            <span class="identifier">associative_node_base</span><span class="special">&lt;</span><span class="identifier">Derived</span><span class="special">,</span><span class="identifier">Key</span><span class="special">,</span><span class="identifier">Data</span><span class="special">,</span><span class="identifier">Selector</span><span class="special">&gt;</span>
-          <span class="special">,</span> <span class="identifier">FusionKey</span>
-        <span class="special">&gt;</span>
-      <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span>
+      <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">fusion</span><span class="special">::</span><span class="identifier">result_of</span><span class="special">::</span><span class="identifier">at_key</span><span class="special">&lt;</span><span class="identifier">Data</span> <span class="keyword">const</span><span class="special">,</span><span class="identifier">FusionKey</span><span class="special">&gt;</span>
     <span class="special">&gt;::</span><span class="identifier">type</span>
-  <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">fusion</span><span class="special">::</span><span class="identifier">result_of</span><span class="special">::</span><span class="identifier">at_key</span><span class="special">&lt;</span><span class="identifier">Data</span> <span class="keyword">const</span><span class="special">,</span><span class="identifier">FusionKey</span><span class="special">&gt;</span>
-<span class="special">&gt;::</span><span class="identifier">type</span>
-    <span class="keyword">operator</span><span class="special">[](</span><span class="identifier">FusionKey</span> <span class="keyword">const</span><span class="special">&amp;)</span> <span class="keyword">const</span><span class="special">;</span>
+        <span class="identifier">get</span><span class="special">(</span>
+            <span class="identifier">associative_node_base</span><span class="special">&lt;</span><span class="identifier">Derived</span><span class="special">,</span><span class="identifier">Key</span><span class="special">,</span><span class="identifier">Data</span><span class="special">,</span><span class="identifier">Selector</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">node</span>
+          <span class="special">,</span> <span class="identifier">FusionKey</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">key</span>
+        <span class="special">);</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span>
+        <span class="keyword">typename</span> <span class="identifier">FusionKey</span>
+      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Derived</span>
+      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Key</span>
+      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Data</span>
+      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Selector</span>
+    <span class="special">&gt;</span>
+    <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lazy_enable_if</span><span class="special">&lt;</span>
+        <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">if_</span><span class="special">&lt;</span>
+            <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">eval_if</span><span class="special">&lt;</span>
+                <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">fusion</span><span class="special">::</span><span class="identifier">traits</span><span class="special">::</span><span class="identifier">is_sequence</span><span class="special">&lt;</span><span class="identifier">Data</span><span class="special">&gt;::</span><span class="identifier">type</span>
+              <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">fusion</span><span class="special">::</span><span class="identifier">traits</span><span class="special">::</span><span class="identifier">is_associative</span><span class="special">&lt;</span><span class="identifier">Data</span><span class="special">&gt;</span>
+              <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span>
+            <span class="special">&gt;::</span><span class="identifier">type</span>
+          <span class="special">,</span> <span class="identifier">result_of</span><span class="special">::</span><span class="identifier">has_key</span><span class="special">&lt;</span>
+                <span class="identifier">associative_node_base</span><span class="special">&lt;</span><span class="identifier">Derived</span><span class="special">,</span><span class="identifier">Key</span><span class="special">,</span><span class="identifier">Data</span><span class="special">,</span><span class="identifier">Selector</span><span class="special">&gt;</span>
+              <span class="special">,</span> <span class="identifier">FusionKey</span>
+            <span class="special">&gt;</span>
+          <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span>
+        <span class="special">&gt;::</span><span class="identifier">type</span>
+      <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">fusion</span><span class="special">::</span><span class="identifier">result_of</span><span class="special">::</span><span class="identifier">at_key</span><span class="special">&lt;</span><span class="identifier">Data</span> <span class="keyword">const</span><span class="special">,</span><span class="identifier">FusionKey</span><span class="special">&gt;</span>
+    <span class="special">&gt;::</span><span class="identifier">type</span>
+        <span class="identifier">get</span><span class="special">(</span><span class="identifier">associative_node_base</span><span class="special">&lt;</span><span class="identifier">Derived</span><span class="special">,</span><span class="identifier">Key</span><span class="special">,</span><span class="identifier">Data</span><span class="special">,</span><span class="identifier">Selector</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">node</span><span class="special">);</span>
+<span class="special">}}</span>  <span class="comment">// namespace boost::tree_node</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1728,28 +1556,60 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
-<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">FusionKey</span><span class="special">&gt;</span>
-<span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lazy_enable_if</span><span class="special">&lt;</span>
-    <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">if_</span><span class="special">&lt;</span>
-        <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">eval_if</span><span class="special">&lt;</span>
-            <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">fusion</span><span class="special">::</span><span class="identifier">traits</span><span class="special">::</span><span class="identifier">is_sequence</span><span class="special">&lt;</span><span class="identifier">Data</span><span class="special">&gt;::</span><span class="identifier">type</span>
-          <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">fusion</span><span class="special">::</span><span class="identifier">traits</span><span class="special">::</span><span class="identifier">is_associative</span><span class="special">&lt;</span><span class="identifier">Data</span><span class="special">&gt;</span>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">tree_node</span> <span class="special">{</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span>
+        <span class="keyword">typename</span> <span class="identifier">Derived</span>
+      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Key</span>
+      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Data</span>
+      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Selector</span>
+      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">FusionKey</span>
+    <span class="special">&gt;</span>
+    <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lazy_enable_if</span><span class="special">&lt;</span>
+        <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">if_</span><span class="special">&lt;</span>
+            <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">eval_if</span><span class="special">&lt;</span>
+                <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">fusion</span><span class="special">::</span><span class="identifier">traits</span><span class="special">::</span><span class="identifier">is_sequence</span><span class="special">&lt;</span><span class="identifier">Data</span><span class="special">&gt;::</span><span class="identifier">type</span>
+              <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">fusion</span><span class="special">::</span><span class="identifier">traits</span><span class="special">::</span><span class="identifier">is_associative</span><span class="special">&lt;</span><span class="identifier">Data</span><span class="special">&gt;</span>
+              <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span>
+            <span class="special">&gt;::</span><span class="identifier">type</span>
+          <span class="special">,</span> <span class="identifier">result_of</span><span class="special">::</span><span class="identifier">has_key</span><span class="special">&lt;</span>
+                <span class="identifier">associative_node_base</span><span class="special">&lt;</span><span class="identifier">Derived</span><span class="special">,</span><span class="identifier">Key</span><span class="special">,</span><span class="identifier">Data</span><span class="special">,</span><span class="identifier">Selector</span><span class="special">&gt;</span>
+              <span class="special">,</span> <span class="identifier">FusionKey</span>
+            <span class="special">&gt;</span>
           <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span>
         <span class="special">&gt;::</span><span class="identifier">type</span>
-      <span class="special">,</span> <span class="identifier">result_of</span><span class="special">::</span><span class="identifier">has_key</span><span class="special">&lt;</span>
-            <span class="identifier">associative_node_base</span><span class="special">&lt;</span><span class="identifier">Derived</span><span class="special">,</span><span class="identifier">Key</span><span class="special">,</span><span class="identifier">Data</span><span class="special">,</span><span class="identifier">Selector</span><span class="special">&gt;</span>
-          <span class="special">,</span> <span class="identifier">FusionKey</span>
-        <span class="special">&gt;</span>
-      <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span>
+      <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">fusion</span><span class="special">::</span><span class="identifier">result_of</span><span class="special">::</span><span class="identifier">at_key</span><span class="special">&lt;</span><span class="identifier">Data</span><span class="special">,</span><span class="identifier">FusionKey</span><span class="special">&gt;</span>
     <span class="special">&gt;::</span><span class="identifier">type</span>
-  <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">fusion</span><span class="special">::</span><span class="identifier">result_of</span><span class="special">::</span><span class="identifier">at_key</span><span class="special">&lt;</span><span class="identifier">Data</span><span class="special">,</span><span class="identifier">FusionKey</span><span class="special">&gt;</span>
-<span class="special">&gt;::</span><span class="identifier">type</span>
-    <span class="keyword">operator</span><span class="special">[](</span><span class="identifier">FusionKey</span> <span class="keyword">const</span><span class="special">&amp;);</span>
+        <span class="identifier">get</span><span class="special">(</span>
+            <span class="identifier">associative_node_base</span><span class="special">&lt;</span><span class="identifier">Derived</span><span class="special">,</span><span class="identifier">Key</span><span class="special">,</span><span class="identifier">Data</span><span class="special">,</span><span class="identifier">Selector</span><span class="special">&gt;&amp;</span> <span class="identifier">node</span>
+          <span class="special">,</span> <span class="identifier">FusionKey</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">key</span>
+        <span class="special">);</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span>
+        <span class="keyword">typename</span> <span class="identifier">FusionKey</span>
+      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Derived</span>
+      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Key</span>
+      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Data</span>
+      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Selector</span>
+    <span class="special">&gt;</span>
+    <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lazy_enable_if</span><span class="special">&lt;</span>
+        <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">if_</span><span class="special">&lt;</span>
+            <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">eval_if</span><span class="special">&lt;</span>
+                <span class="keyword">typename</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">fusion</span><span class="special">::</span><span class="identifier">traits</span><span class="special">::</span><span class="identifier">is_sequence</span><span class="special">&lt;</span><span class="identifier">Data</span><span class="special">&gt;::</span><span class="identifier">type</span>
+              <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">fusion</span><span class="special">::</span><span class="identifier">traits</span><span class="special">::</span><span class="identifier">is_associative</span><span class="special">&lt;</span><span class="identifier">Data</span><span class="special">&gt;</span>
+              <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span>
+            <span class="special">&gt;::</span><span class="identifier">type</span>
+          <span class="special">,</span> <span class="identifier">result_of</span><span class="special">::</span><span class="identifier">has_key</span><span class="special">&lt;</span>
+                <span class="identifier">associative_node_base</span><span class="special">&lt;</span><span class="identifier">Derived</span><span class="special">,</span><span class="identifier">Key</span><span class="special">,</span><span class="identifier">Data</span><span class="special">,</span><span class="identifier">Selector</span><span class="special">&gt;</span>
+              <span class="special">,</span> <span class="identifier">FusionKey</span>
+            <span class="special">&gt;</span>
+          <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span>
+        <span class="special">&gt;::</span><span class="identifier">type</span>
+      <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">fusion</span><span class="special">::</span><span class="identifier">result_of</span><span class="special">::</span><span class="identifier">at_key</span><span class="special">&lt;</span><span class="identifier">Data</span><span class="special">,</span><span class="identifier">FusionKey</span><span class="special">&gt;</span>
+    <span class="special">&gt;::</span><span class="identifier">type</span>
+        <span class="identifier">get</span><span class="special">(</span><span class="identifier">associative_node_base</span><span class="special">&lt;</span><span class="identifier">Derived</span><span class="special">,</span><span class="identifier">Key</span><span class="special">,</span><span class="identifier">Data</span><span class="special">,</span><span class="identifier">Selector</span><span class="special">&gt;&amp;</span> <span class="identifier">node</span><span class="special">);</span>
+<span class="special">}}</span>  <span class="comment">// namespace boost::tree_node</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1765,8 +1625,6 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">tree_node</span> <span class="special">{</span>
 
     <span class="keyword">template</span> <span class="special">&lt;</span>
@@ -1800,8 +1658,6 @@
         <span class="special">);</span>
 <span class="special">}}</span>  <span class="comment">// namespace boost::tree_node</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>

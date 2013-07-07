@@ -55,16 +55,18 @@ To register under __Boost_Typeof__:
 [endsect]
 
 [section:model_of Model of]
-
-  * __Front_Insertion_Sequence__
-  * __Back_Insertion_Sequence__
-  * __Indexable_Container__ if the value associated with __count_key__ exists
-    for the return type of `NodeGenerator`
-  * __Default_Constructible__ if `T` is __Default_Constructible__
-  * __Copy_Constructible__ if `T` is __Copy_Constructible__
-  * __Assignable__ if `T` is __Copy_Constructible__ and __Movable__
-  * __Movable__ if `T` is __Movable__
-
+[itemized_list
+    [__Front_Insertion_Sequence__]
+    [__Back_Insertion_Sequence__]
+    [
+        __Indexable_Container__ if the value associated with __count_key__
+        exists for the return type of `NodeGenerator`
+    ]
+    [__Default_Constructible__ if `T` is __Default_Constructible__]
+    [__Copy_Constructible__ if `T` is __Copy_Constructible__]
+    [__Assignable__ if `T` is __Copy_Constructible__ and __Movable__]
+    [__Movable__ if `T` is __Movable__]
+]
 [endsect]
 
 [section:members Public Members]

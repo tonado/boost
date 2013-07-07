@@ -6,7 +6,7 @@
     [@http://www.boost.org/LICENSE_1_0.txt])
 =============================================================================/]
 
-[section:with_rb_flag_base_gen `with_red_black_flag_gen<BaseGenerator>`]
+[section:with_rb_flag_base_gen `with_red_black_flag_base_gen<BaseGenerator>`]
 
 [section Synopsis]
 [reference__with_red_black_flag_base_gen]
@@ -53,8 +53,11 @@ __Base_Type_Generator__
 [section:expressions Expression Semantics]
 Let `Derived` be the type that will inherit from
 __tree_node_with_red_black_flag_base__.
+
 Let `Key` be the key type.
+
 Let `Data` be the user data type.
+
 Let `BaseGenerator` be a valid `with_red_black_flag_base_gen` template
 argument.
 

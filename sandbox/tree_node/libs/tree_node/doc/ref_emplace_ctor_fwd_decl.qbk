@@ -39,10 +39,17 @@ class some_node_type
 [endsect]
 
 [section Arguments]
-  * /z/ -- The next available __PP_REPEAT__ dimension.
-  * /n/ -- The number of arguments that the current iteration's constructor
-    will accept.
-  * /some_node_type/ -- The name of the enclosing type.
+[variablelist Notation
+    [[`z`][The next available __PP_REPEAT__ dimension.]]
+    [
+        [`n`]
+        [
+            The number of arguments that the current iteration's constructor
+            will accept.
+        ]
+    ]
+    [[`Type`][The name of the enclosing type.]]
+]
 [endsect]
 
 [section:definition Where defined]

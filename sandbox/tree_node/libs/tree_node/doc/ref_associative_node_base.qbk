@@ -66,22 +66,31 @@ To register under __Boost_Typeof__:
     [
         [`Selector`]
         [The type that determines the child container type.]
-        [
-            [^_is_recursive_selector_<Selector>] must return __mpl_true__, and
-            [^_is_associative_selector_<Selector>] must return __mpl_true__.
-        ]
+        [[itemized_list
+            [
+                [^_is_recursive_selector_<Selector>] must evaluate to
+                __mpl_true__.
+            ]
+            [
+                [^_is_associative_selector_<Selector>] must evaluate to
+                __mpl_true__.
+            ]
+        ]]
     ]
 ]
 [endsect]
 
 [section:model_of Model of]
-
-  * __Associative_Tree_Node__
-  * __Reversible_Tree_Node__ if [^_container_gen_<Selector,Key,Derived>::type]
-    returns a __Reversible_Container__ model
-  * __Base_Tree_Node__
-  * __Default_Constructible__ if `Data` is __Default_Constructible__
-
+[itemized_list
+    [__Associative_Tree_Node__]
+    [
+        __Reversible_Tree_Node__ if
+        [^_container_gen_<Selector,Key,Derived>::type]
+        returns a __Reversible_Container__ model
+    ]
+    [__Base_Tree_Node__]
+    [__Default_Constructible__ if `Data` is __Default_Constructible__]
+]
 [endsect]
 
 [section:public_bases Public Base Classes]
@@ -424,12 +433,12 @@ Given:
     ]
     [
         [Key-value read-only access]
-        [[reference__associative_node_base__key_value_operator__const]]
+        [[reference__associative_node_base__at_key__const]]
         [__Tree_Node__]
     ]
     [
         [Key-value access]
-        [[reference__associative_node_base__key_value_operator]]
+        [[reference__associative_node_base__at_key]]
         [__Tree_Node__]
     ]
     [

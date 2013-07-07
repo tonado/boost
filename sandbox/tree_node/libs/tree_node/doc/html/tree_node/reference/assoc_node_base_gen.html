@@ -23,8 +23,6 @@
 <div class="titlepage"><div><div><h4 class="title">
 <a name="tree_node.reference.assoc_node_base_gen.synopsis"></a><a class="link" href="assoc_node_base_gen.html#tree_node.reference.assoc_node_base_gen.synopsis" title="Synopsis">Synopsis</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">tree_node</span> <span class="special">{</span>
 
     <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Selector</span> <span class="special">=</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">ptr_mapS</span><span class="special">&gt;</span>
@@ -40,8 +38,6 @@
     <span class="keyword">typedef</span> <span class="identifier">associative_node_base_gen</span><span class="special">&lt;&gt;</span> <span class="identifier">associative_node_base_default_gen</span><span class="special">;</span>
 <span class="special">}}</span>  <span class="comment">// namespace boost::tree_node</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -57,21 +53,13 @@
 <a name="tree_node.reference.assoc_node_base_gen.definition"></a><a class="link" href="assoc_node_base_gen.html#tree_node.reference.assoc_node_base_gen.definition" title="Where defined">Where
         defined</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/tree_node/associative_node.hpp" target="_top">boost/tree_node/associative_node.hpp</a><span class="special">&gt;</span>
 </pre>
 <p>
-        </p>
-<p>
           To register under <a href="http://www.boost.org/doc/html/typeof.html" target="_top"><span class="bold"><strong>Boost.Typeof</strong></span></a>:
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/typeof/boost/tree_node/associative_node.hpp" target="_top">boost/typeof/boost/tree_node/associative_node.hpp</a><span class="special">&gt;</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -129,11 +117,16 @@
                   </p>
                 </td>
 <td>
-                  <p>
-                    <code class="literal"><a href="http://svn.boost.org/svn/boost/sandbox/container_gen/libs/container_gen/doc/html/container_gen/reference/is_recursive_selector.html" target="_top">boost::is_recursive_selector</a>&lt;Selector&gt;</code>
-                    must return <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a>, and <code class="literal"><a href="http://svn.boost.org/svn/boost/sandbox/container_gen/libs/container_gen/doc/html/container_gen/reference/is_associative_selector.html" target="_top">boost::is_associative_selector</a>&lt;Selector&gt;</code>
-                    must return <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a>.
-                  </p>
+                  <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem"><p>
+                        <code class="literal"><a href="http://svn.boost.org/svn/boost/sandbox/container_gen/libs/container_gen/doc/html/container_gen/reference/is_recursive_selector.html" target="_top">boost::is_recursive_selector</a>&lt;Selector&gt;</code>
+                        must evaluate to <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a>.
+                      </p></li>
+<li class="listitem"><p>
+                        <code class="literal"><a href="http://svn.boost.org/svn/boost/sandbox/container_gen/libs/container_gen/doc/html/container_gen/reference/is_associative_selector.html" target="_top">boost::is_associative_selector</a>&lt;Selector&gt;</code>
+                        must evaluate to <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a>.
+                      </p></li>
+</ul></div>
                 </td>
 <td>
                   <p>
@@ -150,11 +143,20 @@
 </h4></div></div></div>
 <p>
           Let <code class="computeroutput"><span class="identifier">Derived</span></code> be the type
-          that will inherit from <a class="link" href="associative_node_base.html" title="associative_node_base&lt;Derived,Key,Data,Selector&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">associative_node_base</span></code></a>. Let <code class="computeroutput"><span class="identifier">Key</span></code> be the key type. Let <code class="computeroutput"><span class="identifier">Data</span></code> be the user data type. Let <code class="computeroutput"><span class="identifier">Selector</span></code> be a valid <code class="computeroutput"><span class="identifier">associative_node_base_gen</span></code>
-          template argument.
+          that will inherit from <a class="link" href="associative_node_base.html" title="associative_node_base&lt;Derived,Key,Data,Selector&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">associative_node_base</span></code></a>.
         </p>
 <p>
-</p>
+          Let <code class="computeroutput"><span class="identifier">Key</span></code> be the key type.
+        </p>
+<p>
+          Let <code class="computeroutput"><span class="identifier">Data</span></code> be the user data
+          type.
+        </p>
+<p>
+          Let <code class="computeroutput"><span class="identifier">Selector</span></code> be a valid
+          <code class="computeroutput"><span class="identifier">associative_node_base_gen</span></code>
+          template argument.
+        </p>
 <pre class="programlisting"><span class="keyword">typedef</span> <a href="http://www.boost.org/libs/mpl/doc/refmanual/apply-wrap.html" target="_top">boost::mpl::apply_wrap3</a><span class="special">&lt;</span>
     <span class="identifier">associative_node_base_gen</span><span class="special">&lt;</span><span class="identifier">Selector</span><span class="special">&gt;</span>
   <span class="special">,</span> <span class="identifier">Derived</span>
@@ -162,8 +164,6 @@
   <span class="special">,</span> <span class="identifier">Data</span>
 <span class="special">&gt;::</span><span class="identifier">type</span> <span class="identifier">r</span><span class="special">;</span>
 </pre>
-<p>
-        </p>
 <p>
           <span class="bold"><strong>Return type:</strong></span> <code class="literal"><a class="link" href="associative_node_base.html" title="associative_node_base&lt;Derived,Key,Data,Selector&gt;">tree_node::associative_node_base</a>&lt;Derived,Key,Data,Selector&gt;</code>
         </p>

@@ -95,136 +95,172 @@
 
 [heading Container Types]
 
-  * __binode_container__
-  * __binode_associative_container__
+[itemized_list
+    [__binode_container__]
+    [__binode_associative_container__]
+    [__binode_set__]
+    [__binode_multiset__]
+    [__binode_map__]
+    [__binode_multimap__]
+]
 
 [heading Balancer Types]
 
-  * __null_balancer__
-  * __red_black_balancer__
-  * __avl_balancer__
+[itemized_list
+    [__null_balancer__]
+    [__red_black_balancer__]
+    [__avl_balancer__]
+]
 
 [heading Node Types]
 
-  * __binary_node__
-  * __nary_node__
-  * __associative_node__
+[itemized_list
+    [__binary_node__]
+    [__nary_node__]
+    [__associative_node__]
+]
 
 [heading Adaptor Types]
 
-  * __tree_node_with_accumulation__
-  * __tree_node_with_count__
-  * __tree_node_with_height__
-  * __tree_node_with_position__
-  * __tree_node_with_red_black_flag__
+[itemized_list
+    [__tree_node_with_accumulation__]
+    [__tree_node_with_count__]
+    [__tree_node_with_height__]
+    [__tree_node_with_position__]
+    [__tree_node_with_red_black_flag__]
+]
 
 [heading Base Types]
 
-  * __tree_node_base__
-  * __binary_node_base__
-  * __nary_node_base__
-  * __associative_node_base__
-  * __tree_node_with_accumulation_base__
-  * __tree_node_with_count_base__
-  * __tree_node_with_height_base__
-  * __tree_node_with_position_base__
-  * __tree_node_with_red_black_flag_base__
+[itemized_list
+    [__binary_node_base__]
+    [__nary_node_base__]
+    [__associative_node_base__]
+    [__tree_node_with_accumulation_base__]
+    [__tree_node_with_count_base__]
+    [__tree_node_with_height_base__]
+    [__tree_node_with_position_base__]
+    [__tree_node_with_red_black_flag_base__]
+    [__tree_node_base__]
+]
 
 [heading Type Generators]
 
-  * __binary_node_gen__
-  * __binary_node_base_gen__
-  * __nary_node_gen__
-  * __nary_node_base_gen__
-  * __associative_node_gen__
-  * __associative_node_base_gen__
-  * __tree_node_with_accumulation_gen__
-  * __tree_node_with_accumulation_base_gen__
-  * __tree_node_with_count_gen__
-  * __tree_node_with_count_base_gen__
-  * __tree_node_with_height_gen__
-  * __tree_node_with_height_base_gen__
-  * __tree_node_with_position_gen__
-  * __tree_node_with_position_base_gen__
-  * __tree_node_with_red_black_flag_gen__
-  * __tree_node_with_red_black_flag_base_gen__
+[itemized_list
+    [__binary_node_gen__]
+    [__binary_node_base_gen__]
+    [__nary_node_gen__]
+    [__nary_node_base_gen__]
+    [__associative_node_gen__]
+    [__associative_node_base_gen__]
+    [__tree_node_with_accumulation_gen__]
+    [__tree_node_with_accumulation_base_gen__]
+    [__tree_node_with_count_gen__]
+    [__tree_node_with_count_base_gen__]
+    [__tree_node_with_height_gen__]
+    [__tree_node_with_height_base_gen__]
+    [__tree_node_with_position_gen__]
+    [__tree_node_with_position_base_gen__]
+    [__tree_node_with_red_black_flag_gen__]
+    [__tree_node_with_red_black_flag_base_gen__]
+]
 
 [heading Iterator Types]
 
-  * __breadth_first_iterator__
-  * __breadth_first_descendant_iterator__
-  * __pre_order_iterator__
-  * __pre_order_descendant_iterator__
-  * __post_order_iterator__
-  * __post_order_descendant_iterator__
-  * __in_order_iterator__
-  * __depth_first_iterator__
-  * __depth_first_descendant_iterator__
+[itemized_list
+    [__breadth_first_iterator__]
+    [__breadth_first_descendant_iterator__]
+    [__pre_order_iterator__]
+    [__pre_order_descendant_iterator__]
+    [__post_order_iterator__]
+    [__post_order_descendant_iterator__]
+    [__in_order_iterator__]
+    [__depth_first_iterator__]
+    [__depth_first_descendant_iterator__]
+]
 
 [heading Selector Types]
 
-  * __tree_node_compare_selector__
+[itemized_list
+    [__tree_node_compare_selector__]
+]
 
 [heading Enum Types]
 
-  * __traversal_state__
+[itemized_list
+    [__traversal_state__]
+]
 
 [heading Key Types]
 
-  * __data_key__
-  * __accumulation_key__
-  * __count_key__
-  * __height_key__
-  * __position_key__
-  * __red_flag_key__
-  * __black_flag_key__
+[itemized_list
+    [__data_key__]
+    [__accumulation_key__]
+    [__count_key__]
+    [__height_key__]
+    [__position_key__]
+    [__red_flag_key__]
+    [__black_flag_key__]
+]
 
 [heading Algorithms]
 
-  * __advance_binary__
-  * __binary_index_of__
-  * __binary_descendant__
-  * __binary_descendant_at_index__
-  * __binary_lower_bound__
-  * __binary_upper_bound__
-  * __cartesian_sort__
-  * __cartesian_sort_range__
+[itemized_list
+    [__advance_binary__]
+    [__binary_index_of__]
+    [__binary_descendant__]
+    [__binary_descendant_at_index__]
+    [__binary_lower_bound__]
+    [__binary_upper_bound__]
+    [__cartesian_sort__]
+    [__cartesian_sort_range__]
+]
 
 [heading Intrinsic Functions]
 
-  * __dereference_iterator__
-  * __get_properties__
-  * __has_key__
-  * __at_key__
+[itemized_list
+    [__dereference_iterator__]
+    [__get_properties__]
+    [__has_key__]
+    [__at_key__]
+]
 
 [heading Metafunctions]
 
-  * __result_of__dereference_iterator__
-  * __result_of__get_properties__
-  * __result_of__has_key__
-  * __result_of__get_keys__
-  * __result_of__at_key__
-  * __result_of__value_at_key__
+[itemized_list
+    [__result_of__dereference_iterator__]
+    [__result_of__get_properties__]
+    [__result_of__has_key__]
+    [__result_of__get_keys__]
+    [__result_of__at_key__]
+    [__result_of__value_at_key__]
+]
 
 [heading Boilerplate Macros]
 
-  * __TREE_NODE_COPYABLE_AND_MOVABLE__
-  * __TREE_NODE_CONTAINER_DERIVED_BODY__
-  * __TREE_NODE_ASSOCIATIVE_CONTAINER_DERIVED_BODY__
+[itemized_list
+    [__TREE_NODE_COPYABLE_AND_MOVABLE__]
+    [__TREE_NODE_CONTAINER_DERIVED_BODY__]
+    [__TREE_NODE_ASSOCIATIVE_CONTAINER_DERIVED_BODY__]
+]
 
 [heading Workaround Macros]
 
-  * __TREE_NODE_EMPLACEMENT_CTOR_FWD_DECL__
-  * __TREE_NODE_EMPLACEMENT_CTOR_INLINE_HEADER__
-  * __TREE_NODE_EMPLACEMENT_CTOR_INLINE_DEF__
-  * __TREE_NODE_EMPLACEMENT_CTOR_W_ALLOC_FWD_DECL__
-  * __TREE_NODE_EMPLACEMENT_CTOR_W_ALLOC_INLINE_HEADER__
-  * __TREE_NODE_EMPLACEMENT_CTOR_W_ALLOC_INLINE_DEF__
+[itemized_list
+    [__TREE_NODE_EMPLACEMENT_CTOR_FWD_DECL__]
+    [__TREE_NODE_EMPLACEMENT_CTOR_INLINE_HEADER__]
+    [__TREE_NODE_EMPLACEMENT_CTOR_INLINE_DEF__]
+    [__TREE_NODE_EMPLACEMENT_CTOR_W_ALLOC_FWD_DECL__]
+    [__TREE_NODE_EMPLACEMENT_CTOR_W_ALLOC_INLINE_HEADER__]
+    [__TREE_NODE_EMPLACEMENT_CTOR_W_ALLOC_INLINE_DEF__]
+]
 
 [heading Feature Querying Macros]
 
-  * __TREE_NODE_CAN_USE_FUSION__
-  * __TREE_NODE_CAN_USE_FUSION_WITH_TYPEOF__
+[itemized_list
+    [__TREE_NODE_CAN_USE_FUSION__]
+    [__TREE_NODE_CAN_USE_FUSION_WITH_TYPEOF__]
+]
 
 [endsect] [/ Reference]
 

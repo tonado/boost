@@ -51,7 +51,9 @@ __Base_Type_Generator__
 
 [section:expressions Expression Semantics]
 Let `Derived` be the type that will inherit from __nary_node_base__.
+
 Let `T` be the user data type.
+
 Let `Selector` be a valid `nary_node_gen` template argument.
 
 ``

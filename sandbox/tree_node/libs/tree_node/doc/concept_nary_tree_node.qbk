@@ -127,11 +127,13 @@ concept, the following expressions must be valid.
             descendants, from `src_node` to `dest_node`, with `pos` as the
             insertion point.  Returns a range containing the node inserted.
         ]
-        [
-          * `pos` must be dereferenceable or past-the-end of the range of
-            children of `dest_node`.
-          * `itr` must point to a valid child node of `src_node`.
-        ]
+        [[itemized_list
+            [
+                `pos` must be dereferenceable or past-the-end of the range of
+                children of `dest_node`.
+            ]
+            [`itr` must point to a valid child node of `src_node`.]
+        ]]
         []
     ]
     [
@@ -150,24 +152,30 @@ concept, the following expressions must be valid.
             their descendants, from `src_node` to `dest_node`, with `pos` as
             the insertion point.  Returns the range of child nodes inserted.
         ]
-        [
-          * `pos` must be dereferenceable or past-the-end of the range of
-            children of `dest_node`.
-          * `itr` and `itr_end` must refer to a valid sub-range of the range
-            of children of `src_node`.
-          * `pos` must point outside the sub-range referred to by `itr` and
-            `itr_end`.
-        ]
+        [[itemized_list
+            [
+                `pos` must be dereferenceable or past-the-end of the range of
+                children of `dest_node`.
+            ]
+            [
+                `itr` and `itr_end` must refer to a valid sub-range of the
+                range of children of `src_node`.
+            ]
+            [
+                `pos` must point outside the sub-range referred to by `itr` and
+                `itr_end`.
+            ]
+        ]]
         [Linear with respect to the size of the specified sub-range]
     ]
 ]
 [endsect]
 
 [section Models]
-
-  * __nary_node__
-  * __nary_node_base__
-
+[itemized_list
+    [__nary_node__]
+    [__nary_node_base__]
+]
 [endsect]
 
 [endsect] [/ N-ary Tree Node]

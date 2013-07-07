@@ -54,8 +54,11 @@ __Base_Type_Generator__
 [section:expressions Expression Semantics]
 Let `Derived` be the type that will inherit from
 __tree_node_with_accumulation_base__.
+
 Let `Key` be the key type.
+
 Let `Data` be the user data type.
+
 Let `BaseGenerator` be a valid `with_accumulation_base_gen` template
 argument.
 

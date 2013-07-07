@@ -51,7 +51,9 @@ __Node_Type_Generator__
 
 [section:expressions Expression Semantics]
 Let `Key` be the key type.
+
 Let `Data` be the user data type.
+
 Let `BaseGenerator` be a valid `with_accumulation_gen` template argument.
 
 ``

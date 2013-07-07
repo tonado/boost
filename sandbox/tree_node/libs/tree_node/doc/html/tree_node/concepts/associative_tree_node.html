@@ -182,27 +182,71 @@
 <p>
           In addition, the requirements for the iterator types are strengthened:
         </p>
-<pre class="programlisting"><span class="special">*</span> <span class="identifier">The</span> <span class="identifier">value</span> <span class="identifier">type</span> <span class="identifier">of</span> <span class="error">`</span><span class="identifier">Node</span><span class="special">::</span><span class="identifier">iterator</span><span class="error">`</span> <span class="identifier">must</span> <span class="identifier">define</span> <span class="identifier">a</span> <span class="error">`</span><span class="identifier">first_type</span><span class="error">`</span> <span class="identifier">type</span><span class="special">.</span>
-<span class="special">*</span> <span class="identifier">The</span> <span class="identifier">value</span> <span class="identifier">type</span> <span class="identifier">of</span> <span class="error">`</span><span class="identifier">Node</span><span class="special">::</span><span class="identifier">iterator</span><span class="error">`</span> <span class="identifier">must</span> <span class="identifier">define</span> <span class="identifier">a</span> <span class="error">`</span><span class="identifier">first</span><span class="error">`</span> <span class="identifier">member</span> <span class="identifier">variable</span> <span class="identifier">of</span>
-  <span class="identifier">type</span> <span class="error">`</span><span class="identifier">first_type</span><span class="error">`</span><span class="special">.</span>
-<span class="special">*</span> <span class="identifier">Given</span> <span class="identifier">an</span> <span class="identifier">object</span> <span class="error">`</span><span class="identifier">itr</span><span class="error">`</span> <span class="identifier">of</span> <span class="identifier">type</span> <span class="error">`</span><span class="identifier">Node</span><span class="special">::</span><span class="identifier">iterator</span><span class="error">`</span><span class="special">,</span> <span class="error">`</span><span class="identifier">itr</span><span class="special">-&gt;</span><span class="identifier">first</span><span class="error">`</span> <span class="identifier">must</span> <span class="identifier">be</span>
-  <span class="identifier">convertible</span> <span class="identifier">to</span> <span class="error">`</span><span class="identifier">Node</span><span class="special">::</span><span class="identifier">traits</span><span class="special">::</span><span class="identifier">key_type</span> <span class="keyword">const</span><span class="special">&amp;</span><span class="error">`</span><span class="special">.</span>
-<span class="special">*</span> <span class="identifier">The</span> <span class="identifier">value</span> <span class="identifier">type</span> <span class="identifier">of</span> <span class="error">`</span><span class="identifier">Node</span><span class="special">::</span><span class="identifier">iterator</span><span class="error">`</span> <span class="identifier">must</span> <span class="identifier">define</span> <span class="identifier">a</span> <span class="error">`</span><span class="identifier">second_type</span><span class="error">`</span> <span class="identifier">type</span><span class="special">.</span>
-<span class="special">*</span> <span class="identifier">The</span> <span class="identifier">value</span> <span class="identifier">type</span> <span class="identifier">of</span> <span class="error">`</span><span class="identifier">Node</span><span class="special">::</span><span class="identifier">iterator</span><span class="error">`</span> <span class="identifier">must</span> <span class="identifier">define</span> <span class="identifier">a</span> <span class="error">`</span><span class="identifier">second</span><span class="error">`</span> <span class="identifier">member</span> <span class="identifier">variable</span>
-  <span class="identifier">of</span> <span class="identifier">type</span> <span class="error">`</span><span class="identifier">second_type</span><span class="error">`</span><span class="special">.</span>
-<span class="special">*</span> <span class="identifier">Given</span> <span class="identifier">an</span> <span class="identifier">object</span> <span class="error">`</span><span class="identifier">itr</span><span class="error">`</span> <span class="identifier">of</span> <span class="identifier">type</span> <span class="error">`</span><span class="identifier">Node</span><span class="special">::</span><span class="identifier">iterator</span><span class="error">`</span><span class="special">,</span>
-  <span class="special">[^</span><a class="link" href="../reference/dereference_iterator.html" title="dereference_iterator()">tree_node::dereference_iterator</a><span class="special">(</span><span class="identifier">itr</span><span class="special">)]</span> <span class="identifier">must</span> <span class="identifier">be</span> <span class="identifier">convertible</span> <span class="identifier">to</span> <span class="error">`</span><span class="identifier">Node</span><span class="special">&amp;</span><span class="error">`</span><span class="special">.</span>
-<span class="special">*</span> <span class="identifier">The</span> <span class="identifier">value</span> <span class="identifier">type</span> <span class="identifier">of</span> <span class="error">`</span><span class="identifier">Node</span><span class="special">::</span><span class="identifier">const_iterator</span><span class="error">`</span> <span class="identifier">must</span> <span class="identifier">define</span> <span class="identifier">a</span> <span class="error">`</span><span class="identifier">first_type</span><span class="error">`</span> <span class="identifier">type</span><span class="special">.</span>
-<span class="special">*</span> <span class="identifier">The</span> <span class="identifier">value</span> <span class="identifier">type</span> <span class="identifier">of</span> <span class="error">`</span><span class="identifier">Node</span><span class="special">::</span><span class="identifier">const_iterator</span><span class="error">`</span> <span class="identifier">must</span> <span class="identifier">define</span> <span class="identifier">a</span> <span class="error">`</span><span class="identifier">first</span><span class="error">`</span> <span class="identifier">member</span>
-  <span class="identifier">variable</span> <span class="identifier">of</span> <span class="identifier">type</span> <span class="error">`</span><span class="identifier">first_type</span><span class="error">`</span><span class="special">.</span>
-<span class="special">*</span> <span class="identifier">Given</span> <span class="identifier">an</span> <span class="identifier">object</span> <span class="error">`</span><span class="identifier">itr</span><span class="error">`</span> <span class="identifier">of</span> <span class="identifier">type</span> <span class="error">`</span><span class="identifier">Node</span><span class="special">::</span><span class="identifier">const_iterator</span><span class="error">`</span><span class="special">,</span> <span class="error">`</span><span class="identifier">itr</span><span class="special">-&gt;</span><span class="identifier">first</span><span class="error">`</span> <span class="identifier">must</span> <span class="identifier">be</span>
-  <span class="identifier">convertible</span> <span class="identifier">to</span> <span class="error">`</span><span class="identifier">Node</span><span class="special">::</span><span class="identifier">traits</span><span class="special">::</span><span class="identifier">key_type</span> <span class="keyword">const</span><span class="special">&amp;</span><span class="error">`</span><span class="special">.</span>
-<span class="special">*</span> <span class="identifier">The</span> <span class="identifier">value</span> <span class="identifier">type</span> <span class="identifier">of</span> <span class="error">`</span><span class="identifier">Node</span><span class="special">::</span><span class="identifier">const_iterator</span><span class="error">`</span> <span class="identifier">must</span> <span class="identifier">define</span> <span class="identifier">a</span> <span class="error">`</span><span class="identifier">second_type</span><span class="error">`</span> <span class="identifier">type</span><span class="special">.</span>
-<span class="special">*</span> <span class="identifier">The</span> <span class="identifier">value</span> <span class="identifier">type</span> <span class="identifier">of</span> <span class="error">`</span><span class="identifier">Node</span><span class="special">::</span><span class="identifier">const_iterator</span><span class="error">`</span> <span class="identifier">must</span> <span class="identifier">define</span> <span class="identifier">a</span> <span class="error">`</span><span class="identifier">second</span><span class="error">`</span> <span class="identifier">member</span>
-  <span class="identifier">variable</span> <span class="identifier">of</span> <span class="identifier">type</span> <span class="error">`</span><span class="identifier">second_type</span><span class="error">`</span><span class="special">.</span>
-<span class="special">*</span> <span class="identifier">Given</span> <span class="identifier">an</span> <span class="identifier">object</span> <span class="error">`</span><span class="identifier">itr</span><span class="error">`</span> <span class="identifier">of</span> <span class="identifier">type</span> <span class="error">`</span><span class="identifier">Node</span><span class="special">::</span><span class="identifier">const_iterator</span><span class="error">`</span><span class="special">,</span>
-  <span class="special">[^</span><a class="link" href="../reference/dereference_iterator.html" title="dereference_iterator()">tree_node::dereference_iterator</a><span class="special">(</span><span class="identifier">itr</span><span class="special">)]</span> <span class="identifier">must</span> <span class="identifier">be</span> <span class="identifier">convertible</span> <span class="identifier">to</span> <span class="error">`</span><span class="identifier">Node</span> <span class="keyword">const</span><span class="special">&amp;</span><span class="error">`</span><span class="special">.</span>
-</pre>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem"><p>
+              The value type of <code class="computeroutput"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">iterator</span></code>
+              must define a <code class="computeroutput"><span class="identifier">first_type</span></code>
+              type.
+            </p></li>
+<li class="listitem"><p>
+              The value type of <code class="computeroutput"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">iterator</span></code>
+              must define a <code class="computeroutput"><span class="identifier">first</span></code>
+              member variable of type <code class="computeroutput"><span class="identifier">first_type</span></code>.
+            </p></li>
+<li class="listitem"><p>
+              Given an object <code class="computeroutput"><span class="identifier">itr</span></code>
+              of type <code class="computeroutput"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">iterator</span></code>, <code class="computeroutput"><span class="identifier">itr</span><span class="special">-&gt;</span><span class="identifier">first</span></code>
+              must be convertible to <code class="computeroutput"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">traits</span><span class="special">::</span><span class="identifier">key_type</span>
+              <span class="keyword">const</span><span class="special">&amp;</span></code>.
+            </p></li>
+<li class="listitem"><p>
+              The value type of <code class="computeroutput"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">iterator</span></code>
+              must define a <code class="computeroutput"><span class="identifier">second_type</span></code>
+              type.
+            </p></li>
+<li class="listitem"><p>
+              The value type of <code class="computeroutput"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">iterator</span></code>
+              must define a <code class="computeroutput"><span class="identifier">second</span></code>
+              member variable of type <code class="computeroutput"><span class="identifier">second_type</span></code>.
+            </p></li>
+<li class="listitem"><p>
+              Given an object <code class="computeroutput"><span class="identifier">itr</span></code>
+              of type <code class="computeroutput"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">iterator</span></code>, <code class="literal"><a class="link" href="../reference/dereference_iterator.html" title="dereference_iterator()">tree_node::dereference_iterator</a>(itr)</code>
+              must be convertible to <code class="computeroutput"><span class="identifier">Node</span><span class="special">&amp;</span></code>.
+            </p></li>
+<li class="listitem"><p>
+              The value type of <code class="computeroutput"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">const_iterator</span></code>
+              must define a <code class="computeroutput"><span class="identifier">first_type</span></code>
+              type.
+            </p></li>
+<li class="listitem"><p>
+              The value type of <code class="computeroutput"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">const_iterator</span></code>
+              must define a <code class="computeroutput"><span class="identifier">first</span></code>
+              member variable of type <code class="computeroutput"><span class="identifier">first_type</span></code>.
+            </p></li>
+<li class="listitem"><p>
+              Given an object <code class="computeroutput"><span class="identifier">itr</span></code>
+              of type <code class="computeroutput"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">const_iterator</span></code>, <code class="computeroutput"><span class="identifier">itr</span><span class="special">-&gt;</span><span class="identifier">first</span></code>
+              must be convertible to <code class="computeroutput"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">traits</span><span class="special">::</span><span class="identifier">key_type</span>
+              <span class="keyword">const</span><span class="special">&amp;</span></code>.
+            </p></li>
+<li class="listitem"><p>
+              The value type of <code class="computeroutput"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">const_iterator</span></code>
+              must define a <code class="computeroutput"><span class="identifier">second_type</span></code>
+              type.
+            </p></li>
+<li class="listitem"><p>
+              The value type of <code class="computeroutput"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">const_iterator</span></code>
+              must define a <code class="computeroutput"><span class="identifier">second</span></code>
+              member variable of type <code class="computeroutput"><span class="identifier">second_type</span></code>.
+            </p></li>
+<li class="listitem"><p>
+              Given an object <code class="computeroutput"><span class="identifier">itr</span></code>
+              of type <code class="computeroutput"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">const_iterator</span></code>, <code class="literal"><a class="link" href="../reference/dereference_iterator.html" title="dereference_iterator()">tree_node::dereference_iterator</a>(itr)</code>
+              must be convertible to <code class="computeroutput"><span class="identifier">Node</span>
+              <span class="keyword">const</span><span class="special">&amp;</span></code>.
+            </p></li>
+</ul></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -263,23 +307,15 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">node</span><span class="special">.</span><span class="identifier">emplace</span><span class="special">(</span>
     <span class="identifier">key</span>
   <span class="special">,</span> <a href="http://www.boost.org/doc/html/boost/forward.html" target="_top">boost::forward</a><span class="special">&lt;</span><span class="identifier">Args</span><span class="special">&gt;(</span><span class="identifier">args</span><span class="special">)...</span>
 <span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">iterator</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -306,20 +342,12 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">node</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">key</span><span class="special">,</span> <span class="identifier">const_node</span><span class="special">)</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">iterator</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -350,20 +378,12 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">node</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">key</span><span class="special">,</span> <span class="identifier">source</span><span class="special">)</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">iterator</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -393,20 +413,12 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">const_node</span><span class="special">.</span><span class="identifier">find</span><span class="special">(</span><span class="identifier">key</span><span class="special">)</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">const_iterator</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -429,20 +441,12 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">node</span><span class="special">.</span><span class="identifier">find</span><span class="special">(</span><span class="identifier">key</span><span class="special">)</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">iterator</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -465,20 +469,12 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">const_node</span><span class="special">.</span><span class="identifier">lower_bound</span><span class="special">(</span><span class="identifier">key</span><span class="special">)</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">const_iterator</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -502,20 +498,12 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">node</span><span class="special">.</span><span class="identifier">lower_bound</span><span class="special">(</span><span class="identifier">key</span><span class="special">)</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">iterator</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -539,20 +527,12 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">const_node</span><span class="special">.</span><span class="identifier">upper_bound</span><span class="special">(</span><span class="identifier">key</span><span class="special">)</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">const_iterator</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -576,20 +556,12 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">node</span><span class="special">.</span><span class="identifier">upper_bound</span><span class="special">(</span><span class="identifier">key</span><span class="special">)</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">iterator</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -614,20 +586,12 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">const_node</span><span class="special">.</span><span class="identifier">equal_range</span><span class="special">(</span><span class="identifier">key</span><span class="special">)</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">traits</span><span class="special">::</span><span class="identifier">const_iterator_range</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -652,20 +616,12 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">node</span><span class="special">.</span><span class="identifier">equal_range</span><span class="special">(</span><span class="identifier">key</span><span class="special">)</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">traits</span><span class="special">::</span><span class="identifier">iterator_range</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -690,20 +646,12 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">node</span><span class="special">.</span><span class="identifier">erase</span><span class="special">(</span><span class="identifier">key</span><span class="special">)</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">size_type</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -727,9 +675,14 @@
 <div class="titlepage"><div><div><h4 class="title">
 <a name="tree_node.concepts.associative_tree_node.models"></a><a class="link" href="associative_tree_node.html#tree_node.concepts.associative_tree_node.models" title="Models">Models</a>
 </h4></div></div></div>
-<pre class="programlisting"><span class="special">*</span> <a class="link" href="../reference/associative_node.html" title="associative_node&lt;Key,Data,Selector&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">associative_node</span></code></a>
-<span class="special">*</span> <a class="link" href="../reference/associative_node_base.html" title="associative_node_base&lt;Derived,Key,Data,Selector&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">associative_node_base</span></code></a>
-</pre>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem"><p>
+              <a class="link" href="../reference/associative_node.html" title="associative_node&lt;Key,Data,Selector&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">associative_node</span></code></a>
+            </p></li>
+<li class="listitem"><p>
+              <a class="link" href="../reference/associative_node_base.html" title="associative_node_base&lt;Derived,Key,Data,Selector&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">associative_node_base</span></code></a>
+            </p></li>
+</ul></div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

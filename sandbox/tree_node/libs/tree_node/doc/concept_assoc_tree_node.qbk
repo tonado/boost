@@ -62,27 +62,47 @@ Three new types are introduced.
 
 In addition, the requirements for the iterator types are strengthened:
 
-  * The value type of `Node::iterator` must define a `first_type` type.
-  * The value type of `Node::iterator` must define a `first` member variable of
-    type `first_type`.
-  * Given an object `itr` of type `Node::iterator`, `itr->first` must be
-    convertible to `Node::traits::key_type const&`.
-  * The value type of `Node::iterator` must define a `second_type` type.
-  * The value type of `Node::iterator` must define a `second` member variable
-    of type `second_type`.
-  * Given an object `itr` of type `Node::iterator`,
-    [^_dereference_iterator_(itr)] must be convertible to `Node&`.
-  * The value type of `Node::const_iterator` must define a `first_type` type.
-  * The value type of `Node::const_iterator` must define a `first` member
+[itemized_list
+    [The value type of `Node::iterator` must define a `first_type` type.]
+    [
+        The value type of `Node::iterator` must define a `first` member
+        variable of type `first_type`.
+    ]
+    [
+        Given an object `itr` of type `Node::iterator`, `itr->first` must be
+        convertible to `Node::traits::key_type const&`.
+    ]
+    [The value type of `Node::iterator` must define a `second_type` type.]
+    [
+        The value type of `Node::iterator` must define a `second` member
+        variable of type `second_type`.
+    ]
+    [
+        Given an object `itr` of type `Node::iterator`,
+        [^_dereference_iterator_(itr)] must be convertible to `Node&`.
+    ]
+    [The value type of `Node::const_iterator` must define a `first_type` type.]
+    [
+        The value type of `Node::const_iterator` must define a `first` member
     variable of type `first_type`.
-  * Given an object `itr` of type `Node::const_iterator`, `itr->first` must be
-    convertible to `Node::traits::key_type const&`.
-  * The value type of `Node::const_iterator` must define a `second_type` type.
-  * The value type of `Node::const_iterator` must define a `second` member
-    variable of type `second_type`.
-  * Given an object `itr` of type `Node::const_iterator`,
-    [^_dereference_iterator_(itr)] must be convertible to `Node const&`.
-
+    ]
+    [
+        Given an object `itr` of type `Node::const_iterator`, `itr->first` must
+        be convertible to `Node::traits::key_type const&`.
+    ]
+    [
+        The value type of `Node::const_iterator` must define a `second_type`
+        type.
+    ]
+    [
+        The value type of `Node::const_iterator` must define a `second` member
+        variable of type `second_type`.
+    ]
+    [
+        Given an object `itr` of type `Node::const_iterator`,
+        [^_dereference_iterator_(itr)] must be convertible to `Node const&`.
+    ]
+]
 [endsect]
 
 [section:expressions Valid Expressions and Semantics]
@@ -307,10 +327,10 @@ following expressions must be valid.
 [endsect]
 
 [section Models]
-
-  * __associative_node__
-  * __associative_node_base__
-
+[itemized_list
+    [__associative_node__]
+    [__associative_node_base__]
+]
 [endsect]
 
 [endsect] [/ Associative Tree Node]

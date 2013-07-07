@@ -78,12 +78,12 @@ To register under __Boost_Typeof__:
 [endsect]
 
 [section:model_of Model of]
-
-  * __Full_Tree_Node_Iterator__
-  * __Default_Constructible__
-  * __Copy_Constructible__
-  * __Assignable__
-
+[itemized_list
+    [__Full_Tree_Node_Iterator__]
+    [__Default_Constructible__]
+    [__Copy_Constructible__]
+    [__Assignable__]
+]
 [endsect]
 
 [section Members]

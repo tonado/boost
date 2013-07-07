@@ -134,12 +134,14 @@ To register under __Boost_Typeof__:
 [endsect]
 
 [section:model_of Model of]
-
-  * __Associative_Tree_Node__ if `T2` is specified;
-    __Non_Associative_Tree_Node__ otherwise
-  * __Base_Tree_Node__
-  * any other concept that the return type of `BaseGenerator` models
-
+[itemized_list
+    [
+        __Associative_Tree_Node__ if `T2` is specified;
+        __Non_Associative_Tree_Node__ otherwise
+    ]
+    [__Base_Tree_Node__]
+    [any other concept that the return type of `BaseGenerator` models]
+]
 [endsect]
 
 [section:public_bases Public Base Classes]

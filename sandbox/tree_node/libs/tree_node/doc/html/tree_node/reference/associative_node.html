@@ -46,30 +46,18 @@
 <a name="tree_node.reference.associative_node.definition"></a><a class="link" href="associative_node.html#tree_node.reference.associative_node.definition" title="Where defined">Where
         defined</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/tree_node/associative_node.hpp" target="_top">boost/tree_node/associative_node.hpp</a><span class="special">&gt;</span>
 </pre>
 <p>
-        </p>
-<p>
           Forward-declared:
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/tree_node/associative_node_fwd.hpp" target="_top">boost/tree_node/associative_node_fwd.hpp</a><span class="special">&gt;</span>
 </pre>
 <p>
-        </p>
-<p>
           To register under <a href="http://www.boost.org/doc/html/typeof.html" target="_top"><span class="bold"><strong>Boost.Typeof</strong></span></a>:
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/typeof/boost/tree_node/associative_node.hpp" target="_top">boost/typeof/boost/tree_node/associative_node.hpp</a><span class="special">&gt;</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -151,11 +139,16 @@
                   </p>
                 </td>
 <td>
-                  <p>
-                    <code class="literal"><a href="http://svn.boost.org/svn/boost/sandbox/container_gen/libs/container_gen/doc/html/container_gen/reference/is_recursive_selector.html" target="_top">boost::is_recursive_selector</a>&lt;Selector&gt;</code>
-                    must return <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a>, and <code class="literal"><a href="http://svn.boost.org/svn/boost/sandbox/container_gen/libs/container_gen/doc/html/container_gen/reference/is_associative_selector.html" target="_top">boost::is_associative_selector</a>&lt;Selector&gt;</code>
-                    must return <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a>.
-                  </p>
+                  <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem"><p>
+                        <code class="literal"><a href="http://svn.boost.org/svn/boost/sandbox/container_gen/libs/container_gen/doc/html/container_gen/reference/is_recursive_selector.html" target="_top">boost::is_recursive_selector</a>&lt;Selector&gt;</code>
+                        must evaluate to <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a>.
+                      </p></li>
+<li class="listitem"><p>
+                        <code class="literal"><a href="http://svn.boost.org/svn/boost/sandbox/container_gen/libs/container_gen/doc/html/container_gen/reference/is_associative_selector.html" target="_top">boost::is_associative_selector</a>&lt;Selector&gt;</code>
+                        must evaluate to <a href="http://www.boost.org/libs/mpl/doc/refmanual/bool.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span></code></a>.
+                      </p></li>
+</ul></div>
                 </td>
 <td>
                   <p>
@@ -171,23 +164,39 @@
 <a name="tree_node.reference.associative_node.model_of"></a><a class="link" href="associative_node.html#tree_node.reference.associative_node.model_of" title="Model of">Model
         of</a>
 </h4></div></div></div>
-<pre class="programlisting"><span class="special">*</span> <a class="link" href="../concepts/associative_tree_node.html" title="Associative Tree Node"><span class="bold"><strong>Associative Tree Node</strong></span></a>
-<span class="special">*</span> <a class="link" href="../concepts/reversible_tree_node.html" title="Reversible Tree Node"><span class="bold"><strong>Reversible Tree Node</strong></span></a> <span class="keyword">if</span>
-  <span class="special">[^</span><a href="http://svn.boost.org/svn/boost/sandbox/container_gen/libs/container_gen/doc/html/container_gen/reference/container_gen.html" target="_top">boost::container_gen</a><span class="special">&lt;</span><span class="identifier">Selector</span><span class="special">,</span><span class="identifier">Key</span><span class="special">,</span><span class="identifier">associative_node</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">]</span>
-  <span class="identifier">returns</span> <span class="identifier">a</span> <a href="http://www.sgi.com/tech/stl/ReversibleContainer.html" target="_top"><span class="bold"><strong>Reversible Container</strong></span></a> <span class="identifier">model</span>
-<span class="special">*</span> <a href="http://www.sgi.com/tech/stl/DefaultConstructible.html" target="_top"><span class="bold"><strong>Default Constructible</strong></span></a> <span class="keyword">if</span> <span class="error">`</span><span class="identifier">Data</span><span class="error">`</span> <span class="identifier">is</span> <a href="http://www.sgi.com/tech/stl/DefaultConstructible.html" target="_top"><span class="bold"><strong>Default Constructible</strong></span></a>
-<span class="special">*</span> <a class="link" href="../concepts/copyable_tree_node.html" title="Copyable Tree Node"><span class="bold"><strong>Copyable Tree Node</strong></span></a> <span class="keyword">if</span> <span class="error">`</span><span class="identifier">Data</span><span class="error">`</span> <span class="identifier">is</span> <a href="http://www.boost.org/libs/utility/CopyConstructible.html" target="_top"><span class="bold"><strong>Copy Constructible</strong></span></a>
-<span class="special">*</span> <a href="http://www.boost.org/libs/utility/Assignable.html" target="_top"><span class="bold"><strong>Assignable</strong></span></a> <span class="keyword">if</span> <span class="error">`</span><span class="identifier">Data</span><span class="error">`</span> <span class="identifier">is</span> <a href="http://www.boost.org/libs/utility/CopyConstructible.html" target="_top"><span class="bold"><strong>Copy Constructible</strong></span></a> <span class="keyword">and</span> <a href="http://www.boost.org/doc/html/move.html" target="_top"><span class="bold"><strong>Movable</strong></span></a>
-<span class="special">*</span> <a class="link" href="../concepts/movable_tree_node.html" title="Movable Tree Node"><span class="bold"><strong>Movable Tree Node</strong></span></a> <span class="keyword">if</span> <span class="error">`</span><span class="identifier">Data</span><span class="error">`</span> <span class="identifier">is</span> <a href="http://www.boost.org/doc/html/move.html" target="_top"><span class="bold"><strong>Movable</strong></span></a>
-</pre>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem"><p>
+              <a class="link" href="../concepts/associative_tree_node.html" title="Associative Tree Node"><span class="bold"><strong>Associative Tree Node</strong></span></a>
+            </p></li>
+<li class="listitem"><p>
+              <a class="link" href="../concepts/reversible_tree_node.html" title="Reversible Tree Node"><span class="bold"><strong>Reversible
+              Tree Node</strong></span></a> if <code class="literal"><a href="http://svn.boost.org/svn/boost/sandbox/container_gen/libs/container_gen/doc/html/container_gen/reference/container_gen.html" target="_top">boost::container_gen</a>&lt;Selector,Key,associative_node&gt;::type</code>
+              returns a <a href="http://www.sgi.com/tech/stl/ReversibleContainer.html" target="_top"><span class="bold"><strong>Reversible Container</strong></span></a> model
+            </p></li>
+<li class="listitem"><p>
+              <a href="http://www.sgi.com/tech/stl/DefaultConstructible.html" target="_top"><span class="bold"><strong>Default Constructible</strong></span></a> if <code class="computeroutput"><span class="identifier">Data</span></code> is <a href="http://www.sgi.com/tech/stl/DefaultConstructible.html" target="_top"><span class="bold"><strong>Default Constructible</strong></span></a>
+            </p></li>
+<li class="listitem"><p>
+              <a class="link" href="../concepts/copyable_tree_node.html" title="Copyable Tree Node"><span class="bold"><strong>Copyable
+              Tree Node</strong></span></a> if <code class="computeroutput"><span class="identifier">Data</span></code>
+              is <a href="http://www.boost.org/libs/utility/CopyConstructible.html" target="_top"><span class="bold"><strong>Copy Constructible</strong></span></a>
+            </p></li>
+<li class="listitem"><p>
+              <a href="http://www.boost.org/libs/utility/Assignable.html" target="_top"><span class="bold"><strong>Assignable</strong></span></a>
+              if <code class="computeroutput"><span class="identifier">Data</span></code> is <a href="http://www.boost.org/libs/utility/CopyConstructible.html" target="_top"><span class="bold"><strong>Copy Constructible</strong></span></a> and <a href="http://www.boost.org/doc/html/move.html" target="_top"><span class="bold"><strong>Movable</strong></span></a>
+            </p></li>
+<li class="listitem"><p>
+              <a class="link" href="../concepts/movable_tree_node.html" title="Movable Tree Node"><span class="bold"><strong>Movable
+              Tree Node</strong></span></a> if <code class="computeroutput"><span class="identifier">Data</span></code>
+              is <a href="http://www.boost.org/doc/html/move.html" target="_top"><span class="bold"><strong>Movable</strong></span></a>
+            </p></li>
+</ul></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="tree_node.reference.associative_node.public_bases"></a><a class="link" href="associative_node.html#tree_node.reference.associative_node.public_bases" title="Public Base Classes">Public
         Base Classes</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="identifier">associative_node_base</span><span class="special">&lt;</span>
     <span class="identifier">associative_node</span><span class="special">&lt;</span><span class="identifier">Key</span><span class="special">,</span><span class="identifier">Data</span><span class="special">,</span><span class="identifier">Selector</span><span class="special">&gt;</span>
   <span class="special">,</span> <span class="identifier">Key</span>
@@ -195,8 +204,6 @@
   <span class="special">,</span> <span class="identifier">Selector</span>
 <span class="special">&gt;</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -234,8 +241,6 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="identifier">associative_node_base</span><span class="special">&lt;</span>
             <span class="identifier">associative_node</span>
           <span class="special">,</span> <span class="identifier">Key</span>
@@ -244,8 +249,6 @@
         <span class="special">&gt;</span>
         <span class="identifier">super_t</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -262,13 +265,9 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">super_t</span><span class="special">::</span><span class="identifier">traits</span>
         <span class="identifier">traits</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -283,13 +282,9 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">super_t</span><span class="special">::</span><span class="identifier">pointer</span>
         <span class="identifier">pointer</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -305,13 +300,9 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">super_t</span><span class="special">::</span><span class="identifier">const_pointer</span>
         <span class="identifier">const_pointer</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -327,13 +318,9 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">super_t</span><span class="special">::</span><span class="identifier">iterator</span>
         <span class="identifier">iterator</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -348,13 +335,9 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">super_t</span><span class="special">::</span><span class="identifier">const_iterator</span>
         <span class="identifier">const_iterator</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -369,12 +352,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">children</span><span class="special">::</span><span class="identifier">reverse_iterator</span> <span class="identifier">reverse_iterator</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -389,13 +368,9 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">children</span><span class="special">::</span><span class="identifier">const_reverse_iterator</span>
         <span class="identifier">const_reverse_iterator</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -410,13 +385,9 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="special">...</span><span class="identifier">Args</span><span class="special">&gt;</span>
 <span class="keyword">explicit</span> <span class="identifier">associative_node</span><span class="special">(</span><span class="identifier">Args</span><span class="special">&amp;&amp;</span> <span class="special">...</span><span class="identifier">args</span><span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -432,8 +403,6 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="special">...</span><span class="identifier">Args</span><span class="special">&gt;</span>
 <span class="keyword">explicit</span> <span class="identifier">associative_node</span><span class="special">(</span>
     <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">container</span><span class="special">::</span><span class="identifier">allocator_arg_t</span>
@@ -441,8 +410,6 @@
   <span class="special">,</span> <span class="identifier">Args</span><span class="special">&amp;&amp;</span> <span class="special">...</span><span class="identifier">args</span>
 <span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -458,12 +425,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">associative_node</span><span class="special">(</span><span class="identifier">associative_node</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">copy</span><span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -478,15 +441,11 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">associative_node</span><span class="special">(</span>
     <span class="identifier">associative_node</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">copy</span>
   <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">allocator_reference</span> <span class="identifier">allocator</span>
 <span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -501,12 +460,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">associative_node</span><span class="special">(</span><span class="identifier">associative_node</span><span class="special">&amp;&amp;</span> <span class="identifier">source</span><span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -521,15 +476,11 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">associative_node</span><span class="special">(</span>
     <span class="identifier">associative_node</span><span class="special">&amp;&amp;</span> <span class="identifier">source</span>
   <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">allocator_reference</span> <span class="identifier">allocator</span>
 <span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -544,12 +495,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">associative_node</span><span class="special">&amp;</span> <span class="keyword">operator</span><span class="special">=(</span><span class="identifier">associative_node</span> <span class="keyword">const</span><span class="special">&amp;);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -564,12 +511,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">associative_node</span><span class="special">&amp;</span> <span class="keyword">operator</span><span class="special">=(</span><span class="identifier">associative_node</span><span class="special">&amp;&amp;);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -584,12 +527,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">const_pointer</span> <span class="identifier">get_parent_ptr</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -605,12 +544,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">pointer</span> <span class="identifier">get_parent_ptr</span><span class="special">();</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -626,13 +561,9 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="special">...</span><span class="identifier">Args</span><span class="special">&gt;</span>
 <span class="identifier">iterator</span> <span class="identifier">emplace</span><span class="special">(</span><span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">key_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">key</span><span class="special">,</span> <span class="identifier">Args</span><span class="special">&amp;&amp;</span> <span class="special">...</span><span class="identifier">args</span><span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -647,16 +578,12 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">iterator</span>
     <span class="identifier">insert</span><span class="special">(</span>
         <span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">key_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">key</span>
       <span class="special">,</span> <span class="identifier">associative_node</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">child</span>
     <span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -671,16 +598,12 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">iterator</span>
     <span class="identifier">insert</span><span class="special">(</span>
         <span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">key_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">key</span>
       <span class="special">,</span> <span class="identifier">associative_node</span><span class="special">&amp;&amp;</span> <span class="identifier">child</span>
     <span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -695,13 +618,9 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">const_iterator</span> <span class="identifier">cbegin</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="identifier">const_iterator</span> <span class="identifier">begin</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -717,12 +636,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">iterator</span> <span class="identifier">begin</span><span class="special">();</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -738,13 +653,9 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">const_iterator</span> <span class="identifier">cend</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="identifier">const_iterator</span> <span class="identifier">end</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -760,12 +671,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">iterator</span> <span class="identifier">end</span><span class="special">();</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -781,13 +688,9 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">const_reverse_iterator</span> <span class="identifier">crbegin</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="identifier">const_reverse_iterator</span> <span class="identifier">rbegin</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -802,12 +705,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">reverse_iterator</span> <span class="identifier">rbegin</span><span class="special">();</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -822,13 +721,9 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">const_reverse_iterator</span> <span class="identifier">crend</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="identifier">const_reverse_iterator</span> <span class="identifier">rend</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -843,12 +738,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">reverse_iterator</span> <span class="identifier">rend</span><span class="special">();</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -863,12 +754,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">size_type</span> <span class="identifier">size</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -884,12 +771,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">const_iterator</span> <span class="identifier">find</span><span class="special">(</span><span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">key_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">key</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -904,12 +787,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">iterator</span> <span class="identifier">find</span><span class="special">(</span><span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">key_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">key</span><span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -924,12 +803,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">const_iterator</span> <span class="identifier">lower_bound</span><span class="special">(</span><span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">key_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">key</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -944,12 +819,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">iterator</span> <span class="identifier">lower_bound</span><span class="special">(</span><span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">key_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">key</span><span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -964,12 +835,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">const_iterator</span> <span class="identifier">upper_bound</span><span class="special">(</span><span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">key_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">key</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -984,12 +851,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">iterator</span> <span class="identifier">upper_bound</span><span class="special">(</span><span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">key_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">key</span><span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1004,13 +867,9 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">const_iterator_range</span>
     <span class="identifier">equal_range</span><span class="special">(</span><span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">key_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">key</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1025,13 +884,9 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">iterator_range</span>
     <span class="identifier">equal_range</span><span class="special">(</span><span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">key_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">key</span><span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1046,12 +901,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">size_type</span> <span class="identifier">erase</span><span class="special">(</span><span class="keyword">typename</span> <span class="identifier">traits</span><span class="special">::</span><span class="identifier">key_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">key</span><span class="special">);</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1066,12 +917,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">bool</span> <span class="identifier">empty</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1087,12 +934,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">void</span> <span class="identifier">clear</span><span class="special">();</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -1127,13 +970,9 @@
           For the sake of simplicity, the program will store its documents in a random-access
           container, so our inverted index implementation will refer to them by index.
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">set</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;</span> <span class="identifier">Indices</span><span class="special">;</span>
 <span class="keyword">typedef</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">associative_node</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">,</span><span class="identifier">Indices</span><span class="special">&gt;</span> <span class="identifier">RadixTrieNode</span><span class="special">;</span>
 </pre>
-<p>
-        </p>
 <p>
           Since a <a href="http://en.wikipedia.org/wiki/Radix_tree" target="_top">radix tree</a>
           is a space-optimized <a href="http://en.wikipedia.org/wiki/Trie" target="_top">trie</a>
@@ -1146,8 +985,6 @@
           are simply strings of space-delimited words, which can be extracted via
           <a href="http://www.boost.org/libs/tokenizer/index.html" target="_top"><span class="bold"><strong>Boost.Tokenizer</strong></span></a>.
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">class</span> <span class="identifier">InvertedIndex</span>
 <span class="special">{</span>
     <span class="identifier">RadixTrieNode</span> <span class="identifier">radix_root_node</span><span class="special">;</span>
@@ -1181,14 +1018,10 @@
     <span class="special">}</span>
 </pre>
 <p>
-        </p>
-<p>
           To optimize for space, in this case, means merging each single-child node
           with its offspring while concatenating the associated keys. A breadth-first
           traversal will encounter the minimum number of nodes that need to be checked.
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">void</span> <span class="identifier">flatten</span><span class="special">()</span>
 <span class="special">{</span>
     <span class="keyword">for</span> <span class="special">(</span>
@@ -1226,8 +1059,6 @@
 <span class="special">}</span>
 </pre>
 <p>
-        </p>
-<p>
           When searching for a particular word, our inverted index will, at each
           step, determine what portion of the specified word needs to be processed,
           then choose the branch whose key matches either that portion or a prefix
@@ -1236,8 +1067,6 @@
           then the suffix will be processed at the next step. If no branch exists,
           then the word is not found.
         </p>
-<p>
-</p>
 <pre class="programlisting">    <span class="identifier">Indices</span> <span class="identifier">find</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">word</span><span class="special">)</span> <span class="keyword">const</span>
     <span class="special">{</span>
         <span class="identifier">Indices</span> <span class="identifier">result</span><span class="special">;</span>
@@ -1287,13 +1116,9 @@
 <span class="special">};</span>
 </pre>
 <p>
-        </p>
-<p>
           In our program, the search space is a small array of documents, each of
           which the program will feed to the inverted index.
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">int</span> <span class="identifier">test_main</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">argc</span><span class="special">,</span> <span class="keyword">char</span><span class="special">**</span> <span class="identifier">argv</span><span class="special">)</span>
 <span class="special">{</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&gt;</span> <span class="identifier">database</span><span class="special">(</span><span class="number">3</span><span class="special">);</span>
@@ -1312,13 +1137,9 @@
     <span class="identifier">inverted_index</span><span class="special">.</span><span class="identifier">flatten</span><span class="special">();</span>
 </pre>
 <p>
-        </p>
-<p>
           Then, for each unique word, the program will send the associated indices
           to standard output.
         </p>
-<p>
-</p>
 <pre class="programlisting">    <span class="identifier">Indices</span> <span class="identifier">indices</span> <span class="special">=</span> <span class="identifier">inverted_index</span><span class="special">.</span><span class="identifier">find</span><span class="special">(</span><span class="string">"a"</span><span class="special">);</span>
 
     <span class="identifier">BOOST_CHECK</span><span class="special">(</span><span class="number">1</span> <span class="special">==</span> <span class="identifier">indices</span><span class="special">.</span><span class="identifier">size</span><span class="special">());</span>
@@ -1336,8 +1157,6 @@
     <span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>
 <span class="special">}</span>
 </pre>
-<p>
-        </p>
 <p>
           The complete program source can be found here: &lt;<a href="../../../../test/inverted_index.cpp" target="_top">test/inverted_index.cpp</a>&gt;
         </p>

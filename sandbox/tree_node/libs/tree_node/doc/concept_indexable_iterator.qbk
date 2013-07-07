@@ -17,10 +17,10 @@ __Random_Access_Iterator__.
 [endsect]
 
 [section Refinement of]
-
-  * __Bidirectional_Iterator__
-  * __Less_Than_Comparable__
-
+[itemized_list
+    [__Bidirectional_Iterator__]
+    [__Less_Than_Comparable__]
+]
 [endsect]
 
 [section:types Associated Types]
@@ -153,10 +153,10 @@ to the number of descendants in the worst case.
 [endsect]
 
 [section Models]
-
-  * The iterator types of __binode_container__.
-  * The iterator types of __binode_associative_container__.
-
+[itemized_list
+    [The iterator types of __binode_container__]
+    [The iterator types of __binode_associative_container__]
+]
 [endsect]
 
 [endsect] [/ Tree Node Iterator]

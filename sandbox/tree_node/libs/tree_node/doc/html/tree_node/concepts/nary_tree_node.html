@@ -141,22 +141,14 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">dest_node</span><span class="special">.</span><span class="identifier">emplace</span><span class="special">(</span>
     <a href="http://www.boost.org/doc/html/boost/forward.html" target="_top">boost::forward</a><span class="special">&lt;</span><span class="identifier">Args</span><span class="special">&gt;(</span><span class="identifier">args</span><span class="special">)...</span>
 <span class="special">)</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">iterator</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -181,20 +173,12 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">dest_node</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">const_node</span><span class="special">)</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">iterator</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -221,20 +205,12 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">dest_node</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">rvalue_node</span><span class="special">)</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">iterator</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -260,12 +236,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">dest_node</span><span class="special">.</span><span class="identifier">splice</span><span class="special">(</span><span class="identifier">pos</span><span class="special">,</span> <span class="identifier">src_node</span><span class="special">)</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -299,12 +271,8 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">dest_node</span><span class="special">.</span><span class="identifier">splice</span><span class="special">(</span><span class="identifier">pos</span><span class="special">,</span> <span class="identifier">src_node</span><span class="special">,</span> <span class="identifier">itr</span><span class="special">)</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -322,13 +290,17 @@
                   </p>
                 </td>
 <td>
-                  <p>
-                    * <code class="computeroutput"><span class="identifier">pos</span></code> must be
-                    dereferenceable or past-the-end of the range of children of
-                    <code class="computeroutput"><span class="identifier">dest_node</span></code>. *
-                    <code class="computeroutput"><span class="identifier">itr</span></code> must point
-                    to a valid child node of <code class="computeroutput"><span class="identifier">src_node</span></code>.
-                  </p>
+                  <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem"><p>
+                        <code class="computeroutput"><span class="identifier">pos</span></code> must
+                        be dereferenceable or past-the-end of the range of children
+                        of <code class="computeroutput"><span class="identifier">dest_node</span></code>.
+                      </p></li>
+<li class="listitem"><p>
+                        <code class="computeroutput"><span class="identifier">itr</span></code> must
+                        point to a valid child node of <code class="computeroutput"><span class="identifier">src_node</span></code>.
+                      </p></li>
+</ul></div>
                 </td>
 <td>
                 </td>
@@ -340,8 +312,6 @@
                   </p>
                 </td>
 <td>
-                  <p>
-</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">dest_node</span><span class="special">.</span><span class="identifier">splice</span><span class="special">(</span>
     <span class="identifier">pos</span>
   <span class="special">,</span> <span class="identifier">src_node</span>
@@ -349,8 +319,6 @@
   <span class="special">,</span> <span class="identifier">itr_end</span>
 <span class="special">)</span>
 </pre>
-<p>
-                  </p>
                 </td>
 <td>
                   <p>
@@ -368,16 +336,22 @@
                   </p>
                 </td>
 <td>
-                  <p>
-                    * <code class="computeroutput"><span class="identifier">pos</span></code> must be
-                    dereferenceable or past-the-end of the range of children of
-                    <code class="computeroutput"><span class="identifier">dest_node</span></code>. *
-                    <code class="computeroutput"><span class="identifier">itr</span></code> and <code class="computeroutput"><span class="identifier">itr_end</span></code> must refer to a valid
-                    sub-range of the range of children of <code class="computeroutput"><span class="identifier">src_node</span></code>.
-                    * <code class="computeroutput"><span class="identifier">pos</span></code> must point
-                    outside the sub-range referred to by <code class="computeroutput"><span class="identifier">itr</span></code>
-                    and <code class="computeroutput"><span class="identifier">itr_end</span></code>.
-                  </p>
+                  <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem"><p>
+                        <code class="computeroutput"><span class="identifier">pos</span></code> must
+                        be dereferenceable or past-the-end of the range of children
+                        of <code class="computeroutput"><span class="identifier">dest_node</span></code>.
+                      </p></li>
+<li class="listitem"><p>
+                        <code class="computeroutput"><span class="identifier">itr</span></code> and
+                        <code class="computeroutput"><span class="identifier">itr_end</span></code> must
+                        refer to a valid sub-range of the range of children of <code class="computeroutput"><span class="identifier">src_node</span></code>.
+                      </p></li>
+<li class="listitem"><p>
+                        <code class="computeroutput"><span class="identifier">pos</span></code> must
+                        point outside the sub-range referred to by <code class="computeroutput"><span class="identifier">itr</span></code> and <code class="computeroutput"><span class="identifier">itr_end</span></code>.
+                      </p></li>
+</ul></div>
                 </td>
 <td>
                   <p>
@@ -392,9 +366,14 @@
 <div class="titlepage"><div><div><h4 class="title">
 <a name="tree_node.concepts.nary_tree_node.models"></a><a class="link" href="nary_tree_node.html#tree_node.concepts.nary_tree_node.models" title="Models">Models</a>
 </h4></div></div></div>
-<pre class="programlisting"><span class="special">*</span> <a class="link" href="../reference/nary_node.html" title="nary_node&lt;T,Selector&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">nary_node</span></code></a>
-<span class="special">*</span> <a class="link" href="../reference/nary_node_base.html" title="nary_node_base&lt;Derived,T,Selector&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">nary_node_base</span></code></a>
-</pre>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem"><p>
+              <a class="link" href="../reference/nary_node.html" title="nary_node&lt;T,Selector&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">nary_node</span></code></a>
+            </p></li>
+<li class="listitem"><p>
+              <a class="link" href="../reference/nary_node_base.html" title="nary_node_base&lt;Derived,T,Selector&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">nary_node_base</span></code></a>
+            </p></li>
+</ul></div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

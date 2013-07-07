@@ -55,8 +55,10 @@ class Derived : public Base
 [endsect]
 
 [section Arguments]
-  * /Derived/ -- The name of the enclosing type.
-  * /Base/ -- The name of the type from which `Derived` inherits.
+[variablelist Notation
+    [[`Derived`][The name of the enclosing type.]]
+    [[`Base`][The name of the type from which `Derived` inherits.]]
+]
 [endsect]
 
 [section:definition Where defined]

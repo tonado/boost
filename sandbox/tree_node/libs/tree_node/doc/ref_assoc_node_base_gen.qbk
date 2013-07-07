@@ -43,10 +43,16 @@ __Base_Type_Generator__
             The type that determines the child container type of
             __associative_node_base__.
         ]
-        [
-            [^_is_recursive_selector_<Selector>] must return __mpl_true__, and
-            [^_is_associative_selector_<Selector>] must return __mpl_true__.
-        ]
+        [[itemized_list
+            [
+                [^_is_recursive_selector_<Selector>] must evaluate to
+                __mpl_true__.
+            ]
+            [
+                [^_is_associative_selector_<Selector>] must evaluate to
+                __mpl_true__.
+            ]
+        ]]
         [__ptr_mapS__]
     ]
 ]
@@ -54,8 +60,11 @@ __Base_Type_Generator__
 
 [section:expressions Expression Semantics]
 Let `Derived` be the type that will inherit from __associative_node_base__.
+
 Let `Key` be the key type.
+
 Let `Data` be the user data type.
+
 Let `Selector` be a valid `associative_node_base_gen` template argument.
 
 ``

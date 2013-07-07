@@ -27,25 +27,38 @@
 
 [heading Core Concepts]
 
-  * __Tree_Node__
-      * __Copyable_Tree_Node__
-      * __Movable_Tree_Node__
-      * __Base_Tree_Node__
-      * __Reversible_Tree_Node__
-      * __Associative_Tree_Node__
-      * __Non_Associative_Tree_Node__
-          * __Binary_Tree_Node__
-          * __N_ary_Tree_Node__
-  * __Node_Type_Generator__
-  * __Base_Type_Generator__
-  * __Tree_Node_Iterator__
-      * __Full_Tree_Node_Iterator__
-      * __Tree_Node_Descendant_Iterator__
+[itemized_list
+    [__Tree_Node__
+        [itemized_list
+            [__Copyable_Tree_Node__]
+            [__Movable_Tree_Node__]
+            [__Base_Tree_Node__]
+            [__Reversible_Tree_Node__]
+            [__Associative_Tree_Node__]
+            [__Non_Associative_Tree_Node__
+                [itemized_list
+                    [__Binary_Tree_Node__]
+                    [__N_ary_Tree_Node__]
+                ]
+            ]
+        ]
+    ]
+    [__Node_Type_Generator__]
+    [__Base_Type_Generator__]
+    [__Tree_Node_Iterator__
+        [itemized_list
+            [__Full_Tree_Node_Iterator__]
+            [__Tree_Node_Descendant_Iterator__]
+        ]
+    ]
+]
 
 [heading Auxiliary Concepts]
 
-  * __Indexable_Container__
-  * __Indexable_Iterator__
+[itemized_list
+    [__Indexable_Container__]
+    [__Indexable_Iterator__]
+]
 
 [endsect] [/ Concepts]
 

@@ -56,8 +56,11 @@ __Node_Type_Generator__
 
 [section:expressions Expression Semantics]
 Let `Key` be the key type.
+
 Let `Data` be the user data type.
+
 Let `BaseGenerator` be a valid first template argument for `with_count_gen`.
+
 Let `Count` be the count type.
 
 ``

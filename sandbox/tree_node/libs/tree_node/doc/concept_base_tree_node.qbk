@@ -14,14 +14,22 @@ inherit their functionality for greater reuse.
 
 In practice, each [*Base Tree Node] model must do the following:
 
-  * Inherit from either __tree_node_base__ or the return type of a
-    __Base_Type_Generator__.
-  * Take in the derived type and the data type as template parameters.
-  * Also take in the key type if the derived type is (possibly) an
-    __Associative_Tree_Node__ model.
-  * Declare a template instantiation of __tree_node_base__ with the derived
-    type as a `friend struct` if it overrides any of __tree_node_base__
-    implementation methods.
+[itemized_list
+    [
+        Inherit from either __tree_node_base__ or the return type of a
+        __Base_Type_Generator__.
+    ]
+    [Take in the derived type and the data type as template parameters.]
+    [
+        Also take in the key type if the derived type is (possibly) an
+        __Associative_Tree_Node__ model.
+    ]
+    [
+        Declare a template instantiation of __tree_node_base__ with the derived
+        type as a `friend struct` if it overrides any of __tree_node_base__
+        implementation methods.
+    ]
+]
 
 [endsect]
 
@@ -355,16 +363,16 @@ Also, the following expressions must be valid (unless the `Node` type does
 [endsect] [/ Valid Expressions and Semantics]
 
 [section Models]
-
-  * __binary_node_base__
-  * __nary_node_base__
-  * __associative_node_base__
-  * __tree_node_with_accumulation_base__
-  * __tree_node_with_count_base__
-  * __tree_node_with_height_base__
-  * __tree_node_with_position_base__
-  * __tree_node_with_red_black_flag_base__
-
+[itemized_list
+    [__binary_node_base__]
+    [__nary_node_base__]
+    [__associative_node_base__]
+    [__tree_node_with_accumulation_base__]
+    [__tree_node_with_count_base__]
+    [__tree_node_with_height_base__]
+    [__tree_node_with_position_base__]
+    [__tree_node_with_red_black_flag_base__]
+]
 [endsect]
 
 [endsect] [/ Base Tree Node]

@@ -23,8 +23,6 @@
 <div class="titlepage"><div><div><h4 class="title">
 <a name="tree_node.reference.with_accumulation_gen.synopsis"></a><a class="link" href="with_accumulation_gen.html#tree_node.reference.with_accumulation_gen.synopsis" title="Synopsis">Synopsis</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">tree_node</span> <span class="special">{</span>
 
     <span class="keyword">template</span> <span class="special">&lt;</span>
@@ -42,8 +40,6 @@
     <span class="special">};</span>
 <span class="special">}}</span>  <span class="comment">// namespace boost::tree_node</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -62,21 +58,13 @@
 <a name="tree_node.reference.with_accumulation_gen.definition"></a><a class="link" href="with_accumulation_gen.html#tree_node.reference.with_accumulation_gen.definition" title="Where defined">Where
         defined</a>
 </h4></div></div></div>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/tree_node/with_accumulation.hpp" target="_top">boost/tree_node/with_accumulation.hpp</a><span class="special">&gt;</span>
 </pre>
 <p>
-        </p>
-<p>
           To register under <a href="http://www.boost.org/doc/html/typeof.html" target="_top"><span class="bold"><strong>Boost.Typeof</strong></span></a>:
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/typeof/boost/tree_node/with_accumulation.hpp" target="_top">boost/typeof/boost/tree_node/with_accumulation.hpp</a><span class="special">&gt;</span>
 </pre>
-<p>
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -141,13 +129,16 @@
 </h4></div></div></div>
 <p>
           Let <code class="computeroutput"><span class="identifier">Key</span></code> be the key type.
-          Let <code class="computeroutput"><span class="identifier">Data</span></code> be the user data
-          type. Let <code class="computeroutput"><span class="identifier">BaseGenerator</span></code>
-          be a valid <code class="computeroutput"><span class="identifier">with_accumulation_gen</span></code>
-          template argument.
         </p>
 <p>
-</p>
+          Let <code class="computeroutput"><span class="identifier">Data</span></code> be the user data
+          type.
+        </p>
+<p>
+          Let <code class="computeroutput"><span class="identifier">BaseGenerator</span></code> be a
+          valid <code class="computeroutput"><span class="identifier">with_accumulation_gen</span></code>
+          template argument.
+        </p>
 <pre class="programlisting"><span class="keyword">typedef</span> <a href="http://www.boost.org/libs/mpl/doc/refmanual/apply-wrap.html" target="_top">boost::mpl::apply_wrap2</a><span class="special">&lt;</span>
     <span class="identifier">with_accumulator_gen</span><span class="special">&lt;</span><span class="identifier">BaseGenerator</span><span class="special">&gt;</span>
   <span class="special">,</span> <span class="identifier">Key</span>
@@ -155,19 +146,13 @@
 <span class="special">&gt;::</span><span class="identifier">type</span> <span class="identifier">r</span><span class="special">;</span>
 </pre>
 <p>
-        </p>
-<p>
           <span class="bold"><strong>Return type:</strong></span> <code class="literal"><a class="link" href="with_accumulation.html" title="with_accumulation&lt;BaseGenerator,T1,T2,AccumulationKey&gt;">tree_node::with_accumulation</a>&lt;BaseGenerator,Key,Data&gt;</code>
         </p>
-<p>
-</p>
 <pre class="programlisting"><span class="keyword">typedef</span> <a href="http://www.boost.org/libs/mpl/doc/refmanual/apply-wrap.html" target="_top">boost::mpl::apply_wrap1</a><span class="special">&lt;</span>
     <span class="identifier">with_accumulation_gen</span><span class="special">&lt;</span><span class="identifier">BaseGenerator</span><span class="special">&gt;</span>
   <span class="special">,</span> <span class="identifier">Data</span>
 <span class="special">&gt;::</span><span class="identifier">type</span> <span class="identifier">r</span><span class="special">;</span>
 </pre>
-<p>
-        </p>
 <p>
           <span class="bold"><strong>Return type:</strong></span> <code class="literal"><a class="link" href="with_accumulation.html" title="with_accumulation&lt;BaseGenerator,T1,T2,AccumulationKey&gt;">tree_node::with_accumulation</a>&lt;BaseGenerator,Data,void&gt;</code>
         </p>

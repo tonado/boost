@@ -65,16 +65,18 @@ To register under __Boost_Typeof__:
 [endsect]
 
 [section:model_of Model of]
-
-  * __Simple_Associative_Container__
-  * __Multiple_Sorted_Associative_Container__
-  * __Indexable_Container__ if the value associated with __count_key__ exists
-    for the return type of `NodeGenerator`
-  * __Default_Constructible__ if `T` is __Default_Constructible__
-  * __Copy_Constructible__ if `T` is __Copy_Constructible__
-  * __Assignable__ if `T` is __Copy_Constructible__ and __Movable__
-  * __Movable__ if `T` is __Movable__
-
+[itemized_list
+    [__Simple_Associative_Container__]
+    [__Multiple_Sorted_Associative_Container__]
+    [
+        __Indexable_Container__ if the value associated with __count_key__
+        exists for the return type of `NodeGenerator`
+    ]
+    [__Default_Constructible__ if `T` is __Default_Constructible__]
+    [__Copy_Constructible__ if `T` is __Copy_Constructible__]
+    [__Assignable__ if `T` is __Copy_Constructible__ and __Movable__]
+    [__Movable__ if `T` is __Movable__]
+]
 [endsect]
 
 [section:public_bases Public Base Classes]

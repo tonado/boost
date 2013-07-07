@@ -57,10 +57,14 @@ __Base_Type_Generator__
 [section:expressions Expression Semantics]
 Let `Derived` be the type that will inherit from
 __tree_node_with_height_base__.
+
 Let `Key` be the key type.
+
 Let `Data` be the user data type.
+
 Let `BaseGenerator` be a valid first template argument for
 `with_height_base_gen`.
+
 Let `Height` be the height type.
 
 ``

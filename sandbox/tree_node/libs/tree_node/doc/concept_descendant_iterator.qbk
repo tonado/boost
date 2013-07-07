@@ -73,12 +73,12 @@ are clarified.
 [endsect]
 
 [section Models]
-
-  * __breadth_first_descendant_iterator__
-  * __pre_order_descendant_iterator__
-  * __post_order_descendant_iterator__
-  * __depth_first_descendant_iterator__
-
+[itemized_list
+    [__breadth_first_descendant_iterator__]
+    [__pre_order_descendant_iterator__]
+    [__post_order_descendant_iterator__]
+    [__depth_first_descendant_iterator__]
+]
 [endsect]
 
 [endsect] [/ Tree Node Descendant Iterator]

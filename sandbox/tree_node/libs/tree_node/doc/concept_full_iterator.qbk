@@ -58,13 +58,13 @@ are clarified.
 [endsect]
 
 [section Models]
-
-  * __breadth_first_iterator__
-  * __pre_order_iterator__
-  * __post_order_iterator__
-  * __in_order_iterator__
-  * __depth_first_iterator__
-
+[itemized_list
+    [__breadth_first_iterator__]
+    [__pre_order_iterator__]
+    [__post_order_iterator__]
+    [__in_order_iterator__]
+    [__depth_first_iterator__]
+]
 [endsect]
 
 [endsect] [/ Full Tree Node Iterator]

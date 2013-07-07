@@ -14,22 +14,28 @@ data structures.
 
 In practice, each [*Movable Tree Node] model must do the following:
 
-  * Inherit from the corresponding __Base_Tree_Node__ model.
-  * Take in the data type as template parameters.
-  * Also take in the key type if (possibly) modeling the
-    __Associative_Tree_Node__ concept.
-  * Use the __TREE_NODE_COPYABLE_AND_MOVABLE__,
-    __TREE_NODE_EMPLACEMENT_CTOR_INLINE_DEF__, and
-    __TREE_NODE_EMPLACEMENT_CTOR_W_ALLOC_INLINE_DEF__ macros to support
-    C++03 compilers.
+[itemized_list
+    [Inherit from the corresponding __Base_Tree_Node__ model.]
+    [Take in the data type as template parameters.]
+    [
+        Also take in the key type if (possibly) modeling the
+        __Associative_Tree_Node__ concept.
+    ]
+    [
+        Use the __TREE_NODE_COPYABLE_AND_MOVABLE__,
+        __TREE_NODE_EMPLACEMENT_CTOR_INLINE_DEF__, and
+        __TREE_NODE_EMPLACEMENT_CTOR_W_ALLOC_INLINE_DEF__ macros to support
+        C++03 compilers.
+    ]
+]
 
 [endsect]
 
 [section Refinement of]
-
-  * __Tree_Node__
-  * __Movable__
-
+[itemized_list
+    [__Tree_Node__]
+    [__Movable__]
+]
 [endsect]
 
 [variablelist Notation
@@ -59,7 +65,9 @@ concepts, the following expressions must be valid.
     ]
     [
         [Move constructor]
-        [`Node(rvalue_node)`]
+        [``
+            Node(rvalue_node)
+        ``]
         []
         [Transfers the contents of the specified node to this one.]
         [
@@ -73,7 +81,13 @@ concepts, the following expressions must be valid.
     ]
     [
         [Move constructor with allocator]
-        [`Node(boost::container::allocator_arg, alloc, rvalue_node)`]
+        [``
+            Node(
+                boost::container::allocator_arg
+              , alloc
+              , rvalue_node
+            )
+        ``]
         []
         [
             Transfers the contents of the specified node to this one.  The
@@ -90,21 +104,31 @@ concepts, the following expressions must be valid.
 [endsect] [/ Valid Expressions and Semantics]
 
 [section Models]
-
-  * __binary_node__ if `T` is __Movable__
-  * __nary_node__ if `T` is __Movable__
-  * __associative_node__ if `Data` is __Movable__
-  * __tree_node_with_accumulation__ if `BaseGenerator` returns a [*Movable Tree
-    Node] model
-  * __tree_node_with_count__ if `BaseGenerator` returns a [*Movable Tree Node]
-    model
-  * __tree_node_with_height__ if `BaseGenerator` returns a [*Movable Tree Node]
-    model
-  * __tree_node_with_position__ if `BaseGenerator` returns a [*Movable Tree
-    Node] model
-  * __tree_node_with_red_black_flag__ if `BaseGenerator` returns a [*Movable
-    Tree Node] model
-
+[itemized_list
+    [__binary_node__ if `T` is __Movable__]
+    [__nary_node__ if `T` is __Movable__]
+    [__associative_node__ if `Data` is __Movable__]
+    [
+        __tree_node_with_accumulation__ if `BaseGenerator` returns a [*Movable
+        Tree Node] model
+    ]
+    [
+        __tree_node_with_count__ if `BaseGenerator` returns a [*Movable Tree
+        Node] model
+    ]
+    [
+        __tree_node_with_height__ if `BaseGenerator` returns a [*Movable Tree
+        Node] model
+    ]
+    [
+        __tree_node_with_position__ if `BaseGenerator` returns a [*Movable Tree
+        Node] model
+    ]
+    [
+        __tree_node_with_red_black_flag__ if `BaseGenerator` returns a
+        [*Movable Tree Node] model
+    ]
+]
 [endsect]
 
 [endsect] [/ Movable Tree Node]

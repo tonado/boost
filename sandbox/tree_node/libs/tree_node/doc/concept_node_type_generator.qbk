@@ -51,15 +51,16 @@ __Tree_Node__ model of which objects can be instantiated.
 [endsect]
 
 [section Models]
-
-  * __binary_node_gen__
-  * __nary_node_gen__
-  * __associative_node_gen__
-  * __tree_node_with_count_gen__
-  * __tree_node_with_height_gen__
-  * __tree_node_with_position_gen__
-  * __tree_node_with_red_black_flag_gen__
-
+[itemized_list
+    [__binary_node_gen__]
+    [__nary_node_gen__]
+    [__associative_node_gen__]
+    [__tree_node_with_accumulation_gen__]
+    [__tree_node_with_count_gen__]
+    [__tree_node_with_height_gen__]
+    [__tree_node_with_position_gen__]
+    [__tree_node_with_red_black_flag_gen__]
+]
 [endsect]
 
 [endsect] [/ Node Type Generator]

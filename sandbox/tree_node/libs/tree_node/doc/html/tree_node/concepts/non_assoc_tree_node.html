@@ -48,9 +48,16 @@
           No additional types beyond those defined in the <a class="link" href="tree_node.html" title="Tree Node"><span class="bold"><strong>Tree Node</strong></span></a> concept; however, the requirements
           for the child iterator types are strengthened:
         </p>
-<pre class="programlisting"><span class="special">*</span> <span class="identifier">The</span> <span class="identifier">value</span> <span class="identifier">type</span> <span class="identifier">of</span> <span class="error">`</span><span class="identifier">Node</span><span class="special">::</span><span class="identifier">iterator</span><span class="error">`</span> <span class="identifier">must</span> <span class="identifier">be</span> <span class="error">`</span><span class="identifier">Node</span><span class="special">&amp;</span><span class="error">`</span><span class="special">.</span>
-<span class="special">*</span> <span class="identifier">The</span> <span class="identifier">value</span> <span class="identifier">type</span> <span class="identifier">of</span> <span class="error">`</span><span class="identifier">Node</span><span class="special">::</span><span class="identifier">const_iterator</span><span class="error">`</span> <span class="identifier">must</span> <span class="identifier">be</span> <span class="error">`</span><span class="identifier">Node</span> <span class="keyword">const</span><span class="special">&amp;</span><span class="error">`</span><span class="special">.</span>
-</pre>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem"><p>
+              The value type of <code class="computeroutput"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">iterator</span></code>
+              must be <code class="computeroutput"><span class="identifier">Node</span><span class="special">&amp;</span></code>.
+            </p></li>
+<li class="listitem"><p>
+              The value type of <code class="computeroutput"><span class="identifier">Node</span><span class="special">::</span><span class="identifier">const_iterator</span></code>
+              must be <code class="computeroutput"><span class="identifier">Node</span> <span class="keyword">const</span><span class="special">&amp;</span></code>.
+            </p></li>
+</ul></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -65,11 +72,20 @@
 <div class="titlepage"><div><div><h4 class="title">
 <a name="tree_node.concepts.non_assoc_tree_node.models"></a><a class="link" href="non_assoc_tree_node.html#tree_node.concepts.non_assoc_tree_node.models" title="Models">Models</a>
 </h4></div></div></div>
-<pre class="programlisting"><span class="special">*</span> <a class="link" href="../reference/binary_node.html" title="binary_node&lt;T,Size,AllocatorSelector&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">binary_node</span></code></a>
-<span class="special">*</span> <a class="link" href="../reference/binary_node_base.html" title="binary_node_base&lt;Derived,T,Selector&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">binary_node_base</span></code></a>
-<span class="special">*</span> <a class="link" href="../reference/nary_node.html" title="nary_node&lt;T,Selector&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">nary_node</span></code></a>
-<span class="special">*</span> <a class="link" href="../reference/nary_node_base.html" title="nary_node_base&lt;Derived,T,Selector&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">nary_node_base</span></code></a>
-</pre>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem"><p>
+              <a class="link" href="../reference/binary_node.html" title="binary_node&lt;T,Size,AllocatorSelector&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">binary_node</span></code></a>
+            </p></li>
+<li class="listitem"><p>
+              <a class="link" href="../reference/binary_node_base.html" title="binary_node_base&lt;Derived,T,Selector&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">binary_node_base</span></code></a>
+            </p></li>
+<li class="listitem"><p>
+              <a class="link" href="../reference/nary_node.html" title="nary_node&lt;T,Selector&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">nary_node</span></code></a>
+            </p></li>
+<li class="listitem"><p>
+              <a class="link" href="../reference/nary_node_base.html" title="nary_node_base&lt;Derived,T,Selector&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">nary_node_base</span></code></a>
+            </p></li>
+</ul></div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

@@ -97,10 +97,10 @@ time complexity with respect to the number of descendants in the worst case.
 [endsect]
 
 [section Models]
-
-  * All models of the __Full_Tree_Node_Iterator__ concept.
-  * All models of the __Tree_Node_Descendant_Iterator__ concept.
-
+[itemized_list
+    [All models of the __Full_Tree_Node_Iterator__ concept.]
+    [All models of the __Tree_Node_Descendant_Iterator__ concept.]
+]
 [endsect]
 
 [endsect] [/ Tree Node Iterator]
