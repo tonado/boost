@@ -1,4 +1,4 @@
-// Copyright (C) 2012 Cromwell D. Enage
+// Copyright (C) 2012-2013 Cromwell D. Enage
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -9,6 +9,7 @@
 #include <boost/tr1/type_traits.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/if.hpp>
+#include <boost/mpl/aux_/lambda_support.hpp>
 #include <boost/typeof/typeof.hpp>
 #include <boost/typeof/boost/ref.hpp>
 #include <boost/ptr_container/detail/map_iterator.hpp>
@@ -32,6 +33,13 @@ namespace boost {
                     >::type
                 >::type&
                 type;
+        //<-
+        BOOST_MPL_AUX_LAMBDA_SUPPORT(
+            1
+          , get_iterator_value_second_result
+          , (IterValue)
+        )
+        //->
     };
 }  // namespace boost
 //]
@@ -39,9 +47,8 @@ namespace boost {
 namespace boost { namespace detail {
 
     template <typename IterValue>
-    class get_iterator_value_second_helper
+    struct get_iterator_value_second_helper
     {
-     public:
         typedef IterValue&
                 argument_type;
         typedef typename get_iterator_value_second_result<IterValue>::type
@@ -54,6 +61,26 @@ namespace boost { namespace detail {
 
         static result_type _evaluate(argument_type arg, ::boost::mpl::false_);
     };
+
+    template <typename IterValue>
+    inline typename get_iterator_value_second_helper<IterValue>::result_type
+        get_iterator_value_second_helper<IterValue>::_evaluate(
+            argument_type arg
+          , ::boost::mpl::true_
+        )
+    {
+        return *arg.second;
+    }
+
+    template <typename IterValue>
+    inline typename get_iterator_value_second_helper<IterValue>::result_type
+        get_iterator_value_second_helper<IterValue>::_evaluate(
+            argument_type arg
+          , ::boost::mpl::false_
+        )
+    {
+        return arg.second;
+    }
 
     template <typename IterValue>
     inline typename get_iterator_value_second_helper<IterValue>::result_type
@@ -78,26 +105,6 @@ namespace boost { namespace detail {
             >::type()
         );
     }
-
-    template <typename IterValue>
-    inline typename get_iterator_value_second_helper<IterValue>::result_type
-        get_iterator_value_second_helper<IterValue>::_evaluate(
-            argument_type arg
-          , ::boost::mpl::true_
-        )
-    {
-        return *arg.second;
-    }
-
-    template <typename IterValue>
-    inline typename get_iterator_value_second_helper<IterValue>::result_type
-        get_iterator_value_second_helper<IterValue>::_evaluate(
-            argument_type arg
-          , ::boost::mpl::false_
-        )
-    {
-        return arg.second;
-    }
 }}  // namespace boost::detail
 
 //[reference__get_iterator_value_second
@@ -106,17 +113,18 @@ namespace boost {
     template <typename IterValue>
     typename get_iterator_value_second_result<IterValue>::type
         get_iterator_value_second(IterValue& value);
+}  // namespace boost
+//]
 
-    //<-
+namespace boost {
+
     template <typename IterValue>
     inline typename get_iterator_value_second_result<IterValue>::type
         get_iterator_value_second(IterValue& value)
     {
         return detail::get_iterator_value_second_helper<IterValue>()(value);
     }
-    //->
 }  // namespace boost
-//]
 
 #endif  // BOOST_UTILITY_GET_ITERATOR_VALUE_SECOND_HPP_INCLUDED
 

@@ -1,4 +1,4 @@
-// Copyright (C) 2012 Cromwell D. Enage
+// Copyright (C) 2012-2013 Cromwell D. Enage
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -9,6 +9,7 @@
 #include <boost/tr1/type_traits.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/if.hpp>
+#include <boost/mpl/aux_/lambda_support.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/typeof/typeof.hpp>
 #include <boost/typeof/boost/ref.hpp>
@@ -26,6 +27,9 @@ namespace boost {
                     >::type
                 >::type&
                 type;
+        //<-
+        BOOST_MPL_AUX_LAMBDA_SUPPORT(1, get_iterator_second_result, (Iterator))
+        //->
     };
 }  // namespace boost
 //]
@@ -33,9 +37,8 @@ namespace boost {
 namespace boost { namespace detail {
 
     template <typename Iterator>
-    class get_iterator_second_helper
+    struct get_iterator_second_helper
     {
-     public:
         typedef Iterator
                 argument_type;
         typedef typename get_iterator_second_result<Iterator>::type
@@ -48,6 +51,26 @@ namespace boost { namespace detail {
 
         static result_type _evaluate(Iterator itr, ::boost::mpl::false_);
     };
+
+    template <typename Iterator>
+    inline typename get_iterator_second_helper<Iterator>::result_type
+        get_iterator_second_helper<Iterator>::_evaluate(
+            Iterator itr
+          , ::boost::mpl::true_
+        )
+    {
+        return *itr->second;
+    }
+
+    template <typename Iterator>
+    inline typename get_iterator_second_helper<Iterator>::result_type
+        get_iterator_second_helper<Iterator>::_evaluate(
+            Iterator itr
+          , ::boost::mpl::false_
+        )
+    {
+        return itr->second;
+    }
 
     template <typename Iterator>
     inline typename get_iterator_second_helper<Iterator>::result_type
@@ -72,26 +95,6 @@ namespace boost { namespace detail {
             >::type()
         );
     }
-
-    template <typename Iterator>
-    inline typename get_iterator_second_helper<Iterator>::result_type
-        get_iterator_second_helper<Iterator>::_evaluate(
-            Iterator itr
-          , ::boost::mpl::true_
-        )
-    {
-        return *itr->second;
-    }
-
-    template <typename Iterator>
-    inline typename get_iterator_second_helper<Iterator>::result_type
-        get_iterator_second_helper<Iterator>::_evaluate(
-            Iterator itr
-          , ::boost::mpl::false_
-        )
-    {
-        return itr->second;
-    }
 }}  // namespace boost::detail
 
 //[reference__get_iterator_second
@@ -100,17 +103,18 @@ namespace boost {
     template <typename Iterator>
     typename get_iterator_second_result<Iterator>::type
         get_iterator_second(Iterator itr);
+}  // namespace boost
+//]
 
-    //<-
+namespace boost {
+
     template <typename Iterator>
     inline typename get_iterator_second_result<Iterator>::type
         get_iterator_second(Iterator itr)
     {
         return detail::get_iterator_second_helper<Iterator>()(itr);
     }
-    //->
 }  // namespace boost
-//]
 
 #endif  // BOOST_UTILITY_GET_ITERATOR_SECOND_HPP_INCLUDED
 

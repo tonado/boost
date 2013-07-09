@@ -6,23 +6,6 @@
 #ifndef BOOST_UTILITY_EQUIVALENCE_FUNCTION_HPP_INCLUDED
 #define BOOST_UTILITY_EQUIVALENCE_FUNCTION_HPP_INCLUDED
 
-//[reference__equivalence_function_gen
-namespace boost {
-
-    template <typename StrictWeakOrdering>
-    struct equivalence_function_gen;
-}  // namespace boost
-//]
-
-//[reference__make_equivalence_function
-namespace boost {
-
-    template <typename StrictWeakOrdering>
-    typename equivalence_function_gen<StrictWeakOrdering>::type
-        make_equivalence_function(StrictWeakOrdering const& predicate);
-}  // namespace boost
-//]
-
 namespace boost { namespace detail {
 
     template <typename StrictWeakOrdering>
@@ -128,10 +111,12 @@ namespace boost { namespace detail {
 #include <boost/detail/metafunction/is_adaptable_binary_func.hpp>
 #include <boost/detail/metafunction/is_function_wrt.hpp>
 
+//[reference__equivalence_function_gen
 namespace boost {
 
     template <typename StrictWeakOrdering>
     struct equivalence_function_gen
+        //<-
       : ::boost::mpl::if_<
             typename ::boost::mpl::if_<
                 ::boost::detail::metafunction::is_function_with_result_type<
@@ -146,13 +131,34 @@ namespace boost {
           , detail::adaptable_equivalence_function<StrictWeakOrdering>
           , detail::plain_equivalence_function<StrictWeakOrdering>
         >
+        //->
     {
+//<-
+#if 0
+//->
+        typedef ... type;
+        //<-
+#endif
         BOOST_MPL_AUX_LAMBDA_SUPPORT(
             1
           , equivalence_function_gen
           , (StrictWeakOrdering)
         )
+        //->
     };
+}  // namespace boost
+//]
+
+//[reference__make_equivalence_function
+namespace boost {
+
+    template <typename StrictWeakOrdering>
+    typename equivalence_function_gen<StrictWeakOrdering>::type
+        make_equivalence_function(StrictWeakOrdering const& predicate);
+}  // namespace boost
+//]
+
+namespace boost {
 
     template <typename StrictWeakOrdering>
     inline typename equivalence_function_gen<StrictWeakOrdering>::type
