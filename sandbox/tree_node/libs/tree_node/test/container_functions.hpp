@@ -363,5 +363,14 @@ void test_clear(Tree& tree, Values& values)
     test_tree_container(tree, values);
 }
 
+template <typename Tree, typename Values>
+void test_swap(Tree& tree1, Values& values1, Tree& tree2, Values& values2)
+{
+    tree1.swap(tree2);
+    values1.swap(values2);
+    test_tree_container(tree1, values1);
+    test_tree_container(tree2, values2);
+}
+
 #endif  // LIBS_TREE_NODE_TEST_CONTAINER_FUNCTIONS_HPP_INCLUDED
 

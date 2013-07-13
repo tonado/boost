@@ -4,8 +4,8 @@
 <title>Changelog</title>
 <link rel="stylesheet" href="http://www.boost.org/doc/libs/release/doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
-<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;tree_node 0.5">
-<link rel="up" href="../index.html" title="Chapter&#160;1.&#160;tree_node 0.5">
+<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;tree_node 0.6">
+<link rel="up" href="../index.html" title="Chapter&#160;1.&#160;tree_node 0.6">
 <link rel="prev" href="reference/can_use_fusion_with_typeof.html" title="BOOST_TREE_NODE_CAN_USE_FUSION_WITH_TYPEOF">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -20,6 +20,23 @@
 </h2></div></div></div>
 <h4>
 <a name="tree_node.changelog.h0"></a>
+      <span class="phrase"><a name="tree_node.changelog.from_0_5_to_0_6"></a></span><a class="link" href="changelog.html#tree_node.changelog.from_0_5_to_0_6">From
+      0.5 to 0.6</a>
+    </h4>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem"><p>
+          Renamed <code class="computeroutput"><span class="identifier">binode_container</span></code>
+          to __deque__.
+        </p></li>
+<li class="listitem"><p>
+          Removed <code class="computeroutput"><span class="identifier">cartesian_sort_range</span><span class="special">()</span></code>.
+        </p></li>
+<li class="listitem"><p>
+          Moved the <code class="computeroutput"><span class="identifier">cartesian_sort</span><span class="special">()</span></code> algorithm to <span class="bold"><strong>Boost.Algorithm</strong></span>.
+        </p></li>
+</ul></div>
+<h4>
+<a name="tree_node.changelog.h1"></a>
       <span class="phrase"><a name="tree_node.changelog.from_0_4_to_0_5"></a></span><a class="link" href="changelog.html#tree_node.changelog.from_0_4_to_0_5">From
       0.4 to 0.5</a>
     </h4>
@@ -38,19 +55,18 @@
           intrinsic function object.
         </p></li>
 <li class="listitem"><p>
-          Added the <a class="link" href="reference/cartesian_sort.html" title="cartesian_sort()"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">cartesian_sort</span><span class="special">()</span></code></a>
-          and <a class="link" href="reference/cartesian_sort_range.html" title="cartesian_sort_range()"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">cartesian_sort_range</span><span class="special">()</span></code></a>
-          algorithms.
+          Added the <code class="computeroutput"><span class="identifier">cartesian_sort</span><span class="special">()</span></code> and <code class="computeroutput"><span class="identifier">cartesian_sort_range</span><span class="special">()</span></code> algorithms.
         </p></li>
 </ul></div>
 <h4>
-<a name="tree_node.changelog.h1"></a>
+<a name="tree_node.changelog.h2"></a>
       <span class="phrase"><a name="tree_node.changelog.from_0_3_to_0_4"></a></span><a class="link" href="changelog.html#tree_node.changelog.from_0_3_to_0_4">From
       0.3 to 0.4</a>
     </h4>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem"><p>
-          Added the <a class="link" href="reference/binode_container.html" title="binode_container&lt;NodeGenerator,T,Balancer&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">binode_container</span></code></a>, <a class="link" href="reference/binode_assoc_container.html" title="binode_associative_container&lt; NodeGenerator , T1 , T2 , IsMultipleAssociative , CompareSelector , Balancer &gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">binode_associative_container</span></code></a>,
+          Added the <code class="computeroutput"><span class="identifier">binode_container</span></code>,
+          <a class="link" href="reference/binode_assoc_container.html" title="binode_associative_container&lt; NodeGenerator , T1 , T2 , IsMultipleAssociative , CompareSelector , Balancer &gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">binode_associative_container</span></code></a>,
           <a class="link" href="reference/binode_set.html" title="binode_set&lt;NodeGenerator,T,CompareSelector,Balancer&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">binode_set</span></code></a>,
           <a class="link" href="reference/binode_multiset.html" title="binode_multiset&lt;NodeGenerator,T,CompareSelector,Balancer&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">binode_multiset</span></code></a>,
           <a class="link" href="reference/binode_map.html" title="binode_map&lt;NodeGenerator,Key,Mapped,CompareSelector,Balancer&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">binode_map</span></code></a>,
@@ -148,7 +164,7 @@
         </p></li>
 </ul></div>
 <h4>
-<a name="tree_node.changelog.h2"></a>
+<a name="tree_node.changelog.h3"></a>
       <span class="phrase"><a name="tree_node.changelog.from_0_2_to_0_3"></a></span><a class="link" href="changelog.html#tree_node.changelog.from_0_2_to_0_3">From
       0.2 to 0.3</a>
     </h4>
@@ -228,7 +244,7 @@
         </p></li>
 </ul></div>
 <h4>
-<a name="tree_node.changelog.h3"></a>
+<a name="tree_node.changelog.h4"></a>
       <span class="phrase"><a name="tree_node.changelog.from_0_1_to_0_2"></a></span><a class="link" href="changelog.html#tree_node.changelog.from_0_1_to_0_2">From
       0.1 to 0.2</a>
     </h4>

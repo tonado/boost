@@ -60,8 +60,8 @@ the following expressions must be valid.
 [section Models]
 [itemized_list
     [
-        __binode_container__ if the value associated with __count_key__ exists
-        for the return type of `NodeGenerator`
+        __deque__ if the value associated with __count_key__ exists for the
+        return type of `NodeGenerator`
     ]
     [__binode_associative_container__]
     [__binode_set__]
@@ -71,5 +71,5 @@ the following expressions must be valid.
 ]
 [endsect]
 
-[endsect] [/ Tree Node]
+[endsect] [/ Indexable Container]
 

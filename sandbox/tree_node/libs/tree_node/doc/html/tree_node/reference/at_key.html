@@ -4,7 +4,7 @@
 <title>at_key&lt;Key&gt;</title>
 <link rel="stylesheet" href="http://www.boost.org/doc/libs/release/doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
-<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;tree_node 0.5">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;tree_node 0.6">
 <link rel="up" href="../reference.html" title="Reference">
 <link rel="prev" href="get_keys.html" title="result_of::get_keys&lt;Node&gt;">
 <link rel="next" href="value_at_key.html" title="result_of::value_at_key&lt;Node,Key&gt;">
@@ -53,8 +53,9 @@
         </p>
 <p>
           A <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a>
-          model that stores instances of a <a class="link" href="../concepts/tree_node.html" title="Tree Node"><span class="bold"><strong>Tree Node</strong></span></a> model (e.g. <a class="link" href="binode_container.html" title="binode_container&lt;NodeGenerator,T,Balancer&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">binode_container</span></code></a>) can define its
-          iterator types by using this type in conjunction with the <a href="http://www.boost.org/libs/iterator/doc/transform_iterator.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">transform_iterator</span></code></a> adaptor and
+          model that stores instances of a <a class="link" href="../concepts/tree_node.html" title="Tree Node"><span class="bold"><strong>Tree Node</strong></span></a> model (e.g. __binode_container__)
+          can define its iterator types by using this type in conjunction with the
+          <a href="http://www.boost.org/libs/iterator/doc/transform_iterator.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">transform_iterator</span></code></a> adaptor and
           the appropriate <a class="link" href="../concepts/tree_node_iterator.html" title="Tree Node Iterator"><span class="bold"><strong>Tree Node Iterator</strong></span></a> model (e.g. <a class="link" href="in_order_iterator.html" title="in_order_iterator&lt;Node,IsReverse&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">in_order_iterator</span></code></a>), so that the
           container's iterator type is convertible to its <code class="computeroutput"><span class="keyword">const</span></code>
           iterator type.

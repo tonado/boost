@@ -12,7 +12,7 @@
 
 #include <boost/tree_node/balancer/red_black.hpp>
 #include <boost/tree_node/balancer/adelson_velskii_landis.hpp>
-#include <boost/tree_node/container/binode_associative.hpp>
+#include <boost/tree_node/container/binode_set.hpp>
 #include <boost/test/minimal.hpp>
 #include "type_definitions.hpp"
 #include "container_functions.hpp"

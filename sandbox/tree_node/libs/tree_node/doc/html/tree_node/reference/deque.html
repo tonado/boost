@@ -1,10 +1,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-<title>binode_container&lt;NodeGenerator,T,Balancer&gt;</title>
+<title>deque&lt;T,NodeGenerator,Balancer&gt;</title>
 <link rel="stylesheet" href="http://www.boost.org/doc/libs/release/doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
-<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;tree_node 0.5">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;tree_node 0.6">
 <link rel="up" href="../reference.html" title="Reference">
 <link rel="prev" href="../reference.html" title="Reference">
 <link rel="next" href="binode_assoc_container.html" title="binode_associative_container&lt; NodeGenerator , T1 , T2 , IsMultipleAssociative , CompareSelector , Balancer &gt;">
@@ -17,38 +17,49 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="tree_node.reference.binode_container"></a><a class="link" href="binode_container.html" title="binode_container&lt;NodeGenerator,T,Balancer&gt;"><code class="computeroutput"><span class="identifier">binode_container</span><span class="special">&lt;</span><span class="identifier">NodeGenerator</span><span class="special">,</span><span class="identifier">T</span><span class="special">,</span><span class="identifier">Balancer</span><span class="special">&gt;</span></code></a>
+<a name="tree_node.reference.deque"></a><a class="link" href="deque.html" title="deque&lt;T,NodeGenerator,Balancer&gt;"><code class="computeroutput"><span class="identifier">deque</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span><span class="identifier">NodeGenerator</span><span class="special">,</span><span class="identifier">Balancer</span><span class="special">&gt;</span></code></a>
 </h3></div></div></div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="tree_node.reference.binode_container.description"></a><a class="link" href="binode_container.html#tree_node.reference.binode_container.description" title="Description">Description</a>
+<a name="tree_node.reference.deque.description"></a><a class="link" href="deque.html#tree_node.reference.deque.description" title="Description">Description</a>
 </h4></div></div></div>
 <p>
-          TODO.
+          The <code class="computeroutput"><span class="identifier">deque</span></code> data structure
+          is a <a href="http://en.wikipedia.org/wiki/Double-ended_queue" target="_top">double-ended
+          queue</a> whose programming interface is very similar to that of <a href="http://www.boost.org/doc/html/boost/container/deque.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">container</span><span class="special">::</span><span class="identifier">deque</span></code></a>
+          but whose performance characteristics are significantly different: depending
+          on the <code class="computeroutput"><span class="identifier">Balancer</span></code> type in
+          use, it can be expanded or contracted at both ends in amortized logarithmic
+          time with respect to the number of elements, and any element can be accessed
+          by index in logarithmic time as well. Though this worst-case performance
+          is not as good as the amortized constant time guaranteed by the corresponding
+          <a href="http://www.boost.org/doc/html/boost/container/deque.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">container</span><span class="special">::</span><span class="identifier">deque</span></code></a>
+          operations, the trade-off may be acceptable because this data structure
+          also allows elements to be inserted to or removed from arbitrary positions
+          in amortized logarithmic time, which is much better than the linear time
+          of the corresponding <a href="http://www.boost.org/doc/html/boost/container/deque.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">container</span><span class="special">::</span><span class="identifier">deque</span></code></a> operations.
         </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="tree_node.reference.binode_container.definition"></a><a class="link" href="binode_container.html#tree_node.reference.binode_container.definition" title="Where defined">Where
-        defined</a>
+<a name="tree_node.reference.deque.definition"></a><a class="link" href="deque.html#tree_node.reference.deque.definition" title="Where defined">Where defined</a>
 </h4></div></div></div>
-<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/tree_node/container/binode.hpp" target="_top">boost/tree_node/container/binode.hpp</a><span class="special">&gt;</span>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/tree_node/container/deque.hpp" target="_top">boost/tree_node/container/deque.hpp</a><span class="special">&gt;</span>
 </pre>
 <p>
           Forward-declared:
         </p>
-<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/tree_node/container/binode_fwd.hpp" target="_top">boost/tree_node/container/binode_fwd.hpp</a><span class="special">&gt;</span>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/tree_node/container/deque_fwd.hpp" target="_top">boost/tree_node/container/deque_fwd.hpp</a><span class="special">&gt;</span>
 </pre>
 <p>
           To register under <a href="http://www.boost.org/doc/html/typeof.html" target="_top"><span class="bold"><strong>Boost.Typeof</strong></span></a>:
         </p>
-<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/typeof/boost/tree_node/container/binode.hpp" target="_top">boost/typeof/boost/tree_node/container/binode.hpp</a><span class="special">&gt;</span>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/typeof/boost/tree_node/container/deque.hpp" target="_top">boost/typeof/boost/tree_node/container/deque.hpp</a><span class="special">&gt;</span>
 </pre>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="tree_node.reference.binode_container.tpl_param"></a><a class="link" href="binode_container.html#tree_node.reference.binode_container.tpl_param" title="Template Parameters">Template
-        Parameters</a>
+<a name="tree_node.reference.deque.tpl_param"></a><a class="link" href="deque.html#tree_node.reference.deque.tpl_param" title="Template Parameters">Template Parameters</a>
 </h4></div></div></div>
 <div class="informaltable"><table class="table">
 <colgroup>
@@ -77,6 +88,20 @@
 <tr>
 <td>
                   <p>
+                    <code class="computeroutput"><span class="identifier">T</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    The value type.
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
                     <code class="computeroutput"><span class="identifier">NodeGenerator</span></code>
                   </p>
                 </td>
@@ -87,20 +112,9 @@
                   </p>
                 </td>
 <td>
-                </td>
-</tr>
-<tr>
-<td>
                   <p>
-                    <code class="computeroutput"><span class="identifier">T</span></code>
+                    <a class="link" href="binary_node_gen.html" title="binary_node_gen&lt;Size,AllocatorSelector&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">binary_node_default_gen</span></code></a>
                   </p>
-                </td>
-<td>
-                  <p>
-                    The value type.
-                  </p>
-                </td>
-<td>
                 </td>
 </tr>
 <tr>
@@ -116,7 +130,7 @@
                 </td>
 <td>
                   <p>
-                    <a class="link" href="red_black_balancer.html" title="red_black_balancer"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">red_black_balancer</span></code></a>
+                    <a class="link" href="null_balancer.html" title="null_balancer"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">null_balancer</span></code></a>
                   </p>
                 </td>
 </tr>
@@ -125,8 +139,7 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="tree_node.reference.binode_container.model_of"></a><a class="link" href="binode_container.html#tree_node.reference.binode_container.model_of" title="Model of">Model
-        of</a>
+<a name="tree_node.reference.deque.model_of"></a><a class="link" href="deque.html#tree_node.reference.deque.model_of" title="Model of">Model of</a>
 </h4></div></div></div>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem"><p>
@@ -160,8 +173,7 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="tree_node.reference.binode_container.members"></a><a class="link" href="binode_container.html#tree_node.reference.binode_container.members" title="Public Members">Public
-        Members</a>
+<a name="tree_node.reference.deque.members"></a><a class="link" href="deque.html#tree_node.reference.deque.members" title="Public Members">Public Members</a>
 </h4></div></div></div>
 <div class="informaltable"><table class="table">
 <colgroup>
@@ -182,7 +194,7 @@
                 </th>
 <th>
                   <p>
-                    Where defined
+                    Description
                   </p>
                 </th>
 </tr></thead>
@@ -199,7 +211,7 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -215,7 +227,7 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -231,7 +243,7 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -247,7 +259,7 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -263,7 +275,7 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -283,7 +295,8 @@
                 </td>
 <td>
                   <p>
-                    <code class="computeroutput"><span class="identifier">binode_container</span></code>
+                    The <a class="link" href="../concepts/binary_tree_node.html" title="Binary Tree Node"><span class="bold"><strong>Binary Tree Node</strong></span></a> model returned
+                    by <code class="computeroutput"><span class="identifier">NodeGenerator</span></code>.
                   </p>
                 </td>
 </tr>
@@ -303,7 +316,7 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -323,7 +336,7 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -343,7 +356,7 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/ReversibleContainer.html" target="_top"><span class="bold"><strong>Reversible Container</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/ReversibleContainer.html" target="_top"><span class="bold"><strong>Reversible Container</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -363,7 +376,7 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/ReversibleContainer.html" target="_top"><span class="bold"><strong>Reversible Container</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/ReversibleContainer.html" target="_top"><span class="bold"><strong>Reversible Container</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -384,7 +397,7 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -400,23 +413,29 @@
                 </td>
 <td>
                   <p>
-                    <code class="computeroutput"><span class="identifier">binode_container</span></code>
+                    The type of the allocator that this container uses to dynamically
+                    handle its storage needs.
                   </p>
                 </td>
 </tr>
 <tr>
 <td>
                   <p>
-                    Default constructor
+                    Default constructor, default fill constructor
                   </p>
                 </td>
 <td>
-<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">binode_container</span><span class="special">();</span>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">explicit</span> <span class="identifier">deque</span><span class="special">(</span><span class="identifier">size_type</span> <span class="identifier">n</span> <span class="special">=</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">initialized_value</span><span class="special">);</span>
 </pre>
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/DefaultConstructible.html" target="_top"><span class="bold"><strong>Default Constructible</strong></span></a>
+                    If <code class="computeroutput"><span class="identifier">n</span></code> is left
+                    unspecified, constructs an empty <code class="computeroutput"><span class="identifier">deque</span></code>,
+                    as defined by the <a href="http://www.sgi.com/tech/stl/DefaultConstructible.html" target="_top"><span class="bold"><strong>Default Constructible</strong></span></a> concept;
+                    otherwise, constructs a <code class="computeroutput"><span class="identifier">deque</span></code>
+                    containing <code class="computeroutput"><span class="identifier">n</span></code>
+                    default-constructed elements, as defined by the <a href="http://www.sgi.com/tech/stl/Sequence.html" target="_top"><span class="bold"><strong>Sequence</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -427,12 +446,114 @@
                   </p>
                 </td>
 <td>
-<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">explicit</span> <span class="identifier">binode_container</span><span class="special">(</span><span class="identifier">allocator_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">allocator</span><span class="special">);</span>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">explicit</span> <span class="identifier">deque</span><span class="special">(</span><span class="identifier">allocator_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">allocator</span><span class="special">);</span>
 </pre>
                 </td>
 <td>
                   <p>
-                    <code class="computeroutput"><span class="identifier">binode_container</span></code>
+                    Constructs an empty <code class="computeroutput"><span class="identifier">deque</span></code>
+                    that will use a copy of the specified allocator.
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Default fill constructor with allocator
+                  </p>
+                </td>
+<td>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">deque</span><span class="special">(</span><span class="identifier">size_type</span> <span class="identifier">n</span><span class="special">,</span> <span class="identifier">allocator_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">allocator</span><span class="special">);</span>
+</pre>
+                </td>
+<td>
+                  <p>
+                    Constructs a <code class="computeroutput"><span class="identifier">deque</span></code>
+                    containing <code class="computeroutput"><span class="identifier">n</span></code>
+                    default-constructed elements and that will use a copy of the
+                    specified allocator.
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Fill constructor
+                  </p>
+                </td>
+<td>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">deque</span><span class="special">(</span><span class="identifier">size_type</span> <span class="identifier">n</span><span class="special">,</span> <span class="identifier">value_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">t</span><span class="special">);</span>
+</pre>
+                </td>
+<td>
+                  <p>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Sequence.html" target="_top"><span class="bold"><strong>Sequence</strong></span></a> concept.
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Fill constructor with allocator
+                  </p>
+                </td>
+<td>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">deque</span><span class="special">(</span>
+    <span class="identifier">size_type</span> <span class="identifier">n</span>
+  <span class="special">,</span> <span class="identifier">value_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">t</span>
+  <span class="special">,</span> <span class="identifier">allocator_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">allocator</span>
+<span class="special">);</span>
+</pre>
+                </td>
+<td>
+                  <p>
+                    Constructs a <code class="computeroutput"><span class="identifier">deque</span></code>
+                    containing <code class="computeroutput"><span class="identifier">n</span></code>
+                    copies of the specified element and that will use a copy of the
+                    specified allocator.
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Range constructor
+                  </p>
+                </td>
+<td>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Iterator</span><span class="special">&gt;</span>
+<span class="identifier">deque</span><span class="special">(</span>
+    <span class="identifier">Iterator</span> <span class="identifier">itr_begin</span>
+  <span class="special">,</span> <span class="identifier">Iterator</span> <span class="identifier">itr_end</span>
+<span class="special">);</span>
+</pre>
+                </td>
+<td>
+                  <p>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Sequence.html" target="_top"><span class="bold"><strong>Sequence</strong></span></a> concept.
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Range constructor with allocator
+                  </p>
+                </td>
+<td>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Iterator</span><span class="special">&gt;</span>
+<span class="identifier">deque</span><span class="special">(</span>
+    <span class="identifier">Iterator</span> <span class="identifier">itr_begin</span>
+  <span class="special">,</span> <span class="identifier">Iterator</span> <span class="identifier">itr_end</span>
+  <span class="special">,</span> <span class="identifier">allocator_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">allocator</span>
+<span class="special">);</span>
+</pre>
+                </td>
+<td>
+                  <p>
+                    Constructs a <code class="computeroutput"><span class="identifier">deque</span></code>
+                    containing a copy of the specified range and that will use a
+                    copy of the specified allocator.
                   </p>
                 </td>
 </tr>
@@ -443,12 +564,12 @@
                   </p>
                 </td>
 <td>
-<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">binode_container</span><span class="special">(</span><span class="identifier">binode_container</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">copy</span><span class="special">);</span>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">deque</span><span class="special">(</span><span class="identifier">deque</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">copy</span><span class="special">);</span>
 </pre>
                 </td>
 <td>
                   <p>
-                    <a href="http://www.boost.org/libs/utility/CopyConstructible.html" target="_top"><span class="bold"><strong>Copy Constructible</strong></span></a>
+                    Defined by the <a href="http://www.boost.org/libs/utility/CopyConstructible.html" target="_top"><span class="bold"><strong>Copy Constructible</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -459,15 +580,13 @@
                   </p>
                 </td>
 <td>
-<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">binode_container</span><span class="special">(</span>
-    <span class="identifier">binode_container</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">copy</span>
-  <span class="special">,</span> <span class="identifier">allocator_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">allocator</span>
-<span class="special">);</span>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">deque</span><span class="special">(</span><span class="identifier">deque</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">copy</span><span class="special">,</span> <span class="identifier">allocator_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">allocator</span><span class="special">);</span>
 </pre>
                 </td>
 <td>
                   <p>
-                    <code class="computeroutput"><span class="identifier">binode_container</span></code>
+                    Copy-constructs a <code class="computeroutput"><span class="identifier">deque</span></code>
+                    using the specified allocator.
                   </p>
                 </td>
 </tr>
@@ -478,12 +597,12 @@
                   </p>
                 </td>
 <td>
-<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">binode_container</span><span class="special">(</span><span class="identifier">binode_container</span><span class="special">&amp;&amp;</span> <span class="identifier">source</span><span class="special">);</span>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">deque</span><span class="special">(</span><span class="identifier">deque</span><span class="special">&amp;&amp;</span> <span class="identifier">source</span><span class="special">);</span>
 </pre>
                 </td>
 <td>
                   <p>
-                    <a href="http://www.boost.org/doc/html/move.html" target="_top"><span class="bold"><strong>Movable</strong></span></a>
+                    Defined by the <a href="http://www.boost.org/doc/html/move.html" target="_top"><span class="bold"><strong>Movable</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -494,15 +613,13 @@
                   </p>
                 </td>
 <td>
-<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">binode_container</span><span class="special">(</span>
-    <span class="identifier">binode_container</span><span class="special">&amp;&amp;</span> <span class="identifier">source</span>
-  <span class="special">,</span> <span class="identifier">allocator_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">allocator</span>
-<span class="special">);</span>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">deque</span><span class="special">(</span><span class="identifier">deque</span><span class="special">&amp;&amp;</span> <span class="identifier">source</span><span class="special">,</span> <span class="identifier">allocator_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">allocator</span><span class="special">);</span>
 </pre>
                 </td>
 <td>
                   <p>
-                    <code class="computeroutput"><span class="identifier">binode_container</span></code>
+                    Move-constructs a <code class="computeroutput"><span class="identifier">deque</span></code>
+                    using the specified allocator.
                   </p>
                 </td>
 </tr>
@@ -513,12 +630,12 @@
                   </p>
                 </td>
 <td>
-<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">binode_container</span><span class="special">&amp;</span> <span class="keyword">operator</span><span class="special">=(</span><span class="identifier">binode_container</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">copy</span><span class="special">);</span>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">deque</span><span class="special">&amp;</span> <span class="keyword">operator</span><span class="special">=(</span><span class="identifier">deque</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">copy</span><span class="special">);</span>
 </pre>
                 </td>
 <td>
                   <p>
-                    <a href="http://www.boost.org/libs/utility/Assignable.html" target="_top"><span class="bold"><strong>Assignable</strong></span></a>
+                    Defined by the <a href="http://www.boost.org/libs/utility/Assignable.html" target="_top"><span class="bold"><strong>Assignable</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -529,12 +646,12 @@
                   </p>
                 </td>
 <td>
-<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">binode_container</span><span class="special">&amp;</span> <span class="keyword">operator</span><span class="special">=(</span><span class="identifier">binode_container</span><span class="special">&amp;&amp;</span> <span class="identifier">source</span><span class="special">);</span>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">deque</span><span class="special">&amp;</span> <span class="keyword">operator</span><span class="special">=(</span><span class="identifier">deque</span><span class="special">&amp;&amp;</span> <span class="identifier">source</span><span class="special">);</span>
 </pre>
                 </td>
 <td>
                   <p>
-                    <a href="http://www.boost.org/doc/html/move.html" target="_top"><span class="bold"><strong>Movable</strong></span></a>
+                    Defined by the <a href="http://www.boost.org/doc/html/move.html" target="_top"><span class="bold"><strong>Movable</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -545,12 +662,13 @@
                   </p>
                 </td>
 <td>
-<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="special">~</span><span class="identifier">binode_container</span><span class="special">();</span>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="special">~</span><span class="identifier">deque</span><span class="special">();</span>
 </pre>
                 </td>
 <td>
                   <p>
-                    <code class="computeroutput"><span class="identifier">binode_container</span></code>
+                    Destroys the <code class="computeroutput"><span class="identifier">deque</span></code>.
+                    All stored values are destroyed and used memory is deallocated.
                   </p>
                 </td>
 </tr>
@@ -566,7 +684,13 @@
                 </td>
 <td>
                   <p>
-                    <code class="computeroutput"><span class="identifier">binode_container</span></code>
+                    Returns <code class="computeroutput"><span class="keyword">nullptr</span></code>
+                    if the <code class="computeroutput"><span class="identifier">deque</span></code>
+                    is empty, otherwise a pointer to a <code class="computeroutput"><span class="identifier">node</span>
+                    <span class="keyword">const</span></code> objet from which
+                    an <a class="link" href="in_order_iterator.html" title="in_order_iterator&lt;Node,IsReverse&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">in_order_iterator</span></code></a> can
+                    be constructed to traverse the underlying node of each element
+                    in the <code class="computeroutput"><span class="identifier">deque</span></code>.
                   </p>
                 </td>
 </tr>
@@ -582,7 +706,12 @@
                 </td>
 <td>
                   <p>
-                    <code class="computeroutput"><span class="identifier">binode_container</span></code>
+                    Returns <code class="computeroutput"><span class="keyword">nullptr</span></code>
+                    if the <code class="computeroutput"><span class="identifier">deque</span></code>
+                    is empty, otherwise a pointer to a <code class="computeroutput"><span class="identifier">node</span></code>
+                    objet from which an <a class="link" href="in_order_iterator.html" title="in_order_iterator&lt;Node,IsReverse&gt;"><code class="computeroutput"><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">in_order_iterator</span></code></a> can
+                    be constructed to traverse the underlying node of each element
+                    in the <code class="computeroutput"><span class="identifier">deque</span></code>.
                   </p>
                 </td>
 </tr>
@@ -599,7 +728,7 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -615,7 +744,7 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -632,7 +761,7 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -648,7 +777,7 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -665,7 +794,7 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/ReversibleContainer.html" target="_top"><span class="bold"><strong>Reversible Container</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/ReversibleContainer.html" target="_top"><span class="bold"><strong>Reversible Container</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -681,7 +810,7 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/ReversibleContainer.html" target="_top"><span class="bold"><strong>Reversible Container</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/ReversibleContainer.html" target="_top"><span class="bold"><strong>Reversible Container</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -698,7 +827,7 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/ReversibleContainer.html" target="_top"><span class="bold"><strong>Reversible Container</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/ReversibleContainer.html" target="_top"><span class="bold"><strong>Reversible Container</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -714,7 +843,7 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/ReversibleContainer.html" target="_top"><span class="bold"><strong>Reversible Container</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/ReversibleContainer.html" target="_top"><span class="bold"><strong>Reversible Container</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -730,7 +859,7 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/Sequence.html" target="_top"><span class="bold"><strong>Sequence</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Sequence.html" target="_top"><span class="bold"><strong>Sequence</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -746,7 +875,7 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/Sequence.html" target="_top"><span class="bold"><strong>Sequence</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Sequence.html" target="_top"><span class="bold"><strong>Sequence</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -762,7 +891,25 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/BackInsertionSequence.html" target="_top"><span class="bold"><strong>Back Insertion Sequence</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/BackInsertionSequence.html" target="_top"><span class="bold"><strong>Back Insertion Sequence</strong></span></a> concept.
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Back move insertion
+                  </p>
+                </td>
+<td>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">void</span> <span class="identifier">push_back</span><span class="special">(</span><span class="identifier">value_type</span><span class="special">&amp;&amp;</span> <span class="identifier">t</span><span class="special">);</span>
+</pre>
+                </td>
+<td>
+                  <p>
+                    Constructs a new element at the back of the <code class="computeroutput"><span class="identifier">deque</span></code>
+                    and moves the resources of <code class="computeroutput"><span class="identifier">t</span></code>
+                    to this new element.
                   </p>
                 </td>
 </tr>
@@ -779,7 +926,7 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/BackInsertionSequence.html" target="_top"><span class="bold"><strong>Back Insertion Sequence</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/BackInsertionSequence.html" target="_top"><span class="bold"><strong>Back Insertion Sequence</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -795,7 +942,7 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/BackInsertionSequence.html" target="_top"><span class="bold"><strong>Back Insertion Sequence</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/BackInsertionSequence.html" target="_top"><span class="bold"><strong>Back Insertion Sequence</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -811,7 +958,7 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/Sequence.html" target="_top"><span class="bold"><strong>Sequence</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Sequence.html" target="_top"><span class="bold"><strong>Sequence</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -827,7 +974,7 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/Sequence.html" target="_top"><span class="bold"><strong>Sequence</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Sequence.html" target="_top"><span class="bold"><strong>Sequence</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -843,7 +990,25 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/FrontInsertionSequence.html" target="_top"><span class="bold"><strong>Front Insertion Sequence</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/FrontInsertionSequence.html" target="_top"><span class="bold"><strong>Front Insertion Sequence</strong></span></a> concept.
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Front move insertion
+                  </p>
+                </td>
+<td>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">void</span> <span class="identifier">push_front</span><span class="special">(</span><span class="identifier">value_type</span><span class="special">&amp;&amp;</span> <span class="identifier">t</span><span class="special">);</span>
+</pre>
+                </td>
+<td>
+                  <p>
+                    Constructs a new element at the front of the <code class="computeroutput"><span class="identifier">deque</span></code>
+                    and moves the resources of <code class="computeroutput"><span class="identifier">t</span></code>
+                    to this new element.
                   </p>
                 </td>
 </tr>
@@ -860,7 +1025,7 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/FrontInsertionSequence.html" target="_top"><span class="bold"><strong>Front Insertion Sequence</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/FrontInsertionSequence.html" target="_top"><span class="bold"><strong>Front Insertion Sequence</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -876,7 +1041,7 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/FrontInsertionSequence.html" target="_top"><span class="bold"><strong>Front Insertion Sequence</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/FrontInsertionSequence.html" target="_top"><span class="bold"><strong>Front Insertion Sequence</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -887,12 +1052,64 @@
                   </p>
                 </td>
 <td>
-<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">iterator</span> <span class="identifier">insert</span><span class="special">(</span><span class="identifier">const_iterator</span> <span class="identifier">itr</span><span class="special">,</span> <span class="identifier">const_reference</span> <span class="identifier">t</span><span class="special">);</span>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">iterator</span> <span class="identifier">insert</span><span class="special">(</span><span class="identifier">const_iterator</span> <span class="identifier">pos</span><span class="special">,</span> <span class="identifier">const_reference</span> <span class="identifier">t</span><span class="special">);</span>
 </pre>
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/Sequence.html" target="_top"><span class="bold"><strong>Sequence</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Sequence.html" target="_top"><span class="bold"><strong>Sequence</strong></span></a> concept.
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Move insertion
+                  </p>
+                </td>
+<td>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">iterator</span> <span class="identifier">insert</span><span class="special">(</span><span class="identifier">const_iterator</span> <span class="identifier">pos</span><span class="special">,</span> <span class="identifier">value_type</span><span class="special">&amp;&amp;</span> <span class="identifier">t</span><span class="special">);</span>
+</pre>
+                </td>
+<td>
+                  <p>
+                    Constructs a new element at the specified position in the <code class="computeroutput"><span class="identifier">deque</span></code> and moves the resources
+                    of <code class="computeroutput"><span class="identifier">t</span></code> to this
+                    new element.
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Fill insertion
+                  </p>
+                </td>
+<td>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">iterator</span> <span class="identifier">insert</span><span class="special">(</span><span class="identifier">const_iterator</span> <span class="identifier">pos</span><span class="special">,</span> <span class="identifier">size_type</span> <span class="identifier">n</span><span class="special">,</span> <span class="identifier">const_reference</span> <span class="identifier">t</span><span class="special">);</span>
+</pre>
+                </td>
+<td>
+                  <p>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Sequence.html" target="_top"><span class="bold"><strong>Sequence</strong></span></a> concept.
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Range insertion
+                  </p>
+                </td>
+<td>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Iterator</span><span class="special">&gt;</span>
+<span class="identifier">iterator</span>
+    <span class="identifier">insert</span><span class="special">(</span><span class="identifier">const_iterator</span> <span class="identifier">pos</span><span class="special">,</span> <span class="identifier">Iterator</span> <span class="identifier">itr_begin</span><span class="special">,</span> <span class="identifier">Iterator</span> <span class="identifier">itr_end</span><span class="special">);</span>
+</pre>
+                </td>
+<td>
+                  <p>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Sequence.html" target="_top"><span class="bold"><strong>Sequence</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -904,12 +1121,12 @@
                 </td>
 <td>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="special">...</span><span class="identifier">Args</span><span class="special">&gt;</span>
-<span class="identifier">iterator</span> <span class="identifier">emplace</span><span class="special">(</span><span class="identifier">const_iterator</span> <span class="identifier">itr</span><span class="special">,</span> <span class="identifier">Args</span><span class="special">&amp;&amp;</span> <span class="special">...</span><span class="identifier">args</span><span class="special">);</span>
+<span class="identifier">iterator</span> <span class="identifier">emplace</span><span class="special">(</span><span class="identifier">const_iterator</span> <span class="identifier">pos</span><span class="special">,</span> <span class="identifier">Args</span><span class="special">&amp;&amp;</span> <span class="special">...</span><span class="identifier">args</span><span class="special">);</span>
 </pre>
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/Sequence.html" target="_top"><span class="bold"><strong>Sequence</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Sequence.html" target="_top"><span class="bold"><strong>Sequence</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -920,12 +1137,12 @@
                   </p>
                 </td>
 <td>
-<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">iterator</span> <span class="identifier">erase</span><span class="special">(</span><span class="identifier">const_iterator</span> <span class="identifier">p</span><span class="special">);</span>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">iterator</span> <span class="identifier">erase</span><span class="special">(</span><span class="identifier">const_iterator</span> <span class="identifier">pos</span><span class="special">);</span>
 </pre>
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/Sequence.html" target="_top"><span class="bold"><strong>Sequence</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Sequence.html" target="_top"><span class="bold"><strong>Sequence</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -936,12 +1153,12 @@
                   </p>
                 </td>
 <td>
-<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">void</span> <span class="identifier">erase</span><span class="special">(</span><span class="identifier">const_iterator</span> <span class="identifier">itr</span><span class="special">,</span> <span class="identifier">const_iterator</span> <span class="identifier">itr_end</span><span class="special">);</span>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">void</span> <span class="identifier">erase</span><span class="special">(</span><span class="identifier">const_iterator</span> <span class="identifier">itr_begin</span><span class="special">,</span> <span class="identifier">const_iterator</span> <span class="identifier">itr_end</span><span class="special">);</span>
 </pre>
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/Sequence.html" target="_top"><span class="bold"><strong>Sequence</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Sequence.html" target="_top"><span class="bold"><strong>Sequence</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -957,7 +1174,7 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -973,7 +1190,55 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/Sequence.html" target="_top"><span class="bold"><strong>Sequence</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Sequence.html" target="_top"><span class="bold"><strong>Sequence</strong></span></a> concept.
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Content swap
+                  </p>
+                </td>
+<td>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">void</span> <span class="identifier">swap</span><span class="special">(</span><span class="identifier">deque</span><span class="special">&amp;</span> <span class="identifier">other</span><span class="special">);</span>
+</pre>
+                </td>
+<td>
+                  <p>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a> concept.
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Resizing
+                  </p>
+                </td>
+<td>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">void</span> <span class="identifier">resize</span><span class="special">(</span><span class="identifier">size_type</span> <span class="identifier">n</span><span class="special">);</span>
+</pre>
+                </td>
+<td>
+                  <p>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Sequence.html" target="_top"><span class="bold"><strong>Sequence</strong></span></a> concept.
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Resizing with element
+                  </p>
+                </td>
+<td>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">void</span> <span class="identifier">resize</span><span class="special">(</span><span class="identifier">size_type</span> <span class="identifier">n</span><span class="special">,</span> <span class="identifier">value_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">t</span><span class="special">);</span>
+</pre>
+                </td>
+<td>
+                  <p>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Sequence.html" target="_top"><span class="bold"><strong>Sequence</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -989,7 +1254,23 @@
                 </td>
 <td>
                   <p>
-                    <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a> concept.
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Maximum size query
+                  </p>
+                </td>
+<td>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">static</span> <span class="identifier">size_type</span> <span class="identifier">max_size</span><span class="special">();</span>
+</pre>
+                </td>
+<td>
+                  <p>
+                    Defined by the <a href="http://www.sgi.com/tech/stl/Container.html" target="_top"><span class="bold"><strong>Container</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -1005,7 +1286,7 @@
                 </td>
 <td>
                   <p>
-                    <a class="link" href="../concepts/indexable_container.html" title="Indexable Container"><span class="bold"><strong>Indexable Container</strong></span></a>
+                    Defined by the <a class="link" href="../concepts/indexable_container.html" title="Indexable Container"><span class="bold"><strong>Indexable Container</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -1021,7 +1302,7 @@
                 </td>
 <td>
                   <p>
-                    <a class="link" href="../concepts/indexable_container.html" title="Indexable Container"><span class="bold"><strong>Indexable Container</strong></span></a>
+                    Defined by the <a class="link" href="../concepts/indexable_container.html" title="Indexable Container"><span class="bold"><strong>Indexable Container</strong></span></a> concept.
                   </p>
                 </td>
 </tr>
@@ -1030,10 +1311,10 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="tree_node.reference.binode_container.test"></a><a class="link" href="binode_container.html#tree_node.reference.binode_container.test" title="Test">Test</a>
+<a name="tree_node.reference.deque.test"></a><a class="link" href="deque.html#tree_node.reference.deque.test" title="Test">Test</a>
 </h4></div></div></div>
 <p>
-          &lt;<a href="../../../../test/binode_container.cpp" target="_top">test/binode_container.cpp</a>&gt;
+          &lt;<a href="../../../../test/deque.cpp" target="_top">test/deque.cpp</a>&gt;
         </p>
 </div>
 </div>

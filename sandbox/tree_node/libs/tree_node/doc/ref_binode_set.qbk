@@ -14,19 +14,19 @@ TODO.
 
 [section:definition Where defined]
 ``
-#include <__binode_associative_container__header__>
+#include <__binode_set__header__>
 ``
 
 Forward-declared:
 
 ``
-#include <__binode_associative_container__forward_header__>
+#include <__binode_set__forward_header__>
 ``
 
 To register under __Boost_Typeof__:
 
 ``
-#include <__binode_associative_container__typeof_header__>
+#include <__binode_set__typeof_header__>
 ``
 [endsect]
 

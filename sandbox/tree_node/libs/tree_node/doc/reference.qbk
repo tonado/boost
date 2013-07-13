@@ -8,7 +8,7 @@
 
 [section Reference]
 
-[include ref_binode_container.qbk]
+[include ref_deque.qbk]
 [include ref_binode_assoc_container.qbk]
 [include ref_binode_set.qbk]
 [include ref_binode_multiset.qbk]
@@ -73,8 +73,6 @@
 [include ref_bin_descendant_at_index.qbk]
 [include ref_binary_lower_bound.qbk]
 [include ref_binary_upper_bound.qbk]
-[include ref_cartesian_sort.qbk]
-[include ref_cartesian_sort_range.qbk]
 [include ref_dereference_iterator.qbk]
 [include ref_get_properties.qbk]
 [include ref_has_key.qbk]
@@ -96,7 +94,7 @@
 [heading Container Types]
 
 [itemized_list
-    [__binode_container__]
+    [__tree_node_deque__]
     [__binode_associative_container__]
     [__binode_set__]
     [__binode_multiset__]
@@ -212,8 +210,6 @@
     [__binary_descendant_at_index__]
     [__binary_lower_bound__]
     [__binary_upper_bound__]
-    [__cartesian_sort__]
-    [__cartesian_sort_range__]
 ]
 
 [heading Intrinsic Functions]

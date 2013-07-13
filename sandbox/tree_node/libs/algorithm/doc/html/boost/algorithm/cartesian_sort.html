@@ -1,0 +1,114 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>cartesian_sort</title>
+<link rel="stylesheet" href="http://www.boost.org/doc/libs/release/doc/src/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<link rel="home" href="cartesian_sort.html" title="cartesian_sort">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr><td valign="top"><img alt="C++ Boost" width="277" height="86" src="../../../../../../boost.png"></td></tr></table>
+<hr>
+<div class="spirit-nav"></div>
+<div class="article">
+<div class="titlepage">
+<div>
+<div><h2 class="title">
+<a name="cartesian_sort"></a>cartesian_sort</h2></div>
+<div><p class="copyright">Copyright &#169; 2013 Cromwell Enage</p></div>
+<div><div class="legalnotice">
+<a name="cartesian_sort.legal"></a><p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></div>
+</div>
+<hr>
+</div>
+<div class="toc">
+<p><b>Table of Contents</b></p>
+<dl>
+<dt><span class="section"><a href="cartesian_sort.html#cartesian_sort.synopsis">Synopsis</a></span></dt>
+<dt><span class="section"><a href="cartesian_sort.html#cartesian_sort.description">Description</a></span></dt>
+<dt><span class="section"><a href="cartesian_sort.html#cartesian_sort.definition">Where defined</a></span></dt>
+<dt><span class="section"><a href="cartesian_sort.html#cartesian_sort.test">Test</a></span></dt>
+</dl>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="cartesian_sort.synopsis"></a><a class="link" href="cartesian_sort.html#cartesian_sort.synopsis" title="Synopsis">Synopsis</a>
+</h2></div></div></div>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">algorithm</span> <span class="special">{</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Range</span><span class="special">&gt;</span>
+    <span class="identifier">Range</span><span class="special">&amp;</span> <span class="identifier">cartesian_sort</span><span class="special">(</span><span class="identifier">Range</span><span class="special">&amp;</span> <span class="identifier">r</span><span class="special">);</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Range</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Compare</span><span class="special">&gt;</span>
+    <span class="identifier">Range</span><span class="special">&amp;</span> <span class="identifier">cartesian_sort</span><span class="special">(</span><span class="identifier">Range</span><span class="special">&amp;</span> <span class="identifier">r</span><span class="special">,</span> <span class="identifier">Compare</span> <span class="identifier">compare</span><span class="special">);</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Iterator</span><span class="special">&gt;</span>
+    <span class="keyword">void</span> <span class="identifier">cartesian_sort</span><span class="special">(</span><span class="identifier">Iterator</span> <span class="identifier">itr_begin</span><span class="special">,</span> <span class="identifier">Iterator</span> <span class="identifier">itr_end</span><span class="special">);</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Iterator</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Compare</span><span class="special">&gt;</span>
+    <span class="keyword">void</span>
+        <span class="identifier">cartesian_sort</span><span class="special">(</span>
+            <span class="identifier">Iterator</span> <span class="identifier">itr_begin</span>
+          <span class="special">,</span> <span class="identifier">Iterator</span> <span class="identifier">itr_end</span>
+          <span class="special">,</span> <span class="identifier">Compare</span> <span class="identifier">compare</span>
+        <span class="special">);</span>
+<span class="special">}}</span>  <span class="comment">// namespace boost::algorithm</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="cartesian_sort.description"></a><a class="link" href="cartesian_sort.html#cartesian_sort.description" title="Description">Description</a>
+</h2></div></div></div>
+<p>
+      The <code class="computeroutput"><span class="identifier">cartesian_sort</span><span class="special">()</span></code>
+      function sorts the elements in the specified range into ascending order, meaning
+      that if <code class="computeroutput"><span class="identifier">i</span></code> and <code class="computeroutput"><span class="identifier">j</span></code> are any two valid iterators in the specified
+      range such that <code class="computeroutput"><span class="identifier">i</span></code> precedes
+      <code class="computeroutput"><span class="identifier">j</span></code>, then <code class="computeroutput"><span class="special">*</span><span class="identifier">j</span></code> is not less than <code class="computeroutput"><span class="special">*</span><span class="identifier">i</span></code>.
+    </p>
+<p>
+      The <code class="computeroutput"><span class="identifier">cartesian_sort</span><span class="special">()</span></code>
+      function is not guaranteed to be stable. That is, if <code class="computeroutput"><span class="special">*</span><span class="identifier">i</span></code> and <code class="computeroutput"><span class="special">*</span><span class="identifier">j</span></code> are equivalent, meaning neither one is
+      less than the other, then it is not guaranteed that <code class="computeroutput"><span class="identifier">cartesian_sort</span><span class="special">()</span></code> will preserve the relative order of these
+      two elements.
+    </p>
+<p>
+      When using the first and second versions, the range type must fulfill the
+      <a href="http://www.boost.org/libs/range/doc/html/range/concepts/forward_range.html" target="_top"><span class="bold"><strong>Forward Range</strong></span></a> concept, and it must be mutable.
+      When using the third and fourth versions, the iterator type must fulfill the
+      <a href="http://www.sgi.com/tech/stl/ForwardIterator.html" target="_top"><span class="bold"><strong>Forward
+      Iterator</strong></span></a> concept, and its value type must be mutable.
+    </p>
+<p>
+      The first and third versions compare objects using the less-than operator.
+      The second and fourth versions compare objects using the <a href="http://www.sgi.com/tech/stl/StrictWeakOrdering.html" target="_top"><span class="bold"><strong>Strict Weak Ordering</strong></span></a> object <code class="computeroutput"><span class="identifier">compare</span></code>.
+    </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="cartesian_sort.definition"></a><a class="link" href="cartesian_sort.html#cartesian_sort.definition" title="Where defined">Where defined</a>
+</h2></div></div></div>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><a href="../../../../../../boost/algorithm/sorting/cartesian_sort.hpp" target="_top">boost/algorithm/sorting/cartesian_sort.hpp</a><span class="special">&gt;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="cartesian_sort.test"></a><a class="link" href="cartesian_sort.html#cartesian_sort.test" title="Test">Test</a>
+</h2></div></div></div>
+<p>
+      &lt;<a href="../../../../test/cartesian_sort.cpp" target="_top">test/cartesian_sort.cpp</a>&gt;
+    </p>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"><p><small>Last revised: July 12, 2013 at 04:12:25 GMT</small></p></td>
+<td align="right"><div class="copyright-footer"></div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav"></div>
+</body>
+</html>

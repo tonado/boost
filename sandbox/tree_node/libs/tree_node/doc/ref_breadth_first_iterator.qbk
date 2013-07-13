@@ -308,8 +308,8 @@ To register under __Boost_Typeof__:
 If a tree possess the property that the value associated with each non-root
 node is greater than that associated with its parent, then a breadth-first
 traversal that prioritizes lower-value nodes over higher-value ones will output
-a sorted range.  The __cartesian_sort__ algorithm's implementation generates a
-tree that possesses this property.
+a sorted range.  The primary implementation of the __algorithm_cartesian_sort__
+function generates a tree that possesses this property.
 
 [impl__cartesian_sort__build_tree]
 

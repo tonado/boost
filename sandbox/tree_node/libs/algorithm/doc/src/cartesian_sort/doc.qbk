@@ -1,0 +1,52 @@
+[article cartesian_sort
+    [quickbook 1.6]
+    [copyright 2013 Cromwell Enage]
+    [license
+        Distributed under the Boost Software License, Version 1.0.
+        (See accompanying file LICENSE_1_0.txt or copy at
+        [@http://www.boost.org/LICENSE_1_0.txt])
+    ]
+]
+
+[def __Forward_Range__ [@boost:libs/range/doc/html/range/concepts/forward_range.html [*Forward Range]]]
+[def __Forward_Iterator__ [@http://www.sgi.com/tech/stl/ForwardIterator.html [*Forward Iterator]]]
+[def __Strict_Weak_Ordering__ [@http://www.sgi.com/tech/stl/StrictWeakOrdering.html [*Strict Weak Ordering]]]
+[def __cartesian_sort__header__ [@../../../../../../boost/algorithm/sorting/cartesian_sort.hpp boost/algorithm/sorting/cartesian_sort.hpp]]
+[def __test_cartesian_sort_cpp__ [@../../../../test/cartesian_sort.cpp test/cartesian_sort.cpp]]
+
+[import ../../../../../boost/algorithm/sorting/cartesian_sort.hpp]
+
+[section Synopsis]
+[reference__cartesian_sort]
+[endsect]
+
+[section Description]
+The `cartesian_sort()` function sorts the elements in the specified range into
+ascending order, meaning that if `i` and `j` are any two valid iterators in the
+specified range such that `i` precedes `j`, then `*j` is not less than `*i`.
+
+The `cartesian_sort()` function is not guaranteed to be stable.  That is, if
+`*i` and `*j` are equivalent, meaning neither one is less than the other, then
+it is not guaranteed that `cartesian_sort()` will preserve the relative order
+of these two elements.
+
+When using the first and second versions, the range type must fulfill the
+__Forward_Range__ concept, and it must be mutable.  When using the third and
+fourth versions, the iterator type must fulfill the __Forward_Iterator__
+concept, and its value type must be mutable.
+
+The first and third versions compare objects using the less-than operator.  The
+second and fourth versions compare objects using the __Strict_Weak_Ordering__
+object `compare`.
+[endsect]
+
+[section:definition Where defined]
+``
+#include <__cartesian_sort__header__>
+``
+[endsect]
+
+[section Test]
+<__test_cartesian_sort_cpp__>
+[endsect]
+

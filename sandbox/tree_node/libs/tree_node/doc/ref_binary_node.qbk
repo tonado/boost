@@ -370,14 +370,6 @@ root node and reclaim its memory will recursively destroy the descendant nodes
 and reclaim their memory as well.
 
 [impl__cartesian_sort__cleanup]
-
-Our sorting function has the advantage of not requiring the iterator type of
-the input range to model the __Random_Access_Iterator__ concept or even the
-__Bidirectional_Iterator__ concept, allowing it to work for a larger variety
-of range types.
-
-The complete program source can be found here: <__cartesian_sort__header__>
-and <__test_cartesian_sort_cpp__>
 [endsect]
 
 [section Test]

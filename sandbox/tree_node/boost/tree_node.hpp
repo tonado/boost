@@ -48,8 +48,10 @@
 #include <boost/typeof/boost/tree_node/balancer/null.hpp>
 #include <boost/typeof/boost/tree_node/balancer/red_black.hpp>
 #include <boost/typeof/boost/tree_node/balancer/adelson_velskii_landis.hpp>
-#include <boost/typeof/boost/tree_node/container/binode.hpp>
+#include <boost/typeof/boost/tree_node/container/deque.hpp>
 #include <boost/typeof/boost/tree_node/container/binode_associative.hpp>
+#include <boost/typeof/boost/tree_node/container/binode_set.hpp>
+#include <boost/typeof/boost/tree_node/container/binode_map.hpp>
 
 #if defined BOOST_TREE_NODE_CAN_USE_FUSION
 #include <boost/typeof/boost/tree_node/key/accumulation.hpp>

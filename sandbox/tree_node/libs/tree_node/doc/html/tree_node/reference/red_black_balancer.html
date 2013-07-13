@@ -4,7 +4,7 @@
 <title>red_black_balancer</title>
 <link rel="stylesheet" href="http://www.boost.org/doc/libs/release/doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
-<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;tree_node 0.5">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;tree_node 0.6">
 <link rel="up" href="../reference.html" title="Reference">
 <link rel="prev" href="null_balancer.html" title="null_balancer">
 <link rel="next" href="avl_balancer.html" title="adelson_velskii_landis_balancer">
@@ -27,6 +27,9 @@
 
     <span class="keyword">struct</span> <span class="identifier">red_black_balancer</span>
     <span class="special">{</span>
+        <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Node</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Size</span><span class="special">&gt;</span>
+        <span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">post_fill</span><span class="special">(</span><span class="identifier">Node</span><span class="special">&amp;</span> <span class="identifier">root</span><span class="special">,</span> <span class="identifier">Size</span> <span class="identifier">n</span><span class="special">);</span>
+
         <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">NodePointer</span><span class="special">&gt;</span>
         <span class="keyword">static</span> <span class="identifier">NodePointer</span> <span class="identifier">post_insert</span><span class="special">(</span><span class="identifier">NodePointer</span> <span class="identifier">node_ptr</span><span class="special">);</span>
 

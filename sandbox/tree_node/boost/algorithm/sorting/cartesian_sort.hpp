@@ -3,12 +3,13 @@
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef BOOST_TREE_NODE_ALGORITHM_CARTESIAN_SORT_HPP
-#define BOOST_TREE_NODE_ALGORITHM_CARTESIAN_SORT_HPP
+#ifndef BOOST_ALGORITHM_SORTING_CARTESIAN_SORT_HPP
+#define BOOST_ALGORITHM_SORTING_CARTESIAN_SORT_HPP
 
 #include <iterator>
 #include <functional>
 #include <algorithm>
+#include <boost/mpl/bool.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/iterator/transform_iterator.hpp>
 #include <boost/range.hpp>
@@ -22,7 +23,7 @@
 #include <boost/tree_node/selector/compare.hpp>
 #include <boost/assert.hpp>
 
-#if defined BOOST_TREE_NODE_ALGORITHM_CARTESIAN_SORT_USE_BREADTH_FIRST
+#if defined BOOST_ALGORITHM_SORTING_CARTESIAN_SORT_USE_BREADTH_FIRST
 #include <boost/tree_node/iterator/breadth_first.hpp>
 #else
 #include <boost/tree_node/iterator/breadth_first_descendant.hpp>
@@ -32,8 +33,59 @@
 #include <boost/container/allocator_traits.hpp>
 #endif
 
+#if !defined BOOST_NO_SFINAE
+#include <boost/utility/enable_if.hpp>
+#include <boost/detail/metafunction/is_input_iterator.hpp>
+
+namespace boost { namespace algorithm {
+
+    template <typename Range, typename Compare>
+    void
+        cartesian_sort(
+            Range& range
+          , Compare compare
+          , typename ::boost::disable_if<
+                ::boost::detail::metafunction::is_input_iterator<Range>
+              , ::boost::mpl::true_
+            >::type = ::boost::mpl::true_()
+        );
+
+    template <typename Iterator>
+    void
+        cartesian_sort(
+            Iterator itr_begin
+          , Iterator itr_end
+          , typename ::boost::enable_if<
+                ::boost::detail::metafunction::is_input_iterator<Iterator>
+              , ::boost::mpl::true_
+            >::type = ::boost::mpl::true_()
+        );
+}}  // namespace boost::algorithm
+#endif
+
 //[reference__cartesian_sort
-namespace boost { namespace tree_node {
+namespace boost { namespace algorithm {
+
+    template <typename Range>
+    Range& cartesian_sort(Range& r);
+
+//<-
+#if 0
+//->
+    template <typename Range, typename Compare>
+    Range& cartesian_sort(Range& r, Compare compare);
+//<-
+#endif
+//->
+
+//<-
+#if defined BOOST_NO_SFINAE
+//->
+    template <typename Iterator>
+    void cartesian_sort(Iterator itr_begin, Iterator itr_end);
+//<-
+#endif
+//->
 
     template <typename Iterator, typename Compare>
     void
@@ -42,24 +94,10 @@ namespace boost { namespace tree_node {
           , Iterator itr_end
           , Compare compare
         );
-
-    template <typename Iterator>
-    void cartesian_sort(Iterator itr_begin, Iterator itr_end);
-}}  // namespace boost::tree_node
+}}  // namespace boost::algorithm
 //]
 
-//[reference__cartesian_sort_range
-namespace boost { namespace tree_node {
-
-    template <typename Range, typename Compare>
-    Range& cartesian_sort_range(Range& r, Compare compare);
-
-    template <typename Range>
-    Range& cartesian_sort_range(Range& r);
-}}  // namespace boost::tree_node
-//]
-
-namespace boost { namespace tree_node {
+namespace boost { namespace algorithm {
 
     //[impl__cartesian_sort__build_tree
     template <typename Iterator, typename Compare>
@@ -100,11 +138,13 @@ namespace boost { namespace tree_node {
 
         for (Iterator itr = itr_begin; ++itr != itr_end;)
         {
-            if (compare(*itr, get(*root_ptr, data_key())))
+            if (compare(*itr, get(*root_ptr, ::boost::tree_node::data_key())))
             {
                 right_ptr = root_ptr = root_ptr->emplace_parent_of_left(*itr);
             }
-            else if (!compare(*itr, get(*right_ptr, data_key())))
+            else if (
+                !compare(*itr, get(*right_ptr, ::boost::tree_node::data_key()))
+            )
             {
                 right_ptr = &*right_ptr->emplace_right(*itr);
             }
@@ -114,7 +154,10 @@ namespace boost { namespace tree_node {
                     ancestor_ptr = right_ptr;
                     ancestor_ptr->get_parent_ptr() && compare(
                         *itr
-                      , get(*ancestor_ptr->get_parent_ptr(), data_key())
+                      , get(
+                            *ancestor_ptr->get_parent_ptr()
+                          , ::boost::tree_node::data_key()
+                        )
                     );
                     ancestor_ptr = ancestor_ptr->get_parent_ptr()
                 )
@@ -134,55 +177,55 @@ namespace boost { namespace tree_node {
               , itr_end
               , ::boost::make_transform_iterator(
                     make_in_order_iterator(*root_ptr)
-                  , at_key<data_key>()
+                  , ::boost::tree_node::at_key< ::boost::tree_node::data_key>()
                 )
               , ::boost::make_equivalence_function(compare)
             )
         );
         //]
 
-#if defined BOOST_TREE_NODE_ALGORITHM_CARTESIAN_SORT_USE_BREADTH_FIRST
+#if defined BOOST_ALGORITHM_SORTING_CARTESIAN_SORT_USE_BREADTH_FIRST
         //[impl__cartesian_sort__breadth_first_iterate_with_priority
         for (
-            breadth_first_iterator<
+            ::boost::tree_node::breadth_first_iterator<
                 Node const
               , ::boost::std_heap_selector< ::boost::tree_node::compareS>
-            > itr(
+            > tree_itr(
                 *root_ptr
               , ::boost::bind(compare, ::boost::arg<2>(), ::boost::arg<1>())
             );
-            itr;
-            ++itr
+            tree_itr;
+            ++tree_itr
         )
         {
             BOOST_ASSERT(itr_begin != itr_end);
-            *itr_begin = get(*itr, data_key());
+            *itr_begin = get(*tree_itr, ::boost::tree_node::data_key());
             ++itr_begin;
         }
         //]
-#else  // !defined BOOST_TREE_NODE_ALGORITHM_CARTESIAN_SORT_USE_BREADTH_FIRST
+#else  // !defined BOOST_ALGORITHM_SORTING_CARTESIAN_SORT_USE_BREADTH_FIRST
         //[impl__cartesian_sort__breadth_first_descendant_iterate_with_priority
-        *itr_begin = get(*root_ptr, data_key());
+        *itr_begin = get(*root_ptr, ::boost::tree_node::data_key());
         ++itr_begin;
 
         for (
-            breadth_first_descendant_iterator<
+            ::boost::tree_node::breadth_first_descendant_iterator<
                 Node const
               , ::boost::std_heap_selector< ::boost::tree_node::compareS>
-            > itr(
+            > tree_itr(
                 *root_ptr
               , ::boost::bind(compare, ::boost::arg<2>(), ::boost::arg<1>())
             );
-            itr;
-            ++itr
+            tree_itr;
+            ++tree_itr
         )
         {
             BOOST_ASSERT(itr_begin != itr_end);
-            *itr_begin = get(*itr, data_key());
+            *itr_begin = get(*tree_itr, ::boost::tree_node::data_key());
             ++itr_begin;
         }
         //]
-#endif  // BOOST_TREE_NODE_ALGORITHM_CARTESIAN_SORT_USE_BREADTH_FIRST
+#endif  // BOOST_ALGORITHM_SORTING_CARTESIAN_SORT_USE_BREADTH_FIRST
 
         //[impl__cartesian_sort__cleanup
         BOOST_ASSERT(itr_begin == itr_end);
@@ -204,8 +247,21 @@ namespace boost { namespace tree_node {
     }
     //]
 
+#if defined BOOST_NO_SFINAE
     template <typename Iterator>
     inline void cartesian_sort(Iterator itr_begin, Iterator itr_end)
+#else
+    template <typename Iterator>
+    inline void
+        cartesian_sort(
+            Iterator itr_begin
+          , Iterator itr_end
+          , typename ::boost::enable_if<
+                ::boost::detail::metafunction::is_input_iterator<Iterator>
+              , ::boost::mpl::true_
+            >::type
+        )
+#endif
     {
         cartesian_sort(
             itr_begin
@@ -215,25 +271,39 @@ namespace boost { namespace tree_node {
     }
 
     template <typename Range, typename Compare>
+#if defined BOOST_NO_SFINAE
     inline Range& cartesian_sort_range(Range& r, Compare compare)
+#else
+    inline Range&
+        cartesian_sort(
+            Range& r
+          , Compare compare
+          , typename ::boost::disable_if<
+                ::boost::detail::metafunction::is_input_iterator<Range>
+              , ::boost::mpl::true_
+            >::type
+        )
+#endif
     {
         cartesian_sort(::boost::begin(r), ::boost::end(r), compare);
         return r;
     }
 
     template <typename Range>
-    inline Range& cartesian_sort_range(Range& r)
+    inline Range& cartesian_sort(Range& r)
     {
-        return cartesian_sort_range(
-            r
+        cartesian_sort(
+            ::boost::begin(r)
+          , ::boost::end(r)
           , ::std::less<
                 typename ::boost::iterator_value<
                     typename ::boost::range_iterator<Range>::type
                 >::type
             >()
         );
+        return r;
     }
-}}  // namespace boost::tree_node
+}}  // namespace boost::algorithm
 
-#endif  // BOOST_TREE_NODE_ALGORITHM_CARTESIAN_SORT_HPP
+#endif  // BOOST_ALGORITHM_SORTING_CARTESIAN_SORT_HPP
 

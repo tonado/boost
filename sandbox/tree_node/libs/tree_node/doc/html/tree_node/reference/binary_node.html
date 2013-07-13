@@ -4,7 +4,7 @@
 <title>binary_node&lt;T,Size,AllocatorSelector&gt;</title>
 <link rel="stylesheet" href="http://www.boost.org/doc/libs/release/doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
-<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;tree_node 0.5">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;tree_node 0.6">
 <link rel="up" href="../reference.html" title="Reference">
 <link rel="prev" href="avl_balancer.html" title="adelson_velskii_landis_balancer">
 <link rel="next" href="binary_node_gen.html" title="binary_node_gen&lt;Size,AllocatorSelector&gt;">
@@ -1017,11 +1017,13 @@
 
     <span class="keyword">for</span> <span class="special">(</span><span class="identifier">Iterator</span> <span class="identifier">itr</span> <span class="special">=</span> <span class="identifier">itr_begin</span><span class="special">;</span> <span class="special">++</span><span class="identifier">itr</span> <span class="special">!=</span> <span class="identifier">itr_end</span><span class="special">;)</span>
     <span class="special">{</span>
-        <span class="keyword">if</span> <span class="special">(</span><span class="identifier">compare</span><span class="special">(*</span><span class="identifier">itr</span><span class="special">,</span> <span class="identifier">get</span><span class="special">(*</span><span class="identifier">root_ptr</span><span class="special">,</span> <span class="identifier">data_key</span><span class="special">())))</span>
+        <span class="keyword">if</span> <span class="special">(</span><span class="identifier">compare</span><span class="special">(*</span><span class="identifier">itr</span><span class="special">,</span> <span class="identifier">get</span><span class="special">(*</span><span class="identifier">root_ptr</span><span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">data_key</span><span class="special">())))</span>
         <span class="special">{</span>
             <span class="identifier">right_ptr</span> <span class="special">=</span> <span class="identifier">root_ptr</span> <span class="special">=</span> <span class="identifier">root_ptr</span><span class="special">-&gt;</span><span class="identifier">emplace_parent_of_left</span><span class="special">(*</span><span class="identifier">itr</span><span class="special">);</span>
         <span class="special">}</span>
-        <span class="keyword">else</span> <span class="keyword">if</span> <span class="special">(!</span><span class="identifier">compare</span><span class="special">(*</span><span class="identifier">itr</span><span class="special">,</span> <span class="identifier">get</span><span class="special">(*</span><span class="identifier">right_ptr</span><span class="special">,</span> <span class="identifier">data_key</span><span class="special">())))</span>
+        <span class="keyword">else</span> <span class="keyword">if</span> <span class="special">(</span>
+            <span class="special">!</span><span class="identifier">compare</span><span class="special">(*</span><span class="identifier">itr</span><span class="special">,</span> <span class="identifier">get</span><span class="special">(*</span><span class="identifier">right_ptr</span><span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">data_key</span><span class="special">()))</span>
+        <span class="special">)</span>
         <span class="special">{</span>
             <span class="identifier">right_ptr</span> <span class="special">=</span> <span class="special">&amp;*</span><span class="identifier">right_ptr</span><span class="special">-&gt;</span><span class="identifier">emplace_right</span><span class="special">(*</span><span class="identifier">itr</span><span class="special">);</span>
         <span class="special">}</span>
@@ -1031,7 +1033,10 @@
                 <span class="identifier">ancestor_ptr</span> <span class="special">=</span> <span class="identifier">right_ptr</span><span class="special">;</span>
                 <span class="identifier">ancestor_ptr</span><span class="special">-&gt;</span><span class="identifier">get_parent_ptr</span><span class="special">()</span> <span class="special">&amp;&amp;</span> <span class="identifier">compare</span><span class="special">(</span>
                     <span class="special">*</span><span class="identifier">itr</span>
-                  <span class="special">,</span> <span class="identifier">get</span><span class="special">(*</span><span class="identifier">ancestor_ptr</span><span class="special">-&gt;</span><span class="identifier">get_parent_ptr</span><span class="special">(),</span> <span class="identifier">data_key</span><span class="special">())</span>
+                  <span class="special">,</span> <span class="identifier">get</span><span class="special">(</span>
+                        <span class="special">*</span><span class="identifier">ancestor_ptr</span><span class="special">-&gt;</span><span class="identifier">get_parent_ptr</span><span class="special">()</span>
+                      <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">data_key</span><span class="special">()</span>
+                    <span class="special">)</span>
                 <span class="special">);</span>
                 <span class="identifier">ancestor_ptr</span> <span class="special">=</span> <span class="identifier">ancestor_ptr</span><span class="special">-&gt;</span><span class="identifier">get_parent_ptr</span><span class="special">()</span>
             <span class="special">)</span>
@@ -1062,7 +1067,7 @@
       <span class="special">,</span> <span class="identifier">itr_end</span>
       <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">make_transform_iterator</span><span class="special">(</span>
             <span class="identifier">make_in_order_iterator</span><span class="special">(*</span><span class="identifier">root_ptr</span><span class="special">)</span>
-          <span class="special">,</span> <span class="identifier">at_key</span><span class="special">&lt;</span><span class="identifier">data_key</span><span class="special">&gt;()</span>
+          <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">at_key</span><span class="special">&lt;</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">data_key</span><span class="special">&gt;()</span>
         <span class="special">)</span>
       <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">make_equivalence_function</span><span class="special">(</span><span class="identifier">compare</span><span class="special">)</span>
     <span class="special">)</span>
@@ -1075,23 +1080,23 @@
           queue to store pointers or iterators to tree nodes while prioritizing according
           to their data.
         </p>
-<pre class="programlisting"><span class="special">*</span><span class="identifier">itr_begin</span> <span class="special">=</span> <span class="identifier">get</span><span class="special">(*</span><span class="identifier">root_ptr</span><span class="special">,</span> <span class="identifier">data_key</span><span class="special">());</span>
+<pre class="programlisting"><span class="special">*</span><span class="identifier">itr_begin</span> <span class="special">=</span> <span class="identifier">get</span><span class="special">(*</span><span class="identifier">root_ptr</span><span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">data_key</span><span class="special">());</span>
 <span class="special">++</span><span class="identifier">itr_begin</span><span class="special">;</span>
 
 <span class="keyword">for</span> <span class="special">(</span>
-    <span class="identifier">breadth_first_descendant_iterator</span><span class="special">&lt;</span>
+    <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">breadth_first_descendant_iterator</span><span class="special">&lt;</span>
         <span class="identifier">Node</span> <span class="keyword">const</span>
       <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">std_heap_selector</span><span class="special">&lt;</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">compareS</span><span class="special">&gt;</span>
-    <span class="special">&gt;</span> <span class="identifier">itr</span><span class="special">(</span>
+    <span class="special">&gt;</span> <span class="identifier">tree_itr</span><span class="special">(</span>
         <span class="special">*</span><span class="identifier">root_ptr</span>
       <span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">bind</span><span class="special">(</span><span class="identifier">compare</span><span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">arg</span><span class="special">&lt;</span><span class="number">2</span><span class="special">&gt;(),</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">arg</span><span class="special">&lt;</span><span class="number">1</span><span class="special">&gt;())</span>
     <span class="special">);</span>
-    <span class="identifier">itr</span><span class="special">;</span>
-    <span class="special">++</span><span class="identifier">itr</span>
+    <span class="identifier">tree_itr</span><span class="special">;</span>
+    <span class="special">++</span><span class="identifier">tree_itr</span>
 <span class="special">)</span>
 <span class="special">{</span>
     <span class="identifier">BOOST_ASSERT</span><span class="special">(</span><span class="identifier">itr_begin</span> <span class="special">!=</span> <span class="identifier">itr_end</span><span class="special">);</span>
-    <span class="special">*</span><span class="identifier">itr_begin</span> <span class="special">=</span> <span class="identifier">get</span><span class="special">(*</span><span class="identifier">itr</span><span class="special">,</span> <span class="identifier">data_key</span><span class="special">());</span>
+    <span class="special">*</span><span class="identifier">itr_begin</span> <span class="special">=</span> <span class="identifier">get</span><span class="special">(*</span><span class="identifier">tree_itr</span><span class="special">,</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">tree_node</span><span class="special">::</span><span class="identifier">data_key</span><span class="special">());</span>
     <span class="special">++</span><span class="identifier">itr_begin</span><span class="special">;</span>
 <span class="special">}</span>
 </pre>
@@ -1109,16 +1114,6 @@
     <span class="special">&gt;::</span><span class="identifier">deallocate</span><span class="special">(</span><span class="identifier">allocator</span><span class="special">,</span> <span class="identifier">root_ptr</span><span class="special">,</span> <span class="number">1</span><span class="special">);</span>
 <span class="special">}</span>
 </pre>
-<p>
-          Our sorting function has the advantage of not requiring the iterator type
-          of the input range to model the <a href="http://www.sgi.com/tech/stl/RandomAccessIterator.html" target="_top"><span class="bold"><strong>Random Access Iterator</strong></span></a> concept or even the
-          <a href="http://www.sgi.com/tech/stl/BidirectionalIterator.html" target="_top"><span class="bold"><strong>Bidirectional Iterator</strong></span></a> concept, allowing
-          it to work for a larger variety of range types.
-        </p>
-<p>
-          The complete program source can be found here: &lt;<a href="../../../../../../boost/tree_node/algorithm/cartesian_sort.hpp" target="_top">boost/tree_node/algorithm/cartesian_sort.hpp</a>&gt;
-          and &lt;<a href="../../../../test/cartesian_sort.cpp" target="_top">test/cartesian_sort.cpp</a>&gt;
-        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">

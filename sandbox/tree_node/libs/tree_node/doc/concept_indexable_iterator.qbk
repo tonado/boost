@@ -154,10 +154,10 @@ to the number of descendants in the worst case.
 
 [section Models]
 [itemized_list
-    [The iterator types of __binode_container__]
+    [The iterator types of __deque__]
     [The iterator types of __binode_associative_container__]
 ]
 [endsect]
 
-[endsect] [/ Tree Node Iterator]
+[endsect] [/ Indexable Iterator]
 
