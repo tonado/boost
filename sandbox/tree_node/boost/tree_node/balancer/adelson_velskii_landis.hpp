@@ -11,6 +11,9 @@ namespace boost { namespace tree_node {
 
     struct adelson_velskii_landis_balancer
     {
+        template <typename Node, typename Size>
+        static void post_fill(Node& root, Size n);
+
         template <typename NodePointer>
         static NodePointer post_insert(NodePointer node_ptr);
 
@@ -45,6 +48,12 @@ namespace boost { namespace tree_node {
 
 namespace boost { namespace tree_node {
 
+    template <typename Node, typename Size>
+    inline void
+        adelson_velskii_landis_balancer::post_fill(Node& root, Size n)
+    {
+    }
+
     template <typename NodePointer>
     inline NodePointer
         adelson_velskii_landis_balancer::post_insert(NodePointer node_ptr)
@@ -53,7 +62,8 @@ namespace boost { namespace tree_node {
     }
 
     template <typename Node>
-    inline bool adelson_velskii_landis_balancer::choose_predecessor(Node const& node)
+    inline bool
+        adelson_velskii_landis_balancer::choose_predecessor(Node const& node)
     {
         return get(*node.get_right_child_ptr(), height_key()) < get(
             *node.get_left_child_ptr()
@@ -71,14 +81,38 @@ namespace boost { namespace tree_node {
     inline NodePointer
         adelson_velskii_landis_balancer::post_erase_left(NodePointer node_ptr)
     {
-        return adelson_velskii_landis_balancer::_balance(node_ptr);
+        if (
+            node_ptr->get_right_child_ptr() && get(
+                *node_ptr->get_right_child_ptr()
+              , height_key()
+            )
+        )
+        {
+            return node_ptr->rotate_left();
+        }
+        else
+        {
+            return adelson_velskii_landis_balancer::_balance(node_ptr);
+        }
     }
 
     template <typename NodePointer>
     inline NodePointer
         adelson_velskii_landis_balancer::post_erase_right(NodePointer node_ptr)
     {
-        return adelson_velskii_landis_balancer::_balance(node_ptr);
+        if (
+            node_ptr->get_left_child_ptr() && get(
+                *node_ptr->get_left_child_ptr()
+              , height_key()
+            )
+        )
+        {
+            return node_ptr->rotate_right();
+        }
+        else
+        {
+            return adelson_velskii_landis_balancer::_balance(node_ptr);
+        }
     }
 
     template <typename NodePointer>
