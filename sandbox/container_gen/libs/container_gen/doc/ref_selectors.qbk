@@ -61,6 +61,15 @@ argument types to which they are bound can be deduced.
         [Yes, by __is_mpl_integral_constant__.]
     ]
     [
+        [`ConstantCapacity`]
+        [N/A]
+        [
+            An __Integral_Constant__ that determines the capacity of the
+            __container_static_vector__ to be returned by __container_gen__.
+        ]
+        [Unnecessary.]
+    ]
+    [
         [`IsBoostNotStd`]
         [`boost::is_boost_not_std_arg`]
         [

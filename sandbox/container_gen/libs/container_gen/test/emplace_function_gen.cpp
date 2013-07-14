@@ -13,9 +13,9 @@
 #include <utility>
 #include <cstring>
 #include <boost/mpl/bool.hpp>
-#include <boost/mpl/or.hpp>
-#include <boost/range/algorithm/equal.hpp>
+#include <boost/mpl/int.hpp>
 #include <boost/mpl/if.hpp>
+#include <boost/range/algorithm/equal.hpp>
 #include <boost/heap/heap_merge.hpp>
 #include <boost/container_gen/selectors.hpp>
 #include <boost/container_gen/container_gen.hpp>
@@ -549,6 +549,10 @@ int test_main(int argc, char** argv)
     test_emplace_function_gen<boost::ptr_hash_multisetS>();
     test_emplace_function_gen<boost::ptr_hash_multimapS>();
     test_emplace_function_gen<boost::vector_selector<boost::mpl::true_> >();
+    test_emplace_function_gen<boost::stable_vecS>();
+    test_emplace_function_gen<
+        boost::static_vector_selector<boost::mpl::int_<16> >
+    >();
     test_emplace_function_gen<boost::deque_selector<boost::mpl::true_> >();
     test_emplace_function_gen<boost::list_selector<boost::mpl::true_> >();
     test_emplace_function_gen<boost::set_selector<boost::mpl::true_> >();
@@ -610,6 +614,11 @@ int test_main(int argc, char** argv)
         boost::vecS
       , boost::vector_selector<boost::mpl::true_>
     >();
+    test_emplace_function_gens<boost::vecS,boost::stable_vecS>();
+    test_emplace_function_gens<
+        boost::vecS
+      , boost::static_vector_selector<boost::mpl::int_<16> >
+    >();
     test_emplace_function_gens<
         boost::vecS
       , boost::deque_selector<boost::mpl::true_>
@@ -618,6 +627,11 @@ int test_main(int argc, char** argv)
         boost::vecS
       , boost::list_selector<boost::mpl::true_>
     >();
+    test_emplace_function_gens<boost::dequeS,boost::stable_vecS>();
+    test_emplace_function_gens<
+        boost::dequeS
+      , boost::static_vector_selector<boost::mpl::int_<16> >
+    >();
     test_emplace_function_gens<
         boost::dequeS
       , boost::vector_selector<boost::mpl::true_>
@@ -629,6 +643,11 @@ int test_main(int argc, char** argv)
     test_emplace_function_gens<
         boost::dequeS
       , boost::list_selector<boost::mpl::true_>
+    >();
+    test_emplace_function_gens<boost::listS,boost::stable_vecS>();
+    test_emplace_function_gens<
+        boost::listS
+      , boost::static_vector_selector<boost::mpl::int_<16> >
     >();
     test_emplace_function_gens<
         boost::listS
@@ -642,6 +661,11 @@ int test_main(int argc, char** argv)
         boost::listS
       , boost::list_selector<boost::mpl::true_>
     >();
+    test_emplace_function_gens<boost::ptr_vecS,boost::stable_vecS>();
+    test_emplace_function_gens<
+        boost::ptr_vecS
+      , boost::static_vector_selector<boost::mpl::int_<16> >
+    >();
     test_emplace_function_gens<
         boost::ptr_vecS
       , boost::vector_selector<boost::mpl::true_>
@@ -654,6 +678,11 @@ int test_main(int argc, char** argv)
         boost::ptr_vecS
       , boost::list_selector<boost::mpl::true_>
     >();
+    test_emplace_function_gens<boost::ptr_dequeS,boost::stable_vecS>();
+    test_emplace_function_gens<
+        boost::ptr_dequeS
+      , boost::static_vector_selector<boost::mpl::int_<16> >
+    >();
     test_emplace_function_gens<
         boost::ptr_dequeS
       , boost::vector_selector<boost::mpl::true_>
@@ -666,6 +695,11 @@ int test_main(int argc, char** argv)
         boost::ptr_dequeS
       , boost::list_selector<boost::mpl::true_>
     >();
+    test_emplace_function_gens<boost::ptr_listS,boost::stable_vecS>();
+    test_emplace_function_gens<
+        boost::ptr_listS
+      , boost::static_vector_selector<boost::mpl::int_<16> >
+    >();
     test_emplace_function_gens<
         boost::ptr_listS
       , boost::vector_selector<boost::mpl::true_>
@@ -676,6 +710,34 @@ int test_main(int argc, char** argv)
     >();
     test_emplace_function_gens<
         boost::ptr_listS
+      , boost::list_selector<boost::mpl::true_>
+    >();
+    test_emplace_function_gens<
+        boost::stable_vecS
+      , boost::static_vector_selector<boost::mpl::int_<16> >
+    >();
+    test_emplace_function_gens<
+        boost::stable_vecS
+      , boost::vector_selector<boost::mpl::true_>
+    >();
+    test_emplace_function_gens<
+        boost::stable_vecS
+      , boost::deque_selector<boost::mpl::true_>
+    >();
+    test_emplace_function_gens<
+        boost::stable_vecS
+      , boost::list_selector<boost::mpl::true_>
+    >();
+    test_emplace_function_gens<
+        boost::static_vector_selector<boost::mpl::int_<16> >
+      , boost::vector_selector<boost::mpl::true_>
+    >();
+    test_emplace_function_gens<
+        boost::static_vector_selector<boost::mpl::int_<16> >
+      , boost::deque_selector<boost::mpl::true_>
+    >();
+    test_emplace_function_gens<
+        boost::static_vector_selector<boost::mpl::int_<16> >
       , boost::list_selector<boost::mpl::true_>
     >();
     test_emplace_function_gens<
@@ -737,6 +799,7 @@ int test_main(int argc, char** argv)
     test_emplace_function_gen_recursive<boost::ptr_listS>();
 #if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
     test_emplace_function_gen_recursive<boost::slistS>();
+    test_emplace_function_gen_recursive<boost::stable_vecS>();
     test_emplace_function_gen_recursive<
         boost::vector_selector<boost::mpl::true_>
     >();

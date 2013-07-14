@@ -10,6 +10,7 @@
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/and.hpp>
+#include <boost/mpl/or.hpp>
 #include <boost/mpl/aux_/lambda_support.hpp>
 #include <boost/function_types/property_tags.hpp>
 #include <boost/detail/metafunction/has_mfunc_begin_end.hpp>
@@ -44,20 +45,27 @@ namespace boost { namespace detail { namespace metafunction {
                       , ::boost::mpl::vector0<>
                       , ::boost::function_types::const_qualified
                     >::type
-                  , typename has_member_function_max_size<
+                  , typename has_member_function_empty<
                         T
-                      , typename T::size_type
+                      , bool
                       , ::boost::mpl::vector0<>
                       , ::boost::function_types::const_qualified
                     >::type
                 >
             >
-          , typename has_member_function_empty<
-                T
-              , bool
-              , ::boost::mpl::vector0<>
-              , ::boost::function_types::const_qualified
-            >::type
+          , ::boost::mpl::or_<
+                typename has_member_function_max_size<
+                    T
+                  , typename T::size_type
+                  , ::boost::mpl::vector0<>
+                  , ::boost::function_types::const_qualified
+                >::type
+              , typename has_static_member_function_max_size<
+                    T
+                  , typename T::size_type
+                  , ::boost::mpl::vector0<>
+                >::type
+            >
         >
     {
     };

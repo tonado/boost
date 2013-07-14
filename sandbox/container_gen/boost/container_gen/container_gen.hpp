@@ -69,6 +69,7 @@ namespace boost {
 
 #include <boost/container/vector.hpp>
 #include <boost/container/stable_vector.hpp>
+#include <boost/container/static_vector.hpp>
 #include <boost/container/deque.hpp>
 #include <boost/container/list.hpp>
 #include <boost/container/slist.hpp>
@@ -167,6 +168,20 @@ namespace boost {
                         AllocatorSelector
                       , ValueType
                     >::type
+                >
+                type;
+    };
+
+    template <typename ConstantCapacity, typename ValueType>
+    struct container_gen<
+        static_vector_selector<ConstantCapacity>
+      , ValueType
+      , void
+    >
+    {
+        typedef ::boost::container::static_vector<
+                    ValueType
+                  , ConstantCapacity::value
                 >
                 type;
     };

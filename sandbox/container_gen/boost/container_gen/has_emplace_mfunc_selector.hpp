@@ -84,6 +84,13 @@ namespace boost {
     {
     };
 
+    template <typename ConstantCapacity>
+    struct has_emplace_member_function_selector<
+        static_vector_selector<ConstantCapacity>
+    > : ::boost::mpl::true_
+    {
+    };
+
     template <typename AllocatorSelector>
     struct has_emplace_member_function_selector<
         slist_selector<AllocatorSelector>

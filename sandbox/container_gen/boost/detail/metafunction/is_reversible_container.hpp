@@ -10,11 +10,11 @@
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/and.hpp>
 #include <boost/mpl/aux_/lambda_support.hpp>
 #include <boost/function_types/property_tags.hpp>
 #include <boost/detail/metafunction/has_mfunc_rbegin_rend.hpp>
 #include <boost/detail/metafunction/has_rvrs_container_typedefs.hpp>
+#include <boost/detail/metafunction/has_random_access_iterators.hpp>
 #include <boost/detail/metafunction/is_container.hpp>
 #include <boost/detail/metafunction/is_ptr_container.hpp>
 
@@ -22,20 +22,21 @@ namespace boost { namespace detail { namespace metafunction {
 
     template <typename T>
     struct is_reversible_container_impl
-      : ::boost::mpl::and_<
+      : ::boost::mpl::eval_if<
             typename has_member_function_rbegin<
                 T
               , typename T::const_reverse_iterator
               , ::boost::mpl::vector0<>
               , ::boost::function_types::const_qualified
             >::type
-          , typename has_member_function_rend<
+          , has_member_function_rend<
                 T
               , typename T::const_reverse_iterator
               , ::boost::mpl::vector0<>
               , ::boost::function_types::const_qualified
-            >::type
-        >
+            >
+          , ::boost::mpl::false_
+        >::type
     {
     };
 
@@ -43,10 +44,14 @@ namespace boost { namespace detail { namespace metafunction {
     struct is_reversible_container
       : ::boost::mpl::eval_if<
             has_reversible_container_typedefs<T>
-          , ::boost::mpl::if_<
-                is_reversible_container_impl<T>
-              , is_container<T>
-              , is_ptr_container<T>
+          , ::boost::mpl::eval_if<
+                has_random_access_iterators<T>
+              , ::boost::mpl::true_
+              , ::boost::mpl::if_<
+                    is_reversible_container_impl<T>
+                  , is_container<T>
+                  , is_ptr_container<T>
+                >
             >
           , ::boost::mpl::false_
         >::type

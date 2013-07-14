@@ -8,35 +8,17 @@
 
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/if.hpp>
-#include <boost/mpl/not.hpp>
-#include <boost/mpl/and.hpp>
 #include <boost/mpl/aux_/lambda_support.hpp>
-#include <boost/detail/metafunction/is_random_access_iterator.hpp>
-#include <boost/detail/metafunction/is_associative_container.hpp>
+#include <boost/detail/metafunction/has_random_access_iterators.hpp>
 #include <boost/detail/metafunction/has_rvrs_container_typedefs.hpp>
 
 namespace boost { namespace detail { namespace metafunction {
-
-    // Major assumption:
-    // All Random Access Containers sport Random Access Iterators and
-    // are not Associative Containers.
-    template <typename T>
-    struct is_random_access_container_impl
-      : ::boost::mpl::and_<
-            ::boost::mpl::and_<
-                is_random_access_iterator<typename T::iterator>
-              , is_random_access_iterator<typename T::reverse_iterator>
-            >
-          , ::boost::mpl::not_< is_associative_container<T> >
-        >
-    {
-    };
 
     template <typename T>
     struct is_random_access_container
       : ::boost::mpl::if_<
             has_reversible_container_typedefs<T>
-          , is_random_access_container_impl<T>
+          , has_random_access_iterators<T>
           , ::boost::mpl::false_
         >::type
     {

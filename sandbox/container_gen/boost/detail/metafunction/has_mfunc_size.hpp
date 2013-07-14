@@ -7,6 +7,7 @@
 #define BOOST_DETAIL_METAFUNCTION_HAS_MFUNC_SIZE_HPP_INCLUDED
 
 #include <boost/tti/has_member_function.hpp>
+#include <boost/tti/has_static_member_function.hpp>
 
 namespace boost { namespace detail { namespace metafunction {
 
@@ -48,6 +49,27 @@ namespace boost { namespace detail { namespace metafunction {
     // where P is a comma-separated list of the argument types and K is a
     // whitespace-separated list of cv-qualification keywords.
     BOOST_TTI_HAS_MEMBER_FUNCTION(max_size)
+
+    // The has_static_member_function_max_size metafunction takes in four
+    // argument types:
+    //
+    // T -- the type to be checked for the presence of a nested 'max_size'
+    //      static member function declaration.
+    // R -- the return type of the 'max_size' static member function
+    //      declaration. (Default: void)
+    // A -- an MPL forward sequence encapsulating the argument types of
+    //      the 'max_size' static member function declaration.  (Default:
+    //      mpl::vector0<>)
+    // Q -- a Boost.FunctionTypes tag specifying cv-qualification.
+    //
+    // The metafunction can also be invoked by passing in a single argument
+    // with the following form:
+    //
+    //    R T::*(P) K
+    //
+    // where P is a comma-separated list of the argument types and K is a
+    // whitespace-separated list of cv-qualification keywords.
+    BOOST_TTI_HAS_STATIC_MEMBER_FUNCTION(max_size)
 }}}  // namespace boost::detail::metafunction
 
 #endif  // BOOST_DETAIL_METAFUNCTION_HAS_MFUNC_SIZE_HPP_INCLUDED

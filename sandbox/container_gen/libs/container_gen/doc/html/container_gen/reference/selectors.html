@@ -4,7 +4,7 @@
 <title>Selectors</title>
 <link rel="stylesheet" href="http://www.boost.org/doc/libs/release/doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
-<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;container_gen 0.9">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;container_gen 0.10">
 <link rel="up" href="../reference.html" title="Reference">
 <link rel="prev" href="../reference.html" title="Reference">
 <link rel="next" href="container_gen.html" title="container_gen">
@@ -56,6 +56,9 @@
 
     <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">AllocatorSelector</span> <span class="special">=</span> <span class="identifier">std_allocator_selector</span><span class="special">&gt;</span>
     <span class="keyword">struct</span> <span class="identifier">stable_vector_selector</span><span class="special">;</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ConstantCapacity</span><span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">static_vector_selector</span><span class="special">;</span>
 
     <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">AllocatorSelector</span> <span class="special">=</span> <span class="identifier">std_allocator_selector</span><span class="special">&gt;</span>
     <span class="keyword">struct</span> <span class="identifier">slist_selector</span><span class="special">;</span>
@@ -724,6 +727,30 @@
 <td>
                   <p>
                     Yes, by <a href="../../../../../../libs/utility/doc/html/is_mpl_integral_constant.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">is_mpl_integral_constant</span></code></a>.
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">ConstantCapacity</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    N/A
+                  </p>
+                </td>
+<td>
+                  <p>
+                    An <a href="http://www.boost.org/libs/mpl/doc/refmanual/integral-constant.html" target="_top"><span class="bold"><strong>Integral Constant</strong></span></a> that determines
+                    the capacity of the <a href="http://www.boost.org/doc/html/boost/container/static_vector.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">container</span><span class="special">::</span><span class="identifier">static_vector</span></code></a> to be
+                    returned by <a class="link" href="container_gen.html" title="container_gen"><code class="computeroutput"><span class="identifier">container_gen</span></code></a>.
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Unnecessary.
                   </p>
                 </td>
 </tr>

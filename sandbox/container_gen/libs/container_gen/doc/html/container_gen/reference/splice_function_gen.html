@@ -4,7 +4,7 @@
 <title>splice_function_gen</title>
 <link rel="stylesheet" href="http://www.boost.org/doc/libs/release/doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
-<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;container_gen 0.9">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;container_gen 0.10">
 <link rel="up" href="../reference.html" title="Reference">
 <link rel="prev" href="insert_range_function_gen.html" title="insert_range_function_gen">
 <link rel="next" href="insert_range_result_gen.html" title="insert_range_result_gen">
@@ -274,6 +274,9 @@
     <span class="identifier">test_splice_function_gen</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">ptr_listS</span><span class="special">&gt;(</span><span class="identifier">c</span><span class="special">);</span>
     <span class="identifier">test_splice_function_gen</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">vector_selector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span><span class="special">&gt;</span> <span class="special">&gt;(</span><span class="identifier">c</span><span class="special">);</span>
     <span class="identifier">test_splice_function_gen</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">stable_vecS</span><span class="special">&gt;(</span><span class="identifier">c</span><span class="special">);</span>
+    <span class="identifier">test_splice_function_gen</span><span class="special">&lt;</span>
+        <span class="identifier">boost</span><span class="special">::</span><span class="identifier">static_vector_selector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">int_</span><span class="special">&lt;</span><span class="number">16</span><span class="special">&gt;</span> <span class="special">&gt;</span>
+    <span class="special">&gt;(</span><span class="identifier">c</span><span class="special">);</span>
     <span class="identifier">test_splice_function_gen</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">deque_selector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span><span class="special">&gt;</span> <span class="special">&gt;(</span><span class="identifier">c</span><span class="special">);</span>
     <span class="identifier">test_splice_function_gen</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">list_selector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span><span class="special">&gt;</span> <span class="special">&gt;(</span><span class="identifier">c</span><span class="special">);</span>
     <span class="identifier">c</span><span class="special">.</span><span class="identifier">clear</span><span class="special">();</span>

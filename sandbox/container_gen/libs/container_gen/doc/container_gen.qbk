@@ -1,6 +1,6 @@
 [library container_gen
     [quickbook 1.6]
-    [version 0.9]
+    [version 0.10]
     [authors [Lumsdaine, Andrew][Lee, Lie-Quan][Claveirole, Thomas][Siek, Jeremy G.][Enage, Cromwell D.]]
     [copyright 1997-2013 Andrew Lumsdaine, Lie-Quan Lee, Thomas Claveirole, Jeremy G. Siek, Cromwell D. Enage]
     [purpose Collection of container-generating and selector-introspecting metafunctions]
@@ -88,6 +88,7 @@
 [def __range_adaptors_indirect__ [@boost:libs/range/doc/html/range/reference/adaptors/reference/indirected.html `boost::adaptors::indirect()`]]
 [def __array__ [@boost:doc/html/array.html `boost::array`]]
 [def __container_stable_vector__ [@boost:doc/html/boost/container/stable_vector.html `boost::container::stable_vector`]]
+[def __container_static_vector__ [@boost:doc/html/boost/container/static_vector.html `boost::container::static_vector`]]
 [def __graph_adjacency_list__ [@boost:libs/graph/doc/adjacency_list.html `boost::adjacency_list`]]
 [def __graph_parallel_edge_traits__ [@boost:libs/graph/doc/using_adjacency_list.html#SECTION00834200000000000000 `boost::parallel_edge_traits`]]
 [def __tr1_array__ [@boost:doc/html/boost_tr1/subject_list.html#boost_tr1.subject_list.array `std::tr1::array`]]

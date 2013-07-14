@@ -141,6 +141,9 @@ namespace boost {
 
     template <typename AllocatorSelector = std_allocator_selector>
     struct stable_vector_selector;
+
+    template <typename ConstantCapacity>
+    struct static_vector_selector;
 //<-
 #endif  // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 //->

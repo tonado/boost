@@ -4,7 +4,7 @@
 <title>container_gen</title>
 <link rel="stylesheet" href="http://www.boost.org/doc/libs/release/doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
-<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;container_gen 0.9">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;container_gen 0.10">
 <link rel="up" href="../reference.html" title="Reference">
 <link rel="prev" href="selectors.html" title="Selectors">
 <link rel="next" href="emplace_function_gen.html" title="emplace_function_gen">
@@ -112,6 +112,20 @@
                         <span class="identifier">AllocatorSelector</span>
                       <span class="special">,</span> <span class="identifier">ValueType</span>
                     <span class="special">&gt;::</span><span class="identifier">type</span>
+                <span class="special">&gt;</span>
+                <span class="identifier">type</span><span class="special">;</span>
+    <span class="special">};</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ConstantCapacity</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">ValueType</span><span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">container_gen</span><span class="special">&lt;</span>
+        <span class="identifier">static_vector_selector</span><span class="special">&lt;</span><span class="identifier">ConstantCapacity</span><span class="special">&gt;</span>
+      <span class="special">,</span> <span class="identifier">ValueType</span>
+      <span class="special">,</span> <span class="keyword">void</span>
+    <span class="special">&gt;</span>
+    <span class="special">{</span>
+        <span class="keyword">typedef</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">container</span><span class="special">::</span><span class="identifier">static_vector</span><span class="special">&lt;</span>
+                    <span class="identifier">ValueType</span>
+                  <span class="special">,</span> <span class="identifier">ConstantCapacity</span><span class="special">::</span><span class="identifier">value</span>
                 <span class="special">&gt;</span>
                 <span class="identifier">type</span><span class="special">;</span>
     <span class="special">};</span>

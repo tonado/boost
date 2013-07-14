@@ -18,12 +18,12 @@ __container_gen__ can be used to define a __Recursive_Container__; it evalutes
 to __mpl_false__ otherwise.
 
 The current implementation inherits from __mpl_true__ when passed in selectors
-for which __container_gen__ will return a __Boost_Container__ type, a
-__Boost_Pointer_Container__ type, or a __Boost_Unordered__ container; it will
-inherit from __mpl_false__ for all other types of selectors.  Specialize this
-metafunction to inherit from __mpl_true__ for your custom selector
-if and only if the type to be returned by __container_gen__ supports
-__recursive_data_types__.
+for which __container_gen__ will return a __Boost_Unordered__ container type, a
+__Boost_Pointer_Container__ type, or a __Boost_Container__ type (except for
+__container_static_vector__); it will inherit from __mpl_false__ for all other
+types of selectors.  Specialize this metafunction to inherit from __mpl_true__
+for your custom selector if and only if the type to be returned by
+__container_gen__ supports __recursive_data_types__.
 [endsect]
 
 [section:definition Where defined]

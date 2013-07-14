@@ -8,6 +8,12 @@
 
 [section Changelog]
 
+[heading From 0.9 to 0.10]
+
+[itemized_list
+    [Added the `static_vector_selector` template.]
+]
+
 [heading From 0.8 to 0.9]
 
 [itemized_list

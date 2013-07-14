@@ -970,6 +970,11 @@ namespace boost {
     {
     };
 
+    template <typename ConstantCapacity>
+    struct static_vector_selector
+    {
+    };
+
     template <typename T0, typename T1>
     struct deque_selector
     {

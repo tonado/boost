@@ -11,6 +11,7 @@
 #endif
 
 #include <boost/mpl/bool.hpp>
+#include <boost/mpl/int.hpp>
 #include <boost/range/algorithm/equal.hpp>
 #include <boost/container_gen/selectors.hpp>
 #include <boost/container_gen/container_gen.hpp>
@@ -84,6 +85,9 @@ int test_main(int argc, char** argv)
         added_container
     );
     test_insert_range_function_gen<boost::stable_vecS>(added_container);
+    test_insert_range_function_gen<
+        boost::static_vector_selector<boost::mpl::int_<16> >
+    >(added_container);
     test_insert_range_function_gen<boost::deque_selector<boost::mpl::true_> >(
         added_container
     );

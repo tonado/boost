@@ -97,6 +97,13 @@ namespace boost {
     {
     };
 
+    template <typename ConstantCapacity>
+    struct is_random_access_selector<
+        static_vector_selector<ConstantCapacity>
+    > : ::boost::mpl::true_
+    {
+    };
+
     template <typename T0, typename T1>
     struct is_random_access_selector<deque_selector<T0,T1> >
       : ::boost::mpl::true_

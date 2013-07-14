@@ -159,6 +159,9 @@ MPL_TEST_CASE()
         boost::is_compare_selector<boost::stable_vecS>
     ));
     BOOST_MPL_ASSERT_NOT((
+        boost::is_compare_selector<boost::static_vector_selector<int_<1> > >
+    ));
+    BOOST_MPL_ASSERT_NOT((
         boost::is_compare_selector<
             boost::deque_selector<
 //<-
@@ -452,6 +455,9 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_hasher_selector<boost::stable_vecS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_hasher_selector<boost::static_vector_selector<int_<1> > >
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_hasher_selector<
@@ -757,6 +763,9 @@ MPL_TEST_CASE()
         boost::is_allocator_selector<boost::stable_vecS>
     ));
     BOOST_MPL_ASSERT_NOT((
+        boost::is_allocator_selector<boost::static_vector_selector<int_<1> > >
+    ));
+    BOOST_MPL_ASSERT_NOT((
         boost::is_allocator_selector<
             boost::deque_selector<
 //<-
@@ -1050,6 +1059,9 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT((
         boost::is_container_selector<boost::stable_vecS>
+    ));
+    BOOST_MPL_ASSERT((
+        boost::is_container_selector<boost::static_vector_selector<int_<1> > >
     ));
     BOOST_MPL_ASSERT((
         boost::is_container_selector<
@@ -1353,6 +1365,9 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT((
         boost::is_reversible_selector<boost::stable_vecS>
+    ));
+    BOOST_MPL_ASSERT((
+        boost::is_reversible_selector<boost::static_vector_selector<int_<1> > >
     ));
     BOOST_MPL_ASSERT((
         boost::is_reversible_selector<
@@ -1679,6 +1694,11 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT((
         boost::is_random_access_selector<
+            boost::static_vector_selector<int_<1> >
+        >
+    ));
+    BOOST_MPL_ASSERT((
+        boost::is_random_access_selector<
             boost::deque_selector<
 //<-
 #if defined BOOST_MPL_CFG_NO_HAS_XXX
@@ -1971,6 +1991,11 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_associative_selector<boost::stable_vecS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_associative_selector<
+            boost::static_vector_selector<int_<1> >
+        >
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_associative_selector<
@@ -2310,6 +2335,11 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_unique_associative_selector<boost::stable_vecS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_unique_associative_selector<
+            boost::static_vector_selector<int_<1> >
+        >
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_unique_associative_selector<
@@ -2655,6 +2685,11 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_multiple_associative_selector<boost::stable_vecS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_multiple_associative_selector<
+            boost::static_vector_selector<int_<1> >
+        >
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_multiple_associative_selector<
@@ -3007,6 +3042,11 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_hashed_associative_selector<
+            boost::static_vector_selector<int_<1> >
+        >
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_hashed_associative_selector<
             boost::deque_selector<
 //<-
 #if defined BOOST_MPL_CFG_NO_HAS_XXX
@@ -3352,6 +3392,11 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_flat_associative_selector<
+            boost::static_vector_selector<int_<1> >
+        >
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_flat_associative_selector<
             boost::deque_selector<
 //<-
 #if defined BOOST_MPL_CFG_NO_HAS_XXX
@@ -3646,6 +3691,9 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_ptr_selector<boost::stable_vecS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_ptr_selector<boost::static_vector_selector<int_<1> > >
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_ptr_selector<
@@ -3943,6 +3991,9 @@ MPL_TEST_CASE()
         boost::is_queue_selector<boost::stable_vecS>
     ));
     BOOST_MPL_ASSERT_NOT((
+        boost::is_queue_selector<boost::static_vector_selector<int_<1> > >
+    ));
+    BOOST_MPL_ASSERT_NOT((
         boost::is_queue_selector<
             boost::deque_selector<
 //<-
@@ -4236,6 +4287,9 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_stack_selector<boost::stable_vecS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_stack_selector<boost::static_vector_selector<int_<1> > >
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_stack_selector<
@@ -4533,6 +4587,9 @@ MPL_TEST_CASE()
         boost::is_std_heap_selector<boost::stable_vecS>
     ));
     BOOST_MPL_ASSERT_NOT((
+        boost::is_std_heap_selector<boost::static_vector_selector<int_<1> > >
+    ));
+    BOOST_MPL_ASSERT_NOT((
         boost::is_std_heap_selector<
             boost::deque_selector<
 //<-
@@ -4826,6 +4883,9 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_heap_selector<boost::stable_vecS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_heap_selector<boost::static_vector_selector<int_<1> > >
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_heap_selector<
@@ -5168,6 +5228,11 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_iteratable_heap_selector<
+            boost::static_vector_selector<int_<1> >
+        >
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_iteratable_heap_selector<
             boost::deque_selector<
 //<-
 #if defined BOOST_MPL_CFG_NO_HAS_XXX
@@ -5506,6 +5571,11 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_order_iteratable_heap_selector<boost::stable_vecS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_order_iteratable_heap_selector<
+            boost::static_vector_selector<int_<1> >
+        >
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_order_iteratable_heap_selector<
@@ -5855,6 +5925,11 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_mutable_heap_selector<boost::stable_vecS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mutable_heap_selector<
+            boost::static_vector_selector<int_<1> >
+        >
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_mutable_heap_selector<
@@ -6210,6 +6285,11 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_mergeable_heap_selector<boost::stable_vecS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<
+            boost::static_vector_selector<int_<1> >
+        >
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::is_mutable_heap_selector<
@@ -6568,6 +6648,11 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT_NOT((
         boost::has_stable_iterators_selector<
+            boost::static_vector_selector<int_<1> >
+        >
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::has_stable_iterators_selector<
             boost::deque_selector<
 //<-
 #if defined BOOST_MPL_CFG_NO_HAS_XXX
@@ -6898,6 +6983,9 @@ MPL_TEST_CASE()
         boost::is_tr1_selector<boost::stable_vecS>
     ));
     BOOST_MPL_ASSERT_NOT((
+        boost::is_tr1_selector<boost::static_vector_selector<int_<1> > >
+    ));
+    BOOST_MPL_ASSERT_NOT((
         boost::is_tr1_selector<
             boost::deque_selector<
 //<-
@@ -7195,6 +7283,9 @@ MPL_TEST_CASE()
     ));
     BOOST_MPL_ASSERT((
         boost::is_recursive_selector<boost::stable_vecS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_recursive_selector<boost::static_vector_selector<int_<1> > >
     ));
     BOOST_MPL_ASSERT((
         boost::is_recursive_selector<

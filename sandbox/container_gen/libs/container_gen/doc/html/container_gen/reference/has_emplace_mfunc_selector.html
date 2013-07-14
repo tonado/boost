@@ -4,7 +4,7 @@
 <title>has_emplace_member_function_selector</title>
 <link rel="stylesheet" href="http://www.boost.org/doc/libs/release/doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
-<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;container_gen 0.9">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;container_gen 0.10">
 <link rel="up" href="../reference.html" title="Reference">
 <link rel="prev" href="has_stable_iters_selector.html" title="has_stable_iterators_selector">
 <link rel="next" href="../changelog.html" title="Changelog">
@@ -42,6 +42,13 @@
     <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">AllocatorSelector</span><span class="special">&gt;</span>
     <span class="keyword">struct</span> <span class="identifier">has_emplace_member_function_selector</span><span class="special">&lt;</span>
         <span class="identifier">stable_vector_selector</span><span class="special">&lt;</span><span class="identifier">AllocatorSelector</span><span class="special">&gt;</span>
+    <span class="special">&gt;</span> <span class="special">:</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span>
+    <span class="special">{</span>
+    <span class="special">};</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ConstantCapacity</span><span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">has_emplace_member_function_selector</span><span class="special">&lt;</span>
+        <span class="identifier">static_vector_selector</span><span class="special">&lt;</span><span class="identifier">ConstantCapacity</span><span class="special">&gt;</span>
     <span class="special">&gt;</span> <span class="special">:</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">true_</span>
     <span class="special">{</span>
     <span class="special">};</span>
