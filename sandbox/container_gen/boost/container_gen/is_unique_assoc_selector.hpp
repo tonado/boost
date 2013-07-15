@@ -91,6 +91,21 @@ namespace boost {
     {
     };
 
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+    template <typename T0, typename T1, typename T2>
+    struct is_unique_associative_selector<unordered_set_selector<T0,T1,T2> >
+      : ::boost::mpl::true_
+    {
+    };
+
+    template <typename T0, typename T1, typename T2>
+    struct is_unique_associative_selector<unordered_map_selector<T0,T1,T2> >
+      : ::boost::mpl::true_
+    {
+    };
+#endif
+
     template <typename T0, typename T1>
     struct is_unique_associative_selector<flat_set_selector<T0,T1> >
       : ::boost::mpl::true_

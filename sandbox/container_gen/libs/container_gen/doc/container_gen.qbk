@@ -137,8 +137,15 @@
 [def __boost_container_gen_has_stable_iters_selector_hpp__ [@../../../../boost/container_gen/has_stable_iters_selector.hpp boost/container_gen/has_stable_iters_selector.hpp]]
 [def __boost_container_gen_has_emplace_mfunc_selector_hpp__ [@../../../../boost/container_gen/has_emplace_mfunc_selector.hpp boost/container_gen/has_emplace_mfunc_selector.hpp]]
 [def __libs_container_gen_test_result_range_hpp__ [@../../../../libs/container_gen/test/result_range.hpp `<test/result_range.hpp>`]]
+[def __libs_container_gen_test_emplace_function_gen_hpp__ [@../../../../libs/container_gen/test/emplace_function_gen.hpp `<test/emplace_function_gen.hpp>`]]
+[def __libs_container_gen_test_emplace_function_gen_cpp__ [@../../../../libs/container_gen/test/emplace_function_gen.cpp `<test/emplace_function_gen.cpp>`]]
+[def __libs_container_gen_test_emplace_assoc_function_gen_hpp__ [@../../../../libs/container_gen/test/emplace_assoc_function_gen.hpp `<test/emplace_assoc_function_gen.hpp>`]]
+[def __libs_container_gen_test_emplace_assoc_function_gen_cpp__ [@../../../../libs/container_gen/test/emplace_assoc_function_gen.cpp `<test/emplace_assoc_function_gen.cpp>`]]
+[def __libs_container_gen_test_push_range_function_gen_hpp__ [@../../../../libs/container_gen/test/push_range_function_gen.hpp `<test/push_range_function_gen.hpp>`]]
 [def __libs_container_gen_test_push_range_function_gen_cpp__ [@../../../../libs/container_gen/test/push_range_function_gen.cpp `<test/push_range_function_gen.cpp>`]]
+[def __libs_container_gen_test_insert_range_function_gen_hpp__ [@../../../../libs/container_gen/test/insert_range_function_gen.hpp `<test/insert_range_function_gen.hpp>`]]
 [def __libs_container_gen_test_insert_range_function_gen_cpp__ [@../../../../libs/container_gen/test/insert_range_function_gen.cpp `<test/insert_range_function_gen.cpp>`]]
+[def __libs_container_gen_test_splice_function_gen_hpp__ [@../../../../libs/container_gen/test/splice_function_gen.hpp `<test/splice_function_gen.hpp>`]]
 [def __libs_container_gen_test_splice_function_gen_cpp__ [@../../../../libs/container_gen/test/splice_function_gen.cpp `<test/splice_function_gen.cpp>`]]
 
 [/ Boost.ContainerGen reference links.]
@@ -258,13 +265,22 @@
 [import ../../../libs/container_gen/example/output_char_tallies.cpp]
 [import ../../../libs/container_gen/example/output_rearrangements.cpp]
 [import ../../../libs/container_gen/test/selectors.cpp]
+[import ../../../libs/container_gen/test/emplace_function_gen.hpp]
 [import ../../../libs/container_gen/test/emplace_function_gen.cpp]
 [import ../../../libs/container_gen/test/result_range.hpp]
+[import ../../../libs/container_gen/test/push_range_function_gen.hpp]
 [import ../../../libs/container_gen/test/push_range_function_gen.cpp]
+[import ../../../libs/container_gen/test/insert_range_function_gen.hpp]
 [import ../../../libs/container_gen/test/insert_range_function_gen.cpp]
+[import ../../../libs/container_gen/test/splice_function_gen.hpp]
 [import ../../../libs/container_gen/test/splice_function_gen.cpp]
 
 [/ index.html Start]
+[*Boost.ContainerGen] is a library of metafunctions and metafunction classes
+that grants other algorithms and data structures the abilities to select their
+internal container types, restrict the selector types allowed to those that
+fulfill their requirements, and execute the correct and most efficient routines
+for different container families if applicable.
 
 [heading Rationale]
 Significant interest was expressed in moving the `container_gen` metafunction

@@ -690,6 +690,14 @@ namespace boost {
     {
         typedef detail::fis_push_range_function type;
     };
+
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+    template <typename AllocatorSelector>
+    struct push_range_function_gen<forward_list_selector<AllocatorSelector> >
+    {
+        typedef detail::fis_push_range_function type;
+    };
+#endif
 }  // namespace boost
 
 #elif !defined BOOST_NO_SLIST

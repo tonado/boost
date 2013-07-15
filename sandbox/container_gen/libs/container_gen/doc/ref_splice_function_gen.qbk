@@ -80,10 +80,15 @@ Test this metafunction across a wide variety of selector types.
 
 [test__splice_function_gen__main]
 
+[caution
+    The `forward_list_selector` template is not currently supported.
+]
+
 The complete test program spans the following source files:
 
 [itemized_list
     [__libs_container_gen_test_result_range_hpp__]
+    [__libs_container_gen_test_splice_function_gen_hpp__]
     [__libs_container_gen_test_splice_function_gen_cpp__]
 ]
 

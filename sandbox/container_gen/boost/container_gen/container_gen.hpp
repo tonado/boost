@@ -47,6 +47,18 @@ namespace boost {
 #include <set>
 #include <map>
 
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+#include <forward_list>
+#endif
+
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET
+#include <unordered_set>
+#endif
+
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+#include <unordered_map>
+#endif
+
 #if !defined BOOST_MSVC
 #include <boost/array.hpp>
 #include <boost/tr1/array.hpp>
@@ -257,6 +269,25 @@ namespace boost {
                 >
                 type;
     };
+
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+    template <typename AllocatorSelector, typename ValueType>
+    struct container_gen<
+        forward_list_selector<AllocatorSelector>
+      , ValueType
+      , void
+    >
+    {
+        typedef ::std::forward_list<
+                    ValueType
+                  , typename ::boost::mpl::apply_wrap1<
+                        AllocatorSelector
+                      , ValueType
+                    >::type
+                >
+                type;
+    };
+#endif
 
     template <
         typename T0
@@ -513,6 +544,265 @@ namespace boost {
                 >::type
                 type;
     };
+
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+    template <
+        typename T0
+      , typename T1
+      , typename T2
+      , typename Key
+      , typename Mapped
+    >
+    struct container_gen<unordered_set_selector<T0,T1,T2>,Key,Mapped>
+    {
+     private:
+        typedef typename detail::unordered_selector_signature::bind<
+                    T0
+                  , T1
+                  , T2
+                >::type
+                _arg_pack;
+        typedef typename ::boost::mpl::apply_wrap1<
+                    typename ::boost::parameter::value_type<
+                        _arg_pack
+                      , hasher_selector_tag
+                      , std_hash_selector
+                    >::type
+                  , Key
+                >::type
+                _hasher;
+        typedef typename ::boost::mpl::apply_wrap1<
+                    typename ::boost::parameter::value_type<
+                        _arg_pack
+                      , compare_selector_tag
+                      , equal_to_selector
+                    >::type
+                  , Key
+                >::type
+                _comparator;
+        typedef typename ::boost::mpl::apply_wrap1<
+                    typename ::boost::parameter::value_type<
+                        _arg_pack
+                      , allocator_selector_tag
+                      , std_allocator_selector
+                    >::type
+                  , Key
+                >::type
+                _allocator;
+
+     public:
+        typedef typename ::boost::mpl::if_<
+                    ::std::is_void<Mapped>
+                  , ::std::unordered_set<
+                        Key
+                      , _hasher
+                      , _comparator
+                      , _allocator
+                    >
+                  , ::std::unordered_map<
+                        Key
+                      , Mapped
+                      , _hasher
+                      , _comparator
+                      , _allocator
+                    >
+                >::type
+                type;
+    };
+
+    template <
+        typename T0
+      , typename T1
+      , typename T2
+      , typename Key
+      , typename Mapped
+    >
+    struct container_gen<unordered_map_selector<T0,T1,T2>,Key,Mapped>
+    {
+     private:
+        typedef typename detail::unordered_selector_signature::bind<
+                    T0
+                  , T1
+                  , T2
+                >::type
+                _arg_pack;
+        typedef typename ::boost::mpl::apply_wrap1<
+                    typename ::boost::parameter::value_type<
+                        _arg_pack
+                      , hasher_selector_tag
+                      , std_hash_selector
+                    >::type
+                  , Key
+                >::type
+                _hasher;
+        typedef typename ::boost::mpl::apply_wrap1<
+                    typename ::boost::parameter::value_type<
+                        _arg_pack
+                      , compare_selector_tag
+                      , equal_to_selector
+                    >::type
+                  , Key
+                >::type
+                _comparator;
+        typedef typename ::boost::mpl::apply_wrap1<
+                    typename ::boost::parameter::value_type<
+                        _arg_pack
+                      , allocator_selector_tag
+                      , std_allocator_selector
+                    >::type
+                  , Key
+                >::type
+                _allocator;
+
+     public:
+        typedef typename ::boost::mpl::if_<
+                    ::std::is_void<Mapped>
+                  , ::std::unordered_set<
+                        Key
+                      , _hasher
+                      , _comparator
+                      , _allocator
+                    >
+                  , ::std::unordered_map<
+                        Key
+                      , Mapped
+                      , _hasher
+                      , _comparator
+                      , _allocator
+                    >
+                >::type
+                type;
+    };
+
+    template <
+        typename T0
+      , typename T1
+      , typename T2
+      , typename Key
+      , typename Mapped
+    >
+    struct container_gen<unordered_multiset_selector<T0,T1,T2>,Key,Mapped>
+    {
+     private:
+        typedef typename detail::unordered_selector_signature::bind<
+                    T0
+                  , T1
+                  , T2
+                >::type
+                _arg_pack;
+        typedef typename ::boost::mpl::apply_wrap1<
+                    typename ::boost::parameter::value_type<
+                        _arg_pack
+                      , hasher_selector_tag
+                      , std_hash_selector
+                    >::type
+                  , Key
+                >::type
+                _hasher;
+        typedef typename ::boost::mpl::apply_wrap1<
+                    typename ::boost::parameter::value_type<
+                        _arg_pack
+                      , compare_selector_tag
+                      , equal_to_selector
+                    >::type
+                  , Key
+                >::type
+                _comparator;
+        typedef typename ::boost::mpl::apply_wrap1<
+                    typename ::boost::parameter::value_type<
+                        _arg_pack
+                      , allocator_selector_tag
+                      , std_allocator_selector
+                    >::type
+                  , Key
+                >::type
+                _allocator;
+
+     public:
+        typedef typename ::boost::mpl::if_<
+                    ::std::is_void<Mapped>
+                  , ::std::unordered_multiset<
+                        Key
+                      , _hasher
+                      , _comparator
+                      , _allocator
+                    >
+                  , ::std::unordered_multimap<
+                        Key
+                      , Mapped
+                      , _hasher
+                      , _comparator
+                      , _allocator
+                    >
+                >::type
+                type;
+    };
+
+    template <
+        typename T0
+      , typename T1
+      , typename T2
+      , typename Key
+      , typename Mapped
+    >
+    struct container_gen<unordered_multimap_selector<T0,T1,T2>,Key,Mapped>
+    {
+     private:
+        typedef typename detail::unordered_selector_signature::bind<
+                    T0
+                  , T1
+                  , T2
+                >::type
+                _arg_pack;
+        typedef typename ::boost::mpl::apply_wrap1<
+                    typename ::boost::parameter::value_type<
+                        _arg_pack
+                      , hasher_selector_tag
+                      , std_hash_selector
+                    >::type
+                  , Key
+                >::type
+                _hasher;
+        typedef typename ::boost::mpl::apply_wrap1<
+                    typename ::boost::parameter::value_type<
+                        _arg_pack
+                      , compare_selector_tag
+                      , equal_to_selector
+                    >::type
+                  , Key
+                >::type
+                _comparator;
+        typedef typename ::boost::mpl::apply_wrap1<
+                    typename ::boost::parameter::value_type<
+                        _arg_pack
+                      , allocator_selector_tag
+                      , std_allocator_selector
+                    >::type
+                  , Key
+                >::type
+                _allocator;
+
+     public:
+        typedef typename ::boost::mpl::if_<
+                    ::std::is_void<Mapped>
+                  , ::std::unordered_multiset<
+                        Key
+                      , _hasher
+                      , _comparator
+                      , _allocator
+                    >
+                  , ::std::unordered_multimap<
+                        Key
+                      , Mapped
+                      , _hasher
+                      , _comparator
+                      , _allocator
+                    >
+                >::type
+                type;
+    };
+#endif  // has std::unordered_set and std::unordered_map
 
     template <
         typename T0

@@ -63,7 +63,7 @@ namespace boost {
       : ::boost::mpl::false_
     {
     };
-#endif  // BOOST_HAS_HASH
+#endif  // defined BOOST_HAS_HASH
 
     template <>
     struct is_reversible_selector<stack_selector_base>
@@ -93,6 +93,41 @@ namespace boost {
       : ::boost::mpl::false_
     {
     };
+
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+    template <typename AllocatorSelector>
+    struct is_reversible_selector<forward_list_selector<AllocatorSelector> >
+      : ::boost::mpl::false_
+    {
+    };
+#endif
+
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+    template <typename T0, typename T1, typename T2>
+    struct is_reversible_selector<unordered_set_selector<T0,T1,T2> >
+      : ::boost::mpl::false_
+    {
+    };
+
+    template <typename T0, typename T1, typename T2>
+    struct is_reversible_selector<unordered_map_selector<T0,T1,T2> >
+      : ::boost::mpl::false_
+    {
+    };
+
+    template <typename T0, typename T1, typename T2>
+    struct is_reversible_selector<unordered_multiset_selector<T0,T1,T2> >
+      : ::boost::mpl::false_
+    {
+    };
+
+    template <typename T0, typename T1, typename T2>
+    struct is_reversible_selector<unordered_multimap_selector<T0,T1,T2> >
+      : ::boost::mpl::false_
+    {
+    };
+#endif  // has std::unordered_set and std::unordered_map
 
     template <typename T0, typename T1, typename T2, typename T3>
     struct is_reversible_selector<hash_set_selector<T0,T1,T2,T3> >

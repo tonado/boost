@@ -114,6 +114,27 @@ namespace boost { namespace detail {
             >
             boost_or_std_assoc_selector_signature;
 
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+    typedef ::boost::parameter::parameters<
+                ::boost::parameter::optional<
+                    ::boost::parameter::deduced< ::boost::hasher_selector_tag>
+                  , ::boost::is_hasher_selector< ::boost::mpl::_>
+                >
+              , ::boost::parameter::optional<
+                    ::boost::parameter::deduced< ::boost::compare_selector_tag>
+                  , ::boost::is_compare_selector< ::boost::mpl::_>
+                >
+              , ::boost::parameter::optional<
+                    ::boost::parameter::deduced<
+                        ::boost::allocator_selector_tag
+                    >
+                  , ::boost::is_allocator_selector< ::boost::mpl::_>
+                >
+            >
+            unordered_selector_signature;
+#endif
+
     typedef ::boost::parameter::parameters<
                 ::boost::parameter::optional<
                     ::boost::parameter::deduced< ::boost::hasher_selector_tag>

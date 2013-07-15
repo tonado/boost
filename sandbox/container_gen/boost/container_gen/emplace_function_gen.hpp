@@ -24,39 +24,6 @@
 #include <boost/preprocessor/control/expr_if.hpp>
 #include <boost/detail/preprocessor/binary_seq_to_params.hpp>
 
-#define BOOST_CONTAINER_GEN_EMPLACE_FUNCTION_GEN_SEQUENCE_FOR_OP(r, tuple)   \
-        template <                                                           \
-            typename C                                                       \
-            BOOST_PP_ENUM_TRAILING_PARAMS(                                   \
-                BOOST_PP_SEQ_SIZE(BOOST_PP_TUPLE_ELEM(2, 0, tuple))          \
-              , typename P                                                   \
-            )                                                                \
-        >                                                                    \
-        inline ::std::pair<typename C::iterator,bool>                        \
-            operator()(                                                      \
-                C& _container                                                \
-              , BOOST_DETAIL_PP_BINARY_SEQ_TO_PARAMS(                        \
-                    BOOST_PP_TUPLE_ELEM(2, 0, tuple)                         \
-                  , P                                                        \
-                  , &                                                        \
-                  , const&                                                   \
-                  , p                                                        \
-                )                                                            \
-            )                                                                \
-        {                                                                    \
-            return ::std::make_pair(                                         \
-                _container.emplace(                                          \
-                    BOOST_PP_TUPLE_ELEM(2, 1, tuple)                         \
-                    BOOST_PP_ENUM_TRAILING_PARAMS(                           \
-                        BOOST_PP_SEQ_SIZE(BOOST_PP_TUPLE_ELEM(2, 0, tuple))  \
-                      , p                                                    \
-                    )                                                        \
-                )                                                            \
-              , true                                                         \
-            );                                                               \
-        }                                                                    \
-//!
-
 #define BOOST_CONTAINER_GEN_EMPLACE_FUNCTION_GEN_SEQ_EMU_FOR_OP(r, tuple)    \
         template <                                                           \
             typename C                                                       \
@@ -103,35 +70,6 @@
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/control/expr_if.hpp>
-
-#define BOOST_CONTAINER_GEN_EMPLACE_FUNCTION_GEN_SEQUENCE_RPT_OP(z, n, itr)  \
-        template <                                                           \
-            typename C                                                       \
-            BOOST_PP_ENUM_TRAILING_PARAMS_Z(z, n, typename P)                \
-        >                                                                    \
-        inline ::std::pair<typename C::iterator,bool>                        \
-            operator()(                                                      \
-                C& _container                                                \
-                BOOST_PP_CAT(BOOST_PP_ENUM_TRAILING_, z)(                    \
-                    n                                                        \
-                  , BOOST_CONTAINER_PP_PARAM_LIST                            \
-                  , _                                                        \
-                )                                                            \
-            ) const                                                          \
-        {                                                                    \
-            return ::std::make_pair(                                         \
-                _container.emplace(                                          \
-                    itr                                                      \
-                    BOOST_PP_CAT(BOOST_PP_ENUM_TRAILING_, z)(                \
-                        n                                                    \
-                      , BOOST_CONTAINER_PP_PARAM_FORWARD                     \
-                      , _                                                    \
-                    )                                                        \
-                )                                                            \
-              , true                                                         \
-            );                                                               \
-        }                                                                    \
-//!
 
 #define BOOST_CONTAINER_GEN_EMPLACE_FUNCTION_GEN_SEQ_EMU_RPT_OP(z, n, itr)   \
         template <                                                           \
@@ -261,31 +199,93 @@ namespace boost { namespace detail {
             operator[](C& _container) const;
 
 #if defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#define BOOST_CONTAINER_GEN_EMPLACE_FUNCTION_GEN_CALL_OP_FOR_OP(r, seq)      \
+        template <                                                           \
+            typename C                                                       \
+            BOOST_PP_ENUM_TRAILING_PARAMS(                                   \
+                BOOST_PP_SEQ_SIZE(seq)                                       \
+              , typename P                                                   \
+            )                                                                \
+        >                                                                    \
+        inline ::std::pair<typename C::iterator,bool>                        \
+            operator()(                                                      \
+                C& _container                                                \
+              , BOOST_DETAIL_PP_BINARY_SEQ_TO_PARAMS(                        \
+                    seq                                                      \
+                  , P                                                        \
+                  , &                                                        \
+                  , const&                                                   \
+                  , p                                                        \
+                )                                                            \
+            ) const                                                          \
+        {                                                                    \
+            return ::std::make_pair(                                         \
+                _container.emplace_after(                                    \
+                    _container.before_begin()                                \
+                    BOOST_PP_ENUM_TRAILING_PARAMS(                           \
+                        BOOST_PP_SEQ_SIZE(seq))                              \
+                      , p                                                    \
+                    )                                                        \
+                )                                                            \
+              , true                                                         \
+            );                                                               \
+        }                                                                    \
+//!
         BOOST_PP_FOR(
-            ((0), _container.begin())
-          , BOOST_CONTAINER_GEN_PP_PARAM_PRED_WITH_DATA
-          , BOOST_CONTAINER_GEN_PP_PARAM_INC_WITH_DATA
-          , BOOST_CONTAINER_GEN_EMPLACE_FUNCTION_GEN_SEQUENCE_FOR_OP
+            (0)
+          , BOOST_CONTAINER_GEN_PP_PARAM_PRED
+          , BOOST_CONTAINER_GEN_PP_PARAM_INC
+          , BOOST_CONTAINER_GEN_EMPLACE_FUNCTION_GEN_CALL_OP_FOR_OP
         )
+#undef BOOST_CONTAINER_GEN_EMPLACE_FUNCTION_GEN_CALL_OP_FOR_OP
 #elif defined BOOST_CONTAINER_PERFECT_FORWARDING
         template <typename C, typename ...Args>
         inline ::std::pair<typename C::iterator,bool>
             operator()(C& _container, Args&& ...args) const
         {
             return ::std::make_pair(
-                _container.emplace(
-                    _container.begin()
+                _container.emplace_after(
+                    _container.before_begin()
                   , ::boost::forward<Args>(args)...
                 )
               , true
             );
         }
 #else  // partial template specialization support, imperfect forwarding
+#define BOOST_CONTAINER_GEN_EMPLACE_FUNCTION_GEN_CALL_OP_RPT_OP(z, n, poop)  \
+        template <                                                           \
+            typename C                                                       \
+            BOOST_PP_ENUM_TRAILING_PARAMS_Z(z, n, typename P)                \
+        >                                                                    \
+        inline ::std::pair<typename C::iterator,bool>                        \
+            operator()(                                                      \
+                C& _container                                                \
+                BOOST_PP_CAT(BOOST_PP_ENUM_TRAILING_, z)(                    \
+                    n                                                        \
+                  , BOOST_CONTAINER_PP_PARAM_LIST                            \
+                  , poop                                                     \
+                )                                                            \
+            ) const                                                          \
+        {                                                                    \
+            return ::std::make_pair(                                         \
+                _container.emplace_after(                                    \
+                    _container.before_begin()                                \
+                    BOOST_PP_CAT(BOOST_PP_ENUM_TRAILING_, z)(                \
+                        n                                                    \
+                      , BOOST_CONTAINER_PP_PARAM_FORWARD                     \
+                      , poop                                                 \
+                    )                                                        \
+                )                                                            \
+              , true                                                         \
+            );                                                               \
+        }                                                                    \
+//!
         BOOST_PP_REPEAT(
             BOOST_CONTAINER_MAX_CONSTRUCTOR_PARAMETERS
-          , BOOST_CONTAINER_GEN_EMPLACE_FUNCTION_GEN_SEQUENCE_RPT_OP
-          , _container.begin()
+          , BOOST_CONTAINER_GEN_EMPLACE_FUNCTION_GEN_CALL_OP_RPT_OP
+          , _
         )
+#undef BOOST_CONTAINER_GEN_EMPLACE_FUNCTION_GEN_CALL_OP_RPT_OP
 #endif  // compiler defect handling
     };
 
@@ -303,11 +303,43 @@ namespace boost { namespace detail {
             operator[](C& _container) const;
 
 #if defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#define BOOST_CONTAINER_GEN_EMPLACE_FUNCTION_GEN_CALL_OP_FOR_OP(r, seq)      \
+        template <                                                           \
+            typename C                                                       \
+            BOOST_PP_ENUM_TRAILING_PARAMS(                                   \
+                BOOST_PP_SEQ_SIZE(seq)                                       \
+              , typename P                                                   \
+            )                                                                \
+        >                                                                    \
+        inline ::std::pair<typename C::iterator,bool>                        \
+            operator()(                                                      \
+                C& _container                                                \
+              , BOOST_DETAIL_PP_BINARY_SEQ_TO_PARAMS(                        \
+                    seq                                                      \
+                  , P                                                        \
+                  , &                                                        \
+                  , const&                                                   \
+                  , p                                                        \
+                )                                                            \
+            ) const                                                          \
+        {                                                                    \
+            return ::std::make_pair(                                         \
+                _container.emplace(                                          \
+                    _container.end()                                         \
+                    BOOST_PP_ENUM_TRAILING_PARAMS(                           \
+                        BOOST_PP_SEQ_SIZE(seq))                              \
+                      , p                                                    \
+                    )                                                        \
+                )                                                            \
+              , true                                                         \
+            );                                                               \
+        }                                                                    \
+//!
         BOOST_PP_FOR(
-            ((0), _container.end())
-          , BOOST_CONTAINER_GEN_PP_PARAM_PRED_WITH_DATA
-          , BOOST_CONTAINER_GEN_PP_PARAM_INC_WITH_DATA
-          , BOOST_CONTAINER_GEN_EMPLACE_FUNCTION_GEN_SEQUENCE_FOR_OP
+            (0)
+          , BOOST_CONTAINER_GEN_PP_PARAM_PRED
+          , BOOST_CONTAINER_GEN_PP_PARAM_INC
+          , BOOST_CONTAINER_GEN_EMPLACE_FUNCTION_GEN_CALL_OP_FOR_OP
         )
 #undef BOOST_CONTAINER_GEN_EMPLACE_FUNCTION_GEN_CALL_OP_FOR_OP
 #elif defined BOOST_CONTAINER_PERFECT_FORWARDING
@@ -324,11 +356,40 @@ namespace boost { namespace detail {
             );
         }
 #else  // partial template specialization support, imperfect forwarding
+#define BOOST_CONTAINER_GEN_EMPLACE_FUNCTION_GEN_CALL_OP_RPT_OP(z, n, poop)  \
+        template <                                                           \
+            typename C                                                       \
+            BOOST_PP_ENUM_TRAILING_PARAMS_Z(z, n, typename P)                \
+        >                                                                    \
+        inline ::std::pair<typename C::iterator,bool>                        \
+            operator()(                                                      \
+                C& _container                                                \
+                BOOST_PP_CAT(BOOST_PP_ENUM_TRAILING_, z)(                    \
+                    n                                                        \
+                  , BOOST_CONTAINER_PP_PARAM_LIST                            \
+                  , poop                                                     \
+                )                                                            \
+            ) const                                                          \
+        {                                                                    \
+            return ::std::make_pair(                                         \
+                _container.emplace(                                          \
+                    _container.end()                                         \
+                    BOOST_PP_CAT(BOOST_PP_ENUM_TRAILING_, z)(                \
+                        n                                                    \
+                      , BOOST_CONTAINER_PP_PARAM_FORWARD                     \
+                      , poop                                                 \
+                    )                                                        \
+                )                                                            \
+              , true                                                         \
+            );                                                               \
+        }                                                                    \
+//!
         BOOST_PP_REPEAT(
             BOOST_CONTAINER_MAX_CONSTRUCTOR_PARAMETERS
-          , BOOST_CONTAINER_GEN_EMPLACE_FUNCTION_GEN_SEQUENCE_RPT_OP
-          , _container.end()
+          , BOOST_CONTAINER_GEN_EMPLACE_FUNCTION_GEN_CALL_OP_RPT_OP
+          , _
         )
+#undef BOOST_CONTAINER_GEN_EMPLACE_FUNCTION_GEN_CALL_OP_RPT_OP
 #endif  // compiler defect handling
     };
 
@@ -1377,10 +1438,8 @@ namespace boost { namespace detail {
 
 #if defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 #undef BOOST_CONTAINER_GEN_EMPLACE_FUNCTION_GEN_SEQ_EMU_FOR_OP
-#undef BOOST_CONTAINER_GEN_EMPLACE_FUNCTION_GEN_SEQUENCE_FOR_OP
 #elif !defined BOOST_CONTAINER_PERFECT_FORWARDING
 #undef BOOST_CONTAINER_GEN_EMPLACE_FUNCTION_GEN_SEQ_EMU_RPT_OP
-#undef BOOST_CONTAINER_GEN_EMPLACE_FUNCTION_GEN_SEQUENCE_RPT_OP
 #endif
 
 #include <boost/mpl/identity.hpp>
@@ -1500,6 +1559,14 @@ namespace boost {
     {
         typedef detail::fis_emplace_function type;
     };
+
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+    template <typename AllocatorSelector>
+    struct emplace_function_gen<forward_list_selector<AllocatorSelector> >
+    {
+        typedef detail::fis_emplace_function type;
+    };
+#endif
 }  // namespace boost
 
 #elif !defined BOOST_NO_SLIST

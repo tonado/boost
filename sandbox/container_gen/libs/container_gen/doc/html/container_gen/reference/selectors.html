@@ -63,6 +63,9 @@
     <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">AllocatorSelector</span> <span class="special">=</span> <span class="identifier">std_allocator_selector</span><span class="special">&gt;</span>
     <span class="keyword">struct</span> <span class="identifier">slist_selector</span><span class="special">;</span>
 
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">AllocatorSelector</span> <span class="special">=</span> <span class="identifier">std_allocator_selector</span><span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">forward_list_selector</span><span class="special">;</span>
+
     <span class="keyword">template</span> <span class="special">&lt;</span>
         <span class="keyword">typename</span> <span class="identifier">CompareSelector</span> <span class="special">=</span> <span class="identifier">less_than_selector</span>
       <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">AllocatorSelector</span> <span class="special">=</span> <span class="identifier">std_allocator_selector</span>
@@ -90,6 +93,34 @@
       <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">IsBoostNotStd</span> <span class="special">=</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">false_</span>
     <span class="special">&gt;</span>
     <span class="keyword">struct</span> <span class="identifier">multimap_selector</span><span class="special">;</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span>
+        <span class="keyword">typename</span> <span class="identifier">HashSelector</span> <span class="special">=</span> <span class="identifier">std_hash_selector</span>
+      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">CompareSelector</span> <span class="special">=</span> <span class="identifier">equal_to_selector</span>
+      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">AllocatorSelector</span> <span class="special">=</span> <span class="identifier">std_allocator_selector</span>
+    <span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">unordered_set_selector</span><span class="special">;</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span>
+        <span class="keyword">typename</span> <span class="identifier">HashSelector</span> <span class="special">=</span> <span class="identifier">std_hash_selector</span>
+      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">CompareSelector</span> <span class="special">=</span> <span class="identifier">equal_to_selector</span>
+      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">AllocatorSelector</span> <span class="special">=</span> <span class="identifier">std_allocator_selector</span>
+    <span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">unordered_multiset_selector</span><span class="special">;</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span>
+        <span class="keyword">typename</span> <span class="identifier">HashSelector</span> <span class="special">=</span> <span class="identifier">std_hash_selector</span>
+      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">CompareSelector</span> <span class="special">=</span> <span class="identifier">equal_to_selector</span>
+      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">AllocatorSelector</span> <span class="special">=</span> <span class="identifier">std_allocator_selector</span>
+    <span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">unordered_map_selector</span><span class="special">;</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span>
+        <span class="keyword">typename</span> <span class="identifier">HashSelector</span> <span class="special">=</span> <span class="identifier">std_hash_selector</span>
+      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">CompareSelector</span> <span class="special">=</span> <span class="identifier">equal_to_selector</span>
+      <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">AllocatorSelector</span> <span class="special">=</span> <span class="identifier">std_allocator_selector</span>
+    <span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">unordered_multimap_selector</span><span class="special">;</span>
 
     <span class="keyword">template</span> <span class="special">&lt;</span>
         <span class="keyword">typename</span> <span class="identifier">CompareSelector</span> <span class="special">=</span> <span class="identifier">less_than_selector</span>
@@ -379,6 +410,15 @@
         <span class="special">};</span>
     <span class="special">};</span>
 
+    <span class="keyword">struct</span> <span class="identifier">std_hash_selector</span>
+    <span class="special">{</span>
+        <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+        <span class="keyword">struct</span> <span class="identifier">apply</span>
+        <span class="special">{</span>
+            <span class="keyword">typedef</span> <span class="special">::</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">hash</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="identifier">type</span><span class="special">;</span>
+        <span class="special">};</span>
+    <span class="special">};</span>
+
     <span class="keyword">struct</span> <span class="identifier">boost_hash_selector</span>
     <span class="special">{</span>
         <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
@@ -597,6 +637,7 @@
     <span class="keyword">typedef</span> <span class="identifier">deque_selector</span><span class="special">&lt;&gt;</span> <span class="identifier">dequeS</span><span class="special">;</span>
     <span class="keyword">typedef</span> <span class="identifier">list_selector</span><span class="special">&lt;&gt;</span> <span class="identifier">listS</span><span class="special">;</span>
     <span class="keyword">typedef</span> <span class="identifier">slist_selector</span><span class="special">&lt;&gt;</span> <span class="identifier">slistS</span><span class="special">;</span>
+    <span class="keyword">typedef</span> <span class="identifier">forward_list_selector</span><span class="special">&lt;&gt;</span> <span class="identifier">forward_listS</span><span class="special">;</span>
     <span class="keyword">typedef</span> <span class="identifier">set_selector</span><span class="special">&lt;&gt;</span> <span class="identifier">setS</span><span class="special">;</span>
     <span class="keyword">typedef</span> <span class="identifier">map_selector</span><span class="special">&lt;&gt;</span> <span class="identifier">mapS</span><span class="special">;</span>
     <span class="keyword">typedef</span> <span class="identifier">multiset_selector</span><span class="special">&lt;&gt;</span> <span class="identifier">multisetS</span><span class="special">;</span>
@@ -612,6 +653,10 @@
     <span class="keyword">typedef</span> <span class="identifier">ptr_map_selector</span><span class="special">&lt;&gt;</span> <span class="identifier">ptr_mapS</span><span class="special">;</span>
     <span class="keyword">typedef</span> <span class="identifier">ptr_multiset_selector</span><span class="special">&lt;&gt;</span> <span class="identifier">ptr_multisetS</span><span class="special">;</span>
     <span class="keyword">typedef</span> <span class="identifier">ptr_multimap_selector</span><span class="special">&lt;&gt;</span> <span class="identifier">ptr_multimapS</span><span class="special">;</span>
+    <span class="keyword">typedef</span> <span class="identifier">unordered_set_selector</span><span class="special">&lt;&gt;</span> <span class="identifier">unordered_setS</span><span class="special">;</span>
+    <span class="keyword">typedef</span> <span class="identifier">unordered_map_selector</span><span class="special">&lt;&gt;</span> <span class="identifier">unordered_mapS</span><span class="special">;</span>
+    <span class="keyword">typedef</span> <span class="identifier">unordered_multiset_selector</span><span class="special">&lt;&gt;</span> <span class="identifier">unordered_multisetS</span><span class="special">;</span>
+    <span class="keyword">typedef</span> <span class="identifier">unordered_multimap_selector</span><span class="special">&lt;&gt;</span> <span class="identifier">unordered_multimapS</span><span class="special">;</span>
     <span class="keyword">typedef</span> <span class="identifier">ptr_hash_set_selector</span><span class="special">&lt;&gt;</span> <span class="identifier">ptr_hash_setS</span><span class="special">;</span>
     <span class="keyword">typedef</span> <span class="identifier">ptr_hash_map_selector</span><span class="special">&lt;&gt;</span> <span class="identifier">ptr_hash_mapS</span><span class="special">;</span>
     <span class="keyword">typedef</span> <span class="identifier">ptr_hash_multiset_selector</span><span class="special">&lt;&gt;</span> <span class="identifier">ptr_hash_multisetS</span><span class="special">;</span>

@@ -66,8 +66,10 @@ int main()
 [endsect]
 
 [section Test]
-[@../../test/emplace_assoc_function_gen.cpp
-`<test/emplace_assoc_function_gen.cpp>`]
+[itemized_list
+    [__libs_container_gen_test_emplace_assoc_function_gen_hpp__]
+    [__libs_container_gen_test_emplace_assoc_function_gen_cpp__]
+]
 [endsect]
 
 [endsect] [/ emplace_associative_function_gen]

@@ -147,6 +147,22 @@ namespace boost {
         };
     };
 
+//<-
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+//->
+    struct std_hash_selector
+    {
+        template <typename T>
+        struct apply
+        {
+            typedef ::std::hash<T> type;
+        };
+    };
+//<-
+#endif
+//->
+
     struct boost_hash_selector
     {
         template <typename T>
@@ -990,6 +1006,13 @@ namespace boost {
     {
     };
 
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+    template <typename AllocatorSelector>
+    struct forward_list_selector
+    {
+    };
+#endif
+
     template <typename T0, typename T1, typename T2>
     struct set_selector
     {
@@ -1009,6 +1032,29 @@ namespace boost {
     struct multimap_selector
     {
     };
+
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+    template <typename T0, typename T1, typename T2>
+    struct unordered_set_selector
+    {
+    };
+
+    template <typename T0, typename T1, typename T2>
+    struct unordered_map_selector
+    {
+    };
+
+    template <typename T0, typename T1, typename T2>
+    struct unordered_multiset_selector
+    {
+    };
+
+    template <typename T0, typename T1, typename T2>
+    struct unordered_multimap_selector
+    {
+    };
+#endif  // has std::unordered_set and std::unordered_map
 
     template <typename T0, typename T1, typename T2, typename T3>
     struct hash_set_selector

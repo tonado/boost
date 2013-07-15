@@ -1,4 +1,4 @@
-// Copyright (C) 2012 Cromwell D. Enage
+// Copyright (C) 2012-2013 Cromwell D. Enage
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -24,7 +24,7 @@
 BOOST_TYPEOF_REGISTER_TEMPLATE(::BOOST_STD_EXTENSION_NAMESPACE::slist, 1)
 BOOST_TYPEOF_REGISTER_TEMPLATE(::BOOST_STD_EXTENSION_NAMESPACE::slist, 2)
 
-#endif  // !BOOST_NO_SLIST
+#endif  // !defined BOOST_NO_SLIST
 
 #endif  // BOOST_TYPEOF_STD_SLIST_HPP_INCLUDED
 

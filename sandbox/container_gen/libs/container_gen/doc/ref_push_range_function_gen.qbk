@@ -74,6 +74,7 @@ The complete test program spans the following source files:
 
 [itemized_list
     [__libs_container_gen_test_result_range_hpp__]
+    [__libs_container_gen_test_push_range_function_gen_hpp__]
     [__libs_container_gen_test_push_range_function_gen_cpp__]
 ]
 

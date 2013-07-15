@@ -59,6 +59,9 @@
 #include <boost/typeof/std/hash_set.hpp>
 #include <boost/typeof/std/hash_map.hpp>
 #else
+#include <boost/typeof/std/forward_list.hpp>
+#include <boost/typeof/std/unordered_set.hpp>
+#include <boost/typeof/std/unordered_map.hpp>
 #include <boost/typeof/std/tr1/unordered_set.hpp>
 #include <boost/typeof/std/tr1/unordered_map.hpp>
 #include <boost/typeof/boost/unordered/unordered_set.hpp>
@@ -67,6 +70,7 @@
 #include <boost/typeof/boost/ptr_container/ptr_unordered_map.hpp>
 #include <boost/typeof/boost/container/vector.hpp>
 #include <boost/typeof/boost/container/stable_vector.hpp>
+#include <boost/typeof/boost/container/static_vector.hpp>
 #include <boost/typeof/boost/container/deque.hpp>
 #include <boost/typeof/boost/container/list.hpp>
 #include <boost/typeof/boost/container/slist.hpp>
@@ -127,6 +131,28 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT_NOT((boost::is_compare_selector<boost::std_heapS>));
 //<-
 #if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+//->
+    BOOST_MPL_ASSERT_NOT((boost::is_compare_selector<boost::forward_listS>));
+//<-
+#endif
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_compare_selector<boost::unordered_setS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_compare_selector<boost::unordered_mapS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_compare_selector<boost::unordered_multisetS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_compare_selector<boost::unordered_multimapS>
+    ));
+//<-
+#endif
 //->
     BOOST_MPL_ASSERT_NOT((
         boost::is_compare_selector<boost::ptr_hash_setS>
@@ -425,6 +451,28 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT_NOT((boost::is_hasher_selector<boost::std_heapS>));
 //<-
 #if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+//->
+    BOOST_MPL_ASSERT_NOT((boost::is_hasher_selector<boost::forward_listS>));
+//<-
+#endif
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_hasher_selector<boost::unordered_setS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_hasher_selector<boost::unordered_mapS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_hasher_selector<boost::unordered_multisetS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_hasher_selector<boost::unordered_multimapS>
+    ));
+//<-
+#endif
 //->
     BOOST_MPL_ASSERT_NOT((
         boost::is_hasher_selector<boost::ptr_hash_setS>
@@ -731,6 +779,28 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT_NOT((boost::is_allocator_selector<boost::std_heapS>));
 //<-
 #if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+//->
+    BOOST_MPL_ASSERT_NOT((boost::is_allocator_selector<boost::forward_listS>));
+//<-
+#endif
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_allocator_selector<boost::unordered_setS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_allocator_selector<boost::unordered_mapS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_allocator_selector<boost::unordered_multisetS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_allocator_selector<boost::unordered_multimapS>
+    ));
+//<-
+#endif
 //->
     BOOST_MPL_ASSERT_NOT((
         boost::is_allocator_selector<boost::ptr_hash_setS>
@@ -1029,6 +1099,28 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT((boost::is_container_selector<boost::std_heapS>));
 //<-
 #if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+//->
+    BOOST_MPL_ASSERT((boost::is_container_selector<boost::forward_listS>));
+//<-
+#endif
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+//->
+    BOOST_MPL_ASSERT((
+        boost::is_container_selector<boost::unordered_setS>
+    ));
+    BOOST_MPL_ASSERT((
+        boost::is_container_selector<boost::unordered_mapS>
+    ));
+    BOOST_MPL_ASSERT((
+        boost::is_container_selector<boost::unordered_multisetS>
+    ));
+    BOOST_MPL_ASSERT((
+        boost::is_container_selector<boost::unordered_multimapS>
+    ));
+//<-
+#endif
 //->
     BOOST_MPL_ASSERT((
         boost::is_container_selector<boost::ptr_hash_setS>
@@ -1335,6 +1427,30 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT_NOT((boost::is_reversible_selector<boost::std_heapS>));
 //<-
 #if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_reversible_selector<boost::forward_listS>
+    ));
+//<-
+#endif
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_reversible_selector<boost::unordered_setS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_reversible_selector<boost::unordered_mapS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_reversible_selector<boost::unordered_multisetS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_reversible_selector<boost::unordered_multimapS>
+    ));
+//<-
+#endif
 //->
     BOOST_MPL_ASSERT_NOT((
         boost::is_reversible_selector<boost::ptr_hash_setS>
@@ -1661,6 +1777,30 @@ MPL_TEST_CASE()
     ));
 //<-
 #if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_random_access_selector<boost::forward_listS>
+    ));
+//<-
+#endif
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_random_access_selector<boost::unordered_setS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_random_access_selector<boost::unordered_mapS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_random_access_selector<boost::unordered_multisetS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_random_access_selector<boost::unordered_multimapS>
+    ));
+//<-
+#endif
 //->
     BOOST_MPL_ASSERT_NOT((
         boost::is_random_access_selector<boost::ptr_hash_setS>
@@ -1961,6 +2101,30 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT_NOT((boost::is_associative_selector<boost::std_heapS>));
 //<-
 #if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_associative_selector<boost::forward_listS>
+    ));
+//<-
+#endif
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+//->
+    BOOST_MPL_ASSERT((
+        boost::is_associative_selector<boost::unordered_setS>
+    ));
+    BOOST_MPL_ASSERT((
+        boost::is_associative_selector<boost::unordered_mapS>
+    ));
+    BOOST_MPL_ASSERT((
+        boost::is_associative_selector<boost::unordered_multisetS>
+    ));
+    BOOST_MPL_ASSERT((
+        boost::is_associative_selector<boost::unordered_multimapS>
+    ));
+//<-
+#endif
 //->
     BOOST_MPL_ASSERT((
         boost::is_associative_selector<boost::ptr_hash_setS>
@@ -2305,6 +2469,30 @@ MPL_TEST_CASE()
     ));
 //<-
 #if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_unique_associative_selector<boost::forward_listS>
+    ));
+//<-
+#endif
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+//->
+    BOOST_MPL_ASSERT((
+        boost::is_unique_associative_selector<boost::unordered_setS>
+    ));
+    BOOST_MPL_ASSERT((
+        boost::is_unique_associative_selector<boost::unordered_mapS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_unique_associative_selector<boost::unordered_multisetS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_unique_associative_selector<boost::unordered_multimapS>
+    ));
+//<-
+#endif
 //->
     BOOST_MPL_ASSERT((
         boost::is_unique_associative_selector<boost::ptr_hash_setS>
@@ -2655,6 +2843,30 @@ MPL_TEST_CASE()
     ));
 //<-
 #if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_multiple_associative_selector<boost::forward_listS>
+    ));
+//<-
+#endif
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_multiple_associative_selector<boost::unordered_setS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_multiple_associative_selector<boost::unordered_mapS>
+    ));
+    BOOST_MPL_ASSERT((
+        boost::is_multiple_associative_selector<boost::unordered_multisetS>
+    ));
+    BOOST_MPL_ASSERT((
+        boost::is_multiple_associative_selector<boost::unordered_multimapS>
+    ));
+//<-
+#endif
 //->
     BOOST_MPL_ASSERT_NOT((
         boost::is_multiple_associative_selector<boost::ptr_hash_setS>
@@ -3009,6 +3221,30 @@ MPL_TEST_CASE()
     ));
 //<-
 #if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_hashed_associative_selector<boost::forward_listS>
+    ));
+//<-
+#endif
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+//->
+    BOOST_MPL_ASSERT((
+        boost::is_hashed_associative_selector<boost::unordered_setS>
+    ));
+    BOOST_MPL_ASSERT((
+        boost::is_hashed_associative_selector<boost::unordered_mapS>
+    ));
+    BOOST_MPL_ASSERT((
+        boost::is_hashed_associative_selector<boost::unordered_multisetS>
+    ));
+    BOOST_MPL_ASSERT((
+        boost::is_hashed_associative_selector<boost::unordered_multimapS>
+    ));
+//<-
+#endif
 //->
     BOOST_MPL_ASSERT((
         boost::is_hashed_associative_selector<boost::ptr_hash_setS>
@@ -3359,6 +3595,30 @@ MPL_TEST_CASE()
     ));
 //<-
 #if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_flat_associative_selector<boost::forward_listS>
+    ));
+//<-
+#endif
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_flat_associative_selector<boost::unordered_setS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_flat_associative_selector<boost::unordered_mapS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_flat_associative_selector<boost::unordered_multisetS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_flat_associative_selector<boost::unordered_multimapS>
+    ));
+//<-
+#endif
 //->
     BOOST_MPL_ASSERT_NOT((
         boost::is_flat_associative_selector<boost::ptr_hash_setS>
@@ -3661,19 +3921,25 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT_NOT((boost::is_ptr_selector<boost::std_heapS>));
 //<-
 #if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
 //->
-    BOOST_MPL_ASSERT((
-        boost::is_ptr_selector<boost::ptr_hash_setS>
-    ));
-    BOOST_MPL_ASSERT((
-        boost::is_ptr_selector<boost::ptr_hash_mapS>
-    ));
-    BOOST_MPL_ASSERT((
-        boost::is_ptr_selector<boost::ptr_hash_multisetS>
-    ));
-    BOOST_MPL_ASSERT((
-        boost::is_ptr_selector<boost::ptr_hash_multimapS>
-    ));
+    BOOST_MPL_ASSERT_NOT((boost::is_ptr_selector<boost::forward_listS>));
+//<-
+#endif
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+//->
+    BOOST_MPL_ASSERT_NOT((boost::is_ptr_selector<boost::unordered_setS>));
+    BOOST_MPL_ASSERT_NOT((boost::is_ptr_selector<boost::unordered_mapS>));
+    BOOST_MPL_ASSERT_NOT((boost::is_ptr_selector<boost::unordered_multisetS>));
+    BOOST_MPL_ASSERT_NOT((boost::is_ptr_selector<boost::unordered_multimapS>));
+//<-
+#endif
+//->
+    BOOST_MPL_ASSERT((boost::is_ptr_selector<boost::ptr_hash_setS>));
+    BOOST_MPL_ASSERT((boost::is_ptr_selector<boost::ptr_hash_mapS>));
+    BOOST_MPL_ASSERT((boost::is_ptr_selector<boost::ptr_hash_multisetS>));
+    BOOST_MPL_ASSERT((boost::is_ptr_selector<boost::ptr_hash_multimapS>));
     BOOST_MPL_ASSERT_NOT((
         boost::is_ptr_selector<
             boost::vector_selector<
@@ -3959,6 +4225,28 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT_NOT((boost::is_queue_selector<boost::std_heapS>));
 //<-
 #if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+//->
+    BOOST_MPL_ASSERT_NOT((boost::is_queue_selector<boost::forward_listS>));
+//<-
+#endif
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_queue_selector<boost::unordered_setS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_queue_selector<boost::unordered_mapS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_queue_selector<boost::unordered_multisetS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_queue_selector<boost::unordered_multimapS>
+    ));
+//<-
+#endif
 //->
     BOOST_MPL_ASSERT_NOT((
         boost::is_queue_selector<boost::ptr_hash_setS>
@@ -4257,6 +4545,28 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT_NOT((boost::is_stack_selector<boost::std_heapS>));
 //<-
 #if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+//->
+    BOOST_MPL_ASSERT_NOT((boost::is_stack_selector<boost::forward_listS>));
+//<-
+#endif
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_stack_selector<boost::unordered_setS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_stack_selector<boost::unordered_mapS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_stack_selector<boost::unordered_multisetS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_stack_selector<boost::unordered_multimapS>
+    ));
+//<-
+#endif
 //->
     BOOST_MPL_ASSERT_NOT((
         boost::is_stack_selector<boost::ptr_hash_setS>
@@ -4555,6 +4865,28 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT((boost::is_std_heap_selector<boost::std_heapS>));
 //<-
 #if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+//->
+    BOOST_MPL_ASSERT_NOT((boost::is_std_heap_selector<boost::forward_listS>));
+//<-
+#endif
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_std_heap_selector<boost::unordered_setS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_std_heap_selector<boost::unordered_mapS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_std_heap_selector<boost::unordered_multisetS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_std_heap_selector<boost::unordered_multimapS>
+    ));
+//<-
+#endif
 //->
     BOOST_MPL_ASSERT_NOT((
         boost::is_std_heap_selector<boost::ptr_hash_setS>
@@ -4853,19 +5185,33 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT_NOT((boost::is_heap_selector<boost::std_heapS>));
 //<-
 #if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+//->
+    BOOST_MPL_ASSERT_NOT((boost::is_heap_selector<boost::forward_listS>));
+//<-
+#endif
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
 //->
     BOOST_MPL_ASSERT_NOT((
-        boost::is_heap_selector<boost::ptr_hash_setS>
+        boost::is_heap_selector<boost::unordered_setS>
     ));
     BOOST_MPL_ASSERT_NOT((
-        boost::is_heap_selector<boost::ptr_hash_mapS>
+        boost::is_heap_selector<boost::unordered_mapS>
     ));
     BOOST_MPL_ASSERT_NOT((
-        boost::is_heap_selector<boost::ptr_hash_multisetS>
+        boost::is_heap_selector<boost::unordered_multisetS>
     ));
     BOOST_MPL_ASSERT_NOT((
-        boost::is_heap_selector<boost::ptr_hash_multimapS>
+        boost::is_heap_selector<boost::unordered_multimapS>
     ));
+//<-
+#endif
+//->
+    BOOST_MPL_ASSERT_NOT((boost::is_heap_selector<boost::ptr_hash_setS>));
+    BOOST_MPL_ASSERT_NOT((boost::is_heap_selector<boost::ptr_hash_mapS>));
+    BOOST_MPL_ASSERT_NOT((boost::is_heap_selector<boost::ptr_hash_multisetS>));
+    BOOST_MPL_ASSERT_NOT((boost::is_heap_selector<boost::ptr_hash_multimapS>));
     BOOST_MPL_ASSERT_NOT((
         boost::is_heap_selector<
             boost::vector_selector<
@@ -5195,6 +5541,30 @@ MPL_TEST_CASE()
     ));
 //<-
 #if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_iteratable_heap_selector<boost::forward_listS>
+    ));
+//<-
+#endif
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_iteratable_heap_selector<boost::unordered_setS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_iteratable_heap_selector<boost::unordered_mapS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_iteratable_heap_selector<boost::unordered_multisetS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_iteratable_heap_selector<boost::unordered_multimapS>
+    ));
+//<-
+#endif
 //->
     BOOST_MPL_ASSERT_NOT((
         boost::is_iteratable_heap_selector<boost::ptr_hash_setS>
@@ -5541,6 +5911,30 @@ MPL_TEST_CASE()
     ));
 //<-
 #if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_order_iteratable_heap_selector<boost::forward_listS>
+    ));
+//<-
+#endif
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_order_iteratable_heap_selector<boost::unordered_setS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_order_iteratable_heap_selector<boost::unordered_mapS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_order_iteratable_heap_selector<boost::unordered_multisetS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_order_iteratable_heap_selector<boost::unordered_multimapS>
+    ));
+//<-
+#endif
 //->
     BOOST_MPL_ASSERT_NOT((
         boost::is_order_iteratable_heap_selector<boost::ptr_hash_setS>
@@ -5895,6 +6289,30 @@ MPL_TEST_CASE()
     ));
 //<-
 #if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mutable_heap_selector<boost::forward_listS>
+    ));
+//<-
+#endif
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mutable_heap_selector<boost::unordered_setS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mutable_heap_selector<boost::unordered_mapS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mutable_heap_selector<boost::unordered_multisetS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mutable_heap_selector<boost::unordered_multimapS>
+    ));
+//<-
+#endif
 //->
     BOOST_MPL_ASSERT_NOT((
         boost::is_mutable_heap_selector<boost::ptr_hash_setS>
@@ -6255,6 +6673,30 @@ MPL_TEST_CASE()
     ));
 //<-
 #if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::forward_listS>
+    ));
+//<-
+#endif
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::unordered_setS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::unordered_mapS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::unordered_multisetS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_mergeable_heap_selector<boost::unordered_multimapS>
+    ));
+//<-
+#endif
 //->
     BOOST_MPL_ASSERT_NOT((
         boost::is_mergeable_heap_selector<boost::ptr_hash_setS>
@@ -6615,6 +7057,30 @@ MPL_TEST_CASE()
     ));
 //<-
 #if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+//->
+    BOOST_MPL_ASSERT((
+        boost::has_stable_iterators_selector<boost::forward_listS>
+    ));
+//<-
+#endif
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::has_stable_iterators_selector<boost::unordered_setS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::has_stable_iterators_selector<boost::unordered_mapS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::has_stable_iterators_selector<boost::unordered_multisetS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::has_stable_iterators_selector<boost::unordered_multimapS>
+    ));
+//<-
+#endif
 //->
     BOOST_MPL_ASSERT_NOT((
         boost::has_stable_iterators_selector<boost::ptr_hash_setS>
@@ -6898,6 +7364,15 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT_NOT((
         boost::is_tr1_selector<boost::slistS>
     ));
+//<-
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_tr1_selector<boost::forward_listS>
+    ));
+//<-
+#endif
+//->
     BOOST_MPL_ASSERT_NOT((
         boost::is_tr1_selector<boost::setS>
     ));
@@ -6910,6 +7385,25 @@ MPL_TEST_CASE()
     BOOST_MPL_ASSERT_NOT((
         boost::is_tr1_selector<boost::multimapS>
     ));
+//<-
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+//->
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_tr1_selector<boost::unordered_setS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_tr1_selector<boost::unordered_mapS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_tr1_selector<boost::unordered_multisetS>
+    ));
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_tr1_selector<boost::unordered_multimapS>
+    ));
+//<-
+#endif
+//->
     BOOST_MPL_ASSERT_NOT((
         boost::is_tr1_selector<boost::hash_setS>
     ));
@@ -7246,6 +7740,26 @@ MPL_TEST_CASE()
     ));
 #endif
 #else  // !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+    BOOST_MPL_ASSERT_NOT((
+        boost::is_recursive_selector<boost::forward_listS>
+    ));
+#endif
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+    BOOST_MPL_ASSERT((
+        boost::is_recursive_selector<boost::unordered_setS>
+    ));
+    BOOST_MPL_ASSERT((
+        boost::is_recursive_selector<boost::unordered_mapS>
+    ));
+    BOOST_MPL_ASSERT((
+        boost::is_recursive_selector<boost::unordered_multisetS>
+    ));
+    BOOST_MPL_ASSERT((
+        boost::is_recursive_selector<boost::unordered_multimapS>
+    ));
+#endif
     BOOST_MPL_ASSERT((
         boost::is_recursive_selector<boost::hash_setS>
     ));

@@ -11,7 +11,15 @@
 [heading From 0.9 to 0.10]
 
 [itemized_list
-    [Added the `static_vector_selector` template.]
+    [
+        Added the `forward_list_selector`, `unordered_set_selector`,
+        `unordered_map_selector`, `unordered_multiset_selector`,
+        `unordered_multimap_selector`, and `static_vector_selector` templates.
+    ]
+    [
+        Added the `unordered_setS`, `unordered_mapS`, `unordered_multisetS`,
+        and `unordered_multimapS` selector types.
+    ]
 ]
 
 [heading From 0.8 to 0.9]

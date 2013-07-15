@@ -37,6 +37,10 @@ namespace boost {
 
     typedef equivalence_selector<> equivalenceS;
 
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+    struct std_hash_selector;
+#endif
     struct boost_hash_selector;
     struct tr1_hash_selector;
 
@@ -78,7 +82,7 @@ namespace boost {
     struct queue_selector_base;
     struct std_heap_selector_base;
 }  // namespace boost
-#endif  // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#endif  // defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 
 //[reference__container_selector_templates
 namespace boost {
@@ -159,6 +163,15 @@ namespace boost {
 //->
 
 //<-
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+//->
+    template <typename AllocatorSelector = std_allocator_selector>
+    struct forward_list_selector;
+//<-
+#endif
+//->
+
+//<-
 #if defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 //->
     template <
@@ -192,6 +205,34 @@ namespace boost {
 //<-
 #if 0  // for documentation purposes
 //->
+    template <
+        typename HashSelector = std_hash_selector
+      , typename CompareSelector = equal_to_selector
+      , typename AllocatorSelector = std_allocator_selector
+    >
+    struct unordered_set_selector;
+
+    template <
+        typename HashSelector = std_hash_selector
+      , typename CompareSelector = equal_to_selector
+      , typename AllocatorSelector = std_allocator_selector
+    >
+    struct unordered_multiset_selector;
+
+    template <
+        typename HashSelector = std_hash_selector
+      , typename CompareSelector = equal_to_selector
+      , typename AllocatorSelector = std_allocator_selector
+    >
+    struct unordered_map_selector;
+
+    template <
+        typename HashSelector = std_hash_selector
+      , typename CompareSelector = equal_to_selector
+      , typename AllocatorSelector = std_allocator_selector
+    >
+    struct unordered_multimap_selector;
+
     template <
         typename CompareSelector = less_than_selector
       , typename AllocatorSelector = std_flat_allocator_selector
@@ -379,6 +420,37 @@ namespace boost {
       , typename T2 = ::boost::parameter::void_
     >
     struct multimap_selector;
+
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+    template <
+        typename T0 = ::boost::parameter::void_
+      , typename T1 = ::boost::parameter::void_
+      , typename T2 = ::boost::parameter::void_
+    >
+    struct unordered_set_selector;
+
+    template <
+        typename T0 = ::boost::parameter::void_
+      , typename T1 = ::boost::parameter::void_
+      , typename T2 = ::boost::parameter::void_
+    >
+    struct unordered_map_selector;
+
+    template <
+        typename T0 = ::boost::parameter::void_
+      , typename T1 = ::boost::parameter::void_
+      , typename T2 = ::boost::parameter::void_
+    >
+    struct unordered_multiset_selector;
+
+    template <
+        typename T0 = ::boost::parameter::void_
+      , typename T1 = ::boost::parameter::void_
+      , typename T2 = ::boost::parameter::void_
+    >
+    struct unordered_multimap_selector;
+#endif  // has std::unordered_set and std::unordered_map
 
     template <
         typename T0 = ::boost::parameter::void_
@@ -688,6 +760,11 @@ namespace boost {
     typedef slist_selector<> slistS;
 //<-
 #endif
+#if !defined BOOST_NO_CXX11_HDR_FORWARD_LIST
+//->
+    typedef forward_list_selector<> forward_listS;
+//<-
+#endif
 //->
     typedef set_selector<> setS;
     typedef map_selector<> mapS;
@@ -712,6 +789,15 @@ namespace boost {
     typedef ptr_multimap_selector<> ptr_multimapS;
 //<-
 #if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#if !defined BOOST_NO_CXX11_HDR_UNORDERED_SET && \
+    !defined BOOST_NO_CXX11_HDR_UNORDERED_MAP
+//->
+    typedef unordered_set_selector<> unordered_setS;
+    typedef unordered_map_selector<> unordered_mapS;
+    typedef unordered_multiset_selector<> unordered_multisetS;
+    typedef unordered_multimap_selector<> unordered_multimapS;
+//<-
+#endif
 //->
     typedef ptr_hash_set_selector<> ptr_hash_setS;
     typedef ptr_hash_map_selector<> ptr_hash_mapS;
