@@ -228,6 +228,22 @@ public:
    {
       if(dig == 0)
          dig = std::numeric_limits<number<cpp_bin_float<Bits> > >::max_digits10;
+
+      if(exponent() <= cpp_bin_float<Bits>::max_exponent)
+      {
+         int shift = (int)Bits - exponent() - 1;
+         bool fractional = ((int)eval_lsb(bits()) < shift) || (shift < 0);
+         if(!fractional)
+         {
+            rep_type r(bits());
+            eval_right_shift(r, shift);
+            std::string s = r.str(0, f);
+            boost::multiprecision::detail::format_float_string(s, s.size() - 1, dig, f, false);
+            if(sign())
+               s.insert(s.begin(), '-');
+            return s;
+         }
+      }
       return boost::multiprecision::detail::convert_to_string(*this, dig, f);
    }
 
@@ -373,6 +389,8 @@ inline void do_eval_add(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &arg
    {
    case cpp_bin_float<bits>::exponent_zero:
       res = arg;
+      if(res.sign())
+         res.negate();
       return;
    case cpp_bin_float<bits>::exponent_infinity:
       if(arg.exponent() == cpp_bin_float<bits>::exponent_nan)
@@ -436,7 +454,11 @@ inline void do_eval_subtract(cpp_bin_float<bits> &res, const cpp_bin_float<bits>
       if(arg.exponent() == cpp_bin_float<bits>::exponent_nan)
          res = std::numeric_limits<number<cpp_bin_float<bits> > >::quiet_NaN().backend();
       else
+      {
          res = arg;
+         if(!res.sign())
+            res.negate();
+      }
       return;
    case cpp_bin_float<bits>::exponent_infinity:
       if((arg.exponent() == cpp_bin_float<bits>::exponent_nan) || (arg.exponent() == cpp_bin_float<bits>::exponent_infinity))
@@ -698,6 +720,19 @@ inline void eval_divide(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &arg
 template <unsigned bits>
 inline void eval_convert_to(long long *res, const cpp_bin_float<bits> &arg)
 {
+   switch(arg.exponent())
+   {
+   case cpp_bin_float<bits>::exponent_zero:
+      *res = 0;
+      return;
+   case cpp_bin_float<bits>::exponent_nan:
+      BOOST_THROW_EXCEPTION(std::runtime_error("Could not convert NaN to integer."));
+   case cpp_bin_float<bits>::exponent_infinity:
+      *res = (std::numeric_limits<long long>::max)();
+      if(arg.sign())
+         *res = -*res;
+      return;
+   }
    typename cpp_bin_float<bits>::rep_type man(arg.bits());
    int shift = bits - 1 - arg.exponent();
    if(shift > bits - 1)
@@ -709,6 +744,8 @@ inline void eval_convert_to(long long *res, const cpp_bin_float<bits> &arg)
    {
       // TODO: what if we have fewer bits than a long long?
       *res = (std::numeric_limits<long long>::max)();
+      if(arg.sign())
+         *res = -*res;
       return;
    }
    eval_right_shift(man, shift);
@@ -720,6 +757,17 @@ inline void eval_convert_to(long long *res, const cpp_bin_float<bits> &arg)
 template <unsigned bits>
 inline void eval_convert_to(unsigned long long *res, const cpp_bin_float<bits> &arg)
 {
+   switch(arg.exponent())
+   {
+   case cpp_bin_float<bits>::exponent_zero:
+      *res = 0;
+      return;
+   case cpp_bin_float<bits>::exponent_nan:
+      BOOST_THROW_EXCEPTION(std::runtime_error("Could not convert NaN to integer."));
+   case cpp_bin_float<bits>::exponent_infinity:
+      *res = (std::numeric_limits<unsigned long long>::max)();
+      return;
+   }
    typename cpp_bin_float<bits>::rep_type man(arg.bits());
    int shift = bits - 1 - arg.exponent();
    if(shift > bits - 1)
@@ -740,6 +788,20 @@ inline void eval_convert_to(unsigned long long *res, const cpp_bin_float<bits> &
 template <unsigned bits>
 inline void eval_convert_to(long double *res, const cpp_bin_float<bits> &arg)
 {
+   switch(arg.exponent())
+   {
+   case cpp_bin_float<bits>::exponent_zero:
+      *res = 0;
+      return;
+   case cpp_bin_float<bits>::exponent_nan:
+      *res = std::numeric_limits<long double>::quiet_NaN();
+      return;
+   case cpp_bin_float<bits>::exponent_infinity:
+      *res = (std::numeric_limits<long double>::infinity)();
+      if(arg.sign())
+         *res = -*res;
+      return;
+   }
    int e = arg.exponent();
    e -= bits - 1;
    eval_convert_to(res, arg.bits());
@@ -751,6 +813,15 @@ inline void eval_convert_to(long double *res, const cpp_bin_float<bits> &arg)
 template <unsigned bits>
 inline void eval_frexp(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &arg, int *e)
 {
+   switch(arg.exponent())
+   {
+   case cpp_bin_float<bits>::exponent_zero:
+   case cpp_bin_float<bits>::exponent_nan:
+   case cpp_bin_float<bits>::exponent_infinity:
+      *e = 0;
+      res = arg;
+      return;
+   }
    res = arg;
    *e = arg.exponent() + 1;
    res.exponent() = -1;
@@ -759,6 +830,14 @@ inline void eval_frexp(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &arg,
 template <unsigned bits>
 inline void eval_ldexp(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &arg, int e)
 {
+   switch(arg.exponent())
+   {
+   case cpp_bin_float<bits>::exponent_zero:
+   case cpp_bin_float<bits>::exponent_nan:
+   case cpp_bin_float<bits>::exponent_infinity:
+      res = arg;
+      return;
+   }
    res = arg;
    res.exponent() += e;
 }
@@ -800,6 +879,16 @@ template <unsigned bits>
 inline void eval_sqrt(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &arg)
 {
    using default_ops::eval_integer_sqrt;
+   switch(arg.exponent())
+   {
+   case cpp_bin_float<bits>::exponent_zero:
+   case cpp_bin_float<bits>::exponent_nan:
+      res = arg;
+      return;
+   case cpp_bin_float<bits>::exponent_infinity:
+      res = std::numeric_limits<number<cpp_bin_float<bits> > >::quiet_NaN().backend();
+      return;
+   }
    if(arg.exponent() > cpp_bin_float<bits>::max_exponent)
    {
       res = arg;
@@ -834,6 +923,14 @@ template <unsigned bits>
 inline void eval_floor(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &arg)
 {
    using default_ops::eval_increment;
+   switch(arg.exponent())
+   {
+   case cpp_bin_float<bits>::exponent_zero:
+   case cpp_bin_float<bits>::exponent_nan:
+   case cpp_bin_float<bits>::exponent_infinity:
+      res = arg;
+      return;
+   }
    int shift = (int)bits - arg.exponent() - 1;
    if((arg.exponent() > cpp_bin_float<bits>::max_exponent) || (shift <= 0))
    {
@@ -846,7 +943,7 @@ inline void eval_floor(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &arg)
       res = arg.sign() ? -1 : 0;
       return;
    }
-   bool fractional = 1 + (int)eval_lsb(arg.bits()) < shift;
+   bool fractional = (int)eval_lsb(arg.bits()) < shift;
    res = arg;
    eval_right_shift(res.bits(), shift);
    if(fractional && res.sign())
@@ -866,6 +963,14 @@ template <unsigned bits>
 inline void eval_ceil(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &arg)
 {
    using default_ops::eval_increment;
+   switch(arg.exponent())
+   {
+   case cpp_bin_float<bits>::exponent_zero:
+   case cpp_bin_float<bits>::exponent_nan:
+   case cpp_bin_float<bits>::exponent_infinity:
+      res = arg;
+      return;
+   }
    int shift = (int)bits - arg.exponent() - 1;
    if((arg.exponent() > cpp_bin_float<bits>::max_exponent) || (shift <= 0))
    {
@@ -878,7 +983,7 @@ inline void eval_ceil(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &arg)
       res = arg.sign() ? 0 : 1;
       return;
    }
-   bool fractional = 1 + (int)eval_lsb(arg.bits()) < shift;
+   bool fractional = (int)eval_lsb(arg.bits()) < shift;
    res = arg;
    eval_right_shift(res.bits(), shift);
    if(fractional && !res.sign())
