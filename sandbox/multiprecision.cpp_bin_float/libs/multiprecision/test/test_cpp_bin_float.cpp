@@ -149,7 +149,6 @@ void test_special_cases()
 int main()
 {
    test_special_cases();
-
    for(unsigned i = 0; i < 100000; ++i)
    {
       good_type a = generate_random<good_type>();

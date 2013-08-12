@@ -286,6 +286,20 @@ void test()
    }
    std::cout << "Max error was: " << max_err << std::endl;
    BOOST_TEST(max_err < 20);
+
+#include "sincos.ipp"
+   max_err = 0;
+   for(unsigned k = 0; k < sincos.size(); k++)
+   {
+      T val = sin(sincos[k][0]);
+      T e = relative_error(val, sincos[k][1]);
+      unsigned err = e.template convert_to<unsigned>();
+      if(err > max_err)
+         max_err = err;
+   }
+   std::cout << "Max error was: " << max_err << std::endl;
+   BOOST_TEST(max_err < 20);
+
 }
 
 

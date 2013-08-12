@@ -300,6 +300,19 @@ void test()
 #else
    BOOST_TEST(fabs(cos(half_pi)) < std::numeric_limits<T>::epsilon());
 #endif
+
+#include "sincos.ipp"
+   max_err = 0;
+   for(unsigned k = 0; k < sincos.size(); k++)
+   {
+      T val = cos(sincos[k][0]);
+      T e = relative_error(val, sincos[k][2]);
+      unsigned err = e.template convert_to<unsigned>();
+      if(err > max_err)
+         max_err = err;
+   }
+   std::cout << "Max error was: " << max_err << std::endl;
+   BOOST_TEST(max_err < 20);
 }
 
 

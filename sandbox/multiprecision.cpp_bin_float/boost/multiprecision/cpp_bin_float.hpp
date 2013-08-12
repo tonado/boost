@@ -47,7 +47,7 @@ public:
    cpp_bin_float(const Float& f, typename boost::enable_if_c<number_category<Float>::value == number_kind_floating_point>::type const* = 0)
       : m_data(), m_exponent(0), m_sign(false)
    {
-      *this = f;
+      this->assign_float(f);
    }
 
    cpp_bin_float& operator=(const cpp_bin_float &o)
@@ -59,7 +59,13 @@ public:
    }
 
    template <class Float>
-   typename boost::enable_if_c<is_floating_point<Float>::value, cpp_bin_float&>::type operator=(Float f)
+   typename boost::enable_if_c<number_category<Float>::value == number_kind_floating_point, cpp_bin_float&>::type operator=(const Float& f)
+   {
+      return assign_float(f);
+   }
+
+   template <class Float>
+   typename boost::enable_if_c<is_floating_point<Float>::value, cpp_bin_float&>::type assign_float(Float f)
    {
       BOOST_MATH_STD_USING
       using default_ops::eval_add;
@@ -115,7 +121,7 @@ public:
       (number_category<Float>::value == number_kind_floating_point) 
          && !is_floating_point<Float>::value
          && (std::numeric_limits<number<Float> >::radix == 2), 
-      cpp_bin_float&>::type operator=(Float f)
+      cpp_bin_float&>::type assign_float(Float f)
    {
       BOOST_MATH_STD_USING
       using default_ops::eval_add;
@@ -377,7 +383,7 @@ inline void copy_and_round(cpp_bin_float<bits> &res, Int &arg)
 }
 
 template <unsigned bits>
-inline void do_eval_add(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &arg)
+inline void do_eval_add(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &a, const cpp_bin_float<bits> &b)
 {
    using default_ops::eval_add;
    using default_ops::eval_bit_test;
@@ -385,54 +391,60 @@ inline void do_eval_add(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &arg
    typename cpp_bin_float<bits>::double_rep_type dt;
 
    // Special cases first:
-   switch(res.exponent())
+   switch(a.exponent())
    {
    case cpp_bin_float<bits>::exponent_zero:
-      res = arg;
+      res = b;
       if(res.sign())
          res.negate();
       return;
    case cpp_bin_float<bits>::exponent_infinity:
-      if(arg.exponent() == cpp_bin_float<bits>::exponent_nan)
-         res = arg;
-      return; // result is still infinite.
+      if(b.exponent() == cpp_bin_float<bits>::exponent_nan)
+         res = b;
+      else
+         res = a;
+      return; // ault is still infinite.
    case cpp_bin_float<bits>::exponent_nan:
-      return; // result is still a NaN.
+      res = a;
+      return; // ault is still a NaN.
    }
-   switch(arg.exponent())
+   switch(b.exponent())
    {
    case cpp_bin_float<bits>::exponent_zero:
+      res = a;
       return;
    case cpp_bin_float<bits>::exponent_infinity:
-      res = arg;
-      return; // result is infinite.
+      res = b;
+      if(res.sign())
+         res.negate();
+      return; // ault is infinite.
    case cpp_bin_float<bits>::exponent_nan:
-      res = arg;
-      return; // result is a NaN.
+      res = b;
+      return; // ault is a NaN.
    }
    
-   int e_diff = res.exponent() - arg.exponent();
+   int e_diff = a.exponent() - b.exponent();
    if(e_diff >= 0)
    {
-      dt = res.bits();
+      dt = a.bits();
       if(e_diff < bits)
       {
          eval_left_shift(dt, e_diff);
-         res.exponent() -= e_diff;
-         eval_add(dt, arg.bits());
+         res.exponent() = a.exponent() - e_diff;
+         eval_add(dt, b.bits());
       }
    }
    else
    {
-      dt= arg.bits();
+      dt= b.bits();
       if(-e_diff < bits)
       {
          eval_left_shift(dt, -e_diff);
-         res.exponent() = arg.exponent() + e_diff;
-         eval_add(dt, res.bits());
+         res.exponent() = b.exponent() + e_diff;
+         eval_add(dt, a.bits());
       }
       else
-         res.exponent() = arg.exponent();
+         res.exponent() = b.exponent();
    }
    
    copy_and_round(res, dt);
@@ -440,7 +452,7 @@ inline void do_eval_add(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &arg
 }
 
 template <unsigned bits>
-inline void do_eval_subtract(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &arg)
+inline void do_eval_subtract(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &a, const cpp_bin_float<bits> &b)
 {
    using default_ops::eval_subtract;
    using default_ops::eval_bit_test;
@@ -448,28 +460,32 @@ inline void do_eval_subtract(cpp_bin_float<bits> &res, const cpp_bin_float<bits>
    typename cpp_bin_float<bits>::double_rep_type dt;
    
    // Special cases first:
-   switch(res.exponent())
+   switch(a.exponent())
    {
    case cpp_bin_float<bits>::exponent_zero:
-      if(arg.exponent() == cpp_bin_float<bits>::exponent_nan)
+      if(b.exponent() == cpp_bin_float<bits>::exponent_nan)
          res = std::numeric_limits<number<cpp_bin_float<bits> > >::quiet_NaN().backend();
       else
       {
-         res = arg;
+         res = b;
          if(!res.sign())
             res.negate();
       }
       return;
    case cpp_bin_float<bits>::exponent_infinity:
-      if((arg.exponent() == cpp_bin_float<bits>::exponent_nan) || (arg.exponent() == cpp_bin_float<bits>::exponent_infinity))
+      if((b.exponent() == cpp_bin_float<bits>::exponent_nan) || (b.exponent() == cpp_bin_float<bits>::exponent_infinity))
          res = std::numeric_limits<number<cpp_bin_float<bits> > >::quiet_NaN().backend();
+      else
+         res = a;
       return;
    case cpp_bin_float<bits>::exponent_nan:
+      res = a;
       return; // result is still a NaN.
    }
-   switch(arg.exponent())
+   switch(b.exponent())
    {
    case cpp_bin_float<bits>::exponent_zero:
+      res = a;
       return;
    case cpp_bin_float<bits>::exponent_infinity:
       res.exponent() = cpp_bin_float<bits>::exponent_nan;
@@ -477,33 +493,33 @@ inline void do_eval_subtract(cpp_bin_float<bits> &res, const cpp_bin_float<bits>
       res.bits() = static_cast<limb_type>(0u);
       return; // result is a NaN.
    case cpp_bin_float<bits>::exponent_nan:
-      res = arg;
+      res = b;
       return; // result is still a NaN.
    }
 
-   int e_diff = res.exponent() - arg.exponent();
-   if((e_diff > 0) || ((e_diff == 0) && res.bits().compare(arg.bits()) >= 0))
+   int e_diff = a.exponent() - b.exponent();
+   if((e_diff > 0) || ((e_diff == 0) && a.bits().compare(b.bits()) >= 0))
    {
-      dt = res.bits();
+      dt = a.bits();
       if(e_diff < bits)
       {
          eval_left_shift(dt, e_diff);
-         res.exponent() -= e_diff;
-         eval_subtract(dt, arg.bits());
+         res.exponent() = a.exponent() - e_diff;
+         eval_subtract(dt, b.bits());
       }
    }
    else
    {
-      dt = arg.bits();
+      dt = b.bits();
       if(-e_diff < bits)
       {
          eval_left_shift(dt, -e_diff);
-         res.exponent() = arg.exponent() + e_diff;
-         eval_subtract(dt, res.bits());
+         res.exponent() = b.exponent() + e_diff;
+         eval_subtract(dt, a.bits());
          res.negate();
       }
       else
-         res.exponent() = arg.exponent();
+         res.exponent() = b.exponent();
    }
    
    copy_and_round(res, dt);
@@ -511,69 +527,87 @@ inline void do_eval_subtract(cpp_bin_float<bits> &res, const cpp_bin_float<bits>
 }
 
 template <unsigned bits>
-inline void eval_add(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &arg)
+inline void eval_add(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &a, const cpp_bin_float<bits> &b)
 {
-   if(res.sign() == arg.sign())
-      do_eval_add(res, arg);
+   if(a.sign() == b.sign())
+      do_eval_add(res, a, b);
    else
-      do_eval_subtract(res, arg);
+      do_eval_subtract(res, a, b);
 }
 
 template <unsigned bits>
-inline void eval_subtract(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &arg)
+inline void eval_add(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &a)
 {
-   if(res.sign() != arg.sign())
-      do_eval_add(res, arg);
-   else
-      do_eval_subtract(res, arg);
+   return eval_add(res, res, a);
 }
 
 template <unsigned bits>
-inline void eval_multiply(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &arg)
+inline void eval_subtract(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &a, const cpp_bin_float<bits> &b)
+{
+   if(a.sign() != b.sign())
+      do_eval_add(res, a, b);
+   else
+      do_eval_subtract(res, a, b);
+}
+
+template <unsigned bits>
+inline void eval_subtract(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &a)
+{
+   return eval_subtract(res, res, a);
+}
+
+template <unsigned bits>
+inline void eval_multiply(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &a, const cpp_bin_float<bits> &b)
 {
    using default_ops::eval_bit_test;
    using default_ops::eval_multiply;
 
    // Special cases first:
-   switch(res.exponent())
+   switch(a.exponent())
    {
    case cpp_bin_float<bits>::exponent_zero:
-      if(arg.exponent() == cpp_bin_float<bits>::exponent_nan)
-         res = arg;
+      if(b.exponent() == cpp_bin_float<bits>::exponent_nan)
+         res = b;
+      else
+         res = a;
       return;
    case cpp_bin_float<bits>::exponent_infinity:
-      switch(arg.exponent())
+      switch(b.exponent())
       {
       case cpp_bin_float<bits>::exponent_zero:
          res = std::numeric_limits<number<cpp_bin_float<bits> > >::quiet_NaN().backend();
          break;
       case cpp_bin_float<bits>::exponent_nan:
-         res = arg;
+         res = b;
+         break;
+      default:
+         res = a;
          break;
       }
       return;
    case cpp_bin_float<bits>::exponent_nan:
+      res = a;
       return;
    }
-   if(arg.exponent() > cpp_bin_float<bits>::max_exponent)
+   if(b.exponent() > cpp_bin_float<bits>::max_exponent)
    {
-      res = arg;
+      res = b;
       return;
    }
-   if((res.exponent() > 0) && (arg.exponent() > 0))
+   if((a.exponent() > 0) && (b.exponent() > 0))
    {
-      if(cpp_bin_float<bits>::max_exponent + 2 - res.exponent() < arg.exponent())
+      if(cpp_bin_float<bits>::max_exponent + 2 - a.exponent() < b.exponent())
       {
          // We will certainly overflow:
          res.exponent() = cpp_bin_float<bits>::exponent_infinity;
-         res.sign() = res.sign() != arg.sign();
+         res.sign() = a.sign() != b.sign();
          res.bits() = static_cast<limb_type>(0u);
          return;
       }
    }
-   if((res.exponent() < 0) && (arg.exponent() < 0))
+   if((a.exponent() < 0) && (b.exponent() < 0))
    {
-      if(cpp_bin_float<bits>::min_exponent - 2 - res.exponent() > arg.exponent())
+      if(cpp_bin_float<bits>::min_exponent - 2 - a.exponent() > b.exponent())
       {
          // We will certainly underflow:
          res.exponent() = cpp_bin_float<bits>::exponent_zero;
@@ -584,11 +618,17 @@ inline void eval_multiply(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &a
    }
 
    typename cpp_bin_float<bits>::double_rep_type dt;
-   eval_multiply(dt, res.bits(), arg.bits());
-   res.exponent() += arg.exponent() - bits + 1;
+   eval_multiply(dt, a.bits(), b.bits());
+   res.exponent() = a.exponent() + b.exponent() - bits + 1;
    copy_and_round(res, dt);
    res.check_invariants();
-   res.sign() = res.sign() != arg.sign();
+   res.sign() = a.sign() != b.sign();
+}
+
+template <unsigned bits>
+inline void eval_multiply(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &a)
+{
+   eval_multiply(res, res, a);
 }
 
 template <unsigned bits>
