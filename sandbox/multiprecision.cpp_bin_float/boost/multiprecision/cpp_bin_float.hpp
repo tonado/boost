@@ -36,7 +36,7 @@ private:
 
    rep_type m_data;
    int m_exponent;
-   int m_sign;
+   bool m_sign;
 public:
    cpp_bin_float() : m_data(), m_exponent(exponent_nan), m_sign(false) {}
 
@@ -291,8 +291,8 @@ public:
    const rep_type& bits()const { return m_data; }
    int& exponent() { return m_exponent; }
    const int& exponent()const { return m_exponent; }
-   int& sign() { return m_sign; }
-   const int& sign()const { return m_sign; }
+   bool& sign() { return m_sign; }
+   const bool& sign()const { return m_sign; }
    void check_invariants()
    {
       using default_ops::eval_bit_test;
@@ -424,6 +424,7 @@ inline void do_eval_add(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &a, 
    }
    
    int e_diff = a.exponent() - b.exponent();
+   bool s = a.sign();
    if(e_diff >= 0)
    {
       dt = a.bits();
@@ -433,6 +434,8 @@ inline void do_eval_add(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &a, 
          res.exponent() = a.exponent() - e_diff;
          eval_add(dt, b.bits());
       }
+      else
+         res.exponent() = a.exponent();
    }
    else
    {
@@ -449,6 +452,8 @@ inline void do_eval_add(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &a, 
    
    copy_and_round(res, dt);
    res.check_invariants();
+   if(res.sign() != s)
+      res.negate();
 }
 
 template <unsigned bits>
@@ -498,6 +503,7 @@ inline void do_eval_subtract(cpp_bin_float<bits> &res, const cpp_bin_float<bits>
    }
 
    int e_diff = a.exponent() - b.exponent();
+   bool s = a.sign();
    if((e_diff > 0) || ((e_diff == 0) && a.bits().compare(b.bits()) >= 0))
    {
       dt = a.bits();
@@ -507,6 +513,8 @@ inline void do_eval_subtract(cpp_bin_float<bits> &res, const cpp_bin_float<bits>
          res.exponent() = a.exponent() - e_diff;
          eval_subtract(dt, b.bits());
       }
+      else
+         res.exponent() = a.exponent();
    }
    else
    {
@@ -516,13 +524,15 @@ inline void do_eval_subtract(cpp_bin_float<bits> &res, const cpp_bin_float<bits>
          eval_left_shift(dt, -e_diff);
          res.exponent() = b.exponent() + e_diff;
          eval_subtract(dt, a.bits());
-         res.negate();
       }
       else
          res.exponent() = b.exponent();
+      s = !s;
    }
    
    copy_and_round(res, dt);
+   if(res.sign() != s)
+      res.negate();
    res.check_invariants();
 }
 
