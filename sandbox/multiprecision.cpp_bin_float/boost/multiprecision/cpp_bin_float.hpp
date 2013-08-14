@@ -1122,14 +1122,14 @@ public:
    // What value should this be????
    static number_type round_error()
    {
-      // returns epsilon/2
+      // returns 0.5
       initializer.do_nothing();
       static std::pair<bool, number_type> value;
       if(!value.first)
       {
          value.first = true;
          value.second = 1;
-         value.second = ldexp(value.second, -(int)bits);
+         value.second = ldexp(value.second, -1);
       }
       return value.second;
    }

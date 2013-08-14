@@ -94,7 +94,7 @@ void test()
       }
    }
    std::cout << "Max error was: " << max_err << std::endl;
-   BOOST_TEST(max_err < 20);
+   BOOST_TEST(max_err < 60);
    BOOST_TEST(asin(T(0)) == 0);
 }
 

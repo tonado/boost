@@ -23,7 +23,7 @@
 #  define TEST_TOMMATH
 #  define TEST_CPP_INT
 #  define TEST_MPFI_50
-#  define TEST_FLOAT128
+//#  define TEST_FLOAT128
 #  define TEST_CPP_BIN_FLOAT
 
 #ifdef _MSC_VER
@@ -130,6 +130,21 @@ void test_specific(const boost::mpl::int_<boost::multiprecision::number_kind_flo
    BOOST_TEST((boost::math::isnormal)(n));
    BOOST_TEST(!(boost::math::isinf)(n));
    BOOST_TEST(!(boost::math::isnan)(n));
+
+   if(std::numeric_limits<Number>::round_style == std::round_to_nearest)
+   {
+      BOOST_CHECK_EQUAL(std::numeric_limits<Number>::round_error(), 0.5);
+   }
+   else if(std::numeric_limits<Number>::round_style != std::round_indeterminate)
+   {
+      // Round error is 1.0:
+      BOOST_CHECK_EQUAL(std::numeric_limits<Number>::round_error(), 1);
+   }
+   else
+   {
+      // Round error is presumably somewhere between 0.5 and 1:
+      BOOST_CHECK((std::numeric_limits<Number>::round_error() <= 1) && (std::numeric_limits<Number>::round_error() >= 0.5));
+   }
 }
 
 template <class Number>

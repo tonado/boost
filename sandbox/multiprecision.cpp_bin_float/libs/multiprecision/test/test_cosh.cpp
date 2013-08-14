@@ -125,12 +125,18 @@ void test()
       T e = relative_error(val, T(data[k]));
       unsigned err = e.template convert_to<unsigned>();
       if(err > max_err)
+      {
+         std::cout << x * x << std::endl;
          max_err = err;
+      }
       val = boost::multiprecision::cosh(-x * x);
       e = relative_error(val, T(data[k]));
       err = e.template convert_to<unsigned>();
       if(err > max_err)
+      {
+         std::cout << x * x << std::endl;
          max_err = err;
+      }
    }
    std::cout << "Max error was: " << max_err << std::endl;
    BOOST_TEST(max_err < 2000);
