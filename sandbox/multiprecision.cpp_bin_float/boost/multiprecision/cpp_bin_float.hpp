@@ -939,11 +939,6 @@ inline void eval_sqrt(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &arg)
       res = std::numeric_limits<number<cpp_bin_float<bits> > >::quiet_NaN().backend();
       return;
    }
-   if(arg.exponent() > cpp_bin_float<bits>::max_exponent)
-   {
-      res = arg;
-      return;
-   }
    if(arg.sign())
    {
       res = std::numeric_limits<number<cpp_bin_float<bits> > >::quiet_NaN().backend();

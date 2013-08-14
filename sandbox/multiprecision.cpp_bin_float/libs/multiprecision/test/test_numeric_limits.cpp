@@ -23,7 +23,7 @@
 #  define TEST_TOMMATH
 #  define TEST_CPP_INT
 #  define TEST_MPFI_50
-//#  define TEST_FLOAT128
+#  define TEST_FLOAT128
 #  define TEST_CPP_BIN_FLOAT
 
 #ifdef _MSC_VER

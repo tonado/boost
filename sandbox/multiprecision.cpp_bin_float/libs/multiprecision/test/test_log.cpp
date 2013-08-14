@@ -206,6 +206,13 @@ void test()
    BOOST_TEST(max_err < 10);
 #endif
    BOOST_TEST(log(T(1)) == 0);
+   //
+   // Some tricky special cases:
+   //
+   BOOST_CHECK((boost::math::isfinite)(log((std::numeric_limits<T>::max)())));
+   BOOST_CHECK((boost::math::isfinite)(log((std::numeric_limits<T>::min)())));
+   BOOST_CHECK((boost::math::isfinite)(log10((std::numeric_limits<T>::max)())));
+   BOOST_CHECK((boost::math::isfinite)(log10((std::numeric_limits<T>::min)())));
 }
 
 

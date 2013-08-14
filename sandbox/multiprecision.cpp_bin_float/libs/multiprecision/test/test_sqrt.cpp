@@ -183,6 +183,11 @@ void test()
 #else
    BOOST_TEST(max_err < 20);
 #endif
+   //
+   // Some tricky special cases:
+   //
+   BOOST_CHECK((boost::math::isfinite)(sqrt((std::numeric_limits<T>::max)())));
+   BOOST_CHECK((boost::math::isfinite)(sqrt((std::numeric_limits<T>::min)())));
 }
 
 
