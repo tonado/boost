@@ -243,7 +243,7 @@ public:
          {
             rep_type r(bits());
             eval_right_shift(r, shift);
-            std::string s = r.str(0, f);
+            std::string s = r.str(0, std::ios_base::fmtflags(0));
             boost::multiprecision::detail::format_float_string(s, s.size() - 1, dig, f, false);
             if(sign())
                s.insert(s.begin(), '-');
