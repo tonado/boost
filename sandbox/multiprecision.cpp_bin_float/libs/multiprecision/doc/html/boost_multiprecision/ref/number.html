@@ -2,25 +2,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>number</title>
-<link rel="stylesheet" href="../../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Multiprecision">
 <link rel="up" href="../ref.html" title="Reference">
 <link rel="prev" href="../ref.html" title="Reference">
 <link rel="next" href="cpp_int_ref.html" title="cpp_int">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
-<table cellpadding="2" width="100%"><tr>
-<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" src="../../../../../../boost.png"></td>
-<td align="center"><a href="../../../../../../index.html">Home</a></td>
-<td align="center"><a href="../../../../../../libs/libraries.htm">Libraries</a></td>
-<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
-<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
-<td align="center"><a href="../../../../../../more/index.htm">More</a></td>
-</tr></table>
-<hr>
 <div class="spirit-nav">
-<a accesskey="p" href="../ref.html"><img src="../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../ref.html"><img src="../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="cpp_int_ref.html"><img src="../../../../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="../ref.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../ref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="cpp_int_ref.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
@@ -477,11 +468,11 @@
 <li class="listitem">
             Zero for <code class="computeroutput"><span class="special">*</span><span class="keyword">this</span>
             <span class="special">==</span> <span class="identifier">other</span></code>
-          </li>
-</ul></div>
 <pre class="programlisting"><span class="identifier">Backend</span><span class="special">&amp;</span> <span class="identifier">backend</span><span class="special">();</span>
 <span class="keyword">const</span> <span class="identifier">Backend</span><span class="special">&amp;</span> <span class="identifier">backend</span><span class="special">()</span><span class="keyword">const</span><span class="special">;</span>
 </pre>
+          </li>
+</ul></div>
 <p>
         Returns the underlying back-end instance used by <code class="computeroutput"><span class="special">*</span><span class="keyword">this</span></code>.
       </p>
@@ -589,7 +580,7 @@
       </p>
 <h5>
 <a name="boost_multiprecision.ref.number.h5"></a>
-        <span class="phrase"><a name="boost_multiprecision.ref.number.arithmetic_with_a_higher_precision_result"></a></span><a class="link" href="number.html#boost_multiprecision.ref.number.arithmetic_with_a_higher_precision_result">Arithmetic
+        <span class="phrase"><a name="boost_multiprecision.ref.number.arithmetic_with_a_higher_precisi"></a></span><a class="link" href="number.html#boost_multiprecision.ref.number.arithmetic_with_a_higher_precisi">Arithmetic
         with a higher precision result</a>
       </h5>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">ResultType</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Source1</span> <span class="keyword">class</span> <span class="identifier">Source2</span><span class="special">&gt;</span>
@@ -621,7 +612,7 @@
       </p>
 <h5>
 <a name="boost_multiprecision.ref.number.h6"></a>
-        <span class="phrase"><a name="boost_multiprecision.ref.number.non_member_standard_library_function_support"></a></span><a class="link" href="number.html#boost_multiprecision.ref.number.non_member_standard_library_function_support">Non-member
+        <span class="phrase"><a name="boost_multiprecision.ref.number.non_member_standard_library_func"></a></span><a class="link" href="number.html#boost_multiprecision.ref.number.non_member_standard_library_func">Non-member
         standard library function support</a>
       </h5>
 <pre class="programlisting"><span class="emphasis"><em>unmentionable-expression-template-type</em></span>    <span class="identifier">abs</span>    <span class="special">(</span><span class="keyword">const</span> <span class="emphasis"><em>number-or-expression-template-type</em></span><span class="special">&amp;);</span>
@@ -685,7 +676,7 @@
         When these functions use our own implementations, the accuracy of the transcendental
         functions is generally a few epsilon. Note however, that the trigonometrical
         functions incur the usual accuracy loss when reducing arguments by large
-        multiples of &#960;. Also note that both <a class="link" href="../tut/floats/gmp_float.html" title="gmp_float">gmp_float</a>
+        multiples of [pi]. Also note that both <a class="link" href="../tut/floats/gmp_float.html" title="gmp_float">gmp_float</a>
         and <a class="link" href="../tut/floats/cpp_dec_float.html" title="cpp_dec_float">cpp_dec_float</a>
         have a number of guard digits beyond their stated precision, so the error
         rates listed for these are in some sense artificially low.
@@ -953,7 +944,7 @@
               </td>
 <td>
                 <p>
-                  1045eps<a href="#ftn.boost_multiprecision.ref.number.f0" class="footnote" name="boost_multiprecision.ref.number.f0"><sup class="footnote">[1]</sup></a>
+                  1045eps<a href="#ftn.boost_multiprecision.ref.number.f0" class="footnote"><sup class="footnote"><a name="boost_multiprecision.ref.number.f0"></a>[1]</sup></a>
                 </p>
               </td>
 <td>
@@ -1255,7 +1246,7 @@
       </p>
 <h5>
 <a name="boost_multiprecision.ref.number.h10"></a>
-        <span class="phrase"><a name="boost_multiprecision.ref.number.boost_math_interoperability_support"></a></span><a class="link" href="number.html#boost_multiprecision.ref.number.boost_math_interoperability_support">Boost.Math
+        <span class="phrase"><a name="boost_multiprecision.ref.number.boost_math_interoperability_supp"></a></span><a class="link" href="number.html#boost_multiprecision.ref.number.boost_math_interoperability_supp">Boost.Math
         Interoperability Support</a>
       </h5>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">math</span><span class="special">{</span>
@@ -1278,7 +1269,7 @@
       </p>
 <h5>
 <a name="boost_multiprecision.ref.number.h11"></a>
-        <span class="phrase"><a name="boost_multiprecision.ref.number.std__numeric_limits_support"></a></span><a class="link" href="number.html#boost_multiprecision.ref.number.std__numeric_limits_support">std::numeric_limits
+        <span class="phrase"><a name="boost_multiprecision.ref.number.std_numeric_limits_support"></a></span><a class="link" href="number.html#boost_multiprecision.ref.number.std_numeric_limits_support">std::numeric_limits
         support</a>
       </h5>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">std</span><span class="special">{</span>
@@ -1301,7 +1292,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2002-2012 John Maddock and Christopher Kormanyos<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2002-2013 John Maddock and Christopher Kormanyos<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
@@ -1309,7 +1300,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="../ref.html"><img src="../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../ref.html"><img src="../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="cpp_int_ref.html"><img src="../../../../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="../ref.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../ref.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="cpp_int_ref.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>
