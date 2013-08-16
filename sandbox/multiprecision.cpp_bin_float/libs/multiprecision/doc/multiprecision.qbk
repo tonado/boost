@@ -1950,9 +1950,7 @@ you must use `std::numeric_limits<>::max_digits10`.
 
 [section:round_style route_style]
 
-For integer types,
-
-
+For integer types, round_style is always towards zero.
 
 For `cpp_dec_float` rounds in no particular direction, which is to say it doesn't round at all.
 And since there are guard digits, it's not really the same as truncation (round toward zero) either.
@@ -1970,7 +1968,7 @@ And since there are guard digits, it's not really the same as truncation (round 
 
 
 
-[include numeric_limits.qbk]
+[include numeric_limits_32_tables.qbk]
 
 
 [endsect] [/section:limits Numeric Limits]
@@ -3401,7 +3399,7 @@ Windows Vista machine.
 
 [endsect]
 
-[section:realworld Floating Point Real World Tests]
+[section:realworld Floating-Point Real World Tests]
 
 These tests test the total time taken to execute all of Boost.Math's test cases for these functions.
 In each case the best performing library gets a relative score of 1, with the total execution time
