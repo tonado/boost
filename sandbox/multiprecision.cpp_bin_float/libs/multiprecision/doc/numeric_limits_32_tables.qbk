@@ -10,7 +10,7 @@ http://www.boost.org/LICENSE_1_0.txt).
 [pre
 
 Program: I:\boost-sandbox\multiprecision.cpp_bin_float\libs\multiprecision\doc\numeric_limits_qbk.cpp
-Fri Aug 16 16:49:11 2013
+Sat Aug 17 14:42:36 2013
 BuildInfo:
   Platform Win32
   Compiler Microsoft Visual C++ version 10.0
@@ -24,50 +24,55 @@ BuildInfo:
 
 [table:integral_constants Integer types constants (`std::numeric_limits<T>::is_integer == true`)
 [[type][signed][exact][bound][modulo][round][radix][digits][digits10][max_digits10]]
-[[bool][unsigned][exact][bound][no modulo][toward_zero][2][1][0][0]]
-[[short][signed][exact][bound][modulo][toward_zero][2][15][4][6]]
-[[int][signed][exact][bound][modulo][toward_zero][2][31][9][11]]
-[[unsigned][unsigned][exact][bound][modulo][toward_zero][2][32][9][11]]
-[[long][signed][exact][bound][modulo][toward_zero][2][31][9][11]]
-[[unsigned long][unsigned][exact][bound][modulo][toward_zero][2][32][9][11]]
-[[long long][signed][exact][bound][modulo][toward_zero][2][63][18][20]]
-[[unsigned long long][unsigned][exact][bound][modulo][toward_zero][2][64][19][21]]
-[[int32_t][signed][exact][bound][modulo][toward_zero][2][31][9][11]]
-[[int64_t][signed][exact][bound][modulo][toward_zero][2][63][18][20]]
-[[int128_t][signed][exact][bound][modulo][toward_zero][2][128][38][40]]
-[[int256_t][signed][exact][bound][modulo][toward_zero][2][256][77][79]]
-[[int512_t][signed][exact][bound][modulo][toward_zero][2][512][154][156]]
-[[uint32_t][unsigned][exact][bound][modulo][toward_zero][2][32][9][11]]
-[[uint64_t][unsigned][exact][bound][modulo][toward_zero][2][64][19][21]]
-[[uint128_t][unsigned][exact][bound][modulo][toward_zero][2][128][38][40]]
-[[uint256_t][unsigned][exact][bound][modulo][toward_zero][2][256][77][79]]
-[[uint512_t][unsigned][exact][bound][modulo][toward_zero][2][512][154][156]]
-[[cpp_int][signed][exact][unbounded][no modulo][toward_zero][2][2147483647][646392383][646392385]]
+[[bool][unsigned][exact][bound][no][to_zero][2][1][0][0]]
+[[short][signed][exact][bound][modulo][to_zero][2][15][4][6]]
+[[int][signed][exact][bound][modulo][to_zero][2][31][9][11]]
+[[unsigned][unsigned][exact][bound][modulo][to_zero][2][32][9][11]]
+[[long][signed][exact][bound][modulo][to_zero][2][31][9][11]]
+[[unsigned long][unsigned][exact][bound][modulo][to_zero][2][32][9][11]]
+[[long long][signed][exact][bound][modulo][to_zero][2][63][18][20]]
+[[unsigned long long][unsigned][exact][bound][modulo][to_zero][2][64][19][21]]
+[[int32_t][signed][exact][bound][modulo][to_zero][2][31][9][11]]
+[[int64_t][signed][exact][bound][modulo][to_zero][2][63][18][20]]
+[[int128_t][signed][exact][bound][modulo][to_zero][2][128][38][40]]
+[[int256_t][signed][exact][bound][modulo][to_zero][2][256][77][79]]
+[[int512_t][signed][exact][bound][modulo][to_zero][2][512][154][156]]
+[[uint32_t][unsigned][exact][bound][modulo][to_zero][2][32][9][11]]
+[[uint64_t][unsigned][exact][bound][modulo][to_zero][2][64][19][21]]
+[[uint128_t][unsigned][exact][bound][modulo][to_zero][2][128][38][40]]
+[[uint256_t][unsigned][exact][bound][modulo][to_zero][2][256][77][79]]
+[[uint512_t][unsigned][exact][bound][modulo][to_zero][2][512][154][156]]
+[[cpp_int][signed][exact][unbounded][no][to_zero][2][2147483647][646392383][646392385]]
 ]
 
 [table:integral_functions Integer types functions (`std::numeric_limits<T>::is_integer == true`)
-[[type][max][lowest][min]]
-[[bool][1][0][0]]
-[[short][32767][-32768][-32768]]
-[[int][2147483647][-2147483648][-2147483648]]
-[[unsigned][4294967295][0][0]]
-[[long][2147483647][-2147483648][-2147483648]]
-[[unsigned long][4294967295][0][0]]
-[[long long][9223372036854775807][-9223372036854775808][-9223372036854775808]]
-[[unsigned long long][18446744073709551615][0][0]]
-[[int32_t][2147483647][-2147483648][-2147483648]]
-[[int64_t][9223372036854775807][-9223372036854775808][-9223372036854775808]]
-[[int128_t][340282366920938463463374607431768211455][-340282366920938463463374607431768211455][-340282366920938463463374607431768211455]]
-[[int256_t][115792089237316195423570985008687907853269984665640564039457584007913129639935][-115792089237316195423570985008687907853269984665640564039457584007913129639935][-115792089237316195423570985008687907853269984665640564039457584007913129639935]]
-[[int512_t][13407807929942597099574024998205846127479365820592393377723561443721764030073546976801874298166903427690031858186486050853753882811946569946433649006084095][-13407807929942597099574024998205846127479365820592393377723561443721764030073546976801874298166903427690031858186486050853753882811946569946433649006084095][-13407807929942597099574024998205846127479365820592393377723561443721764030073546976801874298166903427690031858186486050853753882811946569946433649006084095]]
-[[uint32_t][4294967295][0][0]]
-[[uint64_t][18446744073709551615][0][0]]
-[[uint128_t][340282366920938463463374607431768211455][0][0]]
-[[uint256_t][115792089237316195423570985008687907853269984665640564039457584007913129639935][0][0]]
-[[uint512_t][13407807929942597099574024998205846127479365820592393377723561443721764030073546976801874298166903427690031858186486050853753882811946569946433649006084095][0][0]]
-[[cpp_int][0][0][0]]
+[[function][bool][char][short][unsigned short][int][unsigned int][long][unsigned long][int32_t][int64_t][int128_t][int256_t][int512_t]]
+[[max][1][127][32767][65535][2147483647][4294967295][2147483647][4294967295][2147483647][9223372036854775807][340282366920938463463374607431768211455][115792089237316195423570985008687907853269984665640564039457584007913129639935][13407807929942597099574024998205846127479365820592393377723561443721764030073546976801874298166903427690031858186486050853753882811946569946433649006084095]]
+[[lowest][0][-128][-32768][0][-2147483648][0][-2147483648][0][-2147483648][-9223372036854775808][-340282366920938463463374607431768211455][-115792089237316195423570985008687907853269984665640564039457584007913129639935][-13407807929942597099574024998205846127479365820592393377723561443721764030073546976801874298166903427690031858186486050853753882811946569946433649006084095]]
+[[min][0][-128][-32768][0][-2147483648][0][-2147483648][0][-2147483648][-9223372036854775808][-340282366920938463463374607431768211455][-115792089237316195423570985008687907853269984665640564039457584007913129639935][-13407807929942597099574024998205846127479365820592393377723561443721764030073546976801874298166903427690031858186486050853753882811946569946433649006084095]]
 ]
+[table:float_functions Floating-point types constants (`std::numeric_limits<T>::is_integer == false`)
+[[type][signed][exact][bound][modulo][round][radix][digits][digits10][max_digits10][min_exp][min_exp10][max_exp][max_exp10][tiny][trap]]
+[[float][signed][inexact][bound][no modulo][to_nearest][2][24][6][8][-125][-37][128][38][tinyness][traps]]
 
+[[double][signed][inexact][bound][no modulo][to_nearest][2][53][15][17][-1021][-307][1024][308][tinyness][traps]]
+
+[[long double][signed][inexact][bound][no modulo][to_nearest][2][53][15][17][-1021][-307][1024][308][tinyness][traps]]
+
+[[cpp_dec_float_50][signed][inexact][bound][no modulo][indeterminate][10][50][50][80][-222953000][-67108864][222953000][67108864][no][no traps.]]
+
+[[bin_128bit_double_type][signed][inexact][bound][no modulo][to_nearest][2][113][34][36][-2147483422][-646392383][2147483421][646392383][no][traps]]
+]
+[table:float_functions Floating-point types functions (`std::numeric_limits<T>::is_integer == false`)
+[[function][float][double][long double][cpp_dec_50][cpp_bin_128]][[max][3.40282e+038][1.79769e+308][1.79769e+308][1e+67108865][1.63355e+646456925]]
+[[min][1.17549e-038][2.22507e-308][2.22507e-308][1e-67108864][6.12165e-646456926]]
+[[epsilon][1.19209e-007][2.22045e-016][2.22045e-016][1e-49][1.92593e-34]]
+[[round_error][0.5][0.5][0.5][0.5][0.5]]
+[[infinity][1.#INF][1.#INF][1.#INF][inf][inf]]
+[[quiet_NaN][1.#QNAN][1.#QNAN][1.#QNAN][nan][nan]]
+[[signaling_NaN][1.#QNAN][1.#QNAN][1.#QNAN][0][0]]
+[[denorm_min][1.4013e-045][4.94066e-324][4.94066e-324][0][0]]
+]
 
 
 [endsect] [/section:limits32  Numeric limits for 32-bit platform]
