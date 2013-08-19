@@ -20,7 +20,6 @@
 
 #else
 
-#include <boost/mpl/bool.hpp>
 #include <boost/preprocessor/array/data.hpp>
 #include <boost/preprocessor/array/pop_front.hpp>
 #include <boost/preprocessor/control/iif.hpp>
@@ -29,7 +28,6 @@
 #include <boost/preprocessor/tuple/enum.hpp>
 #include <boost/preprocessor/tuple/to_array.hpp>
 #include <boost/preprocessor/variadic/to_seq.hpp>
-#include <boost/type_traits/function_traits.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/variadic_macro_data/vmd_is_begin_parens.hpp>
 
@@ -56,22 +54,36 @@ namespace boost { namespace enable_if_detail {
 enum enabler_type { enabler_type_enabler };
 
 template< class Dummy, bool C >
-struct enable_if_c_impl : boost::enable_if_c< C, enabler_type > {};
+struct enable_if_c_impl {};
+
+template< class Dummy >
+struct enable_if_c_impl< Dummy, true > { typedef enabler_type type; };
 
 template< class Dummy, bool C >
-struct disable_if_c_impl : boost::enable_if_c< !C, enabler_type > {};
+struct disable_if_c_impl {};
+
+template< class Dummy >
+struct disable_if_c_impl< Dummy, false > { typedef enabler_type type; };
 
 template< class Dummy, bool C, class LazyType >
-struct lazy_enable_if_c_impl : boost::enable_if_c< C, LazyType > {};
+struct lazy_enable_if_c_impl {};
+
+template< class Dummy, class LazyType >
+struct lazy_enable_if_c_impl< Dummy, true, LazyType >
+{ typedef LazyType type; };
 
 template< class Dummy, bool C, class LazyType >
 struct lazy_disable_if_c_impl : boost::enable_if_c< !C, LazyType > {};
 
-template< class Dummy, class C >
-struct enable_if_impl : boost::enable_if_c< C::value, enabler_type > {};
+template< class Dummy, class LazyType >
+struct lazy_disable_if_c_impl< Dummy, false, LazyType >
+{ typedef LazyType type; };
 
 template< class Dummy, class C >
-struct disable_if_impl : boost::enable_if_c< !C::value, enabler_type > {};
+struct enable_if_impl : enable_if_c_impl< Dummy, C::value > {};
+
+template< class Dummy, class C >
+struct disable_if_impl : disable_if_c_impl< Dummy, C::value > {};
 
 template< class Dummy, class C, class LazyType >
 struct lazy_enable_if_impl : boost::enable_if_c< C::value, LazyType > {};
@@ -142,9 +154,26 @@ typename ::boost::enable_if_detail::disable_if_impl                            \
 
 #define BOOST_DISABLE() BOOST_DISABLE_IF_C( true )
 
-#define BOOST_DISABLED_FUNCTION( name ) template< BOOST_DISABLE() > void name();
+#define BOOST_DISABLED_FUNCTION( name ) template< BOOST_DISABLE() >            \
+void name( ... );
 
 #define BOOST_LAZY( ... ) BOOST_LAZY_ENABLE_IF_C( true, __VA_ARGS__ )
+
+#define BOOST_ENABLE_IF_VALID_TYPE( ... )                                      \
+typename ::boost::enable_if_detail::always_enabler_type< __VA_ARGS__ >::type   \
+= ::boost::enable_if_detail::enabler_type_enabler
+
+#define BOOST_LAZY_ENABLE_IF_VALID_TYPE( types, ... )                          \
+typename ::boost::enable_if_detail::always_enabler_type                        \
+< BOOST_DETAIL_REMOVE_PARENTHESES_IF_WRAPPED( types ) >::type                  \
+= ::boost::enable_if_detail::enabler_type_enabler                              \
+BOOST_PP_SEQ_FOR_EACH                                                          \
+( BOOST_LAZY_ENABLE_IF_VALID_TYPE_DETAIL_MACRO                                 \
+, ( ::boost::enable_if_detail::always_true                                     \
+    < BOOST_DETAIL_REMOVE_PARENTHESES_IF_WRAPPED( types ) >::value             \
+  )                                                                            \
+, BOOST_PP_VARIADIC_TO_SEQ( __VA_ARGS__ )                                      \
+)
 
 #define BOOST_ENABLE_IF_EXPR( ... )                                            \
 BOOST_PP_IIF( BOOST_VMD_IS_BEGIN_PARENS( __VA_ARGS__ )                         \
@@ -199,12 +228,15 @@ BOOST_PP_SEQ_FOR_EACH                                                          \
 , BOOST_PP_VARIADIC_TO_SEQ( __VA_ARGS__ )                                      \
 )
 
-#define BOOST_LAZY_ENABLE_IF_EXPR_DETAIL_MACRO( r, condition, lazy_init )      \
+#define BOOST_LAZY_ENABLE_IF_VALID_TYPE_DETAIL_MACRO( r, condition, lazy_init )\
 , class BOOST_PP_TUPLE_ELEM( 0, lazy_init )                                    \
 = typename ::boost::enable_if_c                                                \
 < condition                                                                    \
 , BOOST_PP_TUPLE_ENUM( BOOST_DETAIL_TUPLE_POP_FRONT( lazy_init ) )             \
 >::type
+
+#define BOOST_LAZY_ENABLE_IF_EXPR_DETAIL_MACRO                                 \
+BOOST_LAZY_ENABLE_IF_VALID_TYPE_DETAIL_MACRO
 
 #define BOOST_LAZY_ENABLE_IF_C_DETAIL_MACRO( r, condition, lazy_init )         \
 , class BOOST_PP_TUPLE_ELEM( 0, lazy_init )                                    \
@@ -282,6 +314,9 @@ BOOST_PP_SEQ_FOR_EACH                                                          \
 , BOOST_PP_VARIADIC_TO_SEQ( __VA_ARGS__ )                                      \
 )
 
+#define BOOST_TYPE_ENABLE_IF_VALID_TYPE( ... )                                 \
+typename ::boost::enable_if_detail::always_void< __VA_ARGS__ >::type
+
 // Each expression must appear in parentheses or there should be exactly one
 // expression without parentheses
 #define BOOST_TYPE_ENABLE_IF_EXPR( ... )                                       \
@@ -289,6 +324,7 @@ BOOST_PP_IIF( BOOST_VMD_IS_BEGIN_PARENS( __VA_ARGS__ )                         \
             , BOOST_TYPE_ENABLE_IF_EXPR_IMPL_WITH_PAREN                        \
             , BOOST_TYPE_ENABLE_IF_EXPR_IMPL_NO_PAREN                          \
             )( __VA_ARGS__ )
+
 
 #define BOOST_TYPE_ENABLE_IF_EXPR_IMPL_WITH_PAREN( ... )                       \
 typename ::boost::enable_if_detail::always_void                                \
