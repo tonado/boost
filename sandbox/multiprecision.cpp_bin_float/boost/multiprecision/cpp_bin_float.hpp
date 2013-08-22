@@ -316,8 +316,9 @@ public:
       else if(decimal_exp >= 0)
       {
          // Nice and simple, the result is an integer...
-         n *= pow(cpp_int(10), decimal_exp);
+         n *= pow(cpp_int(5), decimal_exp);
          exponent() = (int)Bits - 1;
+         exponent() += decimal_exp;
          copy_and_round(*this, n.backend());
          if(ss != sign())
             negate();
@@ -327,9 +328,9 @@ public:
          // Result is the ratio of two integers: we need to organise the
          // division so as to produce at least an N-bit result which we can
          // round according to the remainder.
-         cpp_int d = pow(cpp_int(10), -decimal_exp);
+         cpp_int d = pow(cpp_int(5), -decimal_exp);
          int shift = (int)Bits - msb(n) + msb(d);
-         exponent() = Bits - 1;
+         exponent() = Bits - 1 + decimal_exp;
          if(shift > 0)
          {
             n <<= shift;
@@ -432,24 +433,29 @@ public:
             // to convert our denormalised number to an integer with the right number of digits:
             //
             int power10 = digits_wanted - base10_exp - 1;
+            //
+            // If we calculate 5^power10 rather than 10^power10 we need to move
+            // 2^power10 into /shift/
+            //
+            shift -= power10;
             cpp_int i;
             std::string s;
             int roundup = 0; // 0=no rounding, 1=tie, 2=up
             do
             {
                //
-               // Our integer is: bits() * 2^-shift * 10^power10
+               // Our integer is: bits() * 2^-shift * 5^power10
                //
                i = bits();
                if(shift < 0)
                {
                   i <<= -shift;
                   if(power10 > 0)
-                     i *= pow(cpp_int(10), power10);
+                     i *= pow(cpp_int(5), power10);
                   else if(power10 < 0)
                   {
                      cpp_int r;
-                     cpp_int d = pow(cpp_int(10), -power10);
+                     cpp_int d = pow(cpp_int(5), -power10);
                      divide_qr(i, d, i, r);
                      r <<= 1;
                      int c = r.compare(d);
@@ -464,7 +470,7 @@ public:
                   if(power10 >= 0)
                   {
                      if(power10)
-                        i *= pow(cpp_int(10), power10);
+                        i *= pow(cpp_int(5), power10);
                      if(shift && bit_test(i, shift - 1))
                      {
                         if((int)lsb(i) == shift - 1)
@@ -477,7 +483,7 @@ public:
                   else
                   {
                      cpp_int r;
-                     cpp_int d = pow(cpp_int(10), -power10);
+                     cpp_int d = pow(cpp_int(5), -power10);
                      d <<= shift;
                      divide_qr(i, d, i, r);
                      r <<= 1;
@@ -496,8 +502,9 @@ public:
                {
                   base10_exp += digits_got - digits_wanted;
                   if(fixed)
-                     digits_wanted = digits_got;
+                     digits_wanted = digits_got;  // strange but true.
                   power10 = digits_wanted - base10_exp - 1;
+                  shift = (int)Bits - exponent() - 1 - power10;
                   if(fixed)
                      break;
                   roundup = 0;

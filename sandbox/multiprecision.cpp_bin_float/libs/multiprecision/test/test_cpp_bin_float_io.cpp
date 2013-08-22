@@ -204,6 +204,10 @@ int main()
    using namespace boost::multiprecision;
    test<number<cpp_bin_float<113> > >();
    test_round_trip<number<cpp_bin_float<113> > >();
+
+   test<number<cpp_bin_float<53> > >();
+   test_round_trip<number<cpp_bin_float<53> > >();
+
    return boost::report_errors();
 }
 
