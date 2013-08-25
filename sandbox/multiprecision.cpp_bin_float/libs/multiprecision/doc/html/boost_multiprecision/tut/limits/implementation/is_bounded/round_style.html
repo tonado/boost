@@ -6,25 +6,29 @@
 <meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="../../../../../index.html" title="Chapter&#160;1.&#160;Boost.Multiprecision">
 <link rel="up" href="../is_bounded.html" title="is_bounded">
-<link rel="prev" href="digits10.html" title="digits10">
-<link rel="next" href="../../version_32.html" title="">
+<link rel="prev" href="max_digits10.html" title="max_digits10">
+<link rel="next" href="../version_32.html" title="">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
-<a accesskey="p" href="digits10.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../is_bounded.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="../../version_32.html"><img src="../../../../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="max_digits10.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../is_bounded.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="../version_32.html"><img src="../../../../../images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h6 class="title">
 <a name="boost_multiprecision.tut.limits.implementation.is_bounded.round_style"></a><a class="link" href="round_style.html" title="route_style">route_style</a>
 </h6></div></div></div>
 <p>
-              For integer types, round_style is always towards zero.
+              For integer types, <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">round_style</span></code>
+              is always towards zero.
             </p>
 <p>
-              For <code class="computeroutput"><span class="identifier">cpp_dec_float</span></code> rounds
+              <code class="computeroutput"><span class="identifier">cpp_dec_float</span></code> rounds
               in no particular direction, which is to say it doesn't round at all.
               And since there are guard digits, it's not really the same as truncation
               (round toward zero) either.
+            </p>
+<p>
+              For floating-point types,
             </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
@@ -37,7 +41,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="digits10.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../is_bounded.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="../../version_32.html"><img src="../../../../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="max_digits10.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../is_bounded.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="../version_32.html"><img src="../../../../../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

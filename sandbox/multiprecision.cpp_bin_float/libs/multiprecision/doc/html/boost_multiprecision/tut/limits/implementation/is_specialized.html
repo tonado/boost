@@ -36,9 +36,11 @@
             (UDT), such as the decimal and binary multiprecision types provided here.
           </p>
 <p>
-            For example, a max() function for an <a href="http://en.wikipedia.org/wiki/Arbitrary-precision_arithmetic" target="_top">arbitrary
+            For example, a <code class="computeroutput"><span class="identifier">max</span><span class="special">()</span></code>
+            function for an <a href="http://en.wikipedia.org/wiki/Arbitrary-precision_arithmetic" target="_top">arbitrary
             precision</a> type is defined only by machine resources like memory
-            or stack: so for functions like these a NaN is specified.
+            or stack: so for functions like these a NaN is specified. This avoids
+            an uncontrollable program crash like stack overflow.
           </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

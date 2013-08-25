@@ -7,11 +7,11 @@
 <link rel="home" href="../../../../index.html" title="Chapter&#160;1.&#160;Boost.Multiprecision">
 <link rel="up" href="../implementation.html" title="Implementation Notes">
 <link rel="prev" href="is_specialized.html" title="is_specialized">
-<link rel="next" href="is_bounded.html" title="is_bounded">
+<link rel="next" href="signed.html" title="is_signed">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
-<a accesskey="p" href="is_specialized.html"><img src="../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../implementation.html"><img src="../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../index.html"><img src="../../../../images/home.png" alt="Home"></a><a accesskey="n" href="is_bounded.html"><img src="../../../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="is_specialized.html"><img src="../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../implementation.html"><img src="../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../index.html"><img src="../../../../images/home.png" alt="Home"></a><a accesskey="n" href="signed.html"><img src="../../../../images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h5 class="title">
@@ -19,11 +19,11 @@
 </h5></div></div></div>
 <p>
             For floating-point types, infinity is defined whereever possible, but
-            clearly not for <a href="http://en.wikipedia.org/wiki/Arbitrary-precision_arithmetic" target="_top">arbitrary
+            clearly is meaningless for <a href="http://en.wikipedia.org/wiki/Arbitrary-precision_arithmetic" target="_top">arbitrary
             precision</a> arithmetic backends.
           </p>
 <p>
-            A typical test is
+            A typical test whether infinity is implemented is
           </p>
 <pre class="programlisting"><span class="keyword">if</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">has_infinity</span><span class="special">)</span>
 <span class="special">{</span>
@@ -35,7 +35,7 @@
           </p>
 <p>
             If the backend is switched to a type that does not support infinity,
-            there will be trouble.
+            without checks like this, there will be trouble.
           </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
@@ -48,7 +48,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="is_specialized.html"><img src="../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../implementation.html"><img src="../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../index.html"><img src="../../../../images/home.png" alt="Home"></a><a accesskey="n" href="is_bounded.html"><img src="../../../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="is_specialized.html"><img src="../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../implementation.html"><img src="../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../index.html"><img src="../../../../images/home.png" alt="Home"></a><a accesskey="n" href="signed.html"><img src="../../../../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

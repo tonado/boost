@@ -6,12 +6,12 @@
 <meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="../../../../../index.html" title="Chapter&#160;1.&#160;Boost.Multiprecision">
 <link rel="up" href="../is_bounded.html" title="is_bounded">
-<link rel="prev" href="radix.html" title="radix">
-<link rel="next" href="round_style.html" title="route_style">
+<link rel="prev" href="digits.html" title="digits">
+<link rel="next" href="max_digits10.html" title="max_digits10">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
-<a accesskey="p" href="radix.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../is_bounded.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="round_style.html"><img src="../../../../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="digits.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../is_bounded.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="max_digits10.html"><img src="../../../../../images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h6 class="title">
@@ -19,26 +19,49 @@
 </h6></div></div></div>
 <p>
               Constant <code class="computeroutput"><span class="identifier">digits</span></code> returns
-              "Number of digits (in decimal base) that can be represented without
-              change".
             </p>
+<pre class="programlisting"><span class="identifier">Number</span> <span class="identifier">of</span> <span class="identifier">digits</span> <span class="special">(</span><span class="identifier">in</span> <span class="identifier">decimal</span> <span class="identifier">base</span><span class="special">)</span> <span class="identifier">that</span> <span class="identifier">can</span> <span class="identifier">be</span> <span class="identifier">represented</span> <span class="identifier">without</span> <span class="identifier">change</span><span class="special">.</span>
+</pre>
 <p>
               For bounded integers, it is one less than number of decimal digits
               you need to display the biggest integer. This value can be used to
               predict the layout width required for
             </p>
-<pre class="programlisting"><span class="special">&lt;&lt;</span> <span class="identifier">width</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_linits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span> <span class="identifier">digits10</span> <span class="special">+</span><span class="number">1</span> <span class="special">+</span><span class="number">2</span><span class="special">)</span> <span class="comment">// +1 for sign, and 2 spaces.</span>
+<pre class="programlisting"><span class="special">&lt;&lt;</span> <span class="identifier">width</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_linits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">digits10</span> <span class="special">+</span><span class="number">1</span> <span class="special">+</span><span class="number">1</span> <span class="special">+</span><span class="number">1</span><span class="special">)</span> <span class="comment">// digits10+1, and +1 for sign, and 1 space.</span>
 </pre>
 <p>
-              For bounded floating-point types, this is the number of decimal digits
-              guaranteed to be correct.
+              For example, <code class="computeroutput"><span class="keyword">unsigned</span> <span class="keyword">short</span></code> might be stored in 16 bits, so
+              the maximum value is 0xFFFF or
             </p>
 <p>
-              (But for most purposes, you will more likely want max_digits10, the
-              number of decimal digits that ensure that a change of one least significant
-              bit (ULP) produces a difference. The last two (or 3) digits are 'noisy',
-              but ifyou want to 'round-trip' printing a value out and reading it
-              back in, you must use <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;&gt;::</span><span class="identifier">max_digits10</span></code>.
+              For bounded floating-point types, this is the number of decimal digits
+              <span class="bold"><strong>guaranteed</strong></span> to be correct.
+            </p>
+<p>
+              For example, <code class="computeroutput"><span class="keyword">float</span></code>
+            </p>
+<p>
+              (But for most purposes, you will more likely want <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;&gt;::</span><span class="identifier">max_digits10</span></code>,
+              the number of decimal digits that ensure that a change of one least
+              significant bit (ULP) produces a different decimal digits string.
+            </p>
+<p>
+              For nearly all floating-point types, <code class="computeroutput"><span class="identifier">max_digits10</span></code>
+              is <code class="computeroutput"><span class="identifier">digits10</span><span class="special">+</span><span class="number">2</span></code>, but you should use <code class="computeroutput"><span class="identifier">max_digits10</span></code>
+              where possible.
+            </p>
+<p>
+              If <code class="computeroutput"><span class="identifier">max_digits10</span></code> is
+              not avilable, you should using the Kahan formula for floating-point
+              type T
+            </p>
+<pre class="programlisting"><span class="identifier">max_digits10</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">digits</span> <span class="special">*</span> <span class="number">3010U</span><span class="special">/</span><span class="number">10000U</span><span class="special">;</span>
+</pre>
+<p>
+              The extra two (or 3) digits are 'noisy', but if you want to 'round-trip'
+              printing a value out and reading it back in, you must use <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;&gt;::</span><span class="identifier">max_digits10</span></code>. For at least one popular
+              compiler, you should also use <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">scientific</span></code>
+              format.
             </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
@@ -51,7 +74,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="radix.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../is_bounded.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="round_style.html"><img src="../../../../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="digits.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../is_bounded.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="max_digits10.html"><img src="../../../../../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

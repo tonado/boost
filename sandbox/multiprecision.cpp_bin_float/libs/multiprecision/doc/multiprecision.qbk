@@ -1850,7 +1850,8 @@ generic operations, and so function equally well for built in and multiprecision
 [section:limits Numeric Limits]
 
 Boost.Multiprecision tries hard to implement `std::numeric_limits` for all types
-as far as possible and meaningful.
+as far as possible and meaningful because experience with Boost.Math
+has shown that this aids portability.
 
 The [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3690.pdf C++ standard library]
 defines `std::numeric_limits` in section 18.3.2.
@@ -1859,7 +1860,8 @@ This in turn refers to the C standard
 [@http://www.open-std.org/jtc1/sc22/wg11/docs/n507.pdf SC22/WG11 N507 DRAFT INTERNATIONAL ISO/IEC STANDARD
  WD 10967-1]
 Information technology Language independent arithmetic Part 1: Integer and Floating point arithmetic.
-that in turn refers to
+
+That C Standard in turn refers to
 
 [@http://754r.ucbtest.org/standards/754.pdf IEEE754 IEEE Standard for Binary
 Floating-Point Arithmetic]
@@ -1867,17 +1869,24 @@ Floating-Point Arithmetic]
 There is a useful summary at
 [@http://www.cplusplus.com/reference/limits/numeric_limits/ C++ reference].
 
-[section:implementation Implementation Notes]
+[section:implementation Notes on Implementation of `std::numeric_limits`]
 
-The chosen backend often determines how far `std::numeric_limits` is available.
+The chosen backend often determines how completely `std::numeric_limits` is available.
+
+Compiler options, processor type, and definition of macros or assembler instructions to control denormal numbers will alter
+the values in the tables given below.
 
 [warning GMP and MPFR do not have a concept of overflow:
 operations that lead to overflow eventually run of out of resources
 and terminate with stack overflow (often after several seconds).]
 
+[section:constants std::numeric_limits<>  constants]
+
+
 [section:is_specialized is_specialized]
 
-`true` for all arithmetic types - those for which numeric_limits is specialized.
+`true` for all arithmetic types (integer, floating and fixed-point)
+for which `std::numeric_limits<T>::numeric_limits` is specialized.
 
 A typical test is
 
@@ -1890,8 +1899,11 @@ A typical test is
 However, not all the `std::numeric_limits` member constants and functions are meaningful for all user-defined types (UDT),
 such as the decimal and binary multiprecision types provided here.
 
-For example, a max() function for an __arbitrary_precision type is defined
-only by machine resources like memory or stack: so for functions like these a NaN is specified.
+For example, a `max()` function for an __arbitrary_precision type is defined
+only by machine resources like memory or stack:
+so for functions like these a NaN
+`std::numeric_limits<T>::numeric_limits::quiet_NaN()` is specified.
+This avoids an uncontrollable program crash like stack overflow.
 
 [endsect] [/section:is_specialized is_specialized]
 
@@ -1899,9 +1911,9 @@ only by machine resources like memory or stack: so for functions like these a Na
 [section:infinity infinity]
 
 For floating-point types, infinity is defined whereever possible,
-but clearly not for __arbitrary_precision arithmetic backends.
+but clearly infinity is meaningless for __arbitrary_precision arithmetic backends.
 
-A typical test is
+A typical test whether infinity is implemented is
 
   if(std::numeric_limits<T>::has_infinity)
   {
@@ -1910,17 +1922,110 @@ A typical test is
 
 and using tests like this is strongly recommended to improve portability.
 
-If the backend is switched to a type that does not support infinity, there will be trouble.
+If the backend is switched to a type that does not support infinity then,
+without checks like this, there will be trouble.
 
 [endsect] [/section:infinity infinity]
 
+[section:signed is_signed]
+
+`true` if the type is signed.
+
+For built-in binary types, the sign is usually held in a single bit,
+but for other types it may be a separate storage element, usually `bool`.
+
+[endsect] [/section:signed signed]
+
+[section:exact is_exact]
+
+`true` if type uses exact representations.
+
+This is defined as `true` for all integer types and `false` for floating-point types.
+
+[@http://stackoverflow.com/questions/14203654/stdnumeric-limitsis-exact-what-is-a-usable-definition A usable definition]
+has been discussed.
+
+ISO/IEC 10967-1, Language independent arithmetic, noted by the C++ Standard defines
+
+  A floating point type F shall be a finite subset of [real].
+
+The important practical distinction is that all integers (up to `max()`) can be stored exactly.
+
+[@http://en.wikipedia.org/wiki/Rational_number Rational]
+types using two integer types are also exact.
+
+Floating-point types [*cannot store all real values]
+(those in the set of [real]) [*exactly].
+For example, 0.5 can be stored exactly in a binary floating-point, but 0.1 cannot.
+What is stored is the nearest representable real value, that is, rounded to nearest.
+
+Fixed-point types (usually decimal) are also defined as exact, in that they only
+store a [*fixed precision], so half cents or pennies (or less) cannot be stored.
+The results of computations are rounded up or down,
+just like the result of integer division stored as an integer result.
+
+There are number of proposals to
+[*http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2012/n3407.html
+add Decimal Floating Point Support to C++].
+
+And also
+[*http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2012/n3352.html
+C++ Binary Fixed-Point Arithmetic].
+
+[endsect] [/section:exact is_exact]
+
+[section:bound is_bound]
+
+`true` if the set of values represented by the type is finite.
+
+This is `true` for all built-in integer and floating-point types,
+and most multi-precision types.
+
+It is only `false` for a few __arbitrary_precision types like `cpp_int`.
+
+Rational and fixed-exponent representations are exact but not integer.
+
+[endsect] [/ section:bound is_bound]
+
+[section:modulo is_modulo]
+
+`is_modulo` is defined as `true` if adding two positive values of type T
+can yield a result less than either value.
+
+`is_modulo == true` means that the type does not overflow, but, for example,
+'wraps around' to zero, when adding one to the `max()` value.
+
+For most built-in integer types, `std::numeric_limits<>::is_modulo` is `true`.
+
+`bool` is the only exception.
+
+The modulo behaviour is sometimes useful, often irrelevent
+(with 32 or more bit integers),
+but also can be unexpected, and sometimes undesired, behaviour.
+
+Overflow of signed integers can be especially unexpected, possibly causing change of sign.
+
+Boost.Multiprecision integer type `cpp_int` is not modulo because as an __arbitrary_precision types,
+it expands to hold any value that the machine resources permit.
+
+Built-in and multi-precision floating-point types are normally not modulo.
+
+Where possible, overflow is to `std::numeric_limits<>::infinity()`,
+provided `std::numeric_limits<>::has_infinity.== true`.
+
+[endsect] [/section:modulo is_modulo]
+
 [section:is_bounded is_bounded]
 
-Constant `std::numeric_limits<T>::is_bounded` is true if there is a limit to values that can be stored.
+Constant `std::numeric_limits<T>::is_bounded`
+is true if there is a limit to values that can be stored.
 
-Thisis obviously true for built-in integer and floating-point types,
-but will be false for __arbitrary_precision integer and floating-point types
-because these expand until memory is exhausted.
+This is obviously true for built-in integer and floating-point types,
+but will be false for __arbitrary_precision integer (for example `cpp_int`)
+and floating-point types because these expand until memory is exhausted.
+
+[endsect] [/section:is_bounded is_bounded]
+
 
 [section:radix radix]
 
@@ -1928,44 +2033,205 @@ Constant radix returns either 2 (for built-in and binary types) or 10 (for decim
 
 [endsect] [/section:radix radix]
 
-[section:digits10 digits10]
+[section:digits digits]
 
-Constant `digits` returns "Number of digits (in decimal base) that can be represented without change".
+The number of `radix` digits that be represented without change:
 
-For bounded integers, it is one less than number of decimal digits you need to display the biggest integer.
-This value can be used to predict the layout width required for
+* for integer types, the number of non-sign bits in the mantissa.
+* for floating types, the number of radix digits in the mantissa.
 
-  << width(std::numeric_linits<T>:: digits10 +1 +2) // +1 for sign, and 2 spaces.
+For the most common case of `radix == 2`,
+`std::numeric_limits<T>::digits` is the number of bits in the representation,
+not counting any sign bit.
 
-For bounded floating-point types, this is the number of decimal digits guaranteed to be correct.
-
-(But for most purposes, you will more likely want max_digits10,
-the number of decimal digits that ensure that a change of one least significant bit (ULP) produces a difference.
-The last two (or 3) digits are 'noisy', but ifyou want to 'round-trip' printing a value out and reading it back in,
-you must use `std::numeric_limits<>::max_digits10`.
-
+For a decimal integer type, when `radix == 10`, it is the number of decimal digits.
 
 [endsect] [/section:digits digits]
 
 
+[section:digits10 digits10]
+
+Constant `std::numeric_limits<T>::digits` returns
+
+  Number of digits (in decimal base) that can be represented without change.
+
+For bounded integers, it is one less than number of decimal digits you need to display the biggest integer.
+This value can be used to predict the layout width required for
+
+  << width(std::numeric_linits<T>::digits10 +1 +1 +1) // digits10+1, and +1 for sign, and 1 space.
+
+For example, `unsigned short` might be stored in 16 bits, so the maximum value is 0xFFFF or
+
+For bounded floating-point types, this is the number of decimal digits [*guaranteed]
+to be correct.
+
+For example, 'round-tripping' for `double`:
+
+If a decimal string with at most `digits10`( == 15) significant decimal digits
+is converted to `double` and then converted back to the
+same number of significant decimal digits,
+then the final string should match the original decimal digit string.
+
+If a `double` floating-point number is converted to a decimal string
+with at least 17 decimal digits
+and then converted back to `double`,
+then the final number value must match the original.
+
+(But for most purposes, you will more likely want `std::numeric_limits<>::max_digits10`,
+the number of decimal digits that ensure that a change of one least significant bit (ULP)
+produces a different decimal digits string.
+
+For nearly all floating-point types, `max_digits10` is `digits10+2`,
+but you should use `max_digits10` where possible.
+
+If `max_digits10` is not available, you should using the
+[@http://www.cs.berkeley.edu/~wkahan/ieee754status/IEEE754.PDF Kahan formula for floating-point type T]
+
+   max_digits10 = std::numeric_limits<T>::digits * 3010U/10000U;
+
+The factor is log[sub 10](2) = 0.3010
+but must be evaluated at compile time with only integers.
+
+(See also
+[@http://www.loria.fr/~zimmerma/mca/mca-cup-0.5.9.pdf Richard P. Brent and Paul Zimmerman, Modern Computer Arithmetic]
+Equation 3.8 on page 116.).
+
+The extra two (or 3) digits are 'noisy',
+but if you want to 'round-trip' printing a value out and reading it back in,
+you must use `std::numeric_limits<T>::max_digits10`.
+For at least one popular compiler, you must also use `std::scientific` format.
+
+[endsect] [/section:digits digits]
+
+[section:max_digits10 max_digits10]
+
+`std::numeric_limits<T>::max_digits10` was added for floating-point
+because `digits10` decimal digits are insufficient to 'round-trip', for example:
+
+  double write = 1.234567890; // For any arbitrary value.
+  double read = 0;
+  std::stringstream s;
+  s.precision(std::numeric_limits<double>::max_digits10) // for 64-bit IEE754 double.
+  s << std::scientific << write; // See note below on why to use scientific format.
+  s >> read;
+  assert (read == write);
+
+If you wish to ensure that a change of one least significant bit (ULP)
+produces a different decimal digits string, then this is the precision to use.
+
+For example:
+
+  double pi = boost::math::constants::pi();
+  cout.precision(std::numeric_limits<double>::max_digits10);
+  std::cout << pi << endl;
+
+will display pi[] to the maximum possible precision using a `double`.
+
+For integer types, the value is un-defined, but is usually `digits10` + 2.
+
+[note For Microsoft Visual Studio 2010,
+`std::numeric_limits<float>::max_digits10` is wrongly defined as 8. It should be 9.]
+
+[note For Microsoft Visual Studio, and default float format, a small range of values
+approximately 0.0001 to 0.004, with exponent values of 3f2 to 3f6,
+are wrongly input by one least significant bit,
+probably every third value of significand.
+
+This can be avoided by using scientific or exponential format `<< std::scientific`.]
+
+[note BOOST_NO_NUMERIC_LIMITS_LOWEST is a suitable proxy to determine if
+`std::numeric_limits<float>::max_digits10` is implemented on any platform.
+If `max_digits10` is not available, you should using the
+[@http://www.cs.berkeley.edu/~wkahan/ieee754status/IEEE754.PDF Kahan formula for floating-point type T].
+See above.]
+
+[endsect] [/section:max_digits10 max_digits10]
+
+
 [section:round_style route_style]
 
-For integer types, round_style is always towards zero.
+For integer types, `std::numeric_limits<T>::round_style` is always towards zero, so
 
-For `cpp_dec_float` rounds in no particular direction, which is to say it doesn't round at all.
-And since there are guard digits, it's not really the same as truncation (round toward zero) either.
+  std::numeric_limits<T>::round_style == std::round_to_zero;
 
+`cpp_dec_float` rounds in no particular direction,
+which is to say it doesn't round at all.
+And since there are guard digits,
+it's not really the same as truncation (round toward zero) either.
 
+For floating-point types, it is normal to round to nearest.
 
+  std::numeric_limits<T>::round_style == std::round_to_nearest;
 
 [endsect] [/section:round_style route_style]
 
+[section:denorm_loss has_denorm_loss]
 
-[endsect] [/section:is_bounded is_bounded]
+`true` if a loss of accuracy is detected as a denormalization loss,
+rather than an inexact result.
+
+Always `false` for integer types.
+
+`false` for all types which do not have `has_denorm` == `std::denorm_present`.
+
+[endsect] [/section:denorm_loss has_denorm_loss]
+
+[section:denorm_style denorm_style]
+
+[@http://en.wikipedia.org/wiki/Denormal_number Denormalized values] are
+representations with a variable number of exponent bits that can permit
+gradual underflow, so that.
+
+ std::numeric_limits<T>::denorm_min() < std::numeric_limits<T>::min()
+
+A type may have any of the following `enum float_denorm_style` values:
+
+* `std::denorm_absent`, if it does not allow denormalized values.
+(Always used for all integer and exact types).
+* `std::denorm_present`, if the floating-point type allows denormalized values.
+*`std::denorm_indeterminate`, if indeterminate at compile time.
+
+[endsect] [/section:denorm_style denorm_style]
+
+[endsect] [/section:constants std::numeric_limits<>  constants]
+
+[section:constants std::numeric_limits<>  functions]
+
+[section:max max function]
+
+`max()` returns the largest finite value that can be represented by the type.
+
+For built-in types there is usually a corresponding MACRO value TYPE_MAX,
+where TYPE is CHAR, INT, FLOAT etc.
+
+Other types, including those provided by a typedef,
+for example `INT64_T_MAX` for `int64_t`, may provide a macro definition.
+
+[endsect] [/section:max max function]
+
+
+[section:lowest lowest function]
+
+[endsect] [/section:lowest lowest function]
+
+[section:min min function]
+
+
+`min()` returns the largest finite value that can be represented by the type.
+
+For built-in types there is usually a corresponding MACRO value TYPE_MIN,
+where TYPE is CHAR, INT, FLOAT etc.
+
+Other types, including those provided by a typedef,
+for example `INT64_T_MIN` for `int64_t`, may provide a macro definition.
+
+
+[endsect] [/section:min min function]
+
+[endsect] [/section:constants std::numeric_limits<>  functions]
 
 
 [endsect] [/section:implementation Implementation Notes]
-
 
 
 [include numeric_limits_32_tables.qbk]

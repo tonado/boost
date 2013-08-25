@@ -6,7 +6,7 @@
 <meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Boost.Multiprecision">
 <link rel="up" href="../limits.html" title="Numeric Limits">
-<link rel="prev" href="version_32.html" title="">
+<link rel="prev" href="version_32.html" title="32-bit version information used for tables below.">
 <link rel="next" href="../../ref.html" title="Reference">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -20,12 +20,12 @@
 </h4></div></div></div>
 <div class="table">
 <a name="boost_multiprecision.tut.limits.limits32.integral_constants"></a><p class="title"><b>Table&#160;1.4.&#160;Integer types constants (<code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">is_integer</span>
-          <span class="special">==</span> <span class="keyword">true</span></code>)</b></p>
+          <span class="special">==</span> <span class="keyword">true</span></code>
+          &amp;&amp; is_exact == true)</b></p>
 <div class="table-contents"><table class="table" summary="Integer types constants (std::numeric_limits&lt;T&gt;::is_integer
-          == true)">
+          == true
+          &amp;&amp; is_exact == true)">
 <colgroup>
-<col>
-<col>
 <col>
 <col>
 <col>
@@ -44,11 +44,6 @@
 <th>
                   <p>
                     signed
-                  </p>
-                </th>
-<th>
-                  <p>
-                    exact
                   </p>
                 </th>
 <th>
@@ -81,11 +76,6 @@
                     digits10
                   </p>
                 </th>
-<th>
-                  <p>
-                    max_digits10
-                  </p>
-                </th>
 </tr></thead>
 <tbody>
 <tr>
@@ -101,11 +91,6 @@
                 </td>
 <td>
                   <p>
-                    exact
-                  </p>
-                </td>
-<td>
-                  <p>
                     bound
                   </p>
                 </td>
@@ -116,7 +101,7 @@
                 </td>
 <td>
                   <p>
-                    to_zero
+                    to zero
                   </p>
                 </td>
 <td>
@@ -134,9 +119,172 @@
                     0
                   </p>
                 </td>
+</tr>
+<tr>
 <td>
                   <p>
-                    0
+                    char
+                  </p>
+                </td>
+<td>
+                  <p>
+                    signed
+                  </p>
+                </td>
+<td>
+                  <p>
+                    bound
+                  </p>
+                </td>
+<td>
+                  <p>
+                    modulo
+                  </p>
+                </td>
+<td>
+                  <p>
+                    to zero
+                  </p>
+                </td>
+<td>
+                  <p>
+                    2
+                  </p>
+                </td>
+<td>
+                  <p>
+                    7
+                  </p>
+                </td>
+<td>
+                  <p>
+                    2
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    char16_t
+                  </p>
+                </td>
+<td>
+                  <p>
+                    unsigned
+                  </p>
+                </td>
+<td>
+                  <p>
+                    bound
+                  </p>
+                </td>
+<td>
+                  <p>
+                    modulo
+                  </p>
+                </td>
+<td>
+                  <p>
+                    to zero
+                  </p>
+                </td>
+<td>
+                  <p>
+                    2
+                  </p>
+                </td>
+<td>
+                  <p>
+                    16
+                  </p>
+                </td>
+<td>
+                  <p>
+                    4
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    char32_t
+                  </p>
+                </td>
+<td>
+                  <p>
+                    unsigned
+                  </p>
+                </td>
+<td>
+                  <p>
+                    bound
+                  </p>
+                </td>
+<td>
+                  <p>
+                    modulo
+                  </p>
+                </td>
+<td>
+                  <p>
+                    to zero
+                  </p>
+                </td>
+<td>
+                  <p>
+                    2
+                  </p>
+                </td>
+<td>
+                  <p>
+                    32
+                  </p>
+                </td>
+<td>
+                  <p>
+                    9
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    unsigned char
+                  </p>
+                </td>
+<td>
+                  <p>
+                    unsigned
+                  </p>
+                </td>
+<td>
+                  <p>
+                    bound
+                  </p>
+                </td>
+<td>
+                  <p>
+                    modulo
+                  </p>
+                </td>
+<td>
+                  <p>
+                    to zero
+                  </p>
+                </td>
+<td>
+                  <p>
+                    2
+                  </p>
+                </td>
+<td>
+                  <p>
+                    8
+                  </p>
+                </td>
+<td>
+                  <p>
+                    2
                   </p>
                 </td>
 </tr>
@@ -153,11 +301,6 @@
                 </td>
 <td>
                   <p>
-                    exact
-                  </p>
-                </td>
-<td>
-                  <p>
                     bound
                   </p>
                 </td>
@@ -168,7 +311,7 @@
                 </td>
 <td>
                   <p>
-                    to_zero
+                    to zero
                   </p>
                 </td>
 <td>
@@ -186,9 +329,46 @@
                     4
                   </p>
                 </td>
+</tr>
+<tr>
 <td>
                   <p>
-                    6
+                    unsigned short
+                  </p>
+                </td>
+<td>
+                  <p>
+                    unsigned
+                  </p>
+                </td>
+<td>
+                  <p>
+                    bound
+                  </p>
+                </td>
+<td>
+                  <p>
+                    modulo
+                  </p>
+                </td>
+<td>
+                  <p>
+                    to zero
+                  </p>
+                </td>
+<td>
+                  <p>
+                    2
+                  </p>
+                </td>
+<td>
+                  <p>
+                    16
+                  </p>
+                </td>
+<td>
+                  <p>
+                    4
                   </p>
                 </td>
 </tr>
@@ -205,11 +385,6 @@
                 </td>
 <td>
                   <p>
-                    exact
-                  </p>
-                </td>
-<td>
-                  <p>
                     bound
                   </p>
                 </td>
@@ -220,7 +395,7 @@
                 </td>
 <td>
                   <p>
-                    to_zero
+                    to zero
                   </p>
                 </td>
 <td>
@@ -238,11 +413,6 @@
                     9
                   </p>
                 </td>
-<td>
-                  <p>
-                    11
-                  </p>
-                </td>
 </tr>
 <tr>
 <td>
@@ -257,11 +427,6 @@
                 </td>
 <td>
                   <p>
-                    exact
-                  </p>
-                </td>
-<td>
-                  <p>
                     bound
                   </p>
                 </td>
@@ -272,7 +437,7 @@
                 </td>
 <td>
                   <p>
-                    to_zero
+                    to zero
                   </p>
                 </td>
 <td>
@@ -288,11 +453,6 @@
 <td>
                   <p>
                     9
-                  </p>
-                </td>
-<td>
-                  <p>
-                    11
                   </p>
                 </td>
 </tr>
@@ -309,11 +469,6 @@
                 </td>
 <td>
                   <p>
-                    exact
-                  </p>
-                </td>
-<td>
-                  <p>
                     bound
                   </p>
                 </td>
@@ -324,7 +479,7 @@
                 </td>
 <td>
                   <p>
-                    to_zero
+                    to zero
                   </p>
                 </td>
 <td>
@@ -340,11 +495,6 @@
 <td>
                   <p>
                     9
-                  </p>
-                </td>
-<td>
-                  <p>
-                    11
                   </p>
                 </td>
 </tr>
@@ -361,11 +511,6 @@
                 </td>
 <td>
                   <p>
-                    exact
-                  </p>
-                </td>
-<td>
-                  <p>
                     bound
                   </p>
                 </td>
@@ -376,7 +521,7 @@
                 </td>
 <td>
                   <p>
-                    to_zero
+                    to zero
                   </p>
                 </td>
 <td>
@@ -394,11 +539,6 @@
                     9
                   </p>
                 </td>
-<td>
-                  <p>
-                    11
-                  </p>
-                </td>
 </tr>
 <tr>
 <td>
@@ -413,11 +553,6 @@
                 </td>
 <td>
                   <p>
-                    exact
-                  </p>
-                </td>
-<td>
-                  <p>
                     bound
                   </p>
                 </td>
@@ -428,7 +563,7 @@
                 </td>
 <td>
                   <p>
-                    to_zero
+                    to zero
                   </p>
                 </td>
 <td>
@@ -446,11 +581,6 @@
                     18
                   </p>
                 </td>
-<td>
-                  <p>
-                    20
-                  </p>
-                </td>
 </tr>
 <tr>
 <td>
@@ -465,11 +595,6 @@
                 </td>
 <td>
                   <p>
-                    exact
-                  </p>
-                </td>
-<td>
-                  <p>
                     bound
                   </p>
                 </td>
@@ -480,7 +605,7 @@
                 </td>
 <td>
                   <p>
-                    to_zero
+                    to zero
                   </p>
                 </td>
 <td>
@@ -498,11 +623,6 @@
                     19
                   </p>
                 </td>
-<td>
-                  <p>
-                    21
-                  </p>
-                </td>
 </tr>
 <tr>
 <td>
@@ -517,11 +637,6 @@
                 </td>
 <td>
                   <p>
-                    exact
-                  </p>
-                </td>
-<td>
-                  <p>
                     bound
                   </p>
                 </td>
@@ -532,7 +647,7 @@
                 </td>
 <td>
                   <p>
-                    to_zero
+                    to zero
                   </p>
                 </td>
 <td>
@@ -550,219 +665,6 @@
                     9
                   </p>
                 </td>
-<td>
-                  <p>
-                    11
-                  </p>
-                </td>
-</tr>
-<tr>
-<td>
-                  <p>
-                    int64_t
-                  </p>
-                </td>
-<td>
-                  <p>
-                    signed
-                  </p>
-                </td>
-<td>
-                  <p>
-                    exact
-                  </p>
-                </td>
-<td>
-                  <p>
-                    bound
-                  </p>
-                </td>
-<td>
-                  <p>
-                    modulo
-                  </p>
-                </td>
-<td>
-                  <p>
-                    to_zero
-                  </p>
-                </td>
-<td>
-                  <p>
-                    2
-                  </p>
-                </td>
-<td>
-                  <p>
-                    63
-                  </p>
-                </td>
-<td>
-                  <p>
-                    18
-                  </p>
-                </td>
-<td>
-                  <p>
-                    20
-                  </p>
-                </td>
-</tr>
-<tr>
-<td>
-                  <p>
-                    int128_t
-                  </p>
-                </td>
-<td>
-                  <p>
-                    signed
-                  </p>
-                </td>
-<td>
-                  <p>
-                    exact
-                  </p>
-                </td>
-<td>
-                  <p>
-                    bound
-                  </p>
-                </td>
-<td>
-                  <p>
-                    modulo
-                  </p>
-                </td>
-<td>
-                  <p>
-                    to_zero
-                  </p>
-                </td>
-<td>
-                  <p>
-                    2
-                  </p>
-                </td>
-<td>
-                  <p>
-                    128
-                  </p>
-                </td>
-<td>
-                  <p>
-                    38
-                  </p>
-                </td>
-<td>
-                  <p>
-                    40
-                  </p>
-                </td>
-</tr>
-<tr>
-<td>
-                  <p>
-                    int256_t
-                  </p>
-                </td>
-<td>
-                  <p>
-                    signed
-                  </p>
-                </td>
-<td>
-                  <p>
-                    exact
-                  </p>
-                </td>
-<td>
-                  <p>
-                    bound
-                  </p>
-                </td>
-<td>
-                  <p>
-                    modulo
-                  </p>
-                </td>
-<td>
-                  <p>
-                    to_zero
-                  </p>
-                </td>
-<td>
-                  <p>
-                    2
-                  </p>
-                </td>
-<td>
-                  <p>
-                    256
-                  </p>
-                </td>
-<td>
-                  <p>
-                    77
-                  </p>
-                </td>
-<td>
-                  <p>
-                    79
-                  </p>
-                </td>
-</tr>
-<tr>
-<td>
-                  <p>
-                    int512_t
-                  </p>
-                </td>
-<td>
-                  <p>
-                    signed
-                  </p>
-                </td>
-<td>
-                  <p>
-                    exact
-                  </p>
-                </td>
-<td>
-                  <p>
-                    bound
-                  </p>
-                </td>
-<td>
-                  <p>
-                    modulo
-                  </p>
-                </td>
-<td>
-                  <p>
-                    to_zero
-                  </p>
-                </td>
-<td>
-                  <p>
-                    2
-                  </p>
-                </td>
-<td>
-                  <p>
-                    512
-                  </p>
-                </td>
-<td>
-                  <p>
-                    154
-                  </p>
-                </td>
-<td>
-                  <p>
-                    156
-                  </p>
-                </td>
 </tr>
 <tr>
 <td>
@@ -777,11 +679,6 @@
                 </td>
 <td>
                   <p>
-                    exact
-                  </p>
-                </td>
-<td>
-                  <p>
                     bound
                   </p>
                 </td>
@@ -792,7 +689,7 @@
                 </td>
 <td>
                   <p>
-                    to_zero
+                    to zero
                   </p>
                 </td>
 <td>
@@ -810,9 +707,46 @@
                     9
                   </p>
                 </td>
+</tr>
+<tr>
 <td>
                   <p>
-                    11
+                    int64_t
+                  </p>
+                </td>
+<td>
+                  <p>
+                    signed
+                  </p>
+                </td>
+<td>
+                  <p>
+                    bound
+                  </p>
+                </td>
+<td>
+                  <p>
+                    modulo
+                  </p>
+                </td>
+<td>
+                  <p>
+                    to zero
+                  </p>
+                </td>
+<td>
+                  <p>
+                    2
+                  </p>
+                </td>
+<td>
+                  <p>
+                    63
+                  </p>
+                </td>
+<td>
+                  <p>
+                    18
                   </p>
                 </td>
 </tr>
@@ -829,11 +763,6 @@
                 </td>
 <td>
                   <p>
-                    exact
-                  </p>
-                </td>
-<td>
-                  <p>
                     bound
                   </p>
                 </td>
@@ -844,7 +773,7 @@
                 </td>
 <td>
                   <p>
-                    to_zero
+                    to zero
                   </p>
                 </td>
 <td>
@@ -862,26 +791,16 @@
                     19
                   </p>
                 </td>
-<td>
-                  <p>
-                    21
-                  </p>
-                </td>
 </tr>
 <tr>
 <td>
                   <p>
-                    uint128_t
+                    int128_t
                   </p>
                 </td>
 <td>
                   <p>
-                    unsigned
-                  </p>
-                </td>
-<td>
-                  <p>
-                    exact
+                    signed
                   </p>
                 </td>
 <td>
@@ -896,7 +815,7 @@
                 </td>
 <td>
                   <p>
-                    to_zero
+                    to zero
                   </p>
                 </td>
 <td>
@@ -914,26 +833,16 @@
                     38
                   </p>
                 </td>
-<td>
-                  <p>
-                    40
-                  </p>
-                </td>
 </tr>
 <tr>
 <td>
                   <p>
-                    uint256_t
+                    uint128_t
                   </p>
                 </td>
 <td>
                   <p>
                     unsigned
-                  </p>
-                </td>
-<td>
-                  <p>
-                    exact
                   </p>
                 </td>
 <td>
@@ -948,7 +857,49 @@
                 </td>
 <td>
                   <p>
-                    to_zero
+                    to zero
+                  </p>
+                </td>
+<td>
+                  <p>
+                    2
+                  </p>
+                </td>
+<td>
+                  <p>
+                    128
+                  </p>
+                </td>
+<td>
+                  <p>
+                    38
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    int256_t
+                  </p>
+                </td>
+<td>
+                  <p>
+                    signed
+                  </p>
+                </td>
+<td>
+                  <p>
+                    bound
+                  </p>
+                </td>
+<td>
+                  <p>
+                    modulo
+                  </p>
+                </td>
+<td>
+                  <p>
+                    to zero
                   </p>
                 </td>
 <td>
@@ -966,26 +917,16 @@
                     77
                   </p>
                 </td>
-<td>
-                  <p>
-                    79
-                  </p>
-                </td>
 </tr>
 <tr>
 <td>
                   <p>
-                    uint512_t
+                    uint256_t
                   </p>
                 </td>
 <td>
                   <p>
                     unsigned
-                  </p>
-                </td>
-<td>
-                  <p>
-                    exact
                   </p>
                 </td>
 <td>
@@ -1000,7 +941,7 @@
                 </td>
 <td>
                   <p>
-                    to_zero
+                    to zero
                   </p>
                 </td>
 <td>
@@ -1010,17 +951,12 @@
                 </td>
 <td>
                   <p>
-                    512
+                    256
                   </p>
                 </td>
 <td>
                   <p>
-                    154
-                  </p>
-                </td>
-<td>
-                  <p>
-                    156
+                    77
                   </p>
                 </td>
 </tr>
@@ -1037,11 +973,6 @@
                 </td>
 <td>
                   <p>
-                    exact
-                  </p>
-                </td>
-<td>
-                  <p>
                     unbounded
                   </p>
                 </td>
@@ -1052,7 +983,7 @@
                 </td>
 <td>
                   <p>
-                    to_zero
+                    to zero
                   </p>
                 </td>
 <td>
@@ -1070,11 +1001,6 @@
                     646392383
                   </p>
                 </td>
-<td>
-                  <p>
-                    646392385
-                  </p>
-                </td>
 </tr>
 </tbody>
 </table></div>
@@ -1085,6 +1011,9 @@
 <div class="table-contents"><table class="table" summary="Integer types functions (std::numeric_limits&lt;T&gt;::is_integer
           == true)">
 <colgroup>
+<col>
+<col>
+<col>
 <col>
 <col>
 <col>
@@ -1114,6 +1043,21 @@
 <th>
                   <p>
                     char
+                  </p>
+                </th>
+<th>
+                  <p>
+                    unsigned char
+                  </p>
+                </th>
+<th>
+                  <p>
+                    char16_t
+                  </p>
+                </th>
+<th>
+                  <p>
+                    char32_t
                   </p>
                 </th>
 <th>
@@ -1148,6 +1092,16 @@
                 </th>
 <th>
                   <p>
+                    long long
+                  </p>
+                </th>
+<th>
+                  <p>
+                    unsigned long long
+                  </p>
+                </th>
+<th>
+                  <p>
                     int32_t
                   </p>
                 </th>
@@ -1159,16 +1113,6 @@
 <th>
                   <p>
                     int128_t
-                  </p>
-                </th>
-<th>
-                  <p>
-                    int256_t
-                  </p>
-                </th>
-<th>
-                  <p>
-                    int512_t
                   </p>
                 </th>
 </tr></thead>
@@ -1187,6 +1131,21 @@
 <td>
                   <p>
                     127
+                  </p>
+                </td>
+<td>
+                  <p>
+                    255
+                  </p>
+                </td>
+<td>
+                  <p>
+                    65535
+                  </p>
+                </td>
+<td>
+                  <p>
+                    -1
                   </p>
                 </td>
 <td>
@@ -1221,6 +1180,16 @@
                 </td>
 <td>
                   <p>
+                    9223372036854775807
+                  </p>
+                </td>
+<td>
+                  <p>
+                    18446744073709551615
+                  </p>
+                </td>
+<td>
+                  <p>
                     2147483647
                   </p>
                 </td>
@@ -1232,88 +1201,6 @@
 <td>
                   <p>
                     340282366920938463463374607431768211455
-                  </p>
-                </td>
-<td>
-                  <p>
-                    115792089237316195423570985008687907853269984665640564039457584007913129639935
-                  </p>
-                </td>
-<td>
-                  <p>
-                    13407807929942597099574024998205846127479365820592393377723561443721764030073546976801874298166903427690031858186486050853753882811946569946433649006084095
-                  </p>
-                </td>
-</tr>
-<tr>
-<td>
-                  <p>
-                    lowest
-                  </p>
-                </td>
-<td>
-                  <p>
-                    0
-                  </p>
-                </td>
-<td>
-                  <p>
-                    -128
-                  </p>
-                </td>
-<td>
-                  <p>
-                    -32768
-                  </p>
-                </td>
-<td>
-                  <p>
-                    0
-                  </p>
-                </td>
-<td>
-                  <p>
-                    -2147483648
-                  </p>
-                </td>
-<td>
-                  <p>
-                    0
-                  </p>
-                </td>
-<td>
-                  <p>
-                    -2147483648
-                  </p>
-                </td>
-<td>
-                  <p>
-                    0
-                  </p>
-                </td>
-<td>
-                  <p>
-                    -2147483648
-                  </p>
-                </td>
-<td>
-                  <p>
-                    -9223372036854775808
-                  </p>
-                </td>
-<td>
-                  <p>
-                    -340282366920938463463374607431768211455
-                  </p>
-                </td>
-<td>
-                  <p>
-                    -115792089237316195423570985008687907853269984665640564039457584007913129639935
-                  </p>
-                </td>
-<td>
-                  <p>
-                    -13407807929942597099574024998205846127479365820592393377723561443721764030073546976801874298166903427690031858186486050853753882811946569946433649006084095
                   </p>
                 </td>
 </tr>
@@ -1335,6 +1222,21 @@
                 </td>
 <td>
                   <p>
+                    0
+                  </p>
+                </td>
+<td>
+                  <p>
+                    0
+                  </p>
+                </td>
+<td>
+                  <p>
+                    0
+                  </p>
+                </td>
+<td>
+                  <p>
                     -32768
                   </p>
                 </td>
@@ -1365,6 +1267,16 @@
                 </td>
 <td>
                   <p>
+                    -9223372036854775808
+                  </p>
+                </td>
+<td>
+                  <p>
+                    0
+                  </p>
+                </td>
+<td>
+                  <p>
                     -2147483648
                   </p>
                 </td>
@@ -1378,27 +1290,22 @@
                     -340282366920938463463374607431768211455
                   </p>
                 </td>
-<td>
-                  <p>
-                    -115792089237316195423570985008687907853269984665640564039457584007913129639935
-                  </p>
-                </td>
-<td>
-                  <p>
-                    -13407807929942597099574024998205846127479365820592393377723561443721764030073546976801874298166903427690031858186486050853753882811946569946433649006084095
-                  </p>
-                </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <br class="table-break"><div class="table">
 <a name="boost_multiprecision.tut.limits.limits32.float_functions"></a><p class="title"><b>Table&#160;1.6.&#160;Floating-point types constants (<code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">is_integer</span>
-          <span class="special">==</span> <span class="keyword">false</span></code>)</b></p>
+          <span class="special">==</span> <span class="keyword">false</span>
+          <span class="special">&amp;&amp;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">is_modulo</span>
+          <span class="special">==</span> <span class="keyword">false</span></code>
+          )</b></p>
 <div class="table-contents"><table class="table" summary="Floating-point types constants (std::numeric_limits&lt;T&gt;::is_integer
-          == false)">
+          == false
+          &amp;&amp; std::numeric_limits&lt;T&gt;::is_modulo
+          == false
+          )">
 <colgroup>
-<col>
 <col>
 <col>
 <col>
@@ -1434,11 +1341,6 @@
 <th>
                   <p>
                     bound
-                  </p>
-                </th>
-<th>
-                  <p>
-                    modulo
                   </p>
                 </th>
 <th>
@@ -1496,6 +1398,8 @@
                     trap
                   </p>
                 </th>
+<th>
+                </th>
 </tr></thead>
 <tbody>
 <tr>
@@ -1521,12 +1425,7 @@
                 </td>
 <td>
                   <p>
-                    no modulo
-                  </p>
-                </td>
-<td>
-                  <p>
-                    to_nearest
+                    to nearest
                   </p>
                 </td>
 <td>
@@ -1571,7 +1470,7 @@
                 </td>
 <td>
                   <p>
-                    tinyness
+                    tiny
                   </p>
                 </td>
 <td>
@@ -1603,12 +1502,7 @@
                 </td>
 <td>
                   <p>
-                    no modulo
-                  </p>
-                </td>
-<td>
-                  <p>
-                    to_nearest
+                    to nearest
                   </p>
                 </td>
 <td>
@@ -1653,7 +1547,7 @@
                 </td>
 <td>
                   <p>
-                    tinyness
+                    tiny
                   </p>
                 </td>
 <td>
@@ -1685,12 +1579,7 @@
                 </td>
 <td>
                   <p>
-                    no modulo
-                  </p>
-                </td>
-<td>
-                  <p>
-                    to_nearest
+                    to nearest
                   </p>
                 </td>
 <td>
@@ -1735,7 +1624,7 @@
                 </td>
 <td>
                   <p>
-                    tinyness
+                    tiny
                   </p>
                 </td>
 <td>
@@ -1763,11 +1652,6 @@
 <td>
                   <p>
                     bound
-                  </p>
-                </td>
-<td>
-                  <p>
-                    no modulo
                   </p>
                 </td>
 <td>
@@ -1822,7 +1706,7 @@
                 </td>
 <td>
                   <p>
-                    no traps.
+                    no
                   </p>
                 </td>
 </tr>
@@ -1849,12 +1733,7 @@
                 </td>
 <td>
                   <p>
-                    no modulo
-                  </p>
-                </td>
-<td>
-                  <p>
-                    to_nearest
+                    to nearest
                   </p>
                 </td>
 <td>
