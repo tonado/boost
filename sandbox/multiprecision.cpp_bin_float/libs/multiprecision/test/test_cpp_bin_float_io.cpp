@@ -13,6 +13,7 @@
 
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_int.hpp>
+#include <boost/chrono.hpp>
 #include "test.hpp"
 #include <boost/array.hpp>
 #include <iostream>
@@ -21,6 +22,28 @@
 #ifdef BOOST_MSVC
 #pragma warning(disable:4127)
 #endif
+
+template <class Clock>
+struct stopwatch
+{
+   typedef typename Clock::duration duration;
+   stopwatch()
+   {
+      m_start = Clock::now();
+   }
+   duration elapsed()
+   {
+      return Clock::now() - m_start;
+   }
+   void reset()
+   {
+      m_start = Clock::now();
+   }
+
+private:
+   typename Clock::time_point m_start;
+};
+
 
 void print_flags(std::ios_base::fmtflags f)
 {
@@ -135,6 +158,15 @@ void test()
       val = static_cast<T>("nan");
       BOOST_CHECK((boost::math::isnan)(val));
    }
+   //
+   // Min and max values:
+   //
+   T t((std::numeric_limits<T>::max)().str(std::numeric_limits<T>::max_digits10, std::ios_base::scientific));
+   BOOST_CHECK_EQUAL(t, (std::numeric_limits<T>::max)());
+   t = T((std::numeric_limits<T>::min)().str(std::numeric_limits<T>::max_digits10, std::ios_base::scientific));
+   BOOST_CHECK_EQUAL(t, (std::numeric_limits<T>::min)());
+   t = T((std::numeric_limits<T>::lowest)().str(std::numeric_limits<T>::max_digits10, std::ios_base::scientific));
+   BOOST_CHECK_EQUAL(t, (std::numeric_limits<T>::lowest)());
 }
 
 template <class T>
@@ -153,7 +185,7 @@ T generate_random()
    e_type e;
    val = frexp(val, &e);
 
-   static boost::random::uniform_int_distribution<e_type> ui(0, 250);
+   static boost::random::uniform_int_distribution<e_type> ui(0, std::numeric_limits<T>::max_exponent);
    return ldexp(val, ui(gen));
 }
 
@@ -186,9 +218,13 @@ void do_round_trip(const T& val)
 template <class T>
 void test_round_trip()
 {
+   std::cout << "Testing type " << typeid(T).name() << std::endl;
    std::cout << "digits = " << std::numeric_limits<T>::digits << std::endl;
    std::cout << "digits10 = " << std::numeric_limits<T>::digits10 << std::endl;
    std::cout << "max_digits10 = " << std::numeric_limits<T>::max_digits10 << std::endl;
+
+   stopwatch<boost::chrono::high_resolution_clock> w;
+
    for(unsigned i = 0; i < 10000; ++i)
    {
       T val = generate_random<T>();
@@ -197,6 +233,8 @@ void test_round_trip()
       do_round_trip(T(1/val));
       do_round_trip(T(-1/val));
    }
+
+   std::cout << "Execution time = " << boost::chrono::duration_cast<boost::chrono::duration<double> >(w.elapsed()).count() << "s" << std::endl;
 }
 
 int main()

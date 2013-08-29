@@ -12,7 +12,7 @@ namespace boost{ namespace multiprecision{ namespace cpp_bf_io_detail{
 // Multiplies a by b and shifts the result so it fits inside max_bits bits, 
 // returns by how much the result was shifted.
 //
-inline int restricted_multiply(cpp_int& result, const cpp_int& a, const cpp_int& b, int max_bits, int& error)
+inline int restricted_multiply(cpp_int& result, const cpp_int& a, const cpp_int& b, int max_bits, boost::int64_t& error)
 {
    result = a * b;
    int gb = msb(result);
@@ -44,7 +44,7 @@ inline int restricted_multiply(cpp_int& result, const cpp_int& a, const cpp_int&
 // Computes a^e shifted to the right so it fits in max_bits, returns how far
 // to the right we are shifted.
 //
-inline int restricted_pow(cpp_int& result, const cpp_int& a, int e, int max_bits, int& error)
+inline int restricted_pow(cpp_int& result, const cpp_int& a, int e, int max_bits, boost::int64_t& error)
 {
    BOOST_ASSERT(&result != &a);
    int exp = 0;
@@ -72,7 +72,7 @@ inline int restricted_pow(cpp_int& result, const cpp_int& a, int e, int max_bits
    return exp;
 }
 
-inline int get_round_mode(const cpp_int& what, int location, int error)
+inline int get_round_mode(const cpp_int& what, int location, boost::int64_t error)
 {
    //
    // Can we round what at /location/, if the error in what is /error/ in
@@ -83,7 +83,9 @@ inline int get_round_mode(const cpp_int& what, int location, int error)
    //  1: tie.
    //  2: round up.
    //
-   int error_radius = error & 1 ? (1 + error) / 2 : error / 2;
+   boost::int64_t error_radius = error & 1 ? (1 + error) / 2 : error / 2;
+   if(error_radius && ((int)msb(error_radius) >= location))
+      return -1;
    if(bit_test(what, location))
    {
       if(lsb(what) == location)
@@ -91,7 +93,7 @@ inline int get_round_mode(const cpp_int& what, int location, int error)
       if(!error)
          return 2;  // no error, round up.
       cpp_int t = what - error_radius;
-      if(lsb(t) >= location)
+      if((int)lsb(t) >= location)
          return -1;
       return 2;
    }
@@ -103,17 +105,24 @@ inline int get_round_mode(const cpp_int& what, int location, int error)
    return 0;
 }
 
-inline int get_round_mode(cpp_int& r, cpp_int& d, int error)
+inline int get_round_mode(cpp_int& r, cpp_int& d, boost::int64_t error, const cpp_int& q)
 {
    //
-   // Lets suppose we have an inexact division by d, where the true
-   // value for the divisor is d+error, then we have:
+   // Lets suppose we have an inexact division by d+delta, where the true
+   // value for the divisor is d, and with |delta| <= error/2, then
+   // we have calculated q and r such that:
    //
    // n                  r
    // ---       = q + -----------
    // d + error        d + error
    //
-   // So rounding depends on whether 2r > d + error.
+   // Rearranging for n / d we get:
+   //
+   //    n         delta*q + r
+   //   --- = q + -------------
+   //    d              d
+   //
+   // So rounding depends on whether 2r + error * q > d.
    //
    // We return:
    //  0 = down down.
@@ -125,16 +134,21 @@ inline int get_round_mode(cpp_int& r, cpp_int& d, int error)
    int c = r.compare(d);
    if(c == 0)
       return error ? -1 : 1;
-   //
-   // Error is in units of 0.5ulp, so figure out what radius on d that is:
-   error = error & 1 ? (error + 1) / 2 : error / 2;
    if(c > 0)
    {
-      d += error;
-      return r.compare(d) > 0 ? 2 : -1;
+      if(error)
+      {
+         r -= error * q;
+         return r.compare(d) > 0 ? 2 : -1;
+      }
+      return 2;
    }
-   d -= error;
-   return r.compare(d) < 0 ? 0 : -1;
+   if(error)
+   {
+      r += error * q;
+      return r.compare(d) < 0 ? 0 : -1;
+   }
+   return 0;
 }
 
 } // namespace
@@ -144,9 +158,10 @@ namespace backends{
 template <unsigned Bits>
 cpp_bin_float<Bits>& cpp_bin_float<Bits>::operator=(const char *s)
 {
-   const char* org_s = s;
    cpp_int n;
    int decimal_exp = 0;
+   int digits_seen = 0;
+   static const int max_digits_seen = 4 + (Bits * 301L) / 1000;
    bool ss = false;
    //
    // Extract the sign:
@@ -179,6 +194,8 @@ cpp_bin_float<Bits>& cpp_bin_float<Bits>::operator=(const char *s)
    {
       n *= 10u;
       n += *s - '0';
+      if(digits_seen || (*s != '0'))
+         ++digits_seen;
       ++s;
    }
    // The decimal point (we really should localise this!!)
@@ -192,8 +209,17 @@ cpp_bin_float<Bits>& cpp_bin_float<Bits>::operator=(const char *s)
       n *= 10u;
       n += *s - '0';
       --decimal_exp;
+      if(digits_seen || (*s != '0'))
+         ++digits_seen;
       ++s;
+      if(digits_seen > max_digits_seen)
+         break;
    }
+   //
+   // Digits we're skipping:
+   //
+   while(*s && (*s >= '0') && (*s <= '9'))
+      ++s;
    //
    // See if there's an exponent:
    //
@@ -232,76 +258,146 @@ cpp_bin_float<Bits>& cpp_bin_float<Bits>::operator=(const char *s)
       *this = 0;
       return *this;
    }
-   if(decimal_exp > 300)
-   {
-      //
-      // TODO, FIXME, temporary hack!!
-      boost::multiprecision::detail::convert_from_string(*this, org_s);
-   }
-   else if(decimal_exp >= 0)
+
+   static const unsigned limb_bits = sizeof(limb_type) * CHAR_BIT;
+   //
+   // Set our working precision - this is heuristic based, we want
+   // a value as small as possible > Bits to avoid large computations
+   // and excessive memory usage, but we also want to avoid having to
+   // up the computation and start again at a higher precision.
+   // So we round Bits up to the nearest whole number of limbs, and add
+   // one limb for good measure.  This works very well for small exponents,
+   // but for larger exponents we may may need to restart, we could add some
+   // extra precision right from the start for larger exponents, but this
+   // seems to be slightly slower in the *average* case:
+   //
+#ifdef BOOST_MP_STRESS_IO
+   int max_bits = Bits + 32;
+#else
+   int max_bits = Bits + (Bits % limb_bits ? limb_bits - Bits % limb_bits : 0) + limb_bits;
+#endif
+   boost::int64_t error = 0;
+   int calc_exp = 0;
+
+   if(decimal_exp >= 0)
    {
       // Nice and simple, the result is an integer...
-      n *= pow(cpp_int(5), decimal_exp);
-      exponent() = (int)Bits - 1;
-      exponent() += decimal_exp;
-      copy_and_round(*this, n.backend());
-      if(ss != sign())
-         negate();
-   }
-   else if(decimal_exp > -300)
-   {
-      // Result is the ratio of two integers: we need to organise the
-      // division so as to produce at least an N-bit result which we can
-      // round according to the remainder.
-      cpp_int d = pow(cpp_int(5), -decimal_exp);
-      int shift = (int)Bits - msb(n) + msb(d);
-      exponent() = Bits - 1 + decimal_exp;
-      if(shift > 0)
+      do
       {
-         n <<= shift;
-         exponent() -= shift;
-      }
-      cpp_int q, r;
-      divide_qr(n, d, q, r);
-      int gb = msb(q);
-      BOOST_ASSERT(gb >= Bits - 1);
-      //
-      // Check for rounding conditions we have to
-      // handle ourselves:
-      //
-      if(gb == Bits - 1)
-      {
-         // Exactly the right number of bits, use the remainder to round:
-         r *= 2;
-         int c = r.compare(d);
-         if(c == 0)
+         cpp_int t;
+         if(decimal_exp)
          {
-            // Tie:
-            if(q.backend().limbs()[0] & 1)
-               ++q;
+            calc_exp = boost::multiprecision::cpp_bf_io_detail::restricted_pow(t, cpp_int(5), decimal_exp, max_bits, error);
+            calc_exp += boost::multiprecision::cpp_bf_io_detail::restricted_multiply(t, t, n, max_bits, error);
          }
-         else if(c > 0)
-            ++q;
+         exponent() = (int)Bits - 1;
+         exponent() += decimal_exp;
+         exponent() += calc_exp;
+         int rshift = msb(t) - Bits + 1;
+         if(rshift > 0)
+         {
+            exponent() += rshift;
+            int roundup = boost::multiprecision::cpp_bf_io_detail::get_round_mode(t, rshift - 1, error);
+            t >>= rshift;
+            if((roundup == 2) || ((roundup == 1) && t.backend().limbs()[0] & 1))
+               ++t;
+            else if(roundup < 0)
+            {
+#ifdef BOOST_MP_STRESS_IO
+               max_bits += 32;
+#else
+               max_bits *= 2;
+#endif
+               error = 0;
+               continue;
+            }
+         }
+         else
+         {
+            BOOST_ASSERT(!error);
+         }
+         copy_and_round(*this, t.backend());
+         break;
       }
-      else if(bit_test(q, gb - (int)Bits) && ((int)lsb(q) == (gb - (int)Bits)))
-      {
-         // Too many bits in q and the bits in q indicate a tie, but we can break that using r:
-         q >>= gb - (int)Bits + 1;
-         BOOST_ASSERT(msb(q) >= Bits - 1);
-         if(r)
-            ++q;
-         else if(q.backend().limbs()[0] & 1)
-            ++q;
-         exponent() += gb - (int)Bits + 1;
-      }
-      copy_and_round(*this, q.backend());
+      while(true);
+
       if(ss != sign())
          negate();
    }
    else
    {
-      // TODO, FIXME, temporary hack!!!
-      boost::multiprecision::detail::convert_from_string(*this, org_s);
+      // Result is the ratio of two integers: we need to organise the
+      // division so as to produce at least an N-bit result which we can
+      // round according to the remainder.
+      //cpp_int d = pow(cpp_int(5), -decimal_exp);
+      do
+      {
+         cpp_int d;
+         calc_exp = boost::multiprecision::cpp_bf_io_detail::restricted_pow(d, cpp_int(5), -decimal_exp, max_bits, error);
+         int shift = (int)Bits - msb(n) + msb(d);
+         exponent() = Bits - 1 + decimal_exp - calc_exp;
+         if(shift > 0)
+         {
+            n <<= shift;
+            exponent() -= shift;
+         }
+         cpp_int q, r;
+         divide_qr(n, d, q, r);
+         int gb = msb(q);
+         BOOST_ASSERT(gb >= Bits - 1);
+         //
+         // Check for rounding conditions we have to
+         // handle ourselves:
+         //
+         int roundup = 0;
+         if(gb == Bits - 1)
+         {
+            // Exactly the right number of bits, use the remainder to round:
+            roundup = boost::multiprecision::cpp_bf_io_detail::get_round_mode(r, d, error, q);
+         }
+         else if(bit_test(q, gb - (int)Bits) && ((int)lsb(q) == (gb - (int)Bits)))
+         {
+            // Too many bits in q and the bits in q indicate a tie, but we can break that using r,
+            // note that the radius of error in r is error/2 * q:
+            int shift = gb - (int)Bits + 1;
+            q >>= shift;
+            exponent() += shift;
+            BOOST_ASSERT(msb(q) >= Bits - 1);
+            if(error && (r < (error / 2) * q))
+               roundup = -1;
+            else if(error && (r + (error / 2) * q >= d))
+               roundup = -1;
+            else
+               roundup = r ? 2 : 1;
+         }
+         else if(error && (((error / 2) * q + r >= d) || (r < (error / 2) * q)))
+         {
+            // We might have been rounding up, or got the wrong quotient: can't tell!
+            roundup = -1;
+         }
+         if(roundup < 0)
+         {
+#ifdef BOOST_MP_STRESS_IO
+            max_bits += 32;
+#else
+            max_bits *= 2;
+#endif
+            error = 0;
+            if(shift > 0)
+            {
+               n >>= shift;
+               exponent() += shift;
+            }
+            continue;
+         }
+         else if((roundup == 2) || ((roundup == 1) && q.backend().limbs()[0] & 1))
+            ++q;
+         copy_and_round(*this, q.backend());
+         if(ss != sign())
+            negate();
+         break;
+      }
+      while(true);
    }
 
    return *this;
@@ -355,10 +451,25 @@ std::string cpp_bin_float<Bits>::str(std::streamsize dig, std::ios_base::fmtflag
       cpp_int i;
       int roundup = 0; // 0=no rounding, 1=tie, 2=up
       static const unsigned limb_bits = sizeof(limb_type) * CHAR_BIT;
+      //
+      // Set our working precision - this is heuristic based, we want
+      // a value as small as possible > Bits to avoid large computations
+      // and excessive memory usage, but we also want to avoid having to
+      // up the computation and start again at a higher precision.
+      // So we round Bits up to the nearest whole number of limbs, and add
+      // one limb for good measure.  This works very well for small exponents,
+      // but for larger exponents we add a few extra limbs to max_bits:
+      //
+#ifdef BOOST_MP_STRESS_IO
+      int max_bits = Bits + 32;
+#else
       int max_bits = Bits + (Bits % limb_bits ? limb_bits - Bits % limb_bits : 0) + limb_bits;
+      if(power10)
+         max_bits += (msb(std::abs(power10)) / 8) * limb_bits;
+#endif
       do
       {
-         int error = 0;
+         boost::int64_t error = 0;
          int calc_exp = 0;
          //
          // Our integer result is: bits() * 2^-shift * 5^power10
@@ -383,10 +494,14 @@ std::string cpp_bin_float<Bits>::str(std::streamsize dig, std::ios_base::fmtflag
                i <<= -shift;
                cpp_int r;
                divide_qr(i, d, i, r);
-               roundup = boost::multiprecision::cpp_bf_io_detail::get_round_mode(r, d, error);
+               roundup = boost::multiprecision::cpp_bf_io_detail::get_round_mode(r, d, error, i);
                if(roundup < 0)
                {
+#ifdef BOOST_MP_STRESS_IO
+                  max_bits += 32;
+#else
                   max_bits *= 2;
+#endif
                   shift = (int)Bits - exponent() - 1 - power10;
                   continue;
                }
@@ -410,7 +525,11 @@ std::string cpp_bin_float<Bits>::str(std::streamsize dig, std::ios_base::fmtflag
                {
                   // We only get here if we were asked for a crazy number of decimal digits -
                   // more than are present in a 2^max_bits number.
+#ifdef BOOST_MP_STRESS_IO
+                  max_bits += 32;
+#else
                   max_bits *= 2;
+#endif
                   shift = (int)Bits - exponent() - 1 - power10;
                   continue;
                }
@@ -419,7 +538,11 @@ std::string cpp_bin_float<Bits>::str(std::streamsize dig, std::ios_base::fmtflag
                   roundup = boost::multiprecision::cpp_bf_io_detail::get_round_mode(i, shift - 1, error);
                   if(roundup < 0)
                   {
+#ifdef BOOST_MP_STRESS_IO
+                     max_bits += 32;
+#else
                      max_bits *= 2;
+#endif
                      shift = (int)Bits - exponent() - 1 - power10;
                      continue;
                   }

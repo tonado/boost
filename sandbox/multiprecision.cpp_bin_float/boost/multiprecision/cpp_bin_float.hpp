@@ -35,7 +35,7 @@ public:
 private:
 
    rep_type m_data;
-   int m_exponent;
+   boost::int32_t m_exponent;
    bool m_sign;
 public:
    cpp_bin_float() : m_data(), m_exponent(exponent_nan), m_sign(false) {}
@@ -264,8 +264,8 @@ public:
 
    rep_type& bits() { return m_data; }
    const rep_type& bits()const { return m_data; }
-   int& exponent() { return m_exponent; }
-   const int& exponent()const { return m_exponent; }
+   boost::int32_t& exponent() { return m_exponent; }
+   const boost::int32_t& exponent()const { return m_exponent; }
    bool& sign() { return m_sign; }
    const bool& sign()const { return m_sign; }
    void check_invariants()
@@ -398,7 +398,7 @@ inline void do_eval_add(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &a, 
       return; // ault is a NaN.
    }
    
-   int e_diff = a.exponent() - b.exponent();
+   boost::int32_t e_diff = a.exponent() - b.exponent();
    bool s = a.sign();
    if(e_diff >= 0)
    {
@@ -477,7 +477,7 @@ inline void do_eval_subtract(cpp_bin_float<bits> &res, const cpp_bin_float<bits>
       return; // result is still a NaN.
    }
 
-   int e_diff = a.exponent() - b.exponent();
+   boost::int32_t e_diff = a.exponent() - b.exponent();
    bool s = a.sign();
    if((e_diff > 0) || ((e_diff == 0) && a.bits().compare(b.bits()) >= 0))
    {
