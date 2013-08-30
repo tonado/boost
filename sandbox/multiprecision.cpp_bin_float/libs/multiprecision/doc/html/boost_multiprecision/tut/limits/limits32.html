@@ -165,6 +165,48 @@
 <tr>
 <td>
                   <p>
+                    unsigned char
+                  </p>
+                </td>
+<td>
+                  <p>
+                    unsigned
+                  </p>
+                </td>
+<td>
+                  <p>
+                    bound
+                  </p>
+                </td>
+<td>
+                  <p>
+                    modulo
+                  </p>
+                </td>
+<td>
+                  <p>
+                    to zero
+                  </p>
+                </td>
+<td>
+                  <p>
+                    2
+                  </p>
+                </td>
+<td>
+                  <p>
+                    8
+                  </p>
+                </td>
+<td>
+                  <p>
+                    2
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
                     char16_t
                   </p>
                 </td>
@@ -243,48 +285,6 @@
 <td>
                   <p>
                     9
-                  </p>
-                </td>
-</tr>
-<tr>
-<td>
-                  <p>
-                    unsigned char
-                  </p>
-                </td>
-<td>
-                  <p>
-                    unsigned
-                  </p>
-                </td>
-<td>
-                  <p>
-                    bound
-                  </p>
-                </td>
-<td>
-                  <p>
-                    modulo
-                  </p>
-                </td>
-<td>
-                  <p>
-                    to zero
-                  </p>
-                </td>
-<td>
-                  <p>
-                    2
-                  </p>
-                </td>
-<td>
-                  <p>
-                    8
-                  </p>
-                </td>
-<td>
-                  <p>
-                    2
                   </p>
                 </td>
 </tr>
@@ -1007,24 +1007,12 @@
 </div>
 <br class="table-break"><div class="table">
 <a name="boost_multiprecision.tut.limits.limits32.integral_functions"></a><p class="title"><b>Table&#160;1.5.&#160;Integer types functions (<code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">is_integer</span>
-          <span class="special">==</span> <span class="keyword">true</span></code>)</b></p>
+          <span class="special">==</span> <span class="keyword">true</span>
+          <span class="special">&amp;&amp;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">min</span><span class="special">()</span> <span class="special">==</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">lowest</span><span class="special">()</span></code> )</b></p>
 <div class="table-contents"><table class="table" summary="Integer types functions (std::numeric_limits&lt;T&gt;::is_integer
-          == true)">
+          == true
+          &amp;&amp; std::numeric_limits&lt;T&gt;::min() == std::numeric_limits&lt;T&gt;::lowest() )">
 <colgroup>
-<col>
-<col>
-<col>
-<col>
-<col>
-<col>
-<col>
-<col>
-<col>
-<col>
-<col>
-<col>
-<col>
-<col>
 <col>
 <col>
 <col>
@@ -1037,82 +1025,12 @@
                 </th>
 <th>
                   <p>
-                    bool
+                    max
                   </p>
                 </th>
 <th>
                   <p>
-                    char
-                  </p>
-                </th>
-<th>
-                  <p>
-                    unsigned char
-                  </p>
-                </th>
-<th>
-                  <p>
-                    char16_t
-                  </p>
-                </th>
-<th>
-                  <p>
-                    char32_t
-                  </p>
-                </th>
-<th>
-                  <p>
-                    short
-                  </p>
-                </th>
-<th>
-                  <p>
-                    unsigned short
-                  </p>
-                </th>
-<th>
-                  <p>
-                    int
-                  </p>
-                </th>
-<th>
-                  <p>
-                    unsigned int
-                  </p>
-                </th>
-<th>
-                  <p>
-                    long
-                  </p>
-                </th>
-<th>
-                  <p>
-                    unsigned long
-                  </p>
-                </th>
-<th>
-                  <p>
-                    long long
-                  </p>
-                </th>
-<th>
-                  <p>
-                    unsigned long long
-                  </p>
-                </th>
-<th>
-                  <p>
-                    int32_t
-                  </p>
-                </th>
-<th>
-                  <p>
-                    int64_t
-                  </p>
-                </th>
-<th>
-                  <p>
-                    int128_t
+                    min
                   </p>
                 </th>
 </tr></thead>
@@ -1120,7 +1038,7 @@
 <tr>
 <td>
                   <p>
-                    max
+                    bool
                   </p>
                 </td>
 <td>
@@ -1130,7 +1048,31 @@
                 </td>
 <td>
                   <p>
+                    0
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    char
+                  </p>
+                </td>
+<td>
+                  <p>
                     127
+                  </p>
+                </td>
+<td>
+                  <p>
+                    -128
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    unsigned char
                   </p>
                 </td>
 <td>
@@ -1140,12 +1082,48 @@
                 </td>
 <td>
                   <p>
+                    0
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    char16_t
+                  </p>
+                </td>
+<td>
+                  <p>
                     65535
                   </p>
                 </td>
 <td>
                   <p>
-                    -1
+                    0
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    char32_t
+                  </p>
+                </td>
+<td>
+                  <p>
+                    4294967295
+                  </p>
+                </td>
+<td>
+                  <p>
+                    0
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    short
                   </p>
                 </td>
 <td>
@@ -1155,12 +1133,48 @@
                 </td>
 <td>
                   <p>
+                    -32768
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    unsigned short
+                  </p>
+                </td>
+<td>
+                  <p>
                     65535
                   </p>
                 </td>
 <td>
                   <p>
+                    0
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    int
+                  </p>
+                </td>
+<td>
+                  <p>
                     2147483647
+                  </p>
+                </td>
+<td>
+                  <p>
+                    -2147483648
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    unsigned int
                   </p>
                 </td>
 <td>
@@ -1170,17 +1184,65 @@
                 </td>
 <td>
                   <p>
+                    0
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    long
+                  </p>
+                </td>
+<td>
+                  <p>
                     2147483647
                   </p>
                 </td>
 <td>
                   <p>
+                    -2147483648
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    unsigned long
+                  </p>
+                </td>
+<td>
+                  <p>
                     4294967295
+                  </p>
+                </td>
+<td>
+                  <p>
+                    0
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    long long
                   </p>
                 </td>
 <td>
                   <p>
                     9223372036854775807
+                  </p>
+                </td>
+<td>
+                  <p>
+                    -9223372036854775808
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    unsigned long long
                   </p>
                 </td>
 <td>
@@ -1190,7 +1252,31 @@
                 </td>
 <td>
                   <p>
+                    0
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    int32_t
+                  </p>
+                </td>
+<td>
+                  <p>
                     2147483647
+                  </p>
+                </td>
+<td>
+                  <p>
+                    -2147483648
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    int64_t
                   </p>
                 </td>
 <td>
@@ -1200,89 +1286,19 @@
                 </td>
 <td>
                   <p>
-                    340282366920938463463374607431768211455
+                    -9223372036854775808
                   </p>
                 </td>
 </tr>
 <tr>
 <td>
                   <p>
-                    min
+                    int128_t
                   </p>
                 </td>
 <td>
                   <p>
-                    0
-                  </p>
-                </td>
-<td>
-                  <p>
-                    -128
-                  </p>
-                </td>
-<td>
-                  <p>
-                    0
-                  </p>
-                </td>
-<td>
-                  <p>
-                    0
-                  </p>
-                </td>
-<td>
-                  <p>
-                    0
-                  </p>
-                </td>
-<td>
-                  <p>
-                    -32768
-                  </p>
-                </td>
-<td>
-                  <p>
-                    0
-                  </p>
-                </td>
-<td>
-                  <p>
-                    -2147483648
-                  </p>
-                </td>
-<td>
-                  <p>
-                    0
-                  </p>
-                </td>
-<td>
-                  <p>
-                    -2147483648
-                  </p>
-                </td>
-<td>
-                  <p>
-                    0
-                  </p>
-                </td>
-<td>
-                  <p>
-                    -9223372036854775808
-                  </p>
-                </td>
-<td>
-                  <p>
-                    0
-                  </p>
-                </td>
-<td>
-                  <p>
-                    -2147483648
-                  </p>
-                </td>
-<td>
-                  <p>
-                    -9223372036854775808
+                    340282366920938463463374607431768211455
                   </p>
                 </td>
 <td>
@@ -1295,20 +1311,9 @@
 </table></div>
 </div>
 <br class="table-break"><div class="table">
-<a name="boost_multiprecision.tut.limits.limits32.float_functions"></a><p class="title"><b>Table&#160;1.6.&#160;Floating-point types constants (<code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">is_integer</span>
-          <span class="special">==</span> <span class="keyword">false</span>
-          <span class="special">&amp;&amp;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">is_modulo</span>
-          <span class="special">==</span> <span class="keyword">false</span></code>
-          )</b></p>
-<div class="table-contents"><table class="table" summary="Floating-point types constants (std::numeric_limits&lt;T&gt;::is_integer
-          == false
-          &amp;&amp; std::numeric_limits&lt;T&gt;::is_modulo
-          == false
-          )">
+<a name="boost_multiprecision.tut.limits.limits32.float_functions"></a><p class="title"><b>Table&#160;1.6.&#160;Floating-point types constants (<code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">is_integer</span><span class="special">==</span><span class="keyword">false</span> <span class="special">&amp;&amp;</span> <span class="identifier">is_signed</span><span class="special">==</span><span class="keyword">true</span> <span class="special">&amp;&amp;</span> <span class="identifier">is_modulo</span><span class="special">==</span><span class="keyword">false</span> <span class="special">&amp;&amp;</span> <span class="identifier">is_exact</span><span class="special">==</span><span class="keyword">false</span> <span class="special">&amp;&amp;</span> <span class="identifier">is_bound</span><span class="special">==</span><span class="keyword">true</span></code>)</b></p>
+<div class="table-contents"><table class="table" summary="Floating-point types constants (std::numeric_limits&lt;T&gt;::is_integer==false &amp;&amp; is_signed==true &amp;&amp; is_modulo==false &amp;&amp; is_exact==false &amp;&amp; is_bound==true)">
 <colgroup>
-<col>
-<col>
-<col>
 <col>
 <col>
 <col>
@@ -1326,21 +1331,6 @@
 <th>
                   <p>
                     type
-                  </p>
-                </th>
-<th>
-                  <p>
-                    signed
-                  </p>
-                </th>
-<th>
-                  <p>
-                    exact
-                  </p>
-                </th>
-<th>
-                  <p>
-                    bound
                   </p>
                 </th>
 <th>
@@ -1398,29 +1388,12 @@
                     trap
                   </p>
                 </th>
-<th>
-                </th>
 </tr></thead>
 <tbody>
 <tr>
 <td>
                   <p>
                     float
-                  </p>
-                </td>
-<td>
-                  <p>
-                    signed
-                  </p>
-                </td>
-<td>
-                  <p>
-                    inexact
-                  </p>
-                </td>
-<td>
-                  <p>
-                    bound
                   </p>
                 </td>
 <td>
@@ -1487,21 +1460,6 @@
                 </td>
 <td>
                   <p>
-                    signed
-                  </p>
-                </td>
-<td>
-                  <p>
-                    inexact
-                  </p>
-                </td>
-<td>
-                  <p>
-                    bound
-                  </p>
-                </td>
-<td>
-                  <p>
                     to nearest
                   </p>
                 </td>
@@ -1560,21 +1518,6 @@
 <td>
                   <p>
                     long double
-                  </p>
-                </td>
-<td>
-                  <p>
-                    signed
-                  </p>
-                </td>
-<td>
-                  <p>
-                    inexact
-                  </p>
-                </td>
-<td>
-                  <p>
-                    bound
                   </p>
                 </td>
 <td>
@@ -1641,21 +1584,6 @@
                 </td>
 <td>
                   <p>
-                    signed
-                  </p>
-                </td>
-<td>
-                  <p>
-                    inexact
-                  </p>
-                </td>
-<td>
-                  <p>
-                    bound
-                  </p>
-                </td>
-<td>
-                  <p>
                     indeterminate
                   </p>
                 </td>
@@ -1714,21 +1642,6 @@
 <td>
                   <p>
                     bin_128bit_double_type
-                  </p>
-                </td>
-<td>
-                  <p>
-                    signed
-                  </p>
-                </td>
-<td>
-                  <p>
-                    inexact
-                  </p>
-                </td>
-<td>
-                  <p>
-                    bound
                   </p>
                 </td>
 <td>

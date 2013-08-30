@@ -22,8 +22,8 @@
             In this example we'll add even more power to generic numeric programming
             using not only different floating-point types but also function objects
             as template parameters. Consider some well-known central difference rules
-            for numerically computing the first derivative of a function <span class="emphasis"><em>f[prime](x)</em></span>
-            with <span class="emphasis"><em>x [isin] [real]</em></span>:
+            for numerically computing the first derivative of a function <span class="emphasis"><em>f&#8242;(x)</em></span>
+            with <span class="emphasis"><em>x &#8712; &#8476;</em></span>:
           </p>
 <p>
             <span class="inlinemediaobject"><img src="../../../../../floating_point_eg1.png"></span>
@@ -39,13 +39,12 @@
           </p>
 <p>
             The third formula in Equation 1 is a three-point central difference rule.
-            It calculates the first derivative of <span class="emphasis"><em>f[prime](x)</em></span>
-            to <span class="emphasis"><em>O(dx<sup>6</sup>)</em></span>, where <span class="emphasis"><em>dx</em></span> is the
-            given step-size. For example, if the step-size is 0.01 this derivative
-            calculation has about 6 decimal digits of precision - just about right
-            for the 7 decimal digits of single-precision float. Let's make a generic
-            template subroutine using this three-point central difference rule. In
-            particular:
+            It calculates the first derivative of <span class="emphasis"><em>f&#8242;(x)</em></span> to <span class="emphasis"><em>O(dx<sup>6</sup>)</em></span>,
+            where <span class="emphasis"><em>dx</em></span> is the given step-size. For example, if
+            the step-size is 0.01 this derivative calculation has about 6 decimal
+            digits of precision - just about right for the 7 decimal digits of single-precision
+            float. Let's make a generic template subroutine using this three-point
+            central difference rule. In particular:
           </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">value_type</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">function_type</span><span class="special">&gt;</span>
    <span class="identifier">value_type</span> <span class="identifier">derivative</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">value_type</span> <span class="identifier">x</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">value_type</span> <span class="identifier">dx</span><span class="special">,</span> <span class="identifier">function_type</span> <span class="identifier">func</span><span class="special">)</span>
@@ -73,7 +72,7 @@
             template function can be used to compute the first derivative of any
             function to <span class="emphasis"><em>O(dx<sup>6</sup>)</em></span>. For example, consider the first
             derivative of <span class="emphasis"><em>sin(x)</em></span> evaluated at <span class="emphasis"><em>x =
-            [pi]/3</em></span>. In other words,
+            &#960;/3</em></span>. In other words,
           </p>
 <p>
             <span class="inlinemediaobject"><img src="../../../../../floating_point_eg3.png"></span>
