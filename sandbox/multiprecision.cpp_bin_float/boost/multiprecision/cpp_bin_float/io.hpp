@@ -88,7 +88,7 @@ inline int get_round_mode(const cpp_int& what, int location, boost::int64_t erro
       return -1;
    if(bit_test(what, location))
    {
-      if(lsb(what) == location)
+      if((int)lsb(what) == location)
          return error ? -1 : 1;   // Either a tie or can't round depending on whether we have any error
       if(!error)
          return 2;  // no error, round up.
