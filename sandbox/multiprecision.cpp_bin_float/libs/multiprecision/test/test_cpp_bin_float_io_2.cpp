@@ -6,7 +6,7 @@
 // (See accompanying file LICENSE_1_0.txt
 // or copy at http://www.boost.org/LICENSE_1_0.txt)
 
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || defined(__MINGW32__)
 #  define _SCL_SECURE_NO_WARNINGS
 //#  pragma warning (disable : 4389)
 #  pragma warning (disable : 4512) // assignment operator could not be generated.
@@ -16,10 +16,10 @@
 #endif
 
 #include <boost/multiprecision/cpp_bin_float.hpp>
+#include <boost/multiprecision/cpp_dec_float.hpp>
 
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_int.hpp>
-#include <boost/chrono.hpp>
 #include <boost/array.hpp>
 
 #include <iostream>
@@ -30,27 +30,6 @@
 #ifdef BOOST_MSVC
 
 #endif
-
-template <class Clock>
-struct stopwatch
-{
-   typedef typename Clock::duration duration;
-   stopwatch()
-   {
-      m_start = Clock::now();
-   }
-   duration elapsed()
-   {
-      return Clock::now() - m_start;
-   }
-   void reset()
-   {
-      m_start = Clock::now();
-   }
-
-private:
-   typename Clock::time_point m_start;
-}; //stopwatch
 
 void print_flags(std::ios_base::fmtflags f)
 {
@@ -172,6 +151,19 @@ void test()
                std::cout << "Expected: "  << expect << std::endl;
                ++boost::detail::test_errors();
                //mp_t(val).str(precision, formats[i]); // for debugging
+
+               boost::multiprecision::cpp_dec_float_50 f50(val);
+               std::cout << "True non-rounded result = " << f50.str(50, formats[i]) << std::endl;
+
+               std::stringstream ss3;
+               ss3 << expect;
+               double v2;
+               ss3 >> v2;
+               if(val != v2)
+               {
+                  std::cout << "Double value did not round trip!!\n";
+               }
+
             }
          }
        }
@@ -184,7 +176,6 @@ int main()
    using namespace boost::multiprecision;
 
    test<number<cpp_bin_float<53> > >();
-//   test_round_trip<number<cpp_bin_float<53> > >();
 
    return boost::report_errors();
 } // int main()
