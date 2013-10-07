@@ -290,6 +290,8 @@ cpp_bin_float<Bits>& cpp_bin_float<Bits>::operator=(const char *s)
             calc_exp = boost::multiprecision::cpp_bf_io_detail::restricted_pow(t, cpp_int(5), decimal_exp, max_bits, error);
             calc_exp += boost::multiprecision::cpp_bf_io_detail::restricted_multiply(t, t, n, max_bits, error);
          }
+         else
+            t = n;
          exponent() = (int)Bits - 1;
          exponent() += decimal_exp;
          exponent() += calc_exp;

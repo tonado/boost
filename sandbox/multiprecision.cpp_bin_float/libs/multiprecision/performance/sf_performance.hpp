@@ -12,7 +12,7 @@
 #  define TEST_MPF
 #  define TEST_CPP_DEC_FLOAT
 #  define TEST_MPFR_CLASS
-#  define TEST_MPREAL
+//#  define TEST_MPREAL
 #  define TEST_FLOAT
 #endif
 
