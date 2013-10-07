@@ -182,6 +182,24 @@ int main()
       BOOST_CHECK_EQUAL(test_type(ceil(a)), ceil(ta));
       BOOST_CHECK_EQUAL(test_type(ceil(-a)), ceil(-ta));
 
+      static boost::random::mt19937 i_gen;
+
+      int si = i_gen();
+      BOOST_CHECK_EQUAL(test_type(a * si), ta * si);
+      BOOST_CHECK_EQUAL(test_type(-a * si), -ta * si);
+      BOOST_CHECK_EQUAL(test_type(-a * -si), -ta * -si);
+      BOOST_CHECK_EQUAL(test_type(a * -si), ta * -si);
+      unsigned ui = std::abs(si);
+      BOOST_CHECK_EQUAL(test_type(a * ui), ta * ui);
+      BOOST_CHECK_EQUAL(test_type(-a * ui), -ta * ui);
+
+      // Divide:
+      BOOST_CHECK_EQUAL(test_type(a / si), ta / si);
+      BOOST_CHECK_EQUAL(test_type(-a / si), -ta / si);
+      BOOST_CHECK_EQUAL(test_type(-a / -si), -ta / -si);
+      BOOST_CHECK_EQUAL(test_type(a / -si), ta / -si);
+      BOOST_CHECK_EQUAL(test_type(a / ui), ta / ui);
+      BOOST_CHECK_EQUAL(test_type(-a / ui), -ta / ui);
    }
    return boost::report_errors();
 }

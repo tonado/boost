@@ -616,6 +616,59 @@ inline void eval_multiply(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &a
    eval_multiply(res, res, a);
 }
 
+template <unsigned bits, class U>
+inline typename enable_if_c<is_unsigned<U>::value>::type eval_multiply(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &a, const U &b)
+{
+   using default_ops::eval_bit_test;
+   using default_ops::eval_multiply;
+
+   // Special cases first:
+   switch(a.exponent())
+   {
+   case cpp_bin_float<bits>::exponent_zero:
+      res = a;
+      return;
+   case cpp_bin_float<bits>::exponent_infinity:
+      if(b == 0)
+         res = std::numeric_limits<number<cpp_bin_float<bits> > >::quiet_NaN().backend();
+      else
+         res = a;
+      return;
+   case cpp_bin_float<bits>::exponent_nan:
+      res = a;
+      return;
+   }
+
+   typename cpp_bin_float<bits>::double_rep_type dt;
+   typedef typename boost::multiprecision::detail::canonical<U, typename cpp_bin_float<bits>::double_rep_type>::type canon_ui_type;
+   eval_multiply(dt, a.bits(), static_cast<canon_ui_type>(b));
+   res.exponent() = a.exponent();
+   copy_and_round(res, dt);
+   res.check_invariants();
+   res.sign() = a.sign();
+}
+
+template <unsigned bits, class U>
+inline typename enable_if_c<is_unsigned<U>::value>::type eval_multiply(cpp_bin_float<bits> &res, const U &b)
+{
+   eval_multiply(res, res, b);
+}
+
+template <unsigned bits, class S>
+inline typename enable_if_c<is_signed<S>::value>::type eval_multiply(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &a, const S &b)
+{
+   typedef typename make_unsigned<S>::type ui_type;
+   eval_multiply(res, a, static_cast<ui_type>(boost::multiprecision::detail::abs(b)));
+   if(b < 0)
+      res.negate();
+}
+
+template <unsigned bits, class S>
+inline typename enable_if_c<is_signed<S>::value>::type eval_multiply(cpp_bin_float<bits> &res, const S &b)
+{
+   eval_multiply(res, res, b);
+}
+
 template <unsigned bits>
 inline void eval_divide(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &u, const cpp_bin_float<bits> &v)
 {
@@ -740,6 +793,128 @@ template <unsigned bits>
 inline void eval_divide(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &arg)
 {
    eval_divide(res, res, arg);
+}
+
+template <unsigned bits, class U>
+inline typename enable_if_c<is_unsigned<U>::value>::type eval_divide(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &u, const U &v)
+{
+   using default_ops::eval_subtract;
+   using default_ops::eval_qr;
+   using default_ops::eval_bit_test;
+   using default_ops::eval_get_sign;
+
+   //
+   // Special cases first:
+   //
+   switch(u.exponent())
+   {
+   case cpp_bin_float<bits>::exponent_zero:
+      if(v == 0)
+      {
+         res = std::numeric_limits<number<cpp_bin_float<bits> > >::quiet_NaN().backend();
+         return;
+      }
+      res = u;
+      return;
+   case cpp_bin_float<bits>::exponent_infinity:
+      res = u;
+      return;
+   case cpp_bin_float<bits>::exponent_nan:
+      res = std::numeric_limits<number<cpp_bin_float<bits> > >::quiet_NaN().backend();
+      return;
+   }
+   if(v == 0)
+   {
+      bool s = u.sign();
+      res = std::numeric_limits<number<cpp_bin_float<bits> > >::infinity().backend();
+      res.sign() = s;
+      return;
+   }
+
+   // We can scale u and v so that both are integers, then perform integer
+   // division to obtain quotient q and remainder r, such that:
+   //
+   // q * v + r = u
+   //
+   // and hense:
+   //
+   // q + r/v = u/v
+   //
+   // From this, assuming q has "bits" bits, we only need to determine whether
+   // r/v is less than, equal to, or greater than 0.5 to determine rounding - 
+   // this we can do with a shift and comparison.
+   //
+   // We can set the exponent and sign of the result up front:
+   //
+   int gb = msb(v);
+   res.exponent() = u.exponent() - gb - 1;
+   res.sign() = u.sign();
+   //
+   // Now get the quotient and remainder:
+   //
+   typename cpp_bin_float<bits>::double_rep_type t(u.bits()), q, r;
+   eval_left_shift(t, gb + 1);
+   eval_qr(t, number<typename cpp_bin_float<bits>::double_rep_type>::canonical_value(v), q, r);
+   //
+   // We now have either "bits" or "bits+1" significant bits in q.
+   //
+   static const unsigned limb_bits = sizeof(limb_type) * CHAR_BIT;
+   if(eval_bit_test(q, bits))
+   {
+      //
+      // OK we have bits+1 bits, so we already have rounding info,
+      // we just need to changes things if the last bit is 1 and the
+      // remainder is non-zero (ie we do not have a tie).
+      //
+      BOOST_ASSERT(eval_msb(q) == bits);
+      if((q.limbs()[0] & 1u) && eval_get_sign(r))
+      {
+         eval_left_shift(q, limb_bits);
+         q.limbs()[0] = 1;
+         res.exponent() -= limb_bits;
+      }
+   }
+   else
+   {
+      //
+      // We have exactly "bits" bits in q.
+      // Get rounding info, which we can get by comparing 2r with v.
+      // We want to call copy_and_round to handle rounding and general cleanup,
+      // so we'll left shift q and add some fake bits on the end to represent
+      // how we'll be rounding.
+      //
+      BOOST_ASSERT(eval_msb(q) == bits - 1);
+      eval_left_shift(q, limb_bits);
+      res.exponent() -= limb_bits;
+      eval_left_shift(r, 1u);
+      int c = r.compare(number<typename cpp_bin_float<bits>::double_rep_type>::canonical_value(v));
+      if(c == 0)
+         q.limbs()[0] = static_cast<limb_type>(1u) << (limb_bits - 1);
+      else if(c > 0)
+         q.limbs()[0] = (static_cast<limb_type>(1u) << (limb_bits - 1)) + static_cast<limb_type>(1u);
+   }
+   copy_and_round(res, q);
+}
+
+template <unsigned bits, class U>
+inline typename enable_if_c<is_unsigned<U>::value>::type eval_divide(cpp_bin_float<bits> &res, const U &v)
+{
+   eval_divide(res, res, v);
+}
+
+template <unsigned bits, class S>
+inline typename enable_if_c<is_signed<S>::value>::type eval_divide(cpp_bin_float<bits> &res, const cpp_bin_float<bits> &u, const S &v)
+{
+   typedef typename make_unsigned<S>::type ui_type;
+   eval_divide(res, u, static_cast<ui_type>(boost::multiprecision::detail::abs(v)));
+   if(v < 0)
+      res.negate();
+}
+
+template <unsigned bits, class S>
+inline typename enable_if_c<is_signed<S>::value>::type eval_divide(cpp_bin_float<bits> &res, const S &v)
+{
+   eval_divide(res, res, v);
 }
 
 template <unsigned bits>
