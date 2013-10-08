@@ -205,8 +205,9 @@ public:
       }
       else
       {
-         I fi = boost::multiprecision::detail::abs(i);
-         typedef typename boost::multiprecision::detail::canonical<I, rep_type>::type ar_type;
+         typedef typename make_unsigned<I>::type ui_type;
+         ui_type fi = static_cast<ui_type>(boost::multiprecision::detail::abs(i));
+         typedef typename boost::multiprecision::detail::canonical<ui_type, rep_type>::type ar_type;
          m_data = static_cast<ar_type>(fi);
          unsigned shift = msb(fi);
          m_exponent = shift;
