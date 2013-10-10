@@ -1,7 +1,7 @@
 [article mylibrary - a template for Creating Boost HTML and PDF documentation using Quickbook, Doxygen and Auto-Indexing.
-    [quickbook 1.5]
+    [quickbook 1.7]
     [id my_library_template]
-    [copyright 2011 Paul A. Bristow]
+    [copyright 2011, 2013 Paul A. Bristow]
     [license
         Distributed under the Boost Software License, Version 1.0.
         (See accompanying file LICENSE_1_0.txt or copy at
@@ -16,9 +16,16 @@
 [/ Links - by (most common) convention, prefixed with double underscore so not confused with other names.]
 [def __alert      [$./images/alert.png]] [/ Examples of your own images (in doc/html/images/ .]
 [def __tip        [$./images/tip.png]]
-[/def :-)          [graphic smiley]] 
+[/def :-)          [graphic smiley]]
 [/ If you provide a file type like .png, you will probably find that the file is missing in the pdf version.]
 [/ This is because the default file type specified is .png in html, but .svg for pdf version.]
+
+[/ ticks and crosses from dingbats  http://www.unicodemap.org/range/56/Dingbats/ eg http://www.unicodemap.org/details/0x2714/]
+
+[def __tick [role aligncenter [role green \u2714]]] [/ u2714 is a HEAVY CHECK MARK tick (2713 check mark)]
+[def __cross [role aligncenter [role red \u2718]]] [/ u2718 is a heavy cross]
+[def __star [role aligncenter [role red \u2736]]] [/ 6-point star]
+[def __huh [role aligncenter [role red \u2753]]] [/ heavy question mark]
 
 [/ Some links to external sources.]
 [/ You often want to link more than once, so using a def ensures you always refer to the same location.]
@@ -30,13 +37,16 @@
 [/ Or refer to your most recent version of Boost.]
 [def __boostlicense [@boost:/LICENSE_1_0.txt Boost License]]
 [def __boostbook [@http://www.boost.org/doc/html/boostbook.html BoostBook]]
-[def __boostbook_docs [@http://www.boost.org/doc/libs/1_41_0/doc/html/boostbook.html BoostBook documentation]]
+[def __boostbook_docs [@http://www.boost.org/doc/libs/1_48_0/doc/html/boostbook.html BoostBook documentation]]
 
 [def __quickbook  [@http://www.boost.org/doc/tools/quickbook/index.html Quickbook]]
-[def __quickbook_syntax [@http://www.boost.org/doc/libs/1_41_0/doc/html/quickbook/ref.html Quickbook Syntax Compendium]]
+[def __quickbook_syntax [@http://www.boost.org/doc/libs/1_48_0/doc/html/quickbook/ref.html Quickbook Syntax Compendium]]
 [def __docbook [@http://www.docbook.org/ DocBook]]
 [def __doxygen [@http://www.doxygen.org/ Doxygen]]
-[def __autoindex [@boost:\tools\auto_index\doc\html\index.html AutoIndex]]
+[def __spirit [@boost:/libs/spirit/index.html the Boost.Spirit documentation]]
+
+[def __autoindex [@boost:/tools/auto_index/doc/html/index.html AutoIndex]]
+
 [def __pdf [@http://www.adobe.com/products/acrobat/adobepdf.html PDF]]
 [def __textpad [@http://www.textpad.com Textpad]]
 [def __emacs [@http://www.gnu.org/software/emacs/ GNU emacs]]
@@ -47,15 +57,104 @@
 
 [def __docbook_params [@http://docbook.sourceforge.net/release/xsl/current/doc/ Docbook xsl:param format options]]
 
-[template deg[]'''&#xB0;'''] [/ degree sign ]
-[/ See latin1_symbols.qbk and math_symbols.qbk for more]
+[def __myclass [classref boost::mylibrary::myclass My class  myclass]]
 
-[important This is a template, NOT an official Boost library.]
+[/ See latin1_symbols.qbk and math_symbols.qbk for more symbols and accented and greek letters.]
+
+[template equation[name]  '''<inlinemediaobject>
+<imageobject role="html">
+<imagedata fileref="../equations/'''[name]'''.png"></imagedata>
+</imageobject>
+<imageobject role="print">
+<imagedata fileref="../equations/'''[name]'''.svg"></imagedata>
+</imageobject>
+</inlinemediaobject>''']
+
+[template graph[name]  '''<inlinemediaobject>
+<imageobject role="html">
+<imagedata align="center" fileref="../graphs/'''[name]'''.png"></imagedata>
+</imageobject>
+<imageobject role="print">
+<imagedata align="center" fileref="../graphs/'''[name]'''.svg"></imagedata>
+</imageobject>
+</inlinemediaobject>''']
+
+[import ../../../../../../boost-trunk/tools/auto_index/include/auto_index_helpers.qbk]
+[/ Must be first included file!]
+
+[import html4_symbols.qbk]
+[/import math_symbols.qbk]
+
+[important This is a template and testbed, NOT an official Boost library.]
 
 [/ Examples of links to classes in own files.]
 [note Comments and suggestions (even bugs!) to Paul.A.Bristow (at) hetp (dot) u-net (dot) com.]
 
 [note A printer-friendly PDF version of this manual is also available.]
+
+[section:coloring Coloring text]
+
+Coloring uses the ['role] feature (from Quickbook 1.6 onwards).
+
+[role red Some red text]
+[*[role green Some bold green text]]
+['[*[role blue Some italic bold blue text]]]
+[role lime Some lime text]
+[role magenta Some magenta text]
+[role yellow Some yellow text]
+[role indigo Some indigo text]
+[role navy Some navy text]
+[role purple Some purple text]
+[role gold Some gold text]
+[role silver Some silver text]
+[role gray Some gray text]
+
+[endsect] [/section:coloring Coloring text]
+
+
+[section:equations Mathematical Equations]
+
+ Mathematical Equations are a major problem.
+
+[/MathML seems most promising.
+
+'''
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow>
+    <mover>
+      <mi>A</mi>
+      <mo>&shortrightarrow;</mo>
+    </mover>
+    <mi>&delta;</mi>
+    <mo>&sum;</mo>
+    <mo>&forall;</mo>
+    <msqrt/>
+  </mrow>
+</math>
+
+'''
+
+inline media object - but isn't found.
+
+'''<inlinemediaobject><textobject role="MathML"><?dbhtml-include href="test.mml"?></textobject></inlinemediaobject>'''
+]
+
+[graph demo_svg_text]
+
+[/include demo_svg_text.svg]
+
+Greek can conveniently be importing using html4_symbols.qbk which has lots of symbols as templates.
+
+[/import html4_symbols.qbk]
+
+[pi] and [alpha] ...
+
+Symbols tick, star and cross are also neat in tables:
+
+[tick], [cross] and [star].
+
+[endsect] [/section:equations Mathematical Equations]
+
 
 [section:intro Introduction]
 [/ It is a good idea to give *all* sections an id - which must follow section: with *no* space(s).]
@@ -67,7 +166,7 @@ produces some of the nicest and most comprehensive C++ documentation.
 
 Some features are:
 
-* Documentation is written in __quickbook, 
+* Documentation is written in __quickbook,
 a [@http://en.wikipedia.org/wiki/Wikiwiki Wiki-Wiki-style language].
 
 * Output in both html and/or [@http://en.wikipedia.org/wiki/Adobe_PDF Adobe PDF] formats.
@@ -142,21 +241,120 @@ __tip I'm sure you will find it useful to do this before you start to write your
 
 [endsect] [/section:intro Introduction]
 
-[/ Now follow the main sections of your documentation.
+[section:snippets Including snippets and output]
+
+Inline items like `float`, `double`, or names like `std::numeric_limits`
+are displayed in `code font` by enclosing in the back-tick character (not the single quote "'").
+
+(left of number 1 key) on UK keyboard.
+
+You can include part(s) of your C++ code for example
+
+[import ../example/mylibrary_example.cpp]
+
+[mylibrary_example_1]
+
+and avoid irrelavant stuff by dividing into more than one snippet:
+
+[mylibrary_example_2]
+
+and also show any output:
+
+[mylibrary_example_output]
+
+[endsect] [/section:snippets Including snippets and output]
+
+[section:your_stuff Your main sections of documention]
+
+Now follows the main sections of your documentation.
 These .qbk files can of course many sections, and may include other .qbk files,
 links to other files of any type and location,
-and import C++ file snippets that may turn one or more sections into templates that can be included.]
+and import C++ file snippets that may turn one or more sections into templates that can be included.
+
+[h4 Headings]
+
+You can use headings as well, but be aware that indexing only brings you to the section containing the item,
+so the reader may have trouble finding the inedex term if the section is too long.
+So err on the side of too many sections rather than too few.
 
 [/include todo.qbk]
 [/include acknowledgements.qbk]  [/ Who deserves credit for what.]
-[/references references.qbk] [/ references to academic papers, patents, prior art...]
+[/references references.qbk] [/ References to academic papers, patents, prior art...]
 [/include credits.qbk]
 
 [/ If you need some greek, squiggles or math symbols.]
 [/html4_symbols.qbk]
 [/latin1_symbols.qbk]
 [/math_symbols.qbk]
-[/include test_html4_symbols.qbk]
+[/include test_html4_symbols.qbk] [/This demonstrates all the symbols.]
+
+[endsect] [/section:your_stuff Your main sections of documention]
+
+[section:linking Linking]
+
+See [@boost:/tools/quickbook/doc/html/quickbook/syntax/phrase/code_links.html]
+
+\[classref fully::qualified::class_name The link text\]
+
+For example, to reference class myclass
+
+[classref boost::mylibrary::myclass]
+
+using the default text which will be
+
+""
+
+similarly for a function:\[funcref fully::qualified::function_name\]
+
+[funcref boost::mylibrary::useless()]
+
+[memberref boost::mylibrary::myclass::useless_member()]
+
+[memberref boost::mylibrary::myclass::test_me(float)]
+
+[memberref boost::mylibrary::myclass::test_me(double)]
+
+If there is a space in member function specification, then need to provide full text, or will just get
+
+"const char*)" as the link text.
+
+[memberref boost::mylibrary::myclass::test_me(int, const char*) boost::mylibrary::myclass::test_me(int, const char*)]
+
+For links to Macros, use this syntax: \[macroref MACRO_NAME The link text\]
+
+[macroref MY_MACRO]
+
+[macroref MY_MACRO  MY_MACRO description]
+
+[globalref boost::mylibrary::mylibrary_global]
+
+is OK but
+
+this truely global variable [globalref ::global_int] doesn't reference int const global_int = 99;
+
+also these *member* variable don't seem to work.
+
+[globalref boost::mylibrary::myclass.mypublic_var]
+
+[memberref boost::mylibrary::myclass::mypublic_var]
+
+[memberref boost::mylibrary::myclass.mypublic_var]
+
+[globalref boost::mylibrary::myclass::myprivate_var]
+
+
+[enumref boost::mylibrary::myclass::my_enum]
+
+It is almost always a good idea to create a definition for the link, see def above,
+so you can refer using
+
+__myclass
+
+
+
+
+[endsect] [/section:linking Linking]
+
 
 [section:indexing How to get Index(es) of your documentation]
 
@@ -183,7 +381,7 @@ including essential changes to your user-config.jam.
 This is some ['junk] that should [*never] be indexed!
 (because it is excluded in the index script file mylibrary.idx).
 
-Here is a mention of degrees [deg] kelvin which should [*not] 
+Here is a mention of degrees [deg] kelvin which should [*not]
 put the great man's name in the index linking to here.
 
 Voltaire should get an (silly) entry only in the indexing section linking this section or page.
@@ -230,7 +428,7 @@ of a meagre and unsatisfactory kind."
 ['Lord Kelvin ]
 
 Lord Kelvin was a famous scientist,
-but we should [*only] want an index to him in the idols section: 
+but we should [*only] want an index to him in the idols section:
 we don't want a index entry every time we state a temperature in degrees kelvin!
 
 Mark Twain [*should] get an index entry both here and in the idols section.
@@ -239,11 +437,71 @@ Voltaire should (perversely) only get an "how to get indexes.. " index entry, an
 
 [endsect] [/section:idols Idols]
 
+
+[section:a_table Table and alignment examples]
+
+[h6 Show the use of fonts variants like bold, italic etc.]
+
+[table:my_table  Performance
+  [[processor] [version 1] [version 2]]
+  [[Intel]  [[_1.1]] [[*2.3]]]
+  [[AMD]  [[*2.2]] [['2.3]]]
+] [/table:my_table  Performance]
+
+To add items in the table like colored ticks or crosses, you need to
+
+  [import math_symbols.qbk]
+
+Templates tick [tick], [cross] and [star] work just like Greek [alpha], [Beta] [pi] [Pi] ...
+
+[h5 To center items in the table and add colored ticks or crosses.]
+
+[role alignleft This is left aligned - and is the default alignment.]
+[role alignright This is right aligned.]
+[role aligncenter This is centered.]
+[role alignjustify This is justified - Stretches the lines so that each line has equal width.]
+
+Note that these can be nested (just like font variants).
+
+[*[role magenta [role aligncenter This is bold magenta and centered.]]]
+
+Note that the tick and cross templates above are NOT aligncentered,
+you can use the definitions '''__tick''', '''__cross''' '''__star'''
+that [*are center-aligned] in tables
+(reducing the risk of bracket mismatch).
+or you can add the alignment to the symbol and write
+
+  [role aligncenter [star]].
+
+[table:my_table_2  Features
+  [[[role alignright processor]] [[role aligncenter version 1]] [version 2] [[role aligncenter Feature]] [Works OK]]
+  [[[role alignleft Intel]]  [[_1.1]] [[*2.3]] [__tick] [[tick]]]
+  [[[role red [role aligncenter AMD]]]  [[*2.2]] [[_2.3]] [__cross] [[role aligncenter [cross]]]]
+  [[[role alignjustify IBM means I've Been Moved.]]  [[^2.2]] [[-2.3]] [__huh] [[role aligncenter [star]]]]
+] [/table:my_table_2  Features]
+
+This shows that you cannot use alignjustify to fit a long line in a table box because the column
+size is determined by the full string length.
+
+
+[endsect] [/section:a_table Table example]
+
+[section:tickets  Appendix E: Tickets]
+
+Report and view bugs and features by adding a ticket at [@https://svn.boost.org/trac/boost Boost.Trac].
+
+Existing open tickets for this library alone can be viewed
+[@https://svn.boost.org/trac/boost/query?status=assigned&status=new&status=reopened&component=pool&col=id&col=summary&col=status&col=owner&col=type&col=milestone&order=priority here].
+Existing tickets for this library - including closed ones - can be viewed
+[@https://svn.boost.org/trac/boost/query?status=assigned&status=closed&status=new&status=reopened&component=pool&col=id&col=summary&col=status&col=owner&col=type&col=milestone&order=priority here].
+
+[endsect] [/section:tickets  Appendix E: Tickets]
+
 [section:version_id Version Info]
 
 Last edit to Quickbook file __FILENAME__ was at __TIME__ on __DATE__.
 
-[tip This should appear on the pdf version 
+[tip This should appear on the pdf version
 (but may be redundant on a html version where the last edit date is on the first (home) page).]
 
 [warning Home page "Last revised" is GMT, not local time.  Last edit date is local time.]
