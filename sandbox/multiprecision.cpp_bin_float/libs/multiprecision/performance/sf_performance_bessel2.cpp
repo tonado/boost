@@ -15,6 +15,6 @@ void bessel_tests_2()
    time_proc("cpp_dec_float_50", test_bessel<cpp_dec_float_50>, 3);
 #endif
 #ifdef TEST_CPP_BIN_FLOAT
-   time_proc("cpp_bin_float_50", test_bessel<number<cpp_bin_float<std::numeric_limits<mpfr_float_50>::digits> > >, 3);
+   time_proc("cpp_bin_float_50", test_bessel<cpp_bin_float_50>, 3);
 #endif
 }

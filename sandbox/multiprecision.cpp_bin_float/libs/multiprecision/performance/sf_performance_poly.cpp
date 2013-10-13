@@ -30,7 +30,7 @@ void poly_tests()
    time_proc("cpp_dec_float_50", test_polynomial<cpp_dec_float_50>);
 #endif
 #ifdef TEST_CPP_BIN_FLOAT
-   time_proc("cpp_bin_float_50", test_polynomial<number<cpp_bin_float<std::numeric_limits<mpfr_float_50>::digits> > >);
+   time_proc("cpp_bin_float_50", test_polynomial<cpp_bin_float_50>);
 #endif
 #ifdef TEST_MPFR_CLASS
    time_proc("mpfr_class", test_polynomial<mpfr_class>);
@@ -61,7 +61,7 @@ void poly_tests()
    time_proc("cpp_dec_float_100", test_polynomial<cpp_dec_float_100>);
 #endif
 #ifdef TEST_CPP_BIN_FLOAT
-   time_proc("cpp_bin_float_100", test_polynomial<number<cpp_bin_float<std::numeric_limits<mpfr_float_100>::digits> > >);
+   time_proc("cpp_bin_float_100", test_polynomial<cpp_bin_float_100>);
 #endif
 #ifdef TEST_MPFR_CLASS
    time_proc("mpfr_class", test_polynomial<mpfr_class>);

@@ -225,7 +225,7 @@ void test_round_trip()
 
    stopwatch<boost::chrono::high_resolution_clock> w;
 
-   for(unsigned i = 0; i < 10000; ++i)
+   while(boost::chrono::duration_cast<boost::chrono::duration<double> >(w.elapsed()).count() < 200)
    {
       T val = generate_random<T>();
       do_round_trip(val);
@@ -237,15 +237,22 @@ void test_round_trip()
    std::cout << "Execution time = " << boost::chrono::duration_cast<boost::chrono::duration<double> >(w.elapsed()).count() << "s" << std::endl;
 }
 
+#if !defined(TEST1) && !defined(TEST2)
+#  define TEST1
+#  define TEST2
+#endif
+
 int main()
 {
    using namespace boost::multiprecision;
-   test<number<cpp_bin_float<113> > >();
-   test_round_trip<number<cpp_bin_float<113> > >();
-
-   test<number<cpp_bin_float<53> > >();
-   test_round_trip<number<cpp_bin_float<53> > >();
-
+#ifdef TEST1
+   test<number<cpp_bin_float<113, digit_base_2> > >();
+   test_round_trip<number<cpp_bin_float<113, digit_base_2> > >();
+#endif
+#ifdef TEST2
+   test<number<cpp_bin_float<53, digit_base_2> > >();
+   test_round_trip<number<cpp_bin_float<53, digit_base_2> > >();
+#endif
    return boost::report_errors();
 }
 

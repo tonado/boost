@@ -14,7 +14,7 @@ void nct_tests_3()
    time_proc("cpp_dec_float_50", test_nct<cpp_dec_float_50>);
 #endif
 #ifdef TEST_CPP_BIN_FLOAT
-   time_proc("cpp_bin_float_50", test_nct<number<cpp_bin_float<std::numeric_limits<mpfr_float_50>::digits> > >, 3);
+   time_proc("cpp_bin_float_50", test_nct<cpp_bin_float_50>, 3);
 #endif
 #ifdef TEST_MPFR_CLASS
    time_proc("mpfr_class", test_nct<mpfr_class>);

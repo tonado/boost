@@ -335,7 +335,7 @@ int main()
    test<boost::multiprecision::float128>();
 #endif
 #ifdef TEST_CPP_BIN_FLOAT
-   test<boost::multiprecision::number<boost::multiprecision::cpp_bin_float<113> > >();
+   test<boost::multiprecision::cpp_bin_float_50>();
 #endif
    return boost::report_errors();
 }

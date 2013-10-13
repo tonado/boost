@@ -19,7 +19,7 @@ struct related_type<boost::multiprecision::number< boost::multiprecision::cpp_bi
 
 int main()
 {
-   test<boost::multiprecision::number<boost::multiprecision::cpp_bin_float<256> > >();
+   test<boost::multiprecision::cpp_bin_float_50>();
    return boost::report_errors();
 }
 

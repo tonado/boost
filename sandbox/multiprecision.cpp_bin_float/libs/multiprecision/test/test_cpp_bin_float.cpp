@@ -46,7 +46,7 @@ typedef number<mpfr_float_backend<15> > good_type;
 #else
 typedef double good_type;
 #endif
-typedef number<cpp_bin_float<std::numeric_limits<good_type>::digits>, et_off> test_type;
+typedef number<cpp_bin_float<std::numeric_limits<good_type>::digits, digit_base_2>, et_off> test_type;
 
 void test_special_cases()
 {

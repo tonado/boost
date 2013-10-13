@@ -95,11 +95,9 @@ typedef boost::multiprecision::number<boost::multiprecision::cpp_dec_float<35, l
 #ifdef TEST_CPP_BIN_FLOAT
 #include <boost/multiprecision/cpp_bin_float.hpp>
 
-#define CPP_BIN_FLOAT_TESTS    /*test(number<cpp_bin_float<53> >(), "number<cpp_bin_float<53> >");*/\
-   test(number<cpp_bin_float<113> >(), "number<cpp_bin_float<113> >");
+#define CPP_BIN_FLOAT_TESTS test(cpp_bin_float_50>(), "cpp_bin_float_50");
 
-//typedef boost::multiprecision::number<boost::multiprecision::cpp_bin_float<53> > test_type_1;
-typedef boost::multiprecision::number<boost::multiprecision::cpp_bin_float<113> > test_type_1;
+typedef boost::multiprecision::cpp_bin_float_50 test_type_1;
 
 #else
 
