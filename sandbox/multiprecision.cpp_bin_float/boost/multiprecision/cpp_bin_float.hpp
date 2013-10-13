@@ -170,17 +170,17 @@ public:
       m_sign = false;
       m_exponent = 0;
 
-      static const int cpp_bin_float<Digits, DigitBase, Allocator>::bit_count = sizeof(int) * CHAR_BIT - 1;
+      static const int bits = sizeof(int) * CHAR_BIT - 1;
       int e;
       eval_frexp(f, f, &e);
       while(eval_get_sign(f) != 0)
       {
-         eval_ldexp(f, f, cpp_bin_float<Digits, DigitBase, Allocator>::bit_count);
-         e -= cpp_bin_float<Digits, DigitBase, Allocator>::bit_count;
+         eval_ldexp(f, f, bits);
+         e -= bits;
          int ipart;
          eval_convert_to(&ipart, f);
          eval_subtract(f, static_cast<f_int_type>(ipart));
-         m_exponent += cpp_bin_float<Digits, DigitBase, Allocator>::bit_count;
+         m_exponent += bits;
          eval_add(*this, static_cast<bf_int_type>(ipart));
       }
       m_exponent += e;
@@ -1087,6 +1087,8 @@ template <unsigned Digits, digit_base_type DigitBase, class Allocator>
 inline void eval_sqrt(cpp_bin_float<Digits, DigitBase, Allocator> &res, const cpp_bin_float<Digits, DigitBase, Allocator> &arg)
 {
    using default_ops::eval_integer_sqrt;
+   using default_ops::eval_bit_test;
+   using default_ops::eval_increment;
    switch(arg.exponent())
    {
    case cpp_bin_float<Digits, DigitBase, Allocator>::exponent_zero:
