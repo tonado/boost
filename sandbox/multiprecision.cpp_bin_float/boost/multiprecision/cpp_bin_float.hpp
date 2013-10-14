@@ -684,6 +684,7 @@ inline void eval_divide(cpp_bin_float<Digits, DigitBase, Allocator> &res, const 
    using default_ops::eval_qr;
    using default_ops::eval_bit_test;
    using default_ops::eval_get_sign;
+   using default_ops::eval_increment;
 
    //
    // Special cases first:
@@ -770,9 +771,7 @@ inline void eval_divide(cpp_bin_float<Digits, DigitBase, Allocator> &res, const 
       BOOST_ASSERT((eval_msb(q) == cpp_bin_float<Digits, DigitBase, Allocator>::bit_count));
       if((q.limbs()[0] & 1u) && eval_get_sign(r))
       {
-         eval_left_shift(q, limb_bits);
-         q.limbs()[0] = 1;
-         res.exponent() -= limb_bits;
+         eval_increment(q);
       }
    }
    else
@@ -781,7 +780,7 @@ inline void eval_divide(cpp_bin_float<Digits, DigitBase, Allocator> &res, const 
       // We have exactly "cpp_bin_float<Digits, DigitBase, Allocator>::bit_count" cpp_bin_float<Digits, DigitBase, Allocator>::bit_count in q.
       // Get rounding info, which we can get by comparing 2r with v.
       // We want to call copy_and_round to handle rounding and general cleanup,
-      // so we'll left shift q and add some fake cpp_bin_float<Digits, DigitBase, Allocator>::bit_count on the end to represent
+      // so we'll left shift q and add some fake digits on the end to represent
       // how we'll be rounding.
       //
       BOOST_ASSERT((eval_msb(q) == cpp_bin_float<Digits, DigitBase, Allocator>::bit_count - 1));
@@ -790,9 +789,9 @@ inline void eval_divide(cpp_bin_float<Digits, DigitBase, Allocator> &res, const 
       eval_left_shift(r, 1u);
       int c = r.compare(v.bits());
       if(c == 0)
-         q.limbs()[0] = static_cast<limb_type>(1u) << (limb_bits - 1);
+         q.limbs()[0] |= static_cast<limb_type>(1u) << (limb_bits - 1);
       else if(c > 0)
-         q.limbs()[0] = (static_cast<limb_type>(1u) << (limb_bits - 1)) + static_cast<limb_type>(1u);
+         q.limbs()[0] |= (static_cast<limb_type>(1u) << (limb_bits - 1)) + static_cast<limb_type>(1u);
    }
    copy_and_round(res, q);
 }
@@ -810,6 +809,7 @@ inline typename enable_if_c<is_unsigned<U>::value>::type eval_divide(cpp_bin_flo
    using default_ops::eval_qr;
    using default_ops::eval_bit_test;
    using default_ops::eval_get_sign;
+   using default_ops::eval_increment;
 
    //
    // Special cases first:
@@ -877,9 +877,7 @@ inline typename enable_if_c<is_unsigned<U>::value>::type eval_divide(cpp_bin_flo
       BOOST_ASSERT((eval_msb(q) == cpp_bin_float<Digits, DigitBase, Allocator>::bit_count));
       if((q.limbs()[0] & 1u) && eval_get_sign(r))
       {
-         eval_left_shift(q, limb_bits);
-         q.limbs()[0] = 1;
-         res.exponent() -= limb_bits;
+         eval_increment(q);
       }
    }
    else
@@ -897,9 +895,9 @@ inline typename enable_if_c<is_unsigned<U>::value>::type eval_divide(cpp_bin_flo
       eval_left_shift(r, 1u);
       int c = r.compare(number<typename cpp_bin_float<Digits, DigitBase, Allocator>::double_rep_type>::canonical_value(v));
       if(c == 0)
-         q.limbs()[0] = static_cast<limb_type>(1u) << (limb_bits - 1);
+         q.limbs()[0] |= static_cast<limb_type>(1u) << (limb_bits - 1);
       else if(c > 0)
-         q.limbs()[0] = (static_cast<limb_type>(1u) << (limb_bits - 1)) + static_cast<limb_type>(1u);
+         q.limbs()[0] |= (static_cast<limb_type>(1u) << (limb_bits - 1)) + static_cast<limb_type>(1u);
    }
    copy_and_round(res, q);
 }

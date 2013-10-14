@@ -42,7 +42,7 @@ T generate_random()
 
 using namespace boost::multiprecision;
 #ifdef TEST_MPFR
-typedef number<mpfr_float_backend<15> > good_type;
+typedef number<mpfr_float_backend<18> > good_type;
 #else
 typedef double good_type;
 #endif
