@@ -149,6 +149,7 @@ void test_special_cases()
 int main()
 {
    test_special_cases();
+   unsigned error_count = 0;
    for(unsigned i = 0; i < 100000; ++i)
    {
       good_type a = generate_random<good_type>();
@@ -200,6 +201,19 @@ int main()
       BOOST_CHECK_EQUAL(test_type(a / -si), ta / -si);
       BOOST_CHECK_EQUAL(test_type(a / ui), ta / ui);
       BOOST_CHECK_EQUAL(test_type(-a / ui), -ta / ui);
+
+      // Error reporting:
+      if(boost::detail::test_errors() != error_count)
+      {
+         error_count = boost::detail::test_errors();
+         std::cout << std::setprecision(std::numeric_limits<test_type>::max_digits10) << std::scientific;
+         std::cout << "a (mpfr) = " << a << std::endl;
+         std::cout << "a (test) = " << ta << std::endl;
+         std::cout << "b (mpfr) = " << b << std::endl;
+         std::cout << "b (test) = " << tb << std::endl;
+         std::cout << "si       = " << si << std::endl;
+         std::cout << "ui       = " << ui << std::endl;
+      }
    }
    return boost::report_errors();
 }
