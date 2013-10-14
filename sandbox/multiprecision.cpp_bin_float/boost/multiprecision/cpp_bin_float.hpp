@@ -217,8 +217,16 @@ public:
          typedef typename boost::multiprecision::detail::canonical<ui_type, rep_type>::type ar_type;
          m_data = static_cast<ar_type>(fi);
          unsigned shift = msb(fi);
-         m_exponent = shift;
-         eval_left_shift(m_data, bit_count - shift - 1);
+         if(shift >= bit_count)
+         {
+            m_exponent = shift;
+            m_data = fi >> shift + 1 - bit_count;
+         }
+         else
+         {
+            m_exponent = shift;
+            eval_left_shift(m_data, bit_count - shift - 1);
+         }
          BOOST_ASSERT(eval_bit_test(m_data, bit_count-1));
          m_sign = i < 0;
       }
@@ -784,14 +792,15 @@ inline void eval_divide(cpp_bin_float<Digits, DigitBase, Allocator> &res, const 
       // how we'll be rounding.
       //
       BOOST_ASSERT((eval_msb(q) == cpp_bin_float<Digits, DigitBase, Allocator>::bit_count - 1));
-      eval_left_shift(q, limb_bits);
-      res.exponent() -= limb_bits;
+      static const unsigned lshift = cpp_bin_float<Digits, DigitBase, Allocator>::bit_count < limb_bits ? 2 : limb_bits;
+      eval_left_shift(q, lshift);
+      res.exponent() -= lshift;
       eval_left_shift(r, 1u);
       int c = r.compare(v.bits());
       if(c == 0)
-         q.limbs()[0] |= static_cast<limb_type>(1u) << (limb_bits - 1);
+         q.limbs()[0] |= static_cast<limb_type>(1u) << (lshift - 1);
       else if(c > 0)
-         q.limbs()[0] |= (static_cast<limb_type>(1u) << (limb_bits - 1)) + static_cast<limb_type>(1u);
+         q.limbs()[0] |= (static_cast<limb_type>(1u) << (lshift - 1)) + static_cast<limb_type>(1u);
    }
    copy_and_round(res, q);
 }
@@ -890,14 +899,15 @@ inline typename enable_if_c<is_unsigned<U>::value>::type eval_divide(cpp_bin_flo
       // how we'll be rounding.
       //
       BOOST_ASSERT((eval_msb(q) == cpp_bin_float<Digits, DigitBase, Allocator>::bit_count - 1));
-      eval_left_shift(q, limb_bits);
-      res.exponent() -= limb_bits;
+      static const unsigned lshift = cpp_bin_float<Digits, DigitBase, Allocator>::bit_count < limb_bits ? 2 : limb_bits;
+      eval_left_shift(q, lshift);
+      res.exponent() -= lshift;
       eval_left_shift(r, 1u);
       int c = r.compare(number<typename cpp_bin_float<Digits, DigitBase, Allocator>::double_rep_type>::canonical_value(v));
       if(c == 0)
-         q.limbs()[0] |= static_cast<limb_type>(1u) << (limb_bits - 1);
+         q.limbs()[0] |= static_cast<limb_type>(1u) << (lshift - 1);
       else if(c > 0)
-         q.limbs()[0] |= (static_cast<limb_type>(1u) << (limb_bits - 1)) + static_cast<limb_type>(1u);
+         q.limbs()[0] |= (static_cast<limb_type>(1u) << (lshift - 1)) + static_cast<limb_type>(1u);
    }
    copy_and_round(res, q);
 }
