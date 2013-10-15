@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Notes on Implementation of std::numeric_limits</title>
 <link rel="stylesheet" href="../../../boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Boost.Multiprecision">
 <link rel="up" href="../limits.html" title="Numeric Limits">
 <link rel="prev" href="../limits.html" title="Numeric Limits">
@@ -18,7 +18,7 @@
 <a name="boost_multiprecision.tut.limits.implementation"></a><a class="link" href="implementation.html" title="Notes on Implementation of std::numeric_limits">Notes
         on Implementation of <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span></code></a>
 </h4></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="implementation/constants.html">std::numeric_limits&lt;&gt;
           constants</a></span></dt>
 <dd><dl>
@@ -26,14 +26,13 @@
 <dt><span class="section"><a href="implementation/constants/infinity.html">infinity</a></span></dt>
 <dt><span class="section"><a href="implementation/constants/signed.html">is_signed</a></span></dt>
 <dt><span class="section"><a href="implementation/constants/exact.html">is_exact</a></span></dt>
-<dt><span class="section"><a href="implementation/constants/bound.html">is_bound</a></span></dt>
+<dt><span class="section"><a href="implementation/constants/bound.html">is_bounded</a></span></dt>
 <dt><span class="section"><a href="implementation/constants/modulo.html">is_modulo</a></span></dt>
-<dt><span class="section"><a href="implementation/constants/is_bounded.html">is_bounded</a></span></dt>
 <dt><span class="section"><a href="implementation/constants/radix.html">radix</a></span></dt>
 <dt><span class="section"><a href="implementation/constants/digits.html">digits</a></span></dt>
 <dt><span class="section"><a href="implementation/constants/digits10.html">digits10</a></span></dt>
 <dt><span class="section"><a href="implementation/constants/max_digits10.html">max_digits10</a></span></dt>
-<dt><span class="section"><a href="implementation/constants/round_style.html">route_style</a></span></dt>
+<dt><span class="section"><a href="implementation/constants/round_style.html">round_style</a></span></dt>
 <dt><span class="section"><a href="implementation/constants/denorm_loss.html">has_denorm_loss</a></span></dt>
 <dt><span class="section"><a href="implementation/constants/denorm_style.html">denorm_style</a></span></dt>
 <dt><span class="section"><a href="implementation/constants/tinyness.html">Tinyness
@@ -73,9 +72,10 @@
 <th align="left">Warning</th>
 </tr>
 <tr><td align="left" valign="top"><p>
-            GMP and MPFR do not have a concept of overflow: operations that lead
-            to overflow eventually run of out of resources and terminate with stack
-            overflow (often after several seconds).
+            GMP's <code class="computeroutput"><span class="identifier">mpf_t</span></code> does not
+            have a concept of overflow: operations that lead to overflow eventually
+            run of out of resources and terminate with stack overflow (often after
+            several seconds).
           </p></td></tr>
 </table></div>
 </div>

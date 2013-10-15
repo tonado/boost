@@ -255,7 +255,7 @@ cpp_bin_float<Digits, DigitBase, Allocator>& cpp_bin_float<Digits, DigitBase, Al
    if(n == 0)
    {
       // Result is necessarily zero:
-      *this = 0;
+      *this = static_cast<limb_type>(0u);
       return *this;
    }
 

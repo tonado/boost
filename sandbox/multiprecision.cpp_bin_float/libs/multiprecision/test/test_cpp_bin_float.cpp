@@ -42,9 +42,9 @@ T generate_random()
 
 using namespace boost::multiprecision;
 #ifdef TEST_MPFR
-typedef number<mpfr_float_backend<18> > good_type;
+typedef number<mpfr_float_backend<15> > good_type;
 #else
-typedef double good_type;
+typedef float good_type;
 #endif
 typedef number<cpp_bin_float<std::numeric_limits<good_type>::digits, digit_base_2>, et_off> test_type;
 
@@ -201,7 +201,6 @@ int main()
       BOOST_CHECK_EQUAL(test_type(a / -si), ta / -si);
       BOOST_CHECK_EQUAL(test_type(a / ui), ta / ui);
       BOOST_CHECK_EQUAL(test_type(-a / ui), -ta / ui);
-
       // Error reporting:
       if(boost::detail::test_errors() != error_count)
       {

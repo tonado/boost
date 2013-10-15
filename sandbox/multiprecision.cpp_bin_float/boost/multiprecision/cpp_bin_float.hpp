@@ -220,7 +220,7 @@ public:
          if(shift >= bit_count)
          {
             m_exponent = shift;
-            m_data = fi >> shift + 1 - bit_count;
+            m_data = static_cast<ui_type>(fi >> (shift + 1 - bit_count));
          }
          else
          {
@@ -1224,7 +1224,7 @@ struct number_category<cpp_bin_float<Digits, DigitBase, Allocator> > : public bo
 typedef number<backends::cpp_bin_float<113, digit_base_2>, et_off> bin_float128;
 
 typedef number<backends::cpp_bin_float<50>, et_off> cpp_bin_float_50;
-typedef number<backends::cpp_bin_float<50>, et_off> cpp_bin_float_100;
+typedef number<backends::cpp_bin_float<100>, et_off> cpp_bin_float_100;
 
 }} // namespaces
 
