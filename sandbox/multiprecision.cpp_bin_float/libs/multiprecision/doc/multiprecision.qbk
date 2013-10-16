@@ -35,7 +35,7 @@
 [import ../example/safe_prime.cpp]
 [import ../example/mixed_integer_arithmetic.cpp]
 [import ../example/logged_adaptor.cpp]
-[/[import ../example/numeric_limits_snips.cpp]]
+[import ../example/numeric_limits_snips.cpp]
 
 [template mpfr[] [@http://www.mpfr.org MPFR]]
 [template mpfi[] [@http://perso.ens-lyon.fr/nathalie.revol/software.html MPFI]]
@@ -2222,7 +2222,7 @@ Equation 3.8 on page 116.).
 
 The extra two (or 3) least significant digits are 'noisy' and may be junk,
 but if you want to 'round-trip' - printing a value out and reading it back in -
-you must use then with `os.precision(std::numeric_limits<T>::max_digits10)`.
+you must use `os.precision(std::numeric_limits<T>::max_digits10)`.
 For at least one popular compiler, you must also use `std::scientific` format.
 
 [endsect] [/section:digits digits]
@@ -2275,8 +2275,6 @@ A workaround is using scientific or exponential format `<< std::scientific`.]
 If `max_digits10` is not available, you should using the
 [@http://www.cs.berkeley.edu/~wkahan/ieee754status/IEEE754.PDF Kahan formula for floating-point type T].
 See above.]
-
-See also `max_digits10_proxy`.
 
 [max_digits10_1] [/ example for using max_digits10]
 
