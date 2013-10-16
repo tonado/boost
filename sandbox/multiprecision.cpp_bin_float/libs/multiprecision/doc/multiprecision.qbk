@@ -1,6 +1,8 @@
 [/
   Copyright 2011, 2013 John Maddock.
   Copyright 2013 Paul A. Bristow.
+  Copyright 2013 Christopher Kormanyos.
+
   Distributed under the Boost Software License, Version 1.0.
   (See accompanying file LICENSE_1_0.txt or copy at
   http://www.boost.org/LICENSE_1_0.txt).
@@ -1422,7 +1424,7 @@ It works for all the backend types equally too, here it is inspecting a `number<
 
 Let's face it debugger multiprecision numbers is hard - simply because we can't easily inspect the value of the numbers.
 Visual C++ provides a partial solution in the shape of "visualizers" which provide improved views of complex data structures,
-these visualizers need to be added to the `[Visualizer]` section of `autoexp.dat` located in the `Common7\Packages\Debugger`
+these visualizers need to be added to the `[Visualizer]` section of `autoexp.dat` located in the `Common7/Packages/Debugger`
 directory of your Visual Studio installation.  The actual visualizer code is in the sandbox
 [@https://svn.boost.org/svn/boost/sandbox/boost_docs/subprojects/DebuggerVisualizers/multiprecision.vis.txt here] - just cut and paste the code
 into your `autoexp.dat` file.
@@ -1981,7 +1983,6 @@ such as the decimal and binary multiprecision types provided here.  More informa
 
 [endsect] [/section:is_specialized is_specialized]
 
-
 [section:infinity infinity]
 
 For floating-point types, [infin] is defined whereever possible,
@@ -2275,6 +2276,8 @@ If `max_digits10` is not available, you should using the
 [@http://www.cs.berkeley.edu/~wkahan/ieee754status/IEEE754.PDF Kahan formula for floating-point type T].
 See above.]
 
+See also `max_digits10_proxy`.
+
 [max_digits10_1] [/ example for using max_digits10]
 
 [endsect] [/section:max_digits10 max_digits10]
@@ -2473,7 +2476,7 @@ though this is not strictly true for decimal types,
 not envisaged at the time that the standard was written).
 
 For floating-point types, rounding is to nearest, up or down,
-so at worst, only half a bit is lost, and `round_error == 0.5`.
+so at worst, only half a bit is lost by rounding, and `round_error == 0.5`.
 
 For integer types, rounding always to zero, so at worst almost one bit can be rounded,
 so `round_error == 1`.
@@ -2489,11 +2492,19 @@ the maximum potential error caused by rounding.  For typical floating-point type
 This value can be used to set tolerances (see epsilon).
 
 Of course, this is the rounding for just one arithmetic operation.
+Some arithmetic operations will involve rounding to integer
+when almost one bit can be lost by rounding.
+
 Real life computations involve many, or very many, steps each of which can be rounded.
 
-As a very rough approximation, we might multiply by the square root of the number of
-arithmetic operations.  So it is common to expect tolerances of a few times as great as
+So as a very rough approximation, we might multiply by the square root of the number of
+arithmetic operations. Thus it is common to expect tolerances of a few times as great as
 `epsilon() * round_error()`.
+
+There are, of course, many occasions when much bigger loss of precision occurs,
+for exampe, caused by
+[@http://en.wikipedia.org/wiki/Loss_of_significance Loss of significance or cancellation error]
+or very many iterations.
 
 [endsect] [/section:round_error  round_error]
 
@@ -2545,6 +2556,12 @@ for reliably checking if floating-point values are close enough.
 See Donald. E. Knuth. The art of computer programming (vol II).
 Copyright 1998 Addison-Wesley Longman, Inc., 0-201-89684-2.
 Addison-Wesley Professional; 3rd edition.
+
+See also:
+
+[@http://adtmag.com/articles/2000/03/15/comparing-floats-how-to-determine-if-floating-quantities-are-close-enough-once-a-tolerance-has-been.aspx Alberto Squassia, Comparing floats]
+
+[@http://adtmag.com/articles/2000/03/16/comparing-floats-how-to-determine-if-floating-quantities-are-close-enough-once-a-tolerance-has-been.aspx Alberto Squassia, Comparing floats code]
 
 [@boost:/libs/test/doc/html/utf/testing-tools/floating_point_comparison.html floating-point comparison].
 
@@ -2624,20 +2641,131 @@ if at all, and may be ignored for all practical purposes.
 
 [endsect] [/section:NaN NotANumber NaN]
 
-
-
-
-
 [endsect] [/section:functions std::numeric_limits<>  functions]
-
 
 [endsect] [/section:implementation Implementation Notes]
 
-
+[/ Tables of values for numeric_limits for various built-in and cpp_bin_float types]
 [include numeric_limits_32_tables.qbk]
-
+[/include numeric_limits_64_tables.qbk]
 
 [endsect] [/section:limits Numeric Limits]
+
+
+[section:input_output  Input Output]
+
+
+[h4  Loopback testing]
+
+[/Loopback] or [/round-tripping] refers to writing out a value as a decimal digit string using `std::iostream`,
+usually to a `std::stringstream`, and then reading the string back in to another value,
+and confirming that the two values are identical.  A trivial example using `float` is:
+
+  float write; // Value to round-trip.
+  std::stringstream ss;  // Read and write std::stringstream.
+  ss.precision(std::numeric_limits<T>::max_digits10);  // Ensure all potentially significant bits are output.
+  ss.flags(std::ios_base::fmtflags(std::ios_base::scientific)); // Use scientific format.
+  ss << write; // Output to string.
+  float read;  // Expected.
+  ss >> read; // Read decimal digits string from stringstream.
+  BOOST_CHECK_EQUAL(write, read); // Should be the same.
+
+and this can be run in a look for all possible values of a 32-bit float.
+For other floating-point types `T`, including built-in `double`,
+it takes far too long to test all values,
+so a reasonable test strategy is to use a large number of random values.
+
+  T write;
+  std::stringstream ss;
+  ss.precision(std::numeric_limits<T>::max_digits10);  // Ensure all potentially significant bits are output.
+  ss.flags(f); // Changed from default iostream format flags if desired.
+  ss << write; // Output to stringstream.
+
+  T read;
+  ss >> read; // Get read using operator>> from stringstream.
+  BOOST_CHECK_EQUAL(read, write);
+
+  read = static_cast<T>(ss.str()); // Get read by converting from decimal digits string representation of write.
+  BOOST_CHECK_EQUAL(read, write);
+
+  read = static_cast<T>(write.str(0, f));  // Get read using format specified when written.
+  BOOST_CHECK_EQUAL(read, write);
+
+
+The test at
+[$boost:/multiprecision.cpp_bin_float/libs/multiprecision/test/test_cpp_bin_float_io.cpp test_cpp_bin_float_io.cpp]
+allows any floating-point type to be [/round_tripped] using a wide range of fairly random values.
+It also includes tests compared a collection of
+[$boost:libs/multiprecision/test/string_data.ipp stringdata] test cases in a file.
+
+[h4 Comparing with output using Built-in types]
+
+One can make some comparisons with the output of
+
+   <number<cpp_bin_float<53> >
+
+which has the same number of significant bits (53) as 64-bit double precision floating-point.
+
+However, although most outputs are identical, but there are differences on some platforms
+caused by the implementation-dependent behaviours allowed by the C99 specification
+[@http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1124.pdf  C99 ISO/IEC 9899:TC2],
+incorporated by C++.
+
+"For e, E, f, F, g, and G conversions, if the number of significant decimal digits
+is at most DECIMAL_DIG, then the result should be correctly rounded.
+If the number of significant decimal digits is more than DECIMAL_DIG
+but the source value is exactly representable with DECIMAL_DIG digits,
+then the result should be an exact representation with trailing zeros.
+Otherwise, the source value is bounded by two adjacent decimal strings L < U,
+both having DECIMAL_DIG significant digits;
+the value of the resultant decimal string D should satisfy L<= D <= U,
+with the extra stipulation that the error should have a correct sign
+for the current rounding direction."
+
+So not only is correct rounding for the full number of digits not required,
+but even if the *optional* recomended practice is followed,
+then the value of these last few digits is unspecified
+as long as the value is within certain bounds.
+
+[note Do not expect the output from different platforms
+to be [*identical], but `cpp_dec_float`, `cpp_bin_float` (and other backends) outputs should be
+correctly rounded to the number of digits requested by the set precision and format.]
+
+
+[h4 Macro BOOST_MP_MIN_EXPONENT_DIGITS]
+
+[@http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1124.pdf C99 Standard]
+for [/e and E] format specifiers, 7.19.6 Formatted input/output functions requires:
+
+\"The exponent always contains at least two digits,
+and only as many more digits as necessary to represent the exponent.\"
+
+So to conform to the C99 standard (incorporated by C++)
+
+  #define BOOST_MP_MIN_EXPONENT_DIGITS 2
+
+Confusingly, Microsoft (and MinGW) do not conform to this standard and provide
+[*at least three digits], for example `1e+001`.
+So if you want the output to match the format output using
+built-in floating-point types, or to make output the same for all platforms like GCC and Clang,
+then you need to override the above definition:
+
+  #ifdef MSC_VER
+  #  define BOOST_MP_MIN_EXPONENT_DIGITS 3
+  #endif
+
+Also useful to get the minimum exponent field width is
+
+  #  define BOOST_MP_MIN_EXPONENT_DIGITS 1
+
+producing a compact output like `2e+4`,
+useful when conserving space is important.
+
+Larger values are also supported, for example, value 4 for `2e+0004`
+which may be useful to ensure that columns line up.
+
+[endsect] [/section:input_output  Input Output]
+
 
 [endsect]
 
