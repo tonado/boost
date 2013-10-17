@@ -14,14 +14,15 @@
 template <unsigned D>
 struct related_type<boost::multiprecision::number< boost::multiprecision::cpp_bin_float<D> > >
 {
-   typedef boost::multiprecision::number< boost::multiprecision::cpp_bin_float<D/2> > type;
+   typedef boost::multiprecision::number< boost::multiprecision::cpp_bin_float<(D / 2 > std::numeric_limits<long double>::digits10 ? D / 2 : D)> > type;
 };
 
 int main()
 {
    //test<boost::multiprecision::cpp_bin_float_50>();
    //test<boost::multiprecision::number<boost::multiprecision::cpp_bin_float<21> > >();
-   test<boost::multiprecision::float80_t>();
+   test<boost::multiprecision::number<boost::multiprecision::cpp_bin_float<1000, boost::multiprecision::digit_base_10, std::allocator<void> > > >();
+   //test<boost::multiprecision::float128_t>();
    return boost::report_errors();
 }
 

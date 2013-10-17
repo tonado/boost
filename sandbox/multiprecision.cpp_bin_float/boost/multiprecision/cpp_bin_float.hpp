@@ -29,8 +29,8 @@ class cpp_bin_float
 {
 public:
    static const unsigned bit_count = DigitBase == digit_base_2 ? Digits : (Digits * 1000uL) / 301uL + ((Digits * 1000uL) % 301 ? 2u : 1u);
-   typedef cpp_int_backend<bit_count, bit_count, unsigned_magnitude, unchecked, Allocator> rep_type;
-   typedef cpp_int_backend<2 * bit_count, 2 * bit_count, unsigned_magnitude, unchecked, Allocator> double_rep_type;
+   typedef cpp_int_backend<is_void<Allocator>::value ? bit_count : 0, bit_count, is_void<Allocator>::value ? unsigned_magnitude : signed_magnitude, unchecked, Allocator> rep_type;
+   typedef cpp_int_backend<is_void<Allocator>::value ? 2 * bit_count : 0, 2 * bit_count, is_void<Allocator>::value ? unsigned_magnitude : signed_magnitude, unchecked, Allocator> double_rep_type;
 
    typedef typename rep_type::signed_types                        signed_types;
    typedef typename rep_type::unsigned_types                      unsigned_types;
@@ -1070,8 +1070,12 @@ inline void eval_convert_to(long double *res, const cpp_bin_float<Digits, DigitB
    }
    typename cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::exponent_type e = arg.exponent();
    e -= cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::bit_count - 1;
-   eval_convert_to(res, arg.bits());
-   *res = std::ldexp(*res, e);
+   *res = std::ldexp(static_cast<long double>(*arg.bits().limbs()), e);
+   for(unsigned i = 1; i < arg.bits().size(); ++i)
+   {
+      e += sizeof(*arg.bits().limbs()) * CHAR_BIT;
+      *res += std::ldexp(static_cast<long double>(arg.bits().limbs()[i]), e);
+   }
    if(arg.sign())
       *res = -*res;
 }
