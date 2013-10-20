@@ -665,11 +665,16 @@ The following back-ends provide floating point arithmetic:
       digit_base_10 = 10
    };
 
-   template <unsigned Digits, digit_base_type base = digit_base_10, class Allocator = void>
+   template <unsigned Digits, digit_base_type base = digit_base_10, class Allocator = void, class Exponent = int, ExponentMin = 0, ExponentMax = 0>
    class cpp_bin_float;
 
    typedef number<cpp_bin_float<50> > cpp_bin_float_50;
    typedef number<cpp_bin_float<100> > cpp_bin_float_100;
+
+   typedef number<backends::cpp_bin_float<24, backends::digit_base_2, void, boost::int16_t, -126, 127>, et_off> float32_t;
+   typedef number<backends::cpp_bin_float<53, backends::digit_base_2, void, boost::int16_t, -1022, 1023>, et_off> float64_t;
+   typedef number<backends::cpp_bin_float<64, backends::digit_base_2, void, boost::int16_t, -16382, 16383>, et_off> float80_t;
+   typedef number<backends::cpp_bin_float<113, backends::digit_base_2, void, boost::int16_t, -16382, 16383>, et_off> float128_t;
 
    }} // namespaces
 
@@ -683,7 +688,8 @@ respectively.
 
 Optionally, you can specify whether the precision is specified in decimal digits or binary bits - for example
 to declare a `cpp_bin_float` with exactly the same precision as `double` one would use 
-`number<cpp_bin_float<53, digit_base_2> >`.  
+`number<cpp_bin_float<53, digit_base_2> >`.  The typedefs `float32_t`, `float64_t`, `float128_t` and `float80_t` provide
+software analogues of the IEEE single, double and quad float data types, plus the intel-extended-double type respectively.
 
 Normally `cpp_bin_float` allocates no memory: all of the space required for its digits are allocated
 directly within the class.  As a result care should be taken not to use the class with too high a digit count
@@ -695,6 +701,13 @@ as the digit count grows: the current implementation really isn't optimized or d
 Note that since the actual type of the objects allocated
 is completely opaque, the suggestion would be to use an allocator with `void` `value_type`, for example:
 `number<cpp_bin_float<1000, digit_base_10, std::allocator<void> > >`.
+
+The final template parameters determine the type and range of the exponent: parameter `Exponent` can be
+any signed integer type, but note that `MinExponent` and `MaxExponent` can not go right up to the limits
+of the `Exponent` type as there has to be a little extra headroom for internal calculations.  You will 
+get a compile time error if if this is the case.  In addition if MinExponent or MaxExponent are zero, then
+the library will choose suitable values that are as large as possible given the constraints of the type
+and need for extra headhoom for internal calculations.
 
 There is full standard library and `numeric_limits` support available for this type.
 
@@ -710,8 +723,7 @@ for example you can convert from `number<cpp_bin_float<50> >` to `number<cpp_bin
 Narrowing conversions round to nearest and are `explicit`.
 * Conversion from a string results in a `std::runtime_error` being thrown if the string can not be interpreted
 as a valid floating point number.
-* When the precision is specified as binary bits, the precision of the type is exactly that number of bits
-and all arithmetic operations are correctly rounded to nearest.  String comversions and the `sqrt` function
+* All arithmetic operations are correctly rounded to nearest.  String comversions and the `sqrt` function
 are also correctly rounded, but transcendental functions (sin, cos, pow, exp etc) are not.
 
 [h5 cpp_bin_float example:]

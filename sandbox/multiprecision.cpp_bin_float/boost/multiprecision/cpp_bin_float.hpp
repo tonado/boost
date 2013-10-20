@@ -1322,8 +1322,14 @@ using backends::digit_base_10;
 template<unsigned Digits, backends::digit_base_type DigitBase, class Exponent, Exponent MinE, Exponent MaxE, class Allocator>
 struct number_category<cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE> > : public boost::mpl::int_<boost::multiprecision::number_kind_floating_point>{};
 
-typedef number<backends::cpp_bin_float<50>, et_off> cpp_bin_float_50;
-typedef number<backends::cpp_bin_float<100>, et_off> cpp_bin_float_100;
+template<unsigned Digits, backends::digit_base_type DigitBase, class Allocator, class Exponent, Exponent MinE, Exponent MaxE>
+struct expression_template_default<cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE> >
+{
+   static const expression_template_option value = is_void<Allocator>::value ? et_off : et_on;
+};
+
+typedef number<backends::cpp_bin_float<50> > cpp_bin_float_50;
+typedef number<backends::cpp_bin_float<100> > cpp_bin_float_100;
 
 typedef number<backends::cpp_bin_float<24, backends::digit_base_2, void, boost::int16_t, -126, 127>, et_off> float32_t;
 typedef number<backends::cpp_bin_float<53, backends::digit_base_2, void, boost::int16_t, -1022, 1023>, et_off> float64_t;
