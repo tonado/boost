@@ -1,0 +1,197 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>epsilon</title>
+<link rel="stylesheet" href="../../../../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../../../../index.html" title="Chapter&#160;1.&#160;Boost.Multiprecision">
+<link rel="up" href="../functions.html" title="std::numeric_limits&lt;&gt; functions">
+<link rel="prev" href="round_error.html" title="round_error">
+<link rel="next" href="infinity.html" title="Infinity - positive and negative">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="round_error.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../functions.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="infinity.html"><img src="../../../../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h6 class="title">
+<a name="boost_multiprecision.tut.limits.implementation.functions.epsilon"></a><a class="link" href="epsilon.html" title="epsilon">epsilon</a>
+</h6></div></div></div>
+<p>
+              Function <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">epsilon</span><span class="special">()</span></code>
+              is meaningful only for non-integral types.
+            </p>
+<p>
+              It returns the difference between <code class="computeroutput"><span class="number">1.0</span></code>
+              and the next value representable by the floating-point type T. So it
+              is a one least-significant-bit change in this floating-point value.
+            </p>
+<p>
+              For <code class="computeroutput"><span class="keyword">double</span></code> (<code class="computeroutput"><span class="identifier">float_64t</span></code>) it is <code class="computeroutput"><span class="number">2.2204460492503131e-016</span></code>
+              showing all possibly significant 17 decimal digits.
+            </p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span><span class="special">.</span><span class="identifier">precision</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="keyword">double</span><span class="special">&gt;::</span><span class="identifier">max_digits10</span><span class="special">);</span>
+<span class="keyword">double</span> <span class="identifier">d</span> <span class="special">=</span> <span class="number">1.</span><span class="special">;</span>
+<span class="keyword">double</span> <span class="identifier">eps</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="keyword">double</span><span class="special">&gt;::</span><span class="identifier">epsilon</span><span class="special">();</span>
+<span class="keyword">double</span> <span class="identifier">dpeps</span> <span class="special">=</span> <span class="identifier">d</span><span class="special">+</span><span class="identifier">eps</span><span class="special">;</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">showpoint</span> <span class="comment">// Ensure all trailing zeros are shown.</span>
+  <span class="special">&lt;&lt;</span> <span class="identifier">d</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span>           <span class="comment">// 1.0000000000000000</span>
+  <span class="special">&lt;&lt;</span> <span class="identifier">dpeps</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span> <span class="comment">// 2.2204460492503131e-016</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">dpeps</span> <span class="special">-</span> <span class="identifier">d</span>   <span class="comment">// 1.0000000000000002</span>
+  <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+</pre>
+<p>
+              We can explicitly increment by one bit using the function <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">math</span><span class="special">::</span><span class="identifier">float_next</span><span class="special">()</span></code>
+              and the result is the same as adding <code class="computeroutput"><span class="identifier">epsilon</span></code>.
+            </p>
+<pre class="programlisting"><span class="keyword">double</span> <span class="identifier">one</span> <span class="special">=</span> <span class="number">1.</span><span class="special">;</span>
+<span class="keyword">double</span> <span class="identifier">nad</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">math</span><span class="special">::</span><span class="identifier">float_next</span><span class="special">(</span><span class="identifier">one</span><span class="special">);</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">nad</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span>  <span class="comment">//  1.0000000000000002</span>
+  <span class="special">&lt;&lt;</span> <span class="identifier">nad</span> <span class="special">-</span> <span class="identifier">one</span> <span class="comment">// 2.2204460492503131e-016</span>
+  <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+</pre>
+<p>
+              Adding any smaller value, like half <code class="computeroutput"><span class="identifier">epsilon</span></code>,
+              will have no effect on this value.
+            </p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span><span class="special">.</span><span class="identifier">precision</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="keyword">double</span><span class="special">&gt;::</span><span class="identifier">max_digits10</span><span class="special">);</span>
+<span class="keyword">double</span> <span class="identifier">d</span> <span class="special">=</span> <span class="number">1.</span><span class="special">;</span>
+<span class="keyword">double</span> <span class="identifier">eps</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="keyword">double</span><span class="special">&gt;::</span><span class="identifier">epsilon</span><span class="special">();</span>
+<span class="keyword">double</span> <span class="identifier">dpeps</span> <span class="special">=</span> <span class="identifier">d</span> <span class="special">+</span> <span class="identifier">eps</span><span class="special">/</span><span class="number">2</span><span class="special">;</span>
+
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">showpoint</span> <span class="comment">// Ensure all trailing zeros are shown.</span>
+  <span class="special">&lt;&lt;</span> <span class="identifier">dpeps</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span>       <span class="comment">// 1.0000000000000000</span>
+  <span class="special">&lt;&lt;</span> <span class="identifier">eps</span><span class="special">/</span><span class="number">2</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span> <span class="comment">// 1.1102230246251565e-016</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">dpeps</span> <span class="special">-</span> <span class="identifier">d</span>   <span class="comment">// 0.00000000000000000</span>
+  <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+</pre>
+<p>
+              So this cancellation error leaves the values equal, despite adding
+              half <code class="computeroutput"><span class="identifier">epsilon</span></code>.
+            </p>
+<p>
+              To achieve greater portability over platform and floating-point type,
+              Boost.Math and Boost.Multiprecion provide a package of functions that
+              'do something sensible' if the standard <code class="computeroutput"><span class="identifier">numeric_limits</span></code>
+              is not available. To use these <code class="computeroutput"><span class="preprocessor">#include</span>
+              <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">math</span><span class="special">/</span><span class="identifier">tools</span><span class="special">/</span><span class="identifier">precision</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>.
+            </p>
+<p>
+              A tolerance might be defined using this version of epsilon thus:
+            </p>
+<pre class="programlisting"><span class="identifier">RealType</span> <span class="identifier">tolerance</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">math</span><span class="special">::</span><span class="identifier">tools</span><span class="special">::</span><span class="identifier">epsilon</span><span class="special">&lt;</span><span class="identifier">RealType</span><span class="special">&gt;()</span> <span class="special">*</span> <span class="number">2</span><span class="special">;</span>
+</pre>
+<h5>
+<a name="boost_multiprecision.tut.limits.implementation.functions.epsilon.h0"></a>
+              <span class="phrase"><a name="boost_multiprecision.tut.limits.implementation.functions.epsilon.tolerance_for_floating_point_com"></a></span><a class="link" href="epsilon.html#boost_multiprecision.tut.limits.implementation.functions.epsilon.tolerance_for_floating_point_com">Tolerance
+              for Floating-point Comparisons</a>
+            </h5>
+<p>
+              <code class="computeroutput"><span class="identifier">epsilon</span></code> is very useful
+              to compute a tolerance when comparing floating-point values, a much
+              more difficult task than is commonly imagined.
+            </p>
+<p>
+              For more information you probably want (but still need) see <a href="http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html" target="_top">What
+              Every Computer Scientist Should Know About Floating-Point Arithmetic</a>
+            </p>
+<p>
+              The naive test comparing the absolute difference between two values
+              and a tolerance does not give useful results if the values are too
+              large or too small.
+            </p>
+<p>
+              So Boost.Test uses an algorithm first devised by Knuth for reliably
+              checking if floating-point values are close enough.
+            </p>
+<p>
+              See Donald. E. Knuth. The art of computer programming (vol II). Copyright
+              1998 Addison-Wesley Longman, Inc., 0-201-89684-2. Addison-Wesley Professional;
+              3rd edition.
+            </p>
+<p>
+              See also:
+            </p>
+<p>
+              <a href="http://adtmag.com/articles/2000/03/15/comparing-floats-how-to-determine-if-floating-quantities-are-close-enough-once-a-tolerance-has-been.aspx" target="_top">Alberto
+              Squassia, Comparing floats</a>
+            </p>
+<p>
+              <a href="http://adtmag.com/articles/2000/03/16/comparing-floats-how-to-determine-if-floating-quantities-are-close-enough-once-a-tolerance-has-been.aspx" target="_top">Alberto
+              Squassia, Comparing floats code</a>
+            </p>
+<p>
+              <a href="../../../../../../../../../libs/test/doc/html/utf/testing-tools/floating_point_comparison.html" target="_top">floating-point
+              comparison</a>.
+            </p>
+<p>
+              For example, if we want a tolerance that might suit about 9 arithmetical
+              operations, say sqrt(9) = 3, we could define:
+            </p>
+<pre class="programlisting"><span class="identifier">T</span> <span class="identifier">tolerance</span> <span class="special">=</span>  <span class="number">3</span> <span class="special">*</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">epsilon</span><span class="special">();</span>
+</pre>
+<p>
+              This is very widely used in Boost.Math testing with Boost.Test's macro
+              <code class="computeroutput"><span class="identifier">BOOST_CHECK_CLOSE_FRACTION</span></code>
+            </p>
+<pre class="programlisting"><span class="identifier">T</span> <span class="identifier">expected</span> <span class="special">=</span> <span class="number">1.0</span><span class="special">;</span>
+<span class="identifier">T</span> <span class="identifier">calculated</span> <span class="special">=</span> <span class="number">1.0</span> <span class="special">+</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">epsilon</span><span class="special">();</span>
+
+<span class="keyword">using</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">test_tools</span><span class="special">::</span><span class="identifier">check_is_close</span><span class="special">;</span>
+
+<span class="keyword">bool</span> <span class="identifier">r</span> <span class="special">=</span> <span class="identifier">check_is_close</span><span class="special">(</span><span class="identifier">expected</span><span class="special">,</span> <span class="identifier">calculated</span><span class="special">,</span> <span class="identifier">tolerance</span><span class="special">);</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span>  <span class="identifier">std</span><span class="special">::</span><span class="identifier">boolalpha</span> <span class="special">&lt;&lt;</span> <span class="identifier">r</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>  <span class="comment">// true</span>
+</pre>
+<p>
+              If using Boost.Test, then call the macro version:
+            </p>
+<pre class="programlisting"><span class="identifier">BOOST_CHECK_CLOSE_FRACTION</span><span class="special">(</span><span class="identifier">expected</span><span class="special">,</span> <span class="identifier">calculated</span><span class="special">,</span> <span class="identifier">tolerance</span><span class="special">);</span></pre>
+<p>
+              used thus:
+            </p>
+<pre class="programlisting"><span class="identifier">BOOST_CHECK_CLOSE_FRACTION</span><span class="special">(</span><span class="identifier">expected</span><span class="special">,</span> <span class="identifier">calculated</span><span class="special">,</span> <span class="identifier">tolerance</span><span class="special">);</span>
+</pre>
+<p>
+              (There is also a version using tolerance as a percentage rather than
+              a fraction).
+            </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">multiprecision</span><span class="special">::</span><span class="identifier">number</span><span class="special">;</span>
+<span class="keyword">using</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">multiprecision</span><span class="special">::</span><span class="identifier">cpp_dec_float</span><span class="special">;</span>
+<span class="keyword">using</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">multiprecision</span><span class="special">::</span><span class="identifier">et_off</span><span class="special">;</span>
+
+<span class="keyword">typedef</span> <span class="identifier">number</span><span class="special">&lt;</span><span class="identifier">cpp_dec_float</span><span class="special">&lt;</span><span class="number">50</span><span class="special">&gt;,</span> <span class="identifier">et_off</span> <span class="special">&gt;</span> <span class="identifier">cpp_dec_float_50</span><span class="special">;</span> <span class="comment">// 50 decimal digits.</span>
+</pre>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+                that Boost.Test does not yet allow floating-point comparisons with
+                expression templates on, so the default expression template parameter
+                has been replaced by <code class="computeroutput"><span class="identifier">et_off</span></code>.
+              </p></td></tr>
+</table></div>
+<pre class="programlisting"><span class="identifier">cpp_dec_float_50</span> <span class="identifier">tolerance</span> <span class="special">=</span>  <span class="number">3</span> <span class="special">*</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">cpp_dec_float_50</span><span class="special">&gt;::</span><span class="identifier">epsilon</span><span class="special">();</span>
+<span class="identifier">cpp_dec_float_50</span> <span class="identifier">expected</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">math</span><span class="special">::</span><span class="identifier">constants</span><span class="special">::</span><span class="identifier">two_pi</span><span class="special">&lt;</span><span class="identifier">cpp_dec_float_50</span><span class="special">&gt;();</span>
+<span class="identifier">cpp_dec_float_50</span> <span class="identifier">calculated</span> <span class="special">=</span> <span class="number">2</span> <span class="special">*</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">math</span><span class="special">::</span><span class="identifier">constants</span><span class="special">::</span><span class="identifier">pi</span><span class="special">&lt;</span><span class="identifier">cpp_dec_float_50</span><span class="special">&gt;();</span>
+<span class="keyword">using</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">test_tools</span><span class="special">::</span><span class="identifier">check_is_close</span><span class="special">;</span>
+
+<span class="keyword">bool</span> <span class="identifier">r</span> <span class="special">=</span> <span class="identifier">check_is_close</span><span class="special">(</span><span class="identifier">expected</span><span class="special">,</span> <span class="identifier">calculated</span><span class="special">,</span> <span class="identifier">tolerance</span><span class="special">);</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span>  <span class="identifier">std</span><span class="special">::</span><span class="identifier">boolalpha</span> <span class="special">&lt;&lt;</span> <span class="identifier">r</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>  <span class="comment">// true</span>
+</pre>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2002-2013 John Maddock and Christopher Kormanyos<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="round_error.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../functions.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="infinity.html"><img src="../../../../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

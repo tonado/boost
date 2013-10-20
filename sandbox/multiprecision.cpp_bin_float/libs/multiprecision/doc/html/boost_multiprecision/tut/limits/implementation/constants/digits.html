@@ -1,0 +1,78 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>digits</title>
+<link rel="stylesheet" href="../../../../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../../../../index.html" title="Chapter&#160;1.&#160;Boost.Multiprecision">
+<link rel="up" href="../constants.html" title="std::numeric_limits&lt;&gt; constants">
+<link rel="prev" href="radix.html" title="radix">
+<link rel="next" href="digits10.html" title="digits10">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="radix.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../constants.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="digits10.html"><img src="../../../../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h6 class="title">
+<a name="boost_multiprecision.tut.limits.implementation.constants.digits"></a><a class="link" href="digits.html" title="digits">digits</a>
+</h6></div></div></div>
+<p>
+              The number of <code class="computeroutput"><span class="identifier">radix</span></code>
+              digits that be represented without change:
+            </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+                  for integer types, the number of <span class="bold"><strong>non-sign
+                  bits</strong></span> in the significand.
+                </li>
+<li class="listitem">
+                  for floating types, the number of <span class="bold"><strong>radix digits</strong></span>
+                  in the significand.
+                </li>
+</ul></div>
+<p>
+              The values include any implicit bit, so for example, for the ubiquious
+              <code class="computeroutput"><span class="keyword">double</span></code> using 64 bits (<a href="http://en.wikipedia.org/wiki/Double_precision_floating-point_format" target="_top">IEEE
+              binary64 </a>), <code class="computeroutput"><span class="identifier">digits</span></code>
+              == 53, even though there are only 52 actual bits of the significand
+              stored in the representation. The value of <code class="computeroutput"><span class="identifier">digits</span></code>
+              reflects the fact that there is one implicit bit which is always set
+              to 1.
+            </p>
+<p>
+              The Boost.Multiprecision binary types do not use an implicit bit, so
+              the <code class="computeroutput"><span class="identifier">digits</span></code> member reflects
+              exactly how many bits of precision were requested:
+            </p>
+<pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">number</span><span class="special">&lt;</span><span class="identifier">cpp_bin_float</span><span class="special">&lt;</span><span class="number">53</span><span class="special">,</span> <span class="identifier">digit_base_2</span><span class="special">&gt;</span> <span class="special">&gt;</span>   <span class="identifier">float64</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">number</span><span class="special">&lt;</span><span class="identifier">cpp_bin_float</span><span class="special">&lt;</span><span class="number">113</span><span class="special">,</span> <span class="identifier">digit_base_2</span><span class="special">&gt;</span> <span class="special">&gt;</span>  <span class="identifier">float128</span><span class="special">;</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">float64</span><span class="special">&gt;::</span><span class="identifier">digits</span> <span class="special">==</span> <span class="number">53.</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">float128</span><span class="special">&gt;::</span><span class="identifier">digits</span> <span class="special">==</span> <span class="number">113.</span>
+</pre>
+<p>
+              For the most common case of <code class="computeroutput"><span class="identifier">radix</span>
+              <span class="special">==</span> <span class="number">2</span></code>,
+              <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">digits</span></code> is the number of bits in the
+              representation, not counting any sign bit.
+            </p>
+<p>
+              For a decimal integer type, when <code class="computeroutput"><span class="identifier">radix</span>
+              <span class="special">==</span> <span class="number">10</span></code>,
+              it is the number of decimal digits.
+            </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2002-2013 John Maddock and Christopher Kormanyos<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="radix.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../constants.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="digits10.html"><img src="../../../../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

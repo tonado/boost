@@ -1,0 +1,65 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>is_specialized</title>
+<link rel="stylesheet" href="../../../../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../../../../index.html" title="Chapter&#160;1.&#160;Boost.Multiprecision">
+<link rel="up" href="../constants.html" title="std::numeric_limits&lt;&gt; constants">
+<link rel="prev" href="../constants.html" title="std::numeric_limits&lt;&gt; constants">
+<link rel="next" href="infinity.html" title="infinity">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="../constants.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../constants.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="infinity.html"><img src="../../../../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h6 class="title">
+<a name="boost_multiprecision.tut.limits.implementation.constants.is_specialized"></a><a class="link" href="is_specialized.html" title="is_specialized">is_specialized</a>
+</h6></div></div></div>
+<p>
+              <code class="computeroutput"><span class="keyword">true</span></code> for all arithmetic
+              types (integer, floating and fixed-point) for which <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">numeric_limits</span></code>
+              is specialized.
+            </p>
+<p>
+              A typical test is
+            </p>
+<pre class="programlisting"><span class="keyword">if</span> <span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">is_specialized</span> <span class="special">==</span> <span class="keyword">false</span><span class="special">)</span>
+<span class="special">{</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"type "</span> <span class="special">&lt;&lt;</span> <span class="keyword">typeid</span><span class="special">(</span><span class="identifier">T</span><span class="special">).</span><span class="identifier">name</span><span class="special">()</span>  <span class="special">&lt;&lt;</span> <span class="string">" is not specialized for std::numeric_limits!"</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+<span class="comment">// ...</span>
+<span class="special">}</span>
+</pre>
+<p>
+              Typically <code class="computeroutput"><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">is_specialized</span></code>
+              is <code class="computeroutput"><span class="keyword">true</span></code> for all <code class="computeroutput"><span class="identifier">T</span></code> where the compile-time constant
+              members of <code class="computeroutput"><span class="identifier">numeric_limits</span></code>
+              are indeed known at compile time, and don't vary at runtime. For example
+              floating point types with runtime-variable precision such as <code class="computeroutput"><span class="identifier">mpfr_float</span></code> have no <code class="computeroutput"><span class="identifier">numeric_limits</span></code> specialization as
+              it would be impossible to define all the members at compile time. In
+              contrast the precision of a type such as <code class="computeroutput"><span class="identifier">mpfr_float_50</span></code>
+              is known at compile time, and so it <span class="emphasis"><em>does</em></span> have
+              a <code class="computeroutput"><span class="identifier">numeric_limits</span></code> specialization.
+            </p>
+<p>
+              Note that not all the <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span></code>
+              member constants and functions are meaningful for all user-defined
+              types (UDT), such as the decimal and binary multiprecision types provided
+              here. More information on this is given in the sections below.
+            </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2002-2013 John Maddock and Christopher Kormanyos<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../constants.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../constants.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="infinity.html"><img src="../../../../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>round_style</title>
+<link rel="stylesheet" href="../../../../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../../../../index.html" title="Chapter&#160;1.&#160;Boost.Multiprecision">
+<link rel="up" href="../constants.html" title="std::numeric_limits&lt;&gt; constants">
+<link rel="prev" href="max_digits10.html" title="max_digits10">
+<link rel="next" href="denorm_loss.html" title="has_denorm_loss">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="max_digits10.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../constants.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="denorm_loss.html"><img src="../../../../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h6 class="title">
+<a name="boost_multiprecision.tut.limits.implementation.constants.round_style"></a><a class="link" href="round_style.html" title="round_style">round_style</a>
+</h6></div></div></div>
+<p>
+              The rounding style determines how the result of floating-point operations
+              is treated when the result cannot be <span class="bold"><strong>exactly
+              represented</strong></span> in the significand. Various rounding modes may
+              be provided:
+            </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+                  round to nearest up or down (default for floating-point types).
+                </li>
+<li class="listitem">
+                  round up (toward positive infinity).
+                </li>
+<li class="listitem">
+                  round down (toward negative infinity).
+                </li>
+<li class="listitem">
+                  round toward zero (integer types).
+                </li>
+<li class="listitem">
+                  no rounding (if decimal radix).
+                </li>
+<li class="listitem">
+                  rounding mode is not determinable.
+                </li>
+</ul></div>
+<p>
+              For integer types, <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">round_style</span></code>
+              is always towards zero, so
+            </p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">round_style</span> <span class="special">==</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">round_to_zero</span><span class="special">;</span>
+</pre>
+<p>
+              A decimal type, <code class="computeroutput"><span class="identifier">cpp_dec_float</span></code>
+              rounds in no particular direction, which is to say it doesn't round
+              at all. And since there are several guard digits, it's not really the
+              same as truncation (round toward zero) either.
+            </p>
+<p>
+              For floating-point types, it is normal to round to nearest.
+            </p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">round_style</span> <span class="special">==</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">round_to_nearest</span><span class="special">;</span>
+</pre>
+<p>
+              See function <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">round_error</span></code> for the maximum error
+              (in ULP) that rounding can cause.
+            </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2002-2013 John Maddock and Christopher Kormanyos<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="max_digits10.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../constants.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="denorm_loss.html"><img src="../../../../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

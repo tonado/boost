@@ -1,0 +1,160 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Not-A-Number NaN</title>
+<link rel="stylesheet" href="../../../../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../../../../index.html" title="Chapter&#160;1.&#160;Boost.Multiprecision">
+<link rel="up" href="../functions.html" title="std::numeric_limits&lt;&gt; functions">
+<link rel="prev" href="infinity.html" title="Infinity - positive and negative">
+<link rel="next" href="../../version_32.html" title="32-bit version information used for tables below.">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="infinity.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../functions.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="../../version_32.html"><img src="../../../../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h6 class="title">
+<a name="boost_multiprecision.tut.limits.implementation.functions.NaN"></a><a class="link" href="NaN.html" title="Not-A-Number NaN">Not-A-Number
+            NaN</a>
+</h6></div></div></div>
+<h5>
+<a name="boost_multiprecision.tut.limits.implementation.functions.NaN.h0"></a>
+              <span class="phrase"><a name="boost_multiprecision.tut.limits.implementation.functions.NaN.quiet_nan"></a></span><a class="link" href="NaN.html#boost_multiprecision.tut.limits.implementation.functions.NaN.quiet_nan">Quiet_NaN</a>
+            </h5>
+<p>
+              For floating-point types only, for which <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">has_quiet_NaN</span>
+              <span class="special">==</span> <span class="keyword">true</span></code>,
+              function <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">quiet_NaN</span><span class="special">()</span></code>
+              provides an implementation-defined representation for NaN.
+            </p>
+<p>
+              <a href="http://en.wikipedia.org/wiki/NaN" target="_top">NaNs</a> are values
+              to indicate that the result of an assignment or computation is meaningless.
+              A typical example is <code class="computeroutput"><span class="number">0</span><span class="special">/</span><span class="number">0</span></code> but
+              there are many others.
+            </p>
+<p>
+              NaNs may also be used, to represent missing values: for example, these
+              could, by convention, be ignored in calculations of statistics like
+              means.
+            </p>
+<p>
+              Many of the problems with a representation for <a href="http://en.wikipedia.org/wiki/NaN" target="_top">Not-A-Number</a>
+              has hampered portable use, similar to those with infinity.
+            </p>
+<p>
+              NaN can be used with binary multiprecision types like <code class="computeroutput"><span class="identifier">bin_float128</span></code>:
+            </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">multiprecision</span><span class="special">::</span><span class="identifier">bin_float128</span><span class="special">;</span>
+
+<span class="keyword">if</span> <span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">bin_float128</span><span class="special">&gt;::</span><span class="identifier">has_quiet_NaN</span> <span class="special">==</span> <span class="keyword">true</span><span class="special">)</span>
+<span class="special">{</span>
+  <span class="identifier">bin_float128</span> <span class="identifier">tolerance</span> <span class="special">=</span>  <span class="number">3</span> <span class="special">*</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">bin_float128</span><span class="special">&gt;::</span><span class="identifier">epsilon</span><span class="special">();</span>
+
+  <span class="identifier">bin_float128</span> <span class="identifier">NaN</span> <span class="special">=</span>  <span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">bin_float128</span><span class="special">&gt;::</span><span class="identifier">quiet_NaN</span><span class="special">();</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"bin_float128 NaN is "</span>  <span class="special">&lt;&lt;</span> <span class="identifier">NaN</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span> <span class="comment">//   bin_float128 NaN is nan</span>
+
+  <span class="identifier">bin_float128</span> <span class="identifier">expected</span> <span class="special">=</span> <span class="identifier">NaN</span><span class="special">;</span>
+  <span class="identifier">bin_float128</span> <span class="identifier">calculated</span> <span class="special">=</span> <span class="number">2</span> <span class="special">*</span> <span class="identifier">NaN</span><span class="special">;</span>
+  <span class="keyword">using</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">test_tools</span><span class="special">::</span><span class="identifier">check_is_close</span><span class="special">;</span>
+
+  <span class="keyword">bool</span> <span class="identifier">r</span> <span class="special">=</span> <span class="identifier">check_is_close</span><span class="special">(</span><span class="identifier">expected</span><span class="special">,</span> <span class="identifier">expected</span><span class="special">,</span> <span class="identifier">tolerance</span><span class="special">);</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span>  <span class="identifier">std</span><span class="special">::</span><span class="identifier">boolalpha</span> <span class="special">&lt;&lt;</span> <span class="identifier">r</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>  <span class="comment">// false, as expected because all comparisons with NaNs are false.</span>
+
+  <span class="identifier">r</span> <span class="special">=</span> <span class="identifier">check_is_close</span><span class="special">(</span><span class="identifier">expected</span><span class="special">,</span> <span class="identifier">calculated</span><span class="special">,</span> <span class="identifier">tolerance</span><span class="special">);</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span>  <span class="identifier">std</span><span class="special">::</span><span class="identifier">boolalpha</span> <span class="special">&lt;&lt;</span> <span class="identifier">r</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>  <span class="comment">// false, as expected because all comparisons with NaNs are false.</span>
+<span class="special">}</span>
+<span class="keyword">else</span>
+<span class="special">{</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Type "</span> <span class="special">&lt;&lt;</span> <span class="keyword">typeid</span><span class="special">(</span><span class="identifier">bin_float128</span><span class="special">).</span><span class="identifier">name</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="string">" does not have NaNs!"</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
+<p>
+              But using Boost.Math and suitable facets can permit portable use of
+              both NaNs and positive and negative infinity.
+            </p>
+<p>
+              See <a href="../../../../../../../../../libs/math/example/nonfinite_facet_sstream.cpp" target="_top">boost:/libs/math/example/nonfinite_facet_sstream.cpp</a>
+              and we also need
+            </p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">math</span><span class="special">/</span><span class="identifier">special_functions</span><span class="special">/</span><span class="identifier">nonfinite_num_facets</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+</pre>
+<p>
+              Then we can equally well use a multiprecision type bin_float128:
+            </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">multiprecision</span><span class="special">::</span><span class="identifier">bin_float128</span><span class="special">;</span>
+
+<span class="keyword">typedef</span> <span class="identifier">bin_float128</span> <span class="identifier">T</span><span class="special">;</span>
+
+<span class="keyword">using</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">math</span><span class="special">::</span><span class="identifier">nonfinite_num_put</span><span class="special">;</span>
+<span class="keyword">using</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">math</span><span class="special">::</span><span class="identifier">nonfinite_num_get</span><span class="special">;</span>
+<span class="special">{</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">locale</span> <span class="identifier">old_locale</span><span class="special">;</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">locale</span> <span class="identifier">tmp_locale</span><span class="special">(</span><span class="identifier">old_locale</span><span class="special">,</span> <span class="keyword">new</span> <span class="identifier">nonfinite_num_put</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">&gt;);</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">locale</span> <span class="identifier">new_locale</span><span class="special">(</span><span class="identifier">tmp_locale</span><span class="special">,</span> <span class="keyword">new</span> <span class="identifier">nonfinite_num_get</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">&gt;);</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">stringstream</span> <span class="identifier">ss</span><span class="special">;</span>
+  <span class="identifier">ss</span><span class="special">.</span><span class="identifier">imbue</span><span class="special">(</span><span class="identifier">new_locale</span><span class="special">);</span>
+  <span class="identifier">T</span> <span class="identifier">inf</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">infinity</span><span class="special">();</span>
+  <span class="identifier">ss</span> <span class="special">&lt;&lt;</span> <span class="identifier">inf</span><span class="special">;</span> <span class="comment">// Write out.</span>
+  <span class="identifier">assert</span><span class="special">(</span><span class="identifier">ss</span><span class="special">.</span><span class="identifier">str</span><span class="special">()</span> <span class="special">==</span> <span class="string">"inf"</span><span class="special">);</span>
+  <span class="identifier">T</span> <span class="identifier">r</span><span class="special">;</span>
+  <span class="identifier">ss</span> <span class="special">&gt;&gt;</span> <span class="identifier">r</span><span class="special">;</span> <span class="comment">// Read back in.</span>
+  <span class="identifier">assert</span><span class="special">(</span><span class="identifier">inf</span> <span class="special">==</span> <span class="identifier">r</span><span class="special">);</span> <span class="comment">// Confirms that the floating-point values really are identical.</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"infinity output was "</span> <span class="special">&lt;&lt;</span> <span class="identifier">ss</span><span class="special">.</span><span class="identifier">str</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"infinity input was "</span> <span class="special">&lt;&lt;</span> <span class="identifier">r</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
+<pre class="programlisting"><span class="identifier">infinity</span> <span class="identifier">output</span> <span class="identifier">was</span> <span class="identifier">inf</span>
+<span class="identifier">infinity</span> <span class="identifier">input</span> <span class="identifier">was</span> <span class="identifier">inf</span>
+</pre>
+<p>
+              Similarly we can do the same with NaN (except that we cannot use <code class="computeroutput"><span class="identifier">assert</span></code>)
+            </p>
+<pre class="programlisting"><span class="special">{</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">locale</span> <span class="identifier">old_locale</span><span class="special">;</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">locale</span> <span class="identifier">tmp_locale</span><span class="special">(</span><span class="identifier">old_locale</span><span class="special">,</span> <span class="keyword">new</span> <span class="identifier">nonfinite_num_put</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">&gt;);</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">locale</span> <span class="identifier">new_locale</span><span class="special">(</span><span class="identifier">tmp_locale</span><span class="special">,</span> <span class="keyword">new</span> <span class="identifier">nonfinite_num_get</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">&gt;);</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">stringstream</span> <span class="identifier">ss</span><span class="special">;</span>
+  <span class="identifier">ss</span><span class="special">.</span><span class="identifier">imbue</span><span class="special">(</span><span class="identifier">new_locale</span><span class="special">);</span>
+  <span class="identifier">T</span> <span class="identifier">n</span><span class="special">;</span>
+  <span class="identifier">T</span> <span class="identifier">NaN</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">quiet_NaN</span><span class="special">();</span>
+  <span class="identifier">ss</span> <span class="special">&lt;&lt;</span> <span class="identifier">NaN</span><span class="special">;</span> <span class="comment">// Write out.</span>
+  <span class="identifier">assert</span><span class="special">(</span><span class="identifier">ss</span><span class="special">.</span><span class="identifier">str</span><span class="special">()</span> <span class="special">==</span> <span class="string">"nan"</span><span class="special">);</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"NaN output was "</span> <span class="special">&lt;&lt;</span> <span class="identifier">ss</span><span class="special">.</span><span class="identifier">str</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+  <span class="identifier">ss</span> <span class="special">&gt;&gt;</span> <span class="identifier">n</span><span class="special">;</span> <span class="comment">// Read back in.</span>
+  <span class="identifier">assert</span><span class="special">(</span><span class="identifier">NaN</span> <span class="special">==</span> <span class="identifier">n</span><span class="special">);</span> <span class="comment">// Confirms that the floating-point values really are identical.</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"NaN input was "</span> <span class="special">&lt;&lt;</span> <span class="identifier">n</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
+<p>
+              NaN output was nan NaN input was nan
+            </p>
+<h5>
+<a name="boost_multiprecision.tut.limits.implementation.functions.NaN.h1"></a>
+              <span class="phrase"><a name="boost_multiprecision.tut.limits.implementation.functions.NaN.signaling_nan"></a></span><a class="link" href="NaN.html#boost_multiprecision.tut.limits.implementation.functions.NaN.signaling_nan">Signaling
+              NaN</a>
+            </h5>
+<p>
+              For floating-point types only, for which <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">has_signaling_NaN</span>
+              <span class="special">==</span> <span class="keyword">true</span></code>,
+              function <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">signaling_NaN</span><span class="special">()</span></code>
+              provides an implementation-defined representation for NaN that causes
+              a hardware trap. However these are not found in any popular processor
+              or platforms, if at all, and may be ignored for all practical purposes.
+            </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2002-2013 John Maddock and Christopher Kormanyos<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="infinity.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../functions.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="../../version_32.html"><img src="../../../../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

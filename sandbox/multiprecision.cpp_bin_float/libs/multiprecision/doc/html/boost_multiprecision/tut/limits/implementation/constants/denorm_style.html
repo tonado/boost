@@ -1,0 +1,60 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>denorm_style</title>
+<link rel="stylesheet" href="../../../../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../../../../index.html" title="Chapter&#160;1.&#160;Boost.Multiprecision">
+<link rel="up" href="../constants.html" title="std::numeric_limits&lt;&gt; constants">
+<link rel="prev" href="denorm_loss.html" title="has_denorm_loss">
+<link rel="next" href="tinyness.html" title="Tinyness before rounding">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="denorm_loss.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../constants.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="tinyness.html"><img src="../../../../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h6 class="title">
+<a name="boost_multiprecision.tut.limits.implementation.constants.denorm_style"></a><a class="link" href="denorm_style.html" title="denorm_style">denorm_style</a>
+</h6></div></div></div>
+<p>
+              <a href="http://en.wikipedia.org/wiki/Denormal_number" target="_top">Denormalized
+              values</a> are representations with a variable number of exponent
+              bits that can permit gradual underflow, so that, if type T is <code class="computeroutput"><span class="keyword">double</span></code>.
+            </p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">denorm_min</span><span class="special">()</span> <span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">min</span><span class="special">()</span>
+</pre>
+<p>
+              A type may have any of the following <code class="computeroutput"><span class="keyword">enum</span>
+              <span class="identifier">float_denorm_style</span></code> values:
+            </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+                  <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">denorm_absent</span></code>, if it does not
+                  allow denormalized values. (Always used for all integer and exact
+                  types).
+                </li>
+<li class="listitem">
+                  <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">denorm_present</span></code>, if the floating-point
+                  type allows denormalized values.
+                </li>
+<li class="listitem">
+                  <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">denorm_indeterminate</span></code>, if indeterminate
+                  at compile time.
+                </li>
+</ul></div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2002-2013 John Maddock and Christopher Kormanyos<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="denorm_loss.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../constants.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="tinyness.html"><img src="../../../../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

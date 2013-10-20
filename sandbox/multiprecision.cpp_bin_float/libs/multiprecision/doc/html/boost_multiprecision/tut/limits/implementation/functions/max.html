@@ -1,0 +1,64 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>max function</title>
+<link rel="stylesheet" href="../../../../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../../../../index.html" title="Chapter&#160;1.&#160;Boost.Multiprecision">
+<link rel="up" href="../functions.html" title="std::numeric_limits&lt;&gt; functions">
+<link rel="prev" href="../functions.html" title="std::numeric_limits&lt;&gt; functions">
+<link rel="next" href="lowest.html" title="lowest function">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="../functions.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../functions.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="lowest.html"><img src="../../../../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h6 class="title">
+<a name="boost_multiprecision.tut.limits.implementation.functions.max"></a><a class="link" href="max.html" title="max function">max
+            function</a>
+</h6></div></div></div>
+<p>
+              Function <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">max</span><span class="special">()</span></code>
+              returns the largest finite value that can be represented by the type
+              T. If there is no such value (and <code class="computeroutput"><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">bounded</span></code>
+              is <code class="computeroutput"><span class="keyword">false</span></code>) then returns
+              <code class="computeroutput"><span class="identifier">T</span><span class="special">()</span></code>.
+            </p>
+<p>
+              For built-in types there is usually a corresponding MACRO value TYPE_MAX,
+              where TYPE is CHAR, INT, FLOAT etc.
+            </p>
+<p>
+              Other types, including those provided by a typedef, for example <code class="computeroutput"><span class="identifier">INT64_T_MAX</span></code> for <code class="computeroutput"><span class="identifier">int64_t</span></code>,
+              may provide a macro definition.
+            </p>
+<p>
+              To cater for situations where no <code class="computeroutput"><span class="identifier">numeric_limits</span></code>
+              specialization is available (for example because the precision of the
+              type varies at runtime), packaged versions of this (and other functions)
+              are provided using
+            </p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">math</span><span class="special">/</span><span class="identifier">tools</span><span class="special">/</span><span class="identifier">precision</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+
+<span class="identifier">T</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">math</span><span class="special">::</span><span class="identifier">tools</span><span class="special">::</span><span class="identifier">max_value</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;();</span>
+</pre>
+<p>
+              Of course, these simply use <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">max</span><span class="special">()</span></code> if available, but otherwise 'do something
+              sensible'.
+            </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2002-2013 John Maddock and Christopher Kormanyos<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../functions.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../functions.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="lowest.html"><img src="../../../../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

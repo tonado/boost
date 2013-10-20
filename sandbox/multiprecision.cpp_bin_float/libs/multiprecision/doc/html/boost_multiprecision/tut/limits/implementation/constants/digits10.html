@@ -1,0 +1,179 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>digits10</title>
+<link rel="stylesheet" href="../../../../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../../../../index.html" title="Chapter&#160;1.&#160;Boost.Multiprecision">
+<link rel="up" href="../constants.html" title="std::numeric_limits&lt;&gt; constants">
+<link rel="prev" href="digits.html" title="digits">
+<link rel="next" href="max_digits10.html" title="max_digits10">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="digits.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../constants.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="max_digits10.html"><img src="../../../../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h6 class="title">
+<a name="boost_multiprecision.tut.limits.implementation.constants.digits10"></a><a class="link" href="digits10.html" title="digits10">digits10</a>
+</h6></div></div></div>
+<p>
+              Constant <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">digits</span></code> returns the
+            </p>
+<p>
+              Number of decimal digits that can be represented without change or
+              loss.
+            </p>
+<p>
+              For example, <code class="computeroutput"><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="keyword">unsigned</span>
+              <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">digits10</span></code> is 2.
+            </p>
+<p>
+              This somewhat inscrutable definition means that an <code class="computeroutput"><span class="keyword">unsigned</span>
+              <span class="keyword">char</span></code> can hold decimal values
+              <code class="computeroutput"><span class="number">0.</span><span class="special">.</span><span class="number">99</span></code> without loss of precision or accuracy,
+              usually from truncation.
+            </p>
+<p>
+              <span class="bold"><strong>If it were 3</strong></span> it could hold 0..999,
+              but as we all know, an 8-bit <code class="computeroutput"><span class="keyword">unsigned</span>
+              <span class="keyword">char</span></code> can only hold 0..255, and
+              an attempt to store 256 or more will involve loss or change.
+            </p>
+<p>
+              In practice, one gets noisy warnings about truncation and the result
+              is zero.
+            </p>
+<p>
+              Somewhat confusingly, some 3-digit numbers can be stored, for example
+              255.
+            </p>
+<p>
+              For bounded integers, it is thus <span class="bold"><strong>one less</strong></span>
+              than number of decimal digits you need to display the biggest integer
+              <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">max</span><span class="special">()</span></code>.
+              This value can be used to predict the layout width required for
+            </p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span>
+  <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">setw</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="keyword">short</span><span class="special">&gt;::</span><span class="identifier">digits10</span> <span class="special">+</span><span class="number">1</span> <span class="special">+</span><span class="number">1</span><span class="special">)</span> <span class="comment">// digits10+1, and +1 for sign.</span>
+  <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">showpos</span> <span class="special">&lt;&lt;</span> <span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="keyword">short</span><span class="special">&gt;::</span><span class="identifier">max</span><span class="special">)()</span> <span class="comment">// +32767</span>
+  <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span>
+  <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">setw</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="keyword">short</span><span class="special">&gt;::</span><span class="identifier">digits10</span> <span class="special">+</span><span class="number">1</span> <span class="special">+</span><span class="number">1</span><span class="special">)</span>
+  <span class="special">&lt;&lt;</span> <span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="keyword">short</span><span class="special">&gt;::</span><span class="identifier">min</span><span class="special">)()</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>   <span class="comment">// -32767</span>
+</pre>
+<p>
+              For example, <code class="computeroutput"><span class="keyword">unsigned</span> <span class="keyword">short</span></code> is often stored in 16 bits, so
+              the maximum value is 0xFFFF or 65535.
+            </p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span>
+  <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">setw</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="keyword">unsigned</span> <span class="keyword">short</span><span class="special">&gt;::</span><span class="identifier">digits10</span> <span class="special">+</span><span class="number">1</span> <span class="special">+</span><span class="number">1</span><span class="special">)</span> <span class="comment">// digits10+1, and +1 for sign.</span>
+  <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">showpos</span> <span class="special">&lt;&lt;</span> <span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="keyword">unsigned</span> <span class="keyword">short</span><span class="special">&gt;::</span><span class="identifier">max</span><span class="special">)()</span> <span class="comment">//  65535</span>
+  <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span>
+  <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">setw</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="keyword">unsigned</span> <span class="keyword">short</span><span class="special">&gt;::</span><span class="identifier">digits10</span> <span class="special">+</span><span class="number">1</span> <span class="special">+</span><span class="number">1</span><span class="special">)</span> <span class="comment">// digits10+1, and +1 for sign.</span>
+  <span class="special">&lt;&lt;</span> <span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="keyword">unsigned</span> <span class="keyword">short</span><span class="special">&gt;::</span><span class="identifier">min</span><span class="special">)()</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>   <span class="comment">//      0</span>
+</pre>
+<p>
+              For bounded floating-point types, if we create a <code class="computeroutput"><span class="keyword">double</span></code>
+              with a value with <code class="computeroutput"><span class="identifier">digits10</span></code>
+              (usually 15) decimal digits, <code class="computeroutput"><span class="number">1e15</span></code>
+              or <code class="computeroutput"><span class="number">1000000000000000</span></code> :
+            </p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span><span class="special">.</span><span class="identifier">precision</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="keyword">double</span><span class="special">&gt;::</span><span class="identifier">max_digits10</span><span class="special">);</span>
+<span class="keyword">double</span> <span class="identifier">d</span> <span class="special">=</span>  <span class="number">1e15</span><span class="special">;</span>
+<span class="keyword">double</span> <span class="identifier">dp1</span> <span class="special">=</span> <span class="identifier">d</span><span class="special">+</span><span class="number">1</span><span class="special">;</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">d</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span> <span class="special">&lt;&lt;</span> <span class="identifier">dp1</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+<span class="comment">// 1000000000000000</span>
+<span class="comment">// 1000000000000001</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span>  <span class="identifier">dp1</span> <span class="special">-</span> <span class="identifier">d</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span> <span class="comment">// 1</span>
+</pre>
+<p>
+              and we can increment this value to <code class="computeroutput"><span class="number">1000000000000001</span></code>
+              as expected and show the difference too.
+            </p>
+<p>
+              But if we try to repeat this with more than <code class="computeroutput"><span class="identifier">digits10</span></code>
+              digits,
+            </p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span><span class="special">.</span><span class="identifier">precision</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="keyword">double</span><span class="special">&gt;::</span><span class="identifier">max_digits10</span><span class="special">);</span>
+<span class="keyword">double</span> <span class="identifier">d</span> <span class="special">=</span>  <span class="number">1e16</span><span class="special">;</span>
+<span class="keyword">double</span> <span class="identifier">dp1</span> <span class="special">=</span> <span class="identifier">d</span><span class="special">+</span><span class="number">1</span><span class="special">;</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">d</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span> <span class="special">&lt;&lt;</span> <span class="identifier">dp1</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+<span class="comment">// 10000000000000000</span>
+<span class="comment">// 10000000000000000</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">dp1</span> <span class="special">-</span> <span class="identifier">d</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span> <span class="comment">// 0 !!!</span>
+</pre>
+<p>
+              then we find that when we add one it has no effect, and display show
+              that there is loss of precision. See <a href="http://en.wikipedia.org/wiki/Loss_of_significance" target="_top">Loss
+              of significance or cancellation error</a>.
+            </p>
+<p>
+              So <code class="computeroutput"><span class="identifier">digits10</span></code> is the
+              number of decimal digits <span class="bold"><strong>guaranteed</strong></span>
+              to be correct.
+            </p>
+<p>
+              For example, 'round-tripping' for <code class="computeroutput"><span class="keyword">double</span></code>:
+            </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+                  If a decimal string with at most <code class="computeroutput"><span class="identifier">digits10</span></code>(
+                  == 15) significant decimal digits is converted to <code class="computeroutput"><span class="keyword">double</span></code> and then converted back to
+                  the same number of significant decimal digits, then the final string
+                  will match the original 15 decimal digit string.
+                </li>
+<li class="listitem">
+                  If a <code class="computeroutput"><span class="keyword">double</span></code> floating-point
+                  number is converted to a decimal string with at least 17 decimal
+                  digits and then converted back to <code class="computeroutput"><span class="keyword">double</span></code>,
+                  then the result will be binary indentical to the original <code class="computeroutput"><span class="keyword">double</span></code> value.
+                </li>
+</ul></div>
+<p>
+              For most purposes, you will much more likely want <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;&gt;::</span><span class="identifier">max_digits10</span></code>,
+              the number of decimal digits that ensure that a change of one least
+              significant bit (ULP) produces a different decimal digits string.
+            </p>
+<p>
+              For nearly all floating-point types, <code class="computeroutput"><span class="identifier">max_digits10</span></code>
+              is <code class="computeroutput"><span class="identifier">digits10</span><span class="special">+</span><span class="number">2</span></code>, but you should use <code class="computeroutput"><span class="identifier">max_digits10</span></code>
+              where possible.
+            </p>
+<p>
+              If <code class="computeroutput"><span class="identifier">max_digits10</span></code> is
+              not available, you should using the <a href="http://www.cs.berkeley.edu/~wkahan/ieee754status/IEEE754.PDF" target="_top">Kahan
+              formula for floating-point type T</a>
+            </p>
+<pre class="programlisting"><span class="identifier">max_digits10</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">digits</span> <span class="special">*</span> <span class="number">3010U</span><span class="special">/</span><span class="number">10000U</span><span class="special">;</span>
+</pre>
+<p>
+              The factor is log<sub>10</sub>(2) = 0.3010 but must be evaluated at compile time
+              using only integers.
+            </p>
+<p>
+              (See also <a href="http://www.loria.fr/~zimmerma/mca/mca-cup-0.5.9.pdf" target="_top">Richard
+              P. Brent and Paul Zimmerman, Modern Computer Arithmetic</a> Equation
+              3.8 on page 116.).
+            </p>
+<p>
+              The extra two (or 3) least significant digits are 'noisy' and may be
+              junk, but if you want to 'round-trip' - printing a value out and reading
+              it back in - you must use <code class="computeroutput"><span class="identifier">os</span><span class="special">.</span><span class="identifier">precision</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">max_digits10</span><span class="special">)</span></code>. For at least one popular compiler,
+              you must also use <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">scientific</span></code>
+              format.
+            </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2002-2013 John Maddock and Christopher Kormanyos<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="digits.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../constants.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="max_digits10.html"><img src="../../../../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

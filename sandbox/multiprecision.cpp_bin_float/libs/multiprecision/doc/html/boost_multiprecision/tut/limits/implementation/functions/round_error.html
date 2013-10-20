@@ -1,0 +1,98 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>round_error</title>
+<link rel="stylesheet" href="../../../../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../../../../index.html" title="Chapter&#160;1.&#160;Boost.Multiprecision">
+<link rel="up" href="../functions.html" title="std::numeric_limits&lt;&gt; functions">
+<link rel="prev" href="denorm_min.html" title="denorm_min function">
+<link rel="next" href="epsilon.html" title="epsilon">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="denorm_min.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../functions.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="epsilon.html"><img src="../../../../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h6 class="title">
+<a name="boost_multiprecision.tut.limits.implementation.functions.round_error"></a><a class="link" href="round_error.html" title="round_error">round_error</a>
+</h6></div></div></div>
+<p>
+              Function <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">round_error</span><span class="special">()</span></code>
+              returns the maximum error (in units of <a href="http://en.wikipedia.org/wiki/Unit_in_the_last_place" target="_top">ULP</a>)
+              that can be caused by rounding from binary to decimal.
+            </p>
+<p>
+              For decimal types, no rounding is needed to get to decimal, so <code class="computeroutput"><span class="identifier">round_error</span></code> is always zero.
+            </p>
+<pre class="programlisting"><span class="identifier">round_style</span> <span class="special">==</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">round_indeterminate</span><span class="special">;</span>
+</pre>
+<p>
+              The rounding style is indeterminable at compile time.
+            </p>
+<p>
+              (This standard says 'indeterminable at compile time', though this is
+              not strictly true for decimal types, not envisaged at the time that
+              the standard was written).
+            </p>
+<p>
+              For floating-point types, rounding is to nearest, up or down, so at
+              worst, only half a bit is lost by rounding, and <code class="computeroutput"><span class="identifier">round_error</span>
+              <span class="special">==</span> <span class="number">0.5</span></code>.
+            </p>
+<p>
+              For integer types, rounding always to zero, so at worst almost one
+              bit can be rounded, so <code class="computeroutput"><span class="identifier">round_error</span>
+              <span class="special">==</span> <span class="number">1</span></code>.
+            </p>
+<p>
+              Similarly for other rounding styles that are not <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">round_to_nearest</span></code>.
+            </p>
+<p>
+              <code class="computeroutput"><span class="identifier">round_error</span><span class="special">()</span></code>
+              can be used with <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">epsilon</span><span class="special">()</span></code> to estimate the maximum potential
+              error caused by rounding. For typical floating-point types, <code class="computeroutput"><span class="identifier">round_error</span><span class="special">()</span>
+              <span class="special">=</span> <span class="number">1</span><span class="special">/</span><span class="number">2</span></code>, so
+              half epsilon is the maximum potential error.
+            </p>
+<pre class="programlisting"><span class="keyword">double</span> <span class="identifier">round_err</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="keyword">double</span><span class="special">&gt;::</span><span class="identifier">epsilon</span><span class="special">()</span> <span class="comment">// 2.2204460492503131e-016</span>
+                 <span class="special">*</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="keyword">double</span><span class="special">&gt;::</span><span class="identifier">round_error</span><span class="special">();</span> <span class="comment">// 1/2</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">round_err</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span> <span class="comment">// 1.1102230246251565e-016</span>
+</pre>
+<p>
+              This value can be used to set tolerances (see epsilon).
+            </p>
+<p>
+              Of course, this is the rounding for just one arithmetic operation.
+              Some arithmetic operations will involve rounding to integer when almost
+              one bit can be lost by rounding.
+            </p>
+<p>
+              Real life computations involve many, or very many, steps each of which
+              can be rounded.
+            </p>
+<p>
+              So as a very rough approximation, we might multiply by the square root
+              of the number of arithmetic operations. Thus it is common to expect
+              tolerances of a few times as great as <code class="computeroutput"><span class="identifier">epsilon</span><span class="special">()</span> <span class="special">*</span> <span class="identifier">round_error</span><span class="special">()</span></code>.
+            </p>
+<p>
+              There are, of course, many occasions when much bigger loss of precision
+              occurs, for exampe, caused by <a href="http://en.wikipedia.org/wiki/Loss_of_significance" target="_top">Loss
+              of significance or cancellation error</a> or very many iterations.
+            </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2002-2013 John Maddock and Christopher Kormanyos<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="denorm_min.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../functions.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="epsilon.html"><img src="../../../../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

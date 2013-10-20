@@ -1,0 +1,69 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Tinyness before rounding</title>
+<link rel="stylesheet" href="../../../../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../../../../index.html" title="Chapter&#160;1.&#160;Boost.Multiprecision">
+<link rel="up" href="../constants.html" title="std::numeric_limits&lt;&gt; constants">
+<link rel="prev" href="denorm_style.html" title="denorm_style">
+<link rel="next" href="../functions.html" title="std::numeric_limits&lt;&gt; functions">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="denorm_style.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../constants.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="../functions.html"><img src="../../../../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h6 class="title">
+<a name="boost_multiprecision.tut.limits.implementation.constants.tinyness"></a><a class="link" href="tinyness.html" title="Tinyness before rounding">Tinyness
+            before rounding</a>
+</h6></div></div></div>
+<p>
+              <code class="computeroutput"><span class="keyword">bool</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">tinyness_before</span></code>
+            </p>
+<p>
+              <code class="computeroutput"><span class="keyword">true</span></code> if a type can determine
+              that a value is too small to be represent as a normalized value before
+              rounding it.
+            </p>
+<p>
+              Generally true for <code class="computeroutput"><span class="identifier">is_iec559</span></code>
+              floating-point built-in types, but false for integer types.
+            </p>
+<p>
+              Standard-compliant IEEE 754 floating-point implementations may detect
+              the floating-point underflow at three predefined moments:
+            </p>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+                  After computation of a result with absolute value smaller than
+                  <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">min</span><span class="special">()</span></code>,
+                  such implementation detects <span class="emphasis"><em>tinyness before rounding</em></span>
+                  (e.g. UltraSparc).
+                </li>
+<li class="listitem">
+                  After rounding of the result to <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">digits</span></code>
+                  bits, if the result is tiny, such implementation detects <span class="emphasis"><em>tinyness
+                  after rounding</em></span> (e.g. SuperSparc).
+                </li>
+<li class="listitem">
+                  If the conversion of the rounded tiny result to subnormal form
+                  resulted in the loss of precision, such implementation detects
+                  <span class="emphasis"><em>denorm loss</em></span>.
+                </li>
+</ol></div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2002-2013 John Maddock and Christopher Kormanyos<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="denorm_style.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../constants.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="../functions.html"><img src="../../../../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

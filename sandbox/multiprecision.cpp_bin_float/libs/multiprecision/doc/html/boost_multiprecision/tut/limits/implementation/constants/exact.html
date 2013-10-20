@@ -1,0 +1,87 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>is_exact</title>
+<link rel="stylesheet" href="../../../../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../../../../index.html" title="Chapter&#160;1.&#160;Boost.Multiprecision">
+<link rel="up" href="../constants.html" title="std::numeric_limits&lt;&gt; constants">
+<link rel="prev" href="signed.html" title="is_signed">
+<link rel="next" href="bound.html" title="is_bounded">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="signed.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../constants.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="bound.html"><img src="../../../../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h6 class="title">
+<a name="boost_multiprecision.tut.limits.implementation.constants.exact"></a><a class="link" href="exact.html" title="is_exact">is_exact</a>
+</h6></div></div></div>
+<p>
+              <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">is_exact</span> <span class="special">==</span>
+              <span class="keyword">true</span></code> if type T uses exact representations.
+            </p>
+<p>
+              This is defined as <code class="computeroutput"><span class="keyword">true</span></code>
+              for all integer types and <code class="computeroutput"><span class="keyword">false</span></code>
+              for floating-point types.
+            </p>
+<p>
+              <a href="http://stackoverflow.com/questions/14203654/stdnumeric-limitsis-exact-what-is-a-usable-definition" target="_top">A
+              usable definition</a> has been discussed.
+            </p>
+<p>
+              ISO/IEC 10967-1, Language independent arithmetic, noted by the C++
+              Standard defines
+            </p>
+<pre class="programlisting"><span class="identifier">A</span> <span class="identifier">floating</span> <span class="identifier">point</span> <span class="identifier">type</span> <span class="identifier">F</span> <span class="identifier">shall</span> <span class="identifier">be</span> <span class="identifier">a</span> <span class="identifier">finite</span> <span class="identifier">subset</span> <span class="identifier">of</span> <span class="special">[</span><span class="identifier">real</span><span class="special">].</span>
+</pre>
+<p>
+              The important practical distinction is that all integers (up to <code class="computeroutput"><span class="identifier">max</span><span class="special">()</span></code>)
+              can be stored exactly.
+            </p>
+<p>
+              <a href="http://en.wikipedia.org/wiki/Rational_number" target="_top">Rational</a>
+              types using two integer types are also exact.
+            </p>
+<p>
+              Floating-point types <span class="bold"><strong>cannot store all real values</strong></span>
+              (those in the set of &#8476;) <span class="bold"><strong>exactly</strong></span>. For
+              example, 0.5 can be stored exactly in a binary floating-point, but
+              0.1 cannot. What is stored is the nearest representable real value,
+              that is, rounded to nearest.
+            </p>
+<p>
+              Fixed-point types (usually decimal) are also defined as exact, in that
+              they only store a <span class="bold"><strong>fixed precision</strong></span>,
+              so half cents or pennies (or less) cannot be stored. The results of
+              computations are rounded up or down, just like the result of integer
+              division stored as an integer result.
+            </p>
+<p>
+              There are number of proposals to <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2012/n3407.html" target="_top">add
+              Decimal Floating Point Support to C++</a>.
+            </p>
+<p>
+              <a href="http://www.open-std.org/JTC1/SC22/WG21/docs/papers/2009/n2849.pdf" target="_top">Decimal
+              TR</a>.
+            </p>
+<p>
+              And also <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2012/n3352.html" target="_top">C++
+              Binary Fixed-Point Arithmetic</a>.
+            </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2002-2013 John Maddock and Christopher Kormanyos<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="signed.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../constants.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="bound.html"><img src="../../../../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

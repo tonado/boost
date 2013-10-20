@@ -1,0 +1,69 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Infinity - positive and negative</title>
+<link rel="stylesheet" href="../../../../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../../../../index.html" title="Chapter&#160;1.&#160;Boost.Multiprecision">
+<link rel="up" href="../functions.html" title="std::numeric_limits&lt;&gt; functions">
+<link rel="prev" href="epsilon.html" title="epsilon">
+<link rel="next" href="NaN.html" title="Not-A-Number NaN">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="epsilon.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../functions.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="NaN.html"><img src="../../../../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h6 class="title">
+<a name="boost_multiprecision.tut.limits.implementation.functions.infinity"></a><a class="link" href="infinity.html" title="Infinity - positive and negative">Infinity
+            - positive and negative</a>
+</h6></div></div></div>
+<p>
+              For floating-point types only, for which <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">has_infinity</span>
+              <span class="special">==</span> <span class="keyword">true</span></code>,
+              function <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">infinity</span><span class="special">()</span></code>
+              provides an implementation-defined representation for &#8734;.
+            </p>
+<p>
+              The 'representation' is a particular bit pattern reserved for infinity.
+              For IEEE754 system (for which <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">numeric_limits</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">is_iec559</span>
+              <span class="special">==</span> <span class="keyword">true</span></code>)
+            </p>
+<p>
+              <a href="http://en.wikipedia.org/wiki/IEEE_754-1985#Positive_and_negative_infinity" target="_top">positive
+              and negative infinity</a> are assigned bit patterns for all defined
+              floating-point types.
+            </p>
+<p>
+              Confusingly, the string resulting from outputting this representation,
+              is also implementation-defined. And the string that can be input to
+              generate the representation is also implementation-defined.
+            </p>
+<p>
+              For example, the output is <code class="computeroutput"><span class="number">1.</span><span class="special">#</span><span class="identifier">INF</span></code>
+              on Microsoft systems, but <code class="computeroutput"><span class="identifier">inf</span></code>
+              on some *nix platforms.
+            </p>
+<p>
+              This implementation-defined-ness has hampered use of infinity (and
+              NaNs) but Boost.Math and Boost.Multiprecision work hard to provide
+              a sensible representation for <span class="bold"><strong>all</strong></span>
+              floating-point types, not just the built-in types, which with the use
+              of suitable facets to define the input and output strings, makes it
+              possible to use these useful features portably and including Boost.Serialization.
+            </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2002-2013 John Maddock and Christopher Kormanyos<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="epsilon.html"><img src="../../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../functions.html"><img src="../../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../../index.html"><img src="../../../../../images/home.png" alt="Home"></a><a accesskey="n" href="NaN.html"><img src="../../../../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
