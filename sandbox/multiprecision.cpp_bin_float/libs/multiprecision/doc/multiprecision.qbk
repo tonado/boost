@@ -683,7 +683,7 @@ floating-point number type that is a drop-in replacement for the native C++ floa
 much greater precision.
 
 Type `cpp_bin_float` can be used at fixed precision by specifying a non-zero `Digits` template parameter.
-The typedefs `cpp_dec_float_50` and `cpp_dec_float_100` provide arithmetic types at 50 and 100 decimal digits precision
+The typedefs `cpp_bin_float_50` and `cpp_bin_float_100` provide arithmetic types at 50 and 100 decimal digits precision
 respectively.  
 
 Optionally, you can specify whether the precision is specified in decimal digits or binary bits - for example
