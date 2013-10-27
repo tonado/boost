@@ -286,6 +286,7 @@ cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>& cpp_bin_float
 #endif
    boost::int64_t error = 0;
    boost::intmax_t calc_exp = 0;
+   boost::intmax_t final_exponent = 0;
 
    if(decimal_exp >= 0)
    {
@@ -300,13 +301,11 @@ cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>& cpp_bin_float
          }
          else
             t = n;
-         exponent() = (int)cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::bit_count - 1;
-         exponent() += static_cast<exponent_type>(decimal_exp);
-         exponent() += static_cast<exponent_type>(calc_exp);
+         final_exponent = (boost::int64_t)cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::bit_count - 1 + decimal_exp + calc_exp;
          int rshift = msb(t) - cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::bit_count + 1;
          if(rshift > 0)
          {
-            exponent() += rshift;
+            final_exponent += rshift;
             int roundup = boost::multiprecision::cpp_bf_io_detail::get_round_mode(t, rshift - 1, error);
             t >>= rshift;
             if((roundup == 2) || ((roundup == 1) && t.backend().limbs()[0] & 1))
@@ -325,6 +324,22 @@ cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>& cpp_bin_float
          else
          {
             BOOST_ASSERT(!error);
+         }
+         if(final_exponent > cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::max_exponent)
+         {
+            exponent() = cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::max_exponent;
+            final_exponent -= cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::max_exponent;
+         }
+         else if(final_exponent < cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::min_exponent)
+         {
+            // Underflow:
+            exponent() = cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::min_exponent;
+            final_exponent -= cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::min_exponent;
+         }
+         else
+         {
+            exponent() = static_cast<Exponent>(final_exponent);
+            final_exponent = 0;
          }
          copy_and_round(*this, t.backend());
          break;
@@ -345,11 +360,11 @@ cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>& cpp_bin_float
          cpp_int d;
          calc_exp = boost::multiprecision::cpp_bf_io_detail::restricted_pow(d, cpp_int(5), -decimal_exp, max_bits, error);
          int shift = (int)cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::bit_count - msb(n) + msb(d);
-         exponent() = static_cast<exponent_type>(cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::bit_count - 1 + decimal_exp - calc_exp);
+         final_exponent = cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::bit_count - 1 + decimal_exp - calc_exp;
          if(shift > 0)
          {
             n <<= shift;
-            exponent() -= shift;
+            final_exponent -= static_cast<Exponent>(shift);
          }
          cpp_int q, r;
          divide_qr(n, d, q, r);
@@ -371,7 +386,7 @@ cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>& cpp_bin_float
             // note that the radius of error in r is error/2 * q:
             int shift = gb - (int)cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::bit_count + 1;
             q >>= shift;
-            exponent() += shift;
+            final_exponent += static_cast<Exponent>(shift);
             BOOST_ASSERT((msb(q) >= cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::bit_count - 1));
             if(error && (r < (error / 2) * q))
                roundup = -1;
@@ -396,12 +411,29 @@ cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>& cpp_bin_float
             if(shift > 0)
             {
                n >>= shift;
-               exponent() += shift;
+               final_exponent += static_cast<Exponent>(shift);
             }
             continue;
          }
          else if((roundup == 2) || ((roundup == 1) && q.backend().limbs()[0] & 1))
             ++q;
+         if(final_exponent > cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::max_exponent)
+         {
+            // Overflow:
+            exponent() = cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::max_exponent;
+            final_exponent -= cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::max_exponent;
+         }
+         else if(final_exponent < cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::min_exponent)
+         {
+            // Underflow:
+            exponent() = cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::min_exponent;
+            final_exponent -= cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::min_exponent;
+         }
+         else
+         {
+            exponent() = static_cast<Exponent>(final_exponent);
+            final_exponent = 0;
+         }
          copy_and_round(*this, q.backend());
          if(ss != sign())
             negate();
@@ -409,7 +441,27 @@ cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>& cpp_bin_float
       }
       while(true);
    }
-
+   //
+   // Check for scaling and/or over/under-flow:
+   //
+   final_exponent += exponent();
+   if(final_exponent > cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::max_exponent)
+   {
+      // Overflow:
+      exponent() = cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::exponent_infinity;
+      bits() = limb_type(0);
+   }
+   else if(final_exponent < cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::min_exponent)
+   {
+      // Underflow:
+      exponent() = cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::exponent_zero;
+      bits() = limb_type(0);
+      sign() = 0;
+   }
+   else
+   {
+      exponent() = static_cast<Exponent>(final_exponent);
+   }
    return *this;
 }
 

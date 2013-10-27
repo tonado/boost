@@ -694,7 +694,7 @@ software analogues of the IEEE single, double and quad float data types, plus th
 Normally `cpp_bin_float` allocates no memory: all of the space required for its digits are allocated
 directly within the class.  As a result care should be taken not to use the class with too high a digit count
 as stack space requirements can grow out of control.  If that represents a problem then providing an allocator
-as the final template parameter causes `cpp_bin_float` to dynamically allocate the memory it needs: this
+as a template parameter causes `cpp_bin_float` to dynamically allocate the memory it needs: this
 significantly reduces the size of `cpp_bin_float` and increases the viable upper limit on the number of digits
 at the expense of performance.  However, please bear in mind that arithmetic operations rapidly become ['very] expensive
 as the digit count grows: the current implementation really isn't optimized or designed for large digit counts.
