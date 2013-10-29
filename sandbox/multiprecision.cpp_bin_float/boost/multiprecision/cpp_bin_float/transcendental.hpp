@@ -13,7 +13,7 @@ void eval_exp_taylor(cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE,
 {
    static const int bits = cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::bit_count;
    //
-   // Taylor series for small argument:
+   // Taylor series for small argument, note returns exp(x) - 1:
    //
    res = limb_type(0);
    cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE> num(arg), denom, t;
@@ -34,6 +34,32 @@ void eval_exp_taylor(cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE,
 template <unsigned Digits, digit_base_type DigitBase, class Allocator, class Exponent, Exponent MinE, Exponent MaxE>
 void eval_exp(cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE> &res, const cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE> &arg)
 {
+   //
+   // This is based on MPFR's method, let:
+   //
+   // n = floor(x / ln(2))
+   //
+   // Then:
+   //
+   // r = x - n ln(2) : 0 <= r < ln(2)
+   //
+   // We can reduce r further by dividing by 2^k, with k ~ sqrt(n),
+   // so if:
+   //
+   // e0 = exp(r / 2^k) - 1
+   //
+   // With e0 evaluated by taylor series for small arguments, then:
+   //
+   // exp(x) = 2^n (1 + e0)^2^k
+   //
+   // Note that to preserve precision we actually square (1 + e0) k times, calculating
+   // the result less one each time, i.e.
+   //
+   // (1 + e0)^2 - 1 = e0^2 + 2e0
+   //
+   // Then add the final 1 at the end, given that e0 is small, this effectively wipes
+   // out the error in the last step.
+   //
    using default_ops::eval_multiply;
    using default_ops::eval_subtract;
    using default_ops::eval_add;
