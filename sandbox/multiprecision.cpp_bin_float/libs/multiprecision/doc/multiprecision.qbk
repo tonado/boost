@@ -671,10 +671,10 @@ The following back-ends provide floating point arithmetic:
    typedef number<cpp_bin_float<50> > cpp_bin_float_50;
    typedef number<cpp_bin_float<100> > cpp_bin_float_100;
 
-   typedef number<backends::cpp_bin_float<24, backends::digit_base_2, void, boost::int16_t, -126, 127>, et_off> float32_t;
-   typedef number<backends::cpp_bin_float<53, backends::digit_base_2, void, boost::int16_t, -1022, 1023>, et_off> float64_t;
-   typedef number<backends::cpp_bin_float<64, backends::digit_base_2, void, boost::int16_t, -16382, 16383>, et_off> float80_t;
-   typedef number<backends::cpp_bin_float<113, backends::digit_base_2, void, boost::int16_t, -16382, 16383>, et_off> float128_t;
+   typedef number<backends::cpp_bin_float<24, backends::digit_base_2, void, boost::int16_t, -126, 127>, et_off>       cpp_bin_float_single;
+   typedef number<backends::cpp_bin_float<53, backends::digit_base_2, void, boost::int16_t, -1022, 1023>, et_off>     cpp_bin_float_double;
+   typedef number<backends::cpp_bin_float<64, backends::digit_base_2, void, boost::int16_t, -16382, 16383>, et_off>   cpp_bin_float_double_extended;
+   typedef number<backends::cpp_bin_float<113, backends::digit_base_2, void, boost::int16_t, -16382, 16383>, et_off>  cpp_bin_float_quad;
 
    }} // namespaces
 
@@ -688,8 +688,11 @@ respectively.
 
 Optionally, you can specify whether the precision is specified in decimal digits or binary bits - for example
 to declare a `cpp_bin_float` with exactly the same precision as `double` one would use 
-`number<cpp_bin_float<53, digit_base_2> >`.  The typedefs `float32_t`, `float64_t`, `float128_t` and `float80_t` provide
-software analogues of the IEEE single, double and quad float data types, plus the intel-extended-double type respectively.
+`number<cpp_bin_float<53, digit_base_2> >`.  The typedefs `cpp_bin_float_single`, `cpp_bin_float_double`, 
+`cpp_bin_float_quad` and `cpp_bin_float_double_extended` provide
+software analogues of the IEEE single, double and quad float data types, plus the Intel-extended-double type respectively.
+Note that while these types are functionally equivalent to the native IEEE types, but they do not have the same size
+or bit-layout as true IEEE compatible types.
 
 Normally `cpp_bin_float` allocates no memory: all of the space required for its digits are allocated
 directly within the class.  As a result care should be taken not to use the class with too high a digit count
@@ -1956,8 +1959,6 @@ Floating-Point Arithmetic]
 There is a useful summary at
 [@http://www.cplusplus.com/reference/limits/numeric_limits/ C++ reference].
 
-[section:implementation Notes on Implementation of `std::numeric_limits`]
-
 The chosen backend often determines how completely `std::numeric_limits` is available.
 
 Compiler options, processor type, and definition of macros or assembler instructions to control denormal numbers will alter
@@ -1970,7 +1971,7 @@ and terminate with stack overflow (often after several seconds).]
 [section:constants std::numeric_limits<>  constants]
 
 
-[section:is_specialized is_specialized]
+[h4 is_specialized]
 
 `true` for all arithmetic types (integer, floating and fixed-point)
 for which `std::numeric_limits<T>::numeric_limits` is specialized.
@@ -1993,11 +1994,9 @@ the precision of a type such as `mpfr_float_50` is known at compile time, and so
 Note that not all the `std::numeric_limits` member constants and functions are meaningful for all user-defined types (UDT),
 such as the decimal and binary multiprecision types provided here.  More information on this is given in the sections below.
 
-[endsect] [/section:is_specialized is_specialized]
+[h4 infinity]
 
-[section:infinity infinity]
-
-For floating-point types, [infin] is defined whereever possible,
+For floating-point types, [infin] is defined wherever possible,
 but clearly infinity is meaningless for __arbitrary_precision arithmetic backends,
 and there is one floating point type (GMP's `mpf_t`, see __mpf_float) which has no notion
 of infinity or NaN at all.
@@ -2014,9 +2013,7 @@ and using tests like this is strongly recommended to improve portability.
 If the backend is switched to a type that does not support infinity then,
 without checks like this, there will be trouble.
 
-[endsect] [/section:infinity infinity]
-
-[section:signed is_signed]
+[h4 is_signed]
 
 `std::numeric_limits<T>::is_signed == true` if the type `T` is signed.
 
@@ -2024,9 +2021,7 @@ For built-in binary types, the sign is held in a single bit,
 but for other types (cpp_dec_float and cpp_bin_float)
 it may be a separate storage element, usually `bool`.
 
-[endsect] [/section:signed signed]
-
-[section:exact is_exact]
+[h4 is_exact]
 
 `std::numeric_limits<T>::is_exact == true` if type T uses exact representations.
 
@@ -2064,9 +2059,7 @@ And also
 [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2012/n3352.html
 C++ Binary Fixed-Point Arithmetic].
 
-[endsect] [/section:exact is_exact]
-
-[section:bound is_bounded]
+[h4 is_bounded]
 
 `std::numeric_limits<T>::is_bounded == true` if the set of values represented by the type `T` is finite.
 
@@ -2077,9 +2070,7 @@ It is only `false` for a few __arbitrary_precision types like `cpp_int`.
 
 Rational and fixed-exponent representations are exact but not integer.
 
-[endsect] [/ section:bound is_bounded]
-
-[section:modulo is_modulo]
+[h4 is_modulo]
 
 `std::numeric_limits<T>::is_modulo` is defined as `true` if adding two positive values of type T
 can yield a result less than either value.
@@ -2091,8 +2082,7 @@ For most built-in integer types, `std::numeric_limits<>::is_modulo` is `true`.
 
 `bool` is the only exception.
 
-The modulo behaviour is sometimes useful, often irrelevent
-(with 32 or more bit integers),
+The modulo behaviour is sometimes useful,
 but also can be unexpected, and sometimes undesired, behaviour.
 
 Overflow of signed integers can be especially unexpected,
@@ -2111,16 +2101,12 @@ Built-in and multi-precision floating-point types are normally not modulo.
 Where possible, overflow is to `std::numeric_limits<>::infinity()`,
 provided `std::numeric_limits<>::has_infinity == true`.
 
-[endsect] [/section:modulo is_modulo]
-
-[section:radix radix]
+[h4 radix]
 
 Constant `std::numeric_limits<T>::radix` returns either 2 (for built-in and binary types)
 or 10 (for decimal types).
 
-[endsect] [/section:radix radix]
-
-[section:digits digits]
+[h4 digits]
 
 The number of `radix` digits that be represented without change:
 
@@ -2147,14 +2133,10 @@ not counting any sign bit.
 
 For a decimal integer type, when `radix == 10`, it is the number of decimal digits.
 
-[endsect] [/section:digits digits]
+[h4 digits10]
 
-
-[section:digits10 digits10]
-
-Constant `std::numeric_limits<T>::digits` returns the
-
-Number of decimal digits that can be represented without change or loss.
+Constant `std::numeric_limits<T>::digits10` returns the number of 
+decimal digits that can be represented without change or loss.
 
 For example, `numeric_limits<unsigned char>::digits10` is 2.
 
@@ -2162,13 +2144,9 @@ This somewhat inscrutable definition means that an `unsigned char`
 can hold decimal values `0..99`
 without loss of precision or accuracy, usually from truncation.
 
-[*If it were 3] it could hold 0..999,
+Had the definition been 3 then that would imply it could hold 0..999,
 but as we all know, an 8-bit `unsigned char` can only hold 0..255,
 and an attempt to store 256 or more will involve loss or change.
-
-In practice, one gets noisy warnings about truncation and the result is zero.
-
-Somewhat confusingly, some 3-digit numbers can be stored, for example 255.
 
 For bounded integers, it is thus [*one less] than number of decimal digits
 you need to display the biggest integer `std::numeric_limits<T>::max()`.
@@ -2237,9 +2215,7 @@ but if you want to 'round-trip' - printing a value out and reading it back in -
 you must use `os.precision(std::numeric_limits<T>::max_digits10)`.
 For at least one popular compiler, you must also use `std::scientific` format.
 
-[endsect] [/section:digits digits]
-
-[section:max_digits10 max_digits10]
+[h4 max_digits10]
 
 `std::numeric_limits<T>::max_digits10` was added for floating-point
 because `digits10` decimal digits are insufficient to show
@@ -2282,7 +2258,7 @@ probably every third value of significand.
 
 A workaround is using scientific or exponential format `<< std::scientific`.]
 
-[note BOOST_NO_NUMERIC_LIMITS_LOWEST is a suitable proxy to determine if
+[note BOOST_NO_CXX11_NUMERIC_LIMITS is a suitable feature-test macro to determine if
 `std::numeric_limits<float>::max_digits10` is implemented on any platform.
 If `max_digits10` is not available, you should using the
 [@http://www.cs.berkeley.edu/~wkahan/ieee754status/IEEE754.PDF Kahan formula for floating-point type T].
@@ -2290,10 +2266,7 @@ See above.]
 
 [max_digits10_1] [/ example for using max_digits10]
 
-[endsect] [/section:max_digits10 max_digits10]
-
-
-[section:round_style round_style]
+[h4 round_style]
 
 The rounding style determines how the result of floating-point operations
 is treated when the result cannot be [*exactly represented] in the significand.
@@ -2322,9 +2295,7 @@ For floating-point types, it is normal to round to nearest.
 See function `std::numeric_limits<T>::round_error` for the maximum error (in ULP)
 that rounding can cause.
 
-[endsect] [/section:round_style route_style]
-
-[section:denorm_loss has_denorm_loss]
+[h4 has_denorm_loss]
 
 `true` if a loss of precision is detected as a
 [@http://en.wikipedia.org/wiki/Denormalization denormalization] loss,
@@ -2334,9 +2305,7 @@ Always `false` for integer types.
 
 `false` for all types which do not have `has_denorm` == `std::denorm_present`.
 
-[endsect] [/section:denorm_loss has_denorm_loss]
-
-[section:denorm_style denorm_style]
+[h4 denorm_style]
 
 [@http://en.wikipedia.org/wiki/Denormal_number Denormalized values] are
 representations with a variable number of exponent bits that can permit
@@ -2351,9 +2320,7 @@ A type may have any of the following `enum float_denorm_style` values:
 * `std::denorm_present`, if the floating-point type allows denormalized values.
 *`std::denorm_indeterminate`, if indeterminate at compile time.
 
-[endsect] [/section:denorm_style denorm_style]
-
-[section:tinyness Tinyness before rounding]
+[h4 Tinyness before rounding]
 
 `bool std::numeric_limits<T>::tinyness_before`
 
@@ -2376,13 +2343,11 @@ if the result is tiny, such implementation detects ['tinyness after rounding]
 # If the conversion of the rounded tiny result to subnormal form
 resulted in the loss of precision, such implementation detects ['denorm loss].
 
-[endsect] [/section:tinyness Tinyness_before rounding]
-
 [endsect] [/section:constants std::numeric_limits<> Constants]
 
 [section:functions std::numeric_limits<> functions]
 
-[section:max max function]
+[h4 max function]
 
 Function `std::numeric_limits<T>::max()` returns the largest finite value
 that can be represented by the type T.  If there is no such value (and
@@ -2405,10 +2370,7 @@ packaged versions of this (and other functions) are provided using
 Of course, these simply use `std::numeric_limits<T>::max()` if available,
 but otherwise 'do something sensible'.
 
-[endsect] [/section:max max function]
-
-
-[section:lowest lowest function]
+[h4 lowest function]
 
 Since C++11: `std::numeric_limits<T>::lowest()` is
 
@@ -2418,9 +2380,7 @@ Since C++11: `std::numeric_limits<T>::lowest()` is
 
 [digits10_5]
 
-[endsect] [/section:lowest lowest function]
-
-[section:min min function]
+[h4 min function]
 
 Function `std::numeric_limits<T>::min()` returns the minimum finite value
 that can be represented by the type T.
@@ -2449,9 +2409,7 @@ packaged versions of this (and other functions) are provided using
 
 Of course, these simply use `std::numeric_limits<T>::min()` if available.
 
-[endsect] [/section:min min function]
-
-[section:denorm_min denorm_min function]
+[h4 denorm_min function]
 
 Function `std::numeric_limits<T>::denorm_min()`
 returns the smallest
@@ -2466,32 +2424,23 @@ The exponent is effectively reduced from -308 to -324
 (though it remains encoded as zero and leading zeros appear in the significand,
 thereby losing precision until the significand reaches zero).
 
-[endsect]
-
-[section:round_error  round_error]
+[h4 round_error]
 
 Function `std::numeric_limits<T>::round_error()` returns the maximum error
 (in units of [@http://en.wikipedia.org/wiki/Unit_in_the_last_place ULP])
-that can be caused by rounding from binary to decimal.
-
-For decimal types, no rounding is needed to get to decimal,
-so `round_error` is always zero.
+that can be caused by any basic arithmetic operation.
 
   round_style == std::round_indeterminate;
 
 The rounding style is indeterminable at compile time.
 
-(This standard says 'indeterminable at compile time',
-though this is not strictly true for decimal types,
-not envisaged at the time that the standard was written).
-
-For floating-point types, rounding is to nearest, up or down,
-so at worst, only half a bit is lost by rounding, and `round_error == 0.5`.
+For floating-point types, when rounding is to nearest,
+only half a bit is lost by rounding, and `round_error == 0.5`.
+In contrast when rounding is towards zero, or plus/minus infinity,
+we can loose up to one bit from rounding, and `round_error == 1`.
 
 For integer types, rounding always to zero, so at worst almost one bit can be rounded,
 so `round_error == 1`.
-
-Similarly for other rounding styles that are not `std::round_to_nearest`.
 
 `round_error()` can be used with `std::numeric_limits<T>::epsilon()` to estimate
 the maximum potential error caused by rounding.  For typical floating-point types,
@@ -2499,26 +2448,12 @@ the maximum potential error caused by rounding.  For typical floating-point type
 
 [round_error_1]
 
-This value can be used to set tolerances (see epsilon).
-
-Of course, this is the rounding for just one arithmetic operation.
-Some arithmetic operations will involve rounding to integer
-when almost one bit can be lost by rounding.
-
-Real life computations involve many, or very many, steps each of which can be rounded.
-
-So as a very rough approximation, we might multiply by the square root of the number of
-arithmetic operations. Thus it is common to expect tolerances of a few times as great as
-`epsilon() * round_error()`.
-
 There are, of course, many occasions when much bigger loss of precision occurs,
 for exampe, caused by
 [@http://en.wikipedia.org/wiki/Loss_of_significance Loss of significance or cancellation error]
 or very many iterations.
 
-[endsect] [/section:round_error  round_error]
-
-[section:epsilon epsilon]
+[h4 epsilon]
 
 Function `std::numeric_limits<T>::epsilon()` is meaningful only for non-integral types.
 
@@ -2549,7 +2484,7 @@ To use these `#include <boost/math/tools/precision.hpp>`.
 
 [epsilon_4]
 
-[h4 Tolerance for Floating-point Comparisons]
+[h5 Tolerance for Floating-point Comparisons]
 
 `epsilon` is very useful to compute a tolerance when comparing floating-point values,
 a much more difficult task than is commonly imagined.
@@ -2585,9 +2520,7 @@ used thus:
 
 [tolerance_2]
 
-[endsect] [/section:epsilon epsilon]
-
-[section:infinity Infinity - positive and negative]
+[h4 Infinity - positive and negative]
 
 For floating-point types only, for which
 `std::numeric_limits<T>::has_infinity == true`,
@@ -2596,14 +2529,13 @@ provides an implementation-defined representation for [infin].
 
 The 'representation' is a particular bit pattern reserved for infinity.
 For IEEE754 system (for which `std::numeric_limits<T>::is_iec559 == true`)
-
 [@http://en.wikipedia.org/wiki/IEEE_754-1985#Positive_and_negative_infinity positive and negative infinity]
 are assigned bit patterns for all defined floating-point types.
 
 Confusingly, the string resulting from outputting this representation, is also
 implementation-defined. And the string that can be input to generate the representation is also implementation-defined.
 
-For example, the output is `1.#INF` on Microsoft systems, but `inf` on some *nix platforms.
+For example, the output is `1.#INF` on Microsoft systems, but `inf` on most *nix platforms.
 
 This implementation-defined-ness has hampered use of infinity (and NaNs)
 but Boost.Math and Boost.Multiprecision work hard to provide a sensible representation
@@ -2611,11 +2543,9 @@ for [*all] floating-point types, not just the built-in types,
 which with the use of suitable facets to define the input and output strings, makes it possible
 to use these useful features portably and including Boost.Serialization.
 
-[endsect] [/section:infinity infinity]
+[h4 Not-A-Number NaN]
 
-[section:NaN Not-A-Number NaN]
-
-[h4 Quiet_NaN]
+[h5 Quiet_NaN]
 
 For floating-point types only, for which
 `std::numeric_limits<T>::has_quiet_NaN == true`,
@@ -2640,24 +2570,112 @@ of both NaNs and positive and negative infinity.
 
 [facet_1]
 
-[h4 Signaling NaN]
+[h5 Signaling NaN]
 
 For floating-point types only, for which
 `std::numeric_limits<T>::has_signaling_NaN == true`,
 function `std::numeric_limits<T>::signaling_NaN()`
 provides an implementation-defined representation for NaN that causes a hardware trap.
-However these are not found in any popular processor or platforms,
-if at all, and may be ignored for all practical purposes.
-
-[endsect] [/section:NaN NotANumber NaN]
+It should be noted however, that at least one implementation of this function causes a hardware
+trap to be triggered simply by calling `std::numeric_limits<T>::signaling_NaN()`, and not only
+by using the value returned.
 
 [endsect] [/section:functions std::numeric_limits<>  functions]
-
-[endsect] [/section:implementation Implementation Notes]
 
 [/ Tables of values for numeric_limits for various built-in and cpp_bin_float types]
 [include numeric_limits_32_tables.qbk]
 [/include numeric_limits_64_tables.qbk]
+
+[section:how_to_tell How to Determine the Kind of a Number From `std::numeric_limits`]
+
+Based on the information above, one can see that different kinds of numbers can be
+differentiated based on the information stored in `std::numeric_limits`.  This is
+in addition to the traits class [link boost_multiprecision.ref.number.traits_class_support 
+number_category] provided by this library.
+
+[h4 Integer Types]
+
+For an integer type T, all of the following conditions hold:
+
+   std::numeric_limits<T>::is_specialized == true
+   std::numeric_limits<T>::is_integer == true
+   std::numeric_limits<T>::is_exact == true
+   std::numeric_limits<T>::min_exponent == 0
+   std::numeric_limits<T>::max_exponent == 0
+   std::numeric_limits<T>::min_exponent10 == 0
+   std::numeric_limits<T>::max_exponent10 == 0
+
+In addition the type is /signed/ if:
+   
+   std::numeric_limits<T>::is_signed == true
+
+If the type is arbitrary precision then:
+
+   std::numeric_limits<T>::is_bounded == false
+
+Otherwise the type is bounded, and returns a non zero value
+from:
+
+   std::numeric_limits<T>::max()
+
+and has:
+
+   std::numeric_limits<T>::is_modulo == true
+
+if the type implements modulo arithmetic on overflow.
+
+[h4 Rational Types]
+
+Rational types are just like integers except that:
+
+   std::numeric_limits<T>::is_integer == false
+
+[h4 Fixed Precision Types]
+
+There appears to be no way to tell these apart from rational types, unless they set:
+
+   std::numeric_limits<T>::is_exact == false
+
+This is because these types are in essense a rational type with a fixed denominator.
+
+[h4 Floating Point Types]
+
+For a floating point type T, all of the following conditions hold:
+
+   std::numeric_limits<T>::is_specialized == true
+   std::numeric_limits<T>::is_integer == false
+   std::numeric_limits<T>::is_exact == false
+   std::numeric_limits<T>::min_exponent != 0
+   std::numeric_limits<T>::max_exponent != 0
+   std::numeric_limits<T>::min_exponent10 != 0
+   std::numeric_limits<T>::max_exponent10 != 0
+
+In addition the type is /signed/ if:
+   
+   std::numeric_limits<T>::is_signed == true
+
+And the type may be decimal or binary depending on the value of:
+
+   std::numeric_limits<T>::radix
+
+In general, there are no arbitrary precision floating point types, and so:
+
+   std::numeric_limits<T>::is_bounded == false
+
+[h4 Exact Floating Point Types]
+
+Exact floating point types are a [@http://en.wikipedia.org/wiki/Field_%28mathematics%29 field] 
+composed of an arbitrary precision integer scaled by an exponent.  Such types
+have no division operator and are the same as floating point types except:
+
+      std::numeric_limits<T>::is_exact == true
+
+[h4 Complex Numbers]
+
+For historical reasons, complex numbers do not specialize `std::numeric_limits`, instead you must
+inspect `std::numeric_limits<T::value_type>`.
+
+[endsect]
 
 [endsect] [/section:limits Numeric Limits]
 
@@ -2667,7 +2685,7 @@ if at all, and may be ignored for all practical purposes.
 
 [h4  Loopback testing]
 
-[/Loopback] or [/round-tripping] refers to writing out a value as a decimal digit string using `std::iostream`,
+['Loopback] or ['round-tripping] refers to writing out a value as a decimal digit string using `std::iostream`,
 usually to a `std::stringstream`, and then reading the string back in to another value,
 and confirming that the two values are identical.  A trivial example using `float` is:
 
@@ -2680,7 +2698,7 @@ and confirming that the two values are identical.  A trivial example using `floa
   ss >> read; // Read decimal digits string from stringstream.
   BOOST_CHECK_EQUAL(write, read); // Should be the same.
 
-and this can be run in a look for all possible values of a 32-bit float.
+and this can be run in a loop for all possible values of a 32-bit float.
 For other floating-point types `T`, including built-in `double`,
 it takes far too long to test all values,
 so a reasonable test strategy is to use a large number of random values.
@@ -2703,25 +2721,25 @@ so a reasonable test strategy is to use a large number of random values.
 
 
 The test at
-[$boost:/multiprecision.cpp_bin_float/libs/multiprecision/test/test_cpp_bin_float_io.cpp test_cpp_bin_float_io.cpp]
-allows any floating-point type to be [/round_tripped] using a wide range of fairly random values.
+[@../../test/test_cpp_bin_float_io.cpp test_cpp_bin_float_io.cpp]
+allows any floating-point type to be ['round_tripped] using a wide range of fairly random values.
 It also includes tests compared a collection of
-[$boost:libs/multiprecision/test/string_data.ipp stringdata] test cases in a file.
+[@../../test/string_data.ipp stringdata] test cases in a file.
 
 [h4 Comparing with output using Built-in types]
 
 One can make some comparisons with the output of
 
-   <number<cpp_bin_float<53> >
+   <number<cpp_bin_float<53, digit_count_2> >
 
 which has the same number of significant bits (53) as 64-bit double precision floating-point.
 
-However, although most outputs are identical, but there are differences on some platforms
+However, although most outputs are identical, there are differences on some platforms
 caused by the implementation-dependent behaviours allowed by the C99 specification
 [@http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1124.pdf  C99 ISO/IEC 9899:TC2],
 incorporated by C++.
 
-"For e, E, f, F, g, and G conversions, if the number of significant decimal digits
+[:['"For e, E, f, F, g, and G conversions, if the number of significant decimal digits
 is at most DECIMAL_DIG, then the result should be correctly rounded.
 If the number of significant decimal digits is more than DECIMAL_DIG
 but the source value is exactly representable with DECIMAL_DIG digits,
@@ -2730,7 +2748,7 @@ Otherwise, the source value is bounded by two adjacent decimal strings L < U,
 both having DECIMAL_DIG significant digits;
 the value of the resultant decimal string D should satisfy L<= D <= U,
 with the extra stipulation that the error should have a correct sign
-for the current rounding direction."
+for the current rounding direction."]]
 
 So not only is correct rounding for the full number of digits not required,
 but even if the *optional* recomended practice is followed,
@@ -2756,17 +2774,14 @@ So to conform to the C99 standard (incorporated by C++)
 
 Confusingly, Microsoft (and MinGW) do not conform to this standard and provide
 [*at least three digits], for example `1e+001`.
-So if you want the output to match the format output using
-built-in floating-point types, or to make output the same for all platforms like GCC and Clang,
-then you need to override the above definition:
+So if you want the output to match that from
+built-in floating-point types on compilers that use Microsofts runtime then use:
 
-  #ifdef MSC_VER
-  #  define BOOST_MP_MIN_EXPONENT_DIGITS 3
-  #endif
+  #define BOOST_MP_MIN_EXPONENT_DIGITS 3
 
 Also useful to get the minimum exponent field width is
 
-  #  define BOOST_MP_MIN_EXPONENT_DIGITS 1
+  #define BOOST_MP_MIN_EXPONENT_DIGITS 1
 
 producing a compact output like `2e+4`,
 useful when conserving space is important.
@@ -3645,6 +3660,98 @@ More information on this type can be found in the [link boost_multiprecision.tut
 
 [endsect]
 
+[section:cpp_bin_float_ref cpp_bin_float]
+
+   namespace boost{ namespace multiprecision{
+
+   enum digit_base_type
+   {
+      digit_base_2 = 2, 
+      digit_base_10 = 10
+   };
+
+   template <unsigned Digits, digit_base_type base = digit_base_10, class Allocator = void, class Exponent = int, ExponentMin = 0, ExponentMax = 0>
+   class cpp_bin_float;
+
+   typedef number<cpp_bin_float<50> > cpp_bin_float_50;
+   typedef number<cpp_bin_float<100> > cpp_bin_float_100;
+
+   typedef number<backends::cpp_bin_float<24, backends::digit_base_2, void, boost::int16_t, -126, 127>, et_off>       cpp_bin_float_single;
+   typedef number<backends::cpp_bin_float<53, backends::digit_base_2, void, boost::int16_t, -1022, 1023>, et_off>     cpp_bin_float_double;
+   typedef number<backends::cpp_bin_float<64, backends::digit_base_2, void, boost::int16_t, -16382, 16383>, et_off>   cpp_bin_float_double_extended;
+   typedef number<backends::cpp_bin_float<113, backends::digit_base_2, void, boost::int16_t, -16382, 16383>, et_off>  cpp_bin_float_quad;
+
+   }} // namespaces
+
+Class template `cpp_bin_float` fulfils all of the requirements for a [link boost_multiprecision.ref.backendconc Backend] type.
+Its members and non-member functions are deliberately not documented: these are considered implementation details that are subject
+to change.
+
+The class takes six template parameters:
+
+[variablelist
+[[Digits][The number of digits precision the type
+should support.  This is normally expresed as base-10 digits, but that can be changed via the second template parameter.]]
+[[base][An enumerated value (either `digit_base_10` or `digit_base_2`) that indicates whether `Digits` is base-10 or base-2]]
+[[Allocator][The allocator used: defaults to type `void`, meaning all storage is within the class, and no dynamic
+allocation is performed, but can be set to a standard library allocator if dynamic allocation makes more sense.]]
+[[Exponent][A signed integer type to use as the type of the exponent - defaults to `int`.]]
+[[ExponentMin][The smallest (most negative) permitted exponent, defaults to zero, meaning "define as small as possible
+given the limitations of the type and our internal requirements".]]
+[[ExponentMax][The largest (most positive) permitted exponent, defaults to zero, meaning "define as large as possible
+given the limitations of the type and our internal requirements".]]
+]
+
+The type of `number_category<cpp_bin_float<Args...> >::type` is `mpl::int_<number_kind_floating_point>`.
+
+More information on this type can be found in the [link boost_multiprecision.tut.floats.cpp_bin_float tutorial].
+
+[h4 Implementation Notes]
+
+Internally, an N-bit `cpp_bin_float` is represented as an N-bit unsigned integer along with an exponent and a sign.
+The integer part is normalized so that it's most significant bit is always 1.  The decimal point is assumed to be
+directly after the most significant bit of the integer part.  The special values zero, infinity and NaN all have
+the integer part set to zero, and the exponent to one of 3 special values above the maximum permitted exponent.
+
+Multiplication is trivial: multiply the two N-bit integer mantissa's to obtain a 2N-bit number, then round and 
+adjust the sign and exponent.
+
+Addition and subtraction proceed similarly - if the exponents are such that there is overlap between the two
+values, then left shift the larger value to produce a number with between N and 2N bits, then perform integer
+addition or subtraction, round, and adjust the exponent.
+
+Division proceeds as follows: first scale the numerator by some power of 2 so that integer division will 
+produce either an N-bit or N+1 bit result plus a remainder.  If we get an N bit result then the size of
+twice the remainder compared to the denominator gives us the rounding direction.  Otherwise we have one extra bit
+in the result which we can use to determine rounding (in this case ties occur only if the remainder is zero and
+the extra bit is a 1).
+
+Square root uses integer square root in a manner analogous to division.
+
+Decimal string to binary conversion proceeds as follows: first parse the digits to
+produce an integer multiplied by a decimal exponent.  Note that we stop parsing digits
+once we have parsed as many as can possibly effect the result - this stops the integer
+part growing too large when there are a very large number of input digits provided.
+At this stage if the decimal exponent is positive then the result is an integer and we
+can in principle simply multiply by 10^N to get an exact integer result.  In practice
+however, that could produce some very large integers.  We also need to be able to divide
+by 10^N in the event that the exponent is negative.  Therefore calculation of the 10^N
+values plus the multiplication or division are performed using limited precision
+integer arithmetic, plus an exponent, and a track of the accumulated error.  At the end of
+the calculation we will either be able to round unambiguously, or the error will be such
+that we can't tell which way to round.  In the latter case we simply up the precision and try
+again until we have an unambiguously rounded result.
+
+Binary to decimal conversion proceeds very similarly to the above, our aim is to calculate
+`mantissa * 2^shift * 10^E` where `E` is the decimal exponent and `shift` is calculated
+so that the result is an N bit integer assuming we want N digits printed in the result.
+As before we use limitted precision arithmetic to calculate the result and up the
+precision as necessary until the result is unambiguously correctly rounded.  In addition
+our initial calculation of the decimal exponent may be out by 1, so we have to correct
+that and loop as well in the that case.
+
+[endsect]
+
 [section:cpp_dec_ref cpp_dec_float]
 
    namespace boost{ namespace multiprecision{
@@ -3672,7 +3779,7 @@ template argument should not be set too high or the class's size will grow unrea
 allocation is performed, but can be set to a standard library allocator if dynamic allocation makes more sense.]]
 ]
 
-The type of `number_category<cpp_int<Args...> >::type` is `mpl::int_<number_kind_floating_point>`.
+The type of `number_category<cpp_dec_float<Args...> >::type` is `mpl::int_<number_kind_floating_point>`.
 
 More information on this type can be found in the [link boost_multiprecision.tut.floats.cpp_dec_float tutorial].
 

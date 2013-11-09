@@ -95,9 +95,9 @@ typedef boost::multiprecision::number<boost::multiprecision::cpp_dec_float<35, l
 #ifdef TEST_CPP_BIN_FLOAT
 #include <boost/multiprecision/cpp_bin_float.hpp>
 
-#define CPP_BIN_FLOAT_TESTS test(float128_t(), "float128_t");
+#define CPP_BIN_FLOAT_TESTS test(cpp_bin_float_quad(), "cpp_bin_float_quad");
 
-typedef boost::multiprecision::float128_t test_type_1;
+typedef boost::multiprecision::cpp_bin_float_quad test_type_1;
 
 #else
 

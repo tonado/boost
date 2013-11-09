@@ -57,7 +57,7 @@ int main()
 
   typedef float T; // Any type: `double`, cpp_dec_float_50, bin_128bit_double_type ...
 
-#if defined(BOOST_NO_NUMERIC_LIMITS_LOWEST)
+#if defined(BOOST_NO_CXX11_NUMERIC_LIMITS)
    std::cout.precision(2 + std::numeric_limits<T>::digits * 3010U/10000U);
 #else
 #  if (_MSC_VER <= 1600) // Correct wrong value for float.
@@ -347,11 +347,11 @@ so the default expression template parameter has been replaced by `et_off`.]
   {
 //[tolerance_3
 
-  using boost::multiprecision::bin_float128;
+  using boost::multiprecision::cpp_bin_float_quad;
  
-  bin_float128 tolerance =  3 * std::numeric_limits<bin_float128>::epsilon(); 
-  bin_float128 expected = boost::math::constants::two_pi<bin_float128>();
-  bin_float128 calculated = 2 * boost::math::constants::pi<bin_float128>();
+  cpp_bin_float_quad tolerance =  3 * std::numeric_limits<cpp_bin_float_quad>::epsilon(); 
+  cpp_bin_float_quad expected = boost::math::constants::two_pi<cpp_bin_float_quad>();
+  cpp_bin_float_quad calculated = 2 * boost::math::constants::pi<cpp_bin_float_quad>();
   using boost::test_tools::check_is_close;
 
   bool r = check_is_close(expected, calculated, tolerance);
@@ -363,19 +363,19 @@ so the default expression template parameter has been replaced by `et_off`.]
   {
 //[nan_1]
 
-/*`NaN can be used with binary multiprecision types like `bin_float128`:
+/*`NaN can be used with binary multiprecision types like `cpp_bin_float_quad`:
 */
-  using boost::multiprecision::bin_float128;
+  using boost::multiprecision::cpp_bin_float_quad;
  
-  if (std::numeric_limits<bin_float128>::has_quiet_NaN == true)
+  if (std::numeric_limits<cpp_bin_float_quad>::has_quiet_NaN == true)
   {
-    bin_float128 tolerance =  3 * std::numeric_limits<bin_float128>::epsilon(); 
+    cpp_bin_float_quad tolerance =  3 * std::numeric_limits<cpp_bin_float_quad>::epsilon(); 
 
-    bin_float128 NaN =  std::numeric_limits<bin_float128>::quiet_NaN(); 
-    std::cout << "bin_float128 NaN is "  << NaN << std::endl; //   bin_float128 NaN is nan
+    cpp_bin_float_quad NaN =  std::numeric_limits<cpp_bin_float_quad>::quiet_NaN(); 
+    std::cout << "cpp_bin_float_quad NaN is "  << NaN << std::endl; //   cpp_bin_float_quad NaN is nan
 
-    bin_float128 expected = NaN;
-    bin_float128 calculated = 2 * NaN;
+    cpp_bin_float_quad expected = NaN;
+    cpp_bin_float_quad calculated = 2 * NaN;
     using boost::test_tools::check_is_close;
 
     bool r = check_is_close(expected, expected, tolerance);
@@ -386,7 +386,7 @@ so the default expression template parameter has been replaced by `et_off`.]
   }
   else
   {
-    std::cout << "Type " << typeid(bin_float128).name() << " does not have NaNs!" << std::endl;
+    std::cout << "Type " << typeid(cpp_bin_float_quad).name() << " does not have NaNs!" << std::endl;
   }
 
 //] [/nan_1]
@@ -401,12 +401,12 @@ and we also need
 
   #include <boost/math/special_functions/nonfinite_num_facets.hpp>
 
-Then we can equally well use a multiprecision type bin_float128:
+Then we can equally well use a multiprecision type cpp_bin_float_quad:
 
 */
-  using boost::multiprecision::bin_float128;
+  using boost::multiprecision::cpp_bin_float_quad;
 
-  typedef bin_float128 T;
+  typedef cpp_bin_float_quad T;
 
   using boost::math::nonfinite_num_put;
   using boost::math::nonfinite_num_get;

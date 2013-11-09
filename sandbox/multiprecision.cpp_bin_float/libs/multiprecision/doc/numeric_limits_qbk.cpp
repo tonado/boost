@@ -52,10 +52,10 @@ this language binding.
 // Assume that this will be run on MSVC to get the 32 or 64 bit info.
 #ifdef _WIN32
   std::string bits32_64 = "32";
-std::string filename = "I:/boost-sandbox/multiprecision.cpp_bin_float/libs/multiprecision/doc/numeric_limits_32_tables.qbk";
+std::string filename = "numeric_limits_32_tables.qbk";
 #else
   std::string bits32_64 = "64";
-std::string filename = "I:/boost-sandbox/multiprecision.cpp_bin_float/libs/multiprecision/doc/numeric_limits_64_tables.qbk";
+std::string filename = "numeric_limits_64_tables.qbk";
 #endif
 
 #ifdef INT32_T_MAX
@@ -429,16 +429,14 @@ int main()
       "]""\n"
     << std::endl;
 
+    fout << "[section:limits"<< bits32_64 << " Numeric limits for " << bits32_64 << "-bit platform]" << std::endl;
+
     // Output platform version info (32 or 64).
-    fout <<  "[section:version_" << bits32_64 << " "
-      << bits32_64 << "-bit version information used for tables below." "]\n"
+    fout << "These tables were generated using the following program and options:\n\n"
       "[pre""\n"
       << versions() 
       << "]""\n"
-      "[endsect] [/section:version_32]" "\n"
       << std::endl;
-
-    fout << "[section:limits"<< bits32_64 << " Numeric limits for " << bits32_64 << "-bit platform]" << std::endl;
 
     fout << "[table:integral_constants Integer types constants (`std::numeric_limits<T>::is_integer == true` && is_exact == true)" "\n"
       "[";

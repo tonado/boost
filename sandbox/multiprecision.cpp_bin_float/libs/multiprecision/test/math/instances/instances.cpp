@@ -6,7 +6,7 @@
 #define BOOST_MATH_OVERFLOW_ERROR_POLICY ignore_error
 #include <boost/math/special_functions.hpp>
 
-#define BOOST_MATH_TEST_TYPE boost::multiprecision::float128_t
+#define BOOST_MATH_TEST_TYPE boost::multiprecision::cpp_bin_float_quad
 
 #include "../setup.hpp"
 

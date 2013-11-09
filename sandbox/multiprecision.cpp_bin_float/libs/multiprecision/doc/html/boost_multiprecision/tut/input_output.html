@@ -6,12 +6,12 @@
 <meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Multiprecision">
 <link rel="up" href="../tut.html" title="Tutorial">
-<link rel="prev" href="limits/limits32.html" title="Numeric limits for 32-bit platform">
+<link rel="prev" href="limits/how_to_tell.html" title="How to Determine the Kind of a Number From std::numeric_limits">
 <link rel="next" href="../ref.html" title="Reference">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
-<a accesskey="p" href="limits/limits32.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../tut.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="../ref.html"><img src="../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="limits/how_to_tell.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../tut.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="../ref.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
@@ -23,7 +23,8 @@
         testing</a>
       </h5>
 <p>
-        or refers to writing out a value as a decimal digit string using <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">iostream</span></code>,
+        <span class="emphasis"><em>Loopback</em></span> or <span class="emphasis"><em>round-tripping</em></span> refers
+        to writing out a value as a decimal digit string using <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">iostream</span></code>,
         usually to a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">stringstream</span></code>, and then reading the string
         back in to another value, and confirming that the two values are identical.
         A trivial example using <code class="computeroutput"><span class="keyword">float</span></code>
@@ -39,7 +40,7 @@
 <span class="identifier">BOOST_CHECK_EQUAL</span><span class="special">(</span><span class="identifier">write</span><span class="special">,</span> <span class="identifier">read</span><span class="special">);</span> <span class="comment">// Should be the same.</span>
 </pre>
 <p>
-        and this can be run in a look for all possible values of a 32-bit float.
+        and this can be run in a loop for all possible values of a 32-bit float.
         For other floating-point types <code class="computeroutput"><span class="identifier">T</span></code>,
         including built-in <code class="computeroutput"><span class="keyword">double</span></code>, it
         takes far too long to test all values, so a reasonable test strategy is to
@@ -62,10 +63,11 @@
 <span class="identifier">BOOST_CHECK_EQUAL</span><span class="special">(</span><span class="identifier">read</span><span class="special">,</span> <span class="identifier">write</span><span class="special">);</span>
 </pre>
 <p>
-        The test at <span class="inlinemediaobject"><img src="boost:/multiprecision.cpp_bin_float/libs/multiprecision/test/test_cpp_bin_float_io.cpp%20test_cpp_bin_float_io.cpp"></span>
-        allows any floating-point type to be using a wide range of fairly random
-        values. It also includes tests compared a collection of <span class="inlinemediaobject"><img src="boost:libs/multiprecision/test/string_data.ipp%20stringdata"></span>
-        test cases in a file.
+        The test at <a href="../../../../test/test_cpp_bin_float_io.cpp" target="_top">test_cpp_bin_float_io.cpp</a>
+        allows any floating-point type to be <span class="emphasis"><em>round_tripped</em></span> using
+        a wide range of fairly random values. It also includes tests compared a collection
+        of <a href="../../../../test/string_data.ipp" target="_top">stringdata</a> test cases
+        in a file.
       </p>
 <h5>
 <a name="boost_multiprecision.tut.input_output.h1"></a>
@@ -75,29 +77,30 @@
 <p>
         One can make some comparisons with the output of
       </p>
-<pre class="programlisting"><span class="special">&lt;</span><span class="identifier">number</span><span class="special">&lt;</span><span class="identifier">cpp_bin_float</span><span class="special">&lt;</span><span class="number">53</span><span class="special">&gt;</span> <span class="special">&gt;</span>
+<pre class="programlisting"><span class="special">&lt;</span><span class="identifier">number</span><span class="special">&lt;</span><span class="identifier">cpp_bin_float</span><span class="special">&lt;</span><span class="number">53</span><span class="special">,</span> <span class="identifier">digit_count_2</span><span class="special">&gt;</span> <span class="special">&gt;</span>
 </pre>
 <p>
         which has the same number of significant bits (53) as 64-bit double precision
         floating-point.
       </p>
 <p>
-        However, although most outputs are identical, but there are differences on
-        some platforms caused by the implementation-dependent behaviours allowed
-        by the C99 specification <a href="http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1124.pdf" target="_top">C99
+        However, although most outputs are identical, there are differences on some
+        platforms caused by the implementation-dependent behaviours allowed by the
+        C99 specification <a href="http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1124.pdf" target="_top">C99
         ISO/IEC 9899:TC2</a>, incorporated by C++.
       </p>
-<p>
-        "For e, E, f, F, g, and G conversions, if the number of significant
-        decimal digits is at most DECIMAL_DIG, then the result should be correctly
-        rounded. If the number of significant decimal digits is more than DECIMAL_DIG
-        but the source value is exactly representable with DECIMAL_DIG digits, then
-        the result should be an exact representation with trailing zeros. Otherwise,
-        the source value is bounded by two adjacent decimal strings L &lt; U, both
-        having DECIMAL_DIG significant digits; the value of the resultant decimal
-        string D should satisfy L&lt;= D &lt;= U, with the extra stipulation that
-        the error should have a correct sign for the current rounding direction."
-      </p>
+<div class="blockquote"><blockquote class="blockquote"><p>
+          <span class="emphasis"><em>"For e, E, f, F, g, and G conversions, if the number of
+          significant decimal digits is at most DECIMAL_DIG, then the result should
+          be correctly rounded. If the number of significant decimal digits is more
+          than DECIMAL_DIG but the source value is exactly representable with DECIMAL_DIG
+          digits, then the result should be an exact representation with trailing
+          zeros. Otherwise, the source value is bounded by two adjacent decimal strings
+          L &lt; U, both having DECIMAL_DIG significant digits; the value of the
+          resultant decimal string D should satisfy L&lt;= D &lt;= U, with the extra
+          stipulation that the error should have a correct sign for the current rounding
+          direction."</em></span>
+        </p></blockquote></div>
 <p>
         So not only is correct rounding for the full number of digits not required,
         but even if the <span class="bold"><strong>optional</strong></span> recomended practice
@@ -138,18 +141,15 @@
 <p>
         Confusingly, Microsoft (and MinGW) do not conform to this standard and provide
         <span class="bold"><strong>at least three digits</strong></span>, for example <code class="computeroutput"><span class="number">1e+001</span></code>. So if you want the output to match
-        the format output using built-in floating-point types, or to make output
-        the same for all platforms like GCC and Clang, then you need to override
-        the above definition:
+        that from built-in floating-point types on compilers that use Microsofts
+        runtime then use:
       </p>
-<pre class="programlisting"><span class="preprocessor">#ifdef</span> <span class="identifier">MSC_VER</span>
-<span class="preprocessor">#  define</span> <span class="identifier">BOOST_MP_MIN_EXPONENT_DIGITS</span> <span class="number">3</span>
-<span class="preprocessor">#endif</span>
+<pre class="programlisting"><span class="preprocessor">#define</span> <span class="identifier">BOOST_MP_MIN_EXPONENT_DIGITS</span> <span class="number">3</span>
 </pre>
 <p>
         Also useful to get the minimum exponent field width is
       </p>
-<pre class="programlisting"><span class="preprocessor">#  define</span> <span class="identifier">BOOST_MP_MIN_EXPONENT_DIGITS</span> <span class="number">1</span>
+<pre class="programlisting"><span class="preprocessor">#define</span> <span class="identifier">BOOST_MP_MIN_EXPONENT_DIGITS</span> <span class="number">1</span>
 </pre>
 <p>
         producing a compact output like <code class="computeroutput"><span class="number">2e+4</span></code>,
@@ -170,7 +170,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="limits/limits32.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../tut.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="../ref.html"><img src="../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="limits/how_to_tell.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../tut.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="../ref.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

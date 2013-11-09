@@ -1366,10 +1366,10 @@ struct expression_template_default<cpp_bin_float<Digits, DigitBase, Allocator, E
 typedef number<backends::cpp_bin_float<50> > cpp_bin_float_50;
 typedef number<backends::cpp_bin_float<100> > cpp_bin_float_100;
 
-typedef number<backends::cpp_bin_float<24, backends::digit_base_2, void, boost::int16_t, -126, 127>, et_off> float32_t;
-typedef number<backends::cpp_bin_float<53, backends::digit_base_2, void, boost::int16_t, -1022, 1023>, et_off> float64_t;
-typedef number<backends::cpp_bin_float<64, backends::digit_base_2, void, boost::int16_t, -16382, 16383>, et_off> float80_t;
-typedef number<backends::cpp_bin_float<113, backends::digit_base_2, void, boost::int16_t, -16382, 16383>, et_off> float128_t;
+typedef number<backends::cpp_bin_float<24, backends::digit_base_2, void, boost::int16_t, -126, 127>, et_off> cpp_bin_float_single;
+typedef number<backends::cpp_bin_float<53, backends::digit_base_2, void, boost::int16_t, -1022, 1023>, et_off> cpp_bin_float_double;
+typedef number<backends::cpp_bin_float<64, backends::digit_base_2, void, boost::int16_t, -16382, 16383>, et_off> cpp_bin_float_double_extended;
+typedef number<backends::cpp_bin_float<113, backends::digit_base_2, void, boost::int16_t, -16382, 16383>, et_off> cpp_bin_float_quad;
 
 }} // namespaces
 
