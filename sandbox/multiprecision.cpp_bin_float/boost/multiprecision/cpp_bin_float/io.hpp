@@ -633,7 +633,7 @@ std::string cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::s
          // is really a test of whether we calculated the
          // decimal exponent correctly:
          //
-         int digits_got = i ? s.size() : 0;
+         boost::intmax_t digits_got = i ? static_cast<boost::intmax_t>(s.size()) : 0;
          if(digits_got != digits_wanted)
          {
             base10_exp += digits_got - digits_wanted;
@@ -657,7 +657,7 @@ std::string cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE>::s
       //
       if((roundup == 2) || ((roundup == 1) && ((s[s.size() - 1] - '0') & 1)))
       {
-         boost::multiprecision::detail::round_string_up_at(s, s.size() - 1, base10_exp);
+         boost::multiprecision::detail::round_string_up_at(s, static_cast<int>(s.size() - 1), base10_exp);
       }
 
       if(sign())
